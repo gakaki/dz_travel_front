@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/raiders/raiders",
+    "pages/raiders/raiders",
     "pages/rank/rank",
     "pages/self/self"
   ],
