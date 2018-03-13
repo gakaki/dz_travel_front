@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/raiders/raiders",
     "pages/index/index"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
