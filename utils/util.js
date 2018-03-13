@@ -80,10 +80,18 @@ function care (obj, key, cb) {
   
 }
 
-const delay = (time) => {
-  return new Promise(resolve => {
-    setTimeout(resolve, time);
-  })
+//向下取整并保留两位小数；
+function fixedNum(num) {
+  //此处不用四舍五入为了防止钱会多出的情况
+  let str = Math.floor(num * 100) / 100;
+  let v = str.toString().split(".");
+  if (v[1] == undefined) {
+    str = v[0] + '.00'
+  }
+  else if (v[1].length == 1) {
+    str = str + '0'
+  }
+  return str
 }
 
 class Timeline {
@@ -217,10 +225,12 @@ function getPersonFrame(rank) {
       return ''
     } else return sheet.Stage.Get(parseInt(rank)).frame
 }
+
 module.exports = {
-  getRankFrame: getRankFrame,
-  formatTime: formatTime,
-  care : care,
-  Timeline:Timeline,
-  getPersonFrame: getPersonFrame
+  getRankFrame,
+  formatTime,
+  care,
+  fixedNum,
+  Timeline,
+  getPersonFrame
 }
