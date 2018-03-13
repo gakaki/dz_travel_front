@@ -1,14 +1,9 @@
 {
   "pages": [
-<<<<<<< HEAD
-    "pages/raiders/raiders",
-    "pages/index/index"
-    
-=======
     "pages/index/index",
+    "pages/raiders/raiders",
     "pages/rank/rank",
     "pages/self/self"
->>>>>>> eda348cbb0eaf9089dcb1b6708c9d737d7f3668f
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,7 +16,7 @@
     "color": "#999",
     "selectedColor": "#000",
     "backgroundColor": "#fff",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list":[{
       "pagePath":"pages/index/index",
       "iconPath":"assets/index/index-gray.png",

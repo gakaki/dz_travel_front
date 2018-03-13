@@ -1,1 +1,174 @@
 /* pages/index/index.wxss */
+.wrap{
+  background-color: #f5f4f9;
+  width: 100wh;
+  height: 100vh;
+}
+
+.info{
+  width: 710rpx;
+  margin: auto;
+  background-color: #fff;
+}
+
+.person{
+  margin-top: 10rpx;
+}
+
+.avatar{
+  width: 120rpx;
+  height: 120rpx;
+  background-color: #f00;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.name text{
+  font-size: 36rpx;
+}
+
+.gold-info{
+  height: 48rpx;
+  background-color: #fff8d2;
+  border-radius: 30rpx;
+  margin-top: 17rpx;
+  justify-content: space-between;
+}
+
+.gold-info text{
+  color: #ff7d1d;
+  font-size: 26rpx;
+}
+
+.gold-icon{
+  width: 38rpx;
+  height: 38rpx;
+  margin-left: 5rpx;
+  margin-right: 11rpx;
+}
+
+.add{
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 14rpx;
+  margin-left: 17rpx;
+}
+
+.location{
+  text-align: right;
+}
+
+.city{
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.today{
+  color: #999;
+  font-size: 30rpx;
+}
+
+.weather{
+  width: 56rpx;
+  height: 48rpx;
+  margin-left: 20rpx;
+}
+
+.ad{
+  height: 146rpx;
+  width: 100%;
+  margin-top: 10rpx;
+  border-bottom: 2rpx solid #e9e8ec;
+}
+
+.main{
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.travel{
+  position: absolute;
+  top: 18rpx;
+  left: 20rpx;
+}
+
+.content text{
+  font-size: 30rpx;
+}
+
+.number{
+  margin-top: -12rpx;
+}
+
+.number text{
+  color: #999;
+  font-size: 30rpx;
+}
+
+.map{
+  width: 696rpx;
+  height: 575rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/map.png") 0 0 no-repeat;
+  background-size: cover;
+  margin: 42rpx auto 0;
+  position: relative;
+}
+
+.mark{
+  width: 40rpx;
+  height: 45rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/mark.png") 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+}
+
+.mark image{
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: -6rpx;
+  border-radius: 50%;
+}
+
+.choose{
+  margin-top: 60rpx;
+  justify-content: space-around;
+}
+
+.btn{
+  height: 111rpx;
+  width: 353rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/btn-white.png") 0 0 no-repeat;
+  background-size: cover;
+  text-align: center;
+  line-height: 105rpx;
+  font-size: 30rpx;
+}
+
+.cut-off{
+  width: 750rpx;
+  height: 9rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/separatrix.png") 0 0 no-repeat;
+  background-size: cover;
+  margin-top: 28rpx;
+}
+
+.message{
+  width: 149rpx;
+  height: 118rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/message.png") 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+  top: 555rpx;
+  text-align: right;
+}
+
+.message text{
+  display: inline-block;
+  line-height: 100rpx;
+  width: 68rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+}
