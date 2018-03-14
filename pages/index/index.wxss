@@ -3,16 +3,18 @@
   background-color: #f5f4f9;
   width: 100wh;
   height: 100vh;
+  overflow: hidden;
 }
 
 .info{
-  width: 710rpx;
-  margin: auto;
+  width: 100%;
   background-color: #fff;
+  padding-bottom: 10rpx;
 }
 
 .person{
   margin-top: 10rpx;
+  margin-left: 20rpx;
 }
 
 .avatar{
@@ -56,6 +58,7 @@
 
 .location{
   text-align: right;
+  margin-right: 20rpx;
 }
 
 .city{
@@ -77,7 +80,6 @@
 .ad{
   height: 146rpx;
   width: 100%;
-  margin-top: 10rpx;
   border-bottom: 2rpx solid #e9e8ec;
 }
 
