@@ -1,0 +1,112 @@
+/* components/comment/comment.wxss */
+
+.pop-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.pop-box {
+  width: 610rpx;
+  height: 840rpx;
+  border-radius: 40rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 118rpx;
+  transform: translate(-50%, 0);
+}
+
+.close {
+  width: 17rpx;
+  height: 17rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+}
+
+.star-box {
+  margin-top: 90rpx;
+  width: 100%;
+  position: relative;
+  height: 58rpx;
+}
+.to-center {
+   height: 100%;
+  width: 390rpx;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+.dft-star-box, .act-star-box {
+  height: 100%;
+  
+   position: absolute;
+  left: 0;
+  top: 0;
+  /* transform: translateX(-50%);  */
+}
+.dft-star-box {
+  width: 100%;
+  overflow: hidden
+}
+.star {
+  width: 60rpx;
+  height: 100%;
+  margin: 0 9rpx;
+}
+
+.tips {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 45rpx;
+  font-size: 28rpx;
+  color: #b8b8b8;
+  font-family: 'Microsoft YaHei';
+  font-weight: bold;
+}
+.input-box {
+margin: 0 auto;
+  margin-top: 61rpx;
+  width: 566rpx;
+  height: 316rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid #e1e1e1;
+  background-color: #fafafa;
+  position: relative
+}
+.do-comment {
+  width: 526rpx;
+  height: 276rpx;
+  margin: 20rpx;
+}
+.num {
+  position: absolute;
+  right: 30rpx;
+  bottom: 11rpx;
+  font-size: 24rpx;
+  color: #278cff;
+  font-family: 'Microsoft YaHei';
+  font-weight: bold;
+}
+.btn-icon {
+  margin-top: 77rpx;
+  margin-left: 50%;
+  transform: translateX(-50%);
+   width: 446rpx;
+  height: 127rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
+  background-size: cover;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+  text-align: center;
+  font-family: 'Microsoft YaHei';
+  font-weight: bold;
+  color: #fff;
+}

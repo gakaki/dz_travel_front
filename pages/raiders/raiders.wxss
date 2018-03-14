@@ -5,7 +5,7 @@
   position: relative;
 }
 .bg {
-  background-color: blanchedalmond;
+  background-color: #F5F4F9;
 }
 .desc-bg {
   position: absolute;
@@ -24,25 +24,22 @@
   left: 0;
   right: 0;
   bottom: 130rpx;
-  background-color: rebeccapurple;
   overflow: hidden;
 }
 .item {
   width: 100%;
-  /* height: 220rpx; */
-  background-color: #fff;
+  position: relative;
 }
 .item-top {
-  width: 100%;
-}
-.info {
-  width: 80%;
+  max-width: 89%;
+  margin: 0 40rpx 0 40rpx;
+  overflow: hidden
 }
 .head {
  width: 72rpx;
   height: 72rpx;
   background-color: yellow;
-  margin: 20rpx 20rpx 20rpx 40rpx;
+  margin: 20rpx 20rpx 20rpx 0;
   border-radius: 50%;
 }
 .nn {
@@ -53,12 +50,25 @@
 .star-box {
 margin-top: 10rpx;
  align-self: flex-start;
+ width: 578rpx;
+ position: relative
 }
 .star {
+   align-self: center;
    height: 18rpx;
-  width: 200rpx;
-  background-color: darkgreen;
-  flex-grow: 3;
+  width: 20rpx;
+  margin-right: 3rpx;
+}
+.dft-star {
+  height: 18rpx;
+   width: 115rpx;
+   position: relative;
+}
+.act-star,.star-bg {
+  position: absolute;
+  height: 18rpx;
+  left: 0;
+  top: 0;
 }
 .num {
   margin-left: 20rpx;
@@ -75,8 +85,59 @@ font-size: 18rpx;
 .heart {
  height: 28rpx;
   width: 34rpx;
+   /* margin-left: 250rpx;  */
+ position: absolute;
+ left: 460rpx;
+ top: 0;
 }
 .heart-num {
+   /* margin-left: 10rpx;  */
 color: #fc6161;
 font-size: 24rpx;
+position: absolute;
+ left: 500rpx;
+ top: 0;
+}
+.item-bot {
+  max-width: 89%;
+  margin: 0 40rpx 60rpx 40rpx;
+  color: #b0afb3;
+  font-size: 24rpx;
+}
+.date {
+  position: absolute;
+  right: 40rpx;
+  bottom: 30rpx;
+  color: #b0afb3;
+  font-size: 20rpx;
+}
+.line {
+  width: 712rpx;
+  height: 2rpx;
+  background-color: #e9e8e3;
+}
+.jiexian {
+   width: 100%;
+  height: 9rpx;
+  position: fixed;
+  bottom: 130rpx;
+  left: 0;
+}
+.btn-box {
+  width: 100%;
+  height: 130rpx;
+  background-color: #f5f4f9;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.btn-icon {
+  margin-top: 30rpx;
+   width: 446rpx;
+  height: 127rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
+  background-size: cover;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+  text-align: center
 }

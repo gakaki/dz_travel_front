@@ -11,18 +11,38 @@
         <view class="info f-c-sb">
           <text class="font nn">啊的是法国</text>
           <view class="star-box f-r-fs">
-            <view class="star"></view>
+            <view class="dft-star">
+              <view class="star-bg">
+                <image class="star" src="{{starDft}}"></image>
+                <image class="star" src="{{starDft}}"></image>
+                <image class="star" src="{{starDft}}"></image>
+                <image class="star" src="{{starDft}}"></image>
+                <image class="star" src="{{starDft}}"></image>
+              </view>
+              <view class="act-star">
+                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
+                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
+                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
+              </view>
+            </view>
+
             <text class="num font">7.7</text>
             <text class="fen font">分</text>
             <image class="heart" src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
-            <text class="heart-num font">777</text>
-
+            <text class="heart-num font">77777</text>
           </view>
         </view>
-
-
       </view>
-      <view class="item-bot"></view>
+      <view class="item-bot font">
+        是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风夫敢死队风
+      </view>
+      <text class="date font">2018/3/10</text>
+      <view class="line"></view>
     </view>
   </scroll-view>
+  <view class="btn-box flex">
+    <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
+    <view class="btn-icon font" bindtap='isPop'>我要评论</view>
+  </view>
+  <comment wx:if="{{isShowPop}}" bindtoclose="isPop"></comment>
 </view>

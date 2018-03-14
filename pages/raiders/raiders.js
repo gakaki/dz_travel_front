@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    starDft:'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
+    isShowPop: false
   },
 
   /**
@@ -15,6 +16,11 @@ Page({
     wx.setNavigationBarTitle({
       title: '中央大街'
     })
+  },
+  isPop() {
+this.setData({
+  isShowPop: !this.data.isShowPop
+})
   },
 
   /**
