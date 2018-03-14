@@ -1,4 +1,4 @@
-const sheet = require('../sheets.js');
+//const sheet = require('../sheets.js');
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -225,12 +225,21 @@ function getPersonFrame(rank) {
       return ''
     } else return sheet.Stage.Get(parseInt(rank)).frame
 }
-
+function spliceStr(v,n) {
+if(v.length >= n) {
+  let arr = v.split('')
+  arr.length = n-1
+  arr.push('...')
+  v = arr.join('')
+}
+  return v
+}
 module.exports = {
   getRankFrame,
   formatTime,
   care,
   fixedNum,
   Timeline,
-  getPersonFrame
+  getPersonFrame,
+  spliceStr
 }

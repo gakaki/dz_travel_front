@@ -7,10 +7,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 99;
 }
 
 .pop-box {
+  z-index: 100;
   width: 610rpx;
   height: 840rpx;
   border-radius: 40rpx;

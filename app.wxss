@@ -14,6 +14,12 @@
   height: 100vh;
   overflow: hidden;
 }
+.fs {
+  align-self: flex-start;
+}
+.asc {
+  align-self: center
+}
 .flex {
   display: flex;
   display: -webkit-flex;
@@ -37,6 +43,12 @@
   display: flex;
   display: -webkit-flex;
   justify-content: flex-start;
+  align-items: center;
+}
+.f-r-fe {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: flex-end;
   align-items: center;
 }
 .f-c-fs {

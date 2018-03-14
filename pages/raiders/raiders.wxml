@@ -1,4 +1,4 @@
-<view class="con bg">
+<view class="con bg" >
   <view class="photo">
     <view class="desc-bg font">
       是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风格是苏定方,啊的风格是个第三方公司的 士大夫敢死队风格士大夫敢死队风格但是认同感和的法国红酒的法国红酒发帝国海军法国红酒法国红酒
@@ -9,27 +9,13 @@
       <view class="item-top f-r-fs">
         <image class="head" src=""></image>
         <view class="info f-c-sb">
-          <text class="font nn">啊的是法国</text>
-          <view class="star-box f-r-fs">
-            <view class="dft-star">
-              <view class="star-bg">
-                <image class="star" src="{{starDft}}"></image>
-                <image class="star" src="{{starDft}}"></image>
-                <image class="star" src="{{starDft}}"></image>
-                <image class="star" src="{{starDft}}"></image>
-                <image class="star" src="{{starDft}}"></image>
-              </view>
-              <view class="act-star">
-                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
-                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
-                <image class="star" src="https://gengxin.odao.com/update/h5/travel/raiders/star-act.png"></image>
-              </view>
-            </view>
-
-            <text class="num font">7.7</text>
-            <text class="fen font">分</text>
-            <image class="heart" src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
-            <text class="heart-num font">77777</text>
+          <text class="font nn">啊的是法国</text> 
+          <view class="sec f-r-fs">
+           <view class="flex"><star wid='{{starWid}}' starNum="{{starCount}}"></star></view>
+            <text class="num font ">7.7</text>
+            <text class="fen font ">分</text>
+            <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
+            <text class="heart-num font ">77777</text>
           </view>
         </view>
       </view>

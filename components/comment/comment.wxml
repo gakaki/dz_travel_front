@@ -1,11 +1,12 @@
 <!--components/comment/comment.wxml-->
 <!-- <text>components/comment/comment.wxml</text> -->
-<view class="pop-bg" >
-  <view class="pop-box ">
-    <image bindtap='toClose' class="close" src="https://gengxin.odao.com/update/h5/travel/raiders/close-icon.png"></image>
-    <view class="star-box ">
+<view class="pop-bg" bindtap='toClose'>
+</view>
+<view class="pop-box">
+  <image bindtap='toClose' class="close" src="https://gengxin.odao.com/update/h5/travel/raiders/close-icon.png"></image>
+  <view class="star-box ">
     <view class="to-center">
-     <view class="dft-star-box">
+      <view class="dft-star-box">
         <image class="star" data-idx="1" bindtap='doComment' src="{{starDft}}"></image>
         <image class="star" data-idx="2" bindtap='doComment' src="{{starDft}}"></image>
         <image class="star" data-idx="3" bindtap='doComment' src="{{starDft}}"></image>
@@ -13,19 +14,18 @@
         <image class="star" data-idx="5" bindtap='doComment' src="{{starDft}}"></image>
       </view>
       <view class="act-star-box" style="width:{{starNum*2}}0%">
-        
-         <image wx:for="{{starArr}}" wx:key="index" bindtap="doComment" data-idx="{{index+1}}" class="star" src="{{starAct}}"></image> 
+
+        <image wx:for="{{starArr}}" wx:key="index" bindtap="doComment" data-idx="{{index+1}}" class="star" src="{{starAct}}"></image>
       </view>
     </view>
-     
-    </view>
-    <text class="tips">觉得怎么样，打个分吧</text>
-    <view class="input-box">
-      <textarea class="do-comment"  placeholder="亲，你对这次旅行还满意吗">
-      </textarea>
-      <text class="num">0/100</text>
-    </view>
 
-    <view class="btn-icon font" bindtap='doPinglun'>发表评论</view>
   </view>
+  <text class="tips">觉得怎么样，打个分吧</text>
+  <view class="input-box">
+    <textarea class="do-comment" placeholder="亲，你对这次旅行还满意吗">
+    </textarea>
+    <text class="num">0/100</text>
+  </view>
+
+  <view class="btn-icon font" bindtap='doPinglun'>发表评论</view>
 </view>

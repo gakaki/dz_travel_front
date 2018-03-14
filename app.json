@@ -1,6 +1,10 @@
 {
   "pages": [
+    
+    
+    
     "pages/raiders/raiders",
+    "pages/point-raiders/point-raiders",
     "pages/city/city",
     "pages/index/index",
     "pages/rank/rank",

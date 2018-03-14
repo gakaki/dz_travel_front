@@ -1,0 +1,19 @@
+<view class="star-box {{starH}}" style="width:{{wid}}rpx">
+  <view class="to-center">
+    <view class="dft-star-box">
+      <image class="star {{mg}}"  src="{{starDft}}"></image>
+      <image class="star {{mg}}" src="{{starDft}}"></image>
+      <image class="star {{mg}}" src="{{starDft}}"></image>
+      <image class="star  {{mg}}" src="{{starDft}}"></image>
+      <image class="star {{mg}}" src="{{starDft}}"></image>
+    </view>
+    <view class="act-star-box" style="width:{{starNum*10}}%">
+      <image class="star {{mg}}" src="{{starAct}}"></image>
+      <image class="star {{mg}}" src="{{starAct}}"></image>
+      <image class="star {{mg}}" src="{{starAct}}"></image>
+      <image class="star {{mg}}" src="{{starAct}}"></image>
+      <image class="star {{mg}}" src="{{starAct}}"></image>
+    </view>
+  </view>
+
+</view>

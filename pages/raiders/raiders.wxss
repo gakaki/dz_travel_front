@@ -4,9 +4,11 @@
   background-color: goldenrod;
   position: relative;
 }
+
 .bg {
-  background-color: #F5F4F9;
+  background-color: #f5f4f9;
 }
+
 .desc-bg {
   position: absolute;
   left: 0;
@@ -14,10 +16,11 @@
   max-width: 100%;
   height: 158rpx;
   padding: 12rpx 30rpx;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   font-size: 26rpx;
   line-height: 40rpx;
 }
+
 .con-box {
   position: absolute;
   top: 520rpx;
@@ -26,84 +29,77 @@
   bottom: 130rpx;
   overflow: hidden;
 }
+
 .item {
   width: 100%;
   position: relative;
 }
+
 .item-top {
   max-width: 89%;
   margin: 0 40rpx 0 40rpx;
-  overflow: hidden
+  overflow: hidden;
 }
+
 .head {
- width: 72rpx;
+  width: 72rpx;
   height: 72rpx;
   background-color: yellow;
   margin: 20rpx 20rpx 20rpx 0;
   border-radius: 50%;
 }
+
 .nn {
   font-size: 28rpx;
   color: #000;
   align-self: flex-start;
 }
-.star-box {
-margin-top: 10rpx;
- align-self: flex-start;
- width: 578rpx;
- position: relative
+
+.sec {
+  margin-top: 10rpx;
+  align-self: flex-start;
+  width: 578rpx;
+  height: 28rpx;
+  position: relative;
 }
-.star {
-   align-self: center;
-   height: 18rpx;
-  width: 20rpx;
-  margin-right: 3rpx;
-}
-.dft-star {
-  height: 18rpx;
-   width: 115rpx;
-   position: relative;
-}
-.act-star,.star-bg {
-  position: absolute;
-  height: 18rpx;
-  left: 0;
-  top: 0;
+.num,.fen,.heart-num {
+  color: #fc6161;
+  line-height: 28rpx
 }
 .num {
   margin-left: 20rpx;
-  align-self: center;
   font-size: 20rpx;
   color: #fc6161;
-  
 }
+
 .fen {
-  align-self: center;
-font-size: 18rpx;
-  color: #fc6161;
+  font-size: 18rpx;
 }
+
 .heart {
- height: 28rpx;
+  height: 28rpx;
   width: 34rpx;
-   /* margin-left: 250rpx;  */
- position: absolute;
- left: 460rpx;
- top: 0;
+  /* margin-left: 250rpx;  */
+  position: absolute;
+  left: 460rpx;
+  top: 0;
 }
+
 .heart-num {
-   /* margin-left: 10rpx;  */
-color: #fc6161;
-font-size: 24rpx;
-position: absolute;
- left: 500rpx;
- top: 0;
+  /* margin-left: 10rpx;  */
+  font-size: 24rpx;
+  position: absolute;
+  left: 500rpx;
+  top: 0;
 }
+
 .item-bot {
   max-width: 89%;
   margin: 0 40rpx 60rpx 40rpx;
   color: #b0afb3;
   font-size: 24rpx;
 }
+
 .date {
   position: absolute;
   right: 40rpx;
@@ -111,18 +107,21 @@ position: absolute;
   color: #b0afb3;
   font-size: 20rpx;
 }
+
 .line {
   width: 712rpx;
   height: 2rpx;
   background-color: #e9e8e3;
 }
+
 .jiexian {
-   width: 100%;
+  width: 100%;
   height: 9rpx;
   position: fixed;
   bottom: 130rpx;
   left: 0;
 }
+
 .btn-box {
   width: 100%;
   height: 130rpx;
@@ -131,13 +130,15 @@ position: absolute;
   bottom: 0;
   left: 0;
 }
+
 .btn-icon {
   margin-top: 30rpx;
-   width: 446rpx;
+  color: #fff;
+  width: 446rpx;
   height: 127rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
   background-size: cover;
   line-height: 90rpx;
   letter-spacing: 3rpx;
-  text-align: center
+  text-align: center;
 }

@@ -1,14 +1,15 @@
-// pages/raiders/raiders.js
+import { spliceStr } from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    starDft:'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
-    isShowPop: false,
-    starWid: 130,
-    starCount: 3.3
+  viewpoint: true,
+  specialty: false,
+  starWid: 240,
+  starCount: 7,
+  testStr: '阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是'
   },
 
   /**
@@ -16,15 +17,24 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '中央大街'
+      title: '成都攻略'
+    })
+   this.setData({
+     testStr:spliceStr(this.data.testStr,42)
+   })
+  },
+  toDetail() {
+    wx.navigateTo({
+      url: '../raiders/raiders'
     })
   },
-  isPop() {
+  chgTab() {
 this.setData({
-  isShowPop: !this.data.isShowPop
+  viewpoint: !this.data.viewpoint,
+  specialty: !this.data.specialty
 })
   },
-
+  //超出字数部分用...代替
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
