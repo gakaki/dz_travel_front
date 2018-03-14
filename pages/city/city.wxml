@@ -1,0 +1,15 @@
+<!--pages/city/city.wxml-->
+<view class="wrap">
+  <view class="search">
+    <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
+    <input class="search-city" placeholder='输入城市名/首字母/拼音' placeholder-class='font tip'></input>
+  </view>
+  <view class="tab f-r-sb">
+    <view class="{{isDomestic ? 'choose' : ''}} flight">
+      <text class="font">国内航班</text>
+    </view>
+    <view class="{{isDomestic ? '' : 'choose'}} flight">
+      <text class='font'>国际航班</text>
+    </view>
+  </view>
+</view>
