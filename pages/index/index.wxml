@@ -1,3 +1,60 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
-<image src="https://gengxin.odao.com/update/h5/travel/index/init-mianban.png"></image>
+<view class='wrap'>
+  <view class="info f-r-sb">
+    <view class="person flex">
+      <view class="avatar">
+        <image></image>
+      </view>
+      <view class="person-info">
+        <view class="name">
+          <text class="font">胖迪</text>
+        </view>
+        <view class="gold-info flex">
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/index/gold.png"></image>
+          <text class="font">1000</text>
+          <image class="add" src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="location">
+      <view class='font'>
+        <text class="city">上海</text>
+        <text class="today">3月5号</text>
+      </view>
+      <view class="font">
+        <text class="today">春</text>
+        <text class="weather">天气</text>
+      </view>
+    </view>
+  </view>
+  <view class="ad">
+    广告位
+  </view>
+  <view class="main">
+    <view class="travel">
+      <view class="content">
+        <text class="font">旅行人数</text>
+      </view>
+      <view class="number">
+        <text class="font">2000</text>
+      </view>
+    </view>
+    <view class="map">
+      <view class="mark flex" style="top:200rpx;left:400rpx;">
+        <image src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
+      </view>
+    </view>
+    <view class="choose f-r-sb">
+      <view class="city-travel btn font">
+        城市游玩
+      </view>
+      <view class="fly btn font">
+        起飞旅行
+      </view>
+    </view>
+    <view class="message">
+      <text class="font">99</text>
+    </view>
+  </view>
+  <view class="cut-off"></view>
+</view>

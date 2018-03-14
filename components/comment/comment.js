@@ -33,6 +33,9 @@ Component({
         starNum: e.currentTarget.dataset.idx,
         starArr: arr
       })
+    },
+    doPinglun(e) {
+      
     }
   }
 })

@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/raiders/raiders",
-
+    "pages/city/city",
     "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
@@ -14,28 +14,30 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-  "tabBar":{
+  "tabBar": {
     "color": "#999",
     "selectedColor": "#000",
     "backgroundColor": "#fff",
-    "borderStyle": "black",
-    "list":[{
-      "pagePath":"pages/index/index",
-      "iconPath":"assets/index/index-gray.png",
-      "selectedIconPath":"assets/index/index.png",
-      "text":"首页"
-    },
-    {
-      "pagePath": "pages/rank/rank",
-      "iconPath": "assets/index/rank-gray.png",
-      "selectedIconPath": "assets/index/rank.png",
-      "text": "排行榜"
-    },
-    {
-      "pagePath": "pages/self/self",
-      "iconPath": "assets/index/self-gray.png",
-      "selectedIconPath": "assets/index/self.png",
-      "text": "我"
-    }]
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "assets/index/index-gray.png",
+        "selectedIconPath": "assets/index/index.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/rank/rank",
+        "iconPath": "assets/index/rank-gray.png",
+        "selectedIconPath": "assets/index/rank.png",
+        "text": "排行榜"
+      },
+      {
+        "pagePath": "pages/self/self",
+        "iconPath": "assets/index/self-gray.png",
+        "selectedIconPath": "assets/index/self.png",
+        "text": "我"
+      }
+    ]
   }
 }

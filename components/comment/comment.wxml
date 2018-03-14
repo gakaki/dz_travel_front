@@ -26,6 +26,6 @@
       <text class="num">0/100</text>
     </view>
 
-    <view class="btn-icon font">发表评论</view>
+    <view class="btn-icon font" bindtap='doPinglun'>发表评论</view>
   </view>
 </view>
