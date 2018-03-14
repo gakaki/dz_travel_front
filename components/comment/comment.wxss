@@ -97,6 +97,7 @@ margin: 0 auto;
   font-weight: bold;
 }
 .btn-icon {
+   font-weight: normal;
   margin-top: 77rpx;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -108,6 +109,5 @@ margin: 0 auto;
   letter-spacing: 3rpx;
   text-align: center;
   font-family: 'Microsoft YaHei';
-  font-weight: bold;
   color: #fff;
 }
