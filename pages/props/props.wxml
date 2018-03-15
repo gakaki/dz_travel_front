@@ -1,1 +1,21 @@
+<view class="con f-c-fs">
+  <view class="tab flex">
+    <view class="tab-item font {{tabOne? 'act': ''}}" bindtap='clkOne'>装备出租</view>
+    <view class="tab-item font {{tabTwo? 'act': ''}}" bindtap='clkTwo'>购买特产</view>
+    <view class="tab-item font {{tabThree? 'act': ''}}" bindtap='clkThree'>售卖特产</view>
+  </view>
+  <view id="one-list" class="f-c-fs">
+  <view class="my-gold"><mygold></mygold></view>
+    <text class="tips font fs">旅行道具出租（租用道具仅本次游玩本城期间有效）</text>
+    <view class="line"></view>
+    <view class="one-item f-r-fs">
+      <image class="one-pic" src=""></image>
+      <text class="one-i-str font">舒适自驾车</text>
+      <view class="one-i-price f-r-fs">
+        <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
+        <text class='gold-num font'>777</text>
+      </view>
+    </view>
+  </view>
 
+</view>

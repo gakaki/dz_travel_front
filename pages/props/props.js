@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+  tabOne: true,
+  tabTwo: false,
+  tabThree: false
   },
 
   /**
@@ -14,7 +16,27 @@ Page({
   onLoad: function (options) {
   
   },
-
+  clkOne() {
+    this.setData({
+      tabOne: true,
+      tabTwo: false,
+      tabThree: false
+    })
+  },
+  clkTwo() {
+    this.setData({
+      tabOne: false,
+      tabTwo: true,
+      tabThree: false
+    })
+  },
+  clkThree() {
+    this.setData({
+      tabOne: false,
+      tabTwo: false,
+      tabThree: true
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

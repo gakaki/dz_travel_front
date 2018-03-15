@@ -1,1 +1,69 @@
-/* pages/props/props.wxss */
+.tab {
+  width: 100%;
+  height: 92rpx;
+  border-bottom: 2rpx solid #e9e8ec;
+}
+.tab-item {
+  flex-grow: 1;
+  height: 100%;
+  text-align: center;
+  line-height: 92rpx;
+  font-size: 32rpx;
+  box-sizing: border-box
+}
+.act {
+  color: #278cff;
+  border-bottom: 4rpx solid #278cff
+}
+#one-list {
+  width: 100%;
+}
+.my-gold {
+  align-self: flex-start;
+  margin: 20rpx 0 0 20rpx
+}
+.tips {
+  color: #878689;
+  font-size: 24rpx;
+  margin: 20rpx;
+}
+.line {
+   width: 100%;
+  height: 8rpx;
+  background-color: #e9e8ec
+}
+.one-item {
+  width: 710rpx;
+   height: 140rpx;
+   border-bottom: 2rpx solid #e9e8ec
+}
+.one-pic {
+   width: 110rpx;
+  height: 110rpx;
+  background-color: #e9e8ec;
+  border-radius: 20rpx;
+  margin: 0 20rpx
+  /* margin: 15rpx 20rpx 0 20rpx */
+}
+.one-i-str {
+  color: #878689;
+  font-size: 24rpx;
+  flex-grow: 2
+}
+.one-i-price {
+   width: 156rpx;
+  height: 54rpx;
+  border-radius: 30rpx;
+  border: 2rpx solid #fc6161;
+  margin-right: 20rpx
+}
+.gold-sm {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 31rpx;
+}
+.gold-num {
+  font-size: 30rpx;
+  color: #fc6161;
+  margin-left: 6rpx;
+}
