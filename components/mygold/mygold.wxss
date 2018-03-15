@@ -13,10 +13,9 @@
   margin: 0 10rpx 0 3rpx;
 }
 .num {
-  font-family: 'Microsoft YaHei';
-  font-weight: bold;
+   font-family: 'Microsoft YaHei';
   color: #fc6161;
-  font-size: 26rpx;
+  font:  bold 26rpx/38rpx 
 }
 .plus {
    width: 16rpx;

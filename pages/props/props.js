@@ -7,7 +7,8 @@ Page({
   data: {
   tabOne: true,
   tabTwo: false,
-  tabThree: false
+  tabThree: false,
+  myGold: 77
   },
 
   /**

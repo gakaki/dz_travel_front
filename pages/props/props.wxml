@@ -5,7 +5,7 @@
     <view class="tab-item font {{tabThree? 'act': ''}}" bindtap='clkThree'>售卖特产</view>
   </view>
   <view id="one-list" class="f-c-fs">
-  <view class="my-gold"><mygold></mygold></view>
+  <view class="my-gold"><mygold goldNum="{{myGold}}"></mygold></view>
     <text class="tips font fs">旅行道具出租（租用道具仅本次游玩本城期间有效）</text>
     <view class="line"></view>
     <view class="one-item f-r-fs">
