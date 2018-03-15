@@ -1,8 +1,9 @@
 <!--pages/city/city.wxml-->
 <view class="wrap">
   <view class="search">
-    <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
-    <input class="search-city" placeholder='输入城市名/首字母/拼音' placeholder-class='font tip'></input>
+    <image class="search-icon {{focus ? 'icon-left' : 'icon-center'}}" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
+    <image class="clear" src="https://gengxin.odao.com/update/h5/travel/index/close.png" wx:if="{{focus}}" bindtap='clear'></image>
+    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip {{focus ? 'tip-left' : 'tip-center'}}" bindfocus='focus' bindinput='search' bindblur='blur'></input>
   </view>
   <view class="tab f-r-sb">
     <view class="{{isDomestic ? 'choose' : ''}} flight">
@@ -40,6 +41,11 @@
     </view>
     <view class="btn confirm">
       确定
+    </view>
+  </view>
+  <view class="search-city-list" wx:if="{{focus}}">
+    <view class="list" wx:for="{{matchCity}}">
+      <text>{{item}}</text>
     </view>
   </view>
 </view>
