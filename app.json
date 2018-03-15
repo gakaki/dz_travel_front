@@ -6,11 +6,11 @@
     "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
-    
+
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#0f0",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true

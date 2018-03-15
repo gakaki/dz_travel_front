@@ -26,11 +26,10 @@
       </view> 
     </view>
     <view class="speacial">
-      <text class="prov-name no-init">港澳台</text>
+      <text class="prov-name no-init">港澳</text>
       <view class="cities">
         <text class='city'>香港</text>
         <text class='city'>澳门</text>
-        <text class='city'>台湾</text>
       </view>
     </view>
   </scroll-view>
