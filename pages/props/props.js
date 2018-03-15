@@ -8,7 +8,8 @@ Page({
   tabOne: true,
   tabTwo: false,
   tabThree: false,
-  myGold: 77
+  myGold: 77,
+  popCar: false
   },
 
   /**
@@ -16,6 +17,19 @@ Page({
    */
   onLoad: function (options) {
   
+  },
+  aa() {
+
+  },
+  rentCar() {
+    this.setData({
+      popCar: true
+    })
+  },
+  hideCar() {
+    this.setData({
+      popCar: false
+    })
   },
   clkOne() {
     this.setData({
