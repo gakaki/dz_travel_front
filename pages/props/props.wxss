@@ -3,90 +3,192 @@
   height: 92rpx;
   border-bottom: 2rpx solid #e9e8ec;
 }
+
 .tab-item {
   flex-grow: 1;
   height: 100%;
   text-align: center;
   line-height: 92rpx;
   font-size: 32rpx;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
+
 .act {
   color: #278cff;
-  border-bottom: 4rpx solid #278cff
+  border-bottom: 4rpx solid #278cff;
 }
+
 #one-list {
   width: 100%;
 }
+
 .my-gold {
   align-self: flex-start;
-  margin: 20rpx 0 0 20rpx
+  margin: 20rpx 0 0 20rpx;
 }
+
 .tips {
   color: #878689;
   font-size: 24rpx;
   margin: 20rpx;
 }
+
 .line {
-   width: 100%;
+  width: 100%;
   height: 8rpx;
-  background-color: #e9e8ec
+  background-color: #e9e8ec;
 }
+
 .one-item {
   width: 710rpx;
-   height: 140rpx;
-   border-bottom: 2rpx solid #e9e8ec
+  height: 140rpx;
+  border-bottom: 2rpx solid #e9e8ec;
 }
+
 .one-pic {
-   width: 110rpx;
+  width: 110rpx;
   height: 110rpx;
   background-color: #e9e8ec;
   border-radius: 20rpx;
-  margin: 0 20rpx
+  margin: 0 20rpx;
   /* margin: 15rpx 20rpx 0 20rpx */
 }
+
 .one-i-str {
   color: #878689;
   font-size: 24rpx;
   flex-grow: 2;
-  letter-spacing: 2rpx
+  letter-spacing: 2rpx;
 }
+
 .one-i-price {
-   width: 156rpx;
+  width: 156rpx;
   height: 54rpx;
   border-radius: 30rpx;
   border: 2rpx solid #fc6161;
-  margin-right: 20rpx
+  margin-right: 20rpx;
 }
+
 .gold-sm {
   width: 32rpx;
   height: 32rpx;
   margin-left: 31rpx;
 }
+
 .gold-num {
   font-size: 30rpx;
   color: #fc6161;
   margin-left: 6rpx;
+  letter-spacing: 3rpx;
 }
+
 .two-mid {
   height: 100%;
   flex-grow: 2;
 }
+
 .two-mid-top-str {
   margin-top: 20rpx;
   color: #878689;
   font-size: 32rpx;
-  letter-spacing: 2rpx
+  letter-spacing: 2rpx;
 }
+
 .two-mid-bot-str {
   margin-bottom: 16rpx;
   color: #b0afb3;
   font-size: 22rpx;
-max-width: 300rpx
+  max-width: 300rpx;
 }
+
 .spe-num {
-   color: #878689;
+  color: #878689;
   font-size: 34rpx;
   letter-spacing: 3rpx;
-  font-weight: normal
+  font-weight: normal;
+}
+
+.pop-car-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.pop-car-con {
+  width: 610rpx;
+  height: 400rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  transform: translateY(-64rpx);
+}
+
+.car-top {
+  width: 100%;
+}
+
+.car-rgt {
+  height: 110rpx;
+}
+
+.pop-car {
+  margin: 30rpx 20rpx 26rpx 30rpx;
+}
+
+.gold {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 5rpx;
+}
+
+.car-name {
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+}
+
+.car-tip {
+  font-size: 30rpx;
+  letter-spacing: 3rpx;
+  color: #b8b8b8;
+  margin-left: 30rpx;
+}
+
+.mg {
+  margin: 0 0 10rpx 30rpx;
+}
+
+.car-line {
+  width: 570rpx;
+  height: 2rpx;
+  background-color: #f2f2f2;
+}
+
+.bot-btn {
+  width: 100%;
+  margin-top: 30rpx;
+}
+
+.cancel, .confirm {
+  line-height: 75rpx;
+  letter-spacing: 20rpx;
+  width: 245rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  font-size: 30rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.cancel {
+  margin-left: 30rpx;
+}
+
+.confirm {
+  margin-right: 30rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
+  background-size: cover;
 }

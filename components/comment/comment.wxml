@@ -1,5 +1,3 @@
-<!--components/comment/comment.wxml-->
-<!-- <text>components/comment/comment.wxml</text> -->
 <view class="pop-bg" bindtap='toClose'>
 </view>
 <view class="pop-box">
