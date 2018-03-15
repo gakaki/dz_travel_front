@@ -48,7 +48,7 @@
       <view class="city-travel btn font">
         城市游玩
       </view>
-      <view class="fly btn font">
+      <view class="fly btn font" bindtap='toFly'>
         起飞旅行
       </view>
     </view>
