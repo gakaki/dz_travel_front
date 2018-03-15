@@ -74,7 +74,7 @@ Page({
 
   focus(e) {
     this.setData({
-      focus:true
+      focus:true,
     })
   },
 
