@@ -12,4 +12,35 @@
       <text class='font'>国际航班</text>
     </view>
   </view>
+  <scroll-view scroll-y class="choose-city">
+    <view class="zhixiashi">
+      <text class='city'>北京</text>
+      <text class='city'>天津</text>
+      <text class='city'>上海</text>
+      <text class='city'>重庆</text>
+    </view>
+    <view class="province" wx:for="{{province}}" wx:key="{{index}}">
+      <text class="font initial" wx:if="{{item.init!=province[index-1].init}}">{{item.init}}</text><text class="prov-name {{item.init==province[index-1].init ? 'no-init' : ''}}">{{item.name}}:</text>
+      <view class="cities">
+        <text class='city' wx:for="{{item.cities}}" wx:key="{{index}}">{{item}}</text>
+      </view> 
+    </view>
+    <view class="speacial">
+      <text class="prov-name no-init">港澳台</text>
+      <view class="cities">
+        <text class='city'>香港</text>
+        <text class='city'>澳门</text>
+        <text class='city'>台湾</text>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="cut-off"></view>
+  <view class="bottom f-r-sb">
+    <view class="btn">
+      购买随机机票
+    </view>
+    <view class="btn confirm">
+      确定
+    </view>
+  </view>
 </view>
