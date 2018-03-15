@@ -10,9 +10,9 @@
           <text class="font">胖迪</text>
         </view>
         <view class="gold-info flex">
-          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/index/gold.png"></image>
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
           <text class="font">1000</text>
-          <image class="add" src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
+          <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
         </view>
       </view>
     </view>
