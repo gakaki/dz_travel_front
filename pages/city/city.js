@@ -73,7 +73,6 @@ Page({
   },
 
   focus(e) {
-    console.log(e)
     this.setData({
       focus:true
     })
@@ -100,7 +99,6 @@ Page({
         if (reg.test(this.data.allCity[i])) {
           let split = this.data.allCity[i].split('')
           match.push(split)
-          console.log(match)
         }
       }
       this.setData({
