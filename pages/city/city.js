@@ -11,14 +11,15 @@ Page({
     focus:false,
     allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城','北京','上海','重庆','天津'],
     matchCity:[],
-    inputText:''
+    inputText:'',
+    isChoose:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+
   },
 
   /**
@@ -63,6 +64,13 @@ Page({
   
   },
 
+  choose(e) {
+    //e.currentTarget.dataset.ind格式为'省份-城市',直辖市则直接是名字
+    this.setData({
+      isChoose: e.currentTarget.dataset.ind
+    })
+  },
+
   focus(e) {
     console.log(e)
     this.setData({
@@ -73,7 +81,10 @@ Page({
   blur(e) {
     if (!e.detail.value){
       this.setData({
-        focus: false
+        focus: false,
+        inputText: '',
+        matchCity: [],
+        isChoose: ''
       })
     }
   },
@@ -105,6 +116,15 @@ Page({
     this.setData({
       inputText:'',
       matchCity: []
+    })
+  },
+
+  back() {
+    this.setData({
+      focus: false,
+      inputText:'',
+      matchCity: [],
+      isChoose:''
     })
   },
 

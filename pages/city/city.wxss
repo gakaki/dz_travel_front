@@ -15,6 +15,19 @@
   position: relative; 
 }
 
+.search-small{
+  margin: 16rpx 0 16rpx 20rpx;
+  width: 630rpx;
+}
+
+.back{
+  font-size: 30rpx;
+  color: #8d8d8d;
+  position: absolute;
+  right: 20rpx;
+  top: 32rpx;
+}
+
 .search-icon{
   width: 30rpx;
   height: 29rpx;
@@ -110,6 +123,11 @@
   margin-bottom: 24rpx;
   color: #878689;
   font-size: 26rpx;
+}
+
+.city-choose{
+  color: #278cff;
+  border:2rpx solid #278cff;
 }
 
 .province{

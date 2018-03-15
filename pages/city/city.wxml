@@ -1,10 +1,11 @@
 <!--pages/city/city.wxml-->
 <view class="wrap">
-  <view class="search">
+  <view class="search {{focus ? 'search-small' : ''}}">
     <image class="search-icon {{focus ? 'icon-left' : 'icon-center'}}" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
     <image class="clear" src="https://gengxin.odao.com/update/h5/travel/index/close.png" wx:if="{{focus}}" bindtap='clear'></image>
-    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip {{focus ? 'tip-left' : 'tip-center'}}" bindfocus='focus' bindinput='search' bindblur='blur'></input>
+    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip {{focus ? 'tip-left' : 'tip-center'}}" bindfocus='focus' bindinput='search' bindblur='blur'></input> 
   </view>
+  <view class="back font" wx:if="{{focus}}" bindtap='back'>取消</view>
   <view class="tab f-r-sb">
     <view class="{{isDomestic ? 'choose' : ''}} flight">
       <text class="font">国内航班</text>
@@ -15,22 +16,22 @@
   </view>
   <scroll-view scroll-y class="choose-city">
     <view class="zhixiashi">
-      <text class='city'>北京</text>
-      <text class='city'>天津</text>
-      <text class='city'>上海</text>
-      <text class='city'>重庆</text>
+      <text class="city {{'北京'==isChoose ? 'city-choose' : ''}}" data-ind="北京" bindtap='choose'>北京</text>
+      <text class="city {{'天津'==isChoose ? 'city-choose' : ''}}" data-ind="天津" bindtap='choose'>天津</text>
+      <text class="city {{'上海'==isChoose ? 'city-choose' : ''}}" data-ind="上海" bindtap='choose'>上海</text>
+      <text class="city {{'重庆'==isChoose ? 'city-choose' : ''}}" data-ind="重庆" bindtap='choose'>重庆</text>
     </view>
-    <view class="province" wx:for="{{province}}" wx:key="{{index}}">
-      <text class="font initial" wx:if="{{item.init!=province[index-1].init}}">{{item.init}}</text><text class="prov-name {{item.init==province[index-1].init ? 'no-init' : ''}}">{{item.name}}:</text>
+    <view class="province" wx:for="{{province}}" wx:key="{{index}}" wx:for-item="itm">
+      <text class="font initial" wx:if="{{item.init!=province[index-1].init}}">{{itm.init}}</text><text class="prov-name {{item.init==province[index-1].init ? 'no-init' : ''}}">{{itm.name}}:</text>
       <view class="cities">
-        <text class='city' wx:for="{{item.cities}}" wx:key="{{index}}">{{item}}</text>
+        <text class="city {{ itm.name+'-'+item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{itm.name}}-{{item}}" bindtap='choose'>{{item}}</text>
       </view> 
     </view>
     <view class="speacial">
       <text class="prov-name no-init">港澳</text>
       <view class="cities">
-        <text class='city'>香港</text>
-        <text class='city'>澳门</text>
+        <text class="city {{'香港'==isChoose ? 'city-choose' : ''}}" data-ind="香港" bindtap='choose'>香港</text>
+        <text class="city {{'澳门'==isChoose ? 'city-choose' : ''}}" data-ind="澳门" bindtap='choose'>澳门</text>
       </view>
     </view>
   </scroll-view>
@@ -44,7 +45,7 @@
     </view>
   </view>
   <view class="search-city-list" wx:if="{{focus}}">
-    <view class="list" wx:for="{{matchCity}}">
+    <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}">
       <text>{{item}}</text>
     </view>
   </view>
