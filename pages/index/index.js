@@ -90,6 +90,9 @@ Page({
     this.setData({
       isFirst:false
     })
+    wx.navigateTo({
+      url: '../city/city',
+    })
   },
 
   /**

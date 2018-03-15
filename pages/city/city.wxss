@@ -15,6 +15,19 @@
   position: relative; 
 }
 
+.search-small{
+  margin: 16rpx 0 16rpx 20rpx;
+  width: 630rpx;
+}
+
+.back{
+  font-size: 30rpx;
+  color: #8d8d8d;
+  position: absolute;
+  right: 20rpx;
+  top: 32rpx;
+}
+
 .search-icon{
   width: 30rpx;
   height: 29rpx;
@@ -112,6 +125,11 @@
   font-size: 26rpx;
 }
 
+.city-choose{
+  color: #278cff;
+  border:2rpx solid #278cff;
+}
+
 .province{
   margin-top:-9rpx;
 }
@@ -193,10 +211,17 @@
   line-height: 92rpx;
 }
 
-.list text{
+.list text:first-of-type{
   padding-left: 20rpx;
+}
+
+.list text{ 
   font-size: 32rpx;
   color: #8d8d8d;
+}
+
+.list .search-char{
+  color: #278cff;
 }
 
 .clear{
