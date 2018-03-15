@@ -3,7 +3,7 @@
   <view class="search {{focus ? 'search-small' : ''}}">
     <image class="search-icon {{focus ? 'icon-left' : 'icon-center'}}" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
     <image class="clear" src="https://gengxin.odao.com/update/h5/travel/index/close.png" wx:if="{{focus}}" bindtap='clear'></image>
-    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip {{focus ? 'tip-left' : 'tip-center'}}" bindfocus='focus' bindinput='search' bindblur='blur'></input> 
+    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip" bindfocus='focus' bindinput='search' bindblur='blur'></input> 
   </view>
   <view class="back font" wx:if="{{focus}}" bindtap='back'>取消</view>
   <view class="tab f-r-sb">

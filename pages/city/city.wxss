@@ -62,14 +62,6 @@
   text-align: center; 
 }
 
-.tip-left{
-  text-align: left;
-}
-
-.tip-center{
-  text-align: center;
-}
-
 .tab{
   height: 92rpx;
   width: 100%;
