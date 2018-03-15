@@ -1,12 +1,14 @@
 {
   "pages": [
-    "pages/city/city",
-    "pages/raiders/raiders",
     "pages/point-raiders/point-raiders",
+    "pages/props/props",
+    "pages/play/play",
+    
+    "pages/raiders/raiders",
+    "pages/city/city",
     "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
-
   ],
   "window": {
     "backgroundTextStyle": "light",
