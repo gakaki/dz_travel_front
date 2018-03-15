@@ -1,0 +1,44 @@
+<view class="con bg">
+  <view class="task-bg f-c">
+    <text class="title font fs act">点亮城市地图需完成以下3个任务</text>
+
+    <view class="task font fs act">1.至少达到6个景点（6/6）
+      <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image>
+    </view>
+    <view class="task font fs">2.至少进行2次观光（0/2）
+      <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
+    </view>
+    <view class="task font fs">3.至少进行2次拍照留恋（0/2）
+      <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
+    </view>
+    <view class="introduce font">玩法介绍</view>
+  </view>
+  <view class="warn-box flex">
+    <text class="warn-str font">本页显示地图为虚拟地图，与真实地图存在偏差</text>
+  </view>
+  <view class="chg-line f-c-fs">
+  <text class='rgt-chg font'>修改路线</text>
+  <text class='gold font'>100金币</text>
+  </view>
+  <view class="ribao f-c-fs">
+    <view class="rb-top">
+      <text class='rb-city ib font'>成都日报</text>
+      <text class='rb-dedail ib font'>受到法律和生当复来归撒旦发个科技时代分厘卡个速度分级管理的上空飞过得分跟</text>
+    </view>
+    <view class="rb-bot f-r-sa">
+      <view class="gl font">旅行攻略</view>
+      <view class="yw font">开始游玩</view>
+      <view class="dj font">旅行道具</view>
+    </view>
+  </view>
+  <view class=" pop-bg" wx:if="{{isPop}}">
+    <view class="pop-con">
+      <view class="pic-box">
+        <image class="point-pic" src=""></image>
+        <view class="ten font">1/10</view>
+      </view>
+      <text class="evt font">途径索菲亚教堂为食鸽子，花费5金币，获得2积分</text>
+      <view class="next-evt font">下一事件</view>
+    </view>
+  </view>
+</view>
