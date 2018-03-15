@@ -10,6 +10,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isFirst:true,
   },
 
   /**
@@ -80,6 +81,15 @@ Page({
    */
   onUnload: function () {
   
+  },
+
+  /**
+   * 点击事件
+   */
+  toFly() {
+    this.setData({
+      isFirst:false
+    })
   },
 
   /**

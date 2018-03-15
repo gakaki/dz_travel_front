@@ -64,3 +64,94 @@
 .choose text{
   color: #278cff
 }
+
+.choose-city{
+  position: absolute;
+  top: 200rpx;
+  bottom: 138rpx;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.zhixiashi{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 32rpx;
+}
+
+.city{
+  display: block;
+  height: 56rpx;
+  width: 156rpx;
+  border-radius: 30rpx;
+  border:2rpx solid #c4c3c7;
+  text-align: center;
+  line-height: 56rpx;
+  margin-left: 22rpx;
+  margin-bottom: 24rpx;
+  color: #878689;
+  font-size: 26rpx;
+}
+
+.province{
+  margin-top:-9rpx;
+}
+
+.initial{
+  font-size: 48rpx;
+  color: #278cff;
+  margin-left: 20rpx;
+}
+
+.prov-name{
+  font-size: 30rpx;
+  margin-left: 30rpx;
+}
+
+.no-init{
+  margin-left: 75rpx;
+}
+
+.cities{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+
+.bottom{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 130rpx;
+  justify-content: flex-start;
+}
+
+.btn{
+  width: 315rpx;
+  height: 121rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  margin-top: 16rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 30rpx;
+  color: #fff;
+  margin-left: 40rpx;
+}
+
+.confirm{
+  letter-spacing: 17rpx;
+  padding-left: 17rpx;
+}
+
+.cut-off{
+  width: 750rpx;
+  height: 9rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/separatrix.png") 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  bottom: 130rpx;
+}
+

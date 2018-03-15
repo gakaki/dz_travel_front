@@ -1,11 +1,17 @@
 {
   "pages": [
+<<<<<<< HEAD
     
     "pages/play/play",
     "pages/point-raiders/point-raiders",
     "pages/raiders/raiders",
     
     "pages/city/city",
+=======
+    "pages/city/city",
+    "pages/raiders/raiders",
+    "pages/point-raiders/point-raiders",
+>>>>>>> 39a4c6a132df2bb3f1379ae96990fb488f952e4e
     "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
@@ -13,7 +19,7 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#0f0",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
