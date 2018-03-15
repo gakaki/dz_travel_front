@@ -48,7 +48,8 @@
 .one-i-str {
   color: #878689;
   font-size: 24rpx;
-  flex-grow: 2
+  flex-grow: 2;
+  letter-spacing: 2rpx
 }
 .one-i-price {
    width: 156rpx;
@@ -66,4 +67,26 @@
   font-size: 30rpx;
   color: #fc6161;
   margin-left: 6rpx;
+}
+.two-mid {
+  height: 100%;
+  flex-grow: 2;
+}
+.two-mid-top-str {
+  margin-top: 20rpx;
+  color: #878689;
+  font-size: 32rpx;
+  letter-spacing: 2rpx
+}
+.two-mid-bot-str {
+  margin-bottom: 16rpx;
+  color: #b0afb3;
+  font-size: 22rpx;
+max-width: 300rpx
+}
+.spe-num {
+   color: #878689;
+  font-size: 34rpx;
+  letter-spacing: 3rpx;
+  font-weight: normal
 }
