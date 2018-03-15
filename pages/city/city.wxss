@@ -56,6 +56,10 @@
   color: #8d8d8d;
 }
 
+.search-city-small{
+  width: 510rpx;
+}
+
 .tip{
   font-size: 30rpx;
   color: #ccc;
