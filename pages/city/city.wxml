@@ -45,8 +45,8 @@
     </view>
   </view>
   <view class="search-city-list" wx:if="{{focus}}">
-    <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}">
-      <text>{{item}}</text>
+    <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}" wx:for-index="idx">
+      <text wx:for="{{matchCity[idx]}}" wx:key="{{index}}" class="{{matchCity[idx][index]==searchChar ? 'search-char' : ''}}">{{item}}</text>
     </view>
   </view>
 </view>

@@ -211,10 +211,17 @@
   line-height: 92rpx;
 }
 
-.list text{
+.list text:first-of-type{
   padding-left: 20rpx;
+}
+
+.list text{ 
   font-size: 32rpx;
   color: #8d8d8d;
+}
+
+.list .search-char{
+  color: #278cff;
 }
 
 .clear{

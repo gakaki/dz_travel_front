@@ -12,7 +12,8 @@ Page({
     allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城','北京','上海','重庆','天津'],
     matchCity:[],
     inputText:'',
-    isChoose:''
+    isChoose:'',
+    searchChar:''
   },
 
   /**
@@ -97,11 +98,14 @@ Page({
       let match = []
       for (let i = 0; i < this.data.allCity.length; i++) {
         if (reg.test(this.data.allCity[i])) {
-          match.push(this.data.allCity[i])
+          let split = this.data.allCity[i].split('')
+          match.push(split)
+          console.log(match)
         }
       }
       this.setData({
-        matchCity: match
+        matchCity: match,
+        searchChar: e.detail.value
       })
     }
     else{
