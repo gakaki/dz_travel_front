@@ -69,7 +69,6 @@ Component({
     //此处为选中的搜索结果
     _selected(e) {
       let select = e.currentTarget.dataset.city.join('')
-      
       this.triggerEvent("selected",{select})
     }
   }
