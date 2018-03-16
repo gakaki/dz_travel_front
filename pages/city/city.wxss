@@ -69,8 +69,11 @@
 .tab{
   height: 92rpx;
   width: 100%;
-  border-top: 2rpx solid #e9e8ec;
   border-bottom: 2rpx solid #e9e8ec;
+}
+
+.top{
+  border-top: 2rpx solid #e9e8ec;
 }
 
 .flight{

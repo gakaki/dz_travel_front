@@ -1,12 +1,11 @@
 <!--pages/city/city.wxml-->
 <view class="wrap">
-  <view class="search {{focus ? 'search-small' : ''}}">
-    <image class="search-icon {{focus ? 'icon-left' : 'icon-center'}}" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
-    <input class="search-city {{focus ? 'search-city-small' : ''}}" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip" bindfocus='focus' bindinput='search' bindblur='blur'></input>
-    <image class="clear" src="https://gengxin.odao.com/update/h5/travel/index/close.png" wx:if="{{focus}}" bindtap='clear'></image> 
+  <search id="search" wx:if="{{focus}}" bind:back="_back" bind:selected="_selected"></search>
+  <view class="search" wx:else="{{focus}}">
+    <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
+    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip" bindfocus='focus'></input> 
   </view>
-  <view class="back font" wx:if="{{focus}}" bindtap='back'>取消</view>
-  <view class="tab f-r-sb">
+  <view class="tab f-r-sb {{focus ? '' : 'top'}}">
     <view class="{{isDomestic ? 'choose' : ''}} flight">
       <text class="font">国内航班</text>
     </view>
@@ -44,9 +43,5 @@
       确定
     </view>
   </view>
-  <view class="search-city-list" wx:if="{{focus}}">
-    <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}" wx:for-index="idx">
-      <text wx:for="{{matchCity[idx]}}" wx:key="{{index}}" class="{{matchCity[idx][index]==searchChar ? 'search-char' : ''}}">{{item}}</text>
-    </view>
-  </view>
+  
 </view>

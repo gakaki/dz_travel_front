@@ -9,25 +9,22 @@ Page({
     isDomestic:true,
     province: [{ init: 'A', name: '安徽', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'F', name: '福建', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'F', name: '福建', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'G', name: '广东', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }],
     focus:false,
-    allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城','北京','上海','重庆','天津'],
-    matchCity:[],
-    inputText:'',
-    isChoose:'',
-    searchChar:''
+    isChoose:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
@@ -78,56 +75,15 @@ Page({
     })
   },
 
-  blur(e) {
-    if (!e.detail.value){
-      this.setData({
-        focus: false,
-        inputText: '',
-        matchCity: [],
-        isChoose: ''
-      })
-    }
-  },
-
-  search(e) {
-    console.log(e.detail.value)
-    //输入框中没有value值时不匹配
-    if (e.detail.value){
-      let reg = new RegExp("" + e.detail.value + "")
-      let match = []
-      for (let i = 0; i < this.data.allCity.length; i++) {
-        if (reg.test(this.data.allCity[i])) {
-          let split = this.data.allCity[i].split('')
-          match.push(split)
-        }
-      }
-      this.setData({
-        matchCity: match,
-        searchChar: e.detail.value
-      })
-    }
-    else{
-      this.setData({
-        matchCity: []
-      })
-    }
-    
-  },
-
-  clear() {
-    this.setData({
-      inputText:'',
-      matchCity: []
-    })
-  },
-
-  back() {
+  _back() {
     this.setData({
       focus: false,
-      inputText:'',
-      matchCity: [],
       isChoose:''
     })
+  },
+
+  _selected(e) {
+    console.log(e.detail.select)
   },
 
   /**
