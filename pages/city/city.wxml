@@ -22,7 +22,7 @@
       <text class="city {{'重庆'==isChoose ? 'city-choose' : ''}}" data-ind="重庆" bindtap='choose'>重庆</text>
     </view>
     <view class="province" wx:for="{{province}}" wx:key="{{index}}" wx:for-item="itm">
-      <text class="font initial" wx:if="{{item.init!=province[index-1].init}}">{{itm.init}}</text><text class="prov-name {{item.init==province[index-1].init ? 'no-init' : ''}}">{{itm.name}}:</text>
+      <text class="font initial" wx:if="{{itm.init!=province[index-1].init}}">{{itm.init}}</text><text class="prov-name {{itm.init==province[index-1].init ? 'no-init' : ''}}">{{itm.name}}:</text>
       <view class="cities">
         <text class="city {{ itm.name+'-'+item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{itm.name}}-{{item}}" bindtap='choose'>{{item}}</text>
       </view> 
