@@ -51,7 +51,6 @@
   background-color: #e9e8ec;
   border-radius: 20rpx;
   margin: 0 20rpx;
-  /* margin: 15rpx 20rpx 0 20rpx */
 }
 
 .one-i-str {
@@ -108,7 +107,7 @@
   font-weight: normal;
 }
 
-.pop-car-bg {
+/* .pop-car-bg {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -191,4 +190,4 @@
   margin-right: 30rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
   background-size: cover;
-}
+} */
