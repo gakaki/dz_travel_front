@@ -15,7 +15,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "color": "#999",
