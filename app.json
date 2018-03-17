@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/city/city",
     "pages/index/index",
+    "pages/message/message",
+    "pages/city/city",
     "pages/props/props",
     "pages/point-raiders/point-raiders",
     "pages/raiders/raiders",
@@ -13,11 +14,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
-    
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-
   "tabBar": {
     "color": "#999",
     "selectedColor": "#000",
