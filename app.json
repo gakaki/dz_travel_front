@@ -8,6 +8,7 @@
     
     "pages/city/city",
     "pages/index/index",
+
     "pages/rank/rank",
     "pages/self/self"
   ],
@@ -19,6 +20,7 @@
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
+
   "tabBar": {
     "color": "#999",
     "selectedColor": "#000",

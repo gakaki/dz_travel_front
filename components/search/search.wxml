@@ -1,0 +1,16 @@
+<!--components/search/search.wxml-->
+<view>
+  <view class="top">
+    <view class="search">
+      <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
+      <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="tip" focus bindinput='search'></input>
+      <image class="clear" src="https://gengxin.odao.com/update/h5/travel/index/close.png" bindtap='clear'></image> 
+    </view>
+    <view class="back" bindtap='_back'>取消</view>
+  </view>
+  <view class="search-city-list">
+    <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}" wx:for-index="idx" data-city="{{matchCity[idx]}}" bindtap='_selected'>
+      <text wx:for="{{matchCity[idx]}}" wx:key="{{index}}" class="{{matchCity[idx][index]==searchChar ? 'search-char' : ''}}">{{item}}</text>
+    </view>
+  </view>
+</view>
