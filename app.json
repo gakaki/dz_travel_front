@@ -1,15 +1,14 @@
 {
   "pages": [
+    
     "pages/city/city",
+    "pages/cityRaiders/cityRaiders",
+   
     "pages/props/props",
-    "pages/play/play",
-    
-    "pages/point-raiders/point-raiders",
+    "pages/play/play", 
+    "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
-    
-    
     "pages/index/index",
-
     "pages/rank/rank",
     "pages/self/self"
   ],

@@ -1,0 +1,3 @@
+<view class="con">
+ <search id="search" wx:if="{{focus}}" bind:back="_back" bind:selected="_selected"></search>
+</view>
