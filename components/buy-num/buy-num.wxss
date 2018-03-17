@@ -1,0 +1,142 @@
+.bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+.font{
+  font-family: 'Microsoft YaHei';
+  font-weight: bold;
+  color: #000;
+}
+.flex {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+.f-c-fs {
+  display: flex;
+  flex-direction: column;
+  display: -webkit-flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.f-r-fs {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.f-c-sb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.f-r-sb {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fs {
+  align-self: flex-start;
+}
+.con {
+  width: 610rpx;
+  height: 440rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  transform: translateY(-64rpx);
+}
+.car-top {
+  width: 100%;
+}
+.one-pic {
+  width: 110rpx;
+  height: 110rpx;
+  background-color: #e9e8ec;
+  border-radius: 20rpx;
+  margin: 0 20rpx;
+}
+.pop-car {
+  margin: 30rpx 20rpx 26rpx 30rpx;
+}
+.car-rgt {
+  height: 110rpx;
+}
+.car-name {
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+}
+.goods-desc {
+  font-size: 26rpx;
+  color: #b8b8b8;
+  letter-spacing: 3rpx;
+}
+.num {
+  font-size: 22rpx;
+  letter-spacing: 3rpx;
+  color: #b8b8b8;
+}
+.operate {
+  height: 52rpx;
+  width: 100%;
+  margin-top: 20rpx;
+  margin-bottom: 36rpx;
+}
+.num-box {
+  height: 52rpx;
+  width: 297rpx;
+  border-radius: 30rpx;
+  background-color: #e5e5e5;
+  text-align: center;
+  line-height: 52rpx;
+  margin: 0 54rpx;
+  font-size: 30rpx;
+  letter-spacing: 3rpx;
+}
+.icon {
+  height: 20rpx;
+  width: 20rpx;
+}
+.car-line {
+  width: 570rpx;
+  height: 2rpx;
+  background-color: #f2f2f2;
+}
+.bot-btn {
+  width: 100%;
+   margin-top: 34rpx; 
+}
+.cancel, .confirm {
+  line-height: 75rpx;
+  letter-spacing: 20rpx;
+  width: 245rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  font-size: 30rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.cancel {
+  margin-left: 30rpx;
+}
+
+.confirm {
+  margin-right: 30rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
+  background-size: cover;
+  letter-spacing: 1rpx
+}
+.gold {
+   width: 13rpx;
+  height: 21rpx;
+  margin: 27rpx 15rpx 0 0
+}

@@ -1,22 +1,13 @@
 {
   "pages": [
-<<<<<<< HEAD
-    "pages/props/props",
-    "pages/point-raiders/point-raiders",
-    "pages/raiders/raiders",
-    "pages/play/play",
-    "pages/city/city",
-    "pages/index/index",
-=======
-    "pages/index/index",
-    "pages/city/city",
-    "pages/point-raiders/point-raiders",
     "pages/props/props",
     "pages/play/play",
+    
+    "pages/point-raiders/point-raiders",
     "pages/raiders/raiders",
     
-    
->>>>>>> 2bf6048b347dd4a39ed5b66f14ce0f1985ccd675
+    "pages/city/city",
+    "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
   ],
