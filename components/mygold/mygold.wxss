@@ -21,3 +21,10 @@
   height: 16rpx;
   margin: 0 10rpx;
 }
+.goldd {
+  margin: 0 0 20rpx 40rpx
+}
+.w-icon {
+   width: 16rpx;
+  height: 16rpx;
+}

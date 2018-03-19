@@ -13,6 +13,16 @@
   background-color: #f5f4f9;
   overflow: hidden;
 }
+.w-line {
+  width: 100%;
+  height: 8rpx;
+  background-color: #e9e8ec;
+}
+.t-line {
+   width: 710rpx;
+  height: 2rpx;
+  background-color: #e9e8ec;
+}
 .fs {
   align-self: flex-start;
 }
@@ -100,3 +110,20 @@
   font-weight: bold;
   color: #000;
 }
+.jiexian {
+  width: 100%;
+  height: 9rpx;
+  position: fixed;
+  bottom: 130rpx;
+  left: 0;
+}
+
+.btn-box {
+  width: 100%;
+  height: 130rpx;
+  background-color: #f5f4f9;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+

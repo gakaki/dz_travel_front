@@ -1,0 +1,35 @@
+<view class="con f-c-fs">
+  <image class="photo" src=""> </image>
+  <view class="info f-c-sb">
+    <view class="f-r-sb i-top">
+      <text class="font gps">索菲亚教堂</text>
+      <image src="https://gengxin.odao.com/update/h5/travel/play/arrow.png" class="arrow"></image>
+    </view>
+    <view class="i-bot f-r-sb">
+      <view class="g-box f-r-fs">
+        <mygold goldNum="{{myGold}}"></mygold>
+      </view>
+      <text class="date font">3月19号</text>
+      <text class="jijie jijie">春</text>
+      <image src="https://gengxin.odao.com/update/h5/travel/play/arrow.png" class="w-icon"></image>
+    </view>
+  </view>
+  <view class="t-line"></view>
+  <view id="info-desc" class="font">{{testStr}}</view>
+  <view class="w-line cu"></view>
+  <scroll-view id="sv" >
+  <view class="f-c-fs ">
+  <text class="font chu">触发事件</text>
+  <text wx:if="{{false}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
+  <text wx:if="{{false}}" class="font get ">观光一次消耗50金币</text>
+  <text class="event ">16:40 支付公司发的敢死队风格但是士大夫敢死队风格士大夫敢死队风格是豆腐干大概</text>
+  <view class="t-line"></view>
+  </view>
+  </scroll-view>
+  
+    <view class="btn-box f-r-sb">
+    <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
+    <view class="btn-bg lt font" bindtap=''>景点拍照</view>
+    <view class="btn-bg rgt font" bindtap=''>观光</view>
+  </view>
+</view>
