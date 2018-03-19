@@ -1,7 +1,7 @@
 <!--pages/self/self.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{userInfo.avatar}}' showGoldAndIntegral='{{mySelf}}' hasIntegral='{{true}}' hasGoldIcon='{{true}}' goldNum='{{20}}' integral='{{50}}'></avatar>
+      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickname}}' showGoldAndIntegral='{{mySelf}}' hasIntegral='{{true}}' hasGoldIcon='{{true}}' goldNum='{{20}}' integral='{{50}}'></avatar>
       <view class='setting'>
         <image class='setting-icon' src='https://gengxin.odao.com/update/h5/travel/self/setting.png'></image>
       </view>

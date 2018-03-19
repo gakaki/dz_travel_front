@@ -82,7 +82,7 @@ Page({
         }
       })
     }
-
+    console.log(this.data.userInfo)
   },
   
 

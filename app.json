@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/footprint/footprint",
     "pages/index/index",
     "pages/start/start",
     "pages/props/props",
@@ -18,6 +17,7 @@
     "pages/cityRaiders/cityRaiders",
     "pages/rank/rank",
     "pages/self/self",
+    "pages/footprint/footprint",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog"
   ],
