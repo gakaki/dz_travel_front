@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/start/start",
     "pages/index/index",
     "pages/message/message",
     "pages/city/city",
@@ -9,6 +10,7 @@
     "pages/raiders/raiders",
     "pages/rank/rank",
     "pages/self/self"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
