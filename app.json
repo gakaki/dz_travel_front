@@ -1,9 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/start/start",
     "pages/props/props",
-    "pages/index/index",
-
     
     "pages/message/message",
     "pages/city/city",

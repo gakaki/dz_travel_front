@@ -29,6 +29,14 @@ Component({
     showGoldAndIntegral:{
       type: Boolean,
       value: false
+    },
+    avatarWid:{
+      type:Number,
+      value:120
+    },
+    avatarHeg:{
+      type: Number,
+      value: 120
     }
   },
 

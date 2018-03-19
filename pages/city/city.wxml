@@ -24,7 +24,7 @@
       <text class="font initial" wx:if="{{itm.init!=province[index-1].init}}">{{itm.init}}</text>
       <text class="prov-name {{itm.init==province[index-1].init ? 'no-init' : ''}}">{{itm.name}}:</text>
       <view class="cities">
-        <text class="city {{ itm.name+'-'+item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{itm.name}}-{{item}}" bindtap='choose'>{{item}}</text>
+        <text class="city {{ item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{item}}" bindtap='choose'>{{item}}</text>
       </view>
     </view>
     <view class="speacial">
@@ -37,10 +37,10 @@
   </scroll-view>
   <view class="cut-off"></view>
   <view class="bottom f-r-sb">
-    <view class="btn">
+    <view class="btn" bindtap='toRandom'>
       购买随机机票
     </view>
-    <view class="btn confirm">
+    <view class="btn confirm" bindtap='toStart'>
       确定
     </view>
   </view>

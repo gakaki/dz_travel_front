@@ -8,8 +8,8 @@
       <image src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
     </view>
   </view>
-  <image class="shadow" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
-  <view class="tour-info f-c-fs">
+  <image class="shadow {{isRandom ? 'shadow-random' : ''}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
+  <view class="tour-info f-c-fs {{isRandom ? 'tour-random' : ''}}">
     <view class="tips f-r-sb">
       <text>出发地</text>
       <text>目的地</text>
@@ -21,39 +21,60 @@
         <image class="plane" src="https://gengxin.odao.com/update/h5/travel/start/plane.png"></image>
         <view class="xian"></view>
       </view>
-      <text>哈尔滨</text>
+      <view class="random-place flex">
+        <text wx:if="{{destination}}">{{destination}}</text>
+        <image wx:else class="random-select" src="https://gengxin.odao.com/update/h5/travel/start/help.png"></image>
+      </view>
     </view>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/start/separatrix.png"></image>
-    <view class="info f-r-sb">
+    <view class="info f-r-sb" wx:if="{{isRandom}}">
       <view class="cost flex">
         <text>消耗</text>
         <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
         <text>4000</text>
-        <view class="holiday">
-          劳动节
+      </view>
+      <view class="location">
+        <view class='date'>
+          <text>3月5号</text>
+        </view>
+        <view class="flex">
+          <text class="season">春</text>
+          <image class="weather" src="">天气</image>
         </view>
       </view>
-      <view class="date">
-        <text>3月5号</text>
+    </view>
+    <view wx:else>
+      <view class="info f-r-sb">
+        <view class="cost flex">
+          <text>消耗</text>
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
+          <text>4000</text>
+          <view class="holiday">
+            劳动节
+          </view>
+        </view>
+        <view class="date">
+          <text>3月5号</text>
+        </view>
+      </view>
+      <view class="info f-r-sb">
+        <view class="double-tip">
+          <text>(邀请好友双人旅行消耗6000金币,好友无需购买机票)</text>
+        </view>
+        <view class="flex">
+          <text class="season">春</text>
+          <text class="weather">天气</text>
+        </view>
+      </view>
+      <view class="partner f-r-sb">
+        <text class="waiting" wx:if="{{isWaiting}}">等待好友接受双人组队邀请······</text>
+        <avatar class="friend" avatarWid="86" avatarHeg="86" wx:else></avatar>
       </view>
     </view>
-    <view class="info f-r-sb">
-      <view class="double-tip">
-        <text>(邀请好友双人旅行消耗6000金币,好友无需购买机票)</text>
-      </view>
-      <view class="flex">
-        <text class="season">春</text>
-        <text class="weather">天气</text>
-      </view>
-    </view>
-    <view class="partner">
-      <text class="waiting" wx:if="{{isWaiting}}">等待好友结束双人组队邀请······</text>
-      <avatar wx:else></avatar>
-    </view>
-    <view class="info-xian"></view>
-    <view class="btn f-r-sa">
-      <view class="invite button">
-        邀请好友
+    <view class="info-xian {{isWaiting ? '' : 'friend-xian'}} {{isRandom ? 'random-xian' : ''}}"></view>
+    <view class="btn f-r-sb {{isRandom ? 'btn-center' : ''}}">
+      <view class="invite button" hidden="{{isRandom}}">
+        {{isWaiting ? '邀请好友' : '取消双人旅行'}}
       </view>
       <view class="ready button">
         出发

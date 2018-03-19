@@ -72,7 +72,8 @@
 
 .line text{
   display: block;
-  width: 218rpx;
+  width: 210rpx;
+  height: 70rpx;
   line-height: 70rpx;
   text-align: center;
   font: 48rpx 'Microsoft Yahei';
@@ -93,7 +94,7 @@
 .cut-off{
   width: 670rpx;
   height: 16rpx;
-  margin-top: 15rpx;
+  margin-top: 10rpx;
 }
 
 .info{
@@ -145,6 +146,7 @@
   height: 47rpx;
   font-size: 20rpx;
   margin-left: 20rpx;
+  background-color: #0f0;
 }
 
 .partner{
@@ -158,10 +160,14 @@
 }
 
 .info-xian{
-  width: 670rpx;
+  width: 712rpx;
   height: 2rpx;
   background-color: #f2f2f2;
   margin-top: 40rpx;
+}
+
+.friend-xian{
+  margin-top: 8rpx;
 }
 
 .btn{
@@ -170,12 +176,12 @@
 }
 
 .button{
-  width: 245rpx;
-  height: 113rpx;
+  width: 315rpx;
+  height: 121rpx;
   font: bold 30rpx 'Microsoft Yahei';
   color: #fff;
   text-align: center;
-  line-height: 75rpx;
+  line-height: 100rpx;
 }
 
 .invite{
@@ -188,4 +194,36 @@
   background-size: cover;
   letter-spacing: 15rpx;
   padding-left: 15rpx;
+}
+
+.friend{
+  margin: 15rpx 0 0 -20rpx;
+}
+
+.random-xian{
+  margin-top: 20rpx;
+}
+
+.tour-random{
+  height: 418rpx;
+}
+
+.shadow-random{
+  bottom: 380rpx;
+}
+
+.btn-center{
+  justify-content: center;
+}
+
+.random-place{
+  width: 210rpx;
+  height: 70rpx;
+  border: 2rpx solid #278cff;
+  border-radius: 10rpx;
+}
+
+.random-select{
+  width: 32rpx;
+  height: 45rpx;
 }

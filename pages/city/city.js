@@ -62,8 +62,19 @@ Page({
   
   },
 
+  toStart() {
+    wx.navigateTo({
+      url: '../start/start?terminal=' + this.data.isChoose,
+    })
+  },
+
+  toRandom() {
+    wx.navigateTo({
+      url: '../start/start?random=true',
+    })
+  },
+
   choose(e) {
-    //e.currentTarget.dataset.ind格式为'省份-城市',直辖市则直接是名字
     this.setData({
       isChoose: e.currentTarget.dataset.ind
     })
