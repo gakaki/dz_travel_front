@@ -3,7 +3,7 @@
   <view class='user-avatar'>
     <image class='avatar-icon' src='{{src}}'></image> 
   </view>
-  <view class='user-info'>
+  <view class="user-info">
     <view class='nickname'>迪丽热巴</view>
     <view class='gold-wrap' wx:if='{{showGoldAndIntegral}}'>
       <gold goldNum='{{goldNum}}' wx:if='{{hasGoldIcon}}'></gold>

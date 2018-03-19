@@ -28,7 +28,7 @@ Component({
     },
     showGoldAndIntegral:{
       type: Boolean,
-      value: true
+      value: false
     }
   },
 
