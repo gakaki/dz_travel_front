@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/start/start",
+    "pages/index/index",
     "pages/message/message",
     "pages/city/city",
     "pages/goSight/goSight",
