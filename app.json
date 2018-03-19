@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/city/city",
     "pages/props/props",
     "pages/play/play",
@@ -8,7 +9,6 @@
     "pages/raiders/raiders",
     
     
-    "pages/index/index",
 
     "pages/rank/rank",
     "pages/self/self"
