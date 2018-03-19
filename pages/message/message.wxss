@@ -1,0 +1,43 @@
+/* pages/message/message.wxss */
+.wrap{
+  flex-wrap: wrap;
+  align-content: flex-start;
+  position: absolute;
+  top: 9rpx;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cut-off{
+  width: 750rpx;
+  height: 9rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/separatrix.png") 0 0 no-repeat;
+  background-size: cover;
+}
+
+.message{
+  width: 710rpx;
+  border-bottom: 2rpx solid #e9e8ec;
+  color: #b0afb3;
+}
+
+.top{
+  margin:20rpx 0; 
+}
+
+.title{
+  font:bold 32rpx 'Microsof Yahei';
+  margin-left: 22rpx;
+  color: #000;
+}
+
+.time{
+  font:bold 24rpx 'Microsof Yahei';
+  margin-right: 22rpx;
+}
+
+.content{
+  font:bold 28rpx 'Microsof Yahei';
+  padding: 0 22rpx 20rpx;
+}

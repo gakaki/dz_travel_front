@@ -1,5 +1,6 @@
 // pages/index/index.js
 import { start } from '../../utils/rest.js';
+import { IndexInfo } from '../../api.js';
 
 const app = getApp()
 Page({
@@ -13,6 +14,9 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isFirst: true,
+    season:{},
+    weather:{},
+    playerCnt:2000
   },
 
   /**
@@ -59,6 +63,17 @@ Page({
     let userInfo = app.globalData.userInfo;
     if (userInfo){
       this.setData({userInfo});
+
+      //请求主页数据
+      let req = new IndexInfo();
+      req.fetch().then(req => {
+        this.setData({
+          isFirst: req.isFirst,
+          season: req.season,
+          weather: req.weather,
+          playerCnt: req.playerCnt
+        })
+      })
     }
     else {
       console.log('用户拒绝授权个人信息！！')
@@ -102,6 +117,12 @@ Page({
     })
     wx.navigateTo({
       url: '../city/city',
+    })
+  },
+
+  toMessage() {
+    wx.navigateTo({
+      url: '../message/message',
     })
   },
 

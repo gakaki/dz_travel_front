@@ -23,8 +23,6 @@ class Weather{
     static WINDY = '风';
     
 }
-
-
 class RankType{
     
     static DAY = 1;
@@ -97,6 +95,9 @@ class Base  {
         //prop type: string
         this.action = null;
     
+        //prop type: number//服务器返回的状态码
+        this.code = null;
+    
         //prop type: string[]
         this.reqFields = null;
     
@@ -115,7 +116,8 @@ class Base  {
                 url: Base.SRV,
                 data: this.reqData,
                 success: res => {
-                  this.parse(res.data)
+                  this.parse(res.data.data);
+                  this.code=res.data.code;
                   resolve(this)
                 },
                 fail: err => {
@@ -127,10 +129,10 @@ class Base  {
     }
    get reqData() {
         let tmp ={};
-        let sid=Base.SID || wx.getStorageSync('sid');
+        let sid=Base.GetSID();
         if (sid)
             tmp._sid=sid;
-        let uid=Base.UID || wx.getStorageSync('uid');
+        let uid=Base.GetUID();
         if (uid)
             tmp.uid=uid;
         this.reqFields.forEach(k => {
@@ -145,6 +147,18 @@ class Base  {
     }
    error(err) {
 
+    }
+   static GetUID() {
+        if (!Base.UID) {
+            Base.UID=wx.getStorageSync('uid');
+        }
+        return Base.UID;
+    }
+   static GetSID() {
+        if (!Base.SID) {
+            Base.SID=wx.getStorageSync('sid');
+        }
+        return Base.SID;
     }
    static Start(appName, url) {
         return new Promise(resolve => {
@@ -170,8 +184,18 @@ class Base  {
         return new Promise(resolve => {
             wx.checkSession({
                 success: () => {
-                    this.AUTHED=true;
-                    this.UserLogin(resolve)
+                    if (Base.GetSID() || Base.GetUID()){
+                        this.AUTHED=true;
+                        this.UserLogin(resolve)
+                    }
+                    else {
+                        wx.login({
+                            success: res => {
+                                this.AUTHED=false;
+                                this.UserAuth(res.code, resolve);
+                            }
+                        })
+                    }
                 },
                 fail: res => {
                     wx.login({
@@ -193,7 +217,7 @@ class Base  {
         //set data
         req.payload ={code};
         req.fetch().then( res => {
-            this.UID=res.data.uid;
+            this.UID=res.uid;
             wx.setStorageSync('uid', this.UID);
             this.UserLogin(suc);
         });
@@ -207,7 +231,6 @@ class Base  {
         wx.getUserInfo({
             success: info =>{
                 let app=getApp();
-                app.globalData.userInfo=info.userInfo;
 
                 //fetch srv
                 req.info=info.userInfo;
@@ -217,6 +240,7 @@ class Base  {
                         req.error(req.code);
                     }
                     else {
+                        app.globalData.userInfo=req.info;
                         this.SID=req.sid;
                         wx.setStorageSync('sid', this.SID);
                         suc(req);
@@ -267,18 +291,18 @@ class IndexInfo extends Base {
         super();
         this.action = 'travel.indexinfo';
     
-        this._isNew = null;
+        this._isFirst = null;
         this._season = null;
         this._weather = null;
-        this._memberCnt = null;
+        this._playerCnt = null;
         this._friends = null;
         this._unreadMsgCnt = null;
         this.reqFields = [];
-        this.resFields = ["isNew","season","weather","memberCnt","friends","unreadMsgCnt"];
+        this.resFields = ["isFirst","season","weather","playerCnt","friends","unreadMsgCnt"];
     }
     //server output, type: Boolean
-    get isNew() {return this._isNew}
-    set isNew(v) {this._isNew = v}
+    get isFirst() {return this._isFirst}
+    set isFirst(v) {this._isFirst = v}
     //server output, type: Season
     get season() {return this._season}
     set season(v) {this._season = v}
@@ -286,8 +310,8 @@ class IndexInfo extends Base {
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
     //server output, type: number
-    get memberCnt() {return this._memberCnt}
-    set memberCnt(v) {this._memberCnt = v}
+    get playerCnt() {return this._playerCnt}
+    set playerCnt(v) {this._playerCnt = v}
     //server output, type: string[]
     get friends() {return this._friends}
     set friends(v) {this._friends = v}
