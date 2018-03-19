@@ -1,0 +1,7 @@
+{
+  "disableScroll": true,
+  "navigationBarTitleText": "出发旅行",
+  "usingComponents": {
+    "mygold": "/components/mygold/mygold"
+  }
+}

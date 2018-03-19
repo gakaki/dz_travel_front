@@ -234,6 +234,44 @@ if(v.length >= n) {
 }
   return v
 }
+
+//获取用户信息
+function getUserInfo(app,_that) {
+  console.log(app,_that)
+  if (app.globalData.userInfo) {
+    console.log(1)
+    _that.setData({
+      userInfo: app.globalData.userInfo,
+      hasUserInfo: true
+    })
+    console.log(app.globalData.userInfo)
+  } else if (_that.data.canIUse) {
+    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    // 所以此处加入 callback 以防止这种情况
+    
+    app.userInfoReadyCallback = res => {
+      console.log(res)
+      _that.setData({
+        userInfo: res.userInfo,
+        hasUserInfo: true
+      })
+    }
+
+  } else {
+    // 在没有 open-type=getUserInfo 版本的兼容处理
+    console.log(3)
+    wx.getUserInfo({
+      success: res => {
+        app.globalData.userInfo = res.userInfo
+        _that.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    })
+  }
+}
+
 module.exports = {
   getRankFrame,
   formatTime,
@@ -241,5 +279,6 @@ module.exports = {
   fixedNum,
   Timeline,
   getPersonFrame,
-  spliceStr
+  spliceStr,
+  getUserInfo
 }

@@ -1,1 +1,69 @@
 /* pages/self/self.wxss */
+.self {
+  font: bold 32rpx 'Microsoft YaHei';
+  width: 100vw;
+  height: 100vh;
+  background: #f5f4f9;
+}
+.header {
+  position: relative;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  height: 207rpx;
+  background: #fff;
+}
+.setting {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  width: 43rpx;
+  height: 43rpx;
+}
+.setting-icon {
+  width: 43rpx;
+  height: 43rpx;
+}
+.des {
+   position: absolute;
+  left: 0;
+  bottom: 20rpx; 
+  width: 100%;
+  height: 27rpx; 
+  text-align: center;
+  color: #999;  
+  font: bold 26rpx/1 'Microsoft YaHei'; 
+}
+.des-content {
+  display: inline-block;
+  vertical-align: top;
+  border-bottom: 1rpx solid #999;
+}
+.des-spec {
+  color: #278cff;
+}
+.main {
+  margin: 20rpx 0;
+  height: 218rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.main-wrap {
+  flex: 1;
+}
+.main-icon {
+  margin-top: 25rpx;
+  width: 63rpx;
+  height: 63rpx;
+}
+.main-content {
+  line-height: 84rpx;
+}
+.list-wrap {
+  background: #fff;
+}
+.one-list {
+  margin: 0 20rpx;
+  padding: 0 20rpx;
+  height: 112rpx;
+  line-height: 112rpx;
+}

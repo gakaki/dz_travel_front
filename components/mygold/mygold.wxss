@@ -1,31 +1,32 @@
 .box {
+  position: relative;
   height: 44rpx;
+  min-width: 130rpx;
   border: 2rpx solid #fc6161;
-  display: flex;
-  display: -webkit-flex;
-  justify-content: flex-start;
-  align-items: center;
-  border-radius: 30rpx
+  border-radius: 30rpx;
 }
 .gold {
+  display: inline-block;
   width: 38rpx;
   height: 38rpx;
-  margin: 0 10rpx 0 3rpx;
+  margin: 3rpx 10rpx 0 3rpx;
+  vertical-align: top;
 }
 .num {
-   font-family: 'Microsoft YaHei';
   color: #fc6161;
-  font:  bold 26rpx/38rpx 
+  font:  bold 26rpx/38rpx 'Microsoft YaHei';
 }
 .plus {
-   width: 16rpx;
+  position: absolute;
+  right: 13rpx;
+  top: 14rpx;
+  width: 16rpx;
   height: 16rpx;
-  margin: 0 10rpx;
 }
 .goldd {
-  margin: 0 0 20rpx 40rpx
+  margin: 0 0 20rpx 40rpx;
 }
 .w-icon {
-   width: 16rpx;
+  width: 16rpx;
   height: 16rpx;
 }

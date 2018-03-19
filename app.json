@@ -1,19 +1,18 @@
 {
   "pages": [
+
+    "pages/index/index",
+    "pages/start/start",
+    "pages/message/message",
+    "pages/city/city",
+    "pages/goSight/goSight",
+
     "pages/props/props",
     "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
-    "pages/goSight/goSight",
-    
     
     "pages/play/play",
     "pages/cityRaiders/cityRaiders",
-    
-    "pages/city/city",
-    "pages/index/index",
-
-    "pages/message/message",
-
     "pages/rank/rank",
     "pages/self/self"
   ],

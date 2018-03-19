@@ -1,4 +1,5 @@
 // pages/index/index.js
+
 import { start } from '../../utils/rest.js';
 import { IndexInfo } from '../../api.js';
 

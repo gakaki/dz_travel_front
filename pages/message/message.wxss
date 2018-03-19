@@ -27,17 +27,17 @@
 }
 
 .title{
-  font:bold 32rpx 'Microsof Yahei';
+  font:bold 32rpx 'Microsoft Yahei';
   margin-left: 22rpx;
   color: #000;
 }
 
 .time{
-  font:bold 24rpx 'Microsof Yahei';
+  font:bold 24rpx 'Microsoft Yahei';
   margin-right: 22rpx;
 }
 
 .content{
-  font:bold 28rpx 'Microsof Yahei';
+  font:bold 28rpx 'Microsoft Yahei';
   padding: 0 22rpx 20rpx;
 }
