@@ -24,7 +24,6 @@
   <text wx:if="{{false}}" class="font get ">观光一次消耗50金币</text>
   <text class="event ">16:40 支付公司发的敢死队风格但是士大夫敢死队风格士大夫敢死队风格是豆腐干大概</text>
   <view class="t-line"></view>
-  <text class="event ">16:40 支付公司发的敢死队风格但是士大夫敢死队风格士大夫敢死队风格是豆腐干大概</text>
   </view>
   </scroll-view>
   

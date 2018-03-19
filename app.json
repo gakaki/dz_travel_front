@@ -8,6 +8,9 @@
     "pages/pointRaiders/pointRaiders",
     "pages/city/city",
     "pages/index/index",
+
+    "pages/message/message",
+
     "pages/rank/rank",
     "pages/self/self"
   ],
@@ -16,7 +19,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "color": "#999",
