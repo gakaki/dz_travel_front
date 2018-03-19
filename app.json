@@ -1,13 +1,12 @@
 {
   "pages": [
-    
-    "pages/city/city",
-    "pages/cityRaiders/cityRaiders",
-   
+    "pages/goSight/goSight",
     "pages/props/props",
-    "pages/play/play", 
-    "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
+    "pages/play/play",
+    "pages/cityRaiders/cityRaiders",
+    "pages/pointRaiders/pointRaiders",
+    "pages/city/city",
     "pages/index/index",
     "pages/rank/rank",
     "pages/self/self"
@@ -16,11 +15,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "点亮足迹",
-    
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
-
   "tabBar": {
     "color": "#999",
     "selectedColor": "#000",

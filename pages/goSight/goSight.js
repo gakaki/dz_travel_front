@@ -1,49 +1,23 @@
-// pages/cityRaiders/cityRaiders.js
+import { spliceStr } from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    province: [{ init: 'A', name: '安徽', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }],
-    focus: false,
-    isChoose: '',
-    position: '',
-    abc: ['A','B','C','F','G','H','J','L','N','Q','S','T','X','Y','Z'],
-    num: 0, //选中的第几个字母,
-    checkId: ''
+    myGold: 777,
+    testStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  },
-  choose(e) {
-this.setData({
-  num: e.currentTarget.dataset.idx
-})
-  },
-  check(e) {
     this.setData({
-      checkId: e.currentTarget.dataset.id
-    })
-  },
-  focus(e) {
-    this.setData({
-      focus: true,
-    })
-  },
-  _back() {
-    this.setData({
-      focus: false,
-      isChoose: ''
+      testStr: spliceStr(this.data.testStr, 46)
     })
   },
 
-  _selected(e) {
-    console.log(e.detail.select)
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
