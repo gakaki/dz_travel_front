@@ -1,13 +1,13 @@
 {
   "pages": [
-
+"pages/props/props",
     "pages/index/index",
     "pages/start/start",
     "pages/message/message",
     "pages/city/city",
     "pages/goSight/goSight",
 
-    "pages/props/props",
+    
     "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
     
