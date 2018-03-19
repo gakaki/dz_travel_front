@@ -1,11 +1,11 @@
-// pages/start/start.js
+// pages/footprint/footprint.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isWaiting:false
+    mySelf:true,
   },
 
   /**

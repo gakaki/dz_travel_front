@@ -1,0 +1,15 @@
+<!--pages/travelLog/travelLog.wxml-->
+<view class='travelLog'>
+  <view class='share'>
+    <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
+  </view>
+  <view>
+    <view>2018</view>
+    <scroll-view class='reach-city' scroll-y='true'>
+      <view class='one-city'>
+        <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
+      </view>
+      
+    </scroll-view> 
+  </view>
+</view>

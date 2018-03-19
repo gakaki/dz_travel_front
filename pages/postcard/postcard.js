@@ -1,11 +1,11 @@
-// pages/start/start.js
+// pages/postcard/postcard.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isWaiting:false
+  
   },
 
   /**

@@ -1,11 +1,22 @@
-// pages/start/start.js
+// pages/travelLog/travelLog.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isWaiting:false
+      init:[{
+        city:'南京',
+        time:'3月15日',
+        des:[
+          {
+            city: '种树领',
+            time: '3月15日',
+          }, {
+            city: '秦淮河',
+            time: '3月15日',
+          }]
+      }]
   },
 
   /**

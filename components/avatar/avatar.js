@@ -10,6 +10,10 @@ Component({
       type:String,
       value:''
     },
+    nickname:{
+      type: String,
+      value: ''
+    },
     integral:{
       type: String,
       value:'5000'
@@ -28,7 +32,7 @@ Component({
     },
     showGoldAndIntegral:{
       type: Boolean,
-      value: true
+      value: false
     }
   },
 

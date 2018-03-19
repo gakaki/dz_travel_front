@@ -1,5 +1,6 @@
 {
   "pages": [
+
     "pages/play/play",
     "pages/goSight/goSight",
     "pages/pointRaiders/pointRaiders",
@@ -7,8 +8,11 @@
     "pages/raiders/raiders",
     
     "pages/props/props",
+
     "pages/index/index",
     "pages/start/start",
+
+    
     "pages/message/message",
     "pages/city/city",
     
@@ -16,7 +20,10 @@
     
     "pages/cityRaiders/cityRaiders",
     "pages/rank/rank",
-    "pages/self/self"
+    "pages/self/self",
+    "pages/footprint/footprint",
+    "pages/postcard/postcard",
+    "pages/travelLog/travelLog"
   ],
   "window": {
     "backgroundTextStyle": "light",

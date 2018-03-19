@@ -1,0 +1,9 @@
+/* pages/footprint/footprint.wxss */
+
+.des-content {
+  color: #999;  
+  font: bold 30rpx/40rpx 'Microsoft YaHei'; 
+}
+.des-spec {
+  color: #278cff;
+} 

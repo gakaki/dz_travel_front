@@ -2,10 +2,9 @@
 <view class="user">
   <view class='user-avatar'>
     <image class='avatar-icon' src='{{src}}'></image> 
-    <!-- <text class='avatar-icon'>w d </text> -->
   </view>
-  <view class='user-info'>
-    <view class='nickname'>迪丽热巴</view>
+  <view class="user-info">
+    <view class='nickname'>{{nickname}}</view>
     <view class='gold-wrap' wx:if='{{showGoldAndIntegral}}'>
       <gold goldNum='{{goldNum}}' wx:if='{{hasGoldIcon}}'></gold>
       <view class='integral' wx:if='{{hasIntegral}}'>积分: {{integral}}</view>
