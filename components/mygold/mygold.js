@@ -4,10 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-goldNum: {
-  type: Number,
-  value: 0
-}
+    goldNum: {
+      type: Number,
+      value: 0
+    }
   },
 
   /**

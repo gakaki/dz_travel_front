@@ -1,1 +1,11 @@
 /* pages/self/self.wxss */
+.self {
+  background: #f5f4f9;
+}
+.header {
+  margin-bottom: 20rpx;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  height: 207rpx;
+  background: #fff;
+}
