@@ -9,6 +9,13 @@
   justify-content: center;
   align-items: center;
 }
+.f-c {
+   display: flex;
+   flex-direction: column;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
 .f-c-fs {
   display: flex;
   flex-direction: column;
@@ -52,6 +59,7 @@
   background-color: #fff;
   border-radius: 40rpx;
   transform: translateY(-64rpx);
+  box-shadow: 0 0 2rpx 3rpx rgba(0,0,0,.3)
 }
 .one-pic {
   width: 110rpx;
@@ -132,3 +140,14 @@
   margin-left: 6rpx;
   letter-spacing: 3rpx;
 }
+.sls {
+  letter-spacing: 1rpx;
+}
+.pic-desc {
+  width: 100%;
+  height: 300rpx;
+}
+ .pdt,.pdb {
+  font: bold 30rpx/50rpx 'Microsoft YaHei';
+  color: #b8b8b8
+} 

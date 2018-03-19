@@ -1,6 +1,6 @@
 <view class="bg flex" catchtap='toHide'>
   <view class="con f-c-fs" catchtap='notDo'>
-    <view class="f-r-fs car-top">
+    <view wx:if="{{isBuy}}" class="f-r-fs car-top">
       <image class="one-pic pop-car" src=""></image>
       <view class='f-c-sb car-rgt'>
         <text class="car-name font">{{name}}</text>
@@ -10,12 +10,16 @@
         </view>
       </view>
     </view>
-    <text class="car-tip font fs">{{descOne}}</text>
-    <text class="car-tip font fs mg">{{descTwo}}</text>
+    <text wx:if="{{isBuy}}" class="car-tip font fs">{{descOne}}</text>
+    <text wx:if="{{isBuy}}" class="car-tip font fs mg">{{descTwo}}</text>
+    <view class="pic-desc f-c">
+    <text class="pdt">本地游玩免费拍照次数（2次）已使用完毕</text>
+    <text class="pdb">前往旅行装备处租用单反相机获得拍照次数</text>
+    </view>
     <view class="car-line"></view>
     <view class="bot-btn f-r-sb">
       <view class="cancel font" catchtap='toHide'>取消</view>
-      <view class="confirm font" catchtap='toCfm'>{{cfmStr}}</view>
+      <view class="confirm font {{cfmStr.length>3?'sls':''}}"  catchtap='toCfm'>{{cfmStr}}</view>
     </view>
   </view>
 </view>
