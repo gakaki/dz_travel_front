@@ -27,7 +27,7 @@
   </scroll-view>
   <view class="btn-box flex">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-icon font" bindtap='isPop'>我要评论</view>
+    <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
   <comment wx:if="{{isShowPop}}" bindtoclose="isPop"></comment>
 </view>

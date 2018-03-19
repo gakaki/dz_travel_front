@@ -10,6 +10,10 @@ Component({
       type:String,
       value:''
     },
+    nickname:{
+      type: String,
+      value: ''
+    },
     integral:{
       type: String,
       value:'5000'

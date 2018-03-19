@@ -11,14 +11,14 @@
     <view class="task font fs">3.至少进行2次拍照留恋（0/2）
       <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
     </view>
-    <view class="introduce font">玩法介绍</view>
+    <view class="introduce font" bindtap='showIntro'>玩法介绍</view>
   </view>
   <view class="warn-box flex">
     <text class="warn-str font">本页显示地图为虚拟地图，与真实地图存在偏差</text>
   </view>
   <view class="chg-line f-c-fs">
-  <text class='rgt-chg font'>修改路线</text>
-  <text class='gold font'>100金币</text>
+    <text class='rgt-chg font'>修改路线</text>
+    <text class='gold font'>100金币</text>
   </view>
   <view class="ribao f-c-fs">
     <view class="rb-top">
@@ -41,4 +41,20 @@
       <view class="next-evt font">下一事件</view>
     </view>
   </view>
+  <view class="pop-bg" wx:if="{{isShowIntro}}" bindtap='hideIntro'>
+    <view id="play-desc" class="f-c-fs" catchtap='notDo'>
+      <text id="title">玩法介绍</text>
+      <text class="rule fs">本地游玩规则：</text>
+      <text class="rule-con rule1">自出发点出发，以点击景点的方式选择游玩景点。确定路线后点击“开始游玩”系统将自动行走，并触发随机事件，随机事件需手动点击查看。离线时随机事件最多保留10条。</text>
+      <text class="rule-con rule2">游玩期间花费100金币可修改未走过的路线，已规划路线走完添加新路线时不花费金币。</text>
+      <text class="rule-con rule3">用户结束此城市旅游时，系统根据用户游玩时选取景点的规划路线（超过6个景点时仅计算前6个景点）与最短路线相比较进行评分，根据评分给予金币奖励。再次旅游此城市时可重新评分给予奖励。</text>
+      <text class="rule-con rule4">所有景点全部走完后，可重复前往到达过的景点，重复前往的路线不计入路线评分中。</text>
+      <text class="rule-con rule5">根据用户游玩的景点、触发的事件和得到明信片的数量，会有不同的积分奖励。</text>
+      <text class="rule-con rule6">积分用于兑换物品。</text>
+      <text class="rule-con rule7">双人旅行时，每人至少选择3个景点共同前往，不可同时规划路线。每人各观光景点2次，每人各拍照2次为完成点亮任务。
+</text>
+<view class="btn-big-blue cfm-btn" bindtap='hideIntro'>确定</view>
+    </view>
+  </view>
+
 </view>
