@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/footprint/footprint",
     "pages/index/index",
     "pages/start/start",
     "pages/message/message",
@@ -11,7 +12,9 @@
     "pages/cityRaiders/cityRaiders",
     "pages/pointRaiders/pointRaiders",
     "pages/rank/rank",
-    "pages/self/self"
+    "pages/self/self",
+    "pages/postcard/postcard",
+    "pages/travelLog/travelLog"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -15,15 +15,18 @@ Page({
     mySelf:true,
     mianTitle:[{
       title:'旅行足迹',
-      icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png'
+      icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png',
+      url:'../footprint/footprint'
     }, 
     {
       title: '我的明信片',
-      icon: 'https://gengxin.odao.com/update/h5/travel/self/postcard.png'
+      icon: 'https://gengxin.odao.com/update/h5/travel/self/postcard.png',
+      url: '../postcard/postcard'
     }, 
     {
       title: '旅行日志',
-      icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png'
+      icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
+      url: '../travelLog/travelLog'
     }],
     list:[
       {

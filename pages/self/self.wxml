@@ -15,10 +15,10 @@
       </view> 
   </view>
   <view class='main f-r-sa'>
-    <view wx:for='{{mianTitle}}' wx:key='{{index}}' class='main-wrap f-c' style='border-right:{{index == mianTitle.length-1?"none":"2rpx solid #e5e5e5"}}'>
+    <navigator url='{{item.url}}' wx:for='{{mianTitle}}' wx:key='{{index}}' class='main-wrap f-c' style='border-right:{{index == mianTitle.length-1?"none":"2rpx solid #e5e5e5"}}'>
       <image class='main-icon' src='{{item.icon}}'></image>
       <text class='main-content'>{{item.title}}</text> 
-    </view>
+    </navigator >
   </view>
   <view class='list-wrap'>
     <view class='one-list f-r-sb' wx:for='{{list}}' wx:key="{{index}}" style='border-bottom:{{index == list.length-1?"none":"2rpx solid #e5e5e5"}}'>

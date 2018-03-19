@@ -1,0 +1,8 @@
+<!--pages/footprint/footprint.wxml-->
+<view class='footprint'>
+  <avatar></avatar>
+  <view class='des-content' wx:if='{{mySelf}}'> 
+    已点亮<text class='des-spec'>9</text>个省份，<text class='des-spec'>34</text>个城市，足迹已遍布全中国<text class='des-spec'>13%</text>的城市，旅游完成度达到<text class='des-spec'>13%</text>
+  </view> 
+</view>
+
