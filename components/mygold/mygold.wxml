@@ -1,4 +1,4 @@
-<view class="box ">
+<view class="box f-r-fs">
   <image class="gold" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
   <text class="num">{{goldNum}}</text>
   <image class="plus" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>

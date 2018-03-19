@@ -5,10 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mySelf:{
-      type:Boolean,
-      value:true
-    }
+    mySelf:true,
   },
 
   /**

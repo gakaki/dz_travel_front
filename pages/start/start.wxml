@@ -1,6 +1,6 @@
 <view class="con">
   <view class="my-gold flex">
-    <mygold goldNum="200"></mygold>
+    <mygold goldNum="100"></mygold>
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/start/tip.png"></image>
   </view>
   <view class="map">
@@ -47,7 +47,8 @@
       </view>
     </view>
     <view class="partner">
-      <text class="waiting">等待好友结束双人组队邀请······</text>
+      <text class="waiting" wx:if="{{isWaiting}}">等待好友结束双人组队邀请······</text>
+      
     </view>
     <view class="info-xian"></view>
     <view class="btn f-r-sa">

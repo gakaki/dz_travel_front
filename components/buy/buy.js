@@ -4,6 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    isBuy: {
+      type: Boolean,
+      value: true
+    },
     cfmStr: {
       type: String,
       value: '购买'

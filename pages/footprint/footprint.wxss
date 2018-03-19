@@ -1,7 +1,6 @@
 /* pages/footprint/footprint.wxss */
 
 .des-content {
-  padding: 100rpx 70rpx;
   color: #999;  
   font: bold 30rpx/40rpx 'Microsoft YaHei'; 
 }
