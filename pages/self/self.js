@@ -12,6 +12,39 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    mySelf:false,
+    mianTitle:[{
+      title:'旅行足迹',
+      icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png'
+    }, 
+    {
+      title: '我的明信片',
+      icon: 'https://gengxin.odao.com/update/h5/travel/self/postcard.png'
+    }, 
+    {
+      title: '旅行日志',
+      icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png'
+    }],
+    list:[
+      {
+        title:'累计获得城市积分',
+        num:'555'
+      },
+      {
+        title: '收集明信片数量',
+        num: '555'
+      },
+      {
+        title: '发表评论数量',
+        num: '555'
+      }, {
+        title: '获得点赞数量',
+        num: '555'
+      }
+      , {
+        title: '获得特产数量',
+        num: '555'
+      }]
   },
 
   /**

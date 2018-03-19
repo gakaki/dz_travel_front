@@ -25,6 +25,10 @@ Component({
     hasIntegral:{
       type:Boolean,
       value:false
+    },
+    showGoldAndIntegral:{
+      type: Boolean,
+      value: true
     }
   },
 
