@@ -48,7 +48,7 @@
     </view>
     <view class="partner">
       <text class="waiting" wx:if="{{isWaiting}}">等待好友结束双人组队邀请······</text>
-      
+      <avatar wx:else></avatar>
     </view>
     <view class="info-xian"></view>
     <view class="btn f-r-sa">

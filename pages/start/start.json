@@ -2,6 +2,7 @@
   "disableScroll": true,
   "navigationBarTitleText": "出发旅行",
   "usingComponents": {
-    "mygold": "/components/mygold/mygold"
+    "mygold": "/components/mygold/mygold",
+    "avatar": "/components/avatar/avatar"
   }
 }
