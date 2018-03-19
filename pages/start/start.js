@@ -1,4 +1,7 @@
 // pages/start/start.js
+const app = getApp()
+let time = null
+
 Page({
 
   /**
@@ -7,7 +10,8 @@ Page({
   data: {
     isWaiting:true,
     isRandom:true,
-    destination: ''
+    destination: '',
+    allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城', '北京', '上海', '重庆', '天津'],
   },
 
   /**
@@ -53,6 +57,23 @@ Page({
    */
   onUnload: function () {
   
+  },
+
+  startTour() {
+    if(this.data.isRandom){
+      let i = 0;
+      time = setInterval(() => {
+        i++
+        let ind = Math.floor(Math.random() * this.data.allCity.length)
+        let des = this.data.allCity[ind]
+        this.setData({
+          destination: des,
+        })
+        if (i > 20) {
+          clearInterval(time)
+        }
+      }, 100)
+    }
   },
 
   /**

@@ -76,7 +76,7 @@
       <view class="invite button" hidden="{{isRandom}}">
         {{isWaiting ? '邀请好友' : '取消双人旅行'}}
       </view>
-      <view class="ready button">
+      <view class="ready button" bindtap='startTour'>
         出发
       </view>
     </view>
