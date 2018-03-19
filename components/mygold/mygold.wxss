@@ -13,16 +13,8 @@
   vertical-align: top;
 }
 .num {
-<<<<<<< HEAD
-  display: inline-block;
-  padding-right: 40rpx;
-  font:  bold 26rpx/44rpx 'Microsoft YaHei';
-  color: #fc6161;
-  vertical-align: top;
-=======
   color: #fc6161;
   font:  bold 26rpx/38rpx 'Microsoft YaHei';
->>>>>>> 1b79ec44cd9727d1304053eab22ce43b8b9591d9
 }
 .plus {
   position: absolute;
@@ -30,15 +22,11 @@
   top: 14rpx;
   width: 16rpx;
   height: 16rpx;
-<<<<<<< HEAD
-=======
-  margin: 0 10rpx;
 }
 .goldd {
-  margin: 0 0 20rpx 40rpx
+  margin: 0 0 20rpx 40rpx;
 }
 .w-icon {
-   width: 16rpx;
+  width: 16rpx;
   height: 16rpx;
->>>>>>> 1b79ec44cd9727d1304053eab22ce43b8b9591d9
 }

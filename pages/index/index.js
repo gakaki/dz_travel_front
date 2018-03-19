@@ -1,14 +1,9 @@
 // pages/index/index.js
-<<<<<<< HEAD
-const app = getApp();
 
-
-=======
 import { start } from '../../utils/rest.js';
 import { IndexInfo } from '../../api.js';
 
 const app = getApp()
->>>>>>> 1b79ec44cd9727d1304053eab22ce43b8b9591d9
 Page({
 
   /**

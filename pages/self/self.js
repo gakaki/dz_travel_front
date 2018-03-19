@@ -12,7 +12,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    mySelf:false,
+    mySelf:true,
     mianTitle:[{
       title:'旅行足迹',
       icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png'
