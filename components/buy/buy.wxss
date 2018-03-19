@@ -59,7 +59,7 @@
   background-color: #fff;
   border-radius: 40rpx;
   transform: translateY(-64rpx);
-  box-shadow: 0 0 2rpx 3rpx rgba(0,0,0,.3)
+  box-shadow: 0 0 2rpx 4rpx rgba(0,0,0,.1)
 }
 .one-pic {
   width: 110rpx;

@@ -29,9 +29,21 @@
 
   <view class="btn-box f-r-sb">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-bg lt font" bindtap=''>景点拍照</view>
+    <view class="btn-bg lt font" bindtap='getPost'>景点拍照</view>
     <view class="btn-bg rgt font" bindtap=''>观光</view>
   </view>
   <buy bindtoclose="hidePop" bindtoBuy="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
-  
+  <view class="pop-bg" wx:if="{{isGetPost}}">
+    <image class="hc" src="https://gengxin.odao.com/update/h5/travel/raiders/line.png" id="line"></image>
+    <view class="hc cir"></view>
+    <view  id="postal" class="hc f-c-fs">
+      <image class="post-pic"></image>
+      <text class="post-name">获得索菲亚教堂明信片一张</text>
+      <text class="post-desc">获得索菲亚教堂明信片一张</text>
+      <text class="post-desc">获得索菲亚教堂明信片一张</text>
+      <view class="btn-icon btn-big-blue" bindtap='hidePost'>确定</view>
+    </view>
+  </view>
+
+
 </view>
