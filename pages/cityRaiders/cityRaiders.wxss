@@ -1,0 +1,162 @@
+.search {
+  width: 710rpx;
+  height: 72rpx;
+  margin: 16rpx auto;
+  background-color: #fff;
+  border-radius: 40rpx;
+  position: relative;
+}
+
+.search-icon {
+  width: 30rpx;
+  height: 29rpx;
+  position: absolute;
+  top: 50%;
+  left: 250rpx;
+  transform: translate(0, -50%);
+}
+
+.search-city {
+  display: inline-block;
+  height: 100%;
+  width: 590rpx;
+  position: absolute;
+  top: 0;
+  left: 60rpx;
+  font-size: 30rpx;
+  color: #8d8d8d;
+}
+
+.tip {
+  font-size: 30rpx;
+  color: #ccc;
+  text-align: center;
+}
+
+.tips-box {
+  width: 710rpx;
+  margin: 0 auto;
+  transform: translateY(-10rpx);
+}
+
+.line {
+  width: 235rpx;
+  height: 2rpx;
+  background-color: #e9e8ec;
+}
+
+.tips {
+  font-size: 20rpx;
+  color: #b0afb3;
+  margin: 0 11rpx;
+  letter-spacing: 3rpx;
+}
+
+.pro-box {
+  margin-left: 20rpx;
+}
+
+.abc {
+  font-size: 48rpx;
+  color: #278cff;
+}
+
+.pro {
+  margin-left: 20rpx;
+}
+
+.c-name, .pro, .c-per {
+  letter-spacing: 3rpx;
+  font-size: 30rpx;
+}
+
+.city-box {
+  background-color: #fff;
+}
+
+.city {
+  height: 95rpx;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  /* border-bottom: 2rpx solid #e9e8ec; */
+}
+
+.c-name {
+  margin-left: 74rpx;
+  flex-shrink: 0;
+}
+
+.c-per {
+  color: #8d8d8d;
+  margin-left: 128rpx;
+  position: absolute;
+  left: 32%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.hook {
+  width: 49rpx;
+  height: 36rpx;
+  margin-right: 50rpx;
+  flex-shrink: 0;
+}
+.line-sm {
+  width: 690rpx;
+  height: 2rpx;
+  background-color: #e9e8ec;
+  margin: 0 auto
+}
+.sv {
+  position: fixed;
+  top: 124rpx;
+  bottom: 140rpx;
+  left: 0;
+  right: 0;
+}
+.rgt-box {
+  position: fixed;
+  right: 15rpx;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+ 
+}
+.rgt {
+  margin-bottom: 10rpx;
+   font-size: 20rpx;
+  color: #8d8d8d;
+}
+.act {
+  color: #278cff;
+}
+.btn-box {
+  width: 100%;
+  height: 130rpx;
+  background-color: #f5f4f9;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9
+}
+
+.btn-icon {
+  margin-top: 30rpx;
+  color: #fff;
+  font-weight: normal;
+  width: 446rpx;
+  height: 127rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
+  background-size: cover;
+  line-height: 90rpx;
+  letter-spacing: 20rpx;
+  text-align: center;
+}
+.jiexian {
+  width: 100%;
+  height: 9rpx;
+  position: fixed;
+  bottom: 130rpx;
+  left: 0;
+}

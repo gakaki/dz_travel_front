@@ -15,9 +15,11 @@ const showErr = msg => {
 
 //启动（会默认走一遍登录流程）
 const start = suc => {
-  apis.Base.start(APPNAME ,srv).then(res => {
+  apis.Base.Start(APPNAME ,srv).then(res => {
     console.log(res)
-    suc(res);
+    suc(true);
+  }).catch(()=> {
+    suc(false);
   })
 }
 

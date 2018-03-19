@@ -1,7 +1,7 @@
 .bg {
   width: 100vw;
   height: 100vh;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/bg.png") 0 0 no-repeat;
+  background: url("https://gengxin.odao.com/update/h5/travel/play/bg1.jpg") 0 0 no-repeat;
   background-size: cover;
 }
 

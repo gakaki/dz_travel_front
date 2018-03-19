@@ -1,0 +1,86 @@
+.photo {
+  width: 100%;
+  height: 520rpx;
+  background-color: goldenrod;
+  position: relative;
+}
+.info {
+  width: 690rpx;
+  height: 104rpx;
+  margin: 20rpx 2rpx 20rpx 40rpx;
+}
+.i-top,.i-bot {
+  width: 100%;
+}
+.gps {
+  font-size: 36rpx;
+  color: #000;
+}
+.arrow {
+  width: 33rpx;
+  height: 18rpx;
+   margin-right: 2rpx 
+}
+.g-box {
+  flex-grow: 2
+}
+.date,.jijie {
+font-size: 30rpx;
+color: #878689
+}
+.jijie {
+margin: 0 20rpx 0 22rpx
+}
+.w-icon {
+  width: 33rpx;
+  height: 18rpx;
+}
+#info-desc {
+  width: 670rpx;
+  height: 90rpx;
+  margin: 22rpx 0;
+  font-size: 28rpx;
+}
+.cu {
+  height: 16rpx
+}
+.chu {
+  font-size: 36rpx;
+  margin: 25rpx 0 25rpx 0;
+
+}
+.get {
+  font-size: 30rpx;
+  color: #939295
+}
+.gt {
+margin-bottom: 6rpx
+}
+.btn-bg {
+  margin-top: 30rpx;
+  color: #fff;
+  font-weight: normal;
+  width: 315rpx;
+  height: 121rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/index/btn-blue.png') no-repeat;
+  background-size: cover;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+  text-align: center;
+}
+.lt{
+margin-left: 40rpx;
+}
+.rgt {
+  margin-right: 40rpx
+}
+#sv {
+  width: 710rpx;
+  height: 260rpx;
+}
+
+.event {
+  font:  bold 24rpx/40rpx 'Microsoft YaHei';
+  color: #939295;
+  margin: 0 20rpx;
+}
