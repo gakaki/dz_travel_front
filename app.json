@@ -1,5 +1,13 @@
 {
   "pages": [
+    "pages/xiangce/xiangce",
+    "pages/pointRaiders/pointRaiders",
+    "pages/postcard/postcard",
+    
+    
+    
+    "pages/raiders/raiders",
+    
     "pages/props/props",
     "pages/goSight/goSight",
     "pages/index/index",
@@ -7,15 +15,15 @@
     
     "pages/play/play",
     
-    "pages/pointRaiders/pointRaiders",
-    "pages/raiders/raiders",
+    
+   
     "pages/message/message",
     "pages/city/city",
     "pages/cityRaiders/cityRaiders",
     "pages/rank/rank",
     "pages/self/self",
     "pages/footprint/footprint",
-    "pages/postcard/postcard",
+    
     "pages/travelLog/travelLog"
   ],
   "window": {
