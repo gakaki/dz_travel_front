@@ -237,3 +237,8 @@
   left: 0;
   opacity: 0; 
 }
+
+.content{
+  font:bold 36rpx/50rpx 'Microsoft YaHei';
+  color: #b8b8b8;
+}

@@ -1,12 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/props/props",
     "pages/goSight/goSight",
-    "pages/index/index",
+    
     "pages/start/start",
-    
     "pages/play/play",
-    
     "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
     "pages/message/message",
