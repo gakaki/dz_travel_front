@@ -18,7 +18,7 @@
         <text class="fen font">分</text>
       </view>
       <view class="point-bot-rgt f-r-fe">
-      <image class="chat" src="https://gengxin.odao.com/update/h5/travel/raiders/chat.png"></image>
+        <image class="chat" src="https://gengxin.odao.com/update/h5/travel/raiders/chat.png"></image>
         <text class="chat-num font fg">7777</text>
         <view class="more font" bindtap='toDetail'>查看更多</view>
       </view>

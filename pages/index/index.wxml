@@ -39,11 +39,12 @@
         <text class="font">2000</text>
       </view>
     </view>
-    <view class="map">
-      <view class="mark flex" style="top:200rpx;left:400rpx;">
+    <!-- <view class="map"> -->
+      <!-- <view class="mark flex" style="top:200rpx;left:400rpx;">
         <image src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
       </view>
-    </view>
+    </view> -->
+    <canvas style="width: 750rpx; height: 300px;" canvas-id="map"></canvas>
     <view class="choose f-r-sb">
       <view class="city-travel btn font">
         城市游玩

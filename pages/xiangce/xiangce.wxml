@@ -1,0 +1,37 @@
+<view class="tab flex">
+  <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>景点</view>
+  <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
+</view>
+<view wx:if="{{viewpoint}}" class="xc-pro bs f-c-fs">
+  <view class="pro-top  f-r-sb">
+    <text class="pro">北京</text>
+    <text class="per">7/10</text>
+  </view>
+  <view class="img-box fs f-r-fs">
+    <image src="" class="img"></image>
+    <image src="" class="img"></image>
+    <image src="" class="img"></image>
+    <image src="" class="img"></image>
+    <image src="" class="img no-mr"></image>
+    <image src="" class="img"></image>
+    <image src="" class="img"></image>
+  </view>
+</view>
+
+<view wx:if="{{specialty}}" class="msg-post bs f-c-fs">
+  <view class="pro-top  f-r-sb">
+    <text class="pro">北京</text>
+    <text class="per">7/10</text>
+  </view>
+  <view class="msg-item f-r-fs">
+    <image src="" class="img-sm"></image>
+    <view class="post-rgt f-c-sb">
+      <view class="rgt-top f-r-sb">
+        <text class="pro1">北京</text>
+        <text class="per1">2018/3/19</text>
+      </view>
+      <text class="message fs">一直想是地方估计山东分公司法国是否</text>
+    </view>
+  </view>
+  <view class="bl"></view>
+</view>
