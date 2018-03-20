@@ -82,4 +82,5 @@
       </view>
     </view>
   </view>
+  <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="航班已到达祝您旅途愉快" outer-class="content" bind:confirm="_confirm"></tip>
 </view>

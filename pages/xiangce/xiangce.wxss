@@ -1,0 +1,84 @@
+.tab {
+  width: 100%;
+  height: 92rpx;
+  border-bottom: 2rpx solid #e9e8ec;
+}
+.tab-item {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  line-height: 92rpx;
+  font-size: 30rpx;
+  box-sizing: border-box
+}
+.act {
+  color: #278cff;
+  border-bottom: 4rpx solid #278cff
+}
+.xc-pro,.msg-post {
+    height: 380rpx; 
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background-color: #fff;
+   width: 680rpx;
+   padding: 15rpx;
+  border-radius: 20rpx;
+}
+.pro-top {
+  width: 100%;
+  margin-bottom: 10rpx;
+}
+.pro {
+  font: bold 40rpx 'Microsoft YaHei';
+}
+.per {
+  font: bold 40rpx 'Microsoft YaHei';
+  color: #b8b8b8
+}
+.img-box {
+  flex-wrap: wrap
+}
+.img {
+   height: 120rpx;
+   width: 120rpx;
+   border-radius: 16rpx;
+   background-color: tan;
+   margin: 20rpx 20rpx 0 0;
+}
+.no-mr {
+  margin-right: 0
+}
+.msg-item {
+  width: 100%
+}
+.img-sm {
+   height: 70rpx;
+   width: 70rpx;
+   border-radius: 10rpx;
+   background-color: tan;
+   margin: 15rpx 0 15rpx 0;
+}
+.post-rgt {
+height: 80rpx;
+flex-grow: 2;
+margin: 0 15rpx 0 20rpx;
+}
+.rgt-top {
+  width: 100%;
+}
+.pro1 {
+  font: bold 28rpx 'Microsoft YaHei';
+}
+.per1 {
+  font: bold 20rpx 'Microsoft YaHei';
+  color: #b8b8b8
+}
+.message {
+  font: bold 24rpx 'Microsoft YaHei';
+  color: #b8b8b8
+}
+.bl {
+  height: 2rpx;
+   width: 680rpx;
+   background-color: #f2f2f2;
+}
