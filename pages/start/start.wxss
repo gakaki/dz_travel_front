@@ -187,6 +187,7 @@
 .invite{
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
   background-size: cover;
+  position: relative;
 }
 
 .ready{
@@ -226,4 +227,18 @@
 .random-select{
   width: 32rpx;
   height: 45rpx;
+}
+
+.share{
+  width:315rpx;
+  height: 121rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; 
+}
+
+.content{
+  font:bold 36rpx/50rpx 'Microsoft YaHei';
+  color: #b8b8b8;
 }

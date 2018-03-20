@@ -3,6 +3,7 @@
   "navigationBarTitleText": "出发旅行",
   "usingComponents": {
     "mygold": "/components/mygold/mygold",
-    "avatar": "/components/avatar/avatar"
+    "avatar": "/components/avatar/avatar",
+    "tip": "/components/buy/buy"
   }
 }

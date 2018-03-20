@@ -2,21 +2,14 @@
   "pages": [
     "pages/xiangce/xiangce",
     "pages/pointRaiders/pointRaiders",
-    "pages/postcard/postcard",
-    
-    
-    
+    "pages/postcard/postcard",  
     "pages/raiders/raiders",
-    
+    "pages/index/index",
+
     "pages/props/props",
     "pages/goSight/goSight",
-    "pages/index/index",
     "pages/start/start",
-    
     "pages/play/play",
-    
-    
-   
     "pages/message/message",
     "pages/city/city",
     "pages/cityRaiders/cityRaiders",
