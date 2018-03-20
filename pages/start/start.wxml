@@ -21,7 +21,7 @@
         <image class="plane" src="https://gengxin.odao.com/update/h5/travel/start/plane.png"></image>
         <view class="xian"></view>
       </view>
-      <view class="random-place flex">
+      <view class="{{isRandom ? 'random-place' : ''}} flex">
         <text wx:if="{{destination}}">{{destination}}</text>
         <image wx:else class="random-select" src="https://gengxin.odao.com/update/h5/travel/start/help.png"></image>
       </view>
