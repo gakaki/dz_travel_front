@@ -103,14 +103,20 @@
 }
 
 .car-line {
+   position: absolute;
+  bottom: 146rpx;
+  left: 0;
   width: 570rpx;
   height: 2rpx;
   background-color: #f2f2f2;
 }
 
 .bot-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  margin-top: 34rpx;
+  /* margin-top: 34rpx; */
 }
 
 .cancel, .confirm {
