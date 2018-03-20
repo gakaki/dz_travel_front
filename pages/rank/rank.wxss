@@ -14,6 +14,8 @@
   width: 100%;
   height: 102rpx;
   border-bottom: 2rpx solid #e9e8ec;
+  position: relative;
+  z-index: 10;
 }
 
 .rank-item{
@@ -301,4 +303,45 @@
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+.friend{
+  top: 202rpx;
+  z-index: 0;
+}
+
+.famous-icon{
+  width: 24rpx;
+  height: 23rpx;
+  margin-right: 4rpx;
+}
+
+.score-icon{
+  width: 24rpx;
+  height: 23rpx;
+  margin-right: 4rpx;
+}
+
+.famousing-icon{
+  width: 28rpx;
+  height: 27rpx;
+  margin-right: 6rpx;
+}
+
+.scoreing-icon{
+  width: 31rpx;
+  height: 28rpx;
+  margin-right: 6rpx;
+}
+
+.self-famous{
+  width: 39rpx;
+  height: 37rpx;
+  margin-right: 10rpx;
+}
+
+.self-score{
+  width: 38rpx;
+  height: 36rpx;
+  margin-right: 10rpx;
 }
