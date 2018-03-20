@@ -8,7 +8,7 @@ Page({
   viewpoint: true,
   specialty: false,
   starWid: 240,
-  starCount: 7,
+  starCount: 1,
   testStr: '阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是'
   },
 

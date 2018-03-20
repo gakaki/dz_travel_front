@@ -19,7 +19,7 @@
 .arrow {
   width: 33rpx;
   height: 18rpx;
-   margin-right: 2rpx 
+   margin-right: 10rpx 
 }
 .g-box {
   flex-grow: 2
@@ -34,10 +34,11 @@ margin: 0 20rpx 0 22rpx
 .w-icon {
   width: 33rpx;
   height: 18rpx;
+  margin-right: 10rpx
 }
 #info-desc {
   width: 670rpx;
-  height: 90rpx;
+   min-height: 90rpx; 
   margin: 22rpx 0;
   font-size: 28rpx;
 }
@@ -63,7 +64,7 @@ margin-bottom: 6rpx
   width: 315rpx;
   height: 121rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/index/btn-blue.png') no-repeat;
-  background-size: cover;
+  background-size: contain;
   line-height: 90rpx;
   letter-spacing: 3rpx;
   text-align: center;
@@ -72,7 +73,9 @@ margin-bottom: 6rpx
 margin-left: 40rpx;
 }
 .rgt {
-  margin-right: 40rpx
+  margin-right: 30rpx;
+   letter-spacing: 30rpx; 
+    padding-left: 10rpx  
 }
 #sv {
   width: 710rpx;
@@ -130,4 +133,11 @@ margin-left: 40rpx;
 .btn-icon {
   margin-top: 44rpx;
   letter-spacing: 30rpx
+}
+.fc {
+  font: bold 28rpx/40rpx 'Microsoft YaHei';
+  color: #b8b8b8
+}
+.to-top {
+  transform: rotate(180deg)
 }

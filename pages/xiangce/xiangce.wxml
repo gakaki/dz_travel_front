@@ -1,6 +1,6 @@
 <view class="tab flex">
-  <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>景点</view>
-  <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
+  <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>
+  <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>留言明信片</view>
 </view>
 <view wx:if="{{viewpoint}}" class="xc-pro bs f-c-fs">
   <view class="pro-top  f-r-sb">

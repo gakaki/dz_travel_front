@@ -1,9 +1,9 @@
 <view class="bg flex" catchtap='toHide'>
-  <view class="con f-c-fs {{isBuy ? 'tip' : ''}}" catchtap='notDo'>
+  <view class="con f-c-fs {{isBuy ? '' : 'tip'}}" catchtap='notDo'>
     <view wx:if="{{isBuy}}" class="f-r-fs car-top">
       <image class="one-pic pop-car" src=""></image>
       <view class='f-c-sb car-rgt'>
-        <text class="car-name font">{{name}}</text>
+        <text class="car-name fs font">{{name}}</text>
         <view class="fs f-r-fs">
           <image class="gold" src="{{picUrl}}"></image>
           <text class='gold-num font'>{{goldNum}}</text>

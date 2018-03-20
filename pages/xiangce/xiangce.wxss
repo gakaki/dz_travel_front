@@ -9,14 +9,15 @@
   text-align: center;
   line-height: 92rpx;
   font-size: 30rpx;
-  box-sizing: border-box
+  box-sizing: border-box;
+  letter-spacing: 2rpx
 }
 .act {
   color: #278cff;
   border-bottom: 4rpx solid #278cff
 }
 .xc-pro,.msg-post {
-    height: 380rpx; 
+    height: 38/0rpx; 
   margin: 0 auto;
   margin-top: 20rpx;
   background-color: #fff;
@@ -61,7 +62,7 @@
 .post-rgt {
 height: 80rpx;
 flex-grow: 2;
-margin: 0 15rpx 0 20rpx;
+margin: 0 0 0 20rpx;
 }
 .rgt-top {
   width: 100%;
