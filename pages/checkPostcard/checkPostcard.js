@@ -1,28 +1,18 @@
-// pages/raiders/raiders.js
+// pages/checkPostcard/checkPostcard.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    starDft:'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
-    isShowPop: false,
-    starWid: 130,
-    starCount: 5
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: '中央大街'
-    })
-  },
-  isPop() {
-this.setData({
-  isShowPop: !this.data.isShowPop
-})
+  
   },
 
   /**

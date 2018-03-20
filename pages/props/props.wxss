@@ -75,7 +75,7 @@
 }
 
 .gold-num {
-  font-size: 30rpx;
+  font-size: 28rpx;
   color: #fc6161;
   margin-left: 6rpx;
   letter-spacing: 3rpx;
@@ -102,9 +102,8 @@
 
 .spe-num {
   color: #878689;
-  font-size: 34rpx;
+  font-size: 32rpx;
   letter-spacing: 3rpx;
-  font-weight: normal;
 }
 
 /* .pop-car-bg {
