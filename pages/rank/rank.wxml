@@ -1,2 +1,104 @@
 <!--pages/rank/rank.wxml-->
-<text>pages/rank/rank.wxml</text>
+<view class="con">
+  <view class="head f-r-sa">
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png"></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png"></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png"></image>
+  </view>
+  <view class="rank-head flex">
+    <view class="rank-item {{isCountry ? 'rank-choose' : ''}}">全国排行榜</view>
+    <view class="rank-item {{isCountry ? '' : 'rank-choose'}}">好友排行榜</view>
+  </view>
+  <view class="top-three f-r-sb">
+    <view class="first">
+      <view class="mark">1</view>
+      <view class="avatar"></view>
+      <view class="nickname">
+        <text>昵称几个字七个字的名字</text>
+      </view>
+      <view class="info f-r-sb">
+        <view class="rank-info f-r-sb">
+          <image class="rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
+          <text>9999</text>
+        </view>
+        <view class="xian"></view>
+        <view class="gold f-r-sb">
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
+          <text>9999</text>
+        </view>
+      </view>
+    </view>
+    <view class="second">
+      <view class="mark">2</view>
+      <view class="avatar"></view>
+      <view class="nickname">
+        <text>七个字的名字七个字的名字</text>
+      </view>
+      <view class="info f-r-sb">
+        <view class="rank-info f-r-sb">
+          <image class="rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
+          <text>9999</text>
+        </view>
+        <view class="xian"></view>
+        <view class="gold f-r-sb">
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
+          <text>9999</text>
+        </view>
+      </view>
+    </view>
+    <view class="third">
+      <view class="mark">3</view>
+      <view class="avatar"></view>
+      <view class="nickname">
+        <text>昵称几个字七个字的名字</text>
+      </view>
+      <view class="info f-r-sb">
+        <view class="rank-info f-r-sb">
+          <image class="rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
+          <text>9999</text>
+        </view>
+        <view class="xian"></view>
+        <view class="gold f-r-sb">
+          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
+          <text>9999</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <scroll-view scroll-y class="rank-other">
+    <view class="person-info f-r-sb" wx:for="{{rankingInfo}}">
+      <view class="f-r-sb">
+        <text class="ranking">{{item.rank}}</text>
+        <image class="avatar" src="{{item.avatar}}"></image>
+        <text class="name">{{item.nickName}}</text>
+      </view>
+      <view class="f-c-fs">
+        <view class="ranking-info f-r-sb">
+          <image class="ranking-icon" src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
+          <text>{{item.foot}}</text>
+        </view>
+        <view class="person-gold f-r-sb">
+          <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
+          <text>{{item.gold}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="self-info f-r-sb">
+    <view class="self-ranking">
+      <text>我的排名</text>
+      <text>未上榜</text>
+    </view>
+    <view class="f-r-sb">
+      <view class="self-ranking-info f-r-sb">
+        <image class="self-icon" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
+        <text>9999</text>
+      </view>
+      <view class="share">
+        炫耀排名
+        <button open-type='share' class="share-btn"></button>
+      </view>
+    </view>
+  </view>
+  <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
+</view>

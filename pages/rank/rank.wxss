@@ -1,1 +1,304 @@
 /* pages/rank/rank.wxss */
+.head{
+  height: 100rpx;
+  width: 100%;
+  background-color: #fff;
+}
+
+.rank-title{
+  width: 200rpx;
+  height: 60rpx;
+}
+
+.rank-head{
+  width: 100%;
+  height: 102rpx;
+  border-bottom: 2rpx solid #e9e8ec;
+}
+
+.rank-item{
+  width: 50%;
+  height: 100rpx;
+  text-align: center;
+  font: bold 32rpx/100rpx 'Microsoft Yahei';
+}
+
+.rank-choose{
+  color: #278cff;
+  border-bottom: 4rpx solid #278cff;
+}
+
+.top-three{
+  height: 317rpx;
+  width: 100%;
+  position: relative;
+  align-items: flex-start;
+}
+
+.first, .second , .third{
+  width: 33%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.first{
+  order: 2;
+  margin-top: 66rpx;
+}
+
+.second{
+  order: 1;
+  margin-top: 78rpx;
+}
+
+.third{
+  order: 3;
+  margin-top: 97rpx;
+}
+
+.first .mark{
+  width: 61rpx;
+  height: 49rpx;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  top: -40rpx;
+  z-index: 1;
+  background: url('https://gengxin.odao.com/update/h5/travel/rank/first.png') 0 0 no-repeat;
+  background-size: cover;
+  text-align: center;
+  font: bold 30rpx/49rpx 'Microsoft Yahei';
+  color: #e9922b;
+}
+
+.first .avatar{
+  width: 135rpx;
+  height: 135rpx;
+  border: 5rpx solid #ffd400;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #0f0;
+  position: relative;
+  z-index: 10;
+}
+
+.second .avatar{
+  width: 122rpx;
+  height: 122rpx;
+  border: 5rpx solid #4e84e5;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #f00;
+  position: relative;
+  z-index: 10;
+}
+
+.second .mark{
+  width: 55rpx;
+  height: 45rpx;
+  position: absolute;
+  left: 50%;
+  top: -37rpx;
+  transform: translate(-50%,0);
+  z-index: 1;
+  background: url('https://gengxin.odao.com/update/h5/travel/rank/second.png') 0 0 no-repeat;
+  background-size: cover;
+  text-align: center;
+  font: bold 26rpx/45rpx 'Microsoft Yahei';
+  color: #fff;
+}
+
+.third .avatar{
+  width: 105rpx;
+  height: 105rpx;
+  border: 5rpx solid #ffa525;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background-color: #f00;
+  position: relative;
+  z-index: 10;
+}
+
+.third .mark{
+  width: 55rpx;
+  height: 45rpx;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  top: -35rpx;
+  z-index: 1;
+  background: url('https://gengxin.odao.com/update/h5/travel/rank/third.png') 0 0 no-repeat;
+  background-size: cover;
+  text-align: center;
+  font: bold 26rpx/45rpx 'Microsoft Yahei';
+  color: #e86a25;
+}
+
+.nickname{
+  width: 100%;
+  font: bold 26rpx 'Microsoft Yahei';
+  margin-top: 10rpx;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info{
+  margin-top: 10rpx;
+}
+
+.rank-icon{
+  width: 20rpx;
+  height: 25rpx;
+  margin-right: 4rpx;
+}
+
+.rank-info text{
+  font: 22rpx 'Microsoft Yahei';
+  color: #8d8d8d;
+}
+
+.gold{
+  height: 30rpx;
+  border: 2rpx solid #fc6161;
+  border-radius: 20rpx;
+  margin-top: 2rpx;
+}
+
+.gold-icon{
+  width: 25rpx;
+  height: 25rpx;
+  margin:0 4rpx 0 2rpx;
+}
+
+.gold text{
+  font: 22rpx 'Microsoft Yahei';
+  color: #fc6161;
+  margin-right: 9rpx;
+}
+
+.xian{
+  width: 2rpx;
+  height: 32rpx;
+  background-color: #dcdbe0;
+  margin: 0 9rpx 0 10rpx;
+}
+
+.rank-other{
+  position: absolute;
+  top: 520rpx;
+  bottom: 140rpx;
+  width: 100%;
+}
+
+.person-info{
+  width: 710rpx;
+  height: 110rpx;
+  border-top: 2rpx solid #e9e8ec;
+  margin: auto;
+}
+
+.ranking{
+  font: bold 28rpx 'Microsoft Yahei';
+  margin-left: 20rpx;
+}
+
+.person-info .avatar{
+  width: 74rpx;
+  height: 74rpx;
+  border-radius: 50%;
+  background-color: #f00;
+  margin: 0 20rpx;
+}
+
+.name{
+  font: bold 26rpx 'Microsoft Yahei';
+}
+
+.ranking-icon{
+  width: 25rpx;
+  height: 31rpx;
+  margin-right: 6rpx;
+}
+
+.ranking-info text{
+  font: bold 28rpx 'Microsoft Yahei';
+  color: #8d8d8d;
+}
+
+.person-gold{
+  height: 36rpx;
+  border: 2rpx solid #fc1818;
+  border-radius: 20rpx;
+}
+
+.ranking-gold{
+  width: 32rpx;
+  height: 32rpx;
+  margin:0 6rpx 0 3rpx;
+}
+
+.person-gold text{
+  font: bold 28rpx 'Microsoft Yahei';
+  color: #fc6161;
+  margin-right: 10rpx;
+}
+
+.self-info{
+  width: 100%;
+  height: 142rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #fff; 
+}
+
+.self-ranking text{
+  font: bold 30rpx 'Microsoft Yahei';
+  margin-left: 40rpx;
+}
+
+.self-icon{
+  width: 34rpx;
+  height: 43rpx;
+  margin-right: 10rpx;
+}
+
+.self-ranking-info text{
+  font: bold 30rpx 'Microsoft Yahei';
+  color: #8d8d8d;
+}
+
+.share{
+  width: 126rpx;
+  height: 76rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/rank/btn.png') 0 0 no-repeat;
+  background-size: cover;
+  position: relative;
+  font: 22rpx 'Microsoft Yahei';
+  color: #fff;
+  text-align: center;
+  line-height: 45rpx;
+  margin: 36rpx 40rpx 0;
+}
+
+.share-btn{
+  width: 126rpx;
+  height: 46rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.cut-off{
+  width: 100%;
+  height: 9rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

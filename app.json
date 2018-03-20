@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/rank/rank",
     "pages/index/index",
     "pages/props/props",
     "pages/goSight/goSight",
@@ -11,7 +12,7 @@
     "pages/message/message",
     "pages/city/city",
     "pages/cityRaiders/cityRaiders",
-    "pages/rank/rank",
+    
     "pages/self/self",
     "pages/footprint/footprint",
     "pages/postcard/postcard",
