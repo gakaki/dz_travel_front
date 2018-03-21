@@ -1,9 +1,6 @@
 <!--pages/rank/rank.wxml-->
 <view class="con">
   <view class="head f-r-sa">
-    <!-- <image class="rank-title" src="{{famous}}" bindtap='lookFamous'></image>
-    <image class="rank-title" src="{{foot}}" bindtap='lookFoot'></image>
-    <image class="rank-title" src="{{score}}" bindtap='lookScore'></image> -->
     <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png" hidden='{{!famous}}' bindtap='lookFamous'></image>
     <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank-gray.png" hidden='{{famous}}' bindtap='lookFamous'></image>
     <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank.png" hidden='{{!foot}}' bindtap='lookFoot'></image>
@@ -77,8 +74,8 @@
       </view>
     </view>
   </view>
-  <scroll-view scroll-y class="rank-other {{isCountry ? '' : 'friend'}}">
-    <view class="person-info f-r-sb" wx:for="{{isCountry ? rankingCountry : rankingFriend}}">
+  <scroll-view scroll-y class="rank-other {{isCountry ? '' : 'friend'}}" scroll-into-view="{{toView}}">
+    <view id="rank{{index}}" class="person-info f-r-sb" wx:for="{{isCountry ? rankingCountry : rankingFriend}}" wx:key="{{index}}">
       <view class="f-r-sb">
         <text class="ranking">{{item.rank}}</text>
         <image class="avatar" src="{{item.avatar}}"></image>

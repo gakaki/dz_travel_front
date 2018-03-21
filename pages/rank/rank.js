@@ -5,13 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // famous:'https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png',
-    // foot:'https://gengxin.odao.com/update/h5/travel/rank/foot-rank-gray.png',
-    // score:'https://gengxin.odao.com/update/h5/travel/rank/score-rank-gray.png',
     famous:true,
     foot:false,
     score:false,
     isCountry:true,
+    toView:'rank0',
     rankingCountry: [{ rank: 4, avatar: '', nickName: '昵称几个字', foot: 9999, gold: 9999 }, 
     { rank: 5, avatar: '', nickName: '昵称几个字', foot: 9998, gold: 999 }, 
     { rank: 6, avatar: '', nickName: '昵称几个字', foot: 9997, gold: 99 }, 
@@ -73,13 +71,15 @@ Page({
 
   rankCountry() {
     this.setData({
-      isCountry:true
+      isCountry:true,
+      toView: 'rank0',
     })
   },
 
   rankFriend() {
     this.setData({
-      isCountry: false
+      isCountry: false,
+      toView: 'rank0',
     })
   },
 
@@ -88,7 +88,8 @@ Page({
       famous: true,
       foot: false,
       score: false,
-      isCountry:true
+      isCountry:true,
+      toView: 'rank0',
     })
   },
 
@@ -97,7 +98,8 @@ Page({
       famous: false,
       foot: true,
       score: false,
-      isCountry: true
+      isCountry: true,
+      toView: 'rank0',
     })
   },
 
@@ -106,7 +108,8 @@ Page({
       famous: false,
       foot: false,
       score: true,
-      isCountry: true
+      isCountry: true,
+      toView: 'rank0',
     })
   },
 
