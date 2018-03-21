@@ -8,7 +8,7 @@
     <text class="per">7/10</text>
   </view>
   <view class="img-box fs f-r-fs">
-    <image src="" class="img"></image>
+    <image bindtap='toMsgPost' src="" class="img"></image>
     <image src="" class="img"></image>
     <image src="" class="img"></image>
     <image src="" class="img"></image>
@@ -23,7 +23,7 @@
     <text class="pro">北京</text>
     <text class="per">7/10</text>
   </view>
-  <view class="msg-item f-r-fs">
+  <view class="msg-item f-r-fs" bindtap='toMsgPost'>
     <image src="" class="img-sm"></image>
     <view class="post-rgt f-c-sb">
       <view class="rgt-top f-r-sb">

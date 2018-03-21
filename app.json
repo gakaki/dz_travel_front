@@ -1,12 +1,13 @@
 {
   "pages": [
-
-    "pages/play/play",
-
+    
     "pages/postcard/postcard",
     "pages/raiders/raiders",
     "pages/pointRaiders/pointRaiders",
     "pages/checkPostcard/checkPostcard",
+    
+    "pages/play/play",
+    
     "pages/xiangce/xiangce",
     "pages/index/index",
     "pages/props/props",

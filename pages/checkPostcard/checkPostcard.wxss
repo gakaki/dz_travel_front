@@ -1,1 +1,114 @@
-/* pages/checkPostcard/checkPostcard.wxss */
+.pic-box {
+  width: 680rpx;
+  height: 478rpx;
+  padding: 10rpx 15rpx;
+  margin: 0 auto;
+  margin-bottom: 30rpx;
+}
+
+.pb {
+  margin-top: 20rpx;
+}
+
+.pic {
+  width: 100%;
+  height: 100%;
+  background-color: #f9f5f0;
+  position: relative
+}
+
+.pc-top {
+  width: 100%;
+  height: 152rpx;
+}
+
+.circle {
+  margin: 15rpx 0 0 30rpx;
+}
+
+.cir {
+  width: 35rpx;
+  height: 35rpx;
+  border: 1rpx solid;
+  border-radius: 50%;
+  margin-right: 7rpx;
+}
+
+.icon {
+  margin: 35rpx 40rpx 0 0;
+  width: 95rpx;
+  height: 95rpx;
+  background-color: wheat;
+}
+
+.pc-bot {
+  position: relative;
+  width: 610rpx;
+  height: 295rpx;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 198rpx;
+  height: 119rpx;
+  position: absolute;
+  right: 0rpx;
+  bottom: -10rpx;
+}
+
+.line {
+  width: 2rpx;
+  height: 295rpx;
+  position: absolute;
+  background-color: #c8c4c0;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ta {
+
+  font: bold 30rpx/40rpx 'Microsoft YaHei';
+  overflow: hidden;
+  width: 282rpx;
+  height: 250rpx;
+  
+}
+.btn {
+   position: relative;
+  margin: 0 auto;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+}
+.subBtn {
+  width: 100%;
+  height: 90rpx;
+   position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0
+}
+.date-nn {
+  margin-top: 15rpx
+}
+.date,.nn {
+  font: bold 30rpx 'Microsoft YaHei';
+}
+.nn {
+  margin-left: 48rpx
+}
+.date {
+  margin: 0 0 0 35rpx;
+}
+.pre,.next {
+position: absolute;
+bottom: 10rpx;
+font: bold 20rpx 'Microsoft YaHei';
+}
+.pre {
+  left: 10rpx;
+}
+.next {
+  right: 10rpx;
+}
