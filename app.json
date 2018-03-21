@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/settings/settings",
     "pages/rank/rank",
     "pages/other/other",
     "pages/play/play",
