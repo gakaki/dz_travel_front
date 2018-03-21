@@ -11,10 +11,11 @@
           <text class="font nn">啊的是法国</text> 
           <view class="sec f-r-fs">
            <view class="flex"><star wid='{{starWid}}' starNum="{{starCount}}"></star></view>
-            <text class="num font ">7.7</text>
+            <text class="num font ">{{starCount}}</text>
             <text class="fen font ">分</text>
+             <text class="heart-num font ">77777</text>
             <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
-            <text class="heart-num font ">77777</text>
+           
           </view>
         </view>
       </view>
@@ -27,7 +28,7 @@
   </scroll-view>
   <view class="btn-box flex">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-icon font" bindtap='isPop'>我要评论</view>
+    <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
   <comment wx:if="{{isShowPop}}" bindtoclose="isPop"></comment>
 </view>

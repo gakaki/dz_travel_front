@@ -1,2 +1,10 @@
-<!--pages/postcard/postcard.wxml-->
-<text>pages/postcard/postcard.wxml</text>
+<view class="post-item bs f-r-fs">
+  <image src="" class="img"></image>
+  <view class="post-rgt f-c-sb">
+    <view class="rgt-top f-r-sb">
+      <text class="pro">北京</text>
+      <text class="per">7/10</text>
+    </view>
+    <view class="more" bindtap='toMyXc'>查看相册</view>
+  </view>
+</view>

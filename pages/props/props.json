@@ -3,6 +3,6 @@
   "usingComponents": {
     "mygold": "../../components/mygold/mygold",
     "buy": "../../components/buy/buy",
-    "buy-num":"../../components/buy-num/buy-num"
+    "buynum":"../../components/buynum/buynum"
   }
 }

@@ -7,6 +7,9 @@
   left: 0;
   z-index: 99;
 }
+.bs {
+  box-shadow: 0 4rpx 10rpx 2rpx rgba(0,0,0,.1)
+}
 .con {
   width: 100vw;
   height: 100vh;
@@ -125,5 +128,15 @@
   position: fixed;
   bottom: 0;
   left: 0;
+}
+.btn-big-blue {
+  color: #fff;
+  width: 446rpx;
+  height: 127rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
+  background-size: cover;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+   text-align: center; 
 }
 

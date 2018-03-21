@@ -1,1 +1,40 @@
-/* pages/postcard/postcard.wxss */
+.post-item {
+  height: 160rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background-color: #fff;
+   width: 710rpx;
+  border-radius: 20rpx;
+}
+.img {
+   height: 130rpx;
+   width: 130rpx;
+   border-radius: 16rpx;
+   background-color: tan;
+   margin-left: 15rpx;
+}
+.post-rgt {
+height: 130rpx;
+flex-grow: 2;
+margin: 0 15rpx 0 20rpx;
+}
+.rgt-top {
+  width: 100%;
+}
+.pro {
+  font: bold 40rpx 'Microsoft YaHei';
+}
+.per {
+  font: bold 40rpx 'Microsoft YaHei';
+  color: #b8b8b8
+}
+.more {
+  align-self: flex-end;
+   font: bold 20rpx/36rpx 'Microsoft YaHei';
+  color: #fff;
+    height: 36rpx;
+   width: 120rpx;
+   border-radius: 20rpx;
+   background-color: #278cff;
+   text-align: center;
+}

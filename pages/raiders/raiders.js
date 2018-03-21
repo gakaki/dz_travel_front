@@ -8,7 +8,7 @@ Page({
     starDft:'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
     isShowPop: false,
     starWid: 130,
-    starCount: 3.3
+    starCount: 5
   },
 
   /**

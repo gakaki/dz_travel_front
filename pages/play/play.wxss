@@ -228,3 +228,63 @@ color: #fff;
   margin: 0rpx 18rpx 0 0;
   color: #fff;
 }
+#play-desc {
+  position: absolute;
+  top: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 40rpx;
+  width: 550rpx;
+  height: 980rpx;
+  padding: 0 30rpx;
+  background-color: #fff;
+  box-shadow: 0 0 2rpx 4rpx rgba(0,0,0,.1)
+}
+#title {
+font: bold 36rpx 'Microsoft YaHei';
+letter-spacing: 2rpx;
+margin-top: 41rpx;
+}
+.rule {
+  font: bold 30rpx 'Microsoft YaHei';
+  letter-spacing: 2rpx;
+}
+.rule-con {
+  width: 500rpx;
+  font: bold 24rpx/35rpx 'Microsoft YaHei';
+  position: relative;
+}
+.rule-con::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -24rpx;
+}
+.rule1::before {
+  content: '1.';
+}
+.rule2::before {
+  content: '2.';
+}
+.rule3::before {
+  content: '3.';
+}
+.rule4::before {
+  content: '4.';
+}
+.rule5::before {
+  content: '5.';
+}
+.rule6::before {
+  content: '6.';
+}
+.rule7::before {
+  content: '7.';
+}
+.cfm-btn {
+  margin-top: 56rpx;
+}
+.cfm-btn {
+letter-spacing: 30rpx;
+padding-left:30rpx;
+}
