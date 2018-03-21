@@ -2,9 +2,7 @@
   "pages": [
     "pages/rank/rank",
     "pages/other/other",
-    
     "pages/play/play",
-    "pages/postcard/postcard",
     "pages/raiders/raiders",
     "pages/pointRaiders/pointRaiders",
     "pages/checkPostcard/checkPostcard",
@@ -18,8 +16,8 @@
     "pages/cityRaiders/cityRaiders",
     "pages/self/self",
     "pages/footprint/footprint",
-    "pages/travelLog/travelLog"
-    
+    "pages/travelLog/travelLog",
+    "pages/postcard/postcard"
   ],
   "window": {
     "backgroundTextStyle": "light",

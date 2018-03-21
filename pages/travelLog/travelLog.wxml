@@ -3,13 +3,26 @@
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
   </view>
-  <view>
-    <view>2018</view>
-    <scroll-view class='reach-city' scroll-y='true'>
+  <scroll-view class='reach-city' scroll-y='true'>
+    <view class='year'>2018</view>
+    <view wx:for='{{init}}' wx:key='{{index}}'>
       <view class='one-city'>
-        <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
+        <image class='ariplane' wx:if='{{index != 0}}' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
+        <view class='mark mark-start' wx:if='{{index == 0}}'>起</view>
+        <view class='mark-circle' wx:else=''></view>
+        <view class='log-content'>到达{{item.city}}</view>
+        <view class='time'>{{item.time}}</view>
       </view>
-      
-    </scroll-view> 
-  </view>
+       <view class='one-city'>
+        <image class='ariplane' wx:if='{{item.car}}' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
+        <view class='mark-circle'></view>
+        <view class='log-content'>
+          <text>前往</text>
+          <text class='detail' wx:for='{{item.des}}' wx:for-item="select" wx:key='{{index}}'>{{select.city}}<text wx:if='{{index != item.des.length-1}}'>、</text></text>
+        </view>
+        <view class='time'>{{item.time}}</view>
+      </view>
+    </view>
+    <view class='timeLine' style='height:{{init.length*138-69}}px'></view>
+  </scroll-view> 
 </view>
