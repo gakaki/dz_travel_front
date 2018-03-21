@@ -14,6 +14,8 @@
   width: 100%;
   height: 102rpx;
   border-bottom: 2rpx solid #e9e8ec;
+  position: relative;
+  z-index: 10;
 }
 
 .rank-item{
@@ -75,22 +77,20 @@
 }
 
 .first .avatar{
-  width: 135rpx;
-  height: 135rpx;
+  width: 130rpx;
+  height: 130rpx;
   border: 5rpx solid #ffd400;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #0f0;
   position: relative;
   z-index: 10;
 }
 
 .second .avatar{
-  width: 122rpx;
-  height: 122rpx;
+  width: 117rpx;
+  height: 117rpx;
   border: 5rpx solid #4e84e5;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #f00;
   position: relative;
   z-index: 10;
@@ -112,11 +112,10 @@
 }
 
 .third .avatar{
-  width: 105rpx;
-  height: 105rpx;
+  width: 100rpx;
+  height: 100rpx;
   border: 5rpx solid #ffa525;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #f00;
   position: relative;
   z-index: 10;
@@ -301,4 +300,45 @@
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+.friend{
+  top: 202rpx;
+  z-index: 0;
+}
+
+.famous-icon{
+  width: 24rpx;
+  height: 23rpx;
+  margin-right: 4rpx;
+}
+
+.score-icon{
+  width: 24rpx;
+  height: 23rpx;
+  margin-right: 4rpx;
+}
+
+.famousing-icon{
+  width: 28rpx;
+  height: 27rpx;
+  margin-right: 6rpx;
+}
+
+.scoreing-icon{
+  width: 31rpx;
+  height: 28rpx;
+  margin-right: 6rpx;
+}
+
+.self-famous{
+  width: 39rpx;
+  height: 37rpx;
+  margin-right: 10rpx;
+}
+
+.self-score{
+  width: 38rpx;
+  height: 36rpx;
+  margin-right: 10rpx;
 }

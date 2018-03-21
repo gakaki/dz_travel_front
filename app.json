@@ -1,13 +1,13 @@
 {
-  "pages": [
-    
+  "pages": [    
     "pages/postcard/postcard",
+    "pages/settings/settings",
+    "pages/rank/rank",
+    "pages/other/other",
     "pages/raiders/raiders",
     "pages/pointRaiders/pointRaiders",
     "pages/checkPostcard/checkPostcard",
-    
     "pages/play/play",
-    
     "pages/xiangce/xiangce",
     "pages/index/index",
     "pages/props/props",
@@ -15,7 +15,6 @@
     "pages/start/start",
     "pages/message/message",
     "pages/city/city",
-    "pages/rank/rank",
     "pages/cityRaiders/cityRaiders",
     "pages/self/self",
     "pages/footprint/footprint",
