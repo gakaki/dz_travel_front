@@ -122,6 +122,7 @@ Page({
   },
 
   toOther() {
+    //此处需要传个sid或者uid，后期跟后台沟通
     wx.navigateTo({
       url: '../other/other',
     })
