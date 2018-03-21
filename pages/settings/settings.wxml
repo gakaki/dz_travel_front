@@ -30,8 +30,9 @@
   </view>
   <view class="wenti">
     <text>问题反馈</text>
+    <button open-type='contact' class="contact"></button>
   </view>
-  <view class="button">
+  <view class="button" bindtap='saveDress'>
     <text class="confirm">保 存</text>
   </view>
 </view>

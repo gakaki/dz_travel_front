@@ -97,6 +97,16 @@
   transform:translate(-50%,0);
   line-height: 36rpx;
   border-bottom: 2rpx solid #b0afb3;
+  position: relative;
+}
+
+.contact{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
 .button{
