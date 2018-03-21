@@ -15,7 +15,7 @@
   <view class="top-three f-r-sb" wx:if="{{isCountry}}">
     <view class="first">
       <view class="mark">1</view>
-      <view class="avatar"></view>
+      <image class="avatar" src=""></image>
       <view class="nickname">
         <text>昵称几个字七个字的名字</text>
       </view>
@@ -35,7 +35,7 @@
     </view>
     <view class="second">
       <view class="mark">2</view>
-      <view class="avatar"></view>
+      <image class="avatar" src=""></image>
       <view class="nickname">
         <text>七个字的名字七个字的名字</text>
       </view>
@@ -55,7 +55,7 @@
     </view>
     <view class="third">
       <view class="mark">3</view>
-      <view class="avatar"></view>
+      <image class="avatar" src=""></image>
       <view class="nickname">
         <text>昵称几个字七个字的名字</text>
       </view>

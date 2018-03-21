@@ -77,22 +77,20 @@
 }
 
 .first .avatar{
-  width: 135rpx;
-  height: 135rpx;
+  width: 130rpx;
+  height: 130rpx;
   border: 5rpx solid #ffd400;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #0f0;
   position: relative;
   z-index: 10;
 }
 
 .second .avatar{
-  width: 122rpx;
-  height: 122rpx;
+  width: 117rpx;
+  height: 117rpx;
   border: 5rpx solid #4e84e5;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #f00;
   position: relative;
   z-index: 10;
@@ -114,11 +112,10 @@
 }
 
 .third .avatar{
-  width: 105rpx;
-  height: 105rpx;
+  width: 100rpx;
+  height: 100rpx;
   border: 5rpx solid #ffa525;
   border-radius: 50%;
-  box-sizing: border-box;
   background-color: #f00;
   position: relative;
   z-index: 10;
