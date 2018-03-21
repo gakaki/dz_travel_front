@@ -8,6 +8,7 @@ Page({
       init:[{
         city:'南京',
         time:'3月15日',
+        car:true,
         des:[
           {
             city: '种树领',
@@ -16,7 +17,55 @@ Page({
             city: '秦淮河',
             time: '3月15日',
           }]
-      }]
+      }, {
+        city: '南京',
+        time: '3月15日',
+        car:false,
+        des: [
+          {
+            city: '种树领',
+            time: '3月15日',
+          }, {
+            city: '秦淮河',
+            time: '3月15日',
+          }]
+        }, {
+          city: '南京',
+          time: '3月15日',
+          car: false,
+          des: [
+            {
+              city: '种树领',
+              time: '3月15日',
+            }, {
+              city: '秦淮河',
+              time: '3月15日',
+            }]
+      }, {
+        city: '南京',
+        time: '3月15日',
+        car: false,
+        des: [
+          {
+            city: '种树领',
+            time: '3月15日',
+          }, {
+            city: '秦淮河',
+            time: '3月15日',
+          }]
+        }, {
+          city: '南京',
+          time: '3月15日',
+          car: false,
+          des: [
+            {
+              city: '种树领',
+              time: '3月15日',
+            }, {
+              city: '秦淮河',
+              time: '3月15日',
+            }]
+        }]
   },
 
   /**

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/travelLog/travelLog",
     "pages/index/index",
     "pages/start/start",
     "pages/props/props",
@@ -18,8 +19,7 @@
     "pages/rank/rank",
     "pages/self/self",
     "pages/footprint/footprint",
-    "pages/postcard/postcard",
-    "pages/travelLog/travelLog"
+    "pages/postcard/postcard"
   ],
   "window": {
     "backgroundTextStyle": "light",

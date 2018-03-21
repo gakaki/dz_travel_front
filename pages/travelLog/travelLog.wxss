@@ -1,10 +1,10 @@
 /* pages/travelLog/travelLog.wxss */
 .travelLog {
-  font: bold 28rpx 'Microsoft YaHei';
-  padding-left: 46rpx;
+  width: 100vw;
+  height: 100vh;
 }
 .share {
-  position: absolute;
+  position: fixed;
   top: 20rpx;
   right: 10rpx;
 }
@@ -12,10 +12,70 @@
   width: 112rpx;
   height: 46rpx;
 }
+.reach-city {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.year {
+  height: 55rpx;
+  text-indent: 80rpx;
+}
 .one-city {
+  position: relative;
   height: 138rpx;
+  font: bold 28rpx/138rpx 'Microsoft YaHei';
 }
 .ariplane {
+  position: absolute;
+  left: 8rpx;
+  top: -30rpx;
   width: 77rpx;
   height: 63rpx;
+}
+.mark {
+  position: absolute;
+  left: 26rpx;
+  top: 38rpx;
+  text-align: center;
+  width: 42rpx;
+  height: 57rpx;
+  font: bold 22rpx/40rpx 'Microsoft YaHei';
+  color: #278cff;
+  background: url('https://gengxin.odao.com/update/h5/travel/travelLog/mark.png');
+  background-size: cover;
+}
+
+
+.timeLine {
+  position: absolute;
+  left: 46rpx;
+  top: 124rpx;
+  width: 2rpx;
+  background: #dcdbe0; 
+  z-index: -1
+}
+.log-content {
+  display: inline-block;
+  
+  width: 100%;
+  text-indent: 83rpx;
+  font: bold 28rpx/138rpx 'Microsoft YaHei';
+}
+.time {
+  position: absolute;
+  right: 20rpx;
+  top: 0;
+  font: bold 20rpx/138rpx 'Microsoft YaHei';
+  color: #b0afb3;
+}
+.mark-circle {
+  position: absolute;
+  top: 60rpx;
+  left: 38rpx;
+  padding: 2rpx;
+  width: 14rpx;
+  height: 14rpx;
+  background: #278cff;
+  border-radius: 50%;
 }
