@@ -1,5 +1,6 @@
 {
-  "pages": [    
+  "pages": [
+    "pages/integral/integral",
     "pages/postcard/postcard",
     "pages/settings/settings",
     "pages/rank/rank",
