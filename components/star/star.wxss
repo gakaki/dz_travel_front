@@ -23,7 +23,6 @@
 }
 .dft-star-box, .act-star-box {
   height: 100%;
-  
    position: absolute;
   left: 0;
   top: 0;
@@ -46,13 +45,13 @@ overflow: hidden;
 }
 .sm {
   width: 20rpx;
-  margin: 0 3rpx;
+  padding: 0 3rpx;
 }
 .mid {
   width: 32rpx;
-  margin: 0 8rpx;
+  padding: 0 8rpx;
 }
 .big {
   width: 60rpx;
-  margin: 0 9rpx;
+  padding: 0 9rpx;
 }

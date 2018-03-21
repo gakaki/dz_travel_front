@@ -131,13 +131,12 @@
 }
 .btn-big-blue {
   color: #fff;
-  font-weight: normal;
   width: 446rpx;
   height: 127rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
   background-size: cover;
   line-height: 90rpx;
   letter-spacing: 3rpx;
-  text-align: center;
+   text-align: center; 
 }
 

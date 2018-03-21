@@ -285,5 +285,6 @@ margin-top: 41rpx;
   margin-top: 56rpx;
 }
 .cfm-btn {
-letter-spacing: 30rpx
+letter-spacing: 30rpx;
+padding-left:30rpx;
 }

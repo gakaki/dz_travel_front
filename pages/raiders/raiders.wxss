@@ -70,24 +70,18 @@
 }
 
 .fen {
-  font-size: 18rpx;
+  font-size: 20rpx;
+  flex-grow: 2
 }
 
 .heart {
   height: 28rpx;
   width: 34rpx;
-  /* margin-left: 250rpx;  */
-  position: absolute;
-  left: 460rpx;
-  top: 0;
+    margin-left: 10rpx;  
 }
 
 .heart-num {
-  /* margin-left: 10rpx;  */
-  font-size: 24rpx;
-  position: absolute;
-  left: 500rpx;
-  top: 0;
+  font-size: 25rpx;
 }
 
 .item-bot {

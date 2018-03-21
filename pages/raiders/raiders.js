@@ -8,7 +8,8 @@ Page({
     starDft:'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
     isShowPop: false,
     starWid: 130,
-    starCount: 3.3
+    starCount: 5,
+    tipPop: false
   },
 
   /**
@@ -18,6 +19,18 @@ Page({
     wx.setNavigationBarTitle({
       title: '中央大街'
     })
+  },
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
+  judge(v) {
+    this.setData({
+      tipPop: true,
+      isShowPop: !this.data.isShowPop
+    })
+console.log(v)
   },
   isPop() {
 this.setData({

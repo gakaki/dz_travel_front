@@ -1,6 +1,6 @@
 <view class="con bg">
   <view class="task-bg f-c">
-    <text class="title font fs act">点亮城市地图需完成以下3个任务</text>
+    <text class="title font fs ">点亮城市地图需完成以下3个任务</text>
 
     <view class="task font fs act">1.至少达到6个景点（6/6）
       <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image>

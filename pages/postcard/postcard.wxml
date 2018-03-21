@@ -5,6 +5,6 @@
       <text class="pro">北京</text>
       <text class="per">7/10</text>
     </view>
-    <view class="more">查看相册</view>
+    <view class="more" bindtap='toMyXc'>查看相册</view>
   </view>
 </view>

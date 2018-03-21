@@ -6,18 +6,36 @@ Page({
    */
   data: {
     myGold: 777,
-    testStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
+    oldStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
+    testStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
     canPhoto: false, 
-    isGetPost: false
+    isGetPost: false,
+    toTop: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+  spliceStr() {
+    let str = spliceStr(this.data.testStr, 46)
     this.setData({
-      testStr: spliceStr(this.data.testStr, 46)
+      testStr: str,
+      toTop: true
     })
+  },
+  checkMore(e) {
+    if (this.data.testStr == this.data.oldStr) {
+      this.spliceStr()
+    }else {
+      this.setData({
+        testStr: this.data.oldStr,
+        toTop: false
+      })
+    }
+    
   },
   getPost() {
     this.setData({

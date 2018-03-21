@@ -14,13 +14,20 @@ Component({
     starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-dft.png',
     starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-act.png',
     starNum: 0,
-    starArr: []
+    starArr: [],
+    score: 0
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    formSubmit(e) {
+      console.log(e.detail.value.ta)
+      //let str = e.detail.value.ta
+      
+      this.triggerEvent('doComm', { str: e.detail.value.ta,star:this.data.score })
+    },
     toClose() {
       this.triggerEvent('toclose')
     },
@@ -31,11 +38,9 @@ Component({
       arr.length = e.currentTarget.dataset.idx
       this.setData({
         starNum: e.currentTarget.dataset.idx,
-        starArr: arr
+        starArr: arr,
+        score: e.currentTarget.dataset.idx
       })
-    },
-    doPinglun(e) {
-      
     }
   }
 })

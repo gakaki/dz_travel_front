@@ -1,22 +1,23 @@
 {
-  "pages": [
-    "pages/xiangce/xiangce",
-    "pages/pointRaiders/pointRaiders",
-    "pages/postcard/postcard",  
+  "pages": [    
+    "pages/postcard/postcard",
+    "pages/settings/settings",
+    "pages/rank/rank",
+    "pages/other/other",
     "pages/raiders/raiders",
+    "pages/pointRaiders/pointRaiders",
+    "pages/checkPostcard/checkPostcard",
+    "pages/play/play",
+    "pages/xiangce/xiangce",
     "pages/index/index",
-
     "pages/props/props",
     "pages/goSight/goSight",
     "pages/start/start",
-    "pages/play/play",
     "pages/message/message",
     "pages/city/city",
     "pages/cityRaiders/cityRaiders",
-    "pages/rank/rank",
     "pages/self/self",
     "pages/footprint/footprint",
-    
     "pages/travelLog/travelLog"
   ],
   "window": {

@@ -63,9 +63,17 @@ Page({
   },
 
   toStart() {
-    wx.navigateTo({
-      url: '../start/start?terminal=' + this.data.isChoose,
-    })
+    if(this.data.isChoose){
+      wx.navigateTo({
+        url: '../start/start?terminal=' + this.data.isChoose,
+      })
+    }
+    else{
+      wx.showToast({
+        title: '请选择目的地',
+        icon:'none'
+      })
+    }
   },
 
   toRandom() {
