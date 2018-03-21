@@ -1,1 +1,129 @@
-/* pages/settings/settings.wxss */
+.settings{
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5f4f9;
+}
+
+.separatrix{
+  width: 100%;
+  height: 9rpx;
+  position: absolute;
+  
+}
+
+.info{
+  width: 100%;
+  height: 112rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-left{
+  margin-left: 40rpx;
+  font-family:"Microsoft YaHei";
+  font-weight:bold;
+  font-size: 34rpx;
+  color: #545455;
+}
+
+.info-right{
+  margin-right: 40rpx;
+  font-family:"Microsoft YaHei";
+  font-size: 34rpx;
+  color: #878689;
+  text-align: right;
+}
+
+.info-1{
+  color: #d4d3d8;
+}
+
+.address{
+  width: 100%;
+  height: 193rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-left{
+  margin-top: 40rpx;
+}
+
+.address-right{
+  margin-top: 40rpx;
+}
+
+.line-1{
+  width: 710rpx;
+  height: 2rpx;
+  background-color: #e9e8ec;
+  margin-left: 20rpx;
+}
+
+.line-2{
+  width: 100%;
+  height: 8rpx;
+  background-color: #e9e8ec;
+}
+
+.desc{
+  width: 100%;
+  height: 102rpx;
+  font-family:"Microsoft YaHei";
+  font-weight:bold;
+  font-size: 30rpx;
+  color: #b0afb3;
+  text-align: center;
+  
+}
+
+.desc-top{
+  margin-top: 40rpx;
+}
+
+.desc-bottom{
+  margin-top: 6rpx;
+}
+
+.wenti{
+  width: 120rpx;
+  margin-top: 160rpx;
+  font-family:"Microsoft YaHei";
+  font-weight:bold;
+  font-size: 30rpx;
+  color: #b0afb3;
+  margin-left: 50%;
+  transform:translate(-50%,0);
+  line-height: 36rpx;
+  border-bottom: 2rpx solid #b0afb3;
+  position: relative;
+}
+
+.contact{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.button{
+  width: 356rpx;
+  height: 121rpx;
+  margin-top: 76rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/common/confirm.png') 0 0 no-repeat;
+  background-size: cover;
+  margin-left: 50%;
+  transform:translate(-50%,0);
+  font-family:"Microsoft YaHei";
+  font-weight:bold;
+  font-size: 30rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.confirm{
+  line-height: 85rpx;
+}

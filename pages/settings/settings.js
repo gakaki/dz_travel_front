@@ -43,6 +43,20 @@ Page({
   
   },
 
+
+  //弹窗
+  saveDress() {
+    wx.showToast({
+      title: '已保存',
+      icon: 'none'
+    })
+  },
+
+  //接收输入框信息
+  getValue(e) {
+    console.log(e.detail.value)
+  },
+
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
