@@ -44,7 +44,7 @@ Page({
   },
 
 
-  //弹框信息
+  //弹窗
   saveDress() {
     wx.showToast({
       title: '已保存',
