@@ -1,7 +1,8 @@
 <view class="pop-bg" bindtap='toClose'>
 </view>
 <view class="pop-box">
-  <image bindtap='toClose' class="close" src="https://gengxin.odao.com/update/h5/travel/raiders/close-icon.png"></image>
+<form bindsubmit="formSubmit">
+<image bindtap='toClose' class="close" src="https://gengxin.odao.com/update/h5/travel/raiders/close-icon.png"></image>
   <view class="star-box ">
     <view class="to-center">
       <view class="dft-star-box">
@@ -20,10 +21,12 @@
   </view>
   <text class="tips">觉得怎么样，打个分吧</text>
   <view class="input-box">
-    <textarea show-confirm-bar="{{false}}"  class="do-comment" placeholder="亲，你对这次旅行还满意吗">
+    <textarea name="ta" show-confirm-bar="{{false}}" class="do-comment" placeholder="亲，你对这次旅行还满意吗">
     </textarea>
     <text class="num">0/100</text>
   </view>
-
-  <view class="btn-icon font" bindtap='doPinglun'>发表评论</view>
+  <view class="btn-icon font" >发表评论
+  <button formType="submit" class="subBtn">Submit</button>
+  </view>
+</form>
 </view>

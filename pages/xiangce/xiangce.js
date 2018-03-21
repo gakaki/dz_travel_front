@@ -15,6 +15,11 @@ Page({
   onLoad: function (options) {
   
   },
+  toMsgPost() {
+wx.navigateTo({
+  url: '../checkPostcard/checkPostcard',
+})
+  },
   chgTab() {
     this.setData({
       viewpoint: !this.data.viewpoint,

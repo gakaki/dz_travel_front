@@ -1,0 +1,3 @@
+<view class="pop-bg flex" bindtap='hide'>
+<view class="bs tip-btn">{{str}}</view>
+</view>

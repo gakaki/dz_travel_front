@@ -30,5 +30,6 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
-  <comment wx:if="{{isShowPop}}" bindtoclose="isPop"></comment>
+  <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop"></comment>
+  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='发表评论成功'></tip>
 </view>

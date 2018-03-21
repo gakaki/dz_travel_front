@@ -2,6 +2,7 @@
   "disableScroll": true,
   "usingComponents": {
     "comment": "../../components/comment/comment",
-    "star": "../../components/star/star"
+    "star": "../../components/star/star",
+    "tip": "/components/tip/tip"
   }
 }

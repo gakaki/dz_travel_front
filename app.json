@@ -1,12 +1,13 @@
 {
-  "pages": [
+  "pages": [    
+    "pages/postcard/postcard",
     "pages/settings/settings",
     "pages/rank/rank",
     "pages/other/other",
-    "pages/play/play",
     "pages/raiders/raiders",
     "pages/pointRaiders/pointRaiders",
     "pages/checkPostcard/checkPostcard",
+    "pages/play/play",
     "pages/xiangce/xiangce",
     "pages/index/index",
     "pages/props/props",
@@ -17,8 +18,7 @@
     "pages/cityRaiders/cityRaiders",
     "pages/self/self",
     "pages/footprint/footprint",
-    "pages/travelLog/travelLog",
-    "pages/postcard/postcard"
+    "pages/travelLog/travelLog"
   ],
   "window": {
     "backgroundTextStyle": "light",
