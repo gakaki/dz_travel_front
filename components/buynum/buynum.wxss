@@ -114,8 +114,9 @@
    margin-top: 34rpx; 
 }
 .cancel, .confirm {
-  line-height: 75rpx;
+  line-height: 80rpx;
   letter-spacing: 20rpx;
+  padding-left: 20rpx;
   width: 245rpx;
   height: 113rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
@@ -133,7 +134,7 @@
   margin-right: 30rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
   background-size: cover;
-  letter-spacing: 1rpx
+  letter-spacing: 1rpx;
 }
 .gold {
    width: 13rpx;
