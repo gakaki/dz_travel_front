@@ -1,0 +1,6 @@
+<!--components/cmap/cmap.wxml-->
+<view class='cmap-con'>
+  <view class='cmap-layer one'>one</view>
+  <view class='cmap-layer two'>two</view>
+  <view class='cmap-layer three'>three</view>
+</view>

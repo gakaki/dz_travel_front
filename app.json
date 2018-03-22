@@ -1,5 +1,6 @@
 {
-  "pages": [    
+  "pages": [
+    "pages/testmap/testmap",
     "pages/postcard/postcard",
     "pages/settings/settings",
     "pages/rank/rank",
