@@ -1,4 +1,5 @@
-<view class="post-item bs f-r-fs">
+<view class="con">
+<view class="post-item  bs f-r-fs">
   <image src="" class="img"></image>
   <view class="post-rgt f-c-sb">
     <view class="rgt-top f-r-sb">
@@ -7,4 +8,5 @@
     </view>
     <view class="more" bindtap='toMyXc'>查看相册</view>
   </view>
+</view>
 </view>
