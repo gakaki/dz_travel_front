@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/props/props",
     "pages/integral/integral",
+    "pages/props/props",
+    
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
     "pages/city/city",
