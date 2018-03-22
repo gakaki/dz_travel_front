@@ -1,7 +1,7 @@
 {
-  "pages": [ 
-    "pages/settings/settings",   
-    "pages/postcard/postcard",
+  "pages": [
+    "pages/settings/settings",
+    "pages/integral/integral",
     
     "pages/rank/rank",
     "pages/other/other",
