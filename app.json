@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/integral/integral",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
     "pages/city/city",
-    "pages/integral/integral",
     "pages/settings/settings",
     "pages/rank/rank",
     "pages/other/other",

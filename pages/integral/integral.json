@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "旅行体验店"
+  "navigationBarTitleText": "旅行体验店",
+  "usingComponents": {
+    "avatar": "../../components/avatar/avatar"
+  }
 }
