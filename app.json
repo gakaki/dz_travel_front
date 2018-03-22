@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/integral/integral",
+    "pages/index/index",
+    
     "pages/postcard/postcard",
     "pages/settings/settings",
     "pages/rank/rank",
