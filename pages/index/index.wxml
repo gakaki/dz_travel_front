@@ -21,9 +21,9 @@
         <text class="city">上海</text>
         <text class="today">3月5号</text>
       </view>
-      <view class="font">
+      <view class="font f-r-fe tianqi">
         <text class="today">春</text>
-        <text class="weather">天气</text>
+        <image class="weather" src="https://gengxin.odao.com/update/h5/travel/index/sun.png"></image>
       </view>
     </view>
   </view>
