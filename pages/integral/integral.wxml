@@ -1,4 +1,16 @@
 <!--pages/integral/integral.wxml-->
 <view class='integral'>
-
+  <view class='back'>
+    <view class='show'>
+      <view class='show-1'>
+        <text class='jifen text-color1'>积分：</text>
+        <text class='jinfenshu text-color'>9000</text>
+      </view>
+      <view class='show-1'>
+        <text class='jifenbang text-color1'>积分榜排名：</text>
+        <text class='paiming text-color'>未上榜</text>
+      </view>
+    </view>
+  </view>
+  <view class=''></view>
 </view>

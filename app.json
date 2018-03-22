@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/props/props",
+
     "pages/postcard/postcard",
     
     "pages/travelLog/travelLog",
@@ -16,8 +16,8 @@
     "pages/checkPostcard/checkPostcard",
     "pages/play/play",
     "pages/xiangce/xiangce",
-    "pages/index/index",
-    
+    "pages/index/index",   
+    "pages/props/props",
     "pages/goSight/goSight",
     "pages/start/start",
     "pages/message/message",
