@@ -1,10 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/integral/integral",
     "pages/postcard/postcard",
-    "pages/settings/settings",
     
+    "pages/travelLog/travelLog",
+    "pages/city/city",
+    "pages/settings/settings",
     "pages/rank/rank",
     "pages/other/other",
     "pages/raiders/raiders",
@@ -12,16 +13,15 @@
     "pages/checkPostcard/checkPostcard",
     "pages/play/play",
     "pages/xiangce/xiangce",
-    
+    "pages/index/index",   
     "pages/props/props",
     "pages/goSight/goSight",
     "pages/start/start",
     "pages/message/message",
-    "pages/city/city",
+    
     "pages/cityRaiders/cityRaiders",
     "pages/self/self",
-    "pages/footprint/footprint",
-    "pages/travelLog/travelLog"
+    "pages/footprint/footprint"
   ],
   "window": {
     "backgroundTextStyle": "light",

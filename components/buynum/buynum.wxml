@@ -4,8 +4,7 @@
       <image class="one-pic pop-car" src="{{picUrl}}"></image>
       <view class='f-c-sb car-rgt'>
         <text class="car-name font fs">{{name}}</text>
-        <text class='goods-desc font fs'>{{descOne}}</text>
-        <text class='goods-desc font fs'>{{descTwo}}</text>
+        <text class='goods-desc font fs'>{{desc}}</text>
       </view>
     </view>
     <text class="num font">购买数量</text>
@@ -15,11 +14,11 @@
       <image class="icon" bindtap='pGold' src="https://gengxin.odao.com/update/h5/travel/props/plus-icon.png"></image>
     </view>
     <view class="car-line"></view>
-    <view class="bot-btn f-r-sb">
-      <view class="cancel font" catchtap='toHide'>取消</view>
+    <view class="bot-btn  {{single ? 'flex' : 'f-r-sb'}}">
+      <view class="cancel font" catchtap='toHide' hidden="{{single}}">取消</view>
       <view class="confirm font flex" catchtap='toCfm'>
       <!-- <image class="gold fs" src="https://gengxin.odao.com/update/h5/travel/props/gold-icon.png"></image> -->
-      <text class="fs">$ {{gold}}</text>
+      <text class="fs">{{single?'获得':''}}$ {{gold}}</text>
       </view>
     </view>
   </view>
