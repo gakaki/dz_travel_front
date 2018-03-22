@@ -1,0 +1,35 @@
+<!--pages/integral/integral.wxml-->
+<view class='integral f-c'>
+  <view class='back'>
+    <view class='show'>
+      <view class='show-wenzi'>
+        <text class='jifen text-color1'>积分：</text>
+        <text class='jinfenshu text-color'>9000</text>
+      </view>
+      <view class='show-wenzi'>
+        <text class='jifenbang text-color1'>积分榜排名：</text>
+        <text class='paiming text-color'>未上榜</text>
+        <image class="tupian" src="https://gengxin.odao.com/update/h5/travel/integral/tip.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class='exchange bs'>
+    <view class="items f-c-fs {{index==2 ? 'last-item' : ''}}" wx:for="{{goodsInfo}}" wx:key="{{index}}" bindtap='buttonItems' data-items="{{index}}">
+      <image class='goods-tu' src="{{item.img}}"></image>
+      <text class="goods-zi">{{item.goodsName}}</text>
+      <text class="goods-fen">{{item.integral}}积分</text>
+      <view class="goods-anniu" bindtap='exchange' data-int="{{item.integral}}" data-name="{{item.goodsName}}">
+        <text>兑换</text>
+      </view>
+      <view class="xuanzhong" wx:if="{{index==underline}}"></view>
+    </view>
+  </view>
+    <view class='title'>
+      <text>兑换详情</text>
+    </view>
+  <view class="info f-r-fs" wx:for="{{getRewardInfo}}" wx:key="{{index}}">
+    <avatar avatarWid="72" avatarHeg="72" src="{{item.avatar}}"></avatar>
+    <text>{{item.name}}兑换了{{item.goods}}</text>
+  </view>
+  <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel"></buy>
+</view>

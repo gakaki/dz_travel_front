@@ -4,6 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    single: {
+      type: Boolean,
+      value: false
+    },
     picUrl: {
       type: String,
       value: 'https://gengxin.odao.com/update/h5/travel/props/gold.png'
@@ -16,13 +20,9 @@ Component({
     //   type: Number,
     //   value: 1
     // },
-    descOne: {
+    desc: {
       type: String,
-      value: '购买特产后可前往其他城市高价售卖'
-    },
-    descTwo: {
-      type: String,
-      value: '赚取金币'
+      value: '购买特产后可前往其他城市高价售卖赚取金币'
     },
     gold: {
       type: Number,

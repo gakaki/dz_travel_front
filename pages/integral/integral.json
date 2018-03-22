@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "旅行体验店",
+  "usingComponents": {
+    "avatar": "../../components/avatar/avatar",
+    "buy":"../../components/buy/buy"
+  }
+}

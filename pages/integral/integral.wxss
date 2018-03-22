@@ -1,0 +1,131 @@
+.integral{
+  width: 100%;
+  background-color: #f5f4f9;
+  overflow: hidden;
+}
+
+.back{
+  width: 100%;
+  height: 758rpx;
+  /* background: url('https://gengxin.odao.com/update/h5/travel/common/confirm.png') 0 0 no-repeat;
+  background-size: cover; */
+  background-color: burlywood;
+}
+
+.show{
+  width: 100%;
+  height: 68rpx;
+  padding-top: 590rpx;
+  padding-left: 20rpx;
+}
+
+.show-wenzi{
+  display: flex;
+  align-items: center;
+}
+
+.tupian{
+  width: 26rpx;
+  height: 26rpx;
+  margin-left: 20rpx;
+}
+
+.text-color{
+  font:bold 32rpx "Microsoft YaHei";
+  color: #fff;
+}
+
+.text-color1{
+  font:bold 28rpx "Microsoft YaHei";
+  color: #fff;
+}
+
+.exchange{
+  width: 703rpx;
+  height: 428rpx;
+  display: flex;
+  justify-content: flex-start;
+  background-color: #fff;
+  margin-top: -50rpx;
+  border-radius: 20rpx;
+}
+
+.items{
+  margin-top: 92rpx;
+  width: 233rpx;
+  height: 301rpx;
+  background-color: #fff;
+  border-right:2rpx solid #f2f2f2;
+  position: relative;
+}
+
+.last-item{
+  border-right: none;
+} 
+
+.goods-tu{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 15rpx;
+  background-color: beige;
+}
+
+.goods-zi{
+  font:bold 30rpx "Microsoft YaHei";
+  color: #000;
+  margin-top: 10rpx;
+}
+
+.goods-fen{
+  font:bold 26rpx "Microsoft YaHei";
+  color: #b8b8b8;
+  margin-top: 5rpx;
+} 
+
+.goods-anniu{
+  width: 120rpx;
+  height: 36rpx;
+  border-radius: 30rpx;
+  background-color: blue;
+  font: bold 20rpx "Microsoft YaHei";
+  color: #fff;
+  text-align: center;
+  margin-top: 15rpx;
+}
+
+.goods-anniu text{
+  line-height: 36rpx;
+}
+
+.xuanzhong{
+  width: 158rpx;
+  height: 8rpx;
+  background-color: #e5e5e5;
+  position: absolute;
+  bottom: -20rpx;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+
+.title{
+  font:bold 36rpx "Microsoft YaHei";
+  color: #000;
+  margin-top: 60rpx;
+}
+
+.info{
+  width: 710rpx;
+  height: 92rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+  color: #b0afb3;
+  font:bold 28rpx "Microsoft YaHei";
+}
+
+.info text{
+  margin-left: -20rpx;
+}
+
+.content{
+  font: bold 30rpx "Microsoft YaHei";
+  color: #b8b8b8;
+}

@@ -1,4 +1,4 @@
-<view class="bg flex" catchtap='toHide'>
+<view class="bg flex" catchtap='toHide' capture-catch:touchmove='toHide'>
   <view class="con f-c-fs {{isBuy ? '' : 'tip'}}" catchtap='notDo'>
     <view wx:if="{{isBuy}}" class="f-r-fs car-top">
       <image class="one-pic pop-car" src=""></image>
@@ -18,7 +18,7 @@
       <text class="outer-class pdt">{{content}}</text>
     </view>
     <view class="car-line"></view>
-    <view class="bot-btn {{single ? 'f-c' : 'f-r-sb'}}">
+    <view class="bot-btn {{single ? 'flex' : 'f-r-sb'}}">
       <view class="cancel font" catchtap='toHide' hidden="{{single}}">取消</view>
       <view class="confirm font {{cfmStr.length>3?'sls':''}}" catchtap='toCfm'>{{cfmStr}}</view>
     </view>
