@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/integral/integral",
     "pages/postcard/postcard",
     "pages/settings/settings",
@@ -10,7 +11,7 @@
     "pages/checkPostcard/checkPostcard",
     "pages/play/play",
     "pages/xiangce/xiangce",
-    "pages/index/index",
+    
     "pages/props/props",
     "pages/goSight/goSight",
     "pages/start/start",
