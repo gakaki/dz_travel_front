@@ -18,7 +18,7 @@
       <image class='goods-tu' src="{{item.img}}"></image>
       <text class="goods-zi">{{item.goodsName}}</text>
       <text class="goods-fen">{{item.integral}}积分</text>
-      <view class="goods-anniu" bindtap='exchange'>
+      <view class="goods-anniu" bindtap='exchange' data-int="{{item.integral}}" data-name="{{item.goodsName}}">
         <text>兑换</text>
       </view>
       <view class="xuanzhong" wx:if="{{index==underline}}"></view>
@@ -31,5 +31,5 @@
     <avatar avatarWid="72" avatarHeg="72" src="{{item.avatar}}"></avatar>
     <text>{{item.name}}兑换了{{item.goods}}</text>
   </view>
-  <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}"></buy>
+  <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel"></buy>
 </view>

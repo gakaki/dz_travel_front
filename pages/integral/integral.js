@@ -24,10 +24,17 @@ Page({
     })
   },
 
-  exchange() {
+  exchange(e) {
+    let data = e.currentTarget.dataset
     this.setData({
       exchange:true,
-      exchangeCon:'确定消耗3000积分兑换秋林哥玩死'
+      exchangeCon:'确定消耗'+data.int+'积分兑换'+data.name
+    })
+  },
+
+  _cancel() {
+    this.setData({
+      exchange:false
     })
   },
 

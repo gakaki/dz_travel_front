@@ -1,4 +1,5 @@
 .integral{
+  width: 100%;
   background-color: #f5f4f9;
   overflow: hidden;
 }
