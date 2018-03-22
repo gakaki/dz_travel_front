@@ -1,13 +1,9 @@
 {
   "pages": [
-<<<<<<< HEAD
     "pages/index/index",
     "pages/integral/integral",
     "pages/postcard/postcard",
-=======
->>>>>>> 1a3ae1b9e0c55695e13209435b7fad6a422c597d
     "pages/settings/settings",
-    "pages/integral/integral",
     
     "pages/rank/rank",
     "pages/other/other",
