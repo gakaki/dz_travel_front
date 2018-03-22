@@ -1,7 +1,8 @@
 {
-  "pages": [    
+  "pages": [ 
+    "pages/settings/settings",   
     "pages/postcard/postcard",
-    "pages/settings/settings",
+    
     "pages/rank/rank",
     "pages/other/other",
     "pages/raiders/raiders",
