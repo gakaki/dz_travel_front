@@ -10,7 +10,8 @@ Page({
     tabThree: false,
     myGold: 77,
     popCar: false,
-    popBuyNum: false
+    popBuyNum: false,
+    singal: false
   },
 
   /**
@@ -19,11 +20,15 @@ Page({
   onLoad: function (options) {
 
   },
+  sell() {
+    this.setData({
+      popBuyNum: true,
+      singal: true
+    })
+  },
   toBuy() {
     this.hideCar()
-    this.setData({
-      popBuyNum: true
-    })
+    
   },
   rentCar() {
     this.setData({
