@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/props/props",
     "pages/integral/integral",
     "pages/postcard/postcard",
-    
     "pages/travelLog/travelLog",
     "pages/city/city",
     "pages/settings/settings",
@@ -13,12 +13,11 @@
     "pages/checkPostcard/checkPostcard",
     "pages/play/play",
     "pages/xiangce/xiangce",
-    "pages/index/index",   
-    "pages/props/props",
+    "pages/index/index",
+    
     "pages/goSight/goSight",
     "pages/start/start",
     "pages/message/message",
-    
     "pages/cityRaiders/cityRaiders",
     "pages/self/self",
     "pages/footprint/footprint"
