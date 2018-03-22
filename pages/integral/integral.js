@@ -10,21 +10,24 @@ Page({
     { avatar: "", name: "胖迪2", goods: "冰淇凌2" },
     { avatar: "", name: "胖迪3", goods: "冰淇凌3" },
     { avatar: "", name: "胖迪4", goods: "冰淇凌4" }],
-
     goodsInfo: [{ img: "", goodsName: "冰淇凌1", integral:"3000"},
       { img: "", goodsName: "冰淇凌2", integral: "4000" },
       { img: "", goodsName: "冰淇凌3", integral: "5000" }],
-
-
-
-
-    underline:0
+    underline:0,
+    exchange:false,
+    exchangeCon:''
   },
 
   buttonItems: function(e){
-    console.log(e),
     this.setData({
       underline: e.currentTarget.dataset.items
+    })
+  },
+
+  exchange() {
+    this.setData({
+      exchange:true,
+      exchangeCon:'确定消耗3000积分兑换秋林哥玩死'
     })
   },
 

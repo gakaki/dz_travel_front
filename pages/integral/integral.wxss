@@ -123,3 +123,8 @@
 .info text{
   margin-left: -20rpx;
 }
+
+.content{
+  font: bold 30rpx "Microsoft YaHei";
+  color: #b8b8b8;
+}
