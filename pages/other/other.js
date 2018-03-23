@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    userInfo: {nickName:'昵称几个字',totalArrive:34,overmatch:0.75},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     mianTitle: [{
@@ -41,11 +41,13 @@ Page({
       {
         title: '发表评论数量',
         num: '555'
-      }, {
+      }, 
+      {
         title: '获得点赞数量',
         num: '555'
       }
-      , {
+      , 
+      {
         title: '获得特产数量',
         num: '555'
       }]
@@ -55,6 +57,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    let req = new PlayerInfo();
+    req.uid = options.uid
+    req.fetch().then(()=>{
+      let userInfo={};
+      userInfo.nickName = req.nickName;
+      userInfo.avatarUrl = req.avatarUrl;
+      userInfo.totalArrive = req.totalArrive;
+      userInfo.overmatch = req.overmatch;
+      userInfo.items = req.items;
+      this.setData({
+        userInfo,
+      })
+    })
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
