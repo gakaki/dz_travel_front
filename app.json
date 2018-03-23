@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/rank/rank",
     "pages/raiders/raiders",
     "pages/goSight/goSight",
     "pages/play/play",
-    "pages/rank/rank",
     "pages/index/index",
     "pages/testmap/testmap",
     "pages/props/props",

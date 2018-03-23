@@ -41,7 +41,7 @@ Page({
       { rank: 10, avatar: '', nickName: '昵称几个字', value: 100, gold: 929, uid: 'aaa' },
       { rank: 11, avatar: '', nickName: '昵称几个字', value: 20, gold: 609, uid: 'aaa' }],
     //自己的排名
-    selfRank:{}
+    selfRank:{rank:'未上榜',value:9999}
   },
 
   /**
