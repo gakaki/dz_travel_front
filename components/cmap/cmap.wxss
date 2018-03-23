@@ -7,30 +7,39 @@
 }
 
 .cmap-layer {
-  width: 120vw;
-  height: 100vh;
   position: absolute;
   box-sizing: border-box;
   text-align: center;
+  border: 2rpx solid red;
 }
 
 .normal{
-  transform: scale(1, 1);
+  width:100vw;
+  height: 100vh;
+  transform: scale(1, 1) translate(0,0);
 }
 .double {
-  transform: scale(2, 2);
+  width:200vw;
+  height:200vh;
+  transform: scale(2, 2) translate(25%, 25%);
 }
 
 .areas {
-  padding-top: 30rpx;
 
   background-color: rgba(100, 30, 60, .5);
 }
 .lines {
-  padding-top: 90rpx;
   background-color: rgba(200, 100, 80, .5);
 }
 .points {
-  padding-top: 160rpx;
   background-color: rgba(89, 200, 20, .5);
+}
+.ttt1 {
+  position: absolute;
+  top: 10rpx;
+}
+
+.ttt {
+  position: absolute;
+  bottom: 10rpx;
 }

@@ -1,15 +1,25 @@
 <!--components/cmap/cmap.wxml-->
 <scroll-view class='cmap-con' scroll-x='{{true}}' scroll-y='{{true}}'
-  scroll-left='{{scrollLeft}}' scroll-top='{{scrollTop}}'
+  scroll-left='{{scrollLeft}}' scroll-top='{{scrollTop}}' scroll-with-animation='{{true}}'
   bind:touchstart='touchStart' bind:touchmove='touchMove' bind:touchend='touchEnd' bind:tap='touchTap'
 >
-   <view class='cmap-layer {{double ? "double": "normal"}} areas'>1
-    <element wx:for='{{areas}}' wx:key='{{index}}' item='{{item}}'></element>
+   <view class='cmap-layer {{double ? "double": "normal"}} areas'>
+   <text class='ttt1'>1front</text>
+    <element wx:for='{{areas}}' wx:key='{{index}}' x='{{item.x}}' y='{{item.y}}' statusImgs='{{item.statusImgs}}'  
+    txt='{{index}}'
+    ></element>
+        <text class='ttt'>1bottom</text>
+
   </view>
-  <view class='cmap-layer {{double ? "double": "normal"}} lines'>2
+  <view class='cmap-layer {{double ? "double": "normal"}} lines'>
+  <text class='ttt1'>2front</text>
     <element wx:for='{{lines}}' wx:key='{{index}}' item='{{item}}'></element>
+        <text class='ttt'>2bottom</text>
+
   </view>
-  <view class='cmap-layer {{double ? "double": "normal"}} points'>3
+  <view class='cmap-layer {{double ? "double": "normal"}} points'>
+  <text class='ttt1'>3front</text>
     <element wx:for='{{points}}' wx:key='{{index}}' item='{{item}}'></element>
+    <text class='ttt'>3bottom</text>
   </view> 
 </scroll-view>
