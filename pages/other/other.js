@@ -1,6 +1,8 @@
 // pages/self/self.js
 import { getUserInfo } from '../../utils/util.js';
+import { PlayerInfo } from '../../api.js';
 const app = getApp();
+const sheet = require('../../sheets.js');
 
 
 Page({
