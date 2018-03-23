@@ -1,7 +1,13 @@
 {
   "pages": [
-    "pages/integral/integral",
     "pages/props/props",
+    "pages/raiders/raiders",
+    "pages/pointRaiders/pointRaiders",
+    "pages/play/play",
+    
+    
+    "pages/integral/integral",
+   
     
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
@@ -9,10 +15,10 @@
     "pages/settings/settings",
     "pages/rank/rank",
     "pages/other/other",
-    "pages/raiders/raiders",
-    "pages/pointRaiders/pointRaiders",
+    
+    
     "pages/checkPostcard/checkPostcard",
-    "pages/play/play",
+    
     "pages/xiangce/xiangce",
     "pages/index/index",
     
