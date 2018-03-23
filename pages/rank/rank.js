@@ -1,7 +1,7 @@
 // pages/rank/rank.js
-import { RankInfo } from '../../api.js';
+import { RankInfo, RankType, RankSubtype } from '../../api.js';
 const app = getApp();
-let rankType=1,rankSubtype=1;
+let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 
 Page({
 
@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rankType:1,
-    rankSubtype:1,
+    rankType: RankType.THUMBS,
+    rankSubtype: RankSubtype.COUNTRY,
     toView:'rank0',
     //全国排行榜前三名
     topThree: [{ rank: 1, avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字七个字', value: 9999, gold: 9999, uid:'aaa' },
@@ -90,13 +90,13 @@ Page({
       let vKye;
       //通过rankType来决定需要渲染数据中的value取items中哪个值
       switch(rankType){
-        case 1:
+        case RankType.THUMBS:
           vKye = 13;
           break;
-        case 2:
+        case RankType.FOOT:
           vKye = 14;
           break;
-        case 3:
+        case RankType.SCORE:
           vKye = 6;
           break;
       }
@@ -115,7 +115,7 @@ Page({
         ranks[i] = obj;
       }
       //全国榜单需要把前三名分开
-      if(rankSubtype ==1){
+      if (rankSubtype == RankSubtype.COUNTRY){
         let topThree = ranks.splice(0,3);
         this.setData({
           topThree,
@@ -131,7 +131,7 @@ Page({
   },
 
   rankCountry() {
-    rankSubtype = 1;
+    rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankSubtype,
       toView: 'rank0',
@@ -140,7 +140,7 @@ Page({
   },
 
   rankFriend() {
-    rankSubtype = 2;
+    rankSubtype = RankSubtype.FRIEND;
     this.setData({
       rankSubtype,
       toView: 'rank0',
@@ -149,8 +149,8 @@ Page({
   },
 
   lookFamous() {
-    rankType = 1;
-    rankSubtype = 1;
+    rankType = RankType.THUMBS;
+    rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
       rankSubtype,
@@ -160,8 +160,8 @@ Page({
   },
 
   lookFoot() {
-    rankType = 2;
-    rankSubtype = 1;
+    rankType = RankType.FOOT;
+    rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
       rankSubtype,
@@ -171,8 +171,8 @@ Page({
   },
 
   lookScore() {
-    rankType = 3;
-    rankSubtype = 1;
+    rankType = RankType.SCORE;
+    rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
       rankSubtype,
