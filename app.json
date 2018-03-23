@@ -2,6 +2,7 @@
   "pages": [
     "pages/rank/rank",
     "pages/integral/integral",
+    "pages/testmap/testmap",
     "pages/props/props",
     
     "pages/postcard/postcard",
