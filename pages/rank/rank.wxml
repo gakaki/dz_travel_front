@@ -1,30 +1,30 @@
 <!--pages/rank/rank.wxml-->
 <view class="con">
   <view class="head f-r-sa">
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png" hidden='{{!famous}}' bindtap='lookFamous'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank-gray.png" hidden='{{famous}}' bindtap='lookFamous'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank.png" hidden='{{!foot}}' bindtap='lookFoot'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank-gray.png" hidden='{{foot}}' bindtap='lookFoot'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank.png" hidden='{{!score}}' bindtap='lookScore'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank-gray.png" hidden='{{score}}' bindtap='lookScore'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png" hidden='{{!(rankType==1)}}' bindtap='lookFamous'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank-gray.png" hidden='{{rankType==1}}' bindtap='lookFamous'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank.png" hidden='{{!(rankType==2)}}' bindtap='lookFoot'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank-gray.png" hidden='{{rankType==2}}' bindtap='lookFoot'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank.png" hidden='{{!(rankType==3)}}' bindtap='lookScore'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank-gray.png" hidden='{{rankType==3}}' bindtap='lookScore'></image>
   </view>
   <view class="rank-head flex">
-    <view class="rank-item {{isCountry ? 'rank-choose' : ''}}" bindtap='rankCountry'>全国排行榜</view>
-    <view class="rank-item {{isCountry ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
+    <view class="rank-item {{rankSubtype==1 ? 'rank-choose' : ''}}" bindtap='rankCountry'>全国排行榜</view>
+    <view class="rank-item {{rankSubtype==1 ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
   </view>
-  <view class="top-three f-r-sb" wx:if="{{isCountry}}">
+  <view class="top-three f-r-sb" wx:if="{{rankSubtype==1}}">
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>
-      <image class="avatar" src="{{item.avatar}}" bindtap='toOther'></image>
+      <image class="avatar" src="{{item.avatar}}" bindtap='toOther' data-uid="{{item.uid}}"></image>
       <view class="nickname">
         <text>{{item.nickName}}</text>
       </view>
       <view class="info f-r-sb">
         <view class="rank-info f-r-sb">
-          <image class="famous-icon" wx:if='{{famous}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-small.png"></image>
-          <image class="rank-icon" wx:elif='{{foot}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
+          <image class="famous-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-small.png"></image>
+          <image class="rank-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
           <image class="score-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
-          <text>{{item.foot}}</text>
+          <text>{{item.value}}</text>
         </view>
         <view class="xian"></view>
         <view class="gold f-r-sb">
@@ -34,19 +34,19 @@
       </view>
     </view>
   </view>
-  <scroll-view scroll-y class="rank-other {{isCountry ? '' : 'friend'}}" scroll-into-view="{{toView}}">
-    <view id="rank{{index}}" class="person-info f-r-sb" wx:for="{{isCountry ? rankingCountry : rankingFriend}}" wx:key="{{index}}">
+  <scroll-view scroll-y class="rank-other {{rankSubtype==1 ? '' : 'friend'}}" scroll-into-view="{{toView}}">
+    <view id="rank{{index}}" class="person-info f-r-sb" wx:for="{{rankSubtype==1 ? rankingCountry : rankingFriend}}" wx:key="{{index}}">
       <view class="f-r-sb">
         <text class="ranking">{{item.rank}}</text>
-        <image class="avatar" src="{{item.avatar}}" bindtap='toOther'></image>
+        <image class="avatar" src="{{item.avatar}}" bindtap='toOther' data-uid="{{item.uid}}"></image>
         <text class="name">{{item.nickName}}</text>
       </view>
       <view class="f-c-fs">
         <view class="ranking-info f-r-sb">
-        <image class="famousing-icon" wx:if='{{famous}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
-          <image class="ranking-icon" wx:elif='{{foot}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
+        <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
+          <image class="ranking-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
           <image class="scoreing-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
-          <text>{{item.foot}}</text>
+          <text>{{item.value}}</text>
         </view>
         <view class="person-gold f-r-sb">
           <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
@@ -62,8 +62,8 @@
     </view>
     <view class="f-r-sb">
       <view class="self-ranking-info f-r-sb">
-        <image class='self-famous' wx:if="{{famous}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
-        <image class="self-icon" wx:elif="{{foot}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
+        <image class='self-famous' wx:if="{{rankType==1}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
+        <image class="self-icon" wx:elif="{{rankType==2}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
         <image class="self-score" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
         <text>9999</text>
       </view>

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/rank/rank",
+    "pages/index/index",
     "pages/integral/integral",
     "pages/testmap/testmap",
     "pages/props/props",
@@ -15,7 +16,6 @@
     "pages/checkPostcard/checkPostcard",
     "pages/play/play",
     "pages/xiangce/xiangce",
-    "pages/index/index",
     
     "pages/goSight/goSight",
     "pages/start/start",
