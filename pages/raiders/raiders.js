@@ -1,4 +1,8 @@
-import {  } from '../../api.js';
+
+// pages/raiders/raiders.js
+import {Comment, CommentPost, PostComments, ThumbComment } from '../../api.js'
+let postId, lastCmtId = 0;
+const LIMIT = 5;
 Page({
 
   /**
@@ -9,6 +13,7 @@ Page({
     isShowPop: false,
     starWid: 130,
     starCount: 5,
+    comments:[],
     tipPop: false
   },
 
@@ -19,6 +24,9 @@ Page({
     wx.setNavigationBarTitle({
       title: '中央大街'
     })
+
+    postId = options.postId;
+    this.freshList();
   },
   hideTipPop() {
     this.setData({
@@ -64,6 +72,18 @@ this.setData({
    */
   onUnload: function () {
   
+  },
+
+  freshList() {
+    let req = new PostComments();
+    req.postId = postId;
+    req.lastCmtId = lastCmtId;
+    req.limit = LIMIT;
+
+    req.fetch().then(() => {
+      let comments = this.data.comments.concat(req.comments);
+      this.setData({comments})
+    });
   },
 
   /**

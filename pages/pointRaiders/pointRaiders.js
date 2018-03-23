@@ -1,5 +1,5 @@
 import { spliceStr } from '../../utils/util.js'
-import { } from '../../api.js';
+import { PostList } from '../../api.js';
 Page({
 
   /**
@@ -10,7 +10,8 @@ Page({
   specialty: false,
   starWid: 240,
   starCount: 1,
-  testStr: '阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是'
+  testStr: '阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是',
+  posts: []
   },
 
   /**
@@ -22,6 +23,12 @@ Page({
     })
    this.setData({
      testStr:spliceStr(this.data.testStr,42)
+   })
+   let req = new PostList()
+   req.fetch().then(req => {
+     this.setData({
+       posts: req.posts
+     })
    })
   },
   toDetail() {

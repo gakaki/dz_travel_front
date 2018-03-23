@@ -2,7 +2,7 @@
 .cmap-con {
   width:100vw;
   height: 80vh;
-  overflow: scroll;
+   overflow: scroll; 
   position: relative;
 }
 
@@ -11,16 +11,26 @@
   height: 100vh;
   position: absolute;
   box-sizing: border-box;
+  text-align: center;
 }
 
-.one {
+.normal{
+  transform: scale(1, 1);
+}
+.double {
+  transform: scale(2, 2);
+}
+
+.areas {
+  padding-top: 30rpx;
+
   background-color: rgba(100, 30, 60, .5);
 }
-.two {
-  padding-top: 30rpx;
+.lines {
+  padding-top: 90rpx;
   background-color: rgba(200, 100, 80, .5);
 }
-.three {
-  padding-top: 60rpx;
+.points {
+  padding-top: 160rpx;
   background-color: rgba(89, 200, 20, .5);
 }
