@@ -32,59 +32,14 @@ class RankType{
     static RECHARGE = 9;
     
 }
+class PostType{
+    
+    static JINGDIAN = 1;
+    
+    static TECHAN = 2;
+    
+}
 //------------classes--------------
-class UserInfo  {
-    constructor(){
-    
-    
-        //prop type: string
-        this.uid = null;
-    
-        //prop type: string
-        this.nickName = null;
-    
-        //prop type: string
-        this.avatarUrl = null;
-    
-        //prop type: string
-        this.gender = null;
-    
-        //prop type: string
-        this.city = null;
-    
-        //prop type: string
-        this.province = null;
-    
-        //prop type: string
-        this.country = null;
-    
-        //prop type: Boolean
-        this.online = null;
-    
-        //prop type: KV[]
-        this.items = null;
-    
-        //prop type: string[]
-        this.friends = null;
-    
-        
-        
-    }
-}
-class RankItem  {
-    constructor(){
-    
-    
-        //prop type: string
-        this.name = null;
-    
-        //prop type: number
-        this.rank = null;
-    
-        
-        
-    }
-}
 class Base  {
     constructor(){
     
@@ -146,7 +101,6 @@ class Base  {
         Object.assign(this, data);
     }
    error(err) {
-
     }
    static GetUID() {
         if (!Base.UID) {
@@ -179,7 +133,6 @@ class Base  {
         this.APP_NAME=appName;
         this.SRV=url || 'https://h5.ddz2018.com/';//https服务器链接
         this.AUTHED=false;
-
         //start
         return new Promise(resolve => {
             wx.checkSession({
@@ -207,13 +160,11 @@ class Base  {
                 }
             });
         });
-
     }
    static UserAuth(code, suc) {
         let req=new Base();
         req.action='weChat.auth';
         req.reqFields=['payload'];
-
         //set data
         req.payload ={code};
         req.fetch().then( res => {
@@ -226,12 +177,10 @@ class Base  {
         let req=new Base();
         req.action='user.login';
         req.reqFields=[ 'info'];
-
         //wx login
         wx.getUserInfo({
             success: info =>{
                 let app=getApp();
-
                 //fetch srv
                 req.info=info.userInfo;
                 req.fetch().then(()=>{
@@ -248,27 +197,22 @@ class Base  {
                 });
             }
         });
-
     }
    static InitWs(wss) {
         //初始化websocket
         this.WSS=wss=wss || `wss://h5.ddz2018.com/${this.APP_NAME}`;//websocket服务器链接
         this.IO=require('./libs/io.js')(wss + `?_sid=${this.SID}&appName=${this.APP_NAME}`);
-
         return new Promise(resolve => {
             this.IO.on('connect', () => {
                 console.log('socket connected')
                 resolve();
             });
-
             this.IO.on('disconnect', msg => {
                 console.log('socket disconnected', msg);
             });
-
             this.IO.on('disconnecting', () => {
                 console.log('socket disconnecting');
             });
-
             this.IO.on('error', () => {
                 console.log('socket error');
             });
@@ -285,6 +229,173 @@ class Base  {
             this.IO.removeAllListeners(a);
         });
     }
+}
+class RankItem  {
+    constructor(){
+    
+    
+        //prop type: string
+        this.name = null;
+    
+        //prop type: number
+        this.rank = null;
+    
+        
+        
+    }
+}
+class UserBriefInfo  {
+    constructor(){
+    
+    
+        //prop type: string
+        this.uid = null;
+    
+        //prop type: string
+        this.nickName = null;
+    
+        //prop type: string
+        this.avatarUrl = null;
+    
+        
+        
+    }
+}
+class Post  {
+    constructor(){
+    
+    
+        //prop type: number//帖子id
+        this.postId = null;
+    
+        //prop type: PostType//帖子类型：景点or特产
+        this.type = null;
+    
+        //prop type: string//帖子内容，为景点或特产的介绍
+        this.content = null;
+    
+        //prop type: number//创建时间
+        this.time = null;
+    
+        //prop type: string//景点或特产图片url
+        this.img = null;
+    
+        
+        
+    }
+}
+class Comment  {
+    constructor(){
+    
+    
+        //prop type: number//帖子id
+        this.postId = null;
+    
+        //prop type: UserBriefInfo//用户简单信息
+        this.user = null;
+    
+        //prop type: string//评论id
+        this.commentId = null;
+    
+        //prop type: string//评论内容
+        this.content = null;
+    
+        //prop type: number//评论得分
+        this.score = null;
+    
+        //prop type: number//点赞数
+        this.thumbs = null;
+    
+        //prop type: number//创建时间
+        this.time = null;
+    
+        
+        
+    }
+}
+class RankInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'rank.rankinfo';
+    
+        this._rankType = null;
+        this._limit = null;
+        this._selfRank = null;
+        this._ranks = null;
+        this.reqFields = ["rankType","limit"];
+        this.resFields = ["selfRank","ranks"];
+    }
+    //client input, require, type: RankType
+    get rankType() {return this._rankType}
+    set rankType(v) {this._rankType = v}
+    //client input, optional, type: number
+    get limit() {return this._limit}
+    set limit(v) {this._limit = v}
+    //server output, type: number
+    get selfRank() {return this._selfRank}
+    set selfRank(v) {this._selfRank = v}
+    //server output, type: RankItem[]
+    get ranks() {return this._ranks}
+    set ranks(v) {this._ranks = v}
+}
+class PostComments extends Base {
+    constructor(){
+        super();
+        this.action = 'post.postcomments';
+    
+        this._comments = null;
+        this.reqFields = [];
+        this.resFields = ["comments"];
+    }
+    //server output, type: Comment[]//该帖子下的评论
+    get comments() {return this._comments}
+    set comments(v) {this._comments = v}
+}
+class UserInfo extends UserBriefInfo {
+    constructor(){
+        super();
+    
+        //prop type: string
+        this.gender = null;
+    
+        //prop type: string
+        this.city = null;
+    
+        //prop type: string
+        this.province = null;
+    
+        //prop type: string
+        this.country = null;
+    
+        //prop type: Boolean
+        this.online = null;
+    
+        //prop type: KV[]
+        this.items = null;
+    
+        //prop type: string[]
+        this.friends = null;
+    
+        
+        
+    }
+}
+class PlayerInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'travel.playerinfo';
+    
+        this._playerUid = null;
+        this._info = null;
+        this.reqFields = ["playerUid"];
+        this.resFields = ["info"];
+    }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //server output, type: UserInfo
+    get info() {return this._info}
+    set info(v) {this._info = v}
 }
 class IndexInfo extends Base {
     constructor(){
@@ -319,47 +430,36 @@ class IndexInfo extends Base {
     get unreadMsgCnt() {return this._unreadMsgCnt}
     set unreadMsgCnt(v) {this._unreadMsgCnt = v}
 }
-class PlayerInfo extends Base {
+class PostList extends Base {
     constructor(){
         super();
-        this.action = 'travel.playerinfo';
+        this.action = 'post.postlist';
     
-        this._playerUid = null;
-        this._info = null;
-        this.reqFields = ["playerUid"];
-        this.resFields = ["info"];
+        this._posts = null;
+        this.reqFields = [];
+        this.resFields = ["posts"];
     }
-    //client input, optional, type: string
-    get playerUid() {return this._playerUid}
-    set playerUid(v) {this._playerUid = v}
-    //server output, type: UserInfo
-    get info() {return this._info}
-    set info(v) {this._info = v}
+    //server output, type: Post[]//服务器返回帖子列表
+    get posts() {return this._posts}
+    set posts(v) {this._posts = v}
 }
-class RankInfo extends Base {
+class CommentPost extends Base {
     constructor(){
         super();
-        this.action = 'rank.rankinfo';
+        this.action = 'post.commentpost';
     
-        this._rankType = null;
-        this._limit = null;
-        this._selfRank = null;
-        this._ranks = null;
-        this.reqFields = ["rankType","limit"];
-        this.resFields = ["selfRank","ranks"];
+        this.reqFields = [];
+        this.resFields = [];
     }
-    //client input, require, type: RankType
-    get rankType() {return this._rankType}
-    set rankType(v) {this._rankType = v}
-    //client input, optional, type: number
-    get limit() {return this._limit}
-    set limit(v) {this._limit = v}
-    //server output, type: number
-    get selfRank() {return this._selfRank}
-    set selfRank(v) {this._selfRank = v}
-    //server output, type: RankItem[]
-    get ranks() {return this._ranks}
-    set ranks(v) {this._ranks = v}
+}
+class ThumbComment extends Base {
+    constructor(){
+        super();
+        this.action = 'post.thumbcomment';
+    
+        this.reqFields = [];
+        this.resFields = [];
+    }
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){
@@ -378,10 +478,18 @@ class RechargeRankInfo extends RankInfo {
 exports.Season = Season;
 exports.Weather = Weather;
 exports.RankType = RankType;
-exports.UserInfo = UserInfo;
-exports.RankItem = RankItem;
+exports.PostType = PostType;
 exports.Base = Base;
-exports.IndexInfo = IndexInfo;
-exports.PlayerInfo = PlayerInfo;
+exports.RankItem = RankItem;
+exports.UserBriefInfo = UserBriefInfo;
+exports.Post = Post;
+exports.Comment = Comment;
 exports.RankInfo = RankInfo;
+exports.PostComments = PostComments;
+exports.UserInfo = UserInfo;
+exports.PlayerInfo = PlayerInfo;
+exports.IndexInfo = IndexInfo;
+exports.PostList = PostList;
+exports.CommentPost = CommentPost;
+exports.ThumbComment = ThumbComment;
 exports.RechargeRankInfo = RechargeRankInfo;

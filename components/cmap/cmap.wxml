@@ -1,12 +1,15 @@
 <!--components/cmap/cmap.wxml-->
-<view class='cmap-con'>
-  <!-- <view class='cmap-layer one'>
-    <element wx:for='{{item in areas}}' item='{{item}}'></elment>
+<scroll-view class='cmap-con' scroll-x='{{true}}' scroll-y='{{true}}'
+  scroll-left='{{scrollLeft}}' scroll-top='{{scrollTop}}'
+  bind:touchstart='touchStart' bind:touchmove='touchMove' bind:touchend='touchEnd' bind:tap='touchTap'
+>
+   <view class='cmap-layer {{double ? "double": "normal"}} areas'>1
+    <element wx:for='{{areas}}' wx:key='{{index}}' item='{{item}}'></element>
   </view>
-  <view class='cmap-layer two'>
-    <element wx:for='{{item in points}}' item='{{item}}'></element>
-  </view> -->
-  <view class='cmap-layer three'>
-
+  <view class='cmap-layer {{double ? "double": "normal"}} lines'>2
+    <element wx:for='{{lines}}' wx:key='{{index}}' item='{{item}}'></element>
   </view>
-</view>
+  <view class='cmap-layer {{double ? "double": "normal"}} points'>3
+    <element wx:for='{{points}}' wx:key='{{index}}' item='{{item}}'></element>
+  </view> 
+</scroll-view>
