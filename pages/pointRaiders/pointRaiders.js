@@ -1,5 +1,6 @@
 import { spliceStr } from '../../utils/util.js'
-import { PostList } from '../../api.js';
+import { PostList, PostType } from '../../api.js';
+const LIMIT = 5;
 Page({
 
   /**
@@ -24,16 +25,22 @@ Page({
    this.setData({
      testStr:spliceStr(this.data.testStr,42)
    })
-   let req = new PostList()
-   req.fetch().then(req => {
-     this.setData({
-       posts: req.posts
-     })
-   })
+   this.pullList(PostType.JINGDIAN)
   },
-  toDetail() {
+  pullList(v) {
+    let req = new PostList()
+    req.lastPostId = 0
+    req.limit = LIMIT
+    req.type = v
+    req.fetch().then(req => {
+      this.setData({
+        posts: req.posts
+      })
+    })
+  },
+  toDetail(e) {
     wx.navigateTo({
-      url: '../raiders/raiders'
+      url: '../raiders/raiders?id=' + e.currentTarget.dataset.id
     })
   },
   chgTab() {
@@ -41,6 +48,12 @@ this.setData({
   viewpoint: !this.data.viewpoint,
   specialty: !this.data.specialty
 })
+// if(!this.data.specialty) {
+//   this.pullList(PostType.JINGDIAN)
+// }
+// else {
+//   this.pullList(PostType.TECHAN)
+// }
   },
   //超出字数部分用...代替
   /**

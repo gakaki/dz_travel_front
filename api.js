@@ -595,13 +595,13 @@ class CityList extends Base {
         super();
         this.action = 'city.citylist';
     
-        this._provence = null;
+        this._data = null;
         this.reqFields = [];
-        this.resFields = ["provence"];
+        this.resFields = ["data"];
     }
     //server output, type: Provence[]
-    get provence() {return this._provence}
-    set provence(v) {this._provence = v}
+    get data() {return this._data}
+    set data(v) {this._data = v}
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){

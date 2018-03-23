@@ -38,7 +38,14 @@ Page({
       tipPop: true,
       isShowPop: !this.data.isShowPop
     })
-console.log(v)
+// let req = new CommentPost();
+// req.postId = postId;
+// req.content = v.detail.str;
+// req.score = v.detail.star;
+// req.fetch().then(() => {
+//   //评论列表后面追加一条，并翻转顺序
+//   //let comments = this.data.comments.concat(req.comments);
+// })
   },
   isPop() {
 this.setData({
@@ -82,10 +89,9 @@ this.setData({
 
     req.fetch().then(() => {
       let comments = this.data.comments.concat(req.comments);
-      this.setData({comments})
+     // this.setData({comments})
     });
   },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
