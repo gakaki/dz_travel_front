@@ -1,0 +1,26 @@
+/* components/cmap/cmap.wxss */
+.cmap-con {
+  width:100vw;
+  height: 80vh;
+  overflow: scroll;
+  position: relative;
+}
+
+.cmap-layer {
+  width: 120vw;
+  height: 100vh;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.one {
+  background-color: rgba(100, 30, 60, .5);
+}
+.two {
+  padding-top: 30rpx;
+  background-color: rgba(200, 100, 80, .5);
+}
+.three {
+  padding-top: 60rpx;
+  background-color: rgba(89, 200, 20, .5);
+}

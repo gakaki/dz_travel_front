@@ -25,13 +25,14 @@ class Weather{
 }
 class RankType{
     
-    static DAY = 1;
+    static THUMBS = 1;
     
-    static MONTH = 3;
+    static FOOT = 2;
     
-    static RECHARGE = 9;
+    static SCORE = 3;
     
 }
+<<<<<<< HEAD
 class PostType{
     
     static JINGDIAN = 1;
@@ -64,20 +65,63 @@ class Post  {
     
         //prop type: number//评论数
         this.commentNum = null;
+=======
+class RankSubtype{
+    
+    static COUNTRY = 1;
+    
+    static FRIEND = 2;
+    
+}
+class PostType{
+    
+    static JINGDIAN = 1;
+    
+    static TECHAN = 2;
+    
+}
+//------------classes--------------
+class RankItem  {
+    constructor(){
+    
+    
+        //prop type: number
+        this.rank = null;
+    
+        //prop type: UserInfo
+        this.userInfo = null;
     
         
         
     }
 }
-class RankItem  {
+class selfRank  {
+    constructor(){
+    
+    
+        //prop type: number
+        this.rank = null;
+    
+        //prop type: UserInfo
+        this.userInfo = null;
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
+    
+        
+        
+    }
+}
+class UserBriefInfo  {
     constructor(){
     
     
         //prop type: string
-        this.name = null;
+        this.uid = null;
     
-        //prop type: number
-        this.rank = null;
+        //prop type: string
+        this.nickName = null;
+    
+        //prop type: string
+        this.avatarUrl = null;
     
         //prop type: userInfo
         this.userInfo = null;
@@ -293,6 +337,7 @@ class Base  {
         });
     }
 }
+<<<<<<< HEAD
 class UserBriefInfo  {
     constructor(){
     
@@ -305,6 +350,26 @@ class UserBriefInfo  {
     
         //prop type: string
         this.avatarUrl = null;
+=======
+class Post  {
+    constructor(){
+    
+    
+        //prop type: number//帖子id
+        this.postId = null;
+    
+        //prop type: PostType//帖子类型：景点or特产
+        this.type = null;
+    
+        //prop type: string//帖子内容，为景点或特产的介绍
+        this.content = null;
+    
+        //prop type: number//创建时间
+        this.time = null;
+    
+        //prop type: string//景点或特产图片url
+        this.img = null;
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
     
         
         
@@ -339,6 +404,7 @@ class Comment  {
         
     }
 }
+<<<<<<< HEAD
 class City  {
     constructor(){
     
@@ -370,6 +436,8 @@ class PlayerInfo extends Base {
     get info() {return this._info}
     set info(v) {this._info = v}
 }
+=======
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
 class IndexInfo extends Base {
     constructor(){
         super();
@@ -403,6 +471,64 @@ class IndexInfo extends Base {
     get unreadMsgCnt() {return this._unreadMsgCnt}
     set unreadMsgCnt(v) {this._unreadMsgCnt = v}
 }
+<<<<<<< HEAD
+=======
+class PlayerInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'travel.playerinfo';
+    
+        this._playerUid = null;
+        this._info = null;
+        this.reqFields = ["playerUid"];
+        this.resFields = ["info"];
+    }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //server output, type: UserInfo
+    get info() {return this._info}
+    set info(v) {this._info = v}
+}
+class ThumbComment extends Base {
+    constructor(){
+        super();
+        this.action = 'post.thumbcomment';
+    
+        this.reqFields = [];
+        this.resFields = [];
+    }
+}
+class UserInfo extends UserBriefInfo {
+    constructor(){
+        super();
+    
+        //prop type: string
+        this.gender = null;
+    
+        //prop type: string
+        this.city = null;
+    
+        //prop type: string
+        this.province = null;
+    
+        //prop type: string
+        this.country = null;
+    
+        //prop type: Boolean
+        this.online = null;
+    
+        //prop type: KV[]
+        this.items = null;
+    
+        //prop type: string[]
+        this.friends = null;
+    
+        
+        
+    }
+}
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
 class RankInfo extends Base {
     constructor(){
         super();
@@ -421,7 +547,7 @@ class RankInfo extends Base {
     //client input, optional, type: number
     get limit() {return this._limit}
     set limit(v) {this._limit = v}
-    //server output, type: number
+    //server output, type: selfRank
     get selfRank() {return this._selfRank}
     set selfRank(v) {this._selfRank = v}
     //server output, type: RankItem[]
@@ -463,6 +589,7 @@ class PostComments extends Base {
     get comments() {return this._comments}
     set comments(v) {this._comments = v}
 }
+<<<<<<< HEAD
 class ThumbComment extends Base {
     constructor(){
         super();
@@ -514,6 +641,8 @@ class cityList extends Base {
     get provence() {return this._provence}
     set provence(v) {this._provence = v}
 }
+=======
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
 class RechargeRankInfo extends RankInfo {
     constructor(){
         super();
@@ -531,6 +660,7 @@ class RechargeRankInfo extends RankInfo {
 exports.Season = Season;
 exports.Weather = Weather;
 exports.RankType = RankType;
+<<<<<<< HEAD
 exports.PostType = PostType;
 exports.Post = Post;
 exports.RankItem = RankItem;
@@ -541,11 +671,28 @@ exports.Comment = Comment;
 exports.City = City;
 exports.PlayerInfo = PlayerInfo;
 exports.IndexInfo = IndexInfo;
+=======
+exports.RankSubtype = RankSubtype;
+exports.PostType = PostType;
+exports.RankItem = RankItem;
+exports.selfRank = selfRank;
+exports.UserBriefInfo = UserBriefInfo;
+exports.Base = Base;
+exports.Post = Post;
+exports.Comment = Comment;
+exports.IndexInfo = IndexInfo;
+exports.PlayerInfo = PlayerInfo;
+exports.ThumbComment = ThumbComment;
+exports.UserInfo = UserInfo;
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
 exports.RankInfo = RankInfo;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
+<<<<<<< HEAD
 exports.ThumbComment = ThumbComment;
 exports.UserInfo = UserInfo;
 exports.cityList = cityList;
+=======
+>>>>>>> 21f81160bd19bb1ae3afcef794df88c5fe925ede
 exports.RechargeRankInfo = RechargeRankInfo;

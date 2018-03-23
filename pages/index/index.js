@@ -2,7 +2,6 @@
 
 import { start } from '../../utils/rest.js';
 import { IndexInfo } from '../../api.js';
-// import { Stage, Shape } from '../../libs/easeljs.js'
 const app = getApp()
 Page({
 
