@@ -47,6 +47,35 @@ class PostType{
     
 }
 //------------classes--------------
+class Post  {
+    constructor(){
+    
+    
+        //prop type: number//帖子id
+        this.postId = null;
+    
+        //prop type: PostType//帖子类型：景点or特产
+        this.type = null;
+    
+        //prop type: string//帖子内容，为景点或特产的介绍
+        this.content = null;
+    
+        //prop type: 
+        this.name = null;
+    
+        //prop type: number//帖子的评论
+        this.score = null;
+    
+        //prop type: string//景点或特产图片url
+        this.img = null;
+    
+        //prop type: number//评论数
+        this.commentNum = null;
+    
+        
+        
+    }
+}
 class RankItem  {
     constructor(){
     
@@ -75,18 +104,18 @@ class selfRank  {
         
     }
 }
-class UserBriefInfo  {
+class Provence  {
     constructor(){
     
     
-        //prop type: string
-        this.uid = null;
+        //prop type: 
+        this.proLetter = null;
     
-        //prop type: string
-        this.nickName = null;
+        //prop type: 
+        this.provence = null;
     
-        //prop type: string
-        this.avatarUrl = null;
+        //prop type: 
+        this.citys = null;
     
         
         
@@ -282,24 +311,18 @@ class Base  {
         });
     }
 }
-class Post  {
+class UserBriefInfo  {
     constructor(){
     
     
-        //prop type: number//帖子id
-        this.postId = null;
+        //prop type: string
+        this.uid = null;
     
-        //prop type: PostType//帖子类型：景点or特产
-        this.type = null;
+        //prop type: string
+        this.nickName = null;
     
-        //prop type: string//帖子内容，为景点或特产的介绍
-        this.content = null;
-    
-        //prop type: number//创建时间
-        this.time = null;
-    
-        //prop type: string//景点或特产图片url
-        this.img = null;
+        //prop type: string
+        this.avatarUrl = null;
     
         
         
@@ -329,6 +352,20 @@ class Comment  {
     
         //prop type: number//创建时间
         this.time = null;
+    
+        
+        
+    }
+}
+class City  {
+    constructor(){
+    
+    
+        //prop type: 
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
     
         
         
@@ -367,38 +404,18 @@ class IndexInfo extends Base {
     get unreadMsgCnt() {return this._unreadMsgCnt}
     set unreadMsgCnt(v) {this._unreadMsgCnt = v}
 }
-class PlayerInfo extends Base {
-    constructor(){
-        super();
-        this.action = 'travel.playerinfo';
-    
-        this._playerUid = null;
-        this._info = null;
-        this.reqFields = ["playerUid"];
-        this.resFields = ["info"];
-    }
-    //client input, optional, type: string
-    get playerUid() {return this._playerUid}
-    set playerUid(v) {this._playerUid = v}
-    //server output, type: UserInfo
-    get info() {return this._info}
-    set info(v) {this._info = v}
-}
-class ThumbComment extends Base {
-    constructor(){
-        super();
-        this.action = 'post.thumbcomment';
-    
-        this.reqFields = [];
-        this.resFields = [];
-    }
-}
 class UserInfo extends UserBriefInfo {
     constructor(){
         super();
     
         //prop type: string
         this.gender = null;
+    
+        //prop type: number
+        this.totalArrive = null;
+    
+        //prop type: number
+        this.overmatch = null;
     
         //prop type: string
         this.city = null;
@@ -482,6 +499,45 @@ class PostComments extends Base {
     get comments() {return this._comments}
     set comments(v) {this._comments = v}
 }
+class ThumbComment extends Base {
+    constructor(){
+        super();
+        this.action = 'post.thumbcomment';
+    
+        this.reqFields = [];
+        this.resFields = [];
+    }
+}
+class PlayerInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'travel.playerinfo';
+    
+        this._playerUid = null;
+        this._info = null;
+        this.reqFields = ["playerUid"];
+        this.resFields = ["info"];
+    }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //server output, type: UserInfo
+    get info() {return this._info}
+    set info(v) {this._info = v}
+}
+class cityList extends Base {
+    constructor(){
+        super();
+        this.action = 'city.citylist';
+    
+        this._provence = null;
+        this.reqFields = [];
+        this.resFields = ["provence"];
+    }
+    //server output, type: Provence[]
+    get provence() {return this._provence}
+    set provence(v) {this._provence = v}
+}
 class RechargeRankInfo extends RankInfo {
     constructor(){
         super();
@@ -501,18 +557,21 @@ exports.Weather = Weather;
 exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
 exports.PostType = PostType;
+exports.Post = Post;
 exports.RankItem = RankItem;
 exports.selfRank = selfRank;
-exports.UserBriefInfo = UserBriefInfo;
+exports.Provence = Provence;
 exports.Base = Base;
-exports.Post = Post;
+exports.UserBriefInfo = UserBriefInfo;
 exports.Comment = Comment;
+exports.City = City;
 exports.IndexInfo = IndexInfo;
-exports.PlayerInfo = PlayerInfo;
-exports.ThumbComment = ThumbComment;
 exports.UserInfo = UserInfo;
 exports.RankInfo = RankInfo;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
+exports.ThumbComment = ThumbComment;
+exports.PlayerInfo = PlayerInfo;
+exports.cityList = cityList;
 exports.RechargeRankInfo = RechargeRankInfo;
