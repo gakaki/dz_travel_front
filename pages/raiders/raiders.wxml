@@ -1,21 +1,23 @@
-<view class="con" >
-  <image class="photo" src=""> </image>
+<view class="con">
+<scroll-view class="con-box" scroll-y>
+<image class="photo" src=""> </image>
   <view class="desc-bg font">
-      是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风格是苏定方,啊的风格是个第三方公司的 士大夫敢死队风格士大夫敢死队风格但是认同感和的法国红酒的法国红酒发帝国海军法国红酒法国红酒
-    </view>
-  <scroll-view class="con-box" scroll-y>
+    是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风格是苏定方,啊的风格是个第三方公司的 士大夫敢死队风格士大夫敢死队风格但是认同感和的法国红酒的法国红酒发帝国海军法国红酒法国红酒
+  </view>
     <view class="item f-c">
       <view class="item-top f-r-fs">
         <image class="head" src=""></image>
         <view class="info f-c-sb">
-          <text class="font nn">啊的是法国</text> 
+          <text class="font nn">啊的是法国</text>
           <view class="sec f-r-fs">
-           <view class="flex"><star wid='{{starWid}}' starNum="{{starCount}}"></star></view>
+            <view class="flex">
+              <star wid='{{starWid}}' starNum="{{starCount}}"></star>
+            </view>
             <text class="num font ">{{starCount}}</text>
             <text class="fen font ">分</text>
-             <text class="heart-num font ">77777</text>
+            <text class="heart-num font ">77777</text>
             <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
-           
+
           </view>
         </view>
       </view>
@@ -25,7 +27,53 @@
       <text class="date font">2018/3/10</text>
       <view class="t-line"></view>
     </view>
-  </scroll-view>
+    <view class="item f-c">
+      <view class="item-top f-r-fs">
+        <image class="head" src=""></image>
+        <view class="info f-c-sb">
+          <text class="font nn">啊的是法国</text>
+          <view class="sec f-r-fs">
+            <view class="flex">
+              <star wid='{{starWid}}' starNum="{{starCount}}"></star>
+            </view>
+            <text class="num font ">{{starCount}}</text>
+            <text class="fen font ">分</text>
+            <text class="heart-num font ">77777</text>
+            <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
+
+          </view>
+        </view>
+      </view>
+      <view class="item-bot font">
+        是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风夫敢死队风
+      </view>
+      <text class="date font">2018/3/10</text>
+      <view class="t-line"></view>
+    </view>
+    <view class="item f-c">
+      <view class="item-top f-r-fs">
+        <image class="head" src=""></image>
+        <view class="info f-c-sb">
+          <text class="font nn">啊的是法国</text>
+          <view class="sec f-r-fs">
+            <view class="flex">
+              <star wid='{{starWid}}' starNum="{{starCount}}"></star>
+            </view>
+            <text class="num font ">{{starCount}}</text>
+            <text class="fen font ">分</text>
+            <text class="heart-num font ">77777</text>
+            <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
+
+          </view>
+        </view>
+      </view>
+      <view class="item-bot font">
+        是顾客收到了你发货了撒地方开始独立解放的分水岭撒旦发个难道是方式没事的方式的那风夫敢死队风
+      </view>
+      <text class="date font">2018/3/10</text>
+      <view class="t-line"></view>
+    </view>
+</scroll-view>
   <view class="btn-box flex">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>

@@ -15,6 +15,16 @@ Page({
   onLoad: function (options) {
 
   },
+  toPr() {
+    wx.navigateTo({
+      url: '../pointRaiders/pointRaiders'
+    })
+  },
+  toProps() {
+wx.navigateTo({
+  url: '../props/props'
+})
+  },
   showIntro() {
     this.setData({
       isShowIntro: true

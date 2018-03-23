@@ -17,15 +17,15 @@
   line-height: 40rpx;
   color: #000;
 }
-
-.con-box {
+ 
+ .con-box {
   position: absolute;
-  top: 778rpx;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 130rpx;
   overflow: hidden;
-}
+}  
 
 .item {
   width: 100%;

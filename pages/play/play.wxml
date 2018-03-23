@@ -26,9 +26,9 @@
       <text class='rb-dedail ib font'>受到法律和生当复来归撒旦发个科技时代分厘卡个速度分级管理的上空飞过得分跟</text>
     </view>
     <view class="rb-bot f-r-sa">
-      <view class="gl font">旅行攻略</view>
+      <view class="gl font" bindtap='toPr'>旅行攻略</view>
       <view class="yw font">开始游玩</view>
-      <view class="dj font">旅行道具</view>
+      <view class="dj font" bindtap='toProps'>旅行道具</view>
     </view>
   </view>
   <view class=" pop-bg" wx:if="{{isPop}}">
