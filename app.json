@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/raiders/raiders",
+    "pages/testmap/testmap",
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/rank/rank",
-    "pages/testmap/testmap",
     "pages/props/props",
    
     "pages/pointRaiders/pointRaiders",

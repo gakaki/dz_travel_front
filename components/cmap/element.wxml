@@ -1,2 +1,5 @@
 <!--components/cmap/element.wxml-->
-<image style='position:absolute;left:{{x}}rpx;top:{{y}}rpx;' src='{{img}}'></image>
+<view style='position:absolute;left:{{x}}rpx;top:{{y}}rpx;'>
+  <image src='{{img}}'></image>
+  <text>{{txt}}</text>
+</view>
