@@ -1,4 +1,5 @@
 // pages/rank/rank.js
+import { RankInfo } from '../../api.js';
 const app = getApp()
 
 Page({
