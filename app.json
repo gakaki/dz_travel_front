@@ -4,14 +4,9 @@
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/rank/rank",
-<<<<<<< HEAD
     "pages/index/index",
-    "pages/integral/integral",
-=======
->>>>>>> 9973e355ff35e54ee0a83bb0184352d32a6a1000
     "pages/testmap/testmap",
     "pages/props/props",
-   
     "pages/pointRaiders/pointRaiders",
     "pages/integral/integral",
     "pages/postcard/postcard",
@@ -21,12 +16,6 @@
     "pages/other/other",
     "pages/checkPostcard/checkPostcard",
     "pages/xiangce/xiangce",
-<<<<<<< HEAD
-    
-    "pages/goSight/goSight",
-=======
-    "pages/index/index",
->>>>>>> 9973e355ff35e54ee0a83bb0184352d32a6a1000
     "pages/start/start",
     "pages/message/message",
     "pages/cityRaiders/cityRaiders",
