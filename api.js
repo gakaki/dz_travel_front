@@ -25,11 +25,18 @@ class Weather{
 }
 class RankType{
     
-    static DAY = 1;
+    static THUMBS = 1;
     
-    static MONTH = 3;
+    static FOOT = 2;
     
-    static RECHARGE = 9;
+    static SCORE = 3;
+    
+}
+class RankSubtype{
+    
+    static COUNTRY = 1;
+    
+    static FRIEND = 2;
     
 }
 class PostType{
@@ -40,17 +47,39 @@ class PostType{
     
 }
 //------------classes--------------
-class RankItem  {
+class Rent  {
     constructor(){
     
     
-        //prop type: string
-        this.name = null;
+        //prop type: number//装备id(shop表)
+        this.rentId = null;
+    
+        
+        
+    }
+}
+class City  {
+    constructor(){
+    
+    
+        //prop type: 
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
+    
+        
+        
+    }
+}
+class selfRank  {
+    constructor(){
+    
     
         //prop type: number
         this.rank = null;
     
-        //prop type: userInfo
+        //prop type: UserInfo
         this.userInfo = null;
     
         
@@ -264,12 +293,15 @@ class Base  {
         });
     }
 }
-class Rent  {
+class RankItem  {
     constructor(){
     
     
-        //prop type: number//装备id(shop表)
-        this.rentId = null;
+        //prop type: number
+        this.rank = null;
+    
+        //prop type: UserInfo
+        this.userInfo = null;
     
         
         
@@ -373,20 +405,6 @@ class Comment  {
         
     }
 }
-class City  {
-    constructor(){
-    
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
-    
-        
-        
-    }
-}
 class SpeList extends Base {
     constructor(){
         super();
@@ -418,44 +436,29 @@ class RankInfo extends Base {
     //client input, optional, type: number
     get limit() {return this._limit}
     set limit(v) {this._limit = v}
-    //server output, type: number
+    //server output, type: selfRank
     get selfRank() {return this._selfRank}
     set selfRank(v) {this._selfRank = v}
     //server output, type: RankItem[]
     get ranks() {return this._ranks}
     set ranks(v) {this._ranks = v}
 }
-class UserInfo extends UserBriefInfo {
+class PlayerInfo extends Base {
     constructor(){
         super();
+        this.action = 'travel.playerinfo';
     
-        //prop type: string
-        this.gender = null;
-    
-        //prop type: string
-        this.city = null;
-    
-        //prop type: string
-        this.province = null;
-    
-        //prop type: string
-        this.country = null;
-    
-        //prop type: Boolean
-        this.online = null;
-    
-        //prop type: KV[]
-        this.items = null;
-    
-        //prop type: KV[]
-        this.rentItems = null;
-    
-        //prop type: string[]
-        this.friends = null;
-    
-        
-        
+        this._playerUid = null;
+        this._info = null;
+        this.reqFields = ["playerUid"];
+        this.resFields = ["info"];
     }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //server output, type: UserInfo
+    get info() {return this._info}
+    set info(v) {this._info = v}
 }
 class BuySpe extends Base {
     constructor(){
@@ -482,23 +485,6 @@ class SellSpe extends Base {
     //server output, type: Specialty[]//金币增加数
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
-}
-class PlayerInfo extends Base {
-    constructor(){
-        super();
-        this.action = 'travel.playerinfo';
-    
-        this._playerUid = null;
-        this._info = null;
-        this.reqFields = ["playerUid"];
-        this.resFields = ["info"];
-    }
-    //client input, optional, type: string
-    get playerUid() {return this._playerUid}
-    set playerUid(v) {this._playerUid = v}
-    //server output, type: UserInfo
-    get info() {return this._info}
-    set info(v) {this._info = v}
 }
 class IndexInfo extends Base {
     constructor(){
@@ -532,6 +518,38 @@ class IndexInfo extends Base {
     //server output, type: number
     get unreadMsgCnt() {return this._unreadMsgCnt}
     set unreadMsgCnt(v) {this._unreadMsgCnt = v}
+}
+class UserInfo extends UserBriefInfo {
+    constructor(){
+        super();
+    
+        //prop type: string
+        this.gender = null;
+    
+        //prop type: string
+        this.city = null;
+    
+        //prop type: string
+        this.province = null;
+    
+        //prop type: string
+        this.country = null;
+    
+        //prop type: Boolean
+        this.online = null;
+    
+        //prop type: KV[]
+        this.items = null;
+    
+        //prop type: KV[]
+        this.rentItems = null;
+    
+        //prop type: string[]
+        this.friends = null;
+    
+        
+        
+    }
 }
 class PostList extends Base {
     constructor(){
@@ -620,23 +638,25 @@ class RechargeRankInfo extends RankInfo {
 exports.Season = Season;
 exports.Weather = Weather;
 exports.RankType = RankType;
+exports.RankSubtype = RankSubtype;
 exports.PostType = PostType;
-exports.RankItem = RankItem;
+exports.Rent = Rent;
+exports.City = City;
+exports.selfRank = selfRank;
 exports.Provence = Provence;
 exports.Base = Base;
-exports.Rent = Rent;
+exports.RankItem = RankItem;
 exports.Specialty = Specialty;
 exports.UserBriefInfo = UserBriefInfo;
 exports.Post = Post;
 exports.Comment = Comment;
-exports.City = City;
 exports.SpeList = SpeList;
 exports.RankInfo = RankInfo;
-exports.UserInfo = UserInfo;
+exports.PlayerInfo = PlayerInfo;
 exports.BuySpe = BuySpe;
 exports.SellSpe = SellSpe;
-exports.PlayerInfo = PlayerInfo;
 exports.IndexInfo = IndexInfo;
+exports.UserInfo = UserInfo;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;

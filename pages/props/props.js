@@ -1,4 +1,4 @@
-// pages/props/props.js
+
 Page({
 
   /**
