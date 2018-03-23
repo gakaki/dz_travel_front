@@ -1,4 +1,4 @@
-// pages/raiders/raiders.js
+import {  } from '../../api.js';
 Page({
 
   /**

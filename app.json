@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
     "pages/goSight/goSight",
     "pages/play/play",
@@ -7,7 +8,7 @@
     "pages/testmap/testmap",
     "pages/props/props",
    
-    "pages/pointRaiders/pointRaiders",
+    
     "pages/integral/integral",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
