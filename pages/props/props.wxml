@@ -44,7 +44,7 @@
     </view>
   </view>
 
-  <buy wx:if="{{popCar}}" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
+  <buy wx:if="{{popCar}}" cfmStr="租用" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
    <buynum wx:if="{{popBuyNum}}" single="{{singal}}" bindtoclose="hideBuyNum" bindtoBuy="toBuyNUm"></buynum> 
   <!-- <view class="pop-car-bg flex" wx:if="{{popCar}}" bindtap='hideCar'>
     <view class="pop-car-con f-c-fs" catchtap='aa'>
