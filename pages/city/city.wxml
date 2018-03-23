@@ -7,10 +7,10 @@
   </view>
   <view class="tab f-r-sb {{focus ? '' : 'top'}}">
     <view class="{{isDomestic ? 'choose' : ''}} flight">
-      <text class="font">国内航班</text>
+      <text class="font">国内城市</text>
     </view>
     <view class="{{isDomestic ? '' : 'choose'}} flight">
-      <text class='font'>国际航班</text>
+      <text class='font'>国际城市</text>
     </view>
   </view>
   <scroll-view scroll-y class="choose-city">
