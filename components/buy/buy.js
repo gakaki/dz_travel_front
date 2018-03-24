@@ -28,13 +28,9 @@ Component({
       type: Number,
       value: 777
     },
-    descOne: {
+    desc: {
       type: String,
-      value: '购买特产后可前往其他城市高价售卖'
-    },
-    descTwo: {
-      type: String,
-      value: '赚取金币'
+      value: '购买特产后可前往其他城市高价售卖赚取金币'
     },
     content: {
       type: String,    //content为组件中的描述文字，其中字体样式由外部样式outer-class决定

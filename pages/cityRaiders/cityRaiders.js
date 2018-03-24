@@ -1,4 +1,4 @@
-// pages/cityRaiders/cityRaiders.js
+import { CityList } from '../../api.js'
 Page({
 
   /**
@@ -11,13 +11,23 @@ Page({
     position: '',
     abc: ['A','B','C','F','G','H','J','L','N','Q','S','T','X','Y','Z'],
     num: 0, //选中的第几个字母,
-    checkId: ''
+    checkId: '',
+    cityData: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.pullList()
+  },
+  pullList() {
+    let req = new CityList();
+    req.fetch().then(req => {
+      this.setData({
+        cityData: req.data,
+      })
+    })
   },
   choose(e) {
 this.setData({

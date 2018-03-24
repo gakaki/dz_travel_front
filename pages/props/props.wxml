@@ -12,12 +12,18 @@
     </view>
     <text class="tips font fs">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</text>
     <view class="line"></view>
-    <view class="one-item f-r-fs">
-      <image class="one-pic" src=""></image>
-      <text class="one-i-str font">舒适自驾车</text>
-      <view class="one-i-price f-r-fs" bindtap='rentCar'>
+    <view class="one-item f-r-fs" wx:for="{{rentProp}}">
+      <image class="one-pic" src="{{item.image}}"></image>
+       <text class="one-i-str font">{{item.propsname}}</text> 
+
+<!-- <view class="f-c-sb two-mid">
+        <text class="two-mid-top-str font fs">{{item.propsname}}</text>
+        <text class="two-mid-bot-str font fs">{{item.rechargedescription}}</text>
+      </view> -->
+
+      <view class="one-i-price f-r-fs" data-type="0" data-id="{{item.id}}" bindtap='rentCar'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
-        <text class='gold-num font'>777</text>
+        <text class='gold-num font'>{{item.price}}</text>
       </view>
     </view>
   </view>
@@ -29,7 +35,7 @@
         <text class="two-mid-top-str font fs">舒适自驾车</text>
         <text class="two-mid-bot-str font fs">舒适自速格和的风格和的风格和的风格和的风格和驾车</text>
       </view>
-      <view class="one-i-price f-r-fs" bindtap='rentCar'>
+      <view class="one-i-price f-r-fs" data-type="1" bindtap='buySpe'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>777</text>
       </view>
@@ -44,27 +50,6 @@
     </view>
   </view>
 
-  <buy wx:if="{{popCar}}" cfmStr="租用" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
-   <buynum wx:if="{{popBuyNum}}" single="{{singal}}" bindtoclose="hideBuyNum" bindtoBuy="toBuyNUm"></buynum> 
-  <!-- <view class="pop-car-bg flex" wx:if="{{popCar}}" bindtap='hideCar'>
-    <view class="pop-car-con f-c-fs" catchtap='aa'>
-      <view class="f-r-fs car-top">
-        <image class="one-pic pop-car" src=""></image>
-        <view class='f-c-sb car-rgt'>
-          <text class="car-name font">舒适自驾车</text>
-          <view class="fs f-r-fs">
-            <image class="gold" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
-            <text class='gold-num font'>777</text>
-          </view>
-        </view>
-      </view>
-      <text class="car-tip font fs">租用后游玩路程所用时间可缩短50%</text>
-      <text class="car-tip font fs mg">租用本道具仅本城本次游玩有效</text>
-      <view class="car-line"></view>
-      <view class="bot-btn f-r-sb">
-      <view class="cancel font">取消</view>
-      <view class="confirm font">租用</view>
-      </view>
-    </view>
-  </view> -->
+  <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}"  desc="{{propDesc}}" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
+   <buynum wx:if="{{popBuyNum}}" single="{{singal}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum> 
 </view>

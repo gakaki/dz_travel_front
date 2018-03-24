@@ -1,15 +1,24 @@
 {
   "pages": [
+    "pages/cityRaiders/cityRaiders",
+    "pages/pointRaiders/pointRaiders",
     "pages/city/city",
     "pages/index/index",
     "pages/integral/integral",
-    "pages/rank/rank",
     "pages/raiders/raiders",
+
+    
+    
+    
+
+    "pages/rank/rank",
+
+    
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/testmap/testmap",
+
     "pages/props/props",
-    "pages/pointRaiders/pointRaiders",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
     "pages/settings/settings",
@@ -18,7 +27,7 @@
     "pages/xiangce/xiangce",
     "pages/start/start",
     "pages/message/message",
-    "pages/cityRaiders/cityRaiders",
+    
     "pages/self/self",
     "pages/footprint/footprint"
   ],

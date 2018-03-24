@@ -47,77 +47,57 @@ class PostType{
     
 }
 //------------classes--------------
-class oneDayLog  {
+class Rent  {
     constructor(){
     
     
-        //prop type: string
-        this.time = null;
-    
-        //prop type: string
-        this.city = null;
-    
-        //prop type: string[]
-        this.scenicSpots = null;
+        //prop type: number//装备id(shop表)
+        this.rentId = null;
     
         
         
     }
 }
-class UserBriefInfo  {
+class City  {
     constructor(){
     
-    
-        //prop type: string
-        this.uid = null;
-    
-        //prop type: string
-        this.nickName = null;
-    
-        //prop type: string
-        this.avatarUrl = null;
-    
-        
-        
-    }
-}
-class RankItem  {
-    constructor(){
-    
-    
-        //prop type: number
-        this.rank = null;
-    
-        //prop type: UserInfo
-        this.userInfo = null;
-    
-        
-        
-    }
-}
-class SelfRank  {
-    constructor(){
-    
-    
-        //prop type: number
-        this.rank = null;
-    
-        //prop type: UserInfo
-        this.userInfo = null;
-    
-        
-        
-    }
-}
-class Log  {
-    constructor(){
-    
-    
-        //prop type: string
-        this.year = null;
     
         //prop type: 
-        this.cityLogs = null;
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
+    
+        
+        
+    }
+}
+class selfRank  {
+    constructor(){
+    
+    
+        //prop type: number
+        this.rank = null;
+    
+        //prop type: UserInfo
+        this.userInfo = null;
+    
+        
+        
+    }
+}
+class Provence  {
+    constructor(){
+    
+    
+        //prop type: 
+        this.proLetter = null;
+    
+        //prop type: 
+        this.provence = null;
+    
+        //prop type: 
+        this.citys = null;
     
         
         
@@ -313,6 +293,60 @@ class Base  {
         });
     }
 }
+class RankItem  {
+    constructor(){
+    
+    
+        //prop type: number
+        this.rank = null;
+    
+        //prop type: UserInfo
+        this.userInfo = null;
+    
+        
+        
+    }
+}
+class Specialty  {
+    constructor(){
+    
+    
+        //prop type: number//特产id
+        this.propId = null;
+    
+        //prop type: string//特产图片
+        this.img = null;
+    
+        //prop type: string//特产名
+        this.name = null;
+    
+        //prop type: string//特产介绍
+        this.desc = null;
+    
+        //prop type: number//特产价格
+        this.price = null;
+    
+        
+        
+    }
+}
+class UserBriefInfo  {
+    constructor(){
+    
+    
+        //prop type: string
+        this.uid = null;
+    
+        //prop type: string
+        this.nickName = null;
+    
+        //prop type: string
+        this.avatarUrl = null;
+    
+        
+        
+    }
+}
 class Post  {
     constructor(){
     
@@ -371,84 +405,43 @@ class Comment  {
         
     }
 }
-class City  {
-    constructor(){
-    
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
-    
-        
-        
-    }
-}
-class Provence  {
-    constructor(){
-    
-    
-        //prop type: 
-        this.proLetter = null;
-    
-        //prop type: 
-        this.provence = null;
-    
-        //prop type: 
-        this.citys = null;
-    
-        
-        
-    }
-}
-class cityList extends Base {
+class SpeList extends Base {
     constructor(){
         super();
-        this.action = 'city.citylist';
+        this.action = 'prop.spelist';
     
-        this._provence = null;
+        this._specialtys = null;
         this.reqFields = [];
-        this.resFields = ["provence"];
+        this.resFields = ["specialtys"];
     }
-    //server output, type: Provence[]
-    get provence() {return this._provence}
-    set provence(v) {this._provence = v}
+    //server output, type: Specialty[]
+    get specialtys() {return this._specialtys}
+    set specialtys(v) {this._specialtys = v}
 }
-class UserInfo extends UserBriefInfo {
+class RankInfo extends Base {
     constructor(){
         super();
+        this.action = 'rank.rankinfo';
     
-        //prop type: string
-        this.gender = null;
-    
-        //prop type: number
-        this.totalArrive = null;
-    
-        //prop type: number
-        this.overmatch = null;
-    
-        //prop type: string
-        this.city = null;
-    
-        //prop type: string
-        this.province = null;
-    
-        //prop type: string
-        this.country = null;
-    
-        //prop type: Boolean
-        this.online = null;
-    
-        //prop type: KV[]
-        this.items = null;
-    
-        //prop type: string[]
-        this.friends = null;
-    
-        
-        
+        this._rankType = null;
+        this._limit = null;
+        this._selfRank = null;
+        this._ranks = null;
+        this.reqFields = ["rankType","limit"];
+        this.resFields = ["selfRank","ranks"];
     }
+    //client input, require, type: RankType
+    get rankType() {return this._rankType}
+    set rankType(v) {this._rankType = v}
+    //client input, optional, type: number
+    get limit() {return this._limit}
+    set limit(v) {this._limit = v}
+    //server output, type: selfRank
+    get selfRank() {return this._selfRank}
+    set selfRank(v) {this._selfRank = v}
+    //server output, type: RankItem[]
+    get ranks() {return this._ranks}
+    set ranks(v) {this._ranks = v}
 }
 class PlayerInfo extends Base {
     constructor(){
@@ -466,6 +459,32 @@ class PlayerInfo extends Base {
     //server output, type: UserInfo
     get info() {return this._info}
     set info(v) {this._info = v}
+}
+class BuySpe extends Base {
+    constructor(){
+        super();
+        this.action = 'prop.buyspe';
+    
+        this._items = null;
+        this.reqFields = [];
+        this.resFields = ["items"];
+    }
+    //server output, type: UserInfo.items
+    get items() {return this._items}
+    set items(v) {this._items = v}
+}
+class SellSpe extends Base {
+    constructor(){
+        super();
+        this.action = 'prop.sellspe';
+    
+        this._specialtys = null;
+        this.reqFields = [];
+        this.resFields = ["specialtys"];
+    }
+    //server output, type: Specialty[]//金币增加数
+    get specialtys() {return this._specialtys}
+    set specialtys(v) {this._specialtys = v}
 }
 class IndexInfo extends Base {
     constructor(){
@@ -499,6 +518,38 @@ class IndexInfo extends Base {
     //server output, type: number
     get unreadMsgCnt() {return this._unreadMsgCnt}
     set unreadMsgCnt(v) {this._unreadMsgCnt = v}
+}
+class UserInfo extends UserBriefInfo {
+    constructor(){
+        super();
+    
+        //prop type: string
+        this.gender = null;
+    
+        //prop type: string
+        this.city = null;
+    
+        //prop type: string
+        this.province = null;
+    
+        //prop type: string
+        this.country = null;
+    
+        //prop type: Boolean
+        this.online = null;
+    
+        //prop type: KV[]
+        this.items = null;
+    
+        //prop type: KV[]
+        this.rentItems = null;
+    
+        //prop type: string[]
+        this.friends = null;
+    
+        
+        
+    }
 }
 class PostList extends Base {
     constructor(){
@@ -544,43 +595,31 @@ class ThumbComment extends Base {
         this.resFields = [];
     }
 }
-class TravelLog extends Base {
+class RentProp extends Base {
     constructor(){
         super();
-        this.action = 'travel.travellog';
+        this.action = 'prop.rentprop';
     
-        this._allLogs = null;
+        this._rentItems = null;
         this.reqFields = [];
-        this.resFields = ["allLogs"];
+        this.resFields = ["rentItems"];
     }
-    //server output, type: Log[]
-    get allLogs() {return this._allLogs}
-    set allLogs(v) {this._allLogs = v}
+    //server output, type: UserInfo.rentItems
+    get rentItems() {return this._rentItems}
+    set rentItems(v) {this._rentItems = v}
 }
-class RankInfo extends Base {
+class CityList extends Base {
     constructor(){
         super();
-        this.action = 'rank.rankinfo';
+        this.action = 'city.citylist';
     
-        this._rankType = null;
-        this._limit = null;
-        this._selfRank = null;
-        this._ranks = null;
-        this.reqFields = ["rankType","limit"];
-        this.resFields = ["selfRank","ranks"];
+        this._data = null;
+        this.reqFields = [];
+        this.resFields = ["data"];
     }
-    //client input, require, type: RankType
-    get rankType() {return this._rankType}
-    set rankType(v) {this._rankType = v}
-    //client input, optional, type: number
-    get limit() {return this._limit}
-    set limit(v) {this._limit = v}
-    //server output, type: SelfRank
-    get selfRank() {return this._selfRank}
-    set selfRank(v) {this._selfRank = v}
-    //server output, type: RankItem[]
-    get ranks() {return this._ranks}
-    set ranks(v) {this._ranks = v}
+    //server output, type: Provence[]
+    get data() {return this._data}
+    set data(v) {this._data = v}
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){
@@ -601,24 +640,27 @@ exports.Weather = Weather;
 exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
 exports.PostType = PostType;
-exports.oneDayLog = oneDayLog;
-exports.UserBriefInfo = UserBriefInfo;
-exports.RankItem = RankItem;
-exports.SelfRank = SelfRank;
-exports.Log = Log;
+exports.Rent = Rent;
+exports.City = City;
+exports.selfRank = selfRank;
+exports.Provence = Provence;
 exports.Base = Base;
+exports.RankItem = RankItem;
+exports.Specialty = Specialty;
+exports.UserBriefInfo = UserBriefInfo;
 exports.Post = Post;
 exports.Comment = Comment;
-exports.City = City;
-exports.Provence = Provence;
-exports.cityList = cityList;
-exports.UserInfo = UserInfo;
+exports.SpeList = SpeList;
+exports.RankInfo = RankInfo;
 exports.PlayerInfo = PlayerInfo;
+exports.BuySpe = BuySpe;
+exports.SellSpe = SellSpe;
 exports.IndexInfo = IndexInfo;
+exports.UserInfo = UserInfo;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
 exports.ThumbComment = ThumbComment;
-exports.TravelLog = TravelLog;
-exports.RankInfo = RankInfo;
+exports.RentProp = RentProp;
+exports.CityList = CityList;
 exports.RechargeRankInfo = RechargeRankInfo;
