@@ -1,13 +1,17 @@
 {
   "pages": [
-
-    "pages/props/props",
-    "pages/pointRaiders/pointRaiders",
     "pages/cityRaiders/cityRaiders",
+    "pages/pointRaiders/pointRaiders",
+    "pages/raiders/raiders",
+    "pages/props/props",
+
+    
+    
+    
 
     "pages/rank/rank",
 
-    "pages/raiders/raiders",
+    
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/index/index",
