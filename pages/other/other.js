@@ -1,6 +1,8 @@
 // pages/self/self.js
 import { getUserInfo } from '../../utils/util.js';
+import { PlayerInfo } from '../../api.js';
 const app = getApp();
+const sheet = require('../../sheets.js');
 
 
 Page({
@@ -9,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    userInfo: {nickName:'昵称几个字',totalArrive:34,overmatch:0.75},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     mianTitle: [{
@@ -39,11 +41,13 @@ Page({
       {
         title: '发表评论数量',
         num: '555'
-      }, {
+      }, 
+      {
         title: '获得点赞数量',
         num: '555'
       }
-      , {
+      , 
+      {
         title: '获得特产数量',
         num: '555'
       }]
@@ -53,35 +57,49 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.userInfo) {
+    console.log(options)
+    let req = new PlayerInfo();
+    req.uid = options.uid
+    req.fetch().then(()=>{
+      let userInfo={};
+      userInfo.nickName = req.nickName;
+      userInfo.avatarUrl = req.avatarUrl;
+      userInfo.totalArrive = req.totalArrive;
+      userInfo.overmatch = req.overmatch;
+      userInfo.items = req.items;
       this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        userInfo,
       })
-      console.log(app.globalData.userInfo)
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+    })
+    // if (app.globalData.userInfo) {
+    //   this.setData({
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true
+    //   })
+    //   console.log(app.globalData.userInfo)
+    // } else if (this.data.canIUse) {
+    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //   // 所以此处加入 callback 以防止这种情况
+    //   app.userInfoReadyCallback = res => {
+    //     this.setData({
+    //       userInfo: res.userInfo,
+    //       hasUserInfo: true
+    //     })
+    //   }
 
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-    console.log(this.data.userInfo)
+    // } else {
+    //   // 在没有 open-type=getUserInfo 版本的兼容处理
+    //   wx.getUserInfo({
+    //     success: res => {
+    //       app.globalData.userInfo = res.userInfo
+    //       this.setData({
+    //         userInfo: res.userInfo,
+    //         hasUserInfo: true
+    //       })
+    //     }
+    //   })
+    // }
+    // console.log(this.data.userInfo)
   },
 
 
