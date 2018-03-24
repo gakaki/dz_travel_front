@@ -58,14 +58,14 @@
   <view class="self-info f-r-sb">
     <view class="self-ranking">
       <text>我的排名</text>
-      <text>未上榜</text>
+      <text>{{selfRank.rank}}</text>
     </view>
     <view class="f-r-sb">
       <view class="self-ranking-info f-r-sb">
         <image class='self-famous' wx:if="{{rankType==1}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
         <image class="self-icon" wx:elif="{{rankType==2}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
         <image class="self-score" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
-        <text>9999</text>
+        <text>{{selfRank.value}}</text>
       </view>
       <view class="share">
         炫耀排名
