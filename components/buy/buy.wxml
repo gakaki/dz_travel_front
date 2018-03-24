@@ -1,4 +1,4 @@
-<view class="bg flex" catchtap='toHide' capture-catch:touchmove='toHide'>
+background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;<view class="bg flex" catchtap='toHide' capture-catch:touchmove='toHide'>
   <view class="con f-c-fs {{isBuy ? '' : 'tip'}}" catchtap='notDo'>
     <view wx:if="{{isBuy}}" class="f-r-fs car-top">
       <image class="one-pic pop-car" src=""></image>
