@@ -1,6 +1,7 @@
 // pages/rank/rank.js
 import { RankInfo, RankType, RankSubtype } from '../../api.js';
 const app = getApp();
+const sheet = require('../../sheets.js');
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 
 Page({
@@ -91,13 +92,13 @@ Page({
       //通过rankType来决定需要渲染数据中的value取items中哪个值
       switch(rankType){
         case RankType.THUMBS:
-          vKye = 13;
+          vKye = sheet.Item.COMPLETE;
           break;
         case RankType.FOOT:
-          vKye = 14;
+          vKye = sheet.Item.MAPLIGHT;
           break;
         case RankType.SCORE:
-          vKye = 6;
+          vKye = sheet.Item.NOWPOINT;
           break;
       }
       //给selfRank赋值
@@ -111,7 +112,7 @@ Page({
         obj.nickName = info.nickName;
         obj.uid = info.uid;
         obj.value = info.items.get(vKye);
-        obj.gold = info.items.get(1);
+        obj.gold = info.items.get(sheet.Item.GOLD);
         ranks[i] = obj;
       }
       //全国榜单需要把前三名分开

@@ -1,10 +1,10 @@
 <!--pages/self/self.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{userInfo.avatarUrl}}' nickname='昵称几个字'></avatar>
+      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}'></avatar>
       <view class='des'>
         <view class='des-content'> 
-          他的足迹已经遍布<text class='des-spec'>34</text>个城市已超越了<text class='des-spec'>75%</text>的驴友
+          他的足迹已经遍布<text class='des-spec'>{{userInfo.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{userInfo.overmatch*100}}%</text>的驴友
         </view>  
       </view> 
   </view>

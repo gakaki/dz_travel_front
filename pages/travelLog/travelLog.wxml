@@ -23,6 +23,6 @@
         <view class='time'>{{item.time}}</view>
       </view>
     </view>
-    <view class='timeLine' style='height:{{init.length*138-69}}px'></view>
+    <view class='timeLine' style='height:{{(init.length*138-69)*2}}rpx'></view>
   </scroll-view> 
 </view>

@@ -4,9 +4,22 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    item:{
-      type:Object,
-      value:{x:0, y:0, statusImgs:[]}
+    
+    x: {
+      type:Number,
+      value: 0
+    },
+    y: {
+      type:Number,
+      value: 0
+    },
+    statusImgs: {
+      type:Array,
+      value: []
+    },
+    txt: {
+      type: String,
+      value: ''
     }
   },
 
@@ -33,23 +46,23 @@ Component({
       let img = this.data.statusImgs[idx];
       this.setData({
         status: idx,
-        img: img
+        img: img,
       })
 
     },
 
-    attached() {
-      if (!this.data.img && this.data.statusImgs.length) {
-        let img = this.data.statusImgs[0];
-        this.setData({
-          status: 0,
-          img: img
-        })
-      }
-    },
+    
+  },
 
-    detached() {
-
+  attached() {
+    console.log('attached')
+    if (!this.data.img && this.data.statusImgs.length) {
+      let img = this.data.statusImgs[0];
+      console.log(img)
+      this.setData({
+        status: 0,
+        img: img
+      })
     }
   }
 })

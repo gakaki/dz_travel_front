@@ -2,8 +2,10 @@
   "pages": [
     "pages/cityRaiders/cityRaiders",
     "pages/pointRaiders/pointRaiders",
+    "pages/city/city",
+    "pages/index/index",
+    "pages/integral/integral",
     "pages/raiders/raiders",
-    "pages/props/props",
 
     
     
@@ -14,12 +16,11 @@
     
     "pages/goSight/goSight",
     "pages/play/play",
-    "pages/index/index",
     "pages/testmap/testmap",
-    "pages/integral/integral",
+
+    "pages/props/props",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
-    "pages/city/city",
     "pages/settings/settings",
     "pages/other/other",
     "pages/checkPostcard/checkPostcard",
