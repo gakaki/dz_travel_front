@@ -13,6 +13,14 @@ Component({
       type:Number,
       value: 0
     },
+    imgWd: {
+      type: Number,
+      value: 0
+    },
+    imgHt: {
+      type: Number,
+      value: 0
+    },
     statusImgs: {
       type:Array,
       value: []
@@ -52,6 +60,8 @@ Component({
     },
 
     
+
+    
   },
 
   attached() {
@@ -64,5 +74,8 @@ Component({
         img: img
       })
     }
+  },
+  onEleTap() {
+    console.log(this.img, 'tap')
   }
 })

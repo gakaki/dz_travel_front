@@ -12,11 +12,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // return;
     let areas = this.data.areas;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 17; i++) {
       let a = {};
-      a.x = Math.random() * 750;
-      a.y = Math.random() * 1300;
+      a.x = i % 8 * 81;
+      a.y = Math.floor(i / 8) * 81 + 10;
+      a.imgWd = 81;
+      a.imgHt = 81;
       a.statusImgs = ["../../assets/index/index.png", "../../assets/index/index-gray.png"];
       areas.push(a);
     }

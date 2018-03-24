@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/testmap/testmap",
     "pages/rank/rank",
     "pages/raiders/raiders",
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/index/index",
-    "pages/testmap/testmap",
     "pages/props/props",
     "pages/pointRaiders/pointRaiders",
     "pages/integral/integral",
