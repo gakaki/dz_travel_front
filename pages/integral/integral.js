@@ -15,7 +15,8 @@ Page({
       { img: "", goodsName: "冰淇凌3", integral: "5000" }],
     underline:0,
     exchange:false,
-    exchangeCon:''
+    exchangeCon:'',
+    confirmAdress:false
   },
 
   buttonItems: function(e){
@@ -32,9 +33,31 @@ Page({
     })
   },
 
+  confirmExc() {
+    this.setData({
+      confirmAdress:false
+    })
+  },
+
+  toSetting() {
+    wx.navigateTo({
+      url: '../settings/settings',
+    })
+    this.setData({
+      confirmAdress: false
+    })
+  },
+
   _cancel() {
     this.setData({
       exchange:false
+    })
+  },
+
+  _confirm() {
+    this.setData({
+      exchange:false,
+      confirmAdress:true
     })
   },
 

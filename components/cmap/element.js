@@ -1,5 +1,7 @@
 // components/cmap/element.js
 Component({
+
+  externalClasses: ['double-cls'],
   /**
    * 组件的属性列表
    */

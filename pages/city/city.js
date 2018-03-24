@@ -1,5 +1,6 @@
 // pages/city/city.js
-const app = getApp()
+const app = getApp();
+const sheet = require('../../sheets.js');
 Page({
 
   /**
@@ -7,7 +8,7 @@ Page({
    */
   data: {
     isDomestic:true,
-    province: [{ init: 'A', name: '安徽', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'F', name: '福建', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'F', name: '福建', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }, { init: 'G', name: '广东', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }],
+    province: [],
     focus:false,
     isChoose:''
   },
@@ -17,6 +18,21 @@ Page({
    */
   onLoad: function (options) {
     
+    let readCity = sheet.finds.map(o=>{
+      let obj={}
+      obj.init =  new sheet.Find(o).pword;
+      obj.name = new sheet.Find(o).province;
+      obj.cities = new sheet.Find(o).city.split(',');
+      return obj;
+    })
+    //过滤掉直辖市和特别行政区
+    let province = readCity.filter((item)=>{
+      return item.name!=item.cities
+    })
+
+    this.setData({
+      province,
+    })
   },
 
 

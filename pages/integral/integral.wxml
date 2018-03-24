@@ -31,5 +31,21 @@
     <avatar avatarWid="72" avatarHeg="72" src="{{item.avatar}}"></avatar>
     <text>{{item.name}}兑换了{{item.goods}}</text>
   </view>
-  <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel"></buy>
+  <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm"></buy>
+  <view class="tanchuang" wx:if="{{confirmAdress}}">
+    <view class="xinxi f-c-fs">
+      <text class="fs">请核对快递信息</text>
+      <text class="fs">收件人：胖迪</text>
+      <text class="fs">手机号：17612104215</text>
+      <text class="fs">收货地址：上海市浦东新区居里路99好3楼8室</text>
+    </view>
+    <view class="anniu ">
+      <view class="xiugai" bindtap='toSetting'>
+        <text>修改快递信息</text>
+      </view>
+      <view class="quren" bindtap='confirmExc'>
+        <text>确认</text>
+      </view>
+    </view>
+  </view>
 </view>

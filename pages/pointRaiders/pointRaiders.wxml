@@ -20,7 +20,7 @@
       <view class="point-bot-rgt f-r-fe">
         <image class="chat" src="https://gengxin.odao.com/update/h5/travel/raiders/chat.png"></image>
         <text class="chat-num font fg">7777</text>
-        <view class="more font" bindtap='toDetail'>查看更多</view>
+        <view class="more font" bindtap='toDetail' data-id='{{}}'>查看更多</view>
       </view>
     </view>
   </view>
@@ -31,7 +31,7 @@
     <image src="" class="spe-pic "></image>
     <view class="spe-item-sec f-c-sb">
       <text class="spe-name fs font">格瓦斯</text>
-      <view class="fs f-r-fs">
+      <view class="fs f-r-fs mmt">
         <star wid='{{starWid}}' starNum="{{starCount}}"></star>
         <text class="num font">{{starCount}}</text>
         <text class="fen font">分</text>

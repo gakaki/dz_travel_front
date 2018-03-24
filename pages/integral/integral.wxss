@@ -129,3 +129,52 @@
   font: bold 30rpx "Microsoft YaHei";
   color: #b8b8b8;
 }
+
+.tanchuang{
+  width: 610rpx;
+  height: 380rpx;
+  position: absolute;
+  top: 350rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  border-right:2rpx solid #f2f2f2;
+}
+
+.xinxi{
+  width: 530rpx;
+  height: 194rpx;
+  margin-top: 30rpx;
+  margin-left: 32rpx;
+  font: bold 30rpx "Microsoft YaHei";
+  color: #b8b8b8;
+}
+
+.anniu{
+  width: 550rpx;
+  height: 113rpx;
+  margin-top: 50rpx;
+  margin-left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: bold 30rpx "Microsoft YaHei";
+  color: #fff;
+  text-align: center;
+}
+
+.xiugai{
+  width: 254rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  line-height: 80rpx;
+}
+
+.quren{
+  width: 254rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
+  background-size: cover;
+  line-height: 80rpx;
+}
+  

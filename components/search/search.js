@@ -1,4 +1,7 @@
 // components/search/search.js
+const sheet = require('../../sheets.js');
+let allCity=[];
+
 Component({
   /**
    * 组件的属性列表
@@ -11,10 +14,20 @@ Component({
    * 组件的初始数据
    */
   data: {
-    allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城', '北京', '上海', '重庆', '天津'],
-    matchCity: [],
+    matchCity: [], //匹配到的city
     inputText: '',
     searchChar: ''
+  },
+
+  attached() {
+    let readCity = sheet.finds.map(o => {
+      return new sheet.Find(o).city.split(',');
+    })
+
+    //把所有城市合并在一个数组中
+    readCity.forEach((item)=>{
+      allCity.push.apply(allCity,item)
+    })
   },
 
   /**
@@ -23,19 +36,28 @@ Component({
   methods: {
     search(e) {
       console.log(e.detail.value)
+      let value = e.detail.value
       //输入框中没有value值时不匹配
-      if (e.detail.value) {
-        let reg = new RegExp("" + e.detail.value + "")
+      if (value) {
+        let reg = new RegExp('' + value + '')
         let match = []
-        for (let i = 0; i < this.data.allCity.length; i++) {
-          if (reg.test(this.data.allCity[i])) {
-            let split = this.data.allCity[i].split('')
+        for (let i = 0; i < allCity.length; i++) {
+          if (reg.test(allCity[i])) {
+            let ind = allCity[i].indexOf(value)
+            let split = allCity[i].split(value)
+            if(ind==0){
+              split.splice(0, 1, value)
+            }
+            else{
+              split.splice(1, 0, value)
+            }
+            
             match.push(split)
           }
         }
         this.setData({
           matchCity: match,
-          searchChar: e.detail.value
+          searchChar: value
         })
       }
       else {
