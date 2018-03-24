@@ -36,19 +36,28 @@ Component({
   methods: {
     search(e) {
       console.log(e.detail.value)
+      let value = e.detail.value
       //输入框中没有value值时不匹配
-      if (e.detail.value) {
-        let reg = new RegExp("" + e.detail.value + "")
+      if (value) {
+        let reg = new RegExp('' + value + '')
         let match = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
-            let split = allCity[i].split('')
+            let ind = allCity[i].indexOf(value)
+            let split = allCity[i].split(value)
+            if(ind==0){
+              split.splice(0, 1, value)
+            }
+            else{
+              split.splice(1, 0, value)
+            }
+            
             match.push(split)
           }
         }
         this.setData({
           matchCity: match,
-          searchChar: e.detail.value
+          searchChar: value
         })
       }
       else {
