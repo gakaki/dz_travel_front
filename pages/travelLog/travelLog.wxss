@@ -36,7 +36,7 @@
 .mark {
   position: absolute;
   left: 26rpx;
-  top: 38rpx;
+  top: 0rpx;
   text-align: center;
   width: 42rpx;
   height: 57rpx;
@@ -50,14 +50,14 @@
 .timeLine {
   position: absolute;
   left: 46rpx;
-  top: 124rpx;
+  top: -69rpx;
   width: 2rpx;
+  height: 138rpx;
   background: #dcdbe0; 
   z-index: -1
 }
 .log-content {
   display: inline-block;
-  
   width: 100%;
   text-indent: 83rpx;
   font: bold 28rpx/138rpx 'Microsoft YaHei';

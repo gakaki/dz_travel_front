@@ -54,29 +54,13 @@ Page({
     console.log(this.type)
     this.hideCar()
     this.toBuyNUm()
-    switch (this.type) {
-      case 0:
-        // let req = new RentProp();
-        // req.rentId = this.data.propId;
-        // req.fetch().then(() => {
+    if (this.type == 0) {
+      // let req = new RentProp();
+      // req.rentId = this.data.propId;
+      // req.fetch().then(() => {
 
-        // })
-        break;
-      case 1:
-        //购买特产
-        // let req = new BuySpe()
-        // req.propId = 0
-        // req.count = 1
-        // req.fetch().then(() => {
-
-        // })
-        break;
-
-      default:
-        return
+      // })
     }
-
-
 
   },
   /**
@@ -120,14 +104,27 @@ Page({
     this.buyNum()
   },
   buyCount(e) {
-    console.log(444)
     this.hideBuyNum()
-    let req = new SellSpe()
-    req.propId = 0
-    req.count = 1
-    req.fetch().then(() => {
+    switch (this.type) {
+      case 1:
+        //购买特产
+        // let req = new BuySpe()
+        // req.propId = 0
+        // req.count = 1
+        // req.fetch().then(() => {
 
-    })
+        // })
+        brek;
+      case 2:
+        let req = new SellSpe()
+        req.propId = 0
+        req.count = 1
+        req.fetch().then(() => {
+        })
+        break;
+      default:
+        return
+    }
   },
   clkOne() {
     this.setData({

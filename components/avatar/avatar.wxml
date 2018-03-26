@@ -1,8 +1,7 @@
 <!--components/avatar/avatar.wxml-->
 <view class="user">
   <view class='user-avatar'>
-    <image class='avatar-icon' src='{{src}}' style="width:{{avatarWid}}rpx;height:{{avatarHeg}}rpx"></image> 
-    <!-- <text class='avatar-icon'>w d </text> -->
+    <image class='avatar-icon' src='{{src}}' style="width:{{avatarWid}}rpx;height:{{avatarHeg}}rpx"></image>
   </view>
   <view class="user-info">
     <view class='nickname'>{{nickname}}</view>
