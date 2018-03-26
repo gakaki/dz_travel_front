@@ -664,6 +664,21 @@ class Log  {
         
     }
 }
+class City  {
+    constructor(){
+    
+    
+        //prop type: 
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
+    
+        
+        
+        
+    }
+}
 class ProvincePostcardInfo  {
     constructor(){
     
@@ -847,21 +862,6 @@ class MessageItem  {
         
     }
 }
-class City  {
-    constructor(){
-    
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
-    
-        
-        
-        
-    }
-}
 class exchangeShopDetail  {
     constructor(){
     
@@ -939,6 +939,18 @@ class ModifyRealInfo extends Base {
     get realInfo() {return this._realInfo}
     set realInfo(v) {this._realInfo = v}
 }
+class mySpe extends Specialty {
+    constructor(){
+        super();
+    
+        //prop type: number//我的某个特产的数量
+        this.num = null;
+    
+        
+        
+        
+    }
+}
 class SpeList extends Base {
     constructor(){
         super();
@@ -957,17 +969,16 @@ class SpeList extends Base {
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
 }
-class BuySpe extends Base {
+class Spe extends Base {
     constructor(){
         super();
-        this.action = 'prop.buyspe';
+        this.action = 'prop.spe';
     
         this._propId = null;
         this._count = null;
-        this._items = null;
         this.requireFileds = ["propId","count"];
         this.reqFields = ["propId","count"];
-        this.resFields = ["items"];
+        this.resFields = [];
     }
     //client input, require, type: number//特产id
     get propId() {return this._propId}
@@ -975,9 +986,6 @@ class BuySpe extends Base {
     //client input, require, type: number//购买数量
     get count() {return this._count}
     set count(v) {this._count = v}
-    //server output, type: UserInfo.items
-    get items() {return this._items}
-    set items(v) {this._items = v}
 }
 class RandomCityList extends Base {
     constructor(){
@@ -1077,6 +1085,24 @@ class TravelLog extends Base {
     get allLogs() {return this._allLogs}
     set allLogs(v) {this._allLogs = v}
 }
+class Photograph extends Base {
+    constructor(){
+        super();
+        this.action = 'sight.photograph';
+    
+        this._cityId = null;
+        this._img = null;
+        this.requireFileds = ["cityId"];
+        this.reqFields = ["cityId"];
+        this.resFields = ["img"];
+    }
+    //client input, require, type: number//城市id
+    get cityId() {return this._cityId}
+    set cityId(v) {this._cityId = v}
+    //server output, type: string
+    get img() {return this._img}
+    set img(v) {this._img = v}
+}
 class MyPostcards extends Base {
     constructor(){
         super();
@@ -1157,24 +1183,6 @@ class sendPostcard extends Base {
     get message() {return this._message}
     set message(v) {this._message = v}
 }
-class Photograph extends Base {
-    constructor(){
-        super();
-        this.action = 'sight.photograph';
-    
-        this._cityId = null;
-        this._img = null;
-        this.requireFileds = ["cityId"];
-        this.reqFields = ["cityId"];
-        this.resFields = ["img"];
-    }
-    //client input, require, type: number//城市id
-    get cityId() {return this._cityId}
-    set cityId(v) {this._cityId = v}
-    //server output, type: string
-    get img() {return this._img}
-    set img(v) {this._img = v}
-}
 class UserInfo extends UserBriefInfo {
     constructor(){
         super();
@@ -1216,6 +1224,20 @@ class UserInfo extends UserBriefInfo {
         
         
     }
+}
+class CityList extends Base {
+    constructor(){
+        super();
+        this.action = 'city.citylist';
+    
+        this._data = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["data"];
+    }
+    //server output, type: Provence[]
+    get data() {return this._data}
+    set data(v) {this._data = v}
 }
 class PostList extends Base {
     constructor(){
@@ -1301,38 +1323,6 @@ class ThumbComment extends Base {
     get commentId() {return this._commentId}
     set commentId(v) {this._commentId = v}
 }
-class CityList extends Base {
-    constructor(){
-        super();
-        this.action = 'city.citylist';
-    
-        this._data = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["data"];
-    }
-    //server output, type: Provence[]
-    get data() {return this._data}
-    set data(v) {this._data = v}
-}
-class GetMessage extends Base {
-    constructor(){
-        super();
-        this.action = 'message.getmessage';
-    
-        this._messageType = null;
-        this._messages = null;
-        this.requireFileds = [];
-        this.reqFields = ["messageType"];
-        this.resFields = ["messages"];
-    }
-    //client input, optional, type: MessageType
-    get messageType() {return this._messageType}
-    set messageType(v) {this._messageType = v}
-    //server output, type: MessageItem[]
-    get messages() {return this._messages}
-    set messages(v) {this._messages = v}
-}
 class RankInfo extends Base {
     constructor(){
         super();
@@ -1363,6 +1353,24 @@ class RankInfo extends Base {
     get ranks() {return this._ranks}
     set ranks(v) {this._ranks = v}
 }
+class GetMessage extends Base {
+    constructor(){
+        super();
+        this.action = 'message.getmessage';
+    
+        this._messageType = null;
+        this._messages = null;
+        this.requireFileds = [];
+        this.reqFields = ["messageType"];
+        this.resFields = ["messages"];
+    }
+    //client input, optional, type: MessageType
+    get messageType() {return this._messageType}
+    set messageType(v) {this._messageType = v}
+    //server output, type: MessageItem[]
+    get messages() {return this._messages}
+    set messages(v) {this._messages = v}
+}
 class getUserLocation extends Base {
     constructor(){
         super();
@@ -1384,6 +1392,24 @@ class getUserLocation extends Base {
     //server output, type: string
     get address() {return this._address}
     set address(v) {this._address = v}
+}
+class exchangeShop extends Base {
+    constructor(){
+        super();
+        this.action = 'integralShop.exchangeshop';
+    
+        this._id = null;
+        this._integral = null;
+        this.requireFileds = ["id","integral"];
+        this.reqFields = ["id","integral"];
+        this.resFields = [];
+    }
+    //client input, require, type: string
+    get id() {return this._id}
+    set id(v) {this._id = v}
+    //client input, require, type: string
+    get integral() {return this._integral}
+    set integral(v) {this._integral = v}
 }
 class PlayerInfo extends Base {
     constructor(){
@@ -1425,46 +1451,6 @@ class IntegralShop extends Base {
     get exchangeDetail() {return this._exchangeDetail}
     set exchangeDetail(v) {this._exchangeDetail = v}
 }
-class exchangeShop extends Base {
-    constructor(){
-        super();
-        this.action = 'integralShop.exchangeshop';
-    
-        this._id = null;
-        this._integral = null;
-        this.requireFileds = ["id","integral"];
-        this.reqFields = ["id","integral"];
-        this.resFields = [];
-    }
-    //client input, require, type: string
-    get id() {return this._id}
-    set id(v) {this._id = v}
-    //client input, require, type: string
-    get integral() {return this._integral}
-    set integral(v) {this._integral = v}
-}
-class SellSpe extends Base {
-    constructor(){
-        super();
-        this.action = 'prop.sellspe';
-    
-        this._propId = null;
-        this._count = null;
-        this._specialtys = null;
-        this.requireFileds = ["propId","count"];
-        this.reqFields = ["propId","count"];
-        this.resFields = ["specialtys"];
-    }
-    //client input, require, type: number//特产id
-    get propId() {return this._propId}
-    set propId(v) {this._propId = v}
-    //client input, require, type: number//售卖数量
-    get count() {return this._count}
-    set count(v) {this._count = v}
-    //server output, type: Specialty[]//金币增加数
-    get specialtys() {return this._specialtys}
-    set specialtys(v) {this._specialtys = v}
-}
 class MessageNum extends WsReceive {
     constructor(){
         super();
@@ -1488,6 +1474,20 @@ class HasMessage extends WsSend {
         this.reqFields = [];
         this.resFields = [];
     }
+}
+class SellSpe extends Spe {
+    constructor(){
+        super();
+        this.action = 'prop.sellspe';
+    
+        this._specialtys = null;
+        this.requireFileds = ["propId","count"];
+        this.reqFields = ["propId","count"];
+        this.resFields = ["specialtys"];
+    }
+    //server output, type: Specialty[]//金币增加数
+    get specialtys() {return this._specialtys}
+    set specialtys(v) {this._specialtys = v}
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){
@@ -1543,6 +1543,20 @@ class TestSend extends WsSend {
     get test() {return this._test}
     set test(v) {this._test = v}
 }
+class BuySpe extends Spe {
+    constructor(){
+        super();
+        this.action = 'prop.buyspe';
+    
+        this._items = null;
+        this.requireFileds = ["propId","count"];
+        this.reqFields = ["propId","count"];
+        this.resFields = ["items"];
+    }
+    //server output, type: UserInfo.items
+    get items() {return this._items}
+    set items(v) {this._items = v}
+}
 //-------------exports---------------
 exports.Season = Season;
 exports.Weather = Weather;
@@ -1565,6 +1579,7 @@ exports.Provence = Provence;
 exports.Rent = Rent;
 exports.RandomCity = RandomCity;
 exports.Log = Log;
+exports.City = City;
 exports.ProvincePostcardInfo = ProvincePostcardInfo;
 exports.CityPostcardInfo = CityPostcardInfo;
 exports.PostcardBriefDetail = PostcardBriefDetail;
@@ -1573,39 +1588,40 @@ exports.DetailLiveMessage = DetailLiveMessage;
 exports.Post = Post;
 exports.Comment = Comment;
 exports.MessageItem = MessageItem;
-exports.City = City;
 exports.exchangeShopDetail = exchangeShopDetail;
 exports.GetRealInfo = GetRealInfo;
 exports.RentProp = RentProp;
 exports.ModifyRealInfo = ModifyRealInfo;
+exports.mySpe = mySpe;
 exports.SpeList = SpeList;
-exports.BuySpe = BuySpe;
+exports.Spe = Spe;
 exports.RandomCityList = RandomCityList;
 exports.WsSend = WsSend;
 exports.WsReceive = WsReceive;
 exports.IndexInfo = IndexInfo;
 exports.StartGame = StartGame;
 exports.TravelLog = TravelLog;
+exports.Photograph = Photograph;
 exports.MyPostcards = MyPostcards;
 exports.CityPostcards = CityPostcards;
 exports.DetailPostcard = DetailPostcard;
 exports.sendPostcard = sendPostcard;
-exports.Photograph = Photograph;
 exports.UserInfo = UserInfo;
+exports.CityList = CityList;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
 exports.ThumbComment = ThumbComment;
-exports.CityList = CityList;
-exports.GetMessage = GetMessage;
 exports.RankInfo = RankInfo;
+exports.GetMessage = GetMessage;
 exports.getUserLocation = getUserLocation;
+exports.exchangeShop = exchangeShop;
 exports.PlayerInfo = PlayerInfo;
 exports.IntegralShop = IntegralShop;
-exports.exchangeShop = exchangeShop;
-exports.SellSpe = SellSpe;
 exports.MessageNum = MessageNum;
 exports.HasMessage = HasMessage;
+exports.SellSpe = SellSpe;
 exports.RechargeRankInfo = RechargeRankInfo;
 exports.SysMessage = SysMessage;
 exports.TestSend = TestSend;
+exports.BuySpe = BuySpe;
