@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/play/play",
+    "pages/goSight/goSight",
     "pages/props/props",
     "pages/cityRaiders/cityRaiders",
     "pages/pointRaiders/pointRaiders",
@@ -8,10 +10,7 @@
     "pages/integral/integral",
     "pages/raiders/raiders",
     "pages/rank/rank",
-    "pages/goSight/goSight",
-    "pages/play/play",
     "pages/testmap/testmap",
-    
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
     "pages/settings/settings",

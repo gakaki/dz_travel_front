@@ -32,7 +32,7 @@
     <view class="btn-bg lt font" bindtap='getPost'>景点拍照</view>
     <view class="btn-bg rgt font" bindtap=''>观光</view>
   </view>
-  <buy outer-class="fc" bindtoclose="hidePop" bindtoBuy="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
+  <buy outer-class="fc" bindtoclose="hidePop"  bind:confirm="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
   <view class="pop-bg" wx:if="{{isGetPost}}">
     <image class="hc" src="https://gengxin.odao.com/update/h5/travel/raiders/line.png" id="line"></image>
     <view class="hc cir"></view>
