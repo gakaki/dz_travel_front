@@ -1,5 +1,5 @@
 // pages/start/start.js
-import { RandomCityList } from '../../api.js';
+import { RandomCityList, StartGame } from '../../api.js';
 const app = getApp()
 const sheet = require('../../sheets.js');
 let allCity = [];
@@ -101,9 +101,14 @@ Page({
 
   //带下划线的为监听组件内的事件
   _confirm() {
-    wx.navigateTo({
-      url: '../play/play',
+    let start = new StartGame()
+    start.terminal = this.data.destination
+    start.fetch().then((req) => {
+      wx.navigateTo({
+        url: '../play/play?rid='+req.rid,
+      })
     })
+    
   },
 
   /**
