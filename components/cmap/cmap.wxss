@@ -2,8 +2,9 @@
 .cmap-con {
   width:100vw;
   height: 80vh;
-   overflow: scroll; 
-  position: relative;
+   /* overflow: scroll;  */
+   position: relative;
+  z-index: -1; 
 }
 
 .cmap-layer {
