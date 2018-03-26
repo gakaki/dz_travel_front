@@ -525,6 +525,10 @@ class Ws  {
         });
     }
    static listen(wsReceiveCls, cb, ctx) {
+        if (!this._listenings) {
+            console.error('ws has not inited');
+            return;
+        }
         let action=wsReceiveCls.name.toLowerCase();
         if (!this._listenings.has(action)) {
             this._listenings.set(action, new wsReceiveCls);
@@ -534,6 +538,10 @@ class Ws  {
         this.IO.on(action, this._onReceive);
     }
    static unlisten(wsReceiveCls, cb, ctx) {
+        if (!this._listenings) {
+            console.error('ws has not inited');
+            return;
+        }
         let action=wsReceiveCls.name.toLowerCase();
         if (this._listenings.has(action)) {
             let listener=this._listenings.get(action);
