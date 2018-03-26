@@ -23,10 +23,10 @@
       <text class='main-content'>{{item.title}}</text> 
     </navigator >
   </view>
-  <view class='list-wrap'>
+  <scroll-view scroll-y class='list-wrap'>
     <view class='one-list f-r-sb' wx:for='{{list}}' wx:key="{{index}}" style='border-bottom:{{index == list.length-1?"none":"2rpx solid #e5e5e5"}}'>
       <text>{{item.title}}</text>
       <text>{{item.num}}</text>
     </view>
-  </view>
+  </scroll-view>
 </view>

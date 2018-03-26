@@ -59,6 +59,7 @@
   line-height: 84rpx;
 }
 .list-wrap {
+  height: 630rpx;
   background: #fff;
 }
 .one-list {
