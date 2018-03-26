@@ -1,5 +1,7 @@
 // components/cmap/element.js
 Component({
+
+  externalClasses: ['double-cls'],
   /**
    * 组件的属性列表
    */
@@ -11,6 +13,14 @@ Component({
     },
     y: {
       type:Number,
+      value: 0
+    },
+    imgWd: {
+      type: Number,
+      value: 0
+    },
+    imgHt: {
+      type: Number,
       value: 0
     },
     statusImgs: {
@@ -52,6 +62,8 @@ Component({
     },
 
     
+
+    
   },
 
   attached() {
@@ -64,5 +76,8 @@ Component({
         img: img
       })
     }
+  },
+  onEleTap() {
+    console.log(this.img, 'tap')
   }
 })

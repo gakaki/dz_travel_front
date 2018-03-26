@@ -16,7 +16,7 @@
             <text class="num font ">{{starCount}}</text>
             <text class="fen font ">分</text>
             <text class="heart-num font ">77777</text>
-            <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png"></image>
+            <image class="heart " src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png" bindtap='dianzan'></image>
 
           </view>
         </view>

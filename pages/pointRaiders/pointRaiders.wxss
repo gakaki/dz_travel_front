@@ -57,8 +57,11 @@ font: bold 30rpx 'Microsoft YaHei';
   font-size: 30rpx;
   margin-top: 10rpx;
 }
+.mmt {
+  margin-top: 12rpx
+}
 .spe-sec-bot {
-  margin-bottom: 20rpx;
+  margin: 24rpx 0 20rpx 0;
   width: 100%; 
 }
 .chat {

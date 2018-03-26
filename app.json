@@ -1,18 +1,17 @@
 {
   "pages": [
-    "pages/postcard/postcard",
-    "pages/footprint/footprint",
-    "pages/rank/rank",
+    "pages/index/index",
+    "pages/city/city",
+    "pages/integral/integral",
     "pages/raiders/raiders",
+    "pages/rank/rank",
     "pages/goSight/goSight",
     "pages/play/play",
-    "pages/index/index",
     "pages/testmap/testmap",
     "pages/props/props",
     "pages/pointRaiders/pointRaiders",
-    "pages/integral/integral",
+    "pages/postcard/postcard",
     "pages/travelLog/travelLog",
-    "pages/city/city",
     "pages/settings/settings",
     "pages/other/other",
     "pages/checkPostcard/checkPostcard",
@@ -20,7 +19,8 @@
     "pages/start/start",
     "pages/message/message",
     "pages/cityRaiders/cityRaiders",
-    "pages/self/self"
+    "pages/self/self",
+    "pages/footprint/footprint"
   ],
   "window": {
     "backgroundTextStyle": "light",

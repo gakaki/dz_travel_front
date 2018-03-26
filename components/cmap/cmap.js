@@ -1,6 +1,6 @@
 // components/cmap/cmap.js
 let tapStamp;
-const DOUBLE_TAP_INTERVAL = 800;
+const DOUBLE_TAP_INTERVAL = 600;
 Component({
   /**
    * 组件的属性列表
@@ -45,7 +45,7 @@ Component({
     touchTap(e) {
       // check if triggered double tap
       let now = Date.now();
-      if (tapStamp && now - tapStamp > DOUBLE_TAP_INTERVAL) {
+      if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
         this.doubleTap();
       }
       tapStamp = now;

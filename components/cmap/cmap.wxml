@@ -5,7 +5,7 @@
 >
    <view class='cmap-layer {{double ? "double": "normal"}} areas'>
    <text class='ttt1'>1front</text>
-    <element wx:for='{{areas}}' wx:key='{{index}}' x='{{item.x}}' y='{{item.y}}' statusImgs='{{item.statusImgs}}'  
+    <element wx:for='{{areas}}' wx:key='{{index}}' style='position:absolute;left:{{double ? item.x * 2 : item.x}}rpx;top:{{double? item.y*2 : item.y}}rpx; width:{{double ? item.imgHt * 2 : item.imgHt}}rpx; height:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}' statusImgs='{{item.statusImgs}}'  
     txt='{{index}}'
     ></element>
         <text class='ttt'>1bottom</text>
