@@ -42,7 +42,7 @@
     </view>
   </view>
 
-  <view id="three-list" class="f-c-fs" wx:if="{{tabThree}}">
+  <view id="three-list" class="f-c-fs" data-type="2" wx:if="{{tabThree}}">
     <view class="one-item f-r-fs" bindtap='sell'>
       <image class="one-pic" src=""></image>
       <text class="one-i-str font">舒适自驾车</text>

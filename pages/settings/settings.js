@@ -1,18 +1,26 @@
 // pages/settings/settings.js
+import { GetRealInfo, ModifyRealInfo } from '../../api.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    name:'请输入真实姓名',
+    birthday:'请输入生日',
+    phone:'请输入手机号',
+    adress:'请输入地址'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let req = new GetRealInfo();
+    req.fetch().then(()=>{
+      this.getInfo(req)
+    })
   },
 
   /**
@@ -43,18 +51,45 @@ Page({
   
   },
 
-
-  //弹窗
-  saveDress() {
-    wx.showToast({
-      title: '已保存',
-      icon: 'none'
+  //提交的表单数据（用户收货信息）
+  formSubmit(e) {
+    console.log(e.detail.value)
+    let value = e.detail.value
+    let req = new ModifyRealInfo();
+    req.name = value.name;
+    req.birthday = value.birthday;
+    req.phone = value.phone;
+    req.adress = value.adress;
+    req.fetch().then(()=>{
+      this.getInfo(req,()=>{
+        wx.showToast({
+          title: '已保存',
+          icon: 'none'
+        })
+      })
     })
   },
 
-  //接收输入框信息
-  getValue(e) {
-    console.log(e.detail.value)
+  getInfo(req,suc) {
+    if (req.code != 0) {
+      wx.showToast({
+        title: '请求数据失败',
+        icon:'none'
+      })
+    }
+    else {
+      let info = req.realInfo;
+      //当用户所有信息都有的时候显示用户信息
+      if (info.name && info.birthday && info.phoneNumber && info.adress) {
+        this.setData({
+          name: info.name,
+          birthday: info.birthday,
+          phone: info.phoneNumber,
+          adress: info.adress
+        })
+        suc()
+      }
+    }
   },
 
   /**
