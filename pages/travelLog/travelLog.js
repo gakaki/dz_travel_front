@@ -9,63 +9,30 @@ Page({
         city:'南京',
         time:'3月15日',
         car:true,
-        des:[
-          {
-            city: '种树领',
-            time: '3月15日',
-          }, {
-            city: '秦淮河',
-            time: '3月15日',
-          }]
-      }, {
-        city: '南京',
+        scenicSpots:['种树领','秦淮河']
+      }, 
+      {
         time: '3月15日',
         car:false,
-        des: [
-          {
-            city: '种树领',
-            time: '3月15日',
-          }, {
-            city: '秦淮河',
-            time: '3月15日',
-          }]
-        }, {
-          city: '南京',
-          time: '3月15日',
-          car: false,
-          des: [
-            {
-              city: '种树领',
-              time: '3月15日',
-            }, {
-              city: '秦淮河',
-              time: '3月15日',
-            }]
-      }, {
-        city: '南京',
+        scenicSpots: ['种树领','秦淮河heheheeehh']
+      }, 
+      {
+        city: '北京',
         time: '3月15日',
         car: false,
-        des: [
-          {
-            city: '种树领',
-            time: '3月15日',
-          }, {
-            city: '秦淮河',
-            time: '3月15日',
-          }]
-        }, {
-          city: '南京',
-          time: '3月15日',
-          car: false,
-          des: [
-            {
-              city: '种树领',
-              time: '3月15日',
-            }, {
-              city: '秦淮河',
-              time: '3月15日',
-            }]
-        }]
+        scenicSpots: ['种树领', '秦淮河heheheeehh']
+      }, 
+      {
+        time: '3月15日',
+        car: true,
+        scenicSpots: ['种树领', '秦淮河heheheeehh']
+      }, 
+      {
+        city: '苏州',
+        time: '3月15日',
+        car: false,
+        scenicSpots: ['种树领', '秦淮河heheheeehh']
+      }]
   },
 
   /**

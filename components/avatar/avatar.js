@@ -1,4 +1,5 @@
 // components/avatar/avatar.js
+let app = getApp()
 Component({
   /**
    * 组件的属性列表
@@ -15,8 +16,8 @@ Component({
       value: ''
     },
     integral:{
-      type: String,
-      value:'5000'
+      type: Number,
+      value:0
     },
     goldNum:{
       type:Number,

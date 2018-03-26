@@ -6,7 +6,6 @@
 .avatar-icon {
   display: inline-block;
   margin-right: 20rpx;
-  background: red;
   border-radius: 50%;
 }
 .user-info {
