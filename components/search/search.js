@@ -39,20 +39,29 @@ Component({
       let value = e.detail.value
       //输入框中没有value值时不匹配
       if (value) {
+        //每当value值变化时必须先清除matchCity在赋值渲染到渲染层，否则会出现value值长度减少时原来匹配到的个数出现无法渲染的情况。极有可能是微信的bug
+        this.setData({
+          matchCity: []
+        })
         let reg = new RegExp('' + value + '')
         let match = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
             let ind = allCity[i].indexOf(value)
             let split = allCity[i].split(value)
+            
+            let newSplit = split.filter((item) => {
+              return item
+            })
+            console.log(newSplit)
             if(ind==0){
-              split.splice(0, 1, value)
+              newSplit.splice(0, 0, value)
             }
             else{
-              split.splice(1, 0, value)
+              newSplit.splice(1, 0, value)
             }
-            
-            match.push(split)
+            console.log(newSplit,'拼好的')
+            match.push(newSplit)
           }
         }
         this.setData({
