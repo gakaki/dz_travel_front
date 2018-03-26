@@ -18,6 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取消息列表
     let messages = new GetMessage()
     messages.fetch().then((req)=>{
       console(req,'消息列表')
