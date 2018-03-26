@@ -1,7 +1,33 @@
 // pages/self/self.js
 import { getUserInfo } from '../../utils/util.js';
 const app = getApp();
-
+let obj = {
+    a: {
+      title: '累计获得城市积分',
+  num: '555'
+},
+  b: {
+      title: '收集明信片数量',
+    num: '555'
+  },
+  c: {
+      title: '发表评论数量',
+    num: '555'
+  },
+  d: {
+      title: '获得点赞数量',
+    num: '555'
+  }
+  ,
+  e: {
+      title: '获得特产数量',
+    num: '555'
+  },
+  f: {
+      title: '获得特产数量',
+    num: '555'
+  } 
+}
 
 Page({
 
@@ -28,26 +54,7 @@ Page({
       icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
       url: '../travelLog/travelLog'
     }],
-    list:[
-      {
-        title:'累计获得城市积分',
-        num:'555'
-      },
-      {
-        title: '收集明信片数量',
-        num: '555'
-      },
-      {
-        title: '发表评论数量',
-        num: '555'
-      }, {
-        title: '获得点赞数量',
-        num: '555'
-      }
-      , {
-        title: '获得特产数量',
-        num: '555'
-      }]
+    list:null
   },
 
   /**
@@ -82,7 +89,15 @@ Page({
         }
       })
     }
-    console.log(this.data.userInfo)
+    if(options && options.uid) {
+      this.setData({
+        mySelf: false        
+      })      
+    }
+    console.log(obj)
+    this.setData({
+      list:Object.values(obj)
+    }) 
   },
   
 

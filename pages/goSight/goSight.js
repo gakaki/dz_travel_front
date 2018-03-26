@@ -11,29 +11,31 @@ Page({
     testStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
     canPhoto: true,
     isGetPost: false,
-    toTop: false
+    toTop: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(123)
+    this.spliceStr()
   },
   spliceStr() {
     let str = spliceStr(this.data.testStr, 46)
     this.setData({
-      testStr: str,
-      toTop: true
+      testStr: str
     })
   },
   checkMore(e) {
+    this.setData({
+      toTop: !this.data.toTop
+    })
     if (this.data.testStr == this.data.oldStr) {
       this.spliceStr()
     } else {
       this.setData({
-        testStr: this.data.oldStr,
-        toTop: false
+        testStr: this.data.oldStr
       })
     }
 
