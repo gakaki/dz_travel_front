@@ -53,8 +53,8 @@
         起飞旅行
       </view>
     </view>
-    <view class="message" bindtap='toMessage'>
-      <text class="font">99</text>
+    <view class="message" bindtap='toMessage' wx:if="{{messages}}">
+      <text class="font">{{messages}}</text>
     </view>
   </view>
   <view class="cut-off"></view>

@@ -840,7 +840,7 @@ class MessageItem  {
         this.title = null;
     
         //prop type: string
-        this.time = null;
+        this.date = null;
     
         //prop type: string
         this.content = null;
@@ -945,28 +945,6 @@ class SpeList extends Base {
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
 }
-class BuySpe extends Base {
-    constructor(){
-        super();
-        this.action = 'prop.buyspe';
-    
-        this._propId = null;
-        this._count = null;
-        this._items = null;
-        this.requireFileds = ["propId","count"];
-        this.reqFields = ["propId","count"];
-        this.resFields = ["items"];
-    }
-    //client input, require, type: number//特产id
-    get propId() {return this._propId}
-    set propId(v) {this._propId = v}
-    //client input, require, type: number//购买数量
-    get count() {return this._count}
-    set count(v) {this._count = v}
-    //server output, type: UserInfo.items
-    get items() {return this._items}
-    set items(v) {this._items = v}
-}
 class TravelLog extends Base {
     constructor(){
         super();
@@ -980,6 +958,28 @@ class TravelLog extends Base {
     //server output, type: Log[]
     get allLogs() {return this._allLogs}
     set allLogs(v) {this._allLogs = v}
+}
+class SellSpe extends Base {
+    constructor(){
+        super();
+        this.action = 'prop.sellspe';
+    
+        this._propId = null;
+        this._count = null;
+        this._specialtys = null;
+        this.requireFileds = ["propId","count"];
+        this.reqFields = ["propId","count"];
+        this.resFields = ["specialtys"];
+    }
+    //client input, require, type: number//特产id
+    get propId() {return this._propId}
+    set propId(v) {this._propId = v}
+    //client input, require, type: number//售卖数量
+    get count() {return this._count}
+    set count(v) {this._count = v}
+    //server output, type: Specialty[]//金币增加数
+    get specialtys() {return this._specialtys}
+    set specialtys(v) {this._specialtys = v}
 }
 class WsSend extends Base {
     constructor(){
@@ -1295,6 +1295,24 @@ class RankInfo extends Base {
     get ranks() {return this._ranks}
     set ranks(v) {this._ranks = v}
 }
+class GetMessage extends Base {
+    constructor(){
+        super();
+        this.action = 'message.getmessage';
+    
+        this._messageType = null;
+        this._messages = null;
+        this.requireFileds = [];
+        this.reqFields = ["messageType"];
+        this.resFields = ["messages"];
+    }
+    //client input, optional, type: MessageType
+    get messageType() {return this._messageType}
+    set messageType(v) {this._messageType = v}
+    //server output, type: MessageItem[]
+    get messages() {return this._messages}
+    set messages(v) {this._messages = v}
+}
 class exchangeShop extends Base {
     constructor(){
         super();
@@ -1349,27 +1367,27 @@ class getUserLocation extends Base {
     get location() {return this._location}
     set location(v) {this._location = v}
 }
-class SellSpe extends Base {
+class BuySpe extends Base {
     constructor(){
         super();
-        this.action = 'prop.sellspe';
+        this.action = 'prop.buyspe';
     
         this._propId = null;
         this._count = null;
-        this._specialtys = null;
+        this._items = null;
         this.requireFileds = ["propId","count"];
         this.reqFields = ["propId","count"];
-        this.resFields = ["specialtys"];
+        this.resFields = ["items"];
     }
     //client input, require, type: number//特产id
     get propId() {return this._propId}
     set propId(v) {this._propId = v}
-    //client input, require, type: number//售卖数量
+    //client input, require, type: number//购买数量
     get count() {return this._count}
     set count(v) {this._count = v}
-    //server output, type: Specialty[]//金币增加数
-    get specialtys() {return this._specialtys}
-    set specialtys(v) {this._specialtys = v}
+    //server output, type: UserInfo.items
+    get items() {return this._items}
+    set items(v) {this._items = v}
 }
 class MessageNum extends WsReceive {
     constructor(){
@@ -1394,34 +1412,6 @@ class HasMessage extends WsSend {
         this.reqFields = [];
         this.resFields = [];
     }
-}
-class MessageInfo extends WsReceive {
-    constructor(){
-        super();
-        this.action = 'messageinfo';
-    
-        this._messages = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["messages"];
-    }
-    //server output, type: MessageItem[]
-    get messages() {return this._messages}
-    set messages(v) {this._messages = v}
-}
-class GetMessage extends WsSend {
-    constructor(){
-        super();
-        this.action = 'getmessage';
-    
-        this._messageType = null;
-        this.requireFileds = [];
-        this.reqFields = ["messageType"];
-        this.resFields = [];
-    }
-    //client input, optional, type: MessageType
-    get messageType() {return this._messageType}
-    set messageType(v) {this._messageType = v}
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){
@@ -1512,8 +1502,8 @@ exports.GetRealInfo = GetRealInfo;
 exports.RentProp = RentProp;
 exports.ModifyRealInfo = ModifyRealInfo;
 exports.SpeList = SpeList;
-exports.BuySpe = BuySpe;
 exports.TravelLog = TravelLog;
+exports.SellSpe = SellSpe;
 exports.WsSend = WsSend;
 exports.WsReceive = WsReceive;
 exports.CityList = CityList;
@@ -1530,14 +1520,13 @@ exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
 exports.ThumbComment = ThumbComment;
 exports.RankInfo = RankInfo;
+exports.GetMessage = GetMessage;
 exports.exchangeShop = exchangeShop;
 exports.IntegralShop = IntegralShop;
 exports.getUserLocation = getUserLocation;
-exports.SellSpe = SellSpe;
+exports.BuySpe = BuySpe;
 exports.MessageNum = MessageNum;
 exports.HasMessage = HasMessage;
-exports.MessageInfo = MessageInfo;
-exports.GetMessage = GetMessage;
 exports.RechargeRankInfo = RechargeRankInfo;
 exports.SysMessage = SysMessage;
 exports.TestSend = TestSend;

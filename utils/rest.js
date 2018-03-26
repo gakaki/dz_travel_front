@@ -17,7 +17,7 @@ const showErr = msg => {
 const start = suc => {
   apis.Base.Start(APPNAME ,srv).then(res => {
     console.log(res)
-    apis.Base.Ws.init(wss)
+    this.initWs
     suc(true);
   }).catch(()=> {
     suc(false);

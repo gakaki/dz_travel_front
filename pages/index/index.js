@@ -16,7 +16,8 @@ Page({
     isFirst: true,
     season:{},
     weather:{},
-    playerCnt:2000
+    playerCnt:2000,
+    messages:99
   },
 
   /**
@@ -86,6 +87,9 @@ Page({
 
       Ws.listen(MessageNum,req=>{
         console.log(req,'消息条数')
+        this.setData({
+          messages: req.number
+        })
       })      
     }
     else {
@@ -104,11 +108,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (app.globalData.userInfo){
-      Ws.listen(MessageNum, req => {
-        console.log(req, '消息条数')
-      })
-    }
+    // if (app.globalData.userInfo){
+    //   Ws.listen(MessageNum, req => {
+    //     console.log(req, '消息条数')
+    //     this.setData({
+    //       messages:req.number
+    //     })
+    //   })
+    // }
     
   },
 
@@ -116,14 +123,17 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    //取消监听ws
+    console.log('hide')
+    Ws.unlisten(MessageNum)
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    //取消监听ws
+    Ws.unlisten(MessageNum)
   },
 
   /**
