@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start } from '../../utils/rest.js';
-import { IndexInfo } from '../../api.js';
+import { IndexInfo, HasMessage, MessageNum, Ws } from '../../api.js';
 const app = getApp()
 Page({
 
@@ -79,6 +79,14 @@ Page({
           playerCnt: req.playerCnt
         })
       })
+
+      //websocket请求消息信息
+      let message = new HasMessage()
+      Ws.send(message)
+
+      Ws.listen(MessageNum,req=>{
+        console.log(req,'消息条数')
+      })      
     }
     else {
       console.log('用户拒绝授权个人信息！！')
@@ -96,7 +104,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (app.globalData.userInfo){
+      Ws.listen(MessageNum, req => {
+        console.log(req, '消息条数')
+      })
+    }
+    
   },
 
   /**
