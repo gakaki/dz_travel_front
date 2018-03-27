@@ -1,0 +1,29 @@
+.pop-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+.flex {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+} 
+.bs {
+  box-shadow: 0 4rpx 10rpx 2rpx rgba(0,0,0,.1)
+}
+.tip-btn {
+  transform: translateY(-60rpx);
+  width: 590rpx;
+  height: 120rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  font: bold 42rpx/120rpx 'Microsoft YaHei';
+  color: #278cff;
+  letter-spacing: 3rpx
+}
