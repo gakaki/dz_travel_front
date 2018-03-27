@@ -1,6 +1,7 @@
 /* components/search/search.wxss */
 .top{
   border-bottom: 2rpx solid #e9e8ec;
+  z-index: 99
 }
 
 .search{
