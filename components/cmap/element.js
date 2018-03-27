@@ -61,23 +61,21 @@ Component({
 
     },
 
-    
+    onEleTap(e) {
+      console.log(this.img, 'element tap')
+    }
 
     
   },
 
   attached() {
-    console.log('attached')
     if (!this.data.img && this.data.statusImgs.length) {
       let img = this.data.statusImgs[0];
-      console.log(img)
       this.setData({
         status: 0,
         img: img
       })
     }
   },
-  onEleTap() {
-    console.log(this.img, 'tap')
-  }
+  
 })

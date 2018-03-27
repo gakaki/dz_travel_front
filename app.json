@@ -1,17 +1,15 @@
 {
   "pages": [
     "pages/cityRaiders/cityRaiders",
-    "pages/play/play",
+    "pages/testmap/testmap",
     "pages/index/index",
     "pages/goSight/goSight",
-   
+    "pages/play/play",
     "pages/settings/settings",
     "pages/integral/integral",
-    
     "pages/city/city",
     "pages/raiders/raiders",
     "pages/rank/rank",
-    "pages/testmap/testmap",
     "pages/props/props",
     "pages/pointRaiders/pointRaiders",
     "pages/postcard/postcard",
