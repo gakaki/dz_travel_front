@@ -164,3 +164,10 @@
   bottom: 130rpx;
   left: 0;
 }
+.walk-icon {
+  width: 30rpx;
+  height: 72rpx;
+  position: absolute;
+  /* top: 200rpx;
+  left: 200rpx; */
+}
