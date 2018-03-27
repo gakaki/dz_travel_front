@@ -323,6 +323,9 @@ class Base  {
     constructor(){
     
     
+        //prop type: number
+        this._timestamp = null;
+    
         //prop type: App
         this._app = null;
     
@@ -484,6 +487,8 @@ class Base  {
                     else {
                         app.globalData.userInfo=req.info;
                         this.SID=req.sid;
+                       // this._timestamp=req.timestamp;
+                        this._timestamp=0;
                         wx.setStorageSync('sid', this.SID);
                         suc(req);
                     }
@@ -607,7 +612,7 @@ class SelfRank  {
         
     }
 }
-class Provence  {
+class ProvencePer  {
     constructor(){
     
     
@@ -615,7 +620,7 @@ class Provence  {
         this.proLetter = null;
     
         //prop type: 
-        this.provence = null;
+        this.proName = null;
     
         //prop type: 
         this.citys = null;
@@ -664,7 +669,7 @@ class Log  {
         
     }
 }
-class City  {
+class CityPer  {
     constructor(){
     
     
@@ -1076,11 +1081,15 @@ class TravelLog extends Base {
         super();
         this.action = 'travel.travellog';
     
+        this._uid = null;
         this._allLogs = null;
         this.requireFileds = [];
-        this.reqFields = [];
+        this.reqFields = ["uid"];
         this.resFields = ["allLogs"];
     }
+    //client input, optional, type: string
+    get uid() {return this._uid}
+    set uid(v) {this._uid = v}
     //server output, type: Log[]
     get allLogs() {return this._allLogs}
     set allLogs(v) {this._allLogs = v}
@@ -1142,18 +1151,22 @@ class DetailPostcard extends Base {
     
         this._id = null;
         this._start = null;
+        this._messageLength = null;
         this._url = null;
         this._lastestMessage = null;
-        this.requireFileds = ["id","start"];
-        this.reqFields = ["id","start"];
+        this.requireFileds = ["id"];
+        this.reqFields = ["id","start","messageLength"];
         this.resFields = ["url","lastestMessage"];
     }
     //client input, require, type: number
     get id() {return this._id}
     set id(v) {this._id = v}
-    //client input, require, type: number
+    //client input, optional, type: number
     get start() {return this._start}
     set start(v) {this._start = v}
+    //client input, optional, type: number
+    get messageLength() {return this._messageLength}
+    set messageLength(v) {this._messageLength = v}
     //server output, type: string
     get url() {return this._url}
     set url(v) {this._url = v}
@@ -1225,10 +1238,10 @@ class UserInfo extends UserBriefInfo {
         
     }
 }
-class CityList extends Base {
+class CityListPer extends Base {
     constructor(){
         super();
-        this.action = 'city.citylist';
+        this.action = 'city.citylistper';
     
         this._data = null;
         this.requireFileds = [];
@@ -1575,11 +1588,11 @@ exports.Ws = Ws;
 exports.Sight = Sight;
 exports.RankItem = RankItem;
 exports.SelfRank = SelfRank;
-exports.Provence = Provence;
+exports.ProvencePer = ProvencePer;
 exports.Rent = Rent;
 exports.RandomCity = RandomCity;
 exports.Log = Log;
-exports.City = City;
+exports.CityPer = CityPer;
 exports.ProvincePostcardInfo = ProvincePostcardInfo;
 exports.CityPostcardInfo = CityPostcardInfo;
 exports.PostcardBriefDetail = PostcardBriefDetail;
@@ -1607,7 +1620,7 @@ exports.CityPostcards = CityPostcards;
 exports.DetailPostcard = DetailPostcard;
 exports.sendPostcard = sendPostcard;
 exports.UserInfo = UserInfo;
-exports.CityList = CityList;
+exports.CityListPer = CityListPer;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
