@@ -22,14 +22,14 @@ Page({
       let obj={}
       obj.init =  new sheet.Find(o).pword;
       obj.name = new sheet.Find(o).province;
-      obj.cities = new sheet.Find(o).city.split(',');
+      obj.cities = new sheet.Find(o).city;
+      obj.cityid = new sheet.Find(o).cityid;
       return obj;
     })
     //过滤掉直辖市和特别行政区
     let province = readCity.filter((item)=>{
       return item.name!=item.cities
     })
-
     this.setData({
       province,
     })
@@ -118,7 +118,7 @@ Page({
   },
 
   _selected(e) {
-    console.log(e.detail.select)
+    console.log(e.detail)
   },
 
   /**
