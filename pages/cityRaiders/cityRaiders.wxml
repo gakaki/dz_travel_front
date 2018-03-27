@@ -33,4 +33,5 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon font">确定</view>
   </view> 
+<image style="top:0;left:0" bindtap='testZuobiao' animation="{{animationData}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>
 </view>

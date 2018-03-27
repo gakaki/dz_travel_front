@@ -1,14 +1,18 @@
 <!--components/cmap/cmap.wxml-->
-   <scroll-view class='cmap-con' scroll-x='{{true}}' scroll-y='{{true}}'
-  scroll-left='{{scrollLeft}}' scroll-top='{{scrollTop}}' scroll-with-animation='{{true}}'
-  bind:touchstart='touchStart' bind:touchmove='touchMove' bind:touchend='touchEnd' bind:tap='touchTap'>  
-    <image wx:if='{{mapBg}}' src='{{mapBg}}' style='position:absolute;top:0;left:0; z-index:{{mapZ}}; height:{{double ? mapHeight * 2 : mapHeight}}rpx; width:{{double ? mapWidth * 2 : mapWidth}}rpx' ></image>
-    <view class='cmap-layer {{double ? "double": "normal"}}'>
-    <element wx:for='{{areas}}' wx:key='{{index}}' style='position:absolute;left:{{double ? item.x * 2 : item.x}}rpx;top:{{double? item.y*2 : item.y}}rpx; height:{{double ? item.imgHt * 2 : item.imgHt}}rpx; width:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}' statusImgs='{{item.statusImgs}}'
-    txt='{{index}}'></element>
+<scroll-view class='cmap-con' scroll-x='{{true}}' scroll-y='{{true}}' scroll-left='{{scrollLeft}}' scroll-top='{{scrollTop}}' scroll-with-animation='{{true}}' bind:touchstart='touchStart' bind:touchmove='touchMove' bind:touchend='touchEnd' bind:tap='touchTap'>
+  <image wx:if='{{mapBg}}' src='{{mapBg}}' style='position:absolute;top:0;left:0; z-index:{{mapZ}}; height:{{double ? mapHeight * 2 : mapHeight}}rpx; width:{{double ? mapWidth * 2 : mapWidth}}rpx'></image>
+  <view class='cmap-layer {{double ? "double": "normal"}}'>
+    <element wx:for='{{provinces}}' wx:key='{{index}}' style='position:absolute;left:{{item.x}}rpx;top:{{item.y}}rpx; height:{{double ? item.imgHt * 2 : item.imgHt}}rpx; width:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+      statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX}}' txtY='{{item.txtY}}' status='{{item.light ? 1 : 0}}' ></element>
 
-    <element wx:for='{{lines}}' wx:key='{{index}}' item='{{item}}'></element>
-    <element wx:for='{{lines}}' wx:key='{{index}}' item='{{item}}'></element>
+     <element wx:for='{{citys}}' wx:key='{{index}}' style='position:absolute;left:{{item.x}}rpx;top:{{item.y}}rpx; height:{{double ? item.imgHt * 2 : item.imgHt}}rpx; width:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+      statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX}}' txtY='{{item.txtY}}' status='{{item.light ? 1 : 0}}'></element>
 
-   </view> 
-</scroll-view>   
+    <element wx:for='{{players}}' wx:key='{{index}}' style='position:absolute;left:{{item.x}}rpx;top:{{item.y}}rpx; height:{{double ? item.imgHt * 2 : item.imgHt}}rpx; width:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+      statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX}}' txtY='{{item.txtY}}'></element>
+
+    <element wx:for='{{planes}}' wx:key='{{index}}' style='position:absolute;left:{{item.x}}rpx;top:{{item.y}}rpx; height:{{double ? item.imgHt * 2 : item.imgHt}}rpx; width:{{double ? item.imgWd * 2 : item.imgWd}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+      statusImgs='{{item.statusImgs}}' targetX='{{item.targetX}}' targetY='{{item.targetY}}' moveDuration='{{planeMoveDuration}}' moveToTarget='{{planeMoveToTarget}}'></element> 
+
+  </view>
+</scroll-view>

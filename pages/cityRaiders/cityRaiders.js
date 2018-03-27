@@ -14,7 +14,8 @@ Page({
     num: 0, //选中的第几个字母,
     checkId: '',
     cityData: [],
-    id: 'A'
+    id: 'A',
+    animationData: {}
   },
 
   /**
@@ -93,9 +94,25 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  testZuobiao(e) {
+console.log(e)
   },
+  onShow: function () {
+    //行走动画
+    let animation = wx.createAnimation({
+      duration: 3000,
+      timingFunction: 'linear',
+    })
+
+    this.animation = animation
+    animation.left(500+'rpx').top(500+'rpx').step()
+    this.setData({
+      animationData: animation.export()
+    })
+  },
+
+
+
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -108,7 +125,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
