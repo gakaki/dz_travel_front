@@ -1,5 +1,9 @@
 //const sheet = require('../sheets.js');
-const formatTime = date => {
+
+//dateType输出时间格式类型
+//1. 2018/03/09 
+//2. 2月1日 
+const formatTime = (date,dateType) => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -7,8 +11,17 @@ const formatTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
+  if (dateType == 1) {
+    return [year, month, day].map(formatNumber).join('/')
+  } 
+  else if (dateType == 2) {
+    return month + '月' + day + '日'
+  }
+
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+
+
 
 const formatNumber = n => {
   n = n.toString()
