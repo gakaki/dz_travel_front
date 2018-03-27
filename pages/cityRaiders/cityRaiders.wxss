@@ -128,6 +128,10 @@
    font-size: 20rpx;
   color: #8d8d8d;
 }
+
+.can-click {
+  color: #333
+}
 .act {
   color: #278cff;
 }
@@ -159,4 +163,11 @@
   position: fixed;
   bottom: 130rpx;
   left: 0;
+}
+.walk-icon {
+  width: 30rpx;
+  height: 72rpx;
+  position: absolute;
+  /* top: 200rpx;
+  left: 200rpx; */
 }

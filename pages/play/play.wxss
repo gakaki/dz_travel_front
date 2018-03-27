@@ -31,7 +31,8 @@
   /* margin-top: 10rpx */
 }
 
-.title, .task {
+.title,
+.task {
   margin-left: 30rpx;
 }
 
@@ -110,7 +111,9 @@
   height: 100%;
 }
 
-.gl, .yw, .dj {
+.gl,
+.yw,
+.dj {
   color: #fff;
   text-align: center;
 }
@@ -213,14 +216,15 @@
   right: 0;
   bottom: 360rpx;
 }
+
 .rgt-chg {
   align-self: flex-end;
-font-size: 24rpx;
-text-align: right;
-margin: 6rpx 10rpx 0 0;
-color: #fff;
-
+  font-size: 24rpx;
+  text-align: right;
+  margin: 6rpx 10rpx 0 0;
+  color: #fff;
 }
+
 .gold {
   align-self: flex-end;
   font-size: 20rpx;
@@ -228,63 +232,265 @@ color: #fff;
   margin: 0rpx 18rpx 0 0;
   color: #fff;
 }
-#play-desc {
+
+#postal {
+  top: 135rpx;
+  width: 550rpx;
+  height: 850rpx;
+  background-color: #fff;
+  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, .1);
+  padding: 40rpx 30rpx 0 30rpx;
+}
+
+.hc {
   position: absolute;
-  top: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cir {
+  top: 145rpx;
+  z-index: 11;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background-color: #b9c3d0;
+  box-shadow: 0 0 2rpx 0 inset
+}
+
+#line {
+  width: 12rpx;
+  height: 210rpx;
+  top: -60rpx;
+  z-index: 12
+}
+
+.post-pic {
+  width: 550rpx;
+  height: 515rpx;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.post-name {
+  font: bold 36rpx 'Microsoft YaHei';
+  color: #000;
+  margin: 20rpx 0;
+}
+
+.post-desc {
+  font: normal 30rpx 'Microsoft YaHei';
+  color: #8d8d8d;
+  margin-bottom: 10rpx;
+  letter-spacing: 2rpx
+}
+
+.btn-icon {
+  background-size: 443rpx 120rpx;
+  position: absolute;
+  bottom: 0;
+  font-size: 28rpx;
+  letter-spacing: 7rpx;
+}
+
+/* 基础pop样式 */
+
+.play-pop {
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 40rpx;
-  width: 550rpx;
-  height: 980rpx;
+  width: 610rpx;
   padding: 0 30rpx;
   background-color: #fff;
-  box-shadow: 0 0 2rpx 4rpx rgba(0,0,0,.1)
+  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, .1);
+  box-sizing: border-box;
 }
+
+.play-mission {
+  border-radius: 20rpx;
+  height: 590rpx;
+  width: 560rpx;
+  top: 220rpx;
+  padding: 20rpx 20rpx 0 20rpx;
+}
+
+.play-mission .imgBox {
+  width: 520rpx;
+  height: 280rpx;
+  margin-bottom: 26rpx;
+}
+
+.play-mission .imgBox image {
+  height: 280rpx;
+  width: 100%;
+}
+
+.play-mission .contentBox .mission-head-font {
+  margin-bottom: 16rpx;
+}
+
+.play-mission .contentBox .mission-gray-font {
+  margin-bottom: 12rpx;
+}
+
+.play-mission .contentBox .ml14 {
+  margin-left: 14rpx;
+}
+
+.play-mission .contentBox .ml18 {
+  margin-left: 18rpx;
+}
+
+.play-congratulations {
+  border-radius: 20rpx;
+  width: 610rpx;
+  height: 1085rpx;
+  padding: 15rpx 15rpx 0 15rpx;
+  top: 20rpx;
+  text-align: center;
+}
+
+.play-congratulations .imgBox {
+  width: 580rpx;
+  height: 440rpx;
+  border-radius: 0;
+  margin-bottom: 50rpx;
+  position: relative;
+}
+
+.play-congratulations .imgBox image {
+  width: 100%;
+  height: 440rpx;
+}
+
+.play-congratulations .contentBox .congratulations-head-font {
+  font-size: 62rpx;
+  line-height: 62rpx;
+  margin-bottom: 62rpx;
+}
+
+.play-congratulations .contentBox .congratulations-gray-font {
+  font-size: 40rpx;
+  line-height: 40rpx;
+  margin-bottom: 175rpx;
+}
+
+.play-congratulations .contentBox .cfm-btn {
+  margin: 0 auto;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+
+/* 介绍css */
+
+.play-desc {
+  top: 50rpx;
+  height: 980rpx;
+}
+
+.play-desc .cfm-btn {
+  position: absolute;
+  bottom: 0;
+}
+
+/* 首次进入css */
+
+.play-first-in {
+  top: 300rpx;
+  height: 440rpx;
+  padding-top: 92rpx;
+  text-align: center;
+  color: #8d8d8d;
+}
+
+.play-first-in .line {
+  width: 570rpx;
+  height: 4rpx;
+  text-align: center;
+  background-color: #f2f2f2;
+  margin-top: 40rpx;
+}
+
+.play-first-in .paly-gray-font {
+  margin-bottom: 24rpx;
+}
+
+.play-first-in .cfm-btn {
+  position: absolute;
+  bottom: 0rpx;
+  color: #fff;
+  width: 446rpx;
+  height: 127rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat center center;
+  background-size: 70% 90%;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+  text-align: center;
+}
+
+.head-font {
+  font-family: 'Microsoft YaHei';
+  display: block;
+  font-size: 32rpx;
+  line-height: 32rpx;
+}
+
+.gray-font {
+  font-family: 'Microsoft YaHei';
+  display: block;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #8d8d8d;
+}
+
 #title {
-font: bold 36rpx 'Microsoft YaHei';
-letter-spacing: 2rpx;
-margin-top: 41rpx;
+  font: bold 36rpx 'Microsoft YaHei';
+  letter-spacing: 2rpx;
+  margin-top: 41rpx;
 }
+
 .rule {
   font: bold 30rpx 'Microsoft YaHei';
   letter-spacing: 2rpx;
 }
+
 .rule-con {
   width: 500rpx;
   font: bold 24rpx/35rpx 'Microsoft YaHei';
   position: relative;
 }
+
 .rule-con::before {
   content: '';
   position: absolute;
   top: 0;
   left: -24rpx;
 }
+
 .rule1::before {
   content: '1.';
 }
+
 .rule2::before {
   content: '2.';
 }
+
 .rule3::before {
   content: '3.';
 }
+
 .rule4::before {
   content: '4.';
 }
+
 .rule5::before {
   content: '5.';
 }
+
 .rule6::before {
   content: '6.';
 }
+
 .rule7::before {
   content: '7.';
-}
-.cfm-btn {
-  margin-top: 56rpx;
-}
-.cfm-btn {
-letter-spacing: 30rpx;
-padding-left:30rpx;
 }

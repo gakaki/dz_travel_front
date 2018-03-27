@@ -59,6 +59,7 @@ function ymd(v) {
   let second = date.getSeconds();
   //判断是否满10
   let arr = [month, day, hours, minu, second];
+  if (v == 'cn') return arr[0] + '月' + arr[1]+'日'
   arr = arr.map(item => {
    return item < 10 ? "0" + item : item;
   })
