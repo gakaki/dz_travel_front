@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/cityRaiders/cityRaiders",
     "pages/testmap/testmap",
-    "pages/index/index",
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/settings/settings",
