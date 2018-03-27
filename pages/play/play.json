@@ -1,1 +1,8 @@
-{}
+{
+
+  "usingComponents": {
+    "modal-dialog": "/components/modaldialog/modaldialog",
+    "dialog-question": "./dialogQuestion/dialogQuestion"
+  }
+
+}
