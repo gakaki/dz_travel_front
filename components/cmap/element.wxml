@@ -1,5 +1,5 @@
 <!--components/cmap/element.wxml-->
-<view class='map-ele' catchtap='onEleTap'>
+<view class='map-ele' catch:tap='onEleTap'>
   <image src='{{img}}' style='width:{{imgWd}}rpx; height:{{imgHt}}rpx'></image>
   <text>{{txt}}</text>
 </view>

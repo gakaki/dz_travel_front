@@ -20,8 +20,8 @@
 }
 
 .mark{
-  width: 40rpx;
-  height: 45rpx;
+  width: 42rpx;
+  height: 46rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/mark.png") 0 0 no-repeat;
   background-size: cover;
   position: absolute;
@@ -30,7 +30,8 @@
 .mark image{
   width: 30rpx;
   height: 30rpx;
-  margin-top: -6rpx;
+  margin-top: -11rpx;
+  margin-left: 2rpx;
   border-radius: 50%;
 }
 
@@ -241,4 +242,20 @@
 .content{
   font:bold 36rpx/50rpx 'Microsoft YaHei';
   color: #b8b8b8;
+}
+
+.route{
+  height: 6rpx;
+  background-color: #fc6161;
+  position: absolute;
+  transform-origin: 0 3rpx; 
+}
+
+.ariplane{
+  position: absolute;
+  left: -38rpx;
+  top: -26rpx;
+  width: 78rpx;
+  height: 64rpx;
+  transition: all 2s ease-in-out .3s;
 }

@@ -1,11 +1,22 @@
 // components/cmap/cmap.js
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
+
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
+    mapBg: {
+      type:String,
+        value:''
+    },
+      mapWidth:Number,
+      mapHeight:Number,
+      mapZ:{
+      type: Number,
+          value: 0
+      },
     areas: {
       type: Object,
       value: []
@@ -54,8 +65,12 @@ Component({
       let double = !this.data.double;
       this.setData({double});
       console.log(double, 'double')
+    },
+    tapEle(e) {
+      console.log('tap element')
     }
 
+  },
+  
 
-  }
 })
