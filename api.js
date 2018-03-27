@@ -1081,11 +1081,15 @@ class TravelLog extends Base {
         super();
         this.action = 'travel.travellog';
     
+        this._uid = null;
         this._allLogs = null;
         this.requireFileds = [];
-        this.reqFields = [];
+        this.reqFields = ["uid"];
         this.resFields = ["allLogs"];
     }
+    //client input, optional, type: string
+    get uid() {return this._uid}
+    set uid(v) {this._uid = v}
     //server output, type: Log[]
     get allLogs() {return this._allLogs}
     set allLogs(v) {this._allLogs = v}
@@ -1147,18 +1151,22 @@ class DetailPostcard extends Base {
     
         this._id = null;
         this._start = null;
+        this._messageLength = null;
         this._url = null;
         this._lastestMessage = null;
-        this.requireFileds = ["id","start"];
-        this.reqFields = ["id","start"];
+        this.requireFileds = ["id"];
+        this.reqFields = ["id","start","messageLength"];
         this.resFields = ["url","lastestMessage"];
     }
     //client input, require, type: number
     get id() {return this._id}
     set id(v) {this._id = v}
-    //client input, require, type: number
+    //client input, optional, type: number
     get start() {return this._start}
     set start(v) {this._start = v}
+    //client input, optional, type: number
+    get messageLength() {return this._messageLength}
+    set messageLength(v) {this._messageLength = v}
     //server output, type: string
     get url() {return this._url}
     set url(v) {this._url = v}
