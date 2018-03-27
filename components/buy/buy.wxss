@@ -112,7 +112,7 @@
 
 .car-line {
   position: absolute;
-  bottom: 146rpx;
+  bottom: 140rpx;
   left: 50%;
   width: 570rpx;
   height: 2rpx;

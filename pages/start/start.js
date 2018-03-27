@@ -1,5 +1,8 @@
 // pages/start/start.js
+import { RandomCityList, StartGame } from '../../api.js';
 const app = getApp()
+const sheet = require('../../sheets.js');
+let allCity = [];
 let time = null
 
 Page({
@@ -11,7 +14,6 @@ Page({
     isWaiting:true,
     isRandom:true,
     destination: '',
-    allCity: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城', '北京', '上海', '重庆', '天津'],
     isArrive: false,
   },
 
@@ -20,6 +22,10 @@ Page({
    */
   onLoad: function (options) {
     if(options && options.random){
+      let req = new RandomCityList();
+      req.fetch().then(()=>{
+        allCity = req.city
+      })
       this.setData({
         isRandom: true,
       })
@@ -62,21 +68,29 @@ Page({
 
   startTour() {
     if(this.data.isRandom){
-      let i = 0;
-      time = setInterval(() => {
-        i++
-        let ind = Math.floor(Math.random() * this.data.allCity.length)
-        let des = this.data.allCity[ind]
-        this.setData({
-          destination: des,
-        })
-        if (i > 20) {
-          clearInterval(time)
+      if(allCity.length){
+        let i = 0;
+        time = setInterval(() => {
+          i++
+          let ind = Math.floor(Math.random() * allCity.length)
+          let des = allCity[ind]
           this.setData({
-            isArrive:true
+            destination: des,
           })
-        }
-      }, 100)
+          if (i > 20) {
+            clearInterval(time)
+            this.setData({
+              isArrive: true
+            })
+          }
+        }, 100)
+      }
+      else{
+        wx.showToast({
+          title:'没有城市列表',
+          icon:'none'
+        })
+      }
     }
     else{
       this.setData({
@@ -85,10 +99,16 @@ Page({
     }
   },
 
+  //带下划线的为监听组件内的事件
   _confirm() {
-    wx.navigateTo({
-      url: '../play/play',
+    let start = new StartGame()
+    start.terminal = this.data.destination
+    start.fetch().then((req) => {
+      wx.navigateTo({
+        url: '../play/play?rid='+req.rid,
+      })
     })
+    
   },
 
   /**

@@ -58,7 +58,7 @@ margin: 0 20rpx 0 22rpx
 margin-bottom: 6rpx
 }
 .btn-bg {
-  margin-top: 30rpx;
+  margin-top: 25rpx;
   color: #fff;
   font-weight: normal;
   width: 315rpx;
@@ -128,7 +128,8 @@ margin-left: 40rpx;
 .post-desc {
   font: bold 30rpx 'Microsoft YaHei';
   color: #8d8d8d;
-  margin-bottom: 10rpx
+  margin-bottom: 10rpx;
+  letter-spacing: 2rpx
 }
 .btn-icon {
   margin-top: 44rpx;
