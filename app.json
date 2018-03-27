@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/testmap/testmap",
+    "pages/travelLog/travelLog",
     "pages/index/index",
     "pages/goSight/goSight",
     "pages/play/play",
+    "pages/testmap/testmap",
     
     "pages/settings/settings",
     "pages/integral/integral",
@@ -14,7 +15,6 @@
     "pages/props/props",
     "pages/pointRaiders/pointRaiders",
     "pages/postcard/postcard",
-    "pages/travelLog/travelLog",
     "pages/other/other",
     "pages/checkPostcard/checkPostcard",
     "pages/xiangce/xiangce",
