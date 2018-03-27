@@ -14,33 +14,11 @@ Page({
     rankSubtype: RankSubtype.COUNTRY,
     toView:'rank0',
     //全国排行榜前三名
-    topThree: [{ rank: 1, avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字七个字', value: 9999, gold: 9999, uid:'aaa' },
-      { rank: 2, avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字五个字', value: 9999, gold: 9999, uid:'bbb' },
-      { rank: 3, avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字四个字', value: 9999, gold: 9999, uid:'ccc' },],
+    topThree: [],
     //全国排行榜除去前三的排名
-    rankingCountry: [{ rank: 4, avatar: '', nickName: '昵称几个字', value: 9999, gold: 9999, uid: 'aaa' }, 
-      { rank: 5, avatar: '', nickName: '昵称几个字', value: 9998, gold: 999, uid: 'aaa' }, 
-      { rank: 6, avatar: '', nickName: '昵称几个字', value: 9997, gold: 99, uid: 'aaa' }, 
-      { rank: 7, avatar: '', nickName: '昵称几个字', value: 995, gold: 929, uid: 'aaa' }, 
-      { rank: 8, avatar: '', nickName: '昵称几个字', value: 990, gold: 909, uid: 'aaa' }, 
-      { rank: 9, avatar: '', nickName: '昵称几个字', value: 910, gold: 569, uid: 'aaa' }, 
-      { rank: 10, avatar: '', nickName: '昵称几个字', value: 900, gold: 109, uid: 'aaa' }, 
-      { rank: 11, avatar: '', nickName: '昵称几个字', value: 520, gold: 9, uid: 'aaa' }, 
-      { rank: 12, avatar: '', nickName: '昵称几个字', value: 120, gold: 3009, uid: 'aaa' }, 
-      { rank: 13, avatar: '', nickName: '昵称几个字', value: 100, gold: 929, uid: 'aaa' }, 
-      { rank: 14, avatar: '', nickName: '昵称几个字', value: 20, gold: 609, uid: 'aaa' }],
+    rankingCountry: [],
     //好友排行榜
-    rankingFriend: [{ rank: 1, avatar: '', nickName: '昵称几个字', value: 9999, gold: 9999, uid: 'aaa' },
-      { rank: 2, avatar: '', nickName: '昵称几个字', value: 9998, gold: 999, uid: 'aaa' },
-      { rank: 3, avatar: '', nickName: '昵称几个字', value: 9997, gold: 99, uid: 'aaa' },
-      { rank: 4, avatar: '', nickName: '昵称几个字', value: 995, gold: 929, uid: 'aaa' },
-      { rank: 5, avatar: '', nickName: '昵称几个字', value: 990, gold: 909, uid: 'aaa' },
-      { rank: 6, avatar: '', nickName: '昵称几个字', value: 910, gold: 569, uid: 'aaa' },
-      { rank: 7, avatar: '', nickName: '昵称几个字', value: 900, gold: 109, uid: 'aaa' },
-      { rank: 8, avatar: '', nickName: '昵称几个字', value: 520, gold: 9, uid: 'aaa' },
-      { rank: 9, avatar: '', nickName: '昵称几个字', value: 120, gold: 3009, uid: 'aaa' },
-      { rank: 10, avatar: '', nickName: '昵称几个字', value: 100, gold: 929, uid: 'aaa' },
-      { rank: 11, avatar: '', nickName: '昵称几个字', value: 20, gold: 609, uid: 'aaa' }],
+    rankingFriend: [],
     //自己的排名
     selfRank:{rank:'未上榜',value:9999}
   },
@@ -49,6 +27,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //test(假数据,仅为了看页面显示效果,接入真数据时直接把这块代码删除即可)----------
+    let topThree = [], rankingCountry = [], rankingFriend = [];
+    for(let i = 0 ;i < 20; i++ ){
+      let obj = {};
+      obj.rank = i+1;
+      obj.avatar = 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0';
+      obj.nickName = '昵称几个字';
+      obj.value = Math.floor(Math.random()*10000+1);
+      obj.gold = Math.floor(Math.random() * 10000+1);
+      obj.uid = 'aaa'
+      if(i<3){
+        topThree[i] = obj;
+      }
+      else{
+        rankingCountry[i-3] = obj;
+      }
+      rankingFriend[i] = obj;
+    }
+    this.setData({
+      topThree,
+      rankingCountry,
+      rankingFriend,
+    })
+    //--------------------------------------------------------------------
+
     this.getRankInfo();
   },
 

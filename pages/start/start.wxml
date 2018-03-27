@@ -4,9 +4,24 @@
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/start/tip.png"></image>
   </view>
   <view class="map">
-    <view class="mark flex" style="top:200rpx;left:400rpx;">
-      <image src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
+    <view>
+      <view class="mark flex" style="top:{{routePoint[1]-45}}rpx;left:{{routePoint[0]-20}}rpx;">
+        <image src="https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0"></image>
+      </view>
+      <view class="route" style="width:{{routeWid}}rpx;left:{{routePoint[0]}}rpx;top:{{routePoint[1]}}rpx;transform: rotate({{routeR}}deg);">
+        <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="left:{{moveX}}rpx;"></image> 
+      </view>
     </view>
+    <!-- 小伙伴的位置和飞行轨迹 -->
+    <view wx:if="{{isDouble}}">
+      <view class="mark flex" style="top:{{partnerPoint[1]-45}}rpx;left:{{partnerPoint[0]-20}}rpx;">
+        <image src="https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0"></image>
+      </view>
+      <view class="route" style="width:{{partnerWid}}rpx;left:{{partnerPoint[0]}}rpx;top:{{partnerPoint[1]}}rpx;transform: rotate({{partnerR}}deg);">
+        <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="left:{{partnerMove}}rpx;"></image> 
+      </view>
+    </view>
+    <!-- -------------------------- -->  
   </view>
   <image class="shadow {{isRandom ? 'shadow-random' : ''}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
   <view class="tour-info f-c-fs {{isRandom ? 'tour-random' : ''}}">
@@ -68,7 +83,7 @@
       </view>
       <view class="partner f-r-sb">
         <text class="waiting" wx:if="{{isWaiting}}">等待好友接受双人组队邀请······</text>
-        <avatar class="friend" avatarWid="86" avatarHeg="86" wx:else></avatar>
+        <avatar class="friend" avatarWid="86" avatarHeg="86" nickname="{{partnerName}}" src="{{avatarSrc}}" wx:else></avatar>
       </view>
     </view>
     <view class="info-xian {{isWaiting ? '' : 'friend-xian'}} {{isRandom ? 'random-xian' : ''}}"></view>
