@@ -10,11 +10,11 @@
     <view class="line"></view>
   </view>
   <view class="rgt-box f-c">
-    <text wx:for="{{abc}}" wx:key="index" bindtap='choose' data-idx="{{index}}" class="rgt font {{num == index?'act': ''}}">{{item}}</text>
+    <text wx:for="{{abc}}" wx:key="index" bindtap='choose' data-idx="{{index}}" class="rgt font  {{myAbc[index]==abc[index]?'can-click':''}} {{(num == index && myAbc[index]==abc[index]) ?'act': ''}}">{{item}}</text>
   </view>
   <scroll-view class="sv" scroll-y scroll-into-view="{{id}}" scroll-with-animation="{{true}}">
     <view class="city-list" wx:for="{{cityData}}" wx:key="index" id="{{item.proLetter}}">
-      <view class="pro-box f-r-fs">
+      <view class="pro-box f-r-fs" >
         <text class="abc font">{{item.proLetter}}</text>
         <text class="pro font">{{item.proName}}</text>
       </view>
