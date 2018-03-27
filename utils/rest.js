@@ -40,11 +40,40 @@ function wsClose(...actions) {
   apis.Base.WsClose.apply(api.Base, actions);
 }
 
+  //let serverTime = new apis.Base()._timestamp
+let serverTime = new Date().getTime() - 10
+let aa = new Date().getTime()
+let cha = serverTime - aa
+function getMd() {
+  let date1 = new Date().toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
+  console.log(date1)
+}
+function ymd(v) {
+  let serverTime = new Date().getTime() +cha
+  let date = new Date(serverTime);
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let hours = date.getHours();
+  let minu = date.getMinutes();
+  let second = date.getSeconds();
+  //判断是否满10
+  let arr = [month, day, hours, minu, second];
+  arr = arr.map(item => {
+   return item < 10 ? "0" + item : item;
+  })
+  if (v == 'all') return year + '-' + arr[0] + '-' + arr[1] + ' ' + arr[2] + ':' + arr[3] + ':' + arr[4]
+  if (v == 'hms') return arr[2] + ':' + arr[3] + ':' + arr[4]
+  else return year + '-' + arr[0] + '-' + arr[1]
+}
+
+
 module.exports = {
   start,
   showErr,
   initWs,
   wsSend,
   wsReceive,
-  wsClose
+  wsClose,
+  ymd
 }

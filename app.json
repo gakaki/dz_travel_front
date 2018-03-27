@@ -1,15 +1,13 @@
 {
   "pages": [
-<<<<<<< HEAD
-    "pages/index/index",
-=======
-    "pages/goSight/goSight",
+    "pages/cityRaiders/cityRaiders",
     "pages/play/play",
-    
->>>>>>> ab0d64e40fb5d9d609ad8edd8e49a7ff08d708cd
+    "pages/index/index",
+    "pages/goSight/goSight",
+   
     "pages/settings/settings",
     "pages/integral/integral",
-    "pages/cityRaiders/cityRaiders",
+    
     "pages/city/city",
     "pages/raiders/raiders",
     "pages/rank/rank",

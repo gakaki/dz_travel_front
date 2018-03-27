@@ -323,6 +323,9 @@ class Base  {
     constructor(){
     
     
+        //prop type: number
+        this._timestamp = null;
+    
         //prop type: App
         this._app = null;
     
@@ -484,6 +487,8 @@ class Base  {
                     else {
                         app.globalData.userInfo=req.info;
                         this.SID=req.sid;
+                       // this._timestamp=req.timestamp;
+                        this._timestamp=0;
                         wx.setStorageSync('sid', this.SID);
                         suc(req);
                     }
@@ -607,7 +612,7 @@ class SelfRank  {
         
     }
 }
-class Provence  {
+class ProvencePer  {
     constructor(){
     
     
@@ -615,7 +620,7 @@ class Provence  {
         this.proLetter = null;
     
         //prop type: 
-        this.provence = null;
+        this.proName = null;
     
         //prop type: 
         this.citys = null;
@@ -664,7 +669,7 @@ class Log  {
         
     }
 }
-class City  {
+class CityPer  {
     constructor(){
     
     
@@ -1225,10 +1230,10 @@ class UserInfo extends UserBriefInfo {
         
     }
 }
-class CityList extends Base {
+class CityListPer extends Base {
     constructor(){
         super();
-        this.action = 'city.citylist';
+        this.action = 'city.citylistper';
     
         this._data = null;
         this.requireFileds = [];
@@ -1575,11 +1580,11 @@ exports.Ws = Ws;
 exports.Sight = Sight;
 exports.RankItem = RankItem;
 exports.SelfRank = SelfRank;
-exports.Provence = Provence;
+exports.ProvencePer = ProvencePer;
 exports.Rent = Rent;
 exports.RandomCity = RandomCity;
 exports.Log = Log;
-exports.City = City;
+exports.CityPer = CityPer;
 exports.ProvincePostcardInfo = ProvincePostcardInfo;
 exports.CityPostcardInfo = CityPostcardInfo;
 exports.PostcardBriefDetail = PostcardBriefDetail;
@@ -1607,7 +1612,7 @@ exports.CityPostcards = CityPostcards;
 exports.DetailPostcard = DetailPostcard;
 exports.sendPostcard = sendPostcard;
 exports.UserInfo = UserInfo;
-exports.CityList = CityList;
+exports.CityListPer = CityListPer;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;

@@ -124,7 +124,7 @@
  
 }
 .rgt {
-  margin-bottom: 10rpx;
+  margin-bottom: 15rpx;
    font-size: 20rpx;
   color: #8d8d8d;
 }
