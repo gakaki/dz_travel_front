@@ -16,13 +16,16 @@
   color: #278cff;
   border-bottom: 4rpx solid #278cff
 }
-.xc-pro,.msg-post {
-    height: 38/0rpx; 
-  margin: 0 auto;
-  margin-top: 20rpx;
+.all-postcard {
+  /* height: 1112rpx; */
+  height: 1100rpx;
+}
+
+.xc-pro {
+  margin: 20rpx auto 0;
+  padding: 15rpx;
+  width: 680rpx;
   background-color: #fff;
-   width: 680rpx;
-   padding: 15rpx;
   border-radius: 20rpx;
 }
 .pro-top {
@@ -37,7 +40,7 @@
   color: #b8b8b8
 }
 .img-box {
-  flex-wrap: wrap
+  display: inline-block;
 }
 .img {
    height: 120rpx;
@@ -46,18 +49,21 @@
    background-color: tan;
    margin: 20rpx 20rpx 0 0;
 }
-.no-mr {
-  margin-right: 0
-}
 .msg-item {
   width: 100%
 }
 .img-sm {
-   height: 70rpx;
-   width: 70rpx;
-   border-radius: 10rpx;
-   background-color: tan;
-   margin: 15rpx 0 15rpx 0;
+  height: 70rpx;
+  width: 70rpx;
+  border-radius: 10rpx;
+  background-color: tan;
+  margin: 15rpx 20rpx 15rpx 0;
+}
+.content {
+  width: 480rpx;
+}
+.img-box-flex {
+  display: flex;
 }
 .post-rgt {
 height: 80rpx;
@@ -71,12 +77,14 @@ margin: 0 0 0 20rpx;
   font: bold 28rpx 'Microsoft YaHei';
 }
 .per1 {
-  font: bold 20rpx 'Microsoft YaHei';
+  font: bold 20rpx/50rpx 'Microsoft YaHei';
   color: #b8b8b8
 }
 .message {
+  display: inline-block;
+  width: 100%;
   font: bold 24rpx 'Microsoft YaHei';
-  color: #b8b8b8
+  color: #b8b8b8;
 }
 .bl {
   height: 2rpx;

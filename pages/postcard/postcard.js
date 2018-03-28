@@ -1,4 +1,77 @@
 // pages/postcard/postcard.js
+let data = [{
+  logo:'',
+  province:'北京',
+  collectPostcardNum:10,
+  allPostcardNum:20
+}, {
+  logo: '',
+  province: '南京',
+  collectPostcardNum: 5,
+  allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '北京',
+    collectPostcardNum: 10,
+    allPostcardNum: 20
+  }, {
+    logo: '',
+    province: '南京',
+    collectPostcardNum: 5,
+    allPostcardNum: 20
+  }]
+
+
 Page({
 
   /**
@@ -12,7 +85,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData({
+      init:data
+    })
   },
   toMyXc() {
     wx.navigateTo({

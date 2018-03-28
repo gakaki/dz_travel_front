@@ -16,6 +16,7 @@ const showErr = msg => {
 //启动（会默认走一遍登录流程）
 const start = suc => {
   apis.Base.Start(APPNAME ,srv).then(res => {
+    console.log(666666666666)
     console.log(res)
     this.initWs
     suc(true);
