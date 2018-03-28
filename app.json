@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/testmap/testmap",
     "pages/index/index",
 
     "pages/play/play",
@@ -13,7 +14,6 @@
     "pages/goSight/goSight",
     "pages/props/props",
     "pages/cityRaiders/cityRaiders",
-    "pages/testmap/testmap",
     "pages/settings/settings",
     "pages/integral/integral",
     "pages/rank/rank",
