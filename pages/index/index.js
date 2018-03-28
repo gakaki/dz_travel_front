@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws } from '../../api.js';
+import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket } from '../../api.js';
 const app = getApp()
 Page({
 
@@ -140,6 +140,11 @@ Page({
    * 点击事件
    */
   toFly() {
+    //查询用户是否有赠送的机票
+    let req = new LookTicket()
+    req.fetch().then(()=>{
+      
+    })
     this.setData({
       isFirst: false
     })
