@@ -1,5 +1,6 @@
 <!--components/cmap/element.wxml-->
-<view class='map-ele' bind:tap='onEleTap'>
-  <image class='ele-img' src='{{img}}' style='width:{{imgWd}}rpx; height:{{imgHt}}rpx'></image>
-  <text wx:if='{{txt}}' style='position:absolute; left:{{txtX}}rpx;top:{{txtY}}rpx;'>{{txt}}</text>
+<view class='map-ele {{isPlayer ? "map-player" : ""}}' bind:tap='onEleTap'>
+  <image class='ele-img' src='{{img}}' ></image>
+  <view wx:if='{{isPlayer}}' class='player-loc' ></view>
+  <text wx:elif='{{txt}}' style='position:absolute; left:{{txtX}}rpx;top:{{txtY}}rpx;'>{{txt}}</text>
 </view>

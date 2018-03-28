@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws } from '../../api.js';
+import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket } from '../../api.js';
 const app = getApp()
 Page({
 
@@ -69,13 +69,13 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
+      console.log(userInfo,'userInfo')
       this.setData({userInfo});
-
+    
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
-        console.log(6666666)
-        console.log(req)
+        console.log(req,'首页数据')
         this.setData({
           isFirst: req.isFirst,
           season: req.season,
@@ -85,15 +85,15 @@ Page({
       })
 
       //websocket请求消息信息
-      let message = new HasMessage()
-      Ws.send(message)
+      // let message = new HasMessage()
+      // Ws.send(message)
 
-      Ws.listen(MessageNum,req=>{
-        console.log(req,'消息条数')
-        this.setData({
-          messages: req.number
-        })
-      })      
+      // Ws.listen(MessageNum,req=>{
+      //   console.log(req,'消息条数')
+      //   this.setData({
+      //     messages: req.number
+      //   })
+      // })      
     }
     else {
       console.log('用户拒绝授权个人信息！！')
@@ -143,6 +143,11 @@ Page({
    * 点击事件
    */
   toFly() {
+    //查询用户是否有赠送的机票
+    let req = new LookTicket()
+    req.fetch().then(()=>{
+
+    })
     this.setData({
       isFirst: false
     })

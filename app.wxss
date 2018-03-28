@@ -138,9 +138,9 @@
   height: 127rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
   background-size: cover;
-  line-height: 90rpx;
   letter-spacing: 3rpx;
   text-align: center; 
+  font:  32rpx/90rpx  'Microsoft YaHei';
 }
 
 .ellipsis {

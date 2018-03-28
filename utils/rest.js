@@ -17,11 +17,10 @@ const showErr = msg => {
 const start = suc => {
   apis.Base.Start(APPNAME ,srv).then(res => {
     console.log(res)
-    this.initWs
     suc(true);
+    initWs(); 
   }).catch(()=> {
-    console.log(999999)
-    suc(false);
+    // suc(false);
   })
 }
 
