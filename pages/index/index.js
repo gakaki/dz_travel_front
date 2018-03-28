@@ -25,7 +25,6 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
-      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -70,11 +69,11 @@ Page({
     let userInfo = app.globalData.userInfo;
     if (userInfo){
       this.setData({userInfo});
-
+    
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
-        console.log(req,'首页数据')
+        // console.log(req,'首页数据')
         this.setData({
           isFirst: req.isFirst,
           season: req.season,
@@ -84,15 +83,15 @@ Page({
       })
 
       //websocket请求消息信息
-      let message = new HasMessage()
-      Ws.send(message)
+      // let message = new HasMessage()
+      // Ws.send(message)
 
-      Ws.listen(MessageNum,req=>{
-        console.log(req,'消息条数')
-        this.setData({
-          messages: req.number
-        })
-      })      
+      // Ws.listen(MessageNum,req=>{
+      //   console.log(req,'消息条数')
+      //   this.setData({
+      //     messages: req.number
+      //   })
+      // })      
     }
     else {
       console.log('用户拒绝授权个人信息！！')
