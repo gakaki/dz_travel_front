@@ -15,23 +15,23 @@
   </view>
   <scroll-view scroll-y class="choose-city">
     <view class="zhixiashi">
-      <text class="city {{'北京'==isChoose ? 'city-choose' : ''}}" data-ind="北京" bindtap='choose'>北京</text>
-      <text class="city {{'天津'==isChoose ? 'city-choose' : ''}}" data-ind="天津" bindtap='choose'>天津</text>
-      <text class="city {{'上海'==isChoose ? 'city-choose' : ''}}" data-ind="上海" bindtap='choose'>上海</text>
-      <text class="city {{'重庆'==isChoose ? 'city-choose' : ''}}" data-ind="重庆" bindtap='choose'>重庆</text>
+      <text class="city {{'北京'==isChoose ? 'city-choose' : ''}}" data-ind="北京" data-id='1' bindtap='choose'>北京</text>
+      <text class="city {{'天津'==isChoose ? 'city-choose' : ''}}" data-ind="天津" data-id='2' bindtap='choose'>天津</text>
+      <text class="city {{'上海'==isChoose ? 'city-choose' : ''}}" data-ind="上海" data-id='3' bindtap='choose'>上海</text>
+      <text class="city {{'重庆'==isChoose ? 'city-choose' : ''}}" data-ind="重庆" data-id='4' bindtap='choose'>重庆</text>
     </view>
     <view class="province" wx:for="{{province}}" wx:key="{{index}}" wx:for-item="itm">
       <text class="font initial" wx:if="{{itm.init!=province[index-1].init}}">{{itm.init}}</text>
       <text class="prov-name {{itm.init==province[index-1].init ? 'no-init' : ''}}">{{itm.name}}:</text>
       <view class="cities">
-        <text class="city {{ item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{item}}" bindtap='choose'>{{item}}</text>
+        <text class="city {{ item == isChoose ? 'city-choose' : ''}}" wx:for="{{itm.cities}}" wx:key="{{index}}" data-ind="{{item}}" data-id='{{itm.cityid[index]}}' bindtap='choose'>{{item}}</text>
       </view>
     </view>
     <view class="speacial">
       <text class="prov-name no-init">港澳</text>
       <view class="cities">
-        <text class="city {{'香港'==isChoose ? 'city-choose' : ''}}" data-ind="香港" bindtap='choose'>香港</text>
-        <text class="city {{'澳门'==isChoose ? 'city-choose' : ''}}" data-ind="澳门" bindtap='choose'>澳门</text>
+        <text class="city {{'香港'==isChoose ? 'city-choose' : ''}}" data-ind="香港" data-id='348' bindtap='choose'>香港</text>
+        <text class="city {{'澳门'==isChoose ? 'city-choose' : ''}}" data-ind="澳门" data-id='349' bindtap='choose'>澳门</text>
       </view>
     </view>
   </scroll-view>

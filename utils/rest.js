@@ -16,12 +16,11 @@ const showErr = msg => {
 //启动（会默认走一遍登录流程）
 const start = suc => {
   apis.Base.Start(APPNAME ,srv).then(res => {
-    console.log(666666666666)
     console.log(res)
-    this.initWs
     suc(true);
+    initWs(); 
   }).catch(()=> {
-    suc(false);
+    // suc(false);
   })
 }
 
@@ -61,7 +60,7 @@ function ymd(v) {
   //判断是否满10
   let arr = [month, day, hours, minu, second];
   //返回  3月1日
-  if (v == 'cn') return arr[0] + '月' + arr[1]+'日'
+  if (v == 'cn') return arr[0] + '月' + arr[1]+'号'
   arr = arr.map(item => {
    return item < 10 ? "0" + item : item;
   })

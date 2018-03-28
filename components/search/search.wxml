@@ -8,9 +8,9 @@
     </view>
     <view class="back" bindtap='_back'>取消</view>
   </view>
-  <view scroll-y class="search-city-list">
+  <scroll-view scroll-y class="search-city-list">
     <view class="list" wx:for="{{matchCity}}" wx:key="{{index}}" wx:for-index="idx" data-city="{{matchCity[idx]}}" data-id="{{cityId[idx]}}"   bindtap='_selected'>
       <text wx:for="{{matchCity[idx]}}" wx:key="{{index}}" class="{{item==searchChar ? 'search-char' : ''}}">{{item}}</text>
     </view>
-  </view>
+  </scroll-view>
 </view>
