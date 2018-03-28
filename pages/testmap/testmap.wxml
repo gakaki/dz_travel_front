@@ -1,3 +1,3 @@
 <!--pages/testmap/testmap.wxml-->
 <text>pages/testmap/testmap.wxml</text>
-<cmap mapZ='{{mapZ}}'></cmap>
+<cmap mapZ='{{mapZ}}' lightProvinces='{{lightProvinces}}' lightCitys='{{lightCitys}}'  ></cmap>
