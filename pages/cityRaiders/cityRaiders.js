@@ -40,6 +40,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '城市攻略'
+    })
     //test----
     let arr = []
     for (let i = 0; i < this.data.abc.length-3;i++) {

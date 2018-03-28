@@ -1,0 +1,18 @@
+<view class="con f-c-fs">
+  <image class="t-bg" src="https://gengxin.odao.com/update/h5/travel/recharge/bg.png"></image>
+  <view class="gold-box f-r-sb">
+    <view wx:for="{{goldInfo}}" wx:key="{{index}}" class="item bs f-c-fs {{(index+1)%3 == 0 ? 'nomr':''}}"  data-idx="{{index}}" bindtap='isBuy'>
+      <view class="img-box flex" >
+        <image src="https://gengxin.odao.com/update/h5/travel/recharge/gold{{index+1}}.png" class="gold"></image>
+      </view>
+      <text class="g-count">$ {{item.gold}}</text>
+      <view class="money flex">
+        <text class="m-count">{{item.pay}}</text>
+        <text class="yuan">元</text>
+      </view>
+    </view>
+  </view>
+  <view class="btn-big-blue ivt">邀请好友</view>
+  <text class="ivt-str">邀请新用户进入小程序获得$800</text>
+   <buy wx:if="{{pop}}" isBuy="{{false}}" outer-class="pop-str" content='获得{{gCount}}金币' cfmStr="{{mCount}}元购买" bindtoclose="hide" bind:confirm="toBuy"></buy> 
+</view>

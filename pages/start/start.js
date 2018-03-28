@@ -1,5 +1,5 @@
 // pages/start/start.js
-import { RandomCityList, StartGame } from '../../api.js';
+import { FlyInfo, StartGame, TicketType } from '../../api.js';
 const app = getApp()
 const sheet = require('../../sheets.js');
 let allCity = [], terminalPoint = [], routePoint = [], partnerPoint = [];
@@ -26,7 +26,7 @@ Page({
     partnerWid: 0,
     partnerR: 0,
     partnerMove: -38,
-    isDouble: true
+    isDouble: false
    },
 
   /**
@@ -43,13 +43,11 @@ Page({
     })
     allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
     //---------------------------------
+    console.log(options)
 
-
+    //是否是随机机票
     if(options && options.random){
-      let req = new RandomCityList();
-      req.fetch().then(()=>{
-        allCity = req.city
-      })
+      
       this.setData({
         isRandom: true,
         routePoint: [150,300]
@@ -98,6 +96,11 @@ Page({
   onUnload: function () {
     clearInterval(time)
     clearTimeout(timer)
+  },
+
+  getFlyInfo(type) {
+    let req = new FlyInfo()
+
   },
 
   startTour() {
