@@ -1,0 +1,49 @@
+.t-bg {
+  width: 100%;
+  height: 260rpx;
+}
+.gold-box {
+  width: 710rpx;
+  margin: 0 auto;
+  flex-wrap: wrap
+}
+.item {
+  width: 217rpx;
+  height: 280rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin: 40rpx 30rpx 0 0;
+}
+.nomr {
+  margin-right: 0;
+}
+.img-box {
+  width: 217rpx;
+  height: 155rpx;
+}
+.gold {
+width: 163rpx;
+  height: 115rpx;
+}
+.g-count {
+  font: bold 34rpx  'Microsoft YaHei'
+}
+.money {
+  color: #fff;
+  width: 144rpx;
+  height: 52rpx;
+  background-color: #fc6161;
+  border-radius: 30rpx;
+  margin-top: 15rpx
+}
+.m-count {
+font: bold 32rpx  'Microsoft YaHei';
+}
+.yuan {
+  font: bold 28rpx  'Microsoft YaHei';
+  margin-left: 5rpx
+}
+.ivt {
+  margin: 0 auto;
+  margin-top: 116rpx;
+}

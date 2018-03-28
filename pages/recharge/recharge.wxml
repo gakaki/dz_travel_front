@@ -1,0 +1,16 @@
+<view class="con">
+  <image class="t-bg" src="https://gengxin.odao.com/update/h5/travel/recharge/bg.png"></image>
+  <view class="gold-box f-r-sb">
+    <view wx:for="{{goldInfo}}" class="item bs f-c-fs {{(index+1)%3 == 0 ? 'nomr':''}}">
+      <view class="img-box flex">
+        <image src="https://gengxin.odao.com/update/h5/travel/recharge/gold1.png" class="gold"></image>
+      </view>
+      <text class="g-count">$ {{item.gold}}</text>
+      <view class="money flex">
+        <text class="m-count">{{item.pay}}</text>
+        <text class="yuan">元</text>
+      </view>
+    </view>
+  </view>
+  <view class="btn-big-blue ivt">邀请好友</view>
+</view>

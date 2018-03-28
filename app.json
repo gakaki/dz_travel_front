@@ -1,13 +1,16 @@
 {
   "pages": [
+    "pages/recharge/recharge",
+    "pages/props/props",
+    
+    "pages/play/play",
     "pages/index/index",
     "pages/city/city",
     "pages/start/start",
     "pages/cityRaiders/cityRaiders",
-    "pages/props/props",
+    
     "pages/testmap/testmap",
     "pages/goSight/goSight",
-    "pages/play/play",
     "pages/settings/settings",
     "pages/integral/integral",
     "pages/raiders/raiders",
