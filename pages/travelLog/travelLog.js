@@ -1,6 +1,6 @@
 // pages/travelLog/travelLog.js
 import { formatTime } from '../../utils/util.js'
-
+import { TravelLog } from '../../api.js';
 
 let data = [{
   city: '南京',
@@ -45,12 +45,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    for(let i in data) {
-      data[i].time = this.formatTime('2018-3-5');
-    }
-    this.setData({
-      init: data
+    let req = new TravelLog();
+    req.fetch().then(req => {
+     console.log(req)
     })
+
+
+
+    // for(let i in data) {
+    //   data[i].time = this.formatTime('2018-3-5');
+    // }
+    // this.setData({
+    //   init: data
+    // })
   },
   formatTime(time, dateType){
      let arr = time.split('-')

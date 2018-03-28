@@ -6,6 +6,11 @@ Page({
    */
   data: {
     isPop: false,
+    isFirstIn: false,
+    isGetPost: true,
+    canPhoto: true,
+    isCongratulations: false,
+    isMissionOpen: false,
     isShowIntro: false
   },
 
@@ -21,9 +26,9 @@ Page({
     })
   },
   toProps() {
-wx.navigateTo({
-  url: '../props/props'
-})
+    wx.navigateTo({
+      url: '../props/props'
+    })
   },
   showIntro() {
     this.setData({
@@ -35,6 +40,28 @@ wx.navigateTo({
       isShowIntro: false
     })
   },
+  hideMissionOpen() {
+    this.setData({
+      isMissionOpen: false
+    })
+  },
+  hideCongratulations() {
+    this.setData({
+      isCongratulations: false
+    })
+  },
+
+  hideFirstIn() {
+    this.setData({
+      isFirstIn: false
+    })
+  },
+  hidePost() {
+    this.setData({
+      isGetPost: false,
+      canPhoto: true
+    })
+  },
   notDo() {
     return
   },
@@ -42,7 +69,7 @@ wx.navigateTo({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.play = this.selectComponent("#play");
   },
 
   /**

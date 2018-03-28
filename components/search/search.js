@@ -1,6 +1,6 @@
 // components/search/search.js
 const sheet = require('../../sheets.js');
-let allCity=[];
+let allCity=[], cityId=[]//城市id;
 
 Component({
   /**
@@ -16,17 +16,23 @@ Component({
   data: {
     matchCity: [], //匹配到的city
     inputText: '',
-    searchChar: ''
+    searchChar: '',
+    cityId: []
   },
 
   attached() {
     let readCity = sheet.finds.map(o => {
-      return new sheet.Find(o).city.split(',');
+      let obj = {};
+      obj.cities = new sheet.Find(o).city;
+      obj.cityid = new sheet.Find(o).cityid;
+      return obj;
     })
 
+    console.log(readCity)
     //把所有城市合并在一个数组中
     readCity.forEach((item)=>{
-      allCity.push.apply(allCity,item)
+      allCity.push.apply(allCity,item.cities);
+      cityId.push.apply(cityId, item.cityid)
     })
   },
 
@@ -41,12 +47,15 @@ Component({
       if (value) {
         //每当value值变化时必须先清除matchCity在赋值渲染到渲染层，否则会出现value值长度减少时原来匹配到的个数出现无法渲染的情况。极有可能是微信的bug
         this.setData({
-          matchCity: []
+          matchCity: [],
+          cityId: []
         })
         let reg = new RegExp('' + value + '')
         let match = []
+        let id = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
+            console.log(i)
             let ind = allCity[i].indexOf(value)
             let split = allCity[i].split(value)
             
@@ -62,16 +71,19 @@ Component({
             }
             console.log(newSplit,'拼好的')
             match.push(newSplit)
+            id.push(cityId[i])
           }
         }
         this.setData({
           matchCity: match,
-          searchChar: value
+          searchChar: value,
+          cityId: id
         })
       }
       else {
         this.setData({
-          matchCity: []
+          matchCity: [],
+          cityId: []
         })
       }
 
@@ -81,7 +93,8 @@ Component({
       this.setData({
         inputText: '',
         matchCity: [],
-        searchChar: ''
+        searchChar: '',
+        cityId: []
       })
     },
 
@@ -91,7 +104,8 @@ Component({
       this.setData({
         inputText: '',
         matchCity: [],
-        searchChar: ''
+        searchChar: '',
+        cityId: []
       })
       this.triggerEvent("back")
     },
@@ -100,7 +114,8 @@ Component({
     //此处为选中的搜索结果
     _selected(e) {
       let select = e.currentTarget.dataset.city.join('')
-      this.triggerEvent("selected",{select})
+      let id = e.currentTarget.dataset.id
+      this.triggerEvent("selected",{select,id})
     }
   }
 })

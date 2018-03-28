@@ -1,34 +1,34 @@
 <view class="con bg">
   <view class="task-bg f-c">
     <text class="title font fs ">点亮城市地图需完成以下3个任务</text>
-
-    <view class="task font fs act">1.至少达到6个景点（6/6）
-      <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image>
-    </view>
-    <view class="task font fs">2.至少进行2次观光（0/2）
+    <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image>
+    <view class="task font fs act">1.至少达到6个景点（6/6）</view>
+    <view class="task font fs">
+      2.至少进行2次观光（0/2）
       <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
     </view>
-    <view class="task font fs">3.至少进行2次拍照留恋（0/2）
+    <view class="task font fs">
+      3.至少进行2次拍照留恋（0/2）
       <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
     </view>
-    <view class="introduce font" bindtap='showIntro'>玩法介绍</view>
+    <view class="introduce font" bindtap="showIntro">玩法介绍</view>
   </view>
   <view class="warn-box flex">
     <text class="warn-str font">本页显示地图为虚拟地图，与真实地图存在偏差</text>
   </view>
   <view class="chg-line f-c-fs">
-    <text class='rgt-chg font'>修改路线</text>
-    <text class='gold font'>100金币</text>
+    <text class="rgt-chg font">修改路线</text>
+    <text class="gold font">100金币</text>
   </view>
   <view class="ribao f-c-fs">
     <view class="rb-top">
-      <text class='rb-city ib font'>成都日报</text>
-      <text class='rb-dedail ib font'>受到法律和生当复来归撒旦发个科技时代分厘卡个速度分级管理的上空飞过得分跟</text>
+      <text class="rb-city ib font">成都日报</text>
+      <text class="rb-dedail ib font">受到法律和生当复来归撒旦发个科技时代分厘卡个速度分级管理的上空飞过得分跟</text>
     </view>
     <view class="rb-bot f-r-sa">
-      <view class="gl font" bindtap='toPr'>旅行攻略</view>
+      <view class="gl font" bindtap="toPr">旅行攻略</view>
       <view class="yw font">开始游玩</view>
-      <view class="dj font" bindtap='toProps'>旅行道具</view>
+      <view class="dj font" bindtap="toProps">旅行道具</view>
     </view>
   </view>
   <view class=" pop-bg" wx:if="{{isPop}}">
@@ -41,20 +41,74 @@
       <view class="next-evt font">下一事件</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isShowIntro}}" bindtap='hideIntro'>
-    <view id="play-desc" class="f-c-fs" catchtap='notDo'>
+  <view class="pop-bg" wx:if="{{isShowIntro}}" bindtap="hideIntro">
+    <view class="play-pop play-desc f-c-fs" catchtap="notDo">
       <text id="title">玩法介绍</text>
       <text class="rule fs">本地游玩规则：</text>
-      <text class="rule-con rule1">自出发点出发，以点击景点的方式选择游玩景点。确定路线后点击“开始游玩”系统将自动行走，并触发随机事件，随机事件需手动点击查看。离线时随机事件最多保留10条。</text>
+      <text class="rule-con rule1">自出发点出发，以点击景点的方式选择游玩景点。确定路线后点击“开始游玩”系统将自动行走，并触发随机事件，随机事件需手动点击查看。离线时随机事件最多保留10条。
+      </text>
       <text class="rule-con rule2">游玩期间花费100金币可修改未走过的路线，已规划路线走完添加新路线时不花费金币。</text>
-      <text class="rule-con rule3">用户结束此城市旅游时，系统根据用户游玩时选取景点的规划路线（超过6个景点时仅计算前6个景点）与最短路线相比较进行评分，根据评分给予金币奖励。再次旅游此城市时可重新评分给予奖励。</text>
+      <text class="rule-con rule3">用户结束此城市旅游时，系统根据用户游玩时选取景点的规划路线（超过6个景点时仅计算前6个景点）与最短路线相比较进行评分，根据评分给予金币奖励。再次旅游此城市时可重新评分给予奖励。
+      </text>
       <text class="rule-con rule4">所有景点全部走完后，可重复前往到达过的景点，重复前往的路线不计入路线评分中。</text>
       <text class="rule-con rule5">根据用户游玩的景点、触发的事件和得到明信片的数量，会有不同的积分奖励。</text>
       <text class="rule-con rule6">积分用于兑换物品。</text>
-      <text class="rule-con rule7">双人旅行时，每人至少选择3个景点共同前往，不可同时规划路线。每人各观光景点2次，每人各拍照2次为完成点亮任务。
-</text>
-<view class="btn-big-blue cfm-btn" bindtap='hideIntro'>确定</view>
+      <text class="rule-con rule7">双人旅行时，每人至少选择3个景点共同前往，不可同时规划路线。每人各观光景点2次，每人各拍照2次为完成点亮任务。</text>
+      <view class="btn-big-blue cfm-btn" bindtap="hideIntro">确 定</view>
     </view>
   </view>
+  <view class="pop-bg" wx:if="{{isFirstIn}}" bindtap="hideFirstIn">
+    <view class="play-pop play-first-in f-c-fs" catchtap="notDo">
+      <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
+      <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
+      <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
+      <view class="line"></view>
+      <view class="btn-big-blue cfm-btn" bindtap="hideFirstIn">确 定</view>
+    </view>
+  </view>
+
+  <view class="pop-bg" wx:if="{{isMissionOpen}}" bindtap="hideMissionOpen">
+    <play class="play-pop play-mission f-c-fs">
+      <view class="imgBox" slot="imgBox">
+        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
+      </view>
+      <view class="contentBox" slot="contentBox">
+        <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
+        <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（3/6）</text>
+        <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
+        <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
+      </view>
+    </play>
+  </view>
+
+  <view class="pop-bg" wx:if="{{isCongratulations}}" bindtap="hideCongratulations">
+    <play class="play-pop play-congratulations f-c-fs">
+      <view class="imgBox" slot="imgBox">
+        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
+        <view class="ten font">1/10</view>
+      </view>
+      <view class="contentBox" slot="contentBox">
+        <text class="head-font congratulations-head-font ml14">恭喜答对</text>
+        <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
+        <view class="btn-big-blue cfm-btn" bindtap="hideFirstIn">下一事件</view>
+      </view>
+    </play>
+  </view>
+
+  <view class="pop-bg" wx:if="{{isGetPost}}">
+    <image class="hc" src="https://gengxin.odao.com/update/h5/travel/play/mission.png" id="line"></image>
+    <view class="hc cir"></view>
+    <view id="postal" class="hc f-c-fs">
+      <image class="post-pic"></image>
+      <text class="post-name">获得索菲亚教堂明信片一张</text>
+      <text class="post-desc">明信片可用作收藏，分享给好友</text>
+      <text class="post-desc">获得一张不同的明信片可增加100积分</text>
+      <view class="btn-icon btn-big-blue" bindtap='hidePost'>确  定</view>
+    </view>
+  </view>
+
+  <!--问答 组件 -->
+  <!-- <dialog-question>
+  </dialog-question> -->
 
 </view>

@@ -59,11 +59,16 @@ function ymd(v) {
   let second = date.getSeconds();
   //判断是否满10
   let arr = [month, day, hours, minu, second];
+  //返回  3月1日
+  if (v == 'cn') return arr[0] + '月' + arr[1]+'日'
   arr = arr.map(item => {
    return item < 10 ? "0" + item : item;
   })
+  //返回 yyyy-mm-dd hh:mm:ss
   if (v == 'all') return year + '-' + arr[0] + '-' + arr[1] + ' ' + arr[2] + ':' + arr[3] + ':' + arr[4]
+  //返回  hh:mm:ss
   if (v == 'hms') return arr[2] + ':' + arr[3] + ':' + arr[4]
+  //返回  yyyy-mm-dd
   else return year + '-' + arr[0] + '-' + arr[1]
 }
 

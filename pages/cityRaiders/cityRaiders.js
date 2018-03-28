@@ -6,15 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    province: [{ init: 'A', name: '安徽', cities: ['合肥', '安庆', '蚌埠', '亳州', '巢湖', '池州', '滁州', '阜阳', '淮北', '淮南', '黄山', '六安', '马鞍山', '宿州', '铜陵', '芜湖', '宣城'] }],
     focus: false,
     isChoose: '',
     position: '',
     abc: ['A', 'B', 'C', 'F', 'G', 'H', 'J', 'L', 'N', 'Q', 'S', 'T', 'X', 'Y', 'Z'],
+    myAbc: [],  //wo去过的省
     num: 0, //选中的第几个字母,
     checkId: '',
     cityData: [],
-    id: 'A'
+    id: 'A',
+    animationData: {}
   },
 
   /**
@@ -23,7 +24,7 @@ Page({
   onLoad: function (options) {
     //test----
     let arr = []
-    for (let i = 0; i < this.data.abc.length;i++) {
+    for (let i = 0; i < this.data.abc.length-3;i++) {
        let xx = new ProvencePer()
       xx.proLetter = this.data.abc[i]
       xx.proName = '四川'
@@ -31,10 +32,22 @@ Page({
       arr.push(xx)
     }
     console.log(arr)
-     this.setData({ cityData: arr})
+     this.setData({ 
+       cityData: arr,
+       myAbc: arr.map(o => {
+         return o.proLetter
+       })
+       }) 
     ///test------
-
-
+    let arr1 = this.data.myAbc
+    let abc = this.data.abc
+    for(let i = 0;i<abc.length;i++) {
+      if(abc[i] == arr1[i]) continue
+      else arr1.splice(i,0,'')
+    }
+    this.setData({
+      myAbc: arr1
+    }) 
     //this.pullList()
   },
   pullList() {
@@ -81,9 +94,25 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  testZuobiao(e) {
+console.log(e)
   },
+  onShow: function () {
+    //行走动画
+    let animation = wx.createAnimation({
+      duration: 3000,
+      timingFunction: 'linear',
+    })
+
+    this.animation = animation
+    animation.left(500+'rpx').top(500+'rpx').step()
+    this.setData({
+      animationData: animation.export()
+    })
+  },
+
+
+
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -96,7 +125,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**

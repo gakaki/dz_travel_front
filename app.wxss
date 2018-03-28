@@ -148,3 +148,11 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
+
+/* 颜色  */
+.color_background_gray{
+  
+} 
+.color_gray_more {
+  color: #959595;
+}

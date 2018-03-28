@@ -26,7 +26,7 @@ Page({
     partnerWid: 0,
     partnerR: 0,
     partnerMove: -38,
-    isDouble: false
+    isDouble: true
    },
 
   /**

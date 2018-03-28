@@ -1,0 +1,6 @@
+<view>
+    <slot name="imgBox">
+      
+    </slot>
+    <slot name="contentBox"></slot>
+</view>
