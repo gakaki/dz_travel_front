@@ -138,10 +138,9 @@
   height: 127rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
   background-size: cover;
-  line-height: 90rpx;
   letter-spacing: 3rpx;
-   text-align: center; 
-   font: normal 32rpx/90rpx  'Microsoft YaHei'
+  text-align: center; 
+  font:  32rpx/90rpx  'Microsoft YaHei';
 }
 
 .ellipsis {
@@ -156,4 +155,13 @@
 } 
 .color_gray_more {
   color: #959595;
+}
+.mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }

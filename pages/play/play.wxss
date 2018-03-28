@@ -33,11 +33,20 @@
   line-height: 26rpx;
 }
 
+.bgscroll {
+  /* width: 200vw;
+  height: 200vh; */
+  background: url("https://gengxin.odao.com/update/h5/travel/play/bg1.jpg") 0 0 no-repeat;
+  background-size: cover;
+}
+
 .bg {
   width: 100vw;
   height: 100vh;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/bg1.jpg") 0 0 no-repeat;
-  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: transparent;
 }
 
 /* 屏幕边缘提示 */
@@ -76,6 +85,42 @@
 }
 
 /* 屏幕边缘按钮样式 */
+
+.mission {
+  background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 500rpx;
+  right: 0;
+  height: 124rpx;
+  width: 169rpx;
+}
+
+.missionText {
+  right: 34rpx;
+  position: absolute;
+  top: 28rpx;
+}
+
+.progressBox {
+  width: 108rpx;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 20rpx;
+  border-radius: 30rpx;
+  position: absolute;
+  top: 60rpx;
+  right: 10rpx;
+}
+
+.progressBar {
+  width: 60rpx;
+  height: 16rpx;
+  background-color: #dbff13;
+  border-radius: 30rpx;
+  position: absolute;
+  top: 1rpx;
+  left: 1rpx;
+}
 
 .changeLine {
   background: url("https://gengxin.odao.com/update/h5/travel/play/changeLine.png") 0 0 no-repeat;
