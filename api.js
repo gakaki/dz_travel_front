@@ -637,18 +637,6 @@ class ProvencePer  {
         
     }
 }
-class Rent  {
-    constructor(){
-    
-    
-        //prop type: number//装备id(shop表)
-        this.rentId = null;
-    
-        
-        
-        
-    }
-}
 class RandomCity  {
     constructor(){
     
@@ -886,6 +874,36 @@ class exchangeShopDetail  {
         
     }
 }
+class RankInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'rank.rankinfo';
+    
+        this._rankType = null;
+        this._rankSubtype = null;
+        this._limit = null;
+        this._selfRank = null;
+        this._ranks = null;
+        this.requireFileds = ["rankType","rankSubtype"];
+        this.reqFields = ["rankType","rankSubtype","limit"];
+        this.resFields = ["selfRank","ranks"];
+    }
+    //client input, require, type: RankType
+    get rankType() {return this._rankType}
+    set rankType(v) {this._rankType = v}
+    //client input, require, type: RankSubtype
+    get rankSubtype() {return this._rankSubtype}
+    set rankSubtype(v) {this._rankSubtype = v}
+    //client input, optional, type: number
+    get limit() {return this._limit}
+    set limit(v) {this._limit = v}
+    //server output, type: SelfRank
+    get selfRank() {return this._selfRank}
+    set selfRank(v) {this._selfRank = v}
+    //server output, type: RankItem[]
+    get ranks() {return this._ranks}
+    set ranks(v) {this._ranks = v}
+}
 class PlayerInfo extends Base {
     constructor(){
         super();
@@ -904,20 +922,6 @@ class PlayerInfo extends Base {
     get info() {return this._info}
     set info(v) {this._info = v}
 }
-class GetRealInfo extends Base {
-    constructor(){
-        super();
-        this.action = 'travel.getrealinfo';
-    
-        this._realInfo = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["realInfo"];
-    }
-    //server output, type: RealInfo
-    get realInfo() {return this._realInfo}
-    set realInfo(v) {this._realInfo = v}
-}
 class RentProp extends Base {
     constructor(){
         super();
@@ -932,36 +936,20 @@ class RentProp extends Base {
     //client input, require, type: number
     get rentId() {return this._rentId}
     set rentId(v) {this._rentId = v}
-    //server output, type: UserInfo.rentItems
+    //server output, type: KV[]//已租用的所有道具。
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
-class ModifyRealInfo extends Base {
+class GetRealInfo extends Base {
     constructor(){
         super();
-        this.action = 'travel.modifyrealinfo';
+        this.action = 'travel.getrealinfo';
     
-        this._name = null;
-        this._birthday = null;
-        this._phone = null;
-        this._adress = null;
         this._realInfo = null;
-        this.requireFileds = ["name","birthday","phone","adress"];
-        this.reqFields = ["name","birthday","phone","adress"];
+        this.requireFileds = [];
+        this.reqFields = [];
         this.resFields = ["realInfo"];
     }
-    //client input, require, type: string
-    get name() {return this._name}
-    set name(v) {this._name = v}
-    //client input, require, type: string
-    get birthday() {return this._birthday}
-    set birthday(v) {this._birthday = v}
-    //client input, require, type: string
-    get phone() {return this._phone}
-    set phone(v) {this._phone = v}
-    //client input, require, type: string
-    get adress() {return this._adress}
-    set adress(v) {this._adress = v}
     //server output, type: RealInfo
     get realInfo() {return this._realInfo}
     set realInfo(v) {this._realInfo = v}
@@ -996,6 +984,54 @@ class SpeList extends Base {
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
 }
+class Spe extends Base {
+    constructor(){
+        super();
+        this.action = 'prop.spe';
+    
+        this._propId = null;
+        this._count = null;
+        this.requireFileds = ["propId","count"];
+        this.reqFields = ["propId","count"];
+        this.resFields = [];
+    }
+    //client input, require, type: number//特产id
+    get propId() {return this._propId}
+    set propId(v) {this._propId = v}
+    //client input, require, type: number//购买数量
+    get count() {return this._count}
+    set count(v) {this._count = v}
+}
+class ModifyRealInfo extends Base {
+    constructor(){
+        super();
+        this.action = 'travel.modifyrealinfo';
+    
+        this._name = null;
+        this._birthday = null;
+        this._phone = null;
+        this._adress = null;
+        this._realInfo = null;
+        this.requireFileds = ["name","birthday","phone","adress"];
+        this.reqFields = ["name","birthday","phone","adress"];
+        this.resFields = ["realInfo"];
+    }
+    //client input, require, type: string
+    get name() {return this._name}
+    set name(v) {this._name = v}
+    //client input, require, type: string
+    get birthday() {return this._birthday}
+    set birthday(v) {this._birthday = v}
+    //client input, require, type: string
+    get phone() {return this._phone}
+    set phone(v) {this._phone = v}
+    //client input, require, type: string
+    get adress() {return this._adress}
+    set adress(v) {this._adress = v}
+    //server output, type: RealInfo
+    get realInfo() {return this._realInfo}
+    set realInfo(v) {this._realInfo = v}
+}
 class RandomCityList extends Base {
     constructor(){
         super();
@@ -1018,28 +1054,6 @@ class WsSend extends Base {
         
         
     }
-}
-class getUserLocation extends Base {
-    constructor(){
-        super();
-        this.action = 'integralShop.getuserlocation';
-    
-        this._nickname = null;
-        this._tel = null;
-        this._address = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["nickname","tel","address"];
-    }
-    //server output, type: string
-    get nickname() {return this._nickname}
-    set nickname(v) {this._nickname = v}
-    //server output, type: string
-    get tel() {return this._tel}
-    set tel(v) {this._tel = v}
-    //server output, type: string
-    get address() {return this._address}
-    set address(v) {this._address = v}
 }
 class WsReceive extends Base {
     constructor(){
@@ -1152,32 +1166,6 @@ class StartGame extends Base {
     get uid() {return this._uid}
     set uid(v) {this._uid = v}
 }
-class TravelLog extends Base {
-    constructor(){
-        super();
-        this.action = 'travel.travellog';
-    
-        this._playerUid = null;
-        this._page = null;
-        this._length = null;
-        this._allLogs = null;
-        this.requireFileds = [];
-        this.reqFields = ["playerUid","page","length"];
-        this.resFields = ["allLogs"];
-    }
-    //client input, optional, type: string
-    get playerUid() {return this._playerUid}
-    set playerUid(v) {this._playerUid = v}
-    //client input, optional, type: number
-    get page() {return this._page}
-    set page(v) {this._page = v}
-    //client input, optional, type: number
-    get length() {return this._length}
-    set length(v) {this._length = v}
-    //server output, type: Log[]
-    get allLogs() {return this._allLogs}
-    set allLogs(v) {this._allLogs = v}
-}
 class MyPostcards extends Base {
     constructor(){
         super();
@@ -1198,14 +1186,18 @@ class CityPostcards extends Base {
         this.action = 'postcard.citypostcards';
     
         this._province = null;
+        this._LM = null;
         this._postcardInfo = null;
         this.requireFileds = ["province"];
-        this.reqFields = ["province"];
+        this.reqFields = ["LM","province"];
         this.resFields = ["postcardInfo"];
     }
     //client input, require, type: string
     get province() {return this._province}
     set province(v) {this._province = v}
+    //client input, optional, type: boolean
+    get LM() {return this._LM}
+    set LM(v) {this._LM = v}
     //server output, type: CityPostcardInfo[]
     get postcardInfo() {return this._postcardInfo}
     set postcardInfo(v) {this._postcardInfo = v}
@@ -1262,6 +1254,32 @@ class sendPostcard extends Base {
     get message() {return this._message}
     set message(v) {this._message = v}
 }
+class TravelLog extends Base {
+    constructor(){
+        super();
+        this.action = 'travel.travellog';
+    
+        this._playerUid = null;
+        this._page = null;
+        this._length = null;
+        this._allLogs = null;
+        this.requireFileds = [];
+        this.reqFields = ["playerUid","page","length"];
+        this.resFields = ["allLogs"];
+    }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //client input, optional, type: number
+    get page() {return this._page}
+    set page(v) {this._page = v}
+    //client input, optional, type: number
+    get length() {return this._length}
+    set length(v) {this._length = v}
+    //server output, type: Log[]
+    get allLogs() {return this._allLogs}
+    set allLogs(v) {this._allLogs = v}
+}
 class Photograph extends Base {
     constructor(){
         super();
@@ -1279,48 +1297,6 @@ class Photograph extends Base {
     //server output, type: string
     get img() {return this._img}
     set img(v) {this._img = v}
-}
-class UserInfo extends UserBriefInfo {
-    constructor(){
-        super();
-    
-        //prop type: string
-        this.gender = null;
-    
-        //prop type: number
-        this.totalArrive = null;
-    
-        //prop type: number
-        this.overmatch = null;
-    
-        //prop type: string
-        this.city = null;
-    
-        //prop type: string
-        this.province = null;
-    
-        //prop type: string
-        this.country = null;
-    
-        //prop type: Boolean
-        this.online = null;
-    
-        //prop type: KV[]
-        this.items = null;
-    
-        //prop type: KV[]
-        this.rentItems = null;
-    
-        //prop type: string[]
-        this.friends = null;
-    
-        //prop type: otherUserInfo
-        this.otherUserInfo = null;
-    
-        
-        
-        
-    }
 }
 class PostList extends Base {
     constructor(){
@@ -1406,19 +1382,47 @@ class ThumbComment extends Base {
     get commentId() {return this._commentId}
     set commentId(v) {this._commentId = v}
 }
-class CityListPer extends Base {
+class UserInfo extends UserBriefInfo {
     constructor(){
         super();
-        this.action = 'city.citylistper';
     
-        this._data = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["data"];
+        //prop type: string
+        this.gender = null;
+    
+        //prop type: number
+        this.totalArrive = null;
+    
+        //prop type: number
+        this.overmatch = null;
+    
+        //prop type: string
+        this.city = null;
+    
+        //prop type: string
+        this.province = null;
+    
+        //prop type: string
+        this.country = null;
+    
+        //prop type: Boolean
+        this.online = null;
+    
+        //prop type: KV[]
+        this.items = null;
+    
+        //prop type: KV[]
+        this.rentItems = null;
+    
+        //prop type: string[]
+        this.friends = null;
+    
+        //prop type: otherUserInfo
+        this.otherUserInfo = null;
+    
+        
+        
+        
     }
-    //server output, type: Provence[]
-    get data() {return this._data}
-    set data(v) {this._data = v}
 }
 class GetMessage extends Base {
     constructor(){
@@ -1438,6 +1442,28 @@ class GetMessage extends Base {
     get messages() {return this._messages}
     set messages(v) {this._messages = v}
 }
+class getUserLocation extends Base {
+    constructor(){
+        super();
+        this.action = 'integralShop.getuserlocation';
+    
+        this._nickname = null;
+        this._tel = null;
+        this._address = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["nickname","tel","address"];
+    }
+    //server output, type: string
+    get nickname() {return this._nickname}
+    set nickname(v) {this._nickname = v}
+    //server output, type: string
+    get tel() {return this._tel}
+    set tel(v) {this._tel = v}
+    //server output, type: string
+    get address() {return this._address}
+    set address(v) {this._address = v}
+}
 class exchangeShop extends Base {
     constructor(){
         super();
@@ -1455,6 +1481,20 @@ class exchangeShop extends Base {
     //client input, require, type: string
     get integral() {return this._integral}
     set integral(v) {this._integral = v}
+}
+class CityListPer extends Base {
+    constructor(){
+        super();
+        this.action = 'city.citylistper';
+    
+        this._data = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["data"];
+    }
+    //server output, type: Provence[]
+    get data() {return this._data}
+    set data(v) {this._data = v}
 }
 class IntegralShop extends Base {
     constructor(){
@@ -1477,54 +1517,6 @@ class IntegralShop extends Base {
     //server output, type: exchangeShopDetail[]
     get exchangeDetail() {return this._exchangeDetail}
     set exchangeDetail(v) {this._exchangeDetail = v}
-}
-class RankInfo extends Base {
-    constructor(){
-        super();
-        this.action = 'rank.rankinfo';
-    
-        this._rankType = null;
-        this._rankSubtype = null;
-        this._limit = null;
-        this._selfRank = null;
-        this._ranks = null;
-        this.requireFileds = ["rankType","rankSubtype"];
-        this.reqFields = ["rankType","rankSubtype","limit"];
-        this.resFields = ["selfRank","ranks"];
-    }
-    //client input, require, type: RankType
-    get rankType() {return this._rankType}
-    set rankType(v) {this._rankType = v}
-    //client input, require, type: RankSubtype
-    get rankSubtype() {return this._rankSubtype}
-    set rankSubtype(v) {this._rankSubtype = v}
-    //client input, optional, type: number
-    get limit() {return this._limit}
-    set limit(v) {this._limit = v}
-    //server output, type: SelfRank
-    get selfRank() {return this._selfRank}
-    set selfRank(v) {this._selfRank = v}
-    //server output, type: RankItem[]
-    get ranks() {return this._ranks}
-    set ranks(v) {this._ranks = v}
-}
-class Spe extends Base {
-    constructor(){
-        super();
-        this.action = 'prop.spe';
-    
-        this._propId = null;
-        this._count = null;
-        this.requireFileds = ["propId","count"];
-        this.reqFields = ["propId","count"];
-        this.resFields = [];
-    }
-    //client input, require, type: number//特产id
-    get propId() {return this._propId}
-    set propId(v) {this._propId = v}
-    //client input, require, type: number//购买数量
-    get count() {return this._count}
-    set count(v) {this._count = v}
 }
 class MessageNum extends WsReceive {
     constructor(){
@@ -1555,28 +1547,14 @@ class SellSpe extends Spe {
         super();
         this.action = 'prop.sellspe';
     
-        this._specialtys = null;
+        this._goldNum = null;
         this.requireFileds = ["propId","count"];
         this.reqFields = ["propId","count"];
-        this.resFields = ["specialtys"];
+        this.resFields = ["goldNum"];
     }
-    //server output, type: Specialty[]//金币增加数
-    get specialtys() {return this._specialtys}
-    set specialtys(v) {this._specialtys = v}
-}
-class BuySpe extends Spe {
-    constructor(){
-        super();
-        this.action = 'prop.buyspe';
-    
-        this._items = null;
-        this.requireFileds = ["propId","count"];
-        this.reqFields = ["propId","count"];
-        this.resFields = ["items"];
-    }
-    //server output, type: UserInfo.items
-    get items() {return this._items}
-    set items(v) {this._items = v}
+    //server output, type: number//返回剩余的金币数
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class RechargeRankInfo extends RankInfo {
     constructor(){
@@ -1632,6 +1610,24 @@ class TestSend extends WsSend {
     get test() {return this._test}
     set test(v) {this._test = v}
 }
+class BuySpe extends Spe {
+    constructor(){
+        super();
+        this.action = 'prop.buyspe';
+    
+        this._items = null;
+        this._goldNum = null;
+        this.requireFileds = ["propId","count"];
+        this.reqFields = ["propId","count"];
+        this.resFields = ["items","goldNum"];
+    }
+    //server output, type: KV[]
+    get items() {return this._items}
+    set items(v) {this._items = v}
+    //server output, type: number//返回剩余的金币数
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
+}
 //-------------exports---------------
 exports.Season = Season;
 exports.Weather = Weather;
@@ -1652,7 +1648,6 @@ exports.Sight = Sight;
 exports.RankItem = RankItem;
 exports.SelfRank = SelfRank;
 exports.ProvencePer = ProvencePer;
-exports.Rent = Rent;
 exports.RandomCity = RandomCity;
 exports.Log = Log;
 exports.CityPer = CityPer;
@@ -1665,40 +1660,40 @@ exports.Post = Post;
 exports.Comment = Comment;
 exports.MessageItem = MessageItem;
 exports.exchangeShopDetail = exchangeShopDetail;
+exports.RankInfo = RankInfo;
 exports.PlayerInfo = PlayerInfo;
-exports.GetRealInfo = GetRealInfo;
 exports.RentProp = RentProp;
-exports.ModifyRealInfo = ModifyRealInfo;
+exports.GetRealInfo = GetRealInfo;
 exports.mySpe = mySpe;
 exports.SpeList = SpeList;
+exports.Spe = Spe;
+exports.ModifyRealInfo = ModifyRealInfo;
 exports.RandomCityList = RandomCityList;
 exports.WsSend = WsSend;
-exports.getUserLocation = getUserLocation;
 exports.WsReceive = WsReceive;
 exports.IndexInfo = IndexInfo;
 exports.FlyInfo = FlyInfo;
 exports.StartGame = StartGame;
-exports.TravelLog = TravelLog;
 exports.MyPostcards = MyPostcards;
 exports.CityPostcards = CityPostcards;
 exports.DetailPostcard = DetailPostcard;
 exports.sendPostcard = sendPostcard;
+exports.TravelLog = TravelLog;
 exports.Photograph = Photograph;
-exports.UserInfo = UserInfo;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
 exports.ThumbComment = ThumbComment;
-exports.CityListPer = CityListPer;
+exports.UserInfo = UserInfo;
 exports.GetMessage = GetMessage;
+exports.getUserLocation = getUserLocation;
 exports.exchangeShop = exchangeShop;
+exports.CityListPer = CityListPer;
 exports.IntegralShop = IntegralShop;
-exports.RankInfo = RankInfo;
-exports.Spe = Spe;
 exports.MessageNum = MessageNum;
 exports.HasMessage = HasMessage;
 exports.SellSpe = SellSpe;
-exports.BuySpe = BuySpe;
 exports.RechargeRankInfo = RechargeRankInfo;
 exports.SysMessage = SysMessage;
 exports.TestSend = TestSend;
+exports.BuySpe = BuySpe;

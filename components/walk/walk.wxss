@@ -1,0 +1,5 @@
+.walk-icon {
+  width: 30rpx;
+  height: 72rpx;
+  position: absolute;
+}

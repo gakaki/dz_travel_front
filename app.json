@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/cityRaiders/cityRaiders",
     "pages/index/index",
+    "pages/cityRaiders/cityRaiders",
+    "pages/props/props",
+    
+    
    
     "pages/testmap/testmap",
     "pages/goSight/goSight",
@@ -11,7 +14,7 @@
     "pages/city/city",
     "pages/raiders/raiders",
     "pages/rank/rank",
-    "pages/props/props",
+    
     "pages/pointRaiders/pointRaiders",
     "pages/postcard/postcard",
     "pages/travelLog/travelLog",
