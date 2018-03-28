@@ -77,3 +77,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
+<sign class='sign'></sign>

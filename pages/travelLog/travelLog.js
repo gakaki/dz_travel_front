@@ -57,11 +57,10 @@ Page({
      
   },
   onReady(){
-    console.log(7777777)
     let req = new TravelLog();
-
     req.fetch().then(req => {
-     console.log(req)
+     console.log(88888888,req)
+     
     })
 
     // for(let i in data) {

@@ -1,5 +1,6 @@
 // pages/self/self.js
 import { getUserInfo } from '../../utils/util.js';
+import { PlayerInfo } from '../../api.js';
 const app = getApp();
 let obj = {
     a: {
@@ -61,43 +62,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-      console.log(app.globalData.userInfo)
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-    if(options && options.uid) {
-      this.setData({
-        mySelf: false        
-      })      
-    }
-    console.log(obj)
-    this.setData({
-      list:Object.values(obj)
-    }) 
+    let userInfo = app.globalData.userInfo;
+    this.setData({userInfo})
+    let m = new PlayerInfo();
+    m.fetch().then(res=>{
+      console.log(res)
+      console.log(666666666)
+    })
+    // console.log(obj)
+    // this.setData({
+    //   list:Object.values(obj)
+    // }) 
   },
   
 

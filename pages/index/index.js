@@ -25,6 +25,7 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
+      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -73,6 +74,8 @@ Page({
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
+        console.log(6666666)
+        console.log(req)
         this.setData({
           isFirst: req.isFirst,
           season: req.season,
