@@ -1,6 +1,7 @@
 {
   "disableScroll": true,
   "usingComponents": {
-    "search": "/components/search/search"
+    "search": "/components/search/search",
+    "walk":"/components/walk/walk"
   }
 }

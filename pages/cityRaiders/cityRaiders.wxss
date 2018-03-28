@@ -168,6 +168,4 @@
   width: 30rpx;
   height: 72rpx;
   position: absolute;
-  /* top: 200rpx;
-  left: 200rpx; */
 }
