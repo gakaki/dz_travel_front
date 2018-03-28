@@ -1,9 +1,14 @@
 {
   "pages": [
     "pages/recharge/recharge",
+     "pages/goSight/goSight",
+    "pages/play/play",
+    
     "pages/props/props",
     
-    "pages/play/play",
+    
+    
+    
     "pages/index/index",
     "pages/other/other",
     "pages/travelLog/travelLog",
@@ -12,7 +17,7 @@
     "pages/cityRaiders/cityRaiders",
     
     "pages/testmap/testmap",
-    "pages/goSight/goSight",
+   
     "pages/settings/settings",
     "pages/integral/integral",
     "pages/raiders/raiders",

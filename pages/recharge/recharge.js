@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-  goldInfo: sheet.pays
+  goldInfo: sheet.pays,
+  gCount: 0,
+  mCount: 0,
+  pop: false
   },
 
   /**
@@ -14,7 +17,23 @@ Page({
   onLoad: function (options) {
     console.log(this.data.goldInfo)
   },
-
+  hide() {
+    this.setData({
+      pop: false
+    })
+  },
+  toBuy() {
+this.hide()
+  },
+  isBuy(e) {
+    let obj = this.data.goldInfo[e.currentTarget.dataset.idx]
+    this.setData({
+      gCount: obj.gold,
+      mCount: obj.pay,
+      pop: true
+    })
+console.log(e)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

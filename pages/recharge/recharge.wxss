@@ -45,5 +45,15 @@ font: bold 32rpx  'Microsoft YaHei';
 }
 .ivt {
   margin: 0 auto;
-  margin-top: 116rpx;
+  margin-top: 106rpx;
+}
+.ivt-str {
+  font: bold 28rpx  'Microsoft YaHei';
+  letter-spacing: 3rpx;
+  color: #afafb4
+}
+.pop-str {
+  font: bold 38rpx  'Microsoft YaHei';
+  color: #b8b8b8;
+  letter-spacing: 3rpx
 }

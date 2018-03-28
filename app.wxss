@@ -141,6 +141,7 @@
   line-height: 90rpx;
   letter-spacing: 3rpx;
    text-align: center; 
+   font: normal 32rpx/90rpx  'Microsoft YaHei'
 }
 
 .ellipsis {
