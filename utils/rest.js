@@ -18,7 +18,7 @@ const start = suc => {
   apis.Base.Start(APPNAME ,srv).then(res => {
     console.log(res)
     suc(true);
-    // initWs(); 
+    initWs(); 
   }).catch(()=> {
     // suc(false);
   })

@@ -15,38 +15,39 @@ const mapBg = mapAssetsRoot + 'china.png';
 const mapWidth = 714;
 const mapHeight = 828;
 const provinces = [
-  { name: '新疆', statusImgs: ['', 'xinjiang'], x: 2, y: 73, imgWd: 285, imgHt: 216, txtX: 150, txtY: 80 },
-  { name: '内蒙', statusImgs: ['', 'neimeng'], x: 295, y: 11, imgWd: 313, imgHt: 269, txtX: 100, txtY: 210 },
-  { name: '甘肃', statusImgs: ['', 'gansu'], x: 232, y: 189, imgWd: 206, imgHt: 168, txtX: 30, txtY: 30 },
-  { name: '黑龙江', statusImgs: ['', 'heilongjiang'], x: 549, y: 6, imgWd: 158, imgHt: 142, txtX: 80, txtY: 80 },
-  { name: '吉林', statusImgs: ['', 'jilin'], x: 576, y: 117, imgWd: 117, imgHt: 82, txtX: 35, txtY: 30 },
-  { name: '辽宁', statusImgs: ['', 'liaoning'], x: 557, y: 161, imgWd: 82, imgHt: 80, txtX: 30, txtY: 30 },
-  { name: '河北', statusImgs: ['', 'hebei'], x: 496, y: 187, imgWd: 77, imgHt: 108, txtX: 10, txtY: 65 },
-  { name: '北京', statusImgs: ['', 'beijing'], x: 517, y: 213, imgWd: 27, imgHt: 29, txtX: 6, txtY: 4 },
-  { name: '天津', statusImgs: ['', 'tianjin'], x: 534, y: 225, imgWd: 16, imgHt: 28, txtX: 8, txtY: 6 },
-  { name: '山西', statusImgs: ['', 'shanxii'], x: 459, y: 221, imgWd: 51, imgHt: 102, txtX: 8, txtY: 50 },
-  { name: '陕西', statusImgs: ['', 'shanxi'], x: 394, y: 241, imgWd: 76, imgHt: 128, txtX: 30, txtY: 75 },
-  { name: '宁夏', statusImgs: ['', 'ningxia'], x: 381, y: 246, imgWd: 44, imgHt: 71, txtX: 8, txtY: 10 },
-  { name: '青海', statusImgs: ['', 'qinghai'], x: 184, y: 241, imgWd: 178, imgHt: 126, txtX: 50, txtY: 70 },
-  { name: '西藏', statusImgs: ['', 'xizang'], x: 32, y: 269, imgWd: 275, imgHt: 170, txtX: 100, txtY: 80 },
-  { name: '山东', statusImgs: ['', 'shandong'], x: 518, y: 255, imgWd: 95, imgHt: 62, txtX: 20, txtY: 20 },
-  { name: '河南', statusImgs: ['', 'henan'], x: 459, y: 290, imgWd: 85, imgHt: 79, txtX: 30, txtY: 25 },
-  { name: '四川', statusImgs: ['', 'sichuan'], x: 285, y: 325, imgWd: 153, imgHt: 135, txtX: 50, txtY: 60 },
-  { name: '江苏', statusImgs: ['', 'jiangsu'], x: 539, y: 302, imgWd: 83, imgHt: 67, txtX: 20, txtY: 30 },
-  { name: '安徽', statusImgs: ['', 'anhui'], x: 522, y: 314, imgWd: 70, imgHt: 82, txtX: 20, txtY: 36 },
-  { name: '上海', statusImgs: ['', 'shanghai'], x: 609, y: 351, imgWd: 15, imgHt: 17, txtX: 6, txtY: 6 },
-  { name: '浙江', statusImgs: ['', 'zhejiang'], x: 573, y: 363, imgWd: 58, imgHt: 64, txtX: 10, txtY: 20 },
-  { name: '湖北', statusImgs: ['', 'hubei'], x: 437, y: 344, imgWd: 110, imgHt: 68, txtX: 36, txtY: 26 },
-  { name: '重庆', statusImgs: ['', 'chongqing'], x: 393, y: 360, imgWd: 68, imgHt: 64, txtX: 20, txtY: 26 },
+  { name: '新疆', statusImgs: ['', 'xinjiang'], x: 3, y: 74, imgWd: 283, imgHt: 214, txtX: 150, txtY: 80 },
+  { name: '内蒙', statusImgs: ['', 'neimeng'], x: 297, y: 12, imgWd: 313, imgHt: 268, txtX: 100, txtY: 210 },
+  { name: '甘肃', statusImgs: ['', 'gansu'], x: 232, y: 190, imgWd: 206, imgHt: 168, txtX: 30, txtY: 30 },
+  { name: '黑龙江', statusImgs: ['', 'heilongjiang'], x: 552, y: 6, imgWd: 157, imgHt: 141, txtX: 80, txtY: 80 },
+  { name: '吉林', statusImgs: ['', 'jilin'], x: 578, y: 117, imgWd: 116, imgHt: 81, txtX: 35, txtY: 30 },
+  { name: '辽宁', statusImgs: ['', 'liaoning'], x: 558, y: 161, imgWd: 82, imgHt: 81, txtX: 30, txtY: 30 },
+  { name: '河北', statusImgs: ['', 'hebei'], x: 497, y: 187, imgWd: 76, imgHt: 108, txtX: 10, txtY: 65 },
+  { name: '北京', statusImgs: ['', 'beijing'], x: 519, y: 213, imgWd: 25, imgHt: 27, txtX: 6, txtY: 4 },
+  { name: '天津', statusImgs: ['', 'tianjin'], x: 536, y: 225, imgWd: 15, imgHt: 27, txtX: 8, txtY: 6 },
+  { name: '山西', statusImgs: ['', 'shanxi'], x: 459, y: 222, imgWd: 51, imgHt: 102, txtX: 8, txtY: 50 },
+  { name: '陕西', statusImgs: ['', 'shanxii'], x: 395, y: 242, imgWd: 76, imgHt: 128, txtX: 30, txtY: 75 },
+  { name: '宁夏', statusImgs: ['', 'ningxia'], x: 381, y: 246, imgWd: 44, imgHt: 70, txtX: 8, txtY: 10 },
+  { name: '青海', statusImgs: ['', 'qinghai'], x: 185, y: 242, imgWd: 178, imgHt: 126, txtX: 50, txtY: 70 },
+  { name: '西藏', statusImgs: ['', 'xizang'], x: 31, y: 270, imgWd: 276, imgHt: 169, txtX: 100, txtY: 80 },
+  { name: '山东', statusImgs: ['', 'shandong'], x: 519, y: 256, imgWd: 95, imgHt: 62, txtX: 20, txtY: 20 },
+  { name: '河南', statusImgs: ['', 'henan'], x: 460, y: 292, imgWd: 85, imgHt: 78, txtX: 30, txtY: 25 },
+  { name: '四川', statusImgs: ['', 'sichuan'], x: 285, y: 326, imgWd: 154, imgHt: 134, txtX: 50, txtY: 60 },
+  { name: '江苏', statusImgs: ['', 'jiangsu'], x: 539, y: 302, imgWd: 82, imgHt: 67, txtX: 20, txtY: 30 },
+  { name: '安徽', statusImgs: ['', 'anhui'], x: 522, y: 314, imgWd: 69, imgHt: 81, txtX: 20, txtY: 36 },
+  { name: '上海', statusImgs: ['', 'shanghai'], x: 609, y: 351, imgWd: 13, imgHt: 17, txtX: 6, txtY: 6 },
+  { name: '浙江', statusImgs: ['', 'zhejiang'], x: 573, y: 363, imgWd: 56, imgHt: 63, txtX: 10, txtY: 20 },
+  { name: '湖北', statusImgs: ['', 'hubei'], x: 437, y: 344, imgWd: 109, imgHt: 67, txtX: 36, txtY: 26 },
+  { name: '重庆', statusImgs: ['', 'chongqing'], x: 394, y: 362, imgWd: 67, imgHt: 64, txtX: 20, txtY: 26 },
   { name: '江西', statusImgs: ['', 'jiangxi'], x: 513, y: 386, imgWd: 69, imgHt: 95, txtX: 22, txtY: 36 },
-  { name: '湖南', statusImgs: ['', 'hunan'], x: 444, y: 393, imgWd: 80, imgHt: 88, txtX: 26, txtY: 30 },
-  { name: '贵州', statusImgs: ['', 'guizhou'], x: 370, y: 409, imgWd: 85, imgHt: 74, txtX: 30, txtY: 25 },
-  { name: '云南', statusImgs: ['', 'yunnan'], x: 279, y: 407, imgWd: 130, imgHt: 131, txtX: 40, txtY: 80 },
-  { name: '广西', statusImgs: ['', 'guangxi'], x: 382, y: 452, imgWd: 113, imgHt: 83, txtX: 40, txtY: 36 },
-  { name: '福建', statusImgs: ['', 'fujian'], x: 548, y: 412, imgWd: 64, imgHt: 79, txtX: 16, txtY: 20 },
-  { name: '广东', statusImgs: ['', 'guangdong'], x: 459, y: 464, imgWd: 113, imgHt: 90, txtX: 36, txtY: 33 },
-  { name: '台湾', statusImgs: ['', 'taiwan'], x: 610, y: 453, imgWd: 26, imgHt: 58, txtX: 6, txtY: 16 },
-  { name: '海南', statusImgs: ['', 'hainan'], x: 444, y: 552, imgWd: 38, imgHt: 33, txtX: 6, txtY: 10 },
+  { name: '湖南', statusImgs: ['', 'hunan'], x: 444, y: 393, imgWd: 79, imgHt: 88, txtX: 26, txtY: 30 },
+  { name: '贵州', statusImgs: ['', 'guizhou'], x: 370, y: 410, imgWd: 85, imgHt: 74, txtX: 30, txtY: 25 },
+  { name: '云南', statusImgs: ['', 'yunnan'], x: 279, y: 408, imgWd: 129, imgHt: 131, txtX: 40, txtY: 80 },
+  { name: '广西', statusImgs: ['', 'guangxi'], x: 382, y: 452, imgWd: 112, imgHt: 83, txtX: 40, txtY: 36 },
+  { name: '福建', statusImgs: ['', 'fujian'], x: 549, y: 412, imgWd: 63, imgHt: 78, txtX: 16, txtY: 20 },
+  { name: '广东', statusImgs: ['', 'guangdong'], x: 460, y: 464, imgWd: 113, imgHt: 89, txtX: 36, txtY: 33 },
+  { name: '香港', statusImgs: ['', 'xianggang'], x: 524, y: 512, imgWd: 6, imgHt: 5, txtX: 36, txtY: 33 },
+  { name: '台湾', statusImgs: ['', 'taiwan'], x: 614, y: 454, imgWd: 24, imgHt: 57, txtX: 6, txtY: 16 },
+  { name: '海南', statusImgs: ['', 'hainan'], x: 444, y: 554, imgWd: 37, imgHt: 33, txtX: 6, txtY: 10 }
 ].map(o => {
   o.statusImgs = o.statusImgs.map(m => {
     return m ? mapAssetsRoot + m + '.png' : '';
@@ -189,7 +190,7 @@ Component({
     updateLightArea() {
       setTimeout(() => {
         provinces.every(o => {
-          o.light = this.data.lightProvinces.indexOf(o.name) != -1;
+          o.light = true// this.data.lightProvinces.indexOf(o.name) != -1;
           return true;
         });
 

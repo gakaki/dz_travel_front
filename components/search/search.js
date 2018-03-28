@@ -1,13 +1,16 @@
 // components/search/search.js
 const sheet = require('../../sheets.js');
-let allCity=[], cityId=[]//城市id;
+let allCity = [], cityId = []//城市id;
 
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    mineCity: {
+      type: Array,
+      value: []
+    }
   },
 
   /**
@@ -30,10 +33,12 @@ Component({
 
 
     //把所有城市合并在一个数组中
-    readCity.forEach((item)=>{
-      allCity.push.apply(allCity,item.cities);
+    readCity.forEach((item) => {
+      allCity.push.apply(allCity, item.cities);
       cityId.push.apply(cityId, item.cityid)
     })
+     if (this.properties.mineCity.length != 0) allCity = this.properties.mineCity
+    console.log(allCity)
   },
 
   /**
@@ -55,17 +60,17 @@ Component({
         let id = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
-            console.log(i,'cityIndex')
+            console.log(i, 'cityIndex')
             let ind = allCity[i].indexOf(value)
             let split = allCity[i].split(value)
-            
+
             let newSplit = split.filter((item) => {
               return item
             })
-            if(ind==0){
+            if (ind == 0) {
               newSplit.splice(0, 0, value)
             }
-            else{
+            else {
               newSplit.splice(1, 0, value)
             }
             match.push(newSplit)
@@ -113,7 +118,7 @@ Component({
     _selected(e) {
       let select = e.currentTarget.dataset.city.join('')
       let id = e.currentTarget.dataset.id
-      this.triggerEvent("selected",{select,id})
+      this.triggerEvent("selected", { select, id })
     }
   }
 })

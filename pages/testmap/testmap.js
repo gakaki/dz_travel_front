@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-      mapZ: 2,
       lightProvinces: ['新疆'],
       lightCitys: ['哈密']
   },

@@ -30,6 +30,7 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
+      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
