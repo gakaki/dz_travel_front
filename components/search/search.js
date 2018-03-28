@@ -28,7 +28,7 @@ Component({
       return obj;
     })
 
-    console.log(readCity)
+
     //把所有城市合并在一个数组中
     readCity.forEach((item)=>{
       allCity.push.apply(allCity,item.cities);
@@ -55,21 +55,19 @@ Component({
         let id = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
-            console.log(i)
+            console.log(i,'cityIndex')
             let ind = allCity[i].indexOf(value)
             let split = allCity[i].split(value)
             
             let newSplit = split.filter((item) => {
               return item
             })
-            console.log(newSplit)
             if(ind==0){
               newSplit.splice(0, 0, value)
             }
             else{
               newSplit.splice(1, 0, value)
             }
-            console.log(newSplit,'拼好的')
             match.push(newSplit)
             id.push(cityId[i])
           }
