@@ -2,13 +2,12 @@
   "pages": [
     "pages/travelLog/travelLog",
     "pages/index/index",
+    "pages/cityRaiders/cityRaiders",
+    "pages/testmap/testmap",
     "pages/goSight/goSight",
     "pages/play/play",
-    "pages/testmap/testmap",
-    
     "pages/settings/settings",
     "pages/integral/integral",
-    "pages/cityRaiders/cityRaiders",
     "pages/city/city",
     "pages/raiders/raiders",
     "pages/rank/rank",

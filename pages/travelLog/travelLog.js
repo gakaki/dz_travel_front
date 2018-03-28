@@ -46,18 +46,18 @@ Page({
    */
   onLoad: function (options) {
     for(let i in data) {
-      data[i].time = this.formatTime('2018-3-5',1);
+      data[i].time = this.formatTime('2018-3-5');
     }
     this.setData({
       init: data
     })
   },
-  formatTime(time,type){
-     let arr = time.spilt('-')
+  formatTime(time, dateType){
+     let arr = time.split('-')
      if (dateType == 1) {
        return arr.join('/')
      }
-     return arr[0] + '月' + day + '日'
+     return arr[1] + '月' + arr[2] + '日'
      
   },
   /**
