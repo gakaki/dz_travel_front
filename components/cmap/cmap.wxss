@@ -2,17 +2,13 @@
 .cmap-con {
   width:100vw;
   height: 80vh;
-   /* overflow: scroll;  */
-   position: relative;
-  z-index: -1; 
 }
 
 .cmap-layer {
   position: absolute;
   box-sizing: border-box;
   text-align: center;
-  border: 2rpx solid red;
-    transform-origin: 0 0;
+  transform-origin: 0 0;
 
 }
 
@@ -25,24 +21,4 @@
   width:1500rpx;
   height:2000rpx;
   transform: scale(2, 2) ;
-}
-
-.areas {
-
-  background-color: rgba(100, 30, 60, .5);
-}
-.lines {
-  background-color: rgba(200, 100, 80, .5);
-}
-.points {
-  background-color: rgba(89, 200, 20, .5);
-}
-.ttt1 {
-  position: absolute;
-  top: 10rpx;
-}
-
-.ttt {
-  position: absolute;
-  bottom: 10rpx;
 }

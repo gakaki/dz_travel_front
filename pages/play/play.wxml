@@ -107,4 +107,8 @@
     </view>
   </view>
 
+  <!--问答 组件 -->
+  <!-- <dialog-question>
+  </dialog-question> -->
+
 </view>
