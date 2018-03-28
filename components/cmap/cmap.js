@@ -4,9 +4,9 @@ import { City, citys } from '../../sheets.js'
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 //大地图左上角点的经纬度
-const geoTopLeft = { j: 73.2, w: 53.5 };
+const geoTopLeft = { j: 82, w: 55 };
 //大地图右下角点的经纬度
-const geoBtmRht = { j: 135, w: 3 };
+const geoBtmRht = { j: 128, w: 1.5 };
 const geoWd = geoBtmRht.j - geoTopLeft.j;
 const geoHt = geoTopLeft.w - geoBtmRht.w;
 
@@ -57,8 +57,8 @@ const provinces = [
 
 const xyCitys = citys.map(c => {
   let o = {};
-  o.name = c.name;
-  o.hideName = true;
+  o.name = c.city;
+  // o.hideName = true;
   let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
   o.x = xy.x;
   o.y = xy.y;
@@ -194,12 +194,18 @@ Component({
           return true;
         });
 
-        xyCitys.every(c => {
-          c.light = true//this.data.lightCitys.indexOf(c.name) != -1;
-          return true;
+        let citys = xyCitys.filter(c => {
+          console.log(c.name)
+          c.light = this.data.lightCitys.indexOf(c.name) != -1;
+          c.hideName = !c.light;
+          if (c.name) {
+            console.log(c.name)
+          }
+          return c.light;
         })
+          console.log(citys, this.data.lightCitys, xyCitys.length)
 
-        this.setData({ provinces, citys: xyCitys, mapBg });
+        this.setData({ provinces, citys: citys, mapBg });
       }, 10);
     }
 

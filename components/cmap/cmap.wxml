@@ -5,7 +5,7 @@
     <element wx:for='{{provinces}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale }}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' status='{{item.light ? 1 : 0}}' ></element>
 
-     <element wx:for='{{citys}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+     <element wx:for='{{citys}}' wx:key='{{index}}' class='{{item.light ? "light" : ""}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' status='{{item.light ? 1 : 0}}'></element>
 
     <element wx:for='{{players}}' isPlayer='{{true}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
