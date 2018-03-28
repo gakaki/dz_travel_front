@@ -25,6 +25,7 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
+      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -73,6 +74,7 @@ Page({
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
+        console.log(req,'首页数据')
         this.setData({
           isFirst: req.isFirst,
           season: req.season,
@@ -143,7 +145,7 @@ Page({
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
-      
+
     })
     this.setData({
       isFirst: false

@@ -1,4 +1,52 @@
 // pages/xiangce/xiangce.js
+let data = [{
+  city:'哈尔滨',
+  collectPostcardNum:10,
+  allPostcardNum:5,
+  postcardsDetail:[
+    {
+      id:1,
+      url:'',
+      lastestLiveMessage:'我大姐按实际开发阿康师傅安居客是否安居客按时是是'
+    },
+    {
+      id: 1,
+      url: ''
+    }]},
+  {
+    city: '哈尔滨',
+    collectPostcardNum: 10,
+    allPostcardNum: 5,
+    postcardsDetail: [
+      {
+        id: 1,
+        url: '',
+        lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
+      },
+      {
+        id: 1,
+        url: '',
+        lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
+        }]
+      },
+      {
+        city: '哈尔滨',
+        collectPostcardNum: 10,
+        allPostcardNum: 5,
+        postcardsDetail: [
+          {
+            id: 1,
+            url: '',
+            lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
+          },
+          {
+            id: 1,
+            url: '',
+            lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
+          }]
+      }
+    ];
+
 Page({
 
   /**
@@ -6,25 +54,39 @@ Page({
    */
   data: {
     viewpoint: true,
-    specialty: false
+    specialty: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.setNavigationBarTitle({
+      title: options.province
+    })
+    this.setData({
+      init:data
+    })
   },
   toMsgPost() {
 wx.navigateTo({
   url: '../checkPostcard/checkPostcard',
 })
   },
-  chgTab() {
-    this.setData({
-      viewpoint: !this.data.viewpoint,
-      specialty: !this.data.specialty
-    })
+  chgTab(e) {
+    let v = e.currentTarget.dataset.id;
+    if(v) {
+      this.setData({
+        viewpoint: false,
+        specialty: true
+      })
+    } else {
+      this.setData({
+        viewpoint: true,
+        specialty: false
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

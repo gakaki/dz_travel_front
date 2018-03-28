@@ -441,7 +441,7 @@ class Base  {
    static Start(appName, url) {
         return new Promise(resolve => {
             let app=getApp();
-            if (app.globalData.userInfo) {
+            if (Base.LOGINED) {
                 //已经有用户数据
                 resolve();
             }
@@ -513,6 +513,7 @@ class Base  {
                         req.error(req.code);
                     }
                     else {
+                        this.LOGINED=true;
                         app.globalData.userInfo=req.info;
                         this.SID=req.sid;
                        // this._timestamp=req.timestamp;

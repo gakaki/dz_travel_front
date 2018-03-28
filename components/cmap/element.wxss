@@ -9,6 +9,26 @@
 .ele-img {
   position: absolute;
   top: 0;
-  left: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
+}
+
+map-player {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  background: red;
+  border: 4rpx solid red;
+  overflow: hidden;
+}
+map-player::after {
+  display: block;
+  content: '';
+  width: 10rpx;
+  height: 8rpx;
+  margin: 0 auto;
+  background: red;
+  transform: skewY(30deg) rotate(30deg)
 }

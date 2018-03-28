@@ -24,6 +24,10 @@ Component({
       type: Number,
       value: 0
     },
+      isPlayer: {
+      type: Number,
+          value: false
+      },
     txtX: {
       type: Number,
       value: 0

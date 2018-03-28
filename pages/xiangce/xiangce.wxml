@@ -1,37 +1,25 @@
-<view class="tab flex">
-  <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>
-  <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>留言明信片</view>
-</view>
-<view wx:if="{{viewpoint}}" class="xc-pro bs f-c-fs">
-  <view class="pro-top  f-r-sb">
-    <text class="pro">北京</text>
-    <text class="per">7/10</text>
+<view class='con'>
+  <view class="tab flex">
+    <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>
+    <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab' data-id='1'>留言明信片</view>
   </view>
-  <view class="img-box fs f-r-fs">
-    <image bindtap='toMsgPost' src="" class="img"></image>
-    <image src="" class="img"></image>
-    <image src="" class="img"></image>
-    <image src="" class="img"></image>
-    <image src="" class="img no-mr"></image>
-    <image src="" class="img"></image>
-    <image src="" class="img"></image>
-  </view>
-</view>
-
-<view wx:if="{{specialty}}" class="msg-post bs f-c-fs">
-  <view class="pro-top  f-r-sb">
-    <text class="pro">北京</text>
-    <text class="per">7/10</text>
-  </view>
-  <view class="msg-item f-r-fs" bindtap='toMsgPost'>
-    <image src="" class="img-sm"></image>
-    <view class="post-rgt f-c-sb">
-      <view class="rgt-top f-r-sb">
-        <text class="pro1">北京</text>
-        <text class="per1">2018/3/19</text>
+  <scroll-view scroll-y class='all-postcard'>
+    <view class="xc-pro" wx:for='{{init}}' wx:key='{{index}}'>
+      <view class="pro-top f-r-sb">
+        <text class="pro">{{item.city}}</text>
+        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
-      <text class="message fs">一直想是地方估计山东分公司法国是否</text>
+      <view  class="{{viewpoint?'img-box':''}}" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}' hidden='{{specialty&&!img.lastestLiveMessage}}'>
+        <view class="{{viewpoint?'':'img-box-flex'}}">
+          <image class="{{viewpoint?'img':'img-sm'}}" bindtap='toMsgPost' src="{{img.url}}"></image>
+          <view class="content" wx:if='{{specialty}}'>
+            <text class="pro1">胖迪</text>
+            <text class="message ellipsis fs">{{img.lastestLiveMessage}}</text>
+          </view>  
+          <view class="per1" wx:if='{{specialty}}'>{{img.lastestLiveMessage.time}}</view>
+        </view> 
+        <view class="bl" wx:if='{{specialty && item.postcardsDetail.length-1 != index}}'></view>
+      </view>      
     </view>
-  </view>
-  <view class="bl"></view>
+  </scroll-view>
 </view>

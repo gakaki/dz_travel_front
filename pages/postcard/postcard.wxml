@@ -1,12 +1,12 @@
-<view class="con">
-<view class="post-item  bs f-r-fs">
-  <image src="" class="img"></image>
-  <view class="post-rgt f-c-sb">
-    <view class="rgt-top f-r-sb">
-      <text class="pro">北京</text>
-      <text class="per">7/10</text>
+<scroll-view class="con" scroll-y>
+  <navigator url='../xiangce/xiangce?province={{item.province}}' class="post-item  bs f-r-fs" wx:for='{{init}}' wx:key="{{index}}">
+    <image src="{{item.logo}}" class="img"></image>
+    <view class="post-rgt f-c-sb">
+      <view class="rgt-top f-r-sb">
+        <text class="pro">{{item.province}}</text>
+        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
+      </view>
+      <view class="more">查看相册</view>
     </view>
-    <view class="more" bindtap='toMyXc'>查看相册</view>
-  </view>
-</view>
-</view>
+  </navigator>
+</scroll-view>
