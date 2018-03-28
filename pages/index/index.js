@@ -1,7 +1,8 @@
 // pages/index/index.js
 
-import { start } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket } from '../../api.js';
+import { start, ymd } from '../../utils/rest.js';
+import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+const sheet = require('../../sheets.js');
 const app = getApp()
 Page({
 
@@ -13,11 +14,15 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    isFirst: true,
-    season:{},
-    weather:{},
+    isFirst: false,
+    season:'SPRING',
+    weather:'sun',
     playerCnt:2000,
-    messages:99
+    messages:99,
+    gold:0,
+    nickName:'',
+    avatar:'',
+    date:''
   },
 
   /**
@@ -68,18 +73,24 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
-      console.log(userInfo,'userInfo')
-      this.setData({userInfo});
+      console.log(userInfo,'userInfo',ymd('cn'))
     
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
         console.log(req,'首页数据')
+        let season = Season[req.season]
+        let weather = sheet.Weather.Get(req.weather).icon
+        console.log(weather)
         this.setData({
           isFirst: req.isFirst,
-          season: req.season,
-          weather: req.weather,
-          playerCnt: req.playerCnt
+          season,
+          weather,
+          gold:req.gold,
+          playerCnt: req.playerCnt,
+          nickName:userInfo.nickName,
+          avatar:userInfo.avatarUrl,
+          date: ymd('cn')
         })
       })
 
