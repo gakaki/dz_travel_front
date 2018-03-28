@@ -12,16 +12,14 @@ Page({
     isCongratulations: false,
     isMissionOpen: false,
     isShowIntro: false,
+    scrollWidth: '100vw',
+    scrollHeight: '100vh',
+    zoom: 1,
     points: [],
     finalPoints: [],
     lines: [],
     finalLines: [],
     currentPoint: 0,
-    css: {
-      color: 'red',
-      fontSize: '30rpx'
-    },
-    newcss: ''
   },
 
   /**
@@ -29,6 +27,25 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+  zoomplus() {
+    this.setData({
+      scrollHeight: '200vh',
+      scrollWidth: '200vw',
+      zoom: 2,
+      points: this.data.points
+    })
+    this.zoomPAndL(2)
+    this.draw()
+  },
+  zoomminus() {
+    this.setData({
+      scrollHeight: '100vh',
+      scrollWidth: '100vw',
+      zoom: 1
+    })
+    this.zoomPAndL(0.5)
+    this.draw()
   },
   // 划线的方法集
   objTostring(obj) {
@@ -57,9 +74,33 @@ Page({
     if (a === undefined || b === undefined) return
     return Math.abs(b.x - a.x)
   },
-  // 画点方法
-  drawPoint(e) {
-    console.log(e);
+  strToNum(str) {
+    // let reg = /[^0-9]/g
+    // return parseInt(str.replace(reg, ''))
+    return parseInt(str)
+  },
+  repScale(str, muntiple) {
+    return str.replace("scale(1)", `scale(${muntiple})`)
+  },
+  // 绘图方法
+  draw() {
+    this.setData({
+      finalPoints: this.data.points.map(item => {
+        return Object.assign({}, item, {
+          newstyle: this.objTostring(item.style)
+        })
+      })
+    })
+    this.setData({
+      finalLines: this.data.lines.map(item => {
+        return Object.assign({}, item, {
+          newstyle: this.objTostring(item.style)
+        })
+      })
+    })
+  },
+  // 数据准备（点和线）
+  dataPrep(e) {
     this.setData({
       points: this.data.points.concat({
         id: this.data.currentPoint, //点的id
@@ -76,14 +117,6 @@ Page({
         }
       })
     })
-    this.setData({
-      finalPoints: this.data.points.map(item => {
-        return Object.assign({}, item, {
-          newstyle: this.objTostring(item.style)
-        })
-      })
-    })
-
     let lineWidth = this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
     let midPoint = this.getMiddlePoint(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
     let degree = this.calcAngleDegrees(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
@@ -101,20 +134,58 @@ Page({
             position: 'absolute',
             'background-color': 'red',
             width: 2 * lineWidth + 'rpx',
-            transform: "rotateZ(" + degree + "deg)",
+            transform: "rotateZ(" + degree + "deg) scale(1)",
             top: midPoint ? 2 * midPoint['y'] - 1 + 'rpx' : null,
             left: midPoint ? 2 * midPoint['x'] - 1 - lineWidth + 'rpx' : null
           }
         }),
       })
-      this.setData({
-        finalLines: this.data.lines.map(item => {
-          return Object.assign({}, item, {
-            newstyle: this.objTostring(item.style)
-          })
+    }
+  },
+  // 缩放点和线
+  zoomPAndL(multiple) {
+    console.log(multiple);
+    this.setData({
+      points: this.data.points.map(item => {
+        return Object.assign({}, item, {
+          x: item.x * multiple,
+          y: item.y * multiple,
+          style: {
+            width: this.strToNum(item.style.width) * multiple + 'rpx',
+            height: this.strToNum(item.style.height) * multiple + 'rpx',
+            'border-radius': '50%',
+            'background-color': 'red',
+            position: "absolute",
+            top: this.strToNum(item.style.top) * multiple + 'rpx',
+            left: this.strToNum(item.style.left) * multiple + 'rpx'
+          }
+        })
+      }),
+      lines: this.data.lines.map((item, index, arr) => {
+        var newPiancha
+        if (index > 0) {
+          newPiancha = this.getDistace(arr[index - 1], arr[index])
+        }
+        console.log(item.style.left);
+        return Object.assign({}, item, {
+          id: item.id,
+          style: {
+            height: this.strToNum(item.style.height) + 'px',
+            position: 'absolute',
+            'background-color': 'red',
+            width: this.strToNum(item.style.width) * multiple + 'rpx',
+            transform: item.style.transform,
+            top: this.strToNum(item.style.top) * multiple + 'rpx',
+            left: this.strToNum(item.style.left + newPiancha) * multiple + 'rpx',
+          }
         })
       })
-    }
+    })
+  },
+  // 点击地图方法
+  drawPoint(e) {
+    this.dataPrep(e)
+    this.draw()
   },
   toPr() {
     wx.navigateTo({
@@ -124,6 +195,16 @@ Page({
   toProps() {
     wx.navigateTo({
       url: '../props/props'
+    })
+  },
+  showisPop() {
+    this.setData({
+      isPop: true
+    })
+  },
+  hideisPop() {
+    this.setData({
+      isPop: false
     })
   },
   showIntro() {
