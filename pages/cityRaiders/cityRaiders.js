@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    allCity: [],
     focus: false,
     isChoose: '',
     position: '',
@@ -17,7 +18,7 @@ Page({
     id: 'A',
     animationData: {},
     walkArr: [{ x: 0, y: 0, tX: 100, tY: 100, time: 3000 }, { x: 50, y: 50, tX: 150, tY: 150, time: 3000 }, { x: 150, y: 150, tX: 250, tY: 250, time: 3000 }],
-    walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000}
+    walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000},
   },
   walk(tX,tY,time) {
     //行走动画
@@ -53,7 +54,15 @@ Page({
       arr.push(xx)
     }
     console.log(arr)
+    let cityArr = []
+    arr.forEach(item=>{
+      item.citys.forEach(v=>{
+        cityArr = cityArr.concat(v.cityname)
+      })
+     
+    })
      this.setData({ 
+       allCity: cityArr,
        cityData: arr,
        myAbc: arr.map(o => {
          return o.proLetter
@@ -103,7 +112,7 @@ Page({
   },
 
   _selected(e) {
-    console.log(e.detail.select)
+    console.log(e.detail)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

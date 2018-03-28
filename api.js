@@ -10,19 +10,6 @@ class Season{
     static WINTER = '冬';
     
 }
-class Weather{
-    
-    static SUNNY = '晴';
-    
-    static CLOUDY = '阴';
-    
-    static RAIN = '雨';
-    
-    static SNOW = '雪';
-    
-    static WINDY = '风';
-    
-}
 class Code{
     
     static AUTH_FAILED = -99;
@@ -381,14 +368,13 @@ class Base  {
                 url: Base.SRV,
                 data: this.reqData,
                 success: res => {
-                  this.parse(res.data.data);
-                  this.code=res.data.code;
+                  this.parse(res.data);
                   if (this.code != Code.OK) {
                       console.log('fetch got an error code',this.code);
                       reject(this.code);
                   }
                   else {
-                      Base._try(resolve);
+                      resolve(this);
                   }
                 },
                 fail: err => {
@@ -440,20 +426,12 @@ class Base  {
         }
         return Base.SID;
     }
-   static _try(resolve) {
-        try {
-            resolve();
-        }
-        catch (e) {
-            console.log('promise resolve exe err')
-        }
-    }
    static Start(appName, url) {
         return new Promise((resolve,reject) => {
             let app=getApp();
             if (this.LOGINED) {
                 //已经有用户数据
-                this._try(resolve);
+                resolve();
             }
             else {
                 this.DoStart(appName, url).then(resolve).catch(reject);
@@ -1120,7 +1098,7 @@ class IndexInfo extends Base {
     //server output, type: Season
     get season() {return this._season}
     set season(v) {this._season = v}
-    //server output, type: Weather
+    //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
     //server output, type: number
@@ -1688,7 +1666,6 @@ class TestSend extends WsSend {
 }
 //-------------exports---------------
 exports.Season = Season;
-exports.Weather = Weather;
 exports.Code = Code;
 exports.TicketType = TicketType;
 exports.RankType = RankType;
