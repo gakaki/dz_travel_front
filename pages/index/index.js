@@ -68,12 +68,13 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
+      console.log(userInfo,'userInfo')
       this.setData({userInfo});
     
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
-        // console.log(req,'首页数据')
+        console.log(req,'首页数据')
         this.setData({
           isFirst: req.isFirst,
           season: req.season,
