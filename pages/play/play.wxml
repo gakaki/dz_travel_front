@@ -1,35 +1,41 @@
-<view class="con bg">
-  <view class="task-bg f-c">
-    <text class="title font fs ">点亮城市地图需完成以下3个任务</text>
-    <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image>
-    <view class="task font fs act">1.至少达到6个景点（6/6）</view>
-    <view class="task font fs">
-      2.至少进行2次观光（0/2）
-      <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
-    </view>
-    <view class="task font fs">
-      3.至少进行2次拍照留恋（0/2）
-      <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="check"></image> -->
-    </view>
-    <view class="introduce font" bindtap="showIntro">玩法介绍</view>
+<view class="con bg" bindtap="drawPoint">
+  <!-- 点和线 -->
+  <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
+  <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
+
+  <!-- 屏幕边缘提示 -->
+  <!-- 距离 -->
+  <view class="distance">
+    <text class="fontWhite font">999</text><text class="fontWhite font">km</text>
   </view>
-  <view class="warn-box flex">
-    <text class="warn-str font">本页显示地图为虚拟地图，与真实地图存在偏差</text>
+  <!-- 天气 -->
+  <view class="weather"></view>
+  <!-- 提示 -->
+  <view class="tip"></view>
+
+
+
+  <!-- 屏幕边缘按钮 -->
+  <view class="changeLine f-c-fs">
+    <text class="fontWhite changeLineText font font26">修改路线</text>
+    <text class="fontWhite changeLineMoney font font26">$100</text>
   </view>
-  <view class="chg-line f-c-fs">
-    <text class="rgt-chg font">修改路线</text>
-    <text class="gold font">100金币</text>
-  </view>
-  <view class="ribao f-c-fs">
-    <view class="rb-top">
-      <text class="rb-city ib font">成都日报</text>
-      <text class="rb-dedail ib font">受到法律和生当复来归撒旦发个科技时代分厘卡个速度分级管理的上空飞过得分跟</text>
+
+  <!-- 按钮组 -->
+  <view class="btnBoxWrap f-c-fs">
+    <!-- 缩放按钮 -->
+    <view class="zoomBtn f-r-sa">
+      <view class="add" indtap="drawPoint"></view>
+      <view class="minus"></view>
     </view>
-    <view class="rb-bot f-r-sa">
-      <view class="gl font" bindtap="toPr">旅行攻略</view>
-      <view class="yw font">开始游玩</view>
-      <view class="dj font" bindtap="toProps">旅行道具</view>
+    <!-- 三个按钮 -->
+    <view class="btnBox f-r-sa">
+      <view class="travelTips font fontWhite font28" bindtap="toPr">旅行攻略</view>
+      <view class="travelStart font fontWhite  font32">开始游玩</view>
+      <view class="tarvelProps font fontWhite font28" bindtap="toProps">旅行道具</view>
     </view>
+    <!-- 虚拟地图警告 -->
+    <view class="warningBox"></view>
   </view>
   <view class=" pop-bg" wx:if="{{isPop}}">
     <view class="pop-con">
