@@ -25,7 +25,6 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
-      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -69,8 +68,9 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
+      console.log(userInfo,'userInfo')
       this.setData({userInfo});
-
+    
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
@@ -84,15 +84,15 @@ Page({
       })
 
       //websocket请求消息信息
-      let message = new HasMessage()
-      Ws.send(message)
+      // let message = new HasMessage()
+      // Ws.send(message)
 
-      Ws.listen(MessageNum,req=>{
-        console.log(req,'消息条数')
-        this.setData({
-          messages: req.number
-        })
-      })      
+      // Ws.listen(MessageNum,req=>{
+      //   console.log(req,'消息条数')
+      //   this.setData({
+      //     messages: req.number
+      //   })
+      // })      
     }
     else {
       console.log('用户拒绝授权个人信息！！')

@@ -15,20 +15,24 @@
   z-index: -1;
 }
 
-map-player {
+.map-player {
   width: 30rpx;
   height: 30rpx;
   border-radius: 50%;
   background: red;
   border: 4rpx solid red;
   overflow: hidden;
+  transform: translateY(-120%);
 }
-map-player::after {
-  display: block;
-  content: '';
-  width: 10rpx;
-  height: 8rpx;
-  margin: 0 auto;
+.player-loc {
+  z-index: -2;
+  width: 8rpx;
+  height: 12rpx;
+  display: inline-block;
+  margin-top: 28rpx;
   background: red;
-  transform: skewY(30deg) rotate(30deg)
+  
+  border-style: solid;
+  border-width: 12rpx 4rpx 0 4rpx;
+  border-color: red transparent transparent transparent;
 }
