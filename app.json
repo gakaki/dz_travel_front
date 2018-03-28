@@ -5,6 +5,8 @@
     
     "pages/play/play",
     "pages/index/index",
+    "pages/other/other",
+    "pages/travelLog/travelLog",
     "pages/city/city",
     "pages/start/start",
     "pages/cityRaiders/cityRaiders",
@@ -17,8 +19,6 @@
     "pages/rank/rank",
     "pages/pointRaiders/pointRaiders",
     "pages/postcard/postcard",
-    "pages/travelLog/travelLog",
-    "pages/other/other",
     "pages/checkPostcard/checkPostcard",
     "pages/xiangce/xiangce",
     "pages/message/message",

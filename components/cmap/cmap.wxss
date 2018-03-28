@@ -1,24 +1,2 @@
 /* components/cmap/cmap.wxss */
-.cmap-con {
-  width:100vw;
-  height: 80vh;
-}
 
-.cmap-layer {
-  position: absolute;
-  box-sizing: border-box;
-  text-align: center;
-  transform-origin: 0 0;
-
-}
-
-.normal{
-  width:750rpx;
-  height: 1000rpx;
-  transform: scale(1, 1);
-}
-.double {
-  width:1500rpx;
-  height:2000rpx;
-  transform: scale(2, 2) ;
-}
