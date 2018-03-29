@@ -6,7 +6,7 @@
   <view class="user-info">
     <view class='nickname'>{{nickname}}</view>
     <view class='gold-wrap' wx:if='{{showGoldAndIntegral}}'>
-      <gold goldNum='{{goldNum}}' wx:if='{{hasGoldIcon}}'></gold>
+      <gold class='gold-box' goldNum='{{goldNum}}' wx:if='{{hasGoldIcon}}'></gold>
       <view class='integral' wx:if='{{hasIntegral}}'>积分: {{integral}}</view>
     </view>
     <slot></slot>

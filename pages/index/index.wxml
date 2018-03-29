@@ -72,5 +72,5 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<sign wx:if='{{false}}' class='sign'></sign>
+<sign theDay='{{theDay}}' hasSign='{{hasSign}}' ></sign>
 

@@ -1,22 +1,20 @@
 // components/sign/sign.js
 import { Login, logins } from '../../sheets.js';
+import { ToSign } from '../../api.js';
 let isFirst = true;
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    showSign:{
-      type:Boolean,
-      value: true
+    theDay:{
+      type:Number,
+      value: 1
+    },
+    hasSign:{
+      type: Number,
+      value: 1
     }
-  },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-    hasSign:3
   },
   attached:function(){
     let init = []
@@ -26,6 +24,7 @@ Component({
     this.setData({
       init
     })
+    
   },
 
   /**
@@ -33,21 +32,26 @@ Component({
    */
   methods: {
     toSign(){
+      console.log(this.data.hasSign)
       if(isFirst) {
         isFirst = false;
-        let title = '恭喜获得' + this.data.init[this.data.hasSign+1]+ '金币'
-        this.setData({
-          hasSign: this.data.hasSign + 1
-        })
-        setTimeout(()=>{
+        let m = new ToSign();
+        m.theDay = this.data.theDay
+        m.fetch().then(res=>{
+          let title = '恭喜获得' + this.data.init[this.data.theDay] + '金币'
           this.setData({
-            showSign: false
+            theDay: this.data.theDay + 1
           })
-        },1000)
-        wx.showToast({
-          title,
-          icon:"none",
-          duration:1000
+          setTimeout(() => {
+            this.setData({
+              hasSign: 1
+            })
+          }, 1000)
+          wx.showToast({
+            title,
+            icon: "none",
+            duration: 1000
+          })
         })
       }
       

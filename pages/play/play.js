@@ -20,6 +20,23 @@ Page({
     lines: [],
     finalLines: [],
     currentPoint: 0,
+    locations: [{
+      type: 'start',
+      x: 23,
+      y: 56,
+    }, {
+      type: 'jd',
+      x: 154,
+      y: 165
+    }, {
+      type: 'jd',
+      x: 354,
+      y: 765,
+    }, {
+      type: 'end',
+      x: 450,
+      y: 587
+    }]
   },
 
   /**
@@ -71,6 +88,11 @@ wx.navigateTo({
     }
   },
   // 划线的方法集
+  dottedLineReg(str, multiple) {
+    let reg = /([0-9])/g
+    str.replace(reg, '$1')
+    return str.replace(reg, RegExp.$1 * multiple)
+  },
   objTostring(obj) {
     let str = ''
     for (let item in obj) {
@@ -127,16 +149,16 @@ wx.navigateTo({
     this.setData({
       points: this.data.points.concat({
         id: this.data.currentPoint, //点的id
-        x: e.detail.x, //x坐标
-        y: e.detail.y, //y坐标
+        x: e.x, //x坐标
+        y: e.y, //y坐标
         style: {
           width: zoom === 1 ? '10rpx' : '20rpx',
           height: zoom === 1 ? '10rpx' : '20rpx',
           'border-radius': '50%',
           'background-color': 'red',
           position: "absolute",
-          top: 2 * e.detail.y - 5 + 'rpx',
-          left: 2 * e.detail.x - 5 + 'rpx',
+          top: e.y - 5 + 'rpx',
+          left: e.x - 5 + 'rpx',
         }
       })
     })
@@ -153,13 +175,15 @@ wx.navigateTo({
         lines: this.data.lines.concat({
           id: this.data.currentPoint - 1,
           style: {
-            height: zoom === 1 ? '2rpx' : '4rpx',
+            height: 0,
+            // height: zoom === 1 ? '2rpx' : '4rpx',
             position: 'absolute',
-            'background-color': 'red',
-            width: 2 * lineWidth + 'rpx',
+            // 'background-color': 'red',
+            'border-bottom': `dotted ${zoom === 1 ? '4rpx' : '8rpx'} red`,
+            width: lineWidth + 'rpx',
             transform: "rotateZ(" + degree + "deg) scale(1)",
-            top: midPoint ? 2 * midPoint['y'] + 1 * zoom + 'rpx' : null,
-            left: midPoint ? 2 * midPoint['x'] + 1 * zoom - lineWidth + 'rpx' : null
+            top: midPoint ? midPoint['y'] + 1 * zoom + 'rpx' : null,
+            left: midPoint ? midPoint['x'] + 1 * zoom - lineWidth / 2 + 'rpx' : null
           }
         }),
       })
@@ -169,6 +193,13 @@ wx.navigateTo({
   zoomPAndL(multiple) {
     console.log(multiple);
     this.setData({
+      locations: this.data.locations.map(item => {
+        return Object.assign({}, {
+          type: item.type,
+          x: item.x * multiple,
+          y: item.y * multiple
+        })
+      }),
       points: this.data.points.map(item => {
         return Object.assign({}, item, {
           x: item.x * multiple,
@@ -193,9 +224,11 @@ wx.navigateTo({
         return Object.assign({}, item, {
           id: item.id,
           style: {
-            height: this.strToNum(item.style.height) * multiple + 'rpx',
+            height: 0,
+            // height: this.strToNum(item.style.height) * multiple + 'rpx',
             position: 'absolute',
-            'background-color': 'red',
+            // 'background-color': 'red',
+            'border-bottom': this.dottedLineReg(item.style['border-bottom'], multiple),
             width: this.strToNum(item.style.width) * multiple + 'rpx',
             transform: item.style.transform,
             top: this.strToNum(item.style.top) * multiple + 'rpx',
@@ -207,7 +240,9 @@ wx.navigateTo({
   },
   // 点击地图方法
   drawPoint(e) {
-    this.dataPrep(e, this.data.zoom)
+    let point = e.currentTarget.dataset.point
+    console.log(point);
+    this.dataPrep(point, this.data.zoom)
     this.draw()
   },
   toPr() {
