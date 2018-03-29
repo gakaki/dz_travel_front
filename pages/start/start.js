@@ -14,6 +14,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    mapConWd: 710,
+    mapConHt: 600,
     isWaiting:true,
     isRandom:true,
     destination: '',
@@ -29,7 +31,6 @@ Page({
     partnerPoint: [], //好友坐标
     partnerWid: 0,
     partnerR: 0,
-    partnerMove: -38,
     isDouble: false,
     date: '',      //当前日期
     flyInfo:{weather:'sun'}      //页面相关信息,默认给weather：sun，避免渲染层报错
@@ -41,12 +42,16 @@ Page({
   onLoad: function (options) {
 
     //test(模拟坐标，城市列表)---------------------
-    terminalPoint = [550,200]
-    routePoint = [150,300]
-    partnerPoint = [400, 500]
+   
+
+    let airlines = [
+      {from:1, to:3},//北京-上海
+      {from:205, to:3}//海口-上海
+    ]
     this.setData({
-      partnerPoint,
+      airlines,
     })
+    
     allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
     //---------------------------------
     console.log(options)
