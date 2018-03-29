@@ -59,7 +59,14 @@ Page({
     info.fetch().then((req)=>{
       //以下数据不进行渲染
       ticketType = req.type;
-      cid = req.cid;
+      //不是随机机票就从options中获取cid
+      if(req.cid){
+        cid = req.cid;
+      }
+      else{
+        cid = options.cid
+      }
+      
 
       console.log(req,'info')
       let flyInfo = {};
@@ -85,9 +92,8 @@ Page({
       })
     }
     else{
-      //不是随机机票就从options中获取cid
-      cid = options.cid
-
+      
+     
       this.setData({
         isRandom: false,
         destination: options.terminal,
@@ -213,11 +219,18 @@ Page({
 
   //带下划线的为监听组件内的事件
   _confirm() {
-    let start = new StartGame()
-    start.terminal = this.data.destination
+    console.log(cid, this.data.flyInfo.cost)
+    let start = new StartGame();
+    start.type = ticketType;
+    start.cid = cid;
+    start.cost = this.data.flyInfo.cost;
+    if (this.data.isDouble){
+      console.log(111111111)
+      start.partnerUid = 1
+    }
     start.fetch().then((req) => {
       wx.navigateTo({
-        url: '../play/play?rid='+req.rid,
+        url: '../play/play',
       })
     })
     
