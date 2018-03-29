@@ -23,7 +23,7 @@
       </view>
       <view class="font f-r-fe tianqi">
         <text class="today">{{season}}</text>
-        <image class="weather" src="https://gengxin.odao.com/update/h5/travel/index/{{weather}}.png"></image>
+        <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
       </view>
     </view>
   </view>
@@ -77,4 +77,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<sign class='sign'></sign>
+ <sign class='sign'></sign> 
