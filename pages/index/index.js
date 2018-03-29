@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+import { SignInfo, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp()
 Page({
@@ -35,7 +35,6 @@ Page({
    */
   onLoad: function (options) {
     start(ok=> {
-      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -86,7 +85,14 @@ wx.navigateTo({
     let userInfo = app.globalData.userInfo;
     if (userInfo){
       console.log(userInfo,'userInfo',ymd('cn'))
-    
+      let m = new SignInfo()
+      m.fetch().then(res => {
+        console.log(res, '签到数据')
+        this.setData({
+          theDay: res.theDay,
+          hasSign: res.hasSign
+        })
+      })
       //请求主页数据
       let req = new IndexInfo();
       req.fetch().then(req => {
