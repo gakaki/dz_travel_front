@@ -2,16 +2,16 @@
 <view class='wrap'>
   <view class="info f-r-sb">
     <view class="person flex">
-      <view class="avatar">
-        <image></image>
+      <view>
+        <image class="avatar" src="{{avatar}}"></image>
       </view>
       <view class="person-info">
         <view class="name">
-          <text class="font">胖迪</text>
+          <text class="font">{{nickName}}</text>
         </view>
         <view class="gold-info flex">
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
-          <text class="font">1000</text>
+          <text class="font">{{gold}}</text>
           <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
         </view>
       </view>
@@ -19,11 +19,11 @@
     <view class="location">
       <view class='font'>
         <text class="city">上海</text>
-        <text class="today">3月5号</text>
+        <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">
-        <text class="today">春</text>
-        <image class="weather" src="https://gengxin.odao.com/update/h5/travel/index/sun.png"></image>
+        <text class="today">{{season}}</text>
+        <image class="weather" src="https://gengxin.odao.com/update/h5/travel/index/{{weather}}.png"></image>
       </view>
     </view>
   </view>
@@ -36,7 +36,7 @@
         <text class="font">旅行人数</text>
       </view>
       <view class="number">
-        <text class="font">2000</text>
+        <text class="font">{{playerCnt}}</text>
       </view>
     </view>
     <!-- <view class="map"> -->
@@ -77,3 +77,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
+<sign class='sign'></sign>

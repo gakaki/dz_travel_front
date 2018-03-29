@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-      lightProvinces: ['新疆'],
-      lightCitys: ['哈密']
+      lightProvinces: ['上海','海南','北京', '河南'],
+      lightCitys: ['上海','海口','北京', '郑州']
   },
 
   /**

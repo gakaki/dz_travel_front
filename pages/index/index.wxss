@@ -1,7 +1,7 @@
 /* pages/index/index.wxss */
 .wrap{
   background-color: #f5f4f9;
-  width: 100wh;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
@@ -20,7 +20,6 @@
 .avatar{
   width: 120rpx;
   height: 120rpx;
-  background-color: #f00;
   border-radius: 50%;
   margin-right: 20rpx;
 }
@@ -263,4 +262,12 @@
   position: absolute;
   top: 240rpx;
   right: -30rpx;
+}
+.sign {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
 }

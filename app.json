@@ -1,12 +1,11 @@
 {
   "pages": [
-    
+    "pages/index/index",
     "pages/cityRaiders/cityRaiders",
     "pages/recharge/recharge",
     "pages/props/props",
     "pages/play/play",
     
-    "pages/index/index",
     
     
     
