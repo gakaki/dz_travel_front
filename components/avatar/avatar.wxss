@@ -29,3 +29,6 @@
 .nickname {
   font: bold 36rpx/1 'Microsoft YaHei';
 }
+.gold-box {
+  min-width: 160rpx;
+}

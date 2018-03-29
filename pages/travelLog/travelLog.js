@@ -1,6 +1,6 @@
 // pages/travelLog/travelLog.js
 import { formatTime } from '../../utils/util.js'
-import { TravelLog, Base } from '../../api.js';
+import { TravelLog } from '../../api.js';
 
 let data = [{
   city: '南京',
