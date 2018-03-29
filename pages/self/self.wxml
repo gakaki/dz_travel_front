@@ -1,18 +1,16 @@
 <!--pages/self/self.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}' goldNum='{{20}}' integral='{{50}}'></avatar>
+      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}' goldNum='{{gold}}' integral='{{integral}}'></avatar>
       <navigator class='setting' url='/pages/settings/settings'>
         <image class='setting-icon' src='https://gengxin.odao.com/update/h5/travel/self/setting.png'></image>
       </navigator>
        <view class='des'>
         <view class='des-content'> 
-          我的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{}}</text>的驴友
+          我的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{init.overmatch}}%</text>的驴友
         </view>
       </view> 
   </view>
-
-  <view wx:for='{{test}}' wx:key='{{index}}'>{{item}}</view>
 
   <view class='main f-r-sa'>
     <navigator url='{{item.url}}' wx:for='{{mianTitle}}' wx:key='{{index}}' class='main-wrap f-c' style='border-right:{{index == mianTitle.length-1?"none":"2rpx solid #e5e5e5"}}'>
@@ -21,9 +19,26 @@
     </navigator >
   </view>
   <scroll-view scroll-y class='list-wrap'>
-    <view class='one-list f-r-sb' wx:for='{{list}}' wx:key="{{index}}" style='border-bottom:{{index == list.length-1?"none":"2rpx solid #e5e5e5"}}'>
-      <text>{{item.title}}</text>
-      <text>{{item.num}}</text>
+    <view class='one-list f-r-sb'>
+      <text>累计获得城市积分</text>
+      <text>{{init.otherUserInfo.totalIntegral}}</text>
     </view>
+    <view class='one-list f-r-sb'>
+      <text>收集明信片数量</text>
+      <text>{{init.otherUserInfo.postcard}}</text>
+    </view>
+    <view class='one-list f-r-sb'>
+      <text>发表评论数量</text>
+      <text>{{init.otherUserInfo.comment}}</text>
+    </view>
+    <view class='one-list f-r-sb'>
+      <text>获得点赞数量</text>
+      <text>{{init.otherUserInfo.likeNum}}</text>
+    </view>
+    <view class='one-list one-last f-r-sb'>
+      <text>获得特产数量</text>
+      <text>{{init.otherUserInfo.specialty}}</text>
+    </view>
+
   </scroll-view>
 </view>

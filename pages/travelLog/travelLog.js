@@ -59,7 +59,10 @@ Page({
   onReady(){
     let req = new TravelLog();
     req.fetch().then(req => {
-     console.log(88888888,req)
+      console.log(88888888, req.allLogs)
+      this.setData({
+        init: req.allLogs
+      })
      
     })
 
