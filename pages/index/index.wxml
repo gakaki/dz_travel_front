@@ -72,8 +72,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<<<<<<< HEAD
 <sign wx:if='{{false}}' class='sign'></sign>
-=======
- <sign class='sign'></sign> 
->>>>>>> 758a3eb2780fc4e708be868d413fe358a90ff20c
