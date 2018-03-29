@@ -503,8 +503,7 @@ class Base  {
                     this.LOGINED=true;
                     app.globalData.userInfo=req.info;
                     this.SID=req.sid;
-                    this._timestamp=req.timestamp;
-                    this._timestampD=Date.now() / 1000 - this._timestamp;
+                    this._timestampD=Date.now()/1000  - req.timestamp;
                     wx.setStorageSync('sid', this.SID);
                     suc(req);
                 });
@@ -512,7 +511,7 @@ class Base  {
         });
     }
    static get servertime() {
-        return Math.floor( Date.now() / 1000-this._timestampD)
+        return ( Date.now()/1000-this._timestampD) * 1000
     }
 }
 class Ws  {
