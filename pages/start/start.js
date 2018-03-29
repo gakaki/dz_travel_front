@@ -57,6 +57,7 @@ Page({
     let info = new FlyInfo();
     info.type = options.type
     info.fetch().then((req)=>{
+      //以下数据不进行渲染
       ticketType = req.type;
       cid = req.cid;
 
@@ -129,11 +130,6 @@ Page({
   onUnload: function () {
     clearInterval(time)
     clearTimeout(timer)
-  },
-
-  getFlyInfo(type) {
-    let req = new FlyInfo()
-
   },
 
   startTour() {
