@@ -94,7 +94,7 @@ Page({
   },
 
   toRandom() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../start/start?random=true&type=' + TicketType.RANDOMBUY,
     })
   },
@@ -114,7 +114,7 @@ Page({
   },
 
   toFly(cid,terminal,ticket) {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + ticket,
     })
   },
