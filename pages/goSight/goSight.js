@@ -11,7 +11,7 @@ Page({
     date: '',
     season: '',
     weather: '',
-    myGold: 777,
+    myGold: 0,
     oldStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
     testStr: '飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格飒飒东风敢死队风格撒旦发个立刻就是独立开发国家实力肯定JFK了对方公司了快递发给都说了开发工具士大夫敢死队风格',
     canPhoto: true,
@@ -27,6 +27,7 @@ Page({
     this.setData({
       season: app.globalData.season,
       weather: app.globalData.weather,
+      myGold: app.globalData.gold ? app.globalData.gold : 0,
       date: ymd('cn')
     })
     wx.setNavigationBarTitle({

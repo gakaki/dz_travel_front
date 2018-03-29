@@ -49,8 +49,10 @@ function getMd() {
   console.log(date1)
 }
 function ymd(v) {
-  let serverTime = new Date().getTime() +cha
-  let date = new Date(serverTime);
+  // let serverTime = new Date().getTime() +cha
+  console.log(apis.Base.servertime)
+  // let date = new Date(serverTime);
+   let date = new Date(apis.Base.servertime*1000);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();

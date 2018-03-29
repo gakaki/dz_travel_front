@@ -44,6 +44,7 @@ App({
   globalData: {
     userInfo: null,
     season: '',
-    weather: ''
+    weather: '',
+    gold: null
   }
 })

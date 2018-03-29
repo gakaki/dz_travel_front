@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+import { SignInfo,Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp()
 Page({
@@ -34,6 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     start(ok=> {
       ok && this.gotUserInfo();
     })
@@ -101,6 +102,7 @@ wx.navigateTo({
         let weather = sheet.Weather.Get(req.weather).icon
         app.globalData.season = season
         app.globalData.weather = weather
+        app.globalData.gold = req.gold
         console.log('app.globalData.season' + app.globalData.season)
         console.log(weather)
         this.setData({
@@ -114,6 +116,7 @@ wx.navigateTo({
           location:req.location,
           date: ymd('cn')
         })
+        console.log(Base.servertime)
       })
 
       //websocket请求消息信息
