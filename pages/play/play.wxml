@@ -1,7 +1,9 @@
-<view class="con bg" bindtap="drawPoint">
-  <!-- 点和线 -->
+<view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
   <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
+</view>
+<view class="con bg" catchtap="drawPoint">
+  <!-- 点和线 -->
 
   <!-- 屏幕边缘提示 -->
   <!-- 距离 -->
@@ -13,9 +15,13 @@
   <!-- 提示 -->
   <view class="tip"></view>
 
-
-
   <!-- 屏幕边缘按钮 -->
+  <view class="mission f-c-fs">
+    <text class="fontWhite missionText font font26">任务</text>
+    <view class="progressBox">
+      <view class="progressBar"></view>
+    </view>
+  </view>
   <view class="changeLine f-c-fs">
     <text class="fontWhite changeLineText font font26">修改路线</text>
     <text class="fontWhite changeLineMoney font font26">$100</text>
@@ -25,19 +31,19 @@
   <view class="btnBoxWrap f-c-fs">
     <!-- 缩放按钮 -->
     <view class="zoomBtn f-r-sa">
-      <view class="add" indtap="drawPoint"></view>
-      <view class="minus"></view>
+      <view class="add" catchtap="zoomplus"></view>
+      <view class="minus" catchtap="zoomminus"></view>
     </view>
     <!-- 三个按钮 -->
     <view class="btnBox f-r-sa">
-      <view class="travelTips font fontWhite font28" bindtap="toPr">旅行攻略</view>
+      <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
       <view class="travelStart font fontWhite  font32">开始游玩</view>
-      <view class="tarvelProps font fontWhite font28" bindtap="toProps">旅行道具</view>
+      <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
     </view>
     <!-- 虚拟地图警告 -->
     <view class="warningBox"></view>
   </view>
-  <view class=" pop-bg" wx:if="{{isPop}}">
+  <view class=" pop-bg" wx:if="{{isPop}}" catchtap="hideisPop">
     <view class="pop-con">
       <view class="pic-box">
         <image class="point-pic" src=""></image>
@@ -47,7 +53,7 @@
       <view class="next-evt font">下一事件</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isShowIntro}}" bindtap="hideIntro">
+  <view class="pop-bg" wx:if="{{isShowIntro}}" catchtap="hideIntro">
     <view class="play-pop play-desc f-c-fs" catchtap="notDo">
       <text id="title">玩法介绍</text>
       <text class="rule fs">本地游玩规则：</text>
@@ -60,20 +66,20 @@
       <text class="rule-con rule5">根据用户游玩的景点、触发的事件和得到明信片的数量，会有不同的积分奖励。</text>
       <text class="rule-con rule6">积分用于兑换物品。</text>
       <text class="rule-con rule7">双人旅行时，每人至少选择3个景点共同前往，不可同时规划路线。每人各观光景点2次，每人各拍照2次为完成点亮任务。</text>
-      <view class="btn-big-blue cfm-btn" bindtap="hideIntro">确 定</view>
+      <view class="btn-big-blue cfm-btn" catchtap="hideIntro">确 定</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isFirstIn}}" bindtap="hideFirstIn">
+  <view class="pop-bg" wx:if="{{isFirstIn}}" catchtap="hideFirstIn">
     <view class="play-pop play-first-in f-c-fs" catchtap="notDo">
       <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
       <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
       <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
       <view class="line"></view>
-      <view class="btn-big-blue cfm-btn" bindtap="hideFirstIn">确 定</view>
+      <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">确 定</view>
     </view>
   </view>
 
-  <view class="pop-bg" wx:if="{{isMissionOpen}}" bindtap="hideMissionOpen">
+  <view class="pop-bg" wx:if="{{isMissionOpen}}" catchtap="hideMissionOpen">
     <play class="play-pop play-mission f-c-fs">
       <view class="imgBox" slot="imgBox">
         <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
@@ -87,7 +93,7 @@
     </play>
   </view>
 
-  <view class="pop-bg" wx:if="{{isCongratulations}}" bindtap="hideCongratulations">
+  <view class="pop-bg" wx:if="{{isCongratulations}}" catchtap="hideCongratulations">
     <play class="play-pop play-congratulations f-c-fs">
       <view class="imgBox" slot="imgBox">
         <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
@@ -96,7 +102,7 @@
       <view class="contentBox" slot="contentBox">
         <text class="head-font congratulations-head-font ml14">恭喜答对</text>
         <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
-        <view class="btn-big-blue cfm-btn" bindtap="hideFirstIn">下一事件</view>
+        <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
       </view>
     </play>
   </view>
@@ -109,12 +115,11 @@
       <text class="post-name">获得索菲亚教堂明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
       <text class="post-desc">获得一张不同的明信片可增加100积分</text>
-      <view class="btn-icon btn-big-blue" bindtap='hidePost'>确  定</view>
+      <view class="btn-icon btn-big-blue" catchtap='hidePost'>确  定</view>
     </view>
   </view>
+  <!-- 问答 组件 -->
 
-  <!--问答 组件 -->
-  <!-- <dialog-question>
-  </dialog-question> -->
+  <!-- <dialogQuestion></dialogQuestion> -->
 
 </view>

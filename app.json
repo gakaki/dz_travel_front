@@ -2,17 +2,21 @@
   "pages": [
     "pages/index/index",
     "pages/cityRaiders/cityRaiders",
-    
+    "pages/recharge/recharge",
+    "pages/props/props",
     "pages/play/play",
+    
+    
+    
     
     
     "pages/pointRaiders/pointRaiders",
     "pages/raiders/raiders",
     "pages/city/city",
     "pages/start/start",
-    "pages/recharge/recharge",
+    
     "pages/goSight/goSight",
-    "pages/props/props",
+    
     
     "pages/testmap/testmap",
     "pages/settings/settings",

@@ -38,7 +38,6 @@ Component({
       cityId.push.apply(cityId, item.cityid)
     })
      if (this.properties.mineCity.length != 0) allCity = this.properties.mineCity
-    console.log(allCity)
   },
 
   /**

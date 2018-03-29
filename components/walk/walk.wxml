@@ -1,2 +1,5 @@
 
-<image animation="{{animationData}}"  style="top:{{walkInfo.y}}rpx;left:{{walkInfo.x}}rpx"  animation="{{animationData}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>
+
+<view class="nan-box" animation="{{animationData}}"  style="top:{{walkInfo.y}}rpx;left:{{walkInfo.x}}rpx"  animation="{{animationData}}">
+<image  style="top:0;left:{{left}}rpx"  src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 1 ? 'nan' : 'nv'}}.png" class="walk-icon"></image>
+</view>
