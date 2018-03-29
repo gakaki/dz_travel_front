@@ -1,11 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-<<<<<<< HEAD
-import { Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
-=======
-import { SignInfo, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
->>>>>>> 9eded32a8f6e9db5a1d4c02a0b209dfd6749e469
+import { SignInfo,Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp()
 Page({
