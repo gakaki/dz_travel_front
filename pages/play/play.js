@@ -31,23 +31,39 @@ Page({
     })
   },
   zoomplus() {
-    this.setData({
-      scrollHeight: '200vh',
-      scrollWidth: '200vw',
-      zoom: 2,
-      points: this.data.points
-    })
-    this.zoomPAndL(2)
-    this.draw()
+    if (this.data.zoom !== 2) {
+      this.setData({
+        scrollHeight: '200vh',
+        scrollWidth: '200vw',
+        zoom: 2,
+        points: this.data.points
+      })
+      this.zoomPAndL(2)
+      this.draw()
+    } else if (this.data.zoom) {
+      wx.showToast({
+        title: '地图已经最大',
+        icon: 'none'
+      })
+      return
+    }
   },
   zoomminus() {
-    this.setData({
-      scrollHeight: '100vh',
-      scrollWidth: '100vw',
-      zoom: 1
-    })
-    this.zoomPAndL(0.5)
-    this.draw()
+    if (this.data.zoom !== 1) {
+      this.setData({
+        scrollHeight: '100vh',
+        scrollWidth: '100vw',
+        zoom: 1
+      })
+      this.zoomPAndL(0.5)
+      this.draw()
+    } else if (this.data.zoom === 1) {
+      wx.showToast({
+        title: '地图已经最小',
+        icon: 'none'
+      })
+      return
+    }
   },
   // 划线的方法集
   objTostring(obj) {
@@ -102,15 +118,15 @@ Page({
     })
   },
   // 数据准备（点和线）
-  dataPrep(e) {
+  dataPrep(e, zoom) {
     this.setData({
       points: this.data.points.concat({
         id: this.data.currentPoint, //点的id
         x: e.detail.x, //x坐标
         y: e.detail.y, //y坐标
         style: {
-          width: '10rpx',
-          height: '10rpx',
+          width: zoom === 1 ? '10rpx' : '20rpx',
+          height: zoom === 1 ? '10rpx' : '20rpx',
           'border-radius': '50%',
           'background-color': 'red',
           position: "absolute",
@@ -132,13 +148,13 @@ Page({
         lines: this.data.lines.concat({
           id: this.data.currentPoint - 1,
           style: {
-            height: '2rpx',
+            height: zoom === 1 ? '2rpx' : '4rpx',
             position: 'absolute',
             'background-color': 'red',
             width: 2 * lineWidth + 'rpx',
             transform: "rotateZ(" + degree + "deg) scale(1)",
-            top: midPoint ? 2 * midPoint['y'] - 1 + 'rpx' : null,
-            left: midPoint ? 2 * midPoint['x'] - 1 - lineWidth + 'rpx' : null
+            top: midPoint ? 2 * midPoint['y'] + 1 * zoom + 'rpx' : null,
+            left: midPoint ? 2 * midPoint['x'] + 1 * zoom - lineWidth + 'rpx' : null
           }
         }),
       })
@@ -172,7 +188,7 @@ Page({
         return Object.assign({}, item, {
           id: item.id,
           style: {
-            height: this.strToNum(item.style.height) + 'px',
+            height: this.strToNum(item.style.height) * multiple + 'rpx',
             position: 'absolute',
             'background-color': 'red',
             width: this.strToNum(item.style.width) * multiple + 'rpx',
@@ -186,7 +202,7 @@ Page({
   },
   // 点击地图方法
   drawPoint(e) {
-    this.dataPrep(e)
+    this.dataPrep(e, this.data.zoom)
     this.draw()
   },
   toPr() {
