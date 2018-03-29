@@ -1,7 +1,7 @@
 <view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
 
 
-<walk wx:if="{{test}}" sex="{{gender}}" walkInfo="{{walkInfo}}"></walk>
+<walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
 <!-- </view>
 <view class="con bg" catchtap=""> -->
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
