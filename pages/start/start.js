@@ -50,14 +50,14 @@ Page({
     allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
     //---------------------------------
     console.log(options)
-
+    //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
 
     //获取页面信息
     let info = new FlyInfo();
     info.type = options.type
     info.fetch().then((req)=>{
-      //以下数据不进行渲染
+      //以下数据不进行渲染（仅在调api时发送）
       ticketType = req.type;
       //不是随机机票就从options中获取cid
       if(req.cid){
@@ -225,7 +225,6 @@ Page({
     start.cid = cid;
     start.cost = this.data.flyInfo.cost;
     if (this.data.isDouble){
-      console.log(111111111)
       start.partnerUid = 1
     }
     start.fetch().then((req) => {
