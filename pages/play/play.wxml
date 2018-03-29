@@ -113,8 +113,8 @@
     </view>
   </view>
 
-  <!--问答 组件 -->
-  <!-- <dialog-question>
-  </dialog-question> -->
+  <!-- 问答 组件 -->
+  <dialogquestion>
+  </dialogquestion>
 
 </view>

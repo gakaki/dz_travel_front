@@ -34,6 +34,6 @@
     <view class="btn-icon font">确定</view>
   </view> 
  <!-- <image wx:for="{{walkArr}}" style="top:{{item.y}};left:{{item.x}}" bindtap='testZuobiao' animation="{{animationData[index]}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>  -->
-  <!-- <image  style="top:{{walkInfo.y}}rpx;left:{{walkInfo.x}}rpx" bindtap='testZuobiao' animation="{{animationData}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>   -->
-  <!-- <walk wx:for="{{walkArr}}" walkInfo="{{item}}"></walk>  -->
+   <image  style="top:{{walkInfo.y}}rpx;left:{{walkInfo.x}}rpx" bindtap='testZuobiao' animation="{{animationData}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>   
+    <!-- <walk wx:for="{{walkArr}}" walkInfo="{{item}}"></walk>    -->
 </view>

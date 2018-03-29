@@ -53,7 +53,6 @@ Page({
       xx.citys = [{ cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }]
       arr.push(xx)
     }
-    console.log(arr)
     let cityArr = []
     arr.forEach(item=>{
       item.citys.forEach(v=>{

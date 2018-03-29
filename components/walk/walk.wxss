@@ -1,5 +1,13 @@
+.nan-box {
+  width: 38rpx;
+  height: 81rpx;
+  overflow: hidden;
+  position: relative
+}
 .walk-icon {
-  width: 30rpx;
-  height: 72rpx;
+  width: 228rpx;
+  height: 81rpx;
   position: absolute;
+  left: 0;
+  top: 0;
 }

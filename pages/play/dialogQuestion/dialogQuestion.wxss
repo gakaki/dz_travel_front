@@ -1,5 +1,4 @@
 @import "/app.wxss";
-
 .dialog_question {
   width: 80%;
   height: 90%;
