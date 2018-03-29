@@ -18,7 +18,7 @@
     </view>
     <view class="location">
       <view class='font'>
-        <text class="city">上海</text>
+        <text class="city" wx:if="{{location}}">{{location}}</text>
         <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">

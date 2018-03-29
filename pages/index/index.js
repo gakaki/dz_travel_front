@@ -15,7 +15,6 @@ Page({
     mapZ:0,
     lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
     lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -27,7 +26,8 @@ Page({
     gold:0,
     nickName:'',
     avatar:'',
-    date:''
+    date:'',
+    location:''
   },
 
   /**
@@ -105,6 +105,7 @@ wx.navigateTo({
           playerCnt: req.playerCnt,
           nickName:userInfo.nickName,
           avatar:userInfo.avatarUrl,
+          location:req.location,
           date: ymd('cn')
         })
       })
