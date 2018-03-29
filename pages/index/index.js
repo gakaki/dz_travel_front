@@ -187,7 +187,7 @@ wx.navigateTo({
       }
       else{
         wx.navigateTo({
-          url: '../city/city',
+          url: '../city/city?location=' + this.data.location,
         })
       }
     })

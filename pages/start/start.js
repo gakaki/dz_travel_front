@@ -47,9 +47,12 @@ Page({
     this.setData({
       partnerPoint,
     })
-    allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
+    
     //---------------------------------
-    console.log(options)
+
+
+    console.log(options,'起飞界面options')
+    
     //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
 
@@ -67,8 +70,7 @@ Page({
         cid = options.cid
       }
       
-
-      console.log(req,'info')
+      console.log(req,'起飞界面数据')
       let flyInfo = {};
       flyInfo.cost = req.cost;
       flyInfo.doubleCost = req.doubleCost;
@@ -84,8 +86,16 @@ Page({
         avatarSrc: userInfo.avatarUrl
       })
     })
+
     //是否是随机机票
     if(options && options.random){
+      //随机机票把全部城市取出来进行随机操作
+      let city = sheet.finds.map(o => {
+        return new sheet.Find(o).city;
+      })
+      city.forEach((item) => {
+        allCity.push.apply(allCity, item);
+      })
       this.setData({
         isRandom: true,
         routePoint: [150,300]

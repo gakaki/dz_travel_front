@@ -3,6 +3,7 @@ const app = getApp();
 const sheet = require('../../sheets.js');
 import { TicketType } from '../../api.js';
 let cid;//选中的城市id
+let location;//用户现在所在城市
 Page({
 
   /**
@@ -19,7 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    
+    location = options.location;
+
     let readCity = sheet.finds.map(o=>{
       let obj={}
       obj.init =  new sheet.Find(o).pword;
@@ -114,9 +117,17 @@ Page({
   },
 
   toFly(cid,terminal,ticket) {
-    wx.redirectTo({
-      url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + ticket,
-    })
+    if(location == terminal){
+      wx.showToast({
+        title: '不能选择您目前所在地起飞',
+        icon: 'none'
+      })
+    }
+    else{
+      wx.redirectTo({
+        url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + ticket,
+      })
+    }
   },
 
   _back() {
