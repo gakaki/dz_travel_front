@@ -11,10 +11,10 @@
     "pages/city/city",
     "pages/start/start",
     "pages/recharge/recharge",
+    "pages/testmap/testmap",
     "pages/goSight/goSight",
     "pages/props/props",
     
-    "pages/testmap/testmap",
     "pages/settings/settings",
     "pages/integral/integral",
     "pages/rank/rank",
