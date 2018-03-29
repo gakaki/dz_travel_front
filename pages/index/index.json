@@ -1,6 +1,7 @@
 {
   "disableScroll": true,
   "usingComponents": {
-    "sign": "../../components/sign/sign"
+    "sign": "../../components/sign/sign",
+    "cmap": "../../components/cmap/cmap"
   }
 }

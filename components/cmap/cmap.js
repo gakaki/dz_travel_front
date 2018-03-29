@@ -4,11 +4,12 @@ import { City, citys } from '../../sheets.js'
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 //大地图左上角点的经纬度
-const geoTopLeft = { j: 82, w: 55 };
+const geoTopLeft = { j: 80.6, w: 55.8 };
 //大地图右下角点的经纬度
-const geoBtmRht = { j: 128, w: 1.5 };
+const geoBtmRht = { j: 129.6, w: 4.5 };
 const geoWd = geoBtmRht.j - geoTopLeft.j;
 const geoHt = geoTopLeft.w - geoBtmRht.w;
+
 
 const mapAssetsRoot = '../../assets/province/';
 const mapBg = mapAssetsRoot + 'china.png';
@@ -45,7 +46,7 @@ const provinces = [
   { name: '广西', statusImgs: ['', 'guangxi'], x: 382, y: 452, imgWd: 112, imgHt: 83, txtX: 40, txtY: 36 },
   { name: '福建', statusImgs: ['', 'fujian'], x: 549, y: 412, imgWd: 63, imgHt: 78, txtX: 16, txtY: 20 },
   { name: '广东', statusImgs: ['', 'guangdong'], x: 460, y: 464, imgWd: 113, imgHt: 89, txtX: 36, txtY: 33 },
-  { name: '香港', statusImgs: ['', 'xianggang'], x: 524, y: 512, imgWd: 6, imgHt: 5, txtX: 36, txtY: 33 },
+  { name: '香港', statusImgs: ['', 'xianggang'], x: 524, y: 512, imgWd: 6, imgHt: 5, txtX: 0, txtY: 0 },
   { name: '台湾', statusImgs: ['', 'taiwan'], x: 614, y: 454, imgWd: 24, imgHt: 57, txtX: 6, txtY: 16 },
   { name: '海南', statusImgs: ['', 'hainan'], x: 444, y: 554, imgWd: 37, imgHt: 33, txtX: 6, txtY: 10 }
 ].map(o => {
@@ -58,7 +59,7 @@ const provinces = [
 const xyCitys = citys.map(c => {
   let o = {};
   o.name = c.city;
-  // o.hideName = true;
+  o.hideName = true;
   let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
   o.x = xy.x;
   o.y = xy.y;
@@ -72,9 +73,15 @@ const xyCitys = citys.map(c => {
 function jwToxy(j, w) {
   let dj = Math.abs(geoTopLeft.j - j);
   let dw = Math.abs(geoTopLeft.w - w);
-
   let x = mapWidth * dj / geoWd;
   let y = mapHeight * dw / geoHt;
+
+  //修正偏移，因为经纬度实际上类似于极坐标，而非简单的直角坐标
+  let offx = dw * 0.75;
+  let offy = -dj * 0.78;
+  x+= offx;
+  y+= offy;
+ 
   return { x, y };
 }
 
@@ -112,7 +119,7 @@ Component({
     mapBg: {
       //内层背景图
       type: String,
-      value: ''
+      value: mapBg
     },
     mapZ: {
       //内层背景的z-index，调高后可将背景图盖在其他元素的上层
@@ -190,22 +197,17 @@ Component({
     updateLightArea() {
       setTimeout(() => {
         provinces.every(o => {
-          o.light = true// this.data.lightProvinces.indexOf(o.name) != -1;
+          o.light = this.data.lightProvinces.indexOf(o.name) != -1;
           return true;
         });
 
         let citys = xyCitys.filter(c => {
-          console.log(c.name)
           c.light = this.data.lightCitys.indexOf(c.name) != -1;
-          c.hideName = !c.light;
-          if (c.name) {
-            console.log(c.name)
-          }
+          
           return c.light;
         })
-          console.log(citys, this.data.lightCitys, xyCitys.length)
 
-        this.setData({ provinces, citys: citys, mapBg });
+        this.setData({ provinces, citys: citys });
       }, 10);
     }
 

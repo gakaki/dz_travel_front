@@ -1,12 +1,12 @@
 <view class="con">
   <view class="my-gold flex">
-    <mygold goldNum="100"></mygold>
+    <mygold goldNum="{{flyInfo.gold}}"></mygold>
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/start/tip.png"></image>
   </view>
   <view class="map">
     <view>
       <view class="mark flex" style="top:{{routePoint[1]-45}}rpx;left:{{routePoint[0]-20}}rpx;">
-        <image src="https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0"></image>
+        <image src="{{avatarSrc}}"></image>
       </view>
       <view class="route" style="width:{{routeWid}}rpx;left:{{routePoint[0]}}rpx;top:{{routePoint[1]}}rpx;transform: rotate({{routeR}}deg);">
         <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="left:{{moveX}}rpx;"></image> 
@@ -15,7 +15,7 @@
     <!-- 小伙伴的位置和飞行轨迹 -->
     <view wx:if="{{isDouble}}">
       <view class="mark flex" style="top:{{partnerPoint[1]-45}}rpx;left:{{partnerPoint[0]-20}}rpx;">
-        <image src="https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0"></image>
+        <image src="{{avatarSrc}}"></image>
       </view>
       <view class="route" style="width:{{partnerWid}}rpx;left:{{partnerPoint[0]}}rpx;top:{{partnerPoint[1]}}rpx;transform: rotate({{partnerR}}deg);">
         <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="left:{{partnerMove}}rpx;"></image> 
@@ -23,14 +23,14 @@
     </view>
     <!-- -------------------------- -->  
   </view>
-  <image class="shadow {{isRandom ? 'shadow-random' : ''}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
-  <view class="tour-info f-c-fs {{isRandom ? 'tour-random' : ''}}">
-    <view class="tips f-r-sb">
-      <text>出发地</text>
+  <image class="shadow {{isRandom || isFirst ? 'shadow-random' : ''}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
+  <view class="tour-info f-c-fs {{isRandom || isFirst ? 'tour-random' : ''}}">
+    <view class="tips f-r-sb {{isFirst ? 'self-right' : ''}}">
+      <text hidden='{{isFirst}}'>出发地</text>
       <text>目的地</text>
     </view>
     <view class="line f-r-sb">
-      <text>上海</text>
+      <text>{{isFirst ? '首次旅行' : flyInfo.location}}</text>
       <view class="line-road f-r-sb">
         <view class="xian"></view>
         <image class="plane" src="https://gengxin.odao.com/update/h5/travel/start/plane.png"></image>
@@ -42,19 +42,22 @@
       </view>
     </view>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/start/separatrix.png"></image>
-    <view class="info f-r-sb" wx:if="{{isRandom}}">
-      <view class="cost flex">
+    <view class="info f-r-sb" wx:if="{{isRandom || isFirst}}">
+      <view class="cost" wx:if="{{isFirst}}">
+        <text>首次起飞不消耗金币</text>
+      </view>
+      <view class="cost flex" wx:else>
         <text>消耗</text>
         <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
-        <text>4000</text>
+        <text>{{flyInfo.cost}}</text>
       </view>
       <view class="location">
         <view class='date'>
-          <text>3月5号</text>
+          <text>{{date}}</text>
         </view>
         <view class="flex">
-          <text class="season">春</text>
-          <image class="weather" src="">天气</image>
+          <text class="season">{{flyInfo.season}}</text>
+          <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{flyInfo.weather}}.png"></image>
         </view>
       </view>
     </view>
@@ -63,22 +66,22 @@
         <view class="cost flex">
           <text>消耗</text>
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
-          <text>4000</text>
-          <view class="holiday">
-            劳动节
+          <text>{{flyInfo.cost}}</text>
+          <view class="holiday" wx:if="{{flyInfo.holiday}}">
+            {{flyInfo.holiday}}
           </view>
         </view>
         <view class="date">
-          <text>3月5号</text>
+          <text>{{date}}</text>
         </view>
       </view>
       <view class="info f-r-sb">
         <view class="double-tip">
-          <text>(邀请好友双人旅行消耗6000金币,好友无需购买机票)</text>
+          <text>(邀请好友双人旅行消耗{{flyInfo.doubleCost}}金币,好友无需购买机票)</text>
         </view>
         <view class="flex">
-          <text class="season">春</text>
-          <text class="weather">天气</text>
+          <text class="season">{{flyInfo.season}}</text>
+          <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{flyInfo.weather}}.png"></image>
         </view>
       </view>
       <view class="partner f-r-sb">
@@ -86,7 +89,7 @@
         <avatar class="friend" avatarWid="86" avatarHeg="86" nickname="{{partnerName}}" src="{{avatarSrc}}" wx:else></avatar>
       </view>
     </view>
-    <view class="info-xian {{isWaiting ? '' : 'friend-xian'}} {{isRandom ? 'random-xian' : ''}}"></view>
+    <view class="info-xian {{isWaiting ? '' : 'friend-xian'}} {{isRandom || isFirst ? 'random-xian' : ''}}"></view>
     <view class="btn f-r-sb {{isRandom ? 'btn-center' : ''}}">
       <view class="invite button" hidden="{{isRandom}}">
         {{isWaiting ? '邀请好友' : '取消双人旅行'}}

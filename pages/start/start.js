@@ -1,8 +1,11 @@
 // pages/start/start.js
-import { FlyInfo, StartGame, TicketType } from '../../api.js';
+import { FlyInfo, StartGame, TicketType, Season } from '../../api.js';
+import { ymd } from '../../utils/rest.js';
 const app = getApp()
 const sheet = require('../../sheets.js');
 let allCity = [], terminalPoint = [], routePoint = [], partnerPoint = [];
+let ticketType; //机票类型
+let cid; //城市id
 let time = null, timer = null
 
 Page({
@@ -15,18 +18,21 @@ Page({
     isRandom:true,
     destination: '',
     isArrive: false,
+    isFirst: false,  //是否第一次起飞
     moveX:-38,  //飞机的位置,默认为-38
     routeWid:0, //飞行长度
     routePoint: [],  //飞行的起始点坐标
     routeR: 0,
     terminalPoint: [], //目的地坐标
     partnerName: '你成绩各自',
-    avatarSrc: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0',
+    avatarSrc: '',
     partnerPoint: [], //好友坐标
     partnerWid: 0,
     partnerR: 0,
     partnerMove: -38,
-    isDouble: false
+    isDouble: false,
+    date: '',      //当前日期
+    flyInfo:{weather:'sun'}      //页面相关信息,默认给weather：sun，避免渲染层报错
    },
 
   /**
@@ -44,16 +50,50 @@ Page({
     allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
     //---------------------------------
     console.log(options)
+    //从全局变量中把用户信息拿过来
+    let userInfo = app.globalData.userInfo
 
+    //获取页面信息
+    let info = new FlyInfo();
+    info.type = options.type
+    info.fetch().then((req)=>{
+      //以下数据不进行渲染（仅在调api时发送）
+      ticketType = req.type;
+      //不是随机机票就从options中获取cid
+      if(req.cid){
+        cid = req.cid;
+      }
+      else{
+        cid = options.cid
+      }
+      
+
+      console.log(req,'info')
+      let flyInfo = {};
+      flyInfo.cost = req.cost;
+      flyInfo.doubleCost = req.doubleCost;
+      flyInfo.gold = req.gold;
+      flyInfo.holiday = req.holiday;
+      flyInfo.location = req.location;
+      flyInfo.season = Season[req.season];
+      flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+      this.setData({
+        flyInfo,
+        date: ymd('cn'),
+        isFirst: req.isFirst,
+        avatarSrc: userInfo.avatarUrl
+      })
+    })
     //是否是随机机票
     if(options && options.random){
-      
       this.setData({
         isRandom: true,
         routePoint: [150,300]
       })
     }
     else{
+      
+     
       this.setData({
         isRandom: false,
         destination: options.terminal,
@@ -98,11 +138,6 @@ Page({
     clearTimeout(timer)
   },
 
-  getFlyInfo(type) {
-    let req = new FlyInfo()
-
-  },
-
   startTour() {
     if(this.data.isRandom){
       if(allCity.length){
@@ -115,9 +150,11 @@ Page({
             destination: des,
           })
           if (i > 20) {
+            let destination = sheet.City.Get(cid).city;
             clearInterval(time)
             this.calcRoute(terminalPoint, routePoint, false)
             this.setData({
+              destination,
               moveX: this.data.routeWid - 38
             })
             timer = setTimeout(() => {
@@ -182,11 +219,17 @@ Page({
 
   //带下划线的为监听组件内的事件
   _confirm() {
-    let start = new StartGame()
-    start.terminal = this.data.destination
+    console.log(cid, this.data.flyInfo.cost)
+    let start = new StartGame();
+    start.type = ticketType;
+    start.cid = cid;
+    start.cost = this.data.flyInfo.cost;
+    if (this.data.isDouble){
+      start.partnerUid = 1
+    }
     start.fetch().then((req) => {
       wx.navigateTo({
-        url: '../play/play?rid='+req.rid,
+        url: '../play/play',
       })
     })
     

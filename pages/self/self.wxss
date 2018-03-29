@@ -67,4 +67,8 @@
   padding: 0 20rpx;
   height: 112rpx;
   line-height: 112rpx;
+  border-bottom: 2rpx solid #e5e5e5;
+}
+.one-last {
+  border: none
 }

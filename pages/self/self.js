@@ -1,34 +1,8 @@
 // pages/self/self.js
 import { getUserInfo } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
+import { Item, items } from '../../sheets.js';
 const app = getApp();
-let obj = {
-    a: {
-      title: '累计获得城市积分',
-  num: '555'
-},
-  b: {
-      title: '收集明信片数量',
-    num: '555'
-  },
-  c: {
-      title: '发表评论数量',
-    num: '555'
-  },
-  d: {
-      title: '获得点赞数量',
-    num: '555'
-  }
-  ,
-  e: {
-      title: '获得特产数量',
-    num: '555'
-  },
-  f: {
-      title: '获得特产数量',
-    num: '555'
-  } 
-}
 
 Page({
 
@@ -36,10 +10,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    mySelf:true,
     mianTitle:[{
       title:'旅行足迹',
       icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png',
@@ -55,7 +25,7 @@ Page({
       icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
       url: '../travelLog/travelLog'
     }],
-    list:null
+    init:null
   },
 
   /**
@@ -66,57 +36,17 @@ Page({
     this.setData({userInfo})
     let m = new PlayerInfo();
     m.fetch().then(res=>{
-      console.log(res)
-      console.log(666666666)
+      console.log(res.info)
+      this.setData({
+        init: res.info,
+        gold: res.info.items[Item.GOLD],
+        integral: res.info.items[Item.POINT]
+      })
+      
+      
     })
-    // console.log(obj)
-    // this.setData({
-    //   list:Object.values(obj)
-    // }) 
   },
   
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
 
   /**
    * 用户点击右上角分享

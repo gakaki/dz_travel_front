@@ -64,9 +64,9 @@ Page({
     wx.setNavigationBarTitle({
       title: options.province
     })
-    this.setData({
-      init:data
-    })
+    // this.setData({
+    //   init:data
+    // })
   },
   toMsgPost() {
 wx.navigateTo({
