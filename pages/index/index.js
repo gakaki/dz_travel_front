@@ -27,7 +27,8 @@ Page({
     gold:0,
     nickName:'',
     avatar:'',
-    date:''
+    date:'',
+    hasSign:1
   },
 
   /**

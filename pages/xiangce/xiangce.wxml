@@ -4,22 +4,31 @@
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab' data-id='1'>留言明信片</view>
   </view>
   <scroll-view scroll-y class='all-postcard'>
-    <view class="xc-pro" wx:for='{{init}}' wx:key='{{index}}'>
+    <view class="xc-pro" wx:if='{{viewpoint}}' wx:for='{{allInit}}' wx:key='{{index}}'>
       <view class="pro-top f-r-sb">
         <text class="pro">{{item.city}}</text>
         <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
-      <view  class="{{viewpoint?'img-box':''}}" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}' hidden='{{specialty&&!img.lastestLiveMessage}}'>
-        <view class="{{viewpoint?'':'img-box-flex'}}">
-          <image class="{{viewpoint?'img':'img-sm'}}" bindtap='toMsgPost' src="{{img.url}}"></image>
-          <view class="content" wx:if='{{specialty}}'>
-            <text class="pro1">胖迪</text>
-            <text class="message ellipsis fs">{{img.lastestLiveMessage}}</text>
-          </view>  
-          <view class="per1" wx:if='{{specialty}}'>{{img.lastestLiveMessage.time}}</view>
-        </view> 
-        <view class="bl" wx:if='{{specialty && item.postcardsDetail.length-1 != index}}'></view>
+      <view class="img-box" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}'>
+        <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{img.id}}"></image>
       </view>      
     </view>
+    <view class="xc-pro" wx:if='{{specialty}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
+      <view class="pro-top f-r-sb">
+        <text class="pro">{{item.city}}</text>
+        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
+      </view>
+      <view wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
+        <view class="img-box-flex">
+          <image class="img-sm" src="{{img.url}}"></image>
+          <view class="content">
+            <text class="pro1">{{img.lastestLiveMessage.userInfo.nickName}}</text>
+            <text class="message ellipsis fs">{{img.lastestLiveMessage.message}}</text>
+          </view>  
+          <view class="per1">{{img.lastestLiveMessage.time}}</view>
+        </view> 
+        <view class="bl" wx:if='{{item.postcardsDetail.length-1 != index}}'></view>
+      </view>      
+    </view> 
   </scroll-view>
 </view>
