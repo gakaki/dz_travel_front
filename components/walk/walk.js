@@ -21,6 +21,8 @@ Component({
     animationData: {},
     left: 0,
   },
+  attached() {
+  },
   ready() {
     //行走动画
     timer = setInterval(() => {
@@ -37,13 +39,13 @@ Component({
     })
 
     this.animation = animation
-    animation.left(this.properties.walkInfo.tX + 'rpx').top(this.properties.walkInfo.tY + 'rpx').step()
+    animation.left(this.properties.walkInfo.tX-19 + 'rpx').top(this.properties.walkInfo.tY-81 + 'rpx').step()
     this.setData({
       animationData: animation.export()
     })
   },
   detached() {
-    this.timer = null
+    timer = null
   },
   /**
    * 组件的方法列表

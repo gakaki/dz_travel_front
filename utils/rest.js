@@ -40,19 +40,12 @@ function wsClose(...actions) {
   apis.Base.WsClose.apply(api.Base, actions);
 }
 
-  //let serverTime = new apis.Base()._timestamp
-let serverTime = new Date().getTime() - 10
-let aa = new Date().getTime()
-let cha = serverTime - aa
 function getMd() {
   let date1 = new Date().toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
   console.log(date1)
 }
 function ymd(v) {
-  // let serverTime = new Date().getTime() +cha
-  console.log(apis.Base.servertime)
-  // let date = new Date(serverTime);
-   let date = new Date(apis.Base.servertime*1000);
+   let date = new Date(apis.Base.servertime);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();

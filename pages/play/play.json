@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "play": "../../../components/play/play",
-    "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion"
+    "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
+    "walk":"/components/walk/walk"
   }
 }
