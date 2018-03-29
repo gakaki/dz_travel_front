@@ -36,10 +36,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    mySelf:true,
     mianTitle:[{
       title:'旅行足迹',
       icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png',
@@ -55,7 +51,7 @@ Page({
       icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
       url: '../travelLog/travelLog'
     }],
-    list:null
+    init:null
   },
 
   /**
@@ -66,8 +62,11 @@ Page({
     this.setData({userInfo})
     let m = new PlayerInfo();
     m.fetch().then(res=>{
-      console.log(res)
-      console.log(666666666)
+      this.setData({
+        list: res.info
+      })
+      console.log(res.info)
+
     })
     // console.log(obj)
     // this.setData({

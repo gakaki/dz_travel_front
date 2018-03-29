@@ -37,7 +37,7 @@
     <!-- 三个按钮 -->
     <view class="btnBox f-r-sa">
       <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
-      <view class="travelStart font fontWhite  font32" catchtap='toGoSight'>开始游玩</view>
+      <view class="travelStart font fontWhite  font32" catchtap=''>开始游玩</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
     </view>
     <!-- 虚拟地图警告 -->

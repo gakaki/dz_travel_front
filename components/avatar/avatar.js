@@ -25,15 +25,15 @@ Component({
     },
     hasGoldIcon:{
       type:Boolean,
-      value:false
+      value:true
     },
     hasIntegral:{
       type:Boolean,
-      value:false
+      value:true
     },
     showGoldAndIntegral:{
       type: Boolean,
-      value: false
+      value: true
     },
     avatarWid:{
       type:Number,

@@ -1,17 +1,14 @@
 <!--pages/self/self.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}' showGoldAndIntegral='{{mySelf}}' hasIntegral='{{true}}' hasGoldIcon='{{true}}' goldNum='{{20}}' integral='{{50}}'></avatar>
+      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}' goldNum='{{20}}' integral='{{50}}'></avatar>
       <navigator class='setting' url='/pages/settings/settings'>
         <image class='setting-icon' src='https://gengxin.odao.com/update/h5/travel/self/setting.png'></image>
       </navigator>
        <view class='des'>
-        <view class='des-content' wx:if='{{mySelf}}'> 
-          我的足迹已经遍布<text class='des-spec'>34</text>个城市已超越了<text class='des-spec'>75%</text>的驴友
-        </view> 
-         <view class='des-content' wx:else=''> 
-          他的足迹已经遍布<text class='des-spec'>34</text>个城市已超越了<text class='des-spec'>75%</text>的驴友
-        </view>  
+        <view class='des-content'> 
+          我的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{}}</text>的驴友
+        </view>
       </view> 
   </view>
 

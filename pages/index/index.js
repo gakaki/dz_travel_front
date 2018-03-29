@@ -10,6 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    mapConWd: 710,
+    mapConHt: 730,
+    mapZ:0,
+    lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
+    lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -148,7 +153,7 @@ wx.navigateTo({
   onHide: function () {
     //取消监听ws
     console.log('hide')
-    Ws.unlisten(MessageNum)
+    // Ws.unlisten(MessageNum)
   },
 
   /**
@@ -156,7 +161,7 @@ wx.navigateTo({
    */
   onUnload: function () {
     //取消监听ws
-    Ws.unlisten(MessageNum)
+    // Ws.unlisten(MessageNum)
   },
 
   /**
@@ -166,14 +171,20 @@ wx.navigateTo({
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
-
+      console.log(req.ticket,'机票')
+      if(req.ticket.length){
+        
+      }
+      else{
+        wx.navigateTo({
+          url: '../city/city',
+        })
+      }
     })
     this.setData({
       isFirst: false
     })
-    wx.navigateTo({
-      url: '../city/city',
-    })
+    
   },
 
   toMessage() {
