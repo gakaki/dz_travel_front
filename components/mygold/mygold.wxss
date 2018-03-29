@@ -1,7 +1,6 @@
 .box {
   position: relative;
   height: 44rpx;
-  min-width: 130rpx;
   border: 2rpx solid #fc6161;
   border-radius: 30rpx;
 }
@@ -19,8 +18,10 @@
   vertical-align: top;
 }
 .num {
+  display: inline-block;
   color: #fc6161;
   font:  bold 26rpx/38rpx 'Microsoft YaHei';
+  padding-right: 40rpx;
 }
 .plus {
   position: absolute;
