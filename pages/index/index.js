@@ -74,7 +74,13 @@ Page({
     // }
 
   },
-
+  toPlay() {
+    //需要判断是否在游玩
+wx.navigateTo({
+  url: '../play/play'
+  // url: '../cityRaiders/cityRaiders'
+})
+  },
   gotUserInfo() {
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
@@ -87,6 +93,9 @@ Page({
         console.log(req,'首页数据')
         let season = Season[req.season]
         let weather = sheet.Weather.Get(req.weather).icon
+        app.globalData.season = season
+        app.globalData.weather = weather
+        console.log('app.globalData.season' + app.globalData.season)
         console.log(weather)
         this.setData({
           isFirst: req.isFirst,

@@ -30,6 +30,11 @@ Page({
       title: '成都游玩'
     })
   },
+  toGoSight() {
+wx.navigateTo({
+  url: '../goSight/goSight'
+})
+  },
   zoomplus() {
     if (this.data.zoom !== 2) {
       this.setData({
