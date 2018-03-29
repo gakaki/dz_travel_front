@@ -31,6 +31,7 @@
     广告位
   </view>
   <view class="main">
+    <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' mapZ='{{mapZ}}' lightProvinces='{{lightProvinces}}' lightCitys='{{lightCitys}}' players='{{players}}'></cmap>
     <view class="travel">
       <view class="content">
         <text class="font">旅行人数</text>
@@ -39,13 +40,7 @@
         <text class="font">{{playerCnt}}</text>
       </view>
     </view>
-    <!-- <view class="map"> -->
-      <!-- <view class="mark flex" style="top:200rpx;left:400rpx;">
-        <image src="https://gengxin.odao.com/update/h5/travel/index/add.png"></image>
-      </view>
-    </view> -->
-    <canvas style="width: 750rpx; height: 300px;" canvas-id="map"></canvas>
-    <view class="choose f-r-sb">
+    <view class="choose">
       <view class="city-travel btn font">
         城市游玩
       </view>
@@ -77,4 +72,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
- <sign class='sign'></sign> 
+<sign wx:if='{{false}}' class='sign'></sign>
