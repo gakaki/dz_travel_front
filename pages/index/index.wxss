@@ -1,34 +1,35 @@
 /* pages/index/index.wxss */
-.wrap{
+
+.wrap {
   background-color: #f5f4f9;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
-.info{
+.info {
   width: 100%;
   background-color: #fff;
   padding-bottom: 10rpx;
 }
 
-.person{
+.person {
   margin-top: 10rpx;
   margin-left: 20rpx;
 }
 
-.avatar{
+.avatar {
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
   margin-right: 20rpx;
 }
 
-.name text{
+.name text {
   font-size: 36rpx;
 }
 
-.gold-info{
+.gold-info {
   height: 44rpx;
   border-radius: 30rpx;
   margin-top: 17rpx;
@@ -36,91 +37,88 @@
   border: 2rpx solid #fc6161;
 }
 
-.gold-info text{
+.gold-info text {
   color: #fc6161;
   font-size: 26rpx;
 }
 
-.gold-icon{
+.gold-icon {
   width: 38rpx;
   height: 38rpx;
   margin-left: 5rpx;
   margin-right: 11rpx;
 }
 
-.add{
+.add {
   width: 16rpx;
   height: 16rpx;
   margin-right: 14rpx;
   margin-left: 17rpx;
 }
 
-.location{
+.location {
   text-align: right;
   margin-right: 20rpx;
 }
 
-.city{
+.city {
   font-size: 36rpx;
   margin-right: 20rpx;
 }
 
-.today{
+.today {
   color: #999;
   font-size: 30rpx;
 }
 
-.tianqi{
+.tianqi {
   margin-top: 10rpx;
 }
 
-.weather{
+.weather {
   width: 46rpx;
   height: 46rpx;
   margin-left: 20rpx;
 }
 
-.ad{
+.ad {
   height: 146rpx;
   width: 100%;
   border-bottom: 2rpx solid #e9e8ec;
 }
 
-.main{
+.main {
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.travel{
+.travel {
   position: absolute;
   top: 18rpx;
   left: 20rpx;
 }
 
-.content text{
+.content text {
   font-size: 30rpx;
 }
 
-.number{
+.number {
   margin-top: -12rpx;
 }
 
-.number text{
+.number text {
   color: #999;
   font-size: 30rpx;
 }
 
-.map{
-  width: 696rpx;
-  height: 575rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/index/map.png") 0 0 no-repeat;
-  background-size: cover;
-  margin: 42rpx auto 0;
+#map {
   position: relative;
+  top: 42rpx;
+  left: 20rpx;
 }
 
-.mark{
+.mark {
   width: 40rpx;
   height: 45rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/mark.png") 0 0 no-repeat;
@@ -128,19 +126,22 @@
   position: absolute;
 }
 
-.mark image{
+.mark image {
   width: 30rpx;
   height: 30rpx;
   margin-top: -6rpx;
   border-radius: 50%;
 }
 
-.choose{
-  margin-top: 60rpx;
+.choose {
+  position: relative;
+  top: -90rpx;
+  display: flex;
+  align-items: center;
   justify-content: space-around;
 }
 
-.btn{
+.btn {
   height: 111rpx;
   width: 353rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/btn-white.png") 0 0 no-repeat;
@@ -150,7 +151,7 @@
   font-size: 30rpx;
 }
 
-.cut-off{
+.cut-off {
   width: 750rpx;
   height: 9rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/separatrix.png") 0 0 no-repeat;
@@ -160,18 +161,18 @@
   bottom: 0;
 }
 
-.message{
+.message {
   width: 149rpx;
   height: 118rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/message.png") 0 0 no-repeat;
   background-size: cover;
   position: absolute;
   right: 0;
-  top: 555rpx;
+  top: 530rpx;
   text-align: right;
 }
 
-.message text{
+.message text {
   display: inline-block;
   line-height: 100rpx;
   width: 68rpx;
@@ -180,7 +181,7 @@
   color: #fff;
 }
 
-.tips{
+.tips {
   width: 550rpx;
   height: 740rpx;
   background-color: #fff;
@@ -188,45 +189,44 @@
   position: absolute;
   top: 168rpx;
   left: 50%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   justify-content: flex-start;
   z-index: 20;
 }
 
-.area{
+.area {
   width: 350rpx;
   height: 350rpx;
   margin: 30rpx 0 19rpx;
 }
 
-.name{
-    font-weight: 900;
-}
-
-.welcome{
-  font-size: 44rpx;
-}
-
-.name{
+.name {
   font-weight: 900;
 }
 
-.free{
+.welcome {
+  font-size: 44rpx;
+}
+
+.name {
+  font-weight: 900;
+}
+
+.free {
   font-size: 34rpx;
   color: #878689;
   font-weight: 400;
 }
 
-.free text{
+.free text {
   color: #278cff;
 }
 
-.single{
+.single {
   margin-top: 10rpx;
 }
 
-
-.btn-fly{
+.btn-fly {
   width: 420rpx;
   height: 138rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/btn-blue-big.png") 0 0 no-repeat;
@@ -238,7 +238,7 @@
   color: #fff;
 }
 
-.mask{
+.mask {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -248,7 +248,7 @@
   z-index: 10;
 }
 
-.piaodai-left{
+.piaodai-left {
   width: 83rpx;
   height: 52rpx;
   position: absolute;
@@ -256,18 +256,18 @@
   left: -36rpx;
 }
 
-.piaodai-right{
+.piaodai-right {
   width: 81rpx;
   height: 40rpx;
   position: absolute;
   top: 240rpx;
   right: -30rpx;
 }
-/* .sign {
+.sign {
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   z-index: 99;
-} */
+}

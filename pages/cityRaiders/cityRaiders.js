@@ -1,11 +1,13 @@
 import { CityListPer, ProvencePer } from '../../api.js'
 import { ymd } from '../../utils/rest.js'
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    gender: (app.globalData.userInfo && app.globalData.userInfo.gender)|| 1,
     allCity: [],
     focus: false,
     isChoose: '',

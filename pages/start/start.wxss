@@ -147,7 +147,6 @@
   height: 47rpx;
   font-size: 20rpx;
   margin-left: 20rpx;
-  background-color: #0f0;
 }
 
 .partner{
@@ -258,4 +257,8 @@
   width: 78rpx;
   height: 64rpx;
   transition: all 2s ease-in-out .3s;
+}
+
+.self-right{
+  justify-content: flex-end;
 }
