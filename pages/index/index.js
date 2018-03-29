@@ -95,6 +95,7 @@ wx.navigateTo({
         let weather = sheet.Weather.Get(req.weather).icon
         app.globalData.season = season
         app.globalData.weather = weather
+        app.globalData.gold = req.gold
         console.log('app.globalData.season' + app.globalData.season)
         console.log(weather)
         this.setData({
