@@ -263,11 +263,11 @@
   top: 240rpx;
   right: -30rpx;
 }
-.sign {
+/* .sign {
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   z-index: 99;
-}
+} */
