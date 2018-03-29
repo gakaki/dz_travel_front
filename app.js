@@ -42,6 +42,8 @@ App({
     alert('hide');
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    season: '',
+    weather: ''
   }
 })

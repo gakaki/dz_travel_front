@@ -46,7 +46,7 @@
     </view> -->
     <canvas style="width: 750rpx; height: 300px;" canvas-id="map"></canvas>
     <view class="choose f-r-sb">
-      <view class="city-travel btn font">
+      <view class="city-travel btn font" bindtap='toPlay'>
         城市游玩
       </view>
       <view class="fly btn font" bindtap='toFly'>
@@ -77,4 +77,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<sign class='sign'></sign>
+<!-- <sign class='sign'></sign> -->

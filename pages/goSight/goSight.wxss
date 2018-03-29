@@ -32,8 +32,8 @@ color: #878689
 margin: 0 20rpx 0 22rpx
 }
 .w-icon {
-  width: 33rpx;
-  height: 18rpx;
+  width: 46rpx;
+  height: 46rpx;
   margin-right: 10rpx
 }
 #info-desc {
