@@ -144,7 +144,7 @@ Page({
   onHide: function () {
     //取消监听ws
     console.log('hide')
-    Ws.unlisten(MessageNum)
+    // Ws.unlisten(MessageNum)
   },
 
   /**
@@ -152,7 +152,7 @@ Page({
    */
   onUnload: function () {
     //取消监听ws
-    Ws.unlisten(MessageNum)
+    // Ws.unlisten(MessageNum)
   },
 
   /**
@@ -162,14 +162,20 @@ Page({
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
-
+      console.log(req.ticket,'机票')
+      if(req.ticket.length){
+        
+      }
+      else{
+        wx.navigateTo({
+          url: '../city/city',
+        })
+      }
     })
     this.setData({
       isFirst: false
     })
-    wx.navigateTo({
-      url: '../city/city',
-    })
+    
   },
 
   toMessage() {

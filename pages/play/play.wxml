@@ -118,5 +118,8 @@
       <view class="btn-icon btn-big-blue" catchtap='hidePost'>确  定</view>
     </view>
   </view>
+  <!-- 问答 组件 -->
+
   <!-- <dialogQuestion></dialogQuestion> -->
+
 </view>

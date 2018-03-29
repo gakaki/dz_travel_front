@@ -263,12 +263,20 @@
   top: 240rpx;
   right: -30rpx;
 }
+<<<<<<< HEAD
 
 .sign {
+=======
+/* .sign {
+>>>>>>> 758a3eb2780fc4e708be868d413fe358a90ff20c
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   z-index: 99;
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> 758a3eb2780fc4e708be868d413fe358a90ff20c
