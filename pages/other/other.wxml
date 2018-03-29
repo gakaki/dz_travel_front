@@ -16,10 +16,31 @@
       <text class='main-content'>{{item.title}}</text> 
     </navigator >
   </view>
-  <view class='list-wrap'>
-    <view class='one-list f-r-sb' wx:for='{{list}}' wx:key="{{index}}" style='border-bottom:{{index == list.length-1?"none":"2rpx solid #e5e5e5"}}'>
-      <text>{{item.title}}</text>
-      <text>{{item.num}}</text>
+  <scroll-view scroll-y class='list-wrap'>
+    <view class='one-list f-r-sb'>
+      <text>累计获得城市积分</text>
+      <text>{{init.otherUserInfo.totalIntegral}}</text>
     </view>
-  </view>
+    <view class='one-list f-r-sb'>
+      <text>里程数</text>
+      <text>{{init.otherUserInfo.mileage}}</text>
+    </view>
+    <view class='one-list f-r-sb'>
+      <text>收集明信片数量</text>
+      <text>{{init.otherUserInfo.postcard}}</text>
+    </view>
+    <view class='one-list f-r-sb'>
+      <text>发表评论数量</text>
+      <text>{{init.otherUserInfo.comment}}</text>
+    </view>
+    <view class='one-list f-r-sb'>
+      <text>获得点赞数量</text>
+      <text>{{init.otherUserInfo.likeNum}}</text>
+    </view>
+    <view class='one-list one-last f-r-sb'>
+      <text>获得特产数量</text>
+      <text>{{init.otherUserInfo.specialty}}</text>
+    </view>
+
+  </scroll-view>
 </view>
