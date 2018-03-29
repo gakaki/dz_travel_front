@@ -18,7 +18,7 @@
     </view>
     <view class="location">
       <view class='font'>
-        <text class="city">上海</text>
+        <text class="city" wx:if="{{location}}">{{location}}</text>
         <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">
@@ -41,7 +41,7 @@
       </view>
     </view>
     <view class="choose">
-      <view class="city-travel btn font">
+      <view class="city-travel btn font" bindtap='toPlay'>
         城市游玩
       </view>
       <view class="fly btn font" bindtap='toFly'>

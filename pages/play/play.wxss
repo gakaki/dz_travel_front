@@ -559,3 +559,16 @@
 .rule7::before {
   content: '7.';
 }
+.nan-box {
+  width: 38rpx;
+  height: 81rpx;
+  overflow: hidden;
+  position: relative
+}
+.walk-icon {
+  width: 228rpx;
+  height: 81rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

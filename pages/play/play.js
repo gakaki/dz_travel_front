@@ -1,10 +1,13 @@
 // pages/play/play.js
+let timer
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    test: false,
+    walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 3000 },
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
@@ -23,7 +26,7 @@ Page({
     locations: [{
       type: 'start',
       x: 23,
-      y: 56,
+      y: 56
     }, {
       type: 'jd',
       x: 154,
@@ -31,7 +34,7 @@ Page({
     }, {
       type: 'jd',
       x: 354,
-      y: 765,
+      y: 765
     }, {
       type: 'end',
       x: 450,
@@ -46,6 +49,14 @@ Page({
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
+  },
+ 
+  onShow: function () {
+  setTimeout(()=>{
+    this.setData({
+     test: true
+    })
+  },5000)
   },
   toGoSight() {
 wx.navigateTo({
@@ -310,15 +321,13 @@ wx.navigateTo({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    timer = null
   },
 
   /**

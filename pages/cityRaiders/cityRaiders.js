@@ -22,22 +22,9 @@ Page({
     walkArr: [{ x: 0, y: 0, tX: 100, tY: 100, time: 3000 }, { x: 50, y: 50, tX: 150, tY: 150, time: 3000 }, { x: 150, y: 150, tX: 250, tY: 250, time: 3000 }],
     walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000},
   },
-  walk(tX,tY,time) {
-    //行走动画
-    let animation = wx.createAnimation({
-      duration: time,
-      timingFunction: 'linear',
-    })
 
-    this.animation = animation
-    animation.left(tX + 'rpx').top(tY + 'rpx').step()
-    this.setData({
-      animationData: animation.export()
-    })
-  },
   onShow: function () {
-     let v = this.data.walkInfo
-     this.walk(v.tX,v.tY,v.time)
+     
   },
   /**
    * 生命周期函数--监听页面加载
