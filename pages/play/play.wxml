@@ -1,8 +1,17 @@
 <view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
+<!-- </view>
+<view class="con bg" catchtap=""> -->
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
   <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
-</view>
-<view class="con bg" catchtap="drawPoint">
+  <image 
+  wx:key="{{index}}" 
+  wx:for="{{locations}}"
+  class="sightimage" 
+  data-point="{{item}}" 
+  catchtap="drawPoint" 
+  style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" 
+  src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
+  </image>
   <!-- 点和线 -->
 
   <!-- 屏幕边缘提示 -->
