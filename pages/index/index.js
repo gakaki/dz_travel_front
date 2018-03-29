@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+import { Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp()
 Page({
@@ -34,6 +34,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     start(ok=> {
       console.log(ok)
       ok && this.gotUserInfo();
@@ -108,6 +109,7 @@ wx.navigateTo({
           avatar:userInfo.avatarUrl,
           date: ymd('cn')
         })
+        console.log(Base.servertime)
       })
 
       //websocket请求消息信息
