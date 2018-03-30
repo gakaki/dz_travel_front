@@ -5,7 +5,7 @@
       <view>
         <image class="avatar" src="{{avatar}}"></image>
       </view>
-      <view class="person-info">
+      <view class="person-info f-c">
         <view class="name">
           <text class="font">{{nickName}}</text>
         </view>
