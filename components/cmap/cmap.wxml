@@ -10,13 +10,12 @@
 
   
     <!-- 航线 -->
-    <view wx:if='{{line1}}' class='air-line' style='position:absolute; left:{{line1.from.x * scale}}rpx; top:{{line1.from.y * scale}}rpx;transform: rotate({{line1.rotation}}deg); width:{{line1.dist * scale}}rpx;'></view>
-    <view wx:if='{{line2}}' class='air-line' style='position:absolute; left:{{line2.from.x * scale}}rpx; top:{{line2.from.y * scale}}rpx;transform: rotate({{line2.rotation}}deg); width:{{line2.dist * scale}}rpx;'></view>
-    <!-- 飞机 -->
-    <image wx:if='{{planeAn1}}' animation='{{planeAn1}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{line1.from.x * scale}}rpx; top:{{line1.from.y * scale}}rpx; "></image>
-    <image wx:if='{{planeAn2}}' animation='{{planeAn2}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{line2.from.x * scale}}rpx; top:{{line2.from.y * scale}}rpx; "></image>
+    <view wx:for='{{lines}}' wx:key='{{index}}' class='air-line {{item.arcBtm ? "arc-btm" : ""}}' style='position:absolute; left:{{item.from.x * scale}}rpx; top:{{item.from.y * scale}}rpx;transform: rotate({{item.rotation}}deg); height:{{item.ht * scale}}rpx; width:{{item.dist * scale}}rpx;'></view>
 
-    <element wx:for='{{players}}' isPlayer='{{true}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+    <!-- 飞机 -->
+    <image wx:for='{{planes}}' wx:key='{{index}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{item.x * scale}}rpx; top:{{item.y * scale}}rpx; transform:translate(-50%, -50%) rotate({{item.rotation}}deg);"></image>
+
+    <element wx:for='{{players}}' wx:key='{{index}}' isPlayer='{{true}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}'></element>
 
 

@@ -11,6 +11,10 @@ const geoBtmRht = { j: 129.6, w: 4.5 };
 const geoWd = geoBtmRht.j - geoTopLeft.j;
 const geoHt = geoTopLeft.w - geoBtmRht.w;
 
+const lineArcD = Math.PI / 5;//航线弧线弧度
+const lineArcDMin = Math.PI / 6;//最小弧度
+const arcDt = 120;//航线弧度修正参考
+const stepDg = 1 / 180 * Math.PI;//步进度数
 
 const mapAssetsRoot = '../../assets/province/';
 const mapBg = mapAssetsRoot + 'china.png';
@@ -217,42 +221,117 @@ Component({
         return;
       }
       let scale = this.data.scale;
-      let planeAnimations = [];
+      let planes = [];
       let lines = airlines.map(a => {
-        let o = {}
+        let o = {};
+        let p = {};
         //外面传入的from和to是始/达 城市的配表id
         let city = City.Get(a.from);
         o.from = jwToxy(city.coordinate[0], city.coordinate[1]);
+        Object.assign(p, o.from);
 
         city = City.Get(a.to);
         o.to = jwToxy(city.coordinate[0], city.coordinate[1]);
 
+        // //判断左弧、右弧
         let dx = o.to.x - o.from.x;
         let dy = o.to.y - o.from.y;
         let dist = Math.sqrt(dx * dx + dy * dy);
-        let rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+        let angle = Math.atan2(dy, dx)
+        let rotation = angle * 180 / Math.PI;
+        let arc = dist / arcDt * lineArcD / 2;
+        arc = Math.max(arc, lineArcDMin);
+
+        
+
+        let halfDist = dist / 2;
+        let halfP = {x: o.from.x + dx / 2, y: o.from.y + dy /2};
+        let halfPI = Math.PI / 2;
+        
+
+        //判断弧形方向
+        //因为坐标原点在图的左上角，所以出发、到达点的各自angle都大于0
+        let anF = Math.atan2(o.from.y, o.from.x);
+        let anT = Math.atan2(o.to.y , o.to.x);
+        //弧半径
+        let r = halfDist / Math.sin(arc);
+        let dt = halfDist / Math.tan(arc);
+        let ht = r - dt;
+
+
+
+        let anC = angle + halfPI;
+        o.arcBtm = false;
+        if (anT < anF) {
+          anC += Math.PI;
+          o.arcBtm = true;
+        }
+        let cx = halfP.x + dt * Math.cos(anC);
+        let cy = halfP.y + dt * Math.sin(anC);
+
+        
+
+        o.ht = ht;
         o.dist = dist;
         o.rotation = rotation;
+      
 
-        let an = wx.createAnimation({
-          duration: 2000,
-        })
-        .rotate(o.rotation)
-        .left(o.to.x * scale)
-        .top(o.to.y * scale)
-        .step()
-        .export();
+        
+
+        p.anCenter = {x:cx, y:cy};
+        p.r = r;
+        p.an = Math.atan2(o.from.y - cy, o.from.x - cx) ;
+        p.anTo = Math.atan2(o.to.y - cy, o.to.x - cx);
+        let rd = p.anTo - p.an;
+
+        p.anStep = rd > 0 ? stepDg : -stepDg;
 
 
-        planeAnimations.push(an);
+        planes.push(p);
         return o;
       })
 
-      //显示路线
-      this.setData({ line1: lines[0], line2: lines[1], planeAn1: planeAnimations[0], planeAn2: planeAnimations[1]})
+      
+      //显示路线\飞机
+      this.setData({ lines, planes });
+
+      //飞行动画
+      
+      this.data.planeTm = setInterval(()=> {
+        let allFinished = true;
+        planes.forEach(p => {
+          if ((p.anStep > 0 && p.an < p.anTo) || (p.anStep < 0 && p.an > p.anTo)) {
+            p.an += p.anStep;
+            allFinished = false;
+
+            let center = p.anCenter;
+            p.x = p.r * Math.cos(p.an) * scale + center.x * scale;
+            p.y = p.r * Math.sin(p.an) * scale+ center.y * scale;
+            p.rotation = (p.an - Math.PI / 2 )* 180 / Math.PI;
+            if (p.anStep > 0) {
+              p.rotation += 180;
+            }
+
+          }
+        });
+
+        this.setData({planes})
+
+        if (allFinished) {
+          this.clearPlaneTm();
+          this.arrived();
+        }
+      }, 33);
 
     },
-    
+    clearPlaneTm() {
+      let tm = this.data.planeTm;
+      tm && clearInterval(tm);
+      this.data.planeTm = null;
+    },
+    arrived() {
+      this.triggerEvent('arrived')
+    }
 
 
   },
@@ -264,6 +343,9 @@ Component({
         this.data.uid = Base.GetUID();
       }
     }, 800)
+  },
+  detached() {
+    this.clearPlaneTm();
   }
 
 })
