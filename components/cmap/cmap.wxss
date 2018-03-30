@@ -1,12 +1,18 @@
 /* components/cmap/cmap.wxss */
 .air-line {
-  width: 4rpx;
-  height: 4rpx;
-  background-color: red;
+  border-style: solid;
+  
+  border-radius: 50%/ 100% 100% 0 0;
+  border-color: #2281ff;
+  border-width: 6rpx 6rpx 0;
   transform-origin: 0 50%;
 }
+.arc-btm { 
+  border-radius: 50% / 0 0 100% 100%;
+  border-width: 0 6rpx 6rpx 6rpx;
+}
 .air-plane{
-  width: 54rpx;
-  height: 47rpx;
+  width: 77rpx;
+  height: 63rpx;
   transform-origin: 50% 50%;
 }

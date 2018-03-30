@@ -23,7 +23,7 @@
     </view>
     <!-- -------------------------- -->  
   </view>
-  <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' players='{{players}}' airlines='{{airlines}}' ></cmap>
+  <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' players='{{players}}' airlines='{{airlines}}' bind:arrived='onArrived' ></cmap>
   <image class="shadow {{isRandom || isFirst ? 'shadow-random' : ''}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
   <view class="tour-info f-c-fs {{isRandom || isFirst ? 'tour-random' : ''}}">
     <view class="tips f-r-sb {{isFirst ? 'self-right' : ''}}">
