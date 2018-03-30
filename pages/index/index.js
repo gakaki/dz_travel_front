@@ -1,9 +1,11 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo,Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+import { SignInfo, Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season, TicketType } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
+//机票类型和城市id
+let tktType , cid , terminal;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -28,7 +30,10 @@ Page({
     avatar:'',
     date:'',
     hasSign:1,
-    location:''
+    location:'',
+    presentTkt:[],
+    chooseInd: 0,
+    showTicket:false
   },
 
   /**
@@ -91,14 +96,6 @@ Page({
       m.fetch().then(res => {
         console.log(res, '签到数据')
         this.setData({
-          isFirst: req.isFirst,
-          season,
-          weather,
-          gold:req.gold,
-          playerCnt: req.playerCnt,
-          nickName:userInfo.nickName,
-          avatar:userInfo.avatarUrl,
-          date: ymd('cn'),
           theDay: res.theDay,
           hasSign: res.hasSign
         })
@@ -176,7 +173,21 @@ Page({
     req.fetch().then(()=>{
       console.log(req.ticket,'机票')
       if(req.ticket.length){
-        
+        let presentTkt = []
+        req.ticket.forEach((item,index)=>{
+          let obj = {};
+          obj.province = sheet.City.Get(item.cid).province;
+          obj.city = sheet.City.Get(item.cid).city;
+          obj.tkt = item.type==1 ? '单人机票' : '双人机票';
+          obj.type = item.type;
+          obj.cid = item.cid
+          presentTkt[index] = obj
+        })
+        this.initTer(presentTkt[0])
+        this.setData({
+          presentTkt,
+          showTicket:true
+        })
       }
       else{
         wx.navigateTo({
@@ -190,10 +201,50 @@ Page({
     
   },
 
+  buyTkt() {
+    this.setData({
+      showTicket:false
+    })
+    wx.navigateTo({
+      url: '../city/city?location=' + this.data.location,
+    })
+  },
+
+  useTkt() {
+    console.log(cid)
+    this.setData({
+      showTicket: false
+    })
+    wx.navigateTo({
+      url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + tktType,
+    })
+  },
+
   toMessage() {
     wx.navigateTo({
       url: '../message/message',
     })
+  },
+
+  chooseTicket(e) {
+    let data = e.currentTarget.dataset
+    this.initTer(data)
+    this.setData({
+      chooseInd: data.ind
+    })
+  },
+
+  //如果有赠送的机票，初始化需要传递的信息
+  initTer(data) {
+    console.log(data)
+    if (data.type == 1) {
+      tktType = TicketType.SINGLEPRESENT
+    }
+    else if (data.type == 2) {
+      tktType = TicketType.DOUBLEPRESENT
+    }
+    cid = data.cid
+    terminal = data.city
   },
 
   /**

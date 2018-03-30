@@ -87,7 +87,7 @@
       </view>
       <view class="partner f-r-sb">
         <text class="waiting" wx:if="{{isWaiting}}">等待好友接受双人组队邀请······</text>
-        <avatar class="friend" avatarWid="86" avatarHeg="86" nickname="{{partnerName}}" src="{{avatarSrc}}" wx:else></avatar>
+        <avatar class="friend" avatarWid="86" avatarHeg="86" nickname="{{partnerName}}" src="{{avatarSrc}}" wx:else></avatar> 
       </view>
     </view>
     <view class="info-xian {{isWaiting ? '' : 'friend-xian'}} {{isRandom || isFirst ? 'random-xian' : ''}}"></view>

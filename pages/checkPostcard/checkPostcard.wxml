@@ -1,35 +1,46 @@
 <view class="con">
-  <form bindsubmit="formSubmit">
+  <form bindsubmit="formSubmit"> 
     <view class="pic-box pb bs">
       <image src="" class="pic"></image>
     </view>
     <view class="pic-box bs">
       <view class="pic">
         <view class="pc-top f-r-sb">
-          <view class="f-c-sb">
+          <view>
             <view class="circle f-r-sb fs">
               <view class="cir" wx:for='{{6}}' wx:key='{{index}}'></view>
             </view>
-            <view class="f-r-fs date-nn">
-              <text class="date" wx:if='{{message.time}}'>3月21日</text>
-              <text class="nn">{{message.userInfo.nickName}}</text>
+            <view class="date-nn">
+              <text class="date" wx:if='{{lastestMessage.time}}'>{{time}}</text>
+              <text class="nn">{{nickName}}</text>
             </view>
           </view>
           <image src="" class="icon fs"></image>
         </view>
+
         <view class="pc-bot f-r-sb">
           <view class="line"></view>
           <image src="https://gengxin.odao.com/update/h5/travel/postcard/logo.png" class="logo"></image>
-          <textarea name='ta1' disabled='{{!secTa}}' maxlength='54' bindinput="bindInput" class="ta" placeholder='在此处写信后分享明信片至好友'></textarea>
-          <textarea name='ta2' bindinput="bindInputSec" maxlength='54' disabled='{{secTa}}' maxlength='54' class="ta"></textarea>
+          <block wx:if='{{!write}}'>
+            <text class="ta">{{mes1}}</text>
+            <text class="ta">{{mes2}}</text>
+          </block>
+          <block wx:else=''>
+            <textarea name='ta1' disabled='{{!secTa}}' maxlength='54' bindinput="bindInput" class="ta" placeholder='在此处写信后分享明信片至好友'></textarea>
+            <textarea name='ta2' bindinput="bindInputSec" maxlength='54' disabled='{{secTa}}' class="ta"></textarea>
+          </block>
         </view>
-        <text class="pre" wx:if='{{message.hasUp}}'>上一页</text>
-        <text class="next"  wx:if='{{message.hasNext}}'>下一页</text>
+
+
+        <text class="pre" wx:if='{{lastestMessage.hasUp}}' bindtap='toUp'>上一页</text>
+        <text class="next"  wx:if='{{lastestMessage.hasNext}}'  bindtap='toDown'>下一页</text>
       </view>
+
     </view>
-    <view class="btn-big-blue btn">分享明信片
-      <button formType="submit" class="subBtn">Submit</button>
+    <view class="btn-big-blue btn">{{btnInfo}}
+       <button formType="submit" wx:if='{{message}}' open-type='share' class="subBtn">Submit</button> 
+       <button formType="submit" wx:else='' class="subBtn">Submit</button>   
     </view>
-  </form>
-  <tip wx:if="{{tipPOp}}" bind:hidetip="hideTipPop"></tip>
+   </form> 
+  <tip wx:if="{{tipPOp}}" bind:hidetip="hideTipPop" str='{{tip}}'></tip>
 </view>
