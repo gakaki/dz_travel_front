@@ -75,5 +75,5 @@
     </view>
   </view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
-  <directions bind:confirm="_hide" wx:if="{{showHelp}}" rankType="{{rankType}}"></directions>
+  <directions bind:confirm="_hide" wx:if="{{showHelp}}" id="{{id}}" title="{{title}}"></directions>
 </view>

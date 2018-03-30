@@ -6,9 +6,17 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    rankType:{
-      type: RankType,
-      value: RankType.THUMBS
+    id:{
+      type: Number,
+      value: 5
+    },
+    resHeight:{
+      type: Number,
+      value: 694
+    },
+    title:{
+      type: String,
+      value: '达人排行榜规则'
     }
   },
 
@@ -20,23 +28,7 @@ Component({
   },
 
   attached() {
-    let id;
-    let type = this.properties.rankType
-    if (type == RankType.THUMBS){
-      id = 5
-    }
-    else if (type == RankType.FOOT){
-      id = 4
-    }
-    else if (type == RankType.SCORE){
-      id = 3
-    }
-    else{
-      wx.showToast({
-        title: 'type传参错误',
-      })
-    }
-    let help = sheet.Help.Get(id).help.split("\\n")
+    let help = sheet.Help.Get(this.properties.id).help.split("\\n")
     this.setData({
       con: help
     })

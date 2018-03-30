@@ -2,7 +2,6 @@
 @import '/app.wxss';
 
 .wrap{
-  height: 694rpx;
   width: 610rpx;
   background-color: #fff;
   position: absolute;
@@ -38,7 +37,7 @@
   background-size: cover;
   position: absolute;
   left: 50%;
-  top: 550rpx;
+  bottom: 23rpx;
   transform: translate(-50%,0);
   font: bold 30rpx 'Microsoft Yahei';
   color: #fff;

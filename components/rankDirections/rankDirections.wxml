@@ -1,7 +1,7 @@
 <!--components/rankDirections/rankDirections.wxml-->
-<view class="wrap bs">
+<view class="wrap bs" style='height:{{resHeight}}rpx;'>
   <view class="title flex">
-    <text>积分排行榜规则</text>
+    <text>{{title}}</text>
   </view>
   <view class="content" wx:for="{{con}}" wx:key="{{index}}">
     <view class="number">{{index+1}}.</view> 
