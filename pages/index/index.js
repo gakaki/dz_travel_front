@@ -169,7 +169,9 @@ Page({
     req.fetch().then(()=>{
       console.log(req.ticket,'机票')
       if(req.ticket.length){
-        
+        wx.navigateTo({
+          url: '../city/city?location=' + this.data.location,
+        })
       }
       else{
         wx.navigateTo({
