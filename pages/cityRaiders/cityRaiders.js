@@ -30,6 +30,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    let m = new CityListPer()
+    m.fetch().then(res => {
+      console.log(res, '城市完成度列表')
+    })
+
+
     wx.setNavigationBarTitle({
       title: '城市攻略'
     })

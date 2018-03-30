@@ -48,6 +48,11 @@ Page({
 
     
   },
+  toCity() {
+    wx.navigateTo({
+      url: '../cityRaiders/cityRaiders'
+    })
+  },
   formatTime(time, dateType){
      let arr = time.split('-')
      if (dateType == 1) {
