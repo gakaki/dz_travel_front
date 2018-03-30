@@ -271,3 +271,89 @@
   height: 100vh;
   z-index: 99;
 }
+
+.free-ticket{
+  width: 610rpx;
+  height: 458rpx;
+  background-color: #f5f4f9;
+  position: absolute;
+  top: 300rpx;
+  margin-left: 50%;
+  transform: translate(-50%,0);
+  border-radius: 30rpx
+}
+
+.free-title{
+  margin-top: 40rpx;
+  text-align: center;
+  font:bold 32rpx "Microsoft YaHei";
+  color: #000000; 
+}
+
+.all-ticket{
+  width: 514rpx;
+  height: 155rpx;
+  margin-top: 65rpx;
+  margin-left: 50%;
+  transform:translate(-50%,0);
+  border-bottom: 2rpx solid #b0afb3;
+}
+
+.choose-address{
+  display: flex;
+  align-items: center;
+}
+
+.choose-grey{
+  width: 26rpx;
+  height: 26rpx;
+  background-color: #cccccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-red{
+  width: 22rpx;
+  height: 22rpx;
+  background-color: #fc6161;
+  border-radius: 50%;
+}
+
+.choose-ticket{
+  width: 514rpx;
+  font:bold 26rpx "Microsoft YaHei";
+  color: #b0afb3;
+}
+
+.choose-province,.choose-city{
+   margin-left: 37rpx; 
+}
+
+.ticket-species{
+  text-align: right;
+}
+
+.button-ticket{
+  width: 550rpx;
+  height: 113rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+}
+
+.buy-ticket, .use-ticket {
+  width: 245rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  font-size: 30rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 70rpx;
+}
+
+.use-ticket{
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
+  background-size: cover;
+}
