@@ -34,6 +34,7 @@ Page({
     m.fetch().then(res=>{
       console.log(res)
       this.setData({
+        user:res.userInfo,
         reachrovince: res.reachrovince,
         totalArrive: res.totalArrive,
         totalArrivePercent: res.totalArrivePercent,
