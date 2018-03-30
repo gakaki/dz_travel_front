@@ -8,11 +8,15 @@ Page({
   data: {
     secTa: true,
     tipPOp: false,
-    nn: '速度放缓的风格和的风格和',
-    message:null,
-    mes1:'123',
-    mes2:'345',
-    page:0,
+    lastestMessage:null,
+    mes1:'',
+    mes2:'',
+    btnInfo:'分享明信片',
+    nickName:'',
+    write:false,
+    allMessage:null,
+    index:0
+    
   },
 
   /**
@@ -28,30 +32,50 @@ Page({
     }  
     
     this.getData()
-    
-    this.setData({
-      nn: spliceStr(this.data.nn,7)
-    })
   },
-  getData(toNext = true){
+  getData(){
     if (this.data.id) {
       let m = new DetailPostcard();
       m.id = this.data.id;
-      m.messageLength = 1;
-      m.page = this.data.page;
       m.fetch().then(res=>{
         console.log(res)
-        if (toNext) {
-          this.data.page = this.data.page + 1
-        } else {
-          this.data.page = this.data.page -1
-        }
         this.data.postid = res.postid;
-        this.setData({
-          message: res.lastestMessage[0]
-        })
+        if (res.lastestMessage.length) {
+          this.setData({
+            allMessage: res.lastestMessage
+          })
+          this.nowInfo(this.data.index)
+        } else {
+          this.setData({
+            write: true
+          })
+        }
       })
     }
+  },
+  nowInfo(i){
+    let allMessage = this.data.allMessage;
+    this.setData({
+      lastestMessage: allMessage[i],
+      nickName: spliceStr(allMessage[i].userInfo.nickName, 8)
+    })
+    this.spiltMessage(allMessage[i].message);
+  },
+  spiltMessage(mes){
+    let mes1='';
+    let mes2='';
+    if (mes.length > 54) {
+      mes1 = mes.substring(0, 54);
+      mes2 = mes.substring(54)
+    } else {
+      mes1 = mes
+    }
+    this.setData({
+      mes1,
+      mes2,
+      btnInfo:'留言',
+      write:false
+    })
   },
   hideTipPop() {
     this.setData({
@@ -59,16 +83,27 @@ Page({
     })
   },
   formSubmit(e) {
-    let str = e.detail.value.ta1 + e.detail.value.ta2
-    let m = new SendPostcard();
-    m.id = this.data.id;
-    m.message = str;
-    m.fetch().then(res=>{
-      console.log(res)
-    })
-    this.setData({
-      tipPOp: true
-    })
+    if (this.data.btnInfo == '留言') {
+      this.setData({
+        btnInfo: '发送明信片',
+        write: true,
+        index:0
+      })
+    } else {
+      let str = e.detail.value.ta1 + e.detail.value.ta2;
+      if(str.trim().length) {
+        let m = new SendPostcard();
+        m.id = this.data.id;
+        m.message = str;
+        m.fetch().then(res => {
+          console.log(res)
+        })
+      }
+      this.setData({
+        tipPOp: true
+      })
+    }
+    
   },
   bindInput(e) {
     if (e.detail.cursor == 54) {
@@ -84,11 +119,25 @@ Page({
       })
     }
   },
+  toUp() {
+    this.data.index = this.data.index + 1;
+    this.nowInfo(this.data.index);
+  },
+  toDown() {
+    this.data.index = this.data.index - 1;
+    this.nowInfo(this.data.index);
+  },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123',
+      success: function () {
 
+      }
+    }
   }
 })
