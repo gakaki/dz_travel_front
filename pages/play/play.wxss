@@ -7,7 +7,7 @@
 .sightimage {
   width: 50rpx;
   height: 50rpx;
-  position:absolute
+  position:absolute;
 }
 
 .fontWhite {
