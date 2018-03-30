@@ -12,10 +12,13 @@ Page({
     mes1:'',
     mes2:'',
     btnInfo:'分享明信片',
+    tip:'',
     nickName:'',
-    write:false,
+    write:true,
     allMessage:null,
-    index:0
+    index:0,
+    time:'',
+    message:''
     
   },
 
@@ -23,7 +26,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     if (options && options.id) {
       this.data.id = options.id
     }
@@ -40,26 +42,31 @@ Page({
       m.fetch().then(res=>{
         console.log(res)
         this.data.postid = res.postid;
-        if (res.lastestMessage.length) {
+        //如果有留言,就将留言当成文本展示
+        if (res.lastestMessage.length) {  
           this.setData({
             allMessage: res.lastestMessage
           })
           this.nowInfo(this.data.index)
-        } else {
-          this.setData({
-            write: true
-          })
-        }
+        } 
       })
     }
   },
-  nowInfo(i){
+  nowInfo(i){ //展示最后一条留言
     let allMessage = this.data.allMessage;
     this.setData({
       lastestMessage: allMessage[i],
-      nickName: spliceStr(allMessage[i].userInfo.nickName, 8)
+      nickName: spliceStr(allMessage[i].userInfo.nickName, 8),
+      btnInfo: '留言',
+      write: false,
+      time: this.formatTime(allMessage[i].time),
+      message:''
     })
-    this.spiltMessage(allMessage[i].message);
+    this.spiltMessage(allMessage[i].message);  //展示的消息
+  },
+  formatTime(t){
+    let timeArr = t.split(' ')[0].split('-');
+    return Number(timeArr[1]) + '月' + Number(timeArr[2]) + '日';
   },
   spiltMessage(mes){
     let mes1='';
@@ -72,43 +79,63 @@ Page({
     }
     this.setData({
       mes1,
-      mes2,
-      btnInfo:'留言',
-      write:false
+      mes2
     })
   },
-  hideTipPop() {
-    this.setData({
-      tipPOp: false
+  sendPost(tip){
+    let m = new SendPostcard();
+    m.id = this.data.id;
+    m.message = this.data.message;
+    m.fetch().then(res => {
+      console.log(res)
+      this.setData({
+        index:0
+      })
+      this.getData()
+      this.showMask(this, '', tip)
     })
   },
   formSubmit(e) {
+    let str = e.detail.value.ta1 + e.detail.value.ta2;
+      //更新message数据,将message发送给后端
+    this.setData({
+      message:str
+    })      
+
     if (this.data.btnInfo == '留言') {
       this.setData({
         btnInfo: '发送明信片',
         write: true,
-        index:0
+        index:-1,
+        nickName:'',
+        time:''
       })
-    } else {
-      let str = e.detail.value.ta1 + e.detail.value.ta2;
-      if(str.trim().length) {
-        let m = new SendPostcard();
-        m.id = this.data.id;
-        m.message = str;
-        m.fetch().then(res => {
-          console.log(res)
-        })
+    } else {  //按钮在分享或者发送明信片时
+      //如果玩家没有留言就开始点击分享明信片,提示玩家
+      if (!str.trim().length) {
+        this.showMask(this, '', '请先写信再分享至好友')
+        return
+      } 
+      if (this.data.btnInfo == '发送明信片') {
+        this.sendPost('发送成功')
       }
-      this.setData({
-        tipPOp: true
-      })
+
     }
     
   },
   bindInput(e) {
+    //如果玩家有输入内容,则显示分享按钮
+    let v = e.detail.value.trim();
+    if (this.data.btnInfo == '分享明信片') {
+      //判断点击按钮时是否出现微信分享
+      this.setData({
+        message: v.trim()
+      })
+    }
     if (e.detail.cursor == 54) {
       this.setData({
-        secTa: false
+        secTa: false,
+  
       })
     }
   },
@@ -127,16 +154,39 @@ Page({
     this.data.index = this.data.index - 1;
     this.nowInfo(this.data.index);
   },
+  showMask(_that,btnInfo,tip){
+    _that.setData({
+      tipPOp: true,
+    })
+    if (btnInfo) {
+      _that.setData({
+        btnInfo: btnInfo
+      })
+    }
+    if(tip) {
+      _that.setData({
+        tip: tip
+      })
+    }
+    setTimeout(() => {
+      _that.setData({
+        tipPOp: false
+      })
+    }, 1000)
+  },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let _that = this;
     return {
       title: '自定义转发标题',
-      path: '/page/user?id=123',
-      success: function () {
-
+      path: '/page/index/index',
+      success:function(){
+        if (_that.data.btnInfo == '分享明信片') {
+          _that.sendPost('分享成功')
+        }
       }
     }
   }
