@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "avatar": "../../components/avatar/avatar"
+    "avatar": "../../components/avatar/avatar",
+    "cmap": "../../components/cmap/cmap"
   },
   "navigationBarTitleText": "旅行足迹"
 }

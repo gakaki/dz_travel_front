@@ -7,6 +7,8 @@ Page({
    */
   data: {
     mySelf:true,
+    mapConWd: 750,
+    mapConHt: 970,
   },
 
   /**
@@ -15,7 +17,7 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
-    
+    console.log(userInfo)
   },
   /**
    * 用户点击右上角分享
