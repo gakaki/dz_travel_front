@@ -174,6 +174,11 @@ Page({
       })
     }, 1000)
   },
+  hideTipPop(){
+    this.setData({
+      tipPOp: false
+    })
+  },
 
   /**
    * 用户点击右上角分享

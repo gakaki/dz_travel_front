@@ -133,6 +133,7 @@
   left: 0;
 }
 .btn-big-blue {
+  margin: 0 auto;
   color: #fff;
   width: 446rpx;
   height: 127rpx;
@@ -155,6 +156,12 @@
 } 
 .color_gray_more {
   color: #959595;
+}
+.tocenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 .mask{
   position: fixed;

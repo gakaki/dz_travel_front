@@ -7,3 +7,9 @@
 .des-spec {
   color: #278cff;
 } 
+.btn-wrap {
+  position: relative;
+}
+.btn {
+  opacity: 0;
+}

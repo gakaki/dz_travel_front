@@ -25,6 +25,9 @@
         <view class='timeLine'></view> 
       </view> 
     </view> 
-    <!-- <view class='timeLine' style='height:{{(init.length*138-69)*2}}rpx'></view> -->
   </scroll-view> 
+  <view class='btn-wrap'>
+    <view class='btn-big-blue' bindtap='toCity'>城市攻略</view>
+  </view>
+  
 </view>

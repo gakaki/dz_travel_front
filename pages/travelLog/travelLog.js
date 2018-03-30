@@ -73,6 +73,11 @@ Page({
     //   init: data
     // })
   },
+  toCity(){
+    wx.navigateTo({
+      url: '../cityRaiders/cityRaiders',
+    })
+  },
   /**
    * 用户点击右上角分享
    */

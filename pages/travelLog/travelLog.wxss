@@ -15,7 +15,7 @@
 .reach-city {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 1076rpx;
 }
 .year {
   height: 55rpx;
@@ -78,4 +78,10 @@
   height: 14rpx;
   background: #278cff;
   border-radius: 50%;
+}
+.btn-wrap {
+  box-sizing: border-box;
+  padding-top: 20rpx;
+  height: 130rpx;
+  overflow: hidden;
 }

@@ -1,29 +1,32 @@
-<!--pages/self/self.wxml-->
+<!--pages/other/other.wxml-->
 <view class='self'>
   <view class='header'>
-      <!-- <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}'></avatar> -->
-      <avatar src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}' showGoldAndIntegral='{{mySelf}}' hasIntegral='{{true}}' hasGoldIcon='{{true}}'></avatar>
-
-      <view class='des'>
+      <avatar src='{{init.avatarUrl}}' nickname='{{init.nickName}}' showGoldAndIntegral='{{false}}'></avatar>
+       <view class='des'>
         <view class='des-content'> 
-          他的足迹已经遍布<text class='des-spec'>{{userInfo.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{userInfo.overmatch*100}}%</text>的驴友
-        </view>  
+          他的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{init.overmatch}}%</text>的驴友
+        </view>
       </view> 
   </view>
+
   <view class='main f-r-sa'>
-    <navigator url='{{item.url}}' wx:for='{{mianTitle}}' wx:key='{{index}}' class='main-wrap f-c' style='border-right:{{index == mianTitle.length-1?"none":"2rpx solid #e5e5e5"}}'>
-      <image class='main-icon' src='{{item.icon}}'></image>
-      <text class='main-content'>{{item.title}}</text> 
-    </navigator >
+    <view class='main-wrap f-c' bindtap='toOtherPage' data-id='1'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>旅行足迹</text> 
+    </view>
+    <view class='main-wrap f-c' bindtap='toOtherPage' data-id='2'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>他的明信片</text> 
+    </view>
+    <view class='main-wrap one-last f-c'  bindtap='toOtherPage' data-id='3'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>旅行日志</text> 
+    </view>
   </view>
   <scroll-view scroll-y class='list-wrap'>
     <view class='one-list f-r-sb'>
       <text>累计获得城市积分</text>
       <text>{{init.otherUserInfo.totalIntegral}}</text>
-    </view>
-    <view class='one-list f-r-sb'>
-      <text>里程数</text>
-      <text>{{init.otherUserInfo.mileage}}</text>
     </view>
     <view class='one-list f-r-sb'>
       <text>收集明信片数量</text>
