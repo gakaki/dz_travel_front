@@ -35,17 +35,17 @@ Page({
     let v = e.currentTarget.dataset.id;
     if(v == 1) {
       wx.navigateTo({
-        url: '../footprint/footprint?' + userInfo.uid,
+        url: '../footprint/footprint?' + this.data.userInfo.uid,
       })
     }
     else if (v == 2) {
       wx.navigateTo({
-        url: '../postcard/postcard?' + userInfo.uid,
+        url: '../postcard/postcard?' + this.data.userInfo.uid,
       })
     }
     else {
       wx.navigateTo({
-        url: '../travelLog/travelLog?' + userInfo.uid,
+        url: '../travelLog/travelLog?' + this.data.userInfo.uid,
       })
     }
    },

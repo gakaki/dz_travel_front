@@ -13,10 +13,18 @@
   </view>
 
   <view class='main f-r-sa'>
-    <navigator url='{{item.url}}' wx:for='{{mianTitle}}' wx:key='{{index}}' class='main-wrap f-c' style='border-right:{{index == mianTitle.length-1?"none":"2rpx solid #e5e5e5"}}'>
-      <image class='main-icon' src='{{item.icon}}'></image>
-      <text class='main-content'>{{item.title}}</text> 
-    </navigator >
+    <view class='main-wrap f-c' bindtap='toOtherPage' data-id='1'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>旅行足迹</text> 
+    </view>
+    <view class='main-wrap f-c' bindtap='toOtherPage' data-id='2'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>我的明信片</text> 
+    </view>
+    <view class='main-wrap one-last f-c'  bindtap='toOtherPage' data-id='3'>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <text class='main-content'>旅行日志</text> 
+    </view>
   </view>
   <scroll-view scroll-y class='list-wrap'>
     <view class='one-list f-r-sb'>
