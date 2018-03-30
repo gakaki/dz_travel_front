@@ -163,7 +163,7 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
-      id: 5,
+      id: '5',
       title: '达人排行榜规则'
     })
     this.getRankInfo();
@@ -176,7 +176,7 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
-      id: 4,
+      id: '4',
       title: '足迹排行榜规则'
     })
     this.getRankInfo();
@@ -189,7 +189,7 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
-      id: 3,
+      id: '3',
       title: '积分排行榜规则'
     })
     this.getRankInfo();

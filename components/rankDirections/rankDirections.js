@@ -6,17 +6,17 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    id:{
+    helpId:{
       type: Number,
-      value: 5
+      value: 5,
     },
     resHeight:{
       type: Number,
-      value: 694
+      value: 694,
     },
     title:{
       type: String,
-      value: '达人排行榜规则'
+      value: '达人排行榜规则',
     }
   },
 
@@ -28,7 +28,7 @@ Component({
   },
 
   attached() {
-    let help = sheet.Help.Get(this.properties.id).help.split("\\n")
+    let help = sheet.Help.Get(this.properties.helpId).help.split("\\n")
     this.setData({
       con: help
     })
