@@ -2,6 +2,7 @@
   "usingComponents": {
     "play": "../../../components/play/play",
     "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
-    "walk":"/components/walk/walk"
+    "walk":"/components/walk/walk",
+    "directions": "/components/rankDirections/rankDirections"
   }
 }

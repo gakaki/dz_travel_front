@@ -70,7 +70,32 @@
       起飞旅行
     </view>
   </view>
+  <view class="free-ticket bs">
+    <view class="free-title">
+      <text>您有系统赠送机票可使用</text>
+    </view>
+    <scroll-view class="all-ticket" scroll-y>
+      <view class="choose-ticket f-r-sb">
+        <view class="choose-address">
+          <view class="choose-grey">
+            <view class="choose-red"></view>
+          </view>
+          <text class="choose-province">飞往黑龙江</text>
+          <text class="choose-city">哈尔滨</text>
+        </view>
+        <text class="ticket-species">双人机票</text>
+      </view>
+    </scroll-view>
+    <view class="button-ticket f-r-sb">
+      <view class='buy-ticket'>
+        <text>购买机票</text>
+      </view>
+      <view class="use-ticket">
+        <text>使用机票</text>
+      </view>
+    </view>
+  </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<sign theDay='{{theDay}}' hasSign='{{hasSign}}' ></sign>
+<!-- <sign theDay='{{theDay}}' hasSign='{{hasSign}}' ></sign> -->
 

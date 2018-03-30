@@ -1,31 +1,25 @@
 <view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
 
 
-<walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
-<!-- </view>
+  <walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
+  <!-- </view>
 <view class="con bg" catchtap=""> -->
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
   <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
-  <image 
-  wx:key="{{index}}" 
-  wx:for="{{locations}}"
-  class="sightimage" 
-  data-point="{{item}}" 
-  catchtap="drawPoint" 
-  style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" 
-  src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
+  <image wx:key="{{index}}" wx:for="{{locations}}" class="sightimage" data-point="{{item}}" catchtap="drawPoint" style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
   </image>
   <!-- 点和线 -->
 
   <!-- 屏幕边缘提示 -->
   <!-- 距离 -->
   <view class="distance">
-    <text class="fontWhite font">999</text><text class="fontWhite font">km</text>
+    <text class="fontWhite font">999</text>
+    <text class="fontWhite font">km</text>
   </view>
   <!-- 天气 -->
   <view class="weather"></view>
   <!-- 提示 -->
-  <view class="tip"></view>
+  <view class="tip" bindtap='showHelp'></view>
 
   <!-- 屏幕边缘按钮 -->
   <view class="mission f-c-fs">
@@ -65,22 +59,9 @@
       <view class="next-evt font">下一事件</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isShowIntro}}" catchtap="hideIntro">
-    <view class="play-pop play-desc f-c-fs" catchtap="notDo">
-      <text id="title">玩法介绍</text>
-      <text class="rule fs">本地游玩规则：</text>
-      <text class="rule-con rule1">自出发点出发，以点击景点的方式选择游玩景点。确定路线后点击“开始游玩”系统将自动行走，并触发随机事件，随机事件需手动点击查看。离线时随机事件最多保留10条。
-      </text>
-      <text class="rule-con rule2">游玩期间花费100金币可修改未走过的路线，已规划路线走完添加新路线时不花费金币。</text>
-      <text class="rule-con rule3">用户结束此城市旅游时，系统根据用户游玩时选取景点的规划路线（超过6个景点时仅计算前6个景点）与最短路线相比较进行评分，根据评分给予金币奖励。再次旅游此城市时可重新评分给予奖励。
-      </text>
-      <text class="rule-con rule4">所有景点全部走完后，可重复前往到达过的景点，重复前往的路线不计入路线评分中。</text>
-      <text class="rule-con rule5">根据用户游玩的景点、触发的事件和得到明信片的数量，会有不同的积分奖励。</text>
-      <text class="rule-con rule6">积分用于兑换物品。</text>
-      <text class="rule-con rule7">双人旅行时，每人至少选择3个景点共同前往，不可同时规划路线。每人各观光景点2次，每人各拍照2次为完成点亮任务。</text>
-      <view class="btn-big-blue cfm-btn" catchtap="hideIntro">确 定</view>
-    </view>
-  </view>
+
+  <directions bind:confirm="_hide" resHeight="{{ht}}" wx:if="{{isShowIntro}}" helpId="{{descId}}" title="游玩规则"></directions>
+
   <view class="pop-bg" wx:if="{{isFirstIn}}" catchtap="hideFirstIn">
     <view class="play-pop play-first-in f-c-fs" catchtap="notDo">
       <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
@@ -127,11 +108,11 @@
       <text class="post-name">获得索菲亚教堂明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
       <text class="post-desc">获得一张不同的明信片可增加100积分</text>
-      <view class="btn-icon btn-big-blue" catchtap='hidePost'>确  定</view>
+      <view class="btn-icon btn-big-blue" catchtap='hidePost'>确 定</view>
     </view>
   </view>
   <!-- 问答 组件 -->
 
-   <!-- <dialogQuestion></dialogQuestion>  -->
+  <!-- <dialogQuestion></dialogQuestion>  -->
 
 </view>
