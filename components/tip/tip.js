@@ -4,10 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-str: {
-  type: String,
-  value: '发送成功'
-}
+    str: {
+      type: String,
+      value: '发送成功'
+    }
   },
 
   /**

@@ -204,7 +204,6 @@
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 28rpx;
-
   margin-top: 20rpx;
   line-height: 88rpx;
 }

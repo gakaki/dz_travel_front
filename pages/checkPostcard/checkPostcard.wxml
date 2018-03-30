@@ -11,7 +11,7 @@
               <view class="cir" wx:for='{{6}}' wx:key='{{index}}'></view>
             </view>
             <view class="date-nn">
-              <text class="date" wx:if='{{lastestMessage.time}}'>3月21日</text>
+              <text class="date" wx:if='{{lastestMessage.time}}'>{{time}}</text>
               <text class="nn">{{nickName}}</text>
             </view>
           </view>
@@ -38,8 +38,9 @@
 
     </view>
     <view class="btn-big-blue btn">{{btnInfo}}
-       <button formType="submit" class="subBtn">Submit</button> 
+       <button formType="submit" wx:if='{{message}}' open-type='share' class="subBtn">Submit</button> 
+       <button formType="submit" wx:else='' class="subBtn">Submit</button>   
     </view>
    </form> 
-  <tip wx:if="{{tipPOp}}" bind:hidetip="hideTipPop"></tip>
+  <tip wx:if="{{tipPOp}}" bind:hidetip="hideTipPop" str='{{tip}}'></tip>
 </view>

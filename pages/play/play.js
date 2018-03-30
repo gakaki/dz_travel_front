@@ -11,7 +11,7 @@ Page({
     gender: 1,
     test: true,
     walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 5000},
-    walkInfoArr: [{ idx: 0, x: 0, y: 0, time: 5000 }, { idx: 1, x: 300, y: 300, time: 8000 }, { idx: 2, x: 354, y: 765, time: 12000 }],
+    walkInfoArr: [{ idx: 0, x: 0, y: 0, time: 5000 }, { idx: 1, x: 300, y: 300, time: 8000 }, { idx: 2, x: 354, y: 765, time: 12000 }, { idx: 3, x: 600, y: 900, time: 18000 }],
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
