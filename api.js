@@ -1475,7 +1475,7 @@ class CityListPer extends Base {
         this.reqFields = [];
         this.resFields = ["data"];
     }
-    //server output, type: Provence[]
+    //server output, type: ProvencePer[]
     get data() {return this._data}
     set data(v) {this._data = v}
 }
