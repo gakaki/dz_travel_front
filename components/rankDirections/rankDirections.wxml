@@ -1,2 +1,16 @@
 <!--components/rankDirections/rankDirections.wxml-->
-<text>components/rankDirections/rankDirections.wxml</text>
+<view class="wrap bs">
+  <view class="title flex">
+    <text>积分排行榜规则</text>
+  </view>
+  <view class="content" wx:for="{{con}}" wx:key="{{index}}">
+    <view class="number">{{index+1}}.</view> 
+    <view class="direction">
+      <text>{{item}}</text>
+    </view>
+  </view>
+  <view class="btn" bindtap='confirm'>
+    确定
+  </view>
+</view>
+<view class="mask"></view>
