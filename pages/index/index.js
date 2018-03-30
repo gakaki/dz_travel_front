@@ -1,9 +1,10 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
+import { SignInfo,Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
-const app = getApp()
+const app = getApp();
+let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
   /**
@@ -14,7 +15,6 @@ Page({
     mapConHt: 730,
     lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
     lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -27,14 +27,16 @@ Page({
     nickName:'',
     avatar:'',
     date:'',
+    hasSign:1,
+    location:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    enterOnload = true;
     start(ok=> {
-      console.log(ok)
       ok && this.gotUserInfo();
     })
     // var stage = new createjs.Stage('myCanvas');
@@ -73,20 +75,21 @@ Page({
     // }
 
   },
-
+  toPlay() {
+    //需要判断是否在游玩
+    wx.navigateTo({
+      url: '../play/play'
+      // url: '../cityRaiders/cityRaiders'
+    })
+  },
   gotUserInfo() {
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
       console.log(userInfo,'userInfo',ymd('cn'))
-    
-      //请求主页数据
-      let req = new IndexInfo();
-      req.fetch().then(req => {
-        console.log(req,'首页数据')
-        let season = Season[req.season]
-        let weather = sheet.Weather.Get(req.weather).icon
-        console.log(weather)
+      let m = new SignInfo()
+      m.fetch().then(res => {
+        console.log(res, '签到数据')
         this.setData({
           isFirst: req.isFirst,
           season,
@@ -96,19 +99,12 @@ Page({
           nickName:userInfo.nickName,
           avatar:userInfo.avatarUrl,
           date: ymd('cn'),
+          theDay: res.theDay,
+          hasSign: res.hasSign
         })
       })
 
-      //websocket请求消息信息
-      // let message = new HasMessage()
-      // Ws.send(message)
-
-      // Ws.listen(MessageNum,req=>{
-      //   console.log(req,'消息条数')
-      //   this.setData({
-      //     messages: req.number
-      //   })
-      // })      
+      this.getIndexInfo(userInfo) 
     }
     else {
       console.log('用户拒绝授权个人信息！！')
@@ -126,32 +122,49 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // if (app.globalData.userInfo){
-    //   Ws.listen(MessageNum, req => {
-    //     console.log(req, '消息条数')
-    //     this.setData({
-    //       messages:req.number
-    //     })
-    //   })
-    // }
-    
+    //因为当用户切换tabbar上的页面和返回到此页面时不会进入onload，故需在此处进行api调用已更新数据
+    if(!enterOnload){
+      console.log('没有进入onload')
+      this.getIndexInfo(app.globalData.userInfo)
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    //取消监听ws
-    console.log('hide')
-    // Ws.unlisten(MessageNum)
+    enterOnload = false
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    //取消监听ws
-    // Ws.unlisten(MessageNum)
+    enterOnload = false
+  },
+
+  getIndexInfo(userInfo) {
+    //请求主页数据
+    let req = new IndexInfo();
+    req.fetch().then(req => {
+      console.log(req, '首页数据')
+      let season = Season[req.season]
+      let weather = sheet.Weather.Get(req.weather).icon
+      app.globalData.season = season
+      app.globalData.weather = weather
+      app.globalData.gold = req.gold
+      this.setData({
+        isFirst: req.isFirst,
+        season,
+        weather,
+        gold: req.gold,
+        playerCnt: req.playerCnt,
+        nickName: userInfo.nickName,
+        avatar: userInfo.avatarUrl,
+        location: req.location,
+        date: ymd('cn')
+      })
+    }) 
   },
 
   /**
@@ -167,7 +180,7 @@ Page({
       }
       else{
         wx.navigateTo({
-          url: '../city/city',
+          url: '../city/city?location=' + this.data.location,
         })
       }
     })

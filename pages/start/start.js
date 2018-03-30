@@ -1,5 +1,5 @@
 // pages/start/start.js
-import { FlyInfo, StartGame, TicketType, Season } from '../../api.js';
+import { FlyInfo, StartGame, TicketType, Season, Code } from '../../api.js';
 import { ymd } from '../../utils/rest.js';
 const app = getApp()
 const sheet = require('../../sheets.js');
@@ -54,16 +54,19 @@ Page({
     
     allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
     //---------------------------------
-    console.log(options)
 
+
+    console.log(options,'起飞界面options')
+    
+    //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
 
     //获取页面信息
     let info = new FlyInfo();
     info.type = options.type
     info.fetch().then((req)=>{
-      //以下数据不进行渲染
-      ticketType = req.type;
+      //以下数据不进行渲染（仅在调api时发送）
+      ticketType = options.type;
       //不是随机机票就从options中获取cid
       if(req.cid){
         cid = req.cid;
@@ -72,8 +75,7 @@ Page({
         cid = options.cid
       }
       
-
-      console.log(req,'info')
+      console.log(req,'起飞界面数据')
       let flyInfo = {};
       flyInfo.cost = req.cost;
       flyInfo.doubleCost = req.doubleCost;
@@ -89,8 +91,16 @@ Page({
         avatarSrc: userInfo.avatarUrl
       })
     })
+
     //是否是随机机票
     if(options && options.random){
+      //随机机票把全部城市取出来进行随机操作
+      let city = sheet.finds.map(o => {
+        return new sheet.Find(o).city;
+      })
+      city.forEach((item) => {
+        allCity.push.apply(allCity, item);
+      })
       this.setData({
         isRandom: true,
         routePoint: [150,300]
@@ -144,8 +154,37 @@ Page({
   },
 
   startTour() {
-    if(this.data.isRandom){
-      if(allCity.length){
+    console.log(cid, this.data.flyInfo.cost)
+    let start = new StartGame();
+    start.type = ticketType;
+    start.cid = cid;
+    start.cost = this.data.flyInfo.cost;
+    if (this.data.isDouble) {
+      start.partnerUid = 1
+    }
+    start.fetch().then((req) => {
+      this.readyFly()
+    }).catch((req) => {
+      switch(req){
+        case Code.NEED_ITEMS:
+          this.tip('金币或道具不足');
+          break;
+        case Code.USER_NOT_FOUND:
+          this.tip('获取用户信息失败');
+          break;
+        case Code.PARAMETER_NOT_MATCH:
+          this.tip('非法传参，请检查参数');
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    })
+    
+  },
+
+  readyFly() {
+    if (this.data.isRandom) {
+      if (allCity.length) {
         let i = 0;
         time = setInterval(() => {
           i++
@@ -170,30 +209,27 @@ Page({
           }
         }, 100)
       }
-      else{
-        wx.showToast({
-          title:'没有城市列表',
-          icon:'none'
-        })
+      else {
+        this.tip('没有城市列表')
       }
     }
-    else{
-      if(this.data.isDouble){
+    else {
+      if (this.data.isDouble) {
         this.setData({
           moveX: this.data.routeWid - 38,
           partnerMove: this.data.partnerWid - 38
         })
       }
-      else{
+      else {
         this.setData({
           moveX: this.data.routeWid - 38
         })
       }
-      timer = setTimeout(()=>{
+      timer = setTimeout(() => {
         this.setData({
           isArrive: true
         })
-      },2500)
+      }, 2500)
     }
   },
 
@@ -222,23 +258,18 @@ Page({
     
   },
 
+  tip(tip) {
+    wx.showToast({
+      title: tip,
+      icon: 'none'
+    })
+  },
+
   //带下划线的为监听组件内的事件
   _confirm() {
-    console.log(cid, this.data.flyInfo.cost)
-    let start = new StartGame();
-    start.type = ticketType;
-    start.cid = cid;
-    start.cost = this.data.flyInfo.cost;
-    if (this.data.isDouble){
-      console.log(111111111)
-      start.partnerUid = 1
-    }
-    start.fetch().then((req) => {
-      wx.navigateTo({
-        url: '../play/play',
-      })
+    wx.redirectTo({
+      url: '../play/play',
     })
-    
   },
 
   /**

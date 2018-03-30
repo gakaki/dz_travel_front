@@ -1,6 +1,6 @@
 // pages/travelLog/travelLog.js
 import { formatTime } from '../../utils/util.js'
-import { TravelLog, Base } from '../../api.js';
+import { TravelLog } from '../../api.js';
 
 let data = [{
   city: '南京',
@@ -59,7 +59,10 @@ Page({
   onReady(){
     let req = new TravelLog();
     req.fetch().then(req => {
-     console.log(88888888,req)
+      console.log(88888888, req.allLogs)
+      this.setData({
+        init: req.allLogs
+      })
      
     })
 

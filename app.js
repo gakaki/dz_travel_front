@@ -11,6 +11,7 @@ App({
     wx.login({
       success: res => {
         console.log(res)
+        
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
@@ -42,6 +43,9 @@ App({
     alert('hide');
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    season: '',
+    weather: '',
+    gold: null
   }
 })

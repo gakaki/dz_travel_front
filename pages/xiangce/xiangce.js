@@ -1,4 +1,6 @@
 // pages/xiangce/xiangce.js
+import { CityPostcards } from '../../api.js';
+let province = '';
 let data = [{
   city:'哈尔滨',
   collectPostcardNum:10,
@@ -64,23 +66,31 @@ Page({
     wx.setNavigationBarTitle({
       title: options.province
     })
-    this.setData({
-      init:data
-    })
+    if (options && options.province) {
+      province = options.province;
+    } else {
+      console.log('忘记传省份给我拉')
+    }
+    this.getPostcardInfo(0, province)
+    
+    
   },
-  toMsgPost() {
-wx.navigateTo({
-  url: '../checkPostcard/checkPostcard',
-})
+  toMsgPost(e) {
+    let v = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../checkPostcard/checkPostcard?id=' + v.id + '&postid=' + v.postid,
+    })
   },
   chgTab(e) {
     let v = e.currentTarget.dataset.id;
     if(v) {
+      this.getPostcardInfo(1, province)
       this.setData({
         viewpoint: false,
         specialty: true
       })
     } else {
+      this.getPostcardInfo(0, province)
       this.setData({
         viewpoint: true,
         specialty: false
@@ -88,48 +98,26 @@ wx.navigateTo({
     }
     
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  getPostcardInfo(lm, province){
+    let m = new CityPostcards();
+    m.LM = lm;
+    m.province = province;
+    m.fetch().then(res => {
+      console.log(res)
+      console.log((res.postcardInfo[0].postcardsDetail[0].lastestLiveMessage.time).toLocaleString())
+      if(lm == 0) {
+        this.setData({
+          allInit: res.postcardInfo
+        })
+      } else {
+        this.setData({
+          LMInit: res.postcardInfo
+        })
+      }
+      
+    })
+    
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
   /**
    * 用户点击右上角分享
    */

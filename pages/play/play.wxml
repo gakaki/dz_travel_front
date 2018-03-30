@@ -1,8 +1,20 @@
 <view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
+
+
+<walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
+<!-- </view>
+<view class="con bg" catchtap=""> -->
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
   <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
-</view>
-<view class="con bg" catchtap="drawPoint">
+  <image 
+  wx:key="{{index}}" 
+  wx:for="{{locations}}"
+  class="sightimage" 
+  data-point="{{item}}" 
+  catchtap="drawPoint" 
+  style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" 
+  src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
+  </image>
   <!-- 点和线 -->
 
   <!-- 屏幕边缘提示 -->
@@ -37,7 +49,7 @@
     <!-- 三个按钮 -->
     <view class="btnBox f-r-sa">
       <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
-      <view class="travelStart font fontWhite  font32">开始游玩</view>
+      <view class="travelStart font fontWhite  font32" catchtap='toGoSight'>开始游玩</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
     </view>
     <!-- 虚拟地图警告 -->
@@ -120,6 +132,6 @@
   </view>
   <!-- 问答 组件 -->
 
-  <!-- <dialogQuestion></dialogQuestion> -->
+   <!-- <dialogQuestion></dialogQuestion>  -->
 
 </view>

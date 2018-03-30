@@ -33,7 +33,5 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon font">确定</view>
   </view> 
-
-   <!-- <image  style="top:{{walkInfo.y}}rpx;left:{{walkInfo.x}}rpx" bindtap='testZuobiao' animation="{{animationData}}"   src="https://gengxin.odao.com/update/h5/travel/play/man.png" class="walk-icon"></image>    -->
-    <!-- <walk wx:for="{{walkArr}}" walkInfo="{{item}}"></walk>    -->
+     <!-- <walk wx:for="{{walkArr}}" sex="{{gender}}" walkInfo="{{item}}"></walk>     -->
 </view>

@@ -1,7 +1,5 @@
 <view class="con">
   <form bindsubmit="formSubmit">
-
-
     <view class="pic-box pb bs">
       <image src="" class="pic"></image>
     </view>
@@ -10,15 +8,11 @@
         <view class="pc-top f-r-sb">
           <view class="f-c-sb">
             <view class="circle f-r-sb fs">
-              <view class="cir"></view>
-              <view class="cir"></view>
-              <view class="cir"></view>
-              <view class="cir"></view>
-              <view class="cir"></view>
+              <view class="cir" wx:for='{{6}}' wx:key='{{index}}'></view>
             </view>
             <view class="f-r-fs date-nn">
-              <text class="date">3月21日</text>
-              <text class="nn">{{nn}}</text>
+              <text class="date" wx:if='{{message.time}}'>3月21日</text>
+              <text class="nn">{{message.userInfo.nickName}}</text>
             </view>
           </view>
           <image src="" class="icon fs"></image>
@@ -29,10 +23,9 @@
           <textarea name='ta1' disabled='{{!secTa}}' maxlength='54' bindinput="bindInput" class="ta" placeholder='在此处写信后分享明信片至好友'></textarea>
           <textarea name='ta2' bindinput="bindInputSec" maxlength='54' disabled='{{secTa}}' maxlength='54' class="ta"></textarea>
         </view>
-        <text class="pre">上一页</text>
-        <text class="next">下一页</text>
+        <text class="pre" wx:if='{{message.hasUp}}'>上一页</text>
+        <text class="next"  wx:if='{{message.hasNext}}'>下一页</text>
       </view>
-
     </view>
     <view class="btn-big-blue btn">分享明信片
       <button formType="submit" class="subBtn">Submit</button>
