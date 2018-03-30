@@ -25,6 +25,10 @@
   margin-right: 20rpx;
 }
 
+.person-info{
+  align-items: flex-start;
+}
+
 .name text {
   font-size: 36rpx;
 }
