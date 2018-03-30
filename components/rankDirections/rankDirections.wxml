@@ -3,6 +3,7 @@
   <view class="title flex">
     <text>{{title}}</text>
   </view>
+  
   <view class="content" wx:for="{{con}}" wx:key="{{index}}">
     <view class="number">{{index+1}}.</view> 
     <view class="direction">

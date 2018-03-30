@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    descId: 2,
+    ht: 980,
     gender: 1,
     test: true,
     walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 5000},
@@ -16,7 +18,7 @@ Page({
     canPhoto: false,
     isCongratulations: false,
     isMissionOpen: false,
-    isShowIntro: false,
+    isShowIntro: true,
     scrollWidth: '100vw',
     scrollHeight: '100vh',
     zoom: 1,
@@ -52,7 +54,11 @@ Page({
       title: '成都游玩'
     })
   },
- 
+  _hide() {
+this.setData({
+  isShowIntro: false
+})
+  },
   onShow: function () {
   // setTimeout(()=>{
   //   this.setData({

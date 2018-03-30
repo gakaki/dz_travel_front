@@ -1,26 +1,20 @@
 <view style="width:{{scrollWidth}};height:{{scrollHeight}}" scroll-x scroll-y class="con bgscroll">
 
 
-<walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
-<!-- </view>
+  <walk wx:if="{{test}}" sex="{{gender}}" walkInfoArr="{{walkInfoArr}}"></walk>
+  <!-- </view>
 <view class="con bg" catchtap=""> -->
   <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
   <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view>
-  <image 
-  wx:key="{{index}}" 
-  wx:for="{{locations}}"
-  class="sightimage" 
-  data-point="{{item}}" 
-  catchtap="drawPoint" 
-  style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" 
-  src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
+  <image wx:key="{{index}}" wx:for="{{locations}}" class="sightimage" data-point="{{item}}" catchtap="drawPoint" style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}">
   </image>
   <!-- 点和线 -->
 
   <!-- 屏幕边缘提示 -->
   <!-- 距离 -->
   <view class="distance">
-    <text class="fontWhite font">999</text><text class="fontWhite font">km</text>
+    <text class="fontWhite font">999</text>
+    <text class="fontWhite font">km</text>
   </view>
   <!-- 天气 -->
   <view class="weather"></view>
@@ -65,7 +59,10 @@
       <view class="next-evt font">下一事件</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isShowIntro}}" catchtap="hideIntro">
+
+  <directions bind:confirm="_hide" resHeight="{{ht}}" wx:if="{{isShowIntro}}" id="{{descId}}" title="游玩规则"></directions>
+
+  <view class="pop-bg" wx:if="{{false}}" catchtap="hideIntro">
     <view class="play-pop play-desc f-c-fs" catchtap="notDo">
       <text id="title">玩法介绍</text>
       <text class="rule fs">本地游玩规则：</text>
@@ -127,11 +124,11 @@
       <text class="post-name">获得索菲亚教堂明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
       <text class="post-desc">获得一张不同的明信片可增加100积分</text>
-      <view class="btn-icon btn-big-blue" catchtap='hidePost'>确  定</view>
+      <view class="btn-icon btn-big-blue" catchtap='hidePost'>确 定</view>
     </view>
   </view>
   <!-- 问答 组件 -->
 
-   <!-- <dialogQuestion></dialogQuestion>  -->
+  <!-- <dialogQuestion></dialogQuestion>  -->
 
 </view>
