@@ -9,8 +9,7 @@ Page({
     gender: 1,
     test: true,
     walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 5000},
-    // walkInfoArr: [{ idx: 0, x: 0, y: 0, tX: 100, tY: 100, time: 5000 }, { idx: 1, x: 300, y: 300, tX: 600, tY: 600, time: 6000 }, { idx: 2, x: 354, y: 765, tX: 450, tY: 587, time: 7000 }],
-    walkInfoArr: [{ idx: 0, x: 0, y: 0, time: 5000 }, { idx: 1, x: 300, y: 300, time: 6000 }, { idx: 2, x: 354, y: 765, time: 7000 }],
+    walkInfoArr: [{ idx: 0, x: 0, y: 0, time: 5000 }, { idx: 1, x: 300, y: 300, time: 8000 }, { idx: 2, x: 354, y: 765, time: 12000 }],
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
@@ -55,11 +54,11 @@ Page({
   },
  
   onShow: function () {
-  setTimeout(()=>{
-    this.setData({
-     test: true
-    })
-  },5000)
+  // setTimeout(()=>{
+  //   this.setData({
+  //    test: true
+  //   })
+  // },2000)
   },
   toGoSight() {
 wx.navigateTo({

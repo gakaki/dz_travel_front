@@ -91,14 +91,6 @@ Page({
       m.fetch().then(res => {
         console.log(res, '签到数据')
         this.setData({
-          isFirst: req.isFirst,
-          season,
-          weather,
-          gold:req.gold,
-          playerCnt: req.playerCnt,
-          nickName:userInfo.nickName,
-          avatar:userInfo.avatarUrl,
-          date: ymd('cn'),
           theDay: res.theDay,
           hasSign: res.hasSign
         })
@@ -176,7 +168,9 @@ Page({
     req.fetch().then(()=>{
       console.log(req.ticket,'机票')
       if(req.ticket.length){
-        
+        wx.navigateTo({
+          url: '../city/city?location=' + this.data.location,
+        })
       }
       else{
         wx.navigateTo({
