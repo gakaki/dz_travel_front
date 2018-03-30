@@ -104,7 +104,6 @@ Page({
     m.province = province;
     m.fetch().then(res => {
       console.log(res)
-      console.log((res.postcardInfo[0].postcardsDetail[0].lastestLiveMessage.time).toLocaleString())
       if(lm == 0) {
         this.setData({
           allInit: res.postcardInfo

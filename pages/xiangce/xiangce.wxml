@@ -13,12 +13,13 @@
         <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{img.id}}"></image>
       </view>      
     </view>
+
     <view class="xc-pro" wx:if='{{specialty}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
       <view class="pro-top f-r-sb">
         <text class="pro">{{item.city}}</text>
         <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
-      <view wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
+      <view wx:for='{{item.postcardsDetail}}' wx:if='{{img.id}}'  wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
         <view class="img-box-flex">
           <image class="img-sm" src="{{img.url}}"></image>
           <view class="content">

@@ -18,7 +18,7 @@ Page({
     canPhoto: false,
     isCongratulations: false,
     isMissionOpen: false,
-    isShowIntro: true,
+    isShowIntro: false,
     scrollWidth: '100vw',
     scrollHeight: '100vh',
     zoom: 1,
@@ -52,6 +52,11 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '成都游玩'
+    })
+  },
+  showHelp() {
+    this.setData({
+      isShowIntro: true
     })
   },
   _hide() {
@@ -282,16 +287,6 @@ wx.navigateTo({
   hideisPop() {
     this.setData({
       isPop: false
-    })
-  },
-  showIntro() {
-    this.setData({
-      isShowIntro: true
-    })
-  },
-  hideIntro() {
-    this.setData({
-      isShowIntro: false
     })
   },
   hideMissionOpen() {
