@@ -1,2 +1,12 @@
 /* components/cmap/cmap.wxss */
-
+.air-line {
+  width: 4rpx;
+  height: 4rpx;
+  background-color: red;
+  transform-origin: 0 50%;
+}
+.air-plane{
+  width: 54rpx;
+  height: 47rpx;
+  transform-origin: 50% 50%;
+}

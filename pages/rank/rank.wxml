@@ -13,6 +13,7 @@
     <view class="rank-item {{rankSubtype==1 ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
   </view>
   <view class="top-three f-r-sb" wx:if="{{rankSubtype==1}}">
+    <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>
       <image class="avatar" src="{{item.avatar}}" bindtap='toOther' data-uid="{{item.uid}}"></image>
@@ -74,4 +75,5 @@
     </view>
   </view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
+  <directions bind:confirm="_hide" wx:if="{{showHelp}}" helpId="{{id}}" title="{{title}}"></directions>
 </view>

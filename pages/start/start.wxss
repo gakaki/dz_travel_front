@@ -10,13 +10,9 @@
   margin-right: 20rpx;
 }
 
-.map{
-  width: 696rpx;
-  height: 575rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/index/map.png") 0 0 no-repeat;
-  background-size: cover;
-  margin: 11rpx auto 0;
+#map{
   position: relative;
+  left: 10px;
 }
 
 .mark{

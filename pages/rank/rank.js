@@ -20,7 +20,10 @@ Page({
     //好友排行榜
     rankingFriend: [],
     //自己的排名
-    selfRank:{rank:'未上榜',value:9999}
+    selfRank:{rank:'未上榜',value:9999},
+    showHelp:false,
+    title: '达人排行榜规则',
+    id:5,
   },
 
   /**
@@ -160,6 +163,8 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
+      id: '5',
+      title: '达人排行榜规则'
     })
     this.getRankInfo();
   },
@@ -171,6 +176,8 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
+      id: '4',
+      title: '足迹排行榜规则'
     })
     this.getRankInfo();
   },
@@ -182,6 +189,8 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
+      id: '3',
+      title: '积分排行榜规则'
     })
     this.getRankInfo();
   },
@@ -192,6 +201,18 @@ Page({
     let uid = e.currentTarget.dataset.uid
     wx.navigateTo({
       url: '../other/other?uid='+uid,
+    })
+  },
+
+  showHelp() {
+    this.setData({
+      showHelp: true
+    })
+  },
+
+  _hide() {
+    this.setData({
+      showHelp:false
     })
   },
 

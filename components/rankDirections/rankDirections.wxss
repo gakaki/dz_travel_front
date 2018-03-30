@@ -1,0 +1,62 @@
+@import '/app.wxss';
+
+.wrap{
+  width: 610rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 182rpx;
+  left: 50%;
+  transform: translate(-50%,0);
+  z-index: 20;
+  border-radius: 40rpx;
+  overflow: hidden;
+}
+
+.title{
+  width: 100%;
+  font: bold 36rpx 'Microsoft Yahei';
+  color: #000;
+  margin: 30rpx 0;
+}
+.nomb {
+  margin-bottom: 0
+}
+.content{
+  display: flex;
+  padding: 0 18rpx 0 29rpx;
+  margin-bottom: 15rpx;
+}
+
+.number , .direction{
+  font: bold 24rpx 'Microsoft Yahei';
+}
+
+.btn{
+  width: 406rpx;
+  height: 121rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/rank/btn-big.png') 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 50%;
+  bottom: 23rpx;
+  transform: translate(-50%,0);
+  font: bold 30rpx 'Microsoft Yahei';
+  color: #fff;
+  line-height: 95rpx;
+  text-align: center;
+  letter-spacing: 25rpx;
+  padding-left: 25rpx;
+}
+
+.mask{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+.rule {
+  font: bold 30rpx 'Microsoft YaHei';
+  letter-spacing: 2rpx;
+  margin-left: 29rpx
+}

@@ -342,3 +342,11 @@
   height: 36rpx;
   margin-right: 10rpx;
 }
+
+.help{
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 20rpx;
+}
