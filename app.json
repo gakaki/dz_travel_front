@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/play/play",
     "pages/start/start",
     "pages/index/index",
-    "pages/play/play",
+    
     "pages/cityRaiders/cityRaiders",
     "pages/goSight/goSight",
     "pages/recharge/recharge",
