@@ -8,11 +8,17 @@
      <element wx:for='{{citys}}' wx:key='{{index}}' class='{{item.light ? "light" : ""}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' status='{{item.light ? 1 : 0}}'></element>
 
+  
+    <!-- 航线 -->
+    <view wx:if='{{line1}}' class='air-line' style='position:absolute; left:{{line1.from.x * scale}}rpx; top:{{line1.from.y * scale}}rpx;transform: rotate({{line1.rotation}}deg); width:{{line1.dist * scale}}rpx;'></view>
+    <view wx:if='{{line2}}' class='air-line' style='position:absolute; left:{{line2.from.x * scale}}rpx; top:{{line2.from.y * scale}}rpx;transform: rotate({{line2.rotation}}deg); width:{{line2.dist * scale}}rpx;'></view>
+    <!-- 飞机 -->
+    <image wx:if='{{planeAn1}}' animation='{{planeAn1}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{line1.from.x * scale}}rpx; top:{{line1.from.y * scale}}rpx; "></image>
+    <image wx:if='{{planeAn2}}' animation='{{planeAn2}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{line2.from.x * scale}}rpx; top:{{line2.from.y * scale}}rpx; "></image>
+
     <element wx:for='{{players}}' isPlayer='{{true}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}'></element>
 
-    <element wx:for='{{planes}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
-      statusImgs='{{item.statusImgs}}' targetX='{{item.targetX}}' targetY='{{item.targetY}}' moveDuration='{{planeMoveDuration}}' moveToTarget='{{planeMoveToTarget}}'></element> 
 
   </view>
 </scroll-view>

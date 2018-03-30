@@ -1,5 +1,6 @@
 // components/cmap/cmap.js
 import { City, citys } from '../../sheets.js'
+import { Base, TraveledPlaces } from '../../api.js'
 
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
@@ -126,27 +127,24 @@ Component({
       type: Number,
       value: 0
     },
-    lightProvinces: {
-      //要点亮的省
-      type: Object,
-      value: []
-
+    uid: {
+      //该地图足迹的用户uid
+      type: String,
+      value: 0,
+      observer: 'updatePlayer'
     },
-    lightCitys: {
-      //要点亮的城市
-      type: Object,
-      value: [],
-      observer: 'updateLightArea'
-    },
+    
     players: {
       //要显示的用户
       type: Object,
       value: [{ name: '新疆', statusImgs: ['', 'xinjiang'], x: 220, y: 90, imgWd: 30, imgHt: 30, txtX: 150, txtY: 80 }]
     },
-    planes: {
-      //要显示的飞机
+    
+    airlines: {
+      //要显示的飞行路线
       type: Object,
-      value: []
+      value: [],
+      observer: 'updateAirline'
     }
   },
 
@@ -194,25 +192,78 @@ Component({
     tapEle(e) {
       console.log('tap element')
     },
-    updateLightArea() {
-      setTimeout(() => {
+    updatePlayer() {
+      let req = new TraveledPlaces();
+      req.playerUid = this.data.uid;
+
+      req.fetch().then(()=> {
         provinces.every(o => {
-          o.light = this.data.lightProvinces.indexOf(o.name) != -1;
+          o.light = req.provinces.indexOf(o.name) != -1;
           return true;
         });
-
         let citys = xyCitys.filter(c => {
-          c.light = this.data.lightCitys.indexOf(c.name) != -1;
-          
+          c.light = req.citys.indexOf(c.name) != -1;
+
           return c.light;
         })
 
         this.setData({ provinces, citys: citys });
-      }, 10);
-    }
+      })
+    },
+
+    updateAirline() {
+      let airlines = this.data.airlines;
+      if (!airlines) {
+        return;
+      }
+      let scale = this.data.scale;
+      let planeAnimations = [];
+      let lines = airlines.map(a => {
+        let o = {}
+        //外面传入的from和to是始/达 城市的配表id
+        let city = City.Get(a.from);
+        o.from = jwToxy(city.coordinate[0], city.coordinate[1]);
+
+        city = City.Get(a.to);
+        o.to = jwToxy(city.coordinate[0], city.coordinate[1]);
+
+        let dx = o.to.x - o.from.x;
+        let dy = o.to.y - o.from.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        let rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+        o.dist = dist;
+        o.rotation = rotation;
+
+        let an = wx.createAnimation({
+          duration: 2000,
+        })
+        .rotate(o.rotation)
+        .left(o.to.x * scale)
+        .top(o.to.y * scale)
+        .step()
+        .export();
+
+
+        planeAnimations.push(an);
+        return o;
+      })
+
+      //显示路线
+      this.setData({ line1: lines[0], line2: lines[1], planeAn1: planeAnimations[0], planeAn2: planeAnimations[1]})
+
+    },
+    
 
 
   },
 
+  attached() {
+    setTimeout(()=> {
+      if (!this.data.uid) {
+        //如果未传入uid，则使用当前用户的uid
+        this.data.uid = Base.GetUID();
+      }
+    }, 800)
+  }
 
 })

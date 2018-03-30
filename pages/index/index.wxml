@@ -31,7 +31,7 @@
     广告位
   </view>
   <view class="main">
-    <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' mapZ='{{mapZ}}' lightProvinces='{{lightProvinces}}' lightCitys='{{lightCitys}}' players='{{players}}'></cmap>
+    <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' players='{{players}}'></cmap>
     <view class="travel">
       <view class="content">
         <text class="font">旅行人数</text>

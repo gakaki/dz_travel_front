@@ -4,6 +4,7 @@
   "usingComponents": {
     "mygold": "/components/mygold/mygold",
     "avatar": "/components/avatar/avatar",
-    "tip": "/components/buy/buy"
+    "tip": "/components/buy/buy",
+    "cmap": "/components/cmap/cmap"
   }
 }

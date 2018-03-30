@@ -13,7 +13,6 @@ Page({
   data: {
     mapConWd: 710,
     mapConHt: 730,
-    mapZ:0,
     lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
     lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
     userInfo: {},

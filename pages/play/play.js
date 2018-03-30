@@ -6,8 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    test: false,
-    walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 3000 },
+    gender: 1,
+    test: true,
+    walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 5000},
+    walkInfoArr: [{ idx: 0, x: 0, y: 0, tX: 100, tY: 100, time: 5000 }, { idx: 1, x: 300, y: 300, tX: 600, tY: 600, time: 6000 }, { idx: 2, x: 354, y: 765, tX: 450, tY: 587, time: 7000 }],
     isPop: false,
     isFirstIn: false,
     isGetPost: false,

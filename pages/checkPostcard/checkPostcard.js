@@ -1,8 +1,5 @@
 import { spliceStr } from '../../utils/util.js'
 import { DetailPostcard, SendPostcard } from '../../api.js';
-let page = 0;
-let postid;
-let id;
 Page({
 
   /**
@@ -14,7 +11,8 @@ Page({
     nn: '速度放缓的风格和的风格和',
     message:null,
     mes1:'123',
-    mes2:'345'
+    mes2:'345',
+    page:0,
   },
 
   /**
@@ -22,10 +20,13 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-    if (options && options.id)
-      id = options.id
-    if (options && options.postid)  
-    postid = options.postid
+    if (options && options.id) {
+      this.data.id = options.id
+    }
+    if (options && options.postid) {
+      this.data.postid = options.postid
+    }  
+    
     this.getData()
     
     this.setData({
@@ -33,19 +34,19 @@ Page({
     })
   },
   getData(toNext = true){
-    if (id) {
+    if (this.data.id) {
       let m = new DetailPostcard();
-      m.id = id;
+      m.id = this.data.id;
       m.messageLength = 1;
-      m.page = page;
+      m.page = this.data.page;
       m.fetch().then(res=>{
         console.log(res)
         if (toNext) {
-          page++;
+          this.data.page = this.data.page + 1
         } else {
-          page--
+          this.data.page = this.data.page -1
         }
-        postid = res.postid;
+        this.data.postid = res.postid;
         this.setData({
           message: res.lastestMessage[0]
         })
@@ -60,7 +61,7 @@ Page({
   formSubmit(e) {
     let str = e.detail.value.ta1 + e.detail.value.ta2
     let m = new SendPostcard();
-    m.id = id;
+    m.id = this.data.id;
     m.message = str;
     m.fetch().then(res=>{
       console.log(res)
