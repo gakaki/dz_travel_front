@@ -12,14 +12,22 @@
   width: 112rpx;
   height: 46rpx;
 }
+.start {
+  height: 138rpx;
+}
+
+
 .reach-city {
   position: relative;
   width: 100vw;
   height: 1076rpx;
 }
 .year {
+  position: absolute;
+  right: 35rpx;
+  top: -60rpx;
   height: 55rpx;
-  text-indent: 80rpx;
+  font: bold 28rpx/138rpx 'Microsoft YaHei';
 }
 .one-city {
   position: relative;
@@ -36,7 +44,7 @@
 .mark {
   position: absolute;
   left: 26rpx;
-  top: 0rpx;
+  top: 20rpx;
   text-align: center;
   width: 42rpx;
   height: 57rpx;
@@ -58,7 +66,6 @@
 }
 .log-content {
   display: inline-block;
-  width: 100%;
   text-indent: 83rpx;
   font: bold 28rpx/138rpx 'Microsoft YaHei';
 }
