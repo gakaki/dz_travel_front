@@ -1,42 +1,45 @@
 @import "/app.wxss";
 .dialog_question {
-  width: 80%;
-  height: 90%;
+  width: 610rpx;
   background-color: #fff;
-  border-radius: 40rpx;
+  border-radius: 20rpx;
   margin: 0 auto;
   overflow: hidden;
   margin-top: 3%;
-  padding:2.5%;
+  padding: 20rpx;
 }
 
-.div_question{
-    padding:3% 0;
-    font-size: 40rpx;
-    font-weight:400;
-    line-height: 40rpx;
+.div_question {
+  padding: 20rpx 0;
+  font-size: 32rpx;
+  font-weight: 400;
+  line-height: 40rpx;
 }
-.div_answers{
-  width : 100%;
+
+.div_answers {
+  width: 100%;
 }
-.div_answers view{
+
+.div_answers .answer_options {
   background-color: #EFEFEF;
-  border-radius: 41rpx;
-  text-indent: 30rpx;
+  border-radius: 80rpx;
+  text-indent: 40rpx;
   text-align: left;
   font-weight: 350;
-  font-size: 40rpx;
+  font-size: 32rpx;
   color: #959595;
-  padding: 20rpx 0;
-  margin-bottom: 20rpx;
+  padding: 24rpx 0;
+  margin: 0 10rpx 20rpx;
+  box-sizing: border-box;
 }
+
 .question {
-  padding:30rpx 0rpx;
+  padding: 30rpx 0rpx;
 }
 
 .pic-box {
   width: 100%;
-  height: 595rpx;
+  height: 435rpx;
   position: relative;
 }
 
@@ -46,18 +49,16 @@
 }
 
 .font_gray_big {
-  font:bold 76rpx 'Microsoft YaHei';
+  font: bold 76rpx 'Microsoft YaHei';
   line-height: 76rpx;
   text-align: center;
-  margin:20rpx 0;
+  margin: 20rpx 0;
   color: gray;
 }
 
 .font_black {
-   font:bold 50rpx 'Microsoft YaHei';
-   line-height: 50rpx;
-   color: black;
-   text-align: center;
+  font: bold 50rpx 'Microsoft YaHei';
+  line-height: 50rpx;
+  color: black;
+  text-align: center;
 }
-
-

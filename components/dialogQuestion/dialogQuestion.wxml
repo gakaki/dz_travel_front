@@ -11,10 +11,10 @@
     </view>
 
     <view class="div_answers" bindtap='btn_tap_question'>
-       <view>中央大街</view>
-       <view>东方明珠</view>
-       <view>索菲亚教堂</view>
-       <view>索菲亚教堂</view>
+       <view class="answer_options">中央大街</view>
+       <view class="answer_options">东方明珠</view>
+       <view class="answer_options">索菲亚教堂</view>
+       <view class="answer_options">索菲亚教堂</view>
     </view>
 
   </view>
