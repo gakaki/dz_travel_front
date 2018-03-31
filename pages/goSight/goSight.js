@@ -1,4 +1,5 @@
-import { spliceStr, ymd } from '../../utils/util.js'
+import { spliceStr } from '../../utils/util.js'
+import {  ymd } from '../../utils/rest.js'
 import { Photograph } from '../../api.js'
 const app = getApp()
 Page({
