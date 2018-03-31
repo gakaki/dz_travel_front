@@ -18,7 +18,7 @@
         <text class="abc font">{{item.proLetter}}</text>
         <text class="pro font">{{item.proName}}</text>
       </view>
-      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}"  bindtap='check' data-id='{{item.proLetter}}{{idx}}'>
+      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}"  bindtap='check' data-city="{{ite.cityname}}" data-id='{{item.proLetter}}{{idx}}'>
         <view class="city f-r-sb" >
           <text class="c-name">{{ite.cityname}}</text>
           <text class="c-per">城市完成度{{ite.cityper}}%</text>
@@ -31,7 +31,7 @@
   </scroll-view>
    <view class="btn-box flex">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-icon font">确定</view>
+    <view class="btn-icon font" bindtap='tocR'>确定</view>
   </view> 
      <!-- <walk wx:for="{{walkArr}}" sex="{{gender}}" walkInfo="{{item}}"></walk>     -->
 </view>

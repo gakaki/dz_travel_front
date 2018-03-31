@@ -1,13 +1,15 @@
 import { CityListPer, ProvencePer } from '../../api.js'
 import { ymd } from '../../utils/rest.js'
 const app = getApp()
+let city //选中的城市
+let arr  //数据列表
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    gender: (app.globalData.userInfo && app.globalData.userInfo.gender)|| 1,
+    gender: (app.globalData.userInfo && app.globalData.userInfo.gender) || 1,
     allCity: [],
     focus: false,
     isChoose: '',
@@ -20,67 +22,84 @@ Page({
     id: 'A',
     animationData: {},
     walkArr: [{ x: 0, y: 0, tX: 100, tY: 100, time: 3000 }, { x: 50, y: 50, tX: 150, tY: 150, time: 3000 }, { x: 150, y: 150, tX: 250, tY: 250, time: 3000 }],
-    walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000},
+    walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000 },
   },
 
   onShow: function () {
-     
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    let m = new CityListPer()
-    m.fetch().then(res => {
-      console.log(res, '城市完成度列表')
-    })
-
-
     wx.setNavigationBarTitle({
       title: '城市攻略'
     })
-    //test----
-    let arr = []
-    for (let i = 0; i < this.data.abc.length-3;i++) {
-       let xx = new ProvencePer()
-      xx.proLetter = this.data.abc[i]
-      xx.proName = '四川'
-      xx.citys = [{ cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }]
-      arr.push(xx)
-    }
-    let cityArr = []
-    arr.forEach(item=>{
-      item.citys.forEach(v=>{
-        cityArr = cityArr.concat(v.cityname)
+    let m = new CityListPer()
+    m.fetch().then(res => {
+      arr = res.data.slice()
+      console.log(arr, '城市完成度列表')
+      let cityArr = []
+      arr.forEach(item => {
+        item.citys.forEach(v => {
+          cityArr = cityArr.concat(v.cityname)
+        })
       })
-     
+      this.setData({
+        allCity: cityArr,
+        cityData: arr,
+        myAbc: arr.map(o => {
+          return o.proLetter
+        })
+      })
+      ///test------
+      let arr1 = this.data.myAbc
+      let abc = this.data.abc
+      for (let i = 0; i < abc.length; i++) {
+        if (abc[i] == arr1[i]) continue
+        else arr1.splice(i, 0, '')
+      }
+      this.setData({
+        myAbc: arr1
+      })
+
     })
-     this.setData({ 
-       allCity: cityArr,
-       cityData: arr,
-       myAbc: arr.map(o => {
-         return o.proLetter
-       })
-       }) 
-    ///test------
-    let arr1 = this.data.myAbc
-    let abc = this.data.abc
-    for(let i = 0;i<abc.length;i++) {
-      if(abc[i] == arr1[i]) continue
-      else arr1.splice(i,0,'')
-    }
-    this.setData({
-      myAbc: arr1
-    }) 
-    //this.pullList()
-  },
-  pullList() {
-    // let req = new CityListPer();
-    // req.fetch().then(req => {
-    //   this.setData({
-    //     cityData: req.data,
+
+
+
+    //test----
+
+
+    //模拟的数据
+    // for (let i = 0; i < this.data.abc.length-3;i++) {
+    //    let xx = new ProvencePer()
+    //   xx.proLetter = this.data.abc[i]
+    //   xx.proName = '四川'
+    //   xx.citys = [{ cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }, { cityname: '成都', cityper: 100 }]
+    //   arr.push(xx)
+    // }
+    // let cityArr = []
+    // arr.forEach(item => {
+    //   item.citys.forEach(v => {
+    //     cityArr = cityArr.concat(v.cityname)
     //   })
+    // })
+    // this.setData({
+    //   allCity: cityArr,
+    //   cityData: arr,
+    //   myAbc: arr.map(o => {
+    //     return o.proLetter
+    //   })
+    // })
+    // ///test------
+    // let arr1 = this.data.myAbc
+    // let abc = this.data.abc
+    // for (let i = 0; i < abc.length; i++) {
+    //   if (abc[i] == arr1[i]) continue
+    //   else arr1.splice(i, 0, '')
+    // }
+    // this.setData({
+    //   myAbc: arr1
     // })
   },
   choose(e) {
@@ -93,6 +112,7 @@ Page({
     this.setData({
       checkId: e.currentTarget.dataset.id
     })
+    city = e.currentTarget.dataset.city
   },
   focus(e) {
     this.setData({
@@ -107,7 +127,14 @@ Page({
   },
 
   _selected(e) {
-    console.log(e.detail)
+    wx.navigateTo({
+      url: '../pointRaiders/pointRaiders?city=' + e.detail.select   //还要把城市id传过去
+    })
+  },
+  tocR() {
+    wx.navigateTo({
+      url: '../pointRaiders/pointRaiders?city=' + city   //还要把城市id传过去
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -120,9 +147,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   testZuobiao(e) {
-console.log(e)
+    console.log(e)
   },
-  
+
   /**
    * 生命周期函数--监听页面隐藏
    */
