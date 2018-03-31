@@ -91,7 +91,7 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
-      console.log(userInfo,'userInfo',ymd('cn'))
+      console.log(userInfo,'userInfo')
       let m = new SignInfo()
       m.fetch().then(res => {
         console.log(res, '签到数据')
@@ -100,7 +100,7 @@ Page({
           hasSign: res.hasSign
         })
       })
-
+    
       this.getIndexInfo(userInfo) 
     }
     else {
