@@ -20,7 +20,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '成都攻略'
+      title: options.city+'攻略'
     })
    this.setData({
      testStr:spliceStr(this.data.testStr,42)
