@@ -1,11 +1,11 @@
 <!--pages/message/message.wxml-->
 <view class="con">
     <view class="cut-off"></view>
-    <scroll-view scroll-y class="wrap flex">
+    <scroll-view scroll-y class="wrap flex" bindscrolltolower="getMsg">
       <view class="message" wx:for="{{message}}" wx:key="{{index}}">
         <view class="top f-r-sb">
           <view class="title">
-            <text>{{item.title}}</text>
+            <text>{{item.title}}{{item.mid}}</text>
           </view>
           <view class="time">
             <text>{{item.date}}</text>

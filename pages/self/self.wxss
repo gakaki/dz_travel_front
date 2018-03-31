@@ -49,6 +49,7 @@
 }
 .main-wrap {
   flex: 1;
+  border-right: 2rpx solid #e5e5e5;
 }
 .main-icon {
   margin-top: 25rpx;

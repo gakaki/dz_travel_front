@@ -46,6 +46,24 @@ Page({
       
     })
   },
+  toOtherPage(e) {
+    let v = e.currentTarget.dataset.id;
+    if (v == 1) {
+      wx.navigateTo({
+        url: '../footprint/footprint?' + this.data.userInfo.uid,
+      })
+    }
+    else if (v == 2) {
+      wx.navigateTo({
+        url: '../postcard/postcard?' + this.data.userInfo.uid,
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '../travelLog/travelLog?' + this.data.userInfo.uid,
+      })
+    }
+  },
   
 
   /**

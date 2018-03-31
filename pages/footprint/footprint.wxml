@@ -1,10 +1,14 @@
 <!--pages/footprint/footprint.wxml-->
 <view class='footprint'>
-  <avatar wx:if='{{mySelf}}' src='{{userInfo.avatarUrl}}' nickname='{{userInfo.nickName}}'></avatar>
-  <view class='des-content' style='margin:{{mySelf?"0 70rpx 35rpx":"100rpx 70rpx"}}'> 
-    已点亮<text class='des-spec'>9</text>个省份，<text class='des-spec'>34</text>个城市，足迹已遍布全中国<text class='des-spec'>13%</text>的城市，旅游完成度达到<text class='des-spec'>13%</text>
+  <avatar wx:if='{{mySelf}}' integral='{{integral}}' goldNum='{{gold}}' src='{{user.avatarUrl}}' nickname='{{user.nickName}}'></avatar>
+  <view class='des-content' style='margin:{{mySelf?"0 70rpx 35rpx":"100rpx 70rpx"}}'>
+    已点亮<text class='des-spec'>{{reachrovince}}</text>个省份，<text class='des-spec'>{{totalArrive}}</text>个城市，足迹已遍布全中国<text class='des-spec'>{{totalArrivePercent}}%</text>的城市，旅游完成度达到<text class='des-spec'>{{travelPercent}}%</text>
   </view> 
    <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' uid='{{userInfo.uid}}'></cmap> 
-   <!-- <cmap id='map' uid='{{userInfo.uid}}'></cmap> -->
+   <view wx:if='{{!mySelf}}' class='.btn-big-blue' bindtap='toIndex'>{{content}}</view>
+   <view wx:else='' class='btn-wrap'>
+     <view class='.btn-big-blue'>{{content}}</view>
+     <button class='btn-big-blue tocenter btn' open-type='share'>{{content}}</button>
+   </view>
 </view>
 

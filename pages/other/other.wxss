@@ -38,6 +38,7 @@
 }
 .main-wrap {
   flex: 1;
+  border-right: 2rpx solid #e5e5e5;
 }
 .main-icon {
   margin-top: 25rpx;
@@ -55,4 +56,8 @@
   padding: 0 20rpx;
   height: 112rpx;
   line-height: 112rpx;
+  border-bottom: 2rpx solid #e5e5e5;
+}
+.one-last {
+  border: none
 }
