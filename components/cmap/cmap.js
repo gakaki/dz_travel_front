@@ -13,7 +13,7 @@ const geoHt = geoTopLeft.w - geoBtmRht.w;
 
 const lineArcD = Math.PI / 5;//航线弧线弧度
 const lineArcDMin = Math.PI / 6;//最小弧度
-const arcDt = 120;//航线弧度修正参考
+const arcDt = 250;//航线弧度修正参考
 const stepDg = 1 / 180 * Math.PI;//步进度数
 
 const mapAssetsRoot = '../../assets/province/';

@@ -7,7 +7,13 @@
 .sightimage {
   width: 50rpx;
   height: 50rpx;
-  position:absolute;
+  position:absolute
+}
+
+.people{
+  position: absolute;
+  width: 32rpx;
+  height: 72rpx;
 }
 
 .fontWhite {
@@ -195,6 +201,7 @@
   background-size: cover;
   line-height: 80rpx;
   font-size: 24rpx;
+  line-height: 74rpx;
   margin-top: 25rpx;
 }
 
@@ -204,6 +211,7 @@
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 28rpx;
+  line-height: 84rpx;
   margin-top: 20rpx;
   line-height: 88rpx;
 }
@@ -214,7 +222,7 @@
   background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 24rpx;
-
+  line-height: 74rpx;
   margin-top: 25rpx;
   line-height: 80rpx;
 }
@@ -369,6 +377,7 @@
   box-sizing: border-box;
 }
 
+
 .play-mission {
   border-radius: 20rpx;
   height: 590rpx;
@@ -377,10 +386,14 @@
   padding: 20rpx 20rpx 0 20rpx;
 }
 
+.play-mission-double{
+  height: 710rpx;
+}
+
 .play-mission .imgBox {
   width: 520rpx;
   height: 280rpx;
-  margin-bottom: 26rpx;
+  margin: 0 auto 43rpx
 }
 
 .play-mission .imgBox image {
@@ -389,11 +402,12 @@
 }
 
 .play-mission .contentBox .mission-head-font {
-  margin-bottom: 16rpx;
+  margin-bottom: 38rpx;
 }
 
 .play-mission .contentBox .mission-gray-font {
   margin-bottom: 12rpx;
+  text-align: justify
 }
 
 .play-mission .contentBox .ml14 {
@@ -402,6 +416,20 @@
 
 .play-mission .contentBox .ml18 {
   margin-left: 18rpx;
+  line-height: 40rpx;
+}
+.play-mission .contentBox .ml48 {
+  margin-left: 48rpx;
+  line-height: 40rpx;
+}
+.play-dialogQuestion {
+  width: 610rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-top: 3%;
+  padding: 20rpx;
 }
 
 .play-congratulations {
@@ -506,16 +534,64 @@
   color: #8d8d8d;
 }
 
-.nan-box {
-  width: 38rpx;
-  height: 81rpx;
-  overflow: hidden;
-  position: relative
+#title {
+  font: bold 36rpx 'Microsoft YaHei';
+  letter-spacing: 2rpx;
+  margin-top: 41rpx;
 }
-.walk-icon {
-  width: 228rpx;
-  height: 81rpx;
+
+.rule {
+  font: bold 30rpx 'Microsoft YaHei';
+  letter-spacing: 2rpx;
+}
+
+.play-rule-con {
+  position: relative;
+}
+
+.play-rule-con::before {
+  content: '';
   position: absolute;
-  left: 0;
   top: 0;
+  left: -24rpx;
+}
+.rule-con {
+  width: 500rpx;
+  font: bold 24rpx/35rpx 'Microsoft YaHei';
+  position: relative;
+}
+
+.rule-con::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -24rpx;
+}
+
+.rule1::before {
+  content: '1.';
+}
+
+.rule2::before {
+  content: '2.';
+}
+
+.rule3::before {
+  content: '3.';
+}
+
+.rule4::before {
+  content: '4.';
+}
+
+.rule5::before {
+  content: '5.';
+}
+
+.rule6::before {
+  content: '6.';
+}
+
+.rule7::before {
+  content: '7.';
 }

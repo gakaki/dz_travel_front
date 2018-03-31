@@ -185,6 +185,7 @@ Page({
         let presentTkt = []
         req.ticket.forEach((item,index)=>{
           let obj = {};
+          console.log(item)
           obj.province = sheet.City.Get(item.cid).province;
           obj.city = sheet.City.Get(item.cid).city;
           obj.tkt = item.type==1 ? '单人机票' : '双人机票';

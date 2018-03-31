@@ -1,23 +1,25 @@
 // pages/play/play.js
-let timer
+
+import {
+  Timeline
+} from '../../utils/util.js'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    descId: 2,
-    ht: 980,
-    gender: 1,
-    test: true,
-    walkInfo: { x: 354, y: 765, tX: 450, tY: 587, time: 5000},
-    walkInfoArr: [{ idx: 0, x: 0, y: 0, time: 5000 }, { idx: 1, x: 300, y: 300, time: 8000 }, { idx: 2, x: 354, y: 765, time: 12000 }, { idx: 3, x: 600, y: 900, time: 18000 }],
+    animationData: {},
+    animation: null,
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
     canPhoto: false,
+    isDialogQuestion: true,
     isCongratulations: false,
     isMissionOpen: false,
+    isMissionOpenDouble: false,
     isShowIntro: false,
     scrollWidth: '100vw',
     scrollHeight: '100vh',
@@ -26,23 +28,39 @@ Page({
     finalPoints: [],
     lines: [],
     finalLines: [],
+    passLines: [],
+    finalpassLines: [],
     currentPoint: 0,
+    poepleLocation: {},
+    poepleLocationNum: 0,
     locations: [{
+      id: 0,
       type: 'start',
       x: 23,
-      y: 56
+      y: 56,
+      time: 1000,
+      passedStatus: false
     }, {
+      id: 1,
       type: 'jd',
       x: 154,
-      y: 165
+      y: 165,
+      time: 2000,
+      passedStatus: false
     }, {
+      id: 2,
       type: 'jd',
       x: 354,
-      y: 765
+      y: 765,
+      time: 3000,
+      passedStatus: false
     }, {
+      id: 3,
       type: 'end',
       x: 450,
-      y: 587
+      y: 587,
+      time: 4000,
+      passedStatus: false
     }]
   },
 
@@ -53,28 +71,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
-  },
-  showHelp() {
-    this.setData({
-      isShowIntro: true
-    })
-  },
-  _hide() {
-this.setData({
-  isShowIntro: false
-})
-  },
-  onShow: function () {
-  // setTimeout(()=>{
-  //   this.setData({
-  //    test: true
-  //   })
-  // },2000)
-  },
-  toGoSight() {
-wx.navigateTo({
-  url: '../goSight/goSight'
-})
   },
   zoomplus() {
     if (this.data.zoom !== 2) {
@@ -167,6 +163,13 @@ wx.navigateTo({
         })
       })
     })
+    this.setData({
+      finalpassLines: this.data.passLines.map(item => {
+        return Object.assign({}, item, {
+          newstyle: this.objTostring(item.style)
+        })
+      })
+    })
   },
   // 数据准备（点和线）
   dataPrep(e, zoom) {
@@ -197,7 +200,9 @@ wx.navigateTo({
     if (this.data.currentPoint > 1) {
       this.setData({
         lines: this.data.lines.concat({
+          // lineWidth: this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint]),          
           id: this.data.currentPoint - 1,
+          show: true,
           style: {
             height: 0,
             // height: zoom === 1 ? '2rpx' : '4rpx',
@@ -208,6 +213,22 @@ wx.navigateTo({
             transform: "rotateZ(" + degree + "deg) scale(1)",
             top: midPoint ? midPoint['y'] + 1 * zoom + 'rpx' : null,
             left: midPoint ? midPoint['x'] + 1 * zoom - lineWidth / 2 + 'rpx' : null
+          }
+        }),
+        passLines: this.data.passLines.concat({
+          // lineWidth: this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint]),          
+          id: this.data.currentPoint - 1,
+          show: true,
+          style: {
+            // height: 0,
+            height: zoom === 1 ? '2rpx' : '4rpx',
+            position: 'absolute',
+            'background-color': 'red',
+            // 'border-bottom': `dotted ${zoom === 1 ? '4rpx' : '8rpx'} red`,
+            width: lineWidth + 'rpx',
+            transform: "rotateZ(" + degree + "deg) scale(1)",
+            top: midPoint ? midPoint['y'] * zoom + 'rpx' : null,
+            left: midPoint ? midPoint['x'] * zoom - lineWidth / 2 + 'rpx' : null
           }
         }),
       })
@@ -259,6 +280,27 @@ wx.navigateTo({
             left: this.strToNum(item.style.left + newPiancha) * multiple + 'rpx',
           }
         })
+      }),
+      passLines: this.data.passLines.map((item, index, arr) => {
+        var newPiancha
+        if (index > 0) {
+          newPiancha = this.getDistace(arr[index - 1], arr[index])
+        }
+        console.log(item.style.left);
+        return Object.assign({}, item, {
+          id: item.id,
+          style: {
+            // height: 0,
+            height: this.strToNum(item.style.height) * multiple + 'rpx',
+            position: 'absolute',
+            'background-color': 'red',
+            // 'border-bottom': this.dottedLineReg(item.style['border-bottom'], multiple),
+            width: this.strToNum(item.style.width) * multiple + 'rpx',
+            transform: item.style.transform,
+            top: this.strToNum(item.style.top) * multiple + 'rpx',
+            left: this.strToNum(item.style.left + newPiancha) * multiple + 'rpx',
+          }
+        })
       })
     })
   },
@@ -268,6 +310,30 @@ wx.navigateTo({
     console.log(point);
     this.dataPrep(point, this.data.zoom)
     this.draw()
+  },
+  // 开始游玩
+  playStep(x, y) {
+    if (x === undefined || y === undefined) return
+    this.animation.top(y).left(x).step({
+      duration: 3000
+    })
+    this.setData({
+      animationData: this.animation.export()
+    })
+  },
+  startplay() {
+    if (this.data.poepleLocationNum < this.data.finalPoints.length - 1) {
+      new Promise((resolve, reject) => {
+        this.playStep(this.data.finalPoints[this.data.poepleLocationNum + 1].x + 'rpx', this.data.finalPoints[this.data.poepleLocationNum + 1].y + 'rpx')
+        setTimeout(() => {
+          this.setData({
+            poepleLocationNum: this.data.poepleLocationNum + 1
+          })
+          this.startplay()
+        }, 3000)
+        resolve()
+      })
+    }
   },
   toPr() {
     wx.navigateTo({
@@ -284,9 +350,24 @@ wx.navigateTo({
       isPop: true
     })
   },
+  hideDialogQuestion(){
+    this.setData({
+      isDialogQuestion: false
+    })
+  },
   hideisPop() {
     this.setData({
       isPop: false
+    })
+  },
+  showIntro() {
+    this.setData({
+      isShowIntro: true
+    })
+  },
+  hideIntro() {
+    this.setData({
+      isShowIntro: false
     })
   },
   hideMissionOpen() {
@@ -319,18 +400,28 @@ wx.navigateTo({
    */
   onReady: function () {
     this.play = this.selectComponent("#play");
+    this.setData({
+      poepleLocation: this.data.locations[0]
+    })
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  
+  onShow: function () {
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    timer = null
+
   },
 
   /**
