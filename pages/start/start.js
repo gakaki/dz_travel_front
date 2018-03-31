@@ -257,6 +257,9 @@ Page({
     }
     
   },
+  onArrived() {
+    console.log('plane arrived')
+  },
 
   tip(tip) {
     wx.showToast({

@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, Base, IndexInfo, HasMessage, MessageNum, Ws, LookTicket, Season, TicketType } from '../../api.js';
+import { SignInfo, Base, IndexInfo, GetMessage, Ws, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
@@ -24,7 +24,7 @@ Page({
     season:'SPRING',
     weather:'sun',
     playerCnt:2000,
-    messages:99,
+    messages:0,
     gold:0,
     nickName:'',
     avatar:'',
@@ -161,7 +161,16 @@ Page({
         location: req.location,
         date: ymd('cn')
       })
-    }) 
+    })
+
+    //查看是否有未读消息
+    let msgCnt = new CheckMsgCnt()
+    msgCnt.fetch().then((req)=>{
+      console.log(req,'消息条数')
+      this.setData({
+        messages: req.unreadMsgCnt
+      })
+    })
   },
 
   /**
