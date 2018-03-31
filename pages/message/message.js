@@ -1,17 +1,13 @@
 // pages/message/message.js
 import { GetMessage } from '../../api.js';
-
+let page = 1 , message = [];
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    message: [{ title: '系统消息', date: '2018/3/9', content:'内容是从小有座山山里有个啥，啥里面有个老和尚在讲故事，讲什么'},
-      { title: '系统消息', date: '2018/3/9', content: '内容是从小有座山山里有个啥，啥里面有个老和尚在讲故事，讲什么' },
-      { title: '系统消息', date: '2018/3/9', content: '内容是从小有座山山里有个啥，啥里面有个老和尚在讲故事，讲什么' },
-      { title: '系统消息', date: '2018/3/9', content: '内容是从小有座山山里有个啥，啥里面有个老和尚在讲故事，讲什么' },
-      { title: '系统消息', date: '2018/3/9', content: '内容是从小有座山山里有个啥，啥里面有个老和尚在讲故事，讲什么' }]
+    message: []
   },
 
   /**
@@ -19,13 +15,7 @@ Page({
    */
   onLoad: function (options) {
     //获取消息列表
-    let messages = new GetMessage()
-    messages.fetch().then((req)=>{
-      console(req,'消息列表')
-      this.setData({
-        message:req.messages
-      })
-    })
+    this.sendReq()
   },
 
   /**
@@ -46,14 +36,38 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    message = []
+    this.setData({
+      message,
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    message = []
+    this.setData({
+      message,
+    })
+  },
+
+  getMsg() {
+    this.sendReq()
+  },
+
+  sendReq() {
+    let messages = new GetMessage()
+    messages.page = page
+    messages.fetch().then((req) => {
+      console.log(req, '消息列表')
+      page++
+      message = message.concat(req.messages)
+      console.log(message)
+      this.setData({
+        message,
+      })
+    })
   },
 
   /**

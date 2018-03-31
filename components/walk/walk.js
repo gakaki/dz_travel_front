@@ -23,6 +23,8 @@ Component({
     animationData: {},
     left: 0,
     // walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000 }  // time为未来的时间戳
+    x: 0,
+    y: 0
   },
   attached() {
 
@@ -68,24 +70,26 @@ Component({
       idx++
       if (idx == 1) {
         this.setData({
+          x: obj.x,
+          y: obj.y,
           show: true
         })
-        this.move({ tX: curPoint.x, tY: curPoint.y,time: 1})
-        setTimeout(()=>{
+        this.move({ tX: curPoint.x, tY: curPoint.y, time: 1 })
+        let st = setTimeout(() => {
           this.move(obj)
-        },200)
-      }else{
+          clearTimeout(st)
+        }, 1000)   //时间记得减1秒
+
+      } else {
         this.move(obj)
       }
-        
-      
+
       st = st + restTime + 1000
       sto = setTimeout(() => {
         this.func()
       }, restTime)
     },
     move(obj) {
-      console.log(obj)
       //移动动画
       let animation = wx.createAnimation({
         duration: obj.time,

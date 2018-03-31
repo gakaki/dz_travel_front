@@ -1,5 +1,4 @@
 <!--pages/travelLog/travelLog.wxml-->
-
 <view class='travelLog'>
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
