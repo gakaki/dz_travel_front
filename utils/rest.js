@@ -45,7 +45,7 @@ function getMd() {
   console.log(date1)
 }
 function ymd(v) {
-   let date = new Date(apis.Base.servertime);
+  let date = new Date(apis.Base.servertime);
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();
@@ -55,9 +55,9 @@ function ymd(v) {
   //判断是否满10
   let arr = [month, day, hours, minu, second];
   //返回  3月1日
-  if (v == 'cn') return arr[0] + '月' + arr[1]+'号'
+  if (v == 'cn') return arr[0] + '月' + arr[1] + '号'
   arr = arr.map(item => {
-   return item < 10 ? "0" + item : item;
+    return item < 10 ? "0" + item : item;
   })
   //返回 yyyy-mm-dd hh:mm:ss
   if (v == 'all') return year + '-' + arr[0] + '-' + arr[1] + ' ' + arr[2] + ':' + arr[3] + ':' + arr[4]

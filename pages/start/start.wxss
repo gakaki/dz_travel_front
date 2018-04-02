@@ -7,7 +7,6 @@
 .help{
   width: 44rpx;
   height: 44rpx;
-  margin-right: 20rpx;
 }
 
 #map{
@@ -15,7 +14,7 @@
   left: 10px;
 }
 
-.mark{
+/* .mark{
   width: 42rpx;
   height: 46rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/index/mark.png") 0 0 no-repeat;
@@ -29,7 +28,7 @@
   margin-top: -11rpx;
   margin-left: 2rpx;
   border-radius: 50%;
-}
+} */
 
 .tour-info{
   height: 510rpx;
@@ -96,13 +95,13 @@
 
 .info{
   width: 670rpx;
-  margin-top: 4rpx;
+  margin-top: 20rpx;
 }
 
 .gold-icon{
   width: 32rpx;
   height: 32rpx;
-  margin: 0 4rpx;
+  margin: 0 10rpx;
 }
 
 .holiday{
@@ -130,6 +129,7 @@
 .double-tip{
   font: bold 20rpx 'Microsoft Yahei';
   color: #a3a3a3;
+  margin-top: 10rpx;
 }
 
 .season{
@@ -152,23 +152,18 @@
 .waiting{
   display: inline-block;
   font: bold 30rpx 'Microsoft Yahei';
-  padding-top: 44rpx;
+  padding: 23rpx 0;
 }
 
 .info-xian{
   width: 712rpx;
   height: 2rpx;
   background-color: #f2f2f2;
-  margin-top: 40rpx;
-}
-
-.friend-xian{
-  margin-top: 8rpx;
 }
 
 .btn{
-  width: 670rpx;
-  margin-top: 20rpx;
+  width: 712rpx;
+  margin-top: 30rpx;
 }
 
 .button{
@@ -195,10 +190,6 @@
 
 .friend{
   margin: 15rpx 0 0 -20rpx;
-}
-
-.random-xian{
-  margin-top: 20rpx;
 }
 
 .tour-random{
@@ -239,22 +230,15 @@
   color: #b8b8b8;
 }
 
-.route{
-  height: 6rpx;
-  background-color: #fc6161;
-  position: absolute;
-  transform-origin: 0 3rpx; 
-}
-
-.ariplane{
-  position: absolute;
-  left: -38rpx;
-  top: -26rpx;
-  width: 78rpx;
-  height: 64rpx;
-  transition: all 2s ease-in-out .3s;
-}
-
 .self-right{
   justify-content: flex-end;
+}
+
+.bottom{
+  position: absolute;
+  bottom: 0;
+}
+
+.letter-s{
+  letter-spacing: 4rpx;
 }

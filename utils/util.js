@@ -285,6 +285,42 @@ function getUserInfo(app,_that) {
   }
 }
 
+const NUM_W = 9999
+const NUM_TEN_K = 9999999 //
+const NUM_HUN_M = 100000000//亿
+//limit  是否增加万级别的中文  true是万字转换
+export function formatNum(num, limit) {
+  if (limit && num > NUM_W && num <= NUM_TEN_K) {
+    let str = num / (NUM_W + 1)
+    let arr = (str + '').split('.')
+    if (arr.length < 2) {
+      return str + '万'
+    }
+    return arr[0] + '.' + arr[1].substr(0, 1) + '万'
+  }
+  if (num <= NUM_TEN_K) {
+    return num
+  }
+  else if (num < NUM_HUN_M) {
+    //不使用toFixed，因为它会四舍五入，临近界值时误差太多
+    let str = num / (NUM_TEN_K + 1)
+    let arr = (str + '').split('.')
+    if (arr.length < 2) {
+      return str + '千万'
+    }
+    return arr[0] + '.' + arr[1].substr(0, 1) + '千万'
+  }
+  else {
+    let str = num / NUM_HUN_M
+    let arr = (str + '').split('.')
+    if (arr.length < 2) {
+      return str + '亿'
+    }
+    return arr[0] + '.' + arr[1].substr(0, 1) + '亿'
+  }
+}
+
+
 module.exports = {
   getRankFrame,
   formatTime,
@@ -293,5 +329,6 @@ module.exports = {
   Timeline,
   getPersonFrame,
   spliceStr,
-  getUserInfo
+  getUserInfo,
+  formatNum
 }
