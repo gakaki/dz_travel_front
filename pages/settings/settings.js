@@ -18,39 +18,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.settings) {
+      this.data.settings = options.settings;
+    }
     let req = new GetRealInfo();
     req.fetch().then(()=>{
       console.log(req,'setting数据')
       this.getInfo(req)
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
   },
 
   //提交的表单数据（用户收货信息）
@@ -76,8 +51,17 @@ Page({
       this.getInfo(req,()=>{
         wx.showToast({
           title: '已保存',
-          icon: 'none'
+          icon: 'none',
+          duration:1000
         })
+        
+        if (this.data.settings) {
+          setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+            })
+          }, 1000)
+        }
       })
     })
   },
