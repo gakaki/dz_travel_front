@@ -8,6 +8,7 @@ let ticketType; //机票类型
 let cid; //城市id
 let locationCid;   //当前所在城市cid
 let time = null
+let onlySingle = false, onlyDouble = false
 
 Page({
 
@@ -17,13 +18,15 @@ Page({
   data: {
     mapConWd: 710,
     mapConHt: 600,
-    isWaiting:true,
-    isRandom:true,
+    onlySingle: false,    //是否是赠送的单人票  
+    onlyDouble: false,    //是否是赠送的双人票
+    isWaiting:true,       //是否在等待好友接收邀请
+    isRandom:true,        //是否是随机机票
     destination: '',
-    isArrive: false,
+    isArrive: false,      //是否到达目的地
     partnerName: '',
     avatarSrc: '',
-    isDouble: false,
+    isDouble: false,        //是否邀请两个人一起飞
     isSingleFirst: false,   //是否第一次单人起飞
     isDoubleFirst: false,   //是否第一次双人起飞
     date: '',      //当前日期
@@ -35,7 +38,12 @@ Page({
    */
   onLoad: function (options) {
     console.log(options,'起飞界面options')
-    
+    if(options.type == TicketType.SINGLEPRESENT){
+      onlySingle = true
+    }
+    else if (options.type == TicketType.DOUBLEPRESENT){
+      onlyDouble = true
+    }
     //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
 
@@ -54,7 +62,7 @@ Page({
         cid = options.cid
       }
       
-      console.log(req,'起飞界面数据')
+      console.log(req,'起飞界面数据',onlySingle)
       let flyInfo = {};
       flyInfo.cost = req.cost;
       flyInfo.doubleCost = req.doubleCost;
@@ -68,7 +76,9 @@ Page({
         date: ymd('cn'),
         isSingleFirst: req.isSingleFirst,
         isDoubleFirst: req.isDoubleFirst,
-        avatarSrc: userInfo.avatarUrl
+        avatarSrc: userInfo.avatarUrl,
+        onlySingle,
+        onlyDouble,
       })
     })
 
@@ -111,6 +121,8 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    onlyDouble = false
+    onlySingle = false
     clearInterval(time)
   },
 
@@ -118,17 +130,57 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    onlyDouble = false
+    onlySingle = false
     clearInterval(time)
   },
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    if (onlyDouble && !this.data.partnerName){
+      this.tip('赠送的双人机票不可单独起飞');
+      return;
+    }
     let start = new StartGame();
-    start.type = ticketType;
     start.cid = cid;
-    start.cost = this.data.flyInfo.cost;
+    //判断是不是双人起飞
     if (this.data.partnerName) {
+      //有没有免费的
+      if(this.data.isDoubleFirst){
+        start.cost = 0;
+        start.type = TicketType.DOUBLEBUY;
+      }
+      //是不是赠送的双人机票
+      else if (onlyDouble && !this.data.isDoubleFirst){
+        start.cost = 0;
+        start.type = TicketType.DOUBLEPRESENT;
+      }
+      else{
+        start.cost = this.data.flyInfo.doubleCost;
+        start.type = TicketType.DOUBLEBUY;
+      }
       start.partnerUid = 1
+    }
+    else{
+      //有没有免费的
+      if (this.data.isSingleFirst){
+        start.cost = 0;
+        start.type = TicketType.SINGLEBUY;
+      }
+      //是不是随机
+      else if (this.data.isRandom && !this.data.isSingleFirst){
+        start.cost = this.data.flyInfo.cost;
+        start.type = TicketType.RANDOMBUY;
+      }
+      //是不是使用赠送的
+      else if (onlySingle && !this.data.isSingleFirst){
+        start.cost = 0;
+        start.type = TicketType.SINGLEPRESENT;
+      }
+      else{
+        start.cost = this.data.flyInfo.cost;
+        start.type = TicketType.SINGLEBUY;
+      }
     }
     start.fetch().then((req) => {
       this.readyFly()
@@ -176,7 +228,7 @@ Page({
       }
     }
     else {
-      this.planeFly(locationCid, cid)
+      this.planeFly(locationCid ? locationCid : '1', cid)
     }
   },
 

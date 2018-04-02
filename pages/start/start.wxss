@@ -247,7 +247,7 @@
 }
 
 .letter-s{
-  letter-spacing: 4rpx;
+  letter-spacing: 2rpx;
 }
 
 .random-cost{
@@ -280,4 +280,8 @@
   font: bold 36rpx 'Microsoft Yahei';
   margin-right: 20rpx;
   color: #000;
+}
+
+.has-partner{
+  margin-top: 34rpx;
 }
