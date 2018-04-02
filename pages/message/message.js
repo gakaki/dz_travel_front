@@ -1,5 +1,5 @@
 // pages/message/message.js
-import { GetMessage } from '../../api.js';
+import { GetMessage, ClearMsg } from '../../api.js';
 let page = 1 , message = [];
 Page({
 
@@ -46,6 +46,11 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    let clear = new ClearMsg()
+    clear.mid = message[0].mid
+    clear.fetch().then((req)=>{
+      console.log(req)
+    })
     message = []
     this.setData({
       message,

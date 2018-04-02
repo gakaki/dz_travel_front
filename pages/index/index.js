@@ -5,7 +5,7 @@ import { SignInfo, Base, IndexInfo, GetMessage, Ws, LookTicket, Season, TicketTy
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
-let tktType , cid , terminal;
+let tktType , cid , terminal , tid;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -158,8 +158,9 @@ Page({
         playerCnt: req.playerCnt,
         nickName: userInfo.nickName,
         avatar: userInfo.avatarUrl,
-        location: req.location,
-        date: ymd('cn')
+        location: req.location ? sheet.City.Get(req.location).city : '',
+        date: ymd('cn'),
+        chooseInd: 0
       })
     })
 
@@ -190,7 +191,8 @@ Page({
           obj.city = sheet.City.Get(item.cid).city;
           obj.tkt = item.type==1 ? '单人机票' : '双人机票';
           obj.type = item.type;
-          obj.cid = item.cid
+          obj.cid = item.cid;
+          obj.tid = item.tid;
           presentTkt[index] = obj
         })
         this.initTer(presentTkt[0])
@@ -226,7 +228,7 @@ Page({
       showTicket: false
     })
     wx.navigateTo({
-      url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + tktType,
+      url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + tktType + '&tid=' + tid,
     })
   },
 
@@ -255,8 +257,13 @@ Page({
     }
     cid = data.cid
     terminal = data.city
+    tid = data.tid
   },
-
+  toIntegralShop(){
+    wx.navigateTo({
+      url: '../integral/integral',
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

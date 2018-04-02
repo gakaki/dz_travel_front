@@ -1,0 +1,13 @@
+
+function formatTime(date, dateType) {
+  var timeArr = date.split(' ')[0].split('-');
+  timeArr = timeArr.map(function(v){
+    return Number(v)
+  })
+  var res = timeArr[1] + '月' + timeArr[2] + '日';
+  return res;
+}
+
+module.exports = {
+  formatTime: formatTime
+}

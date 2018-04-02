@@ -27,7 +27,7 @@
       </view>
     </view>
   </view>
-  <view class="ad">
+  <view class="ad" bindtap='toIntegralShop'>
     广告位
   </view>
   <view class="main">
@@ -75,7 +75,7 @@
       <text>您有系统赠送机票可使用</text>
     </view>
     <scroll-view class="all-ticket" scroll-y>
-      <view class="choose-ticket f-r-sb" wx:for="{{presentTkt}}" wx:key="{{index}}" data-ind="{{index}}" data-type="{{item.type}}" data-cid="{{item.cid}}" data-city="{{item.city}}" bindtap='chooseTicket'>
+      <view class="choose-ticket f-r-sb" wx:for="{{presentTkt}}" wx:key="{{index}}" data-ind="{{index}}" data-type="{{item.type}}" data-cid="{{item.cid}}" data-city="{{item.city}}" data-tid="{{item.tid}}" bindtap='chooseTicket'>
         <view class="choose-address">
           <view class="choose-grey">
             <view class="choose-red" wx:if="{{index == chooseInd}}"></view>
