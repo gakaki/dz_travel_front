@@ -27,7 +27,7 @@
       </view>
     </view>
   </view>
-  <view class="ad">
+  <view class="ad" bindtap='toIntegralShop'>
     广告位
   </view>
   <view class="main">

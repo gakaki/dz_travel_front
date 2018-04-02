@@ -1,3 +1,6 @@
+
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+
 <view class="con">
   <form bindsubmit="formSubmit"> 
     <view class="pic-box pb bs">
@@ -11,7 +14,7 @@
               <view class="cir" wx:for='{{6}}' wx:key='{{index}}'></view>
             </view>
             <view class="date-nn">
-              <text class="date" wx:if='{{lastestMessage.time}}'>{{time}}</text>
+              <text class="date" wx:if='{{lastestMessage.time}}'>{{tools.formatTime(time)}}</text>
               <text class="nn">{{nickName}}</text>
             </view>
           </view>

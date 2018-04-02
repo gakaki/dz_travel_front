@@ -1,4 +1,6 @@
 <!--pages/travelLog/travelLog.wxml-->
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+
 <view class='travelLog'>
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
@@ -13,16 +15,16 @@
         <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
         <view class='mark-circle'></view>
         <view class='log-content'>到达{{city.city}}</view>
-        <view class='time'>{{city.time}}</view>
+        <view class='time'>{{tools.formatTime(city.time)}}</view>
         <view class='timeLine'></view>
       </view>
       <view class='one-city' wx:for='{{city.scenicSpots}}' wx:key='{{index}}' wx:for-item='oneday'>
         <view class='mark-circle'></view>
         <view class='log-content'>
           <text>前往</text>
-          <text class='detail' wx:for='{{oneday.spots}}' wx:for-item="select" wx:key='{{index}}'>{{select}}<text wx:if='{{index != oneday.spots.length-1}}'>、</text></text>
+          <text class='detail' wx:for='{{oneday.spots}}' wx:for-item="select" wx:key='{{index}}'>{{select.spots}}<text wx:if='{{index != oneday.spots.length-1}}'>、</text></text>
         </view>
-        <view class='time'>{{oneday.time}}</view>
+        <view class='time'>{{tools.formatTime(oneday.time)}}</view>
         <view class='timeLine'></view> 
       </view> 
     </view> 
