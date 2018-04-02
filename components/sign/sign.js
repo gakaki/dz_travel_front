@@ -27,7 +27,6 @@ Component({
     this.setData({
       init
     })
-    
   },
 
   /**
