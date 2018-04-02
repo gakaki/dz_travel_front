@@ -7,6 +7,9 @@
 .help{
   width: 44rpx;
   height: 44rpx;
+  position: absolute;
+  bottom: 182rpx;
+  right: 40rpx;
 }
 
 #map{
@@ -52,18 +55,18 @@
 }
 
 .tips{
-  width: 468rpx;
+  width: 526rpx;
   font: bold 30rpx 'Microsoft Yahei';
   margin-top: 14rpx;
 }
 
 .line{
-  width: 586rpx;
+  width: 632rpx;
   margin-top: 14rpx;
 }
 
 .line-road{
-  width: 145rpx;
+  width: 192rpx;
 }
 
 .line text{
@@ -88,14 +91,13 @@
 }
 
 .cut-off{
-  width: 670rpx;
-  height: 16rpx;
-  margin-top: 10rpx;
+  width: 710rpx;
+  height: 17rpx;
 }
 
 .info{
   width: 670rpx;
-  margin-top: 20rpx;
+  margin-top: 16rpx;
 }
 
 .gold-icon{
@@ -147,6 +149,10 @@
 
 .partner{
   width: 670rpx;
+  position: absolute;
+  bottom: 158rpx;
+  left: 50%;
+  transform: translate(-50%,0);
 }
 
 .waiting{
@@ -163,7 +169,7 @@
 
 .btn{
   width: 712rpx;
-  margin-top: 30rpx;
+  margin: 28rpx 0 8rpx;
 }
 
 .button{
@@ -193,11 +199,11 @@
 }
 
 .tour-random{
-  height: 418rpx;
+  height: 426rpx;
 }
 
 .shadow-random{
-  bottom: 380rpx;
+  bottom: 387rpx;
 }
 
 .btn-center{
@@ -241,4 +247,21 @@
 
 .letter-s{
   letter-spacing: 4rpx;
+}
+
+.random-cost{
+  padding-top: 20rpx;
+}
+
+.random-cost text{
+  font:bold 36rpx 'Microsoft YaHei';
+}
+
+.random-cost .cost-number{
+  font:bold 40rpx 'Microsoft YaHei';
+}
+
+.random-icon{
+  width: 40rpx;
+  height: 40rpx;
 }

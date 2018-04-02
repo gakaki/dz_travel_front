@@ -6,7 +6,8 @@ const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
 let cid; //城市id
-let time = null, timer = null
+let locationCid;   //当前所在城市cid
+let time = null
 
 Page({
 
@@ -33,22 +34,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    //test(模拟坐标，城市列表)---------------------
-   
-
-    let airlines = [
-      {from:2, to:205},//北京-昆明
-      // {from:205, to:3}//海口-上海
-    ]
-    this.setData({
-      airlines,
-    })
-    
-    allCity = ['上海', '北京', '香港', '澳门', '台北', '杭州', '成都', '南京', '南宁', '天津', '石家庄', '呼伦贝尔']
-    //---------------------------------
-
-
     console.log(options,'起飞界面options')
     
     //从全局变量中把用户信息拿过来
@@ -58,6 +43,7 @@ Page({
     let info = new FlyInfo();
     info.type = options.type
     info.fetch().then((req)=>{
+      locationCid = req.location
       //以下数据不进行渲染（仅在调api时发送）
       ticketType = options.type;
       //不是随机机票就从options中获取cid
@@ -74,7 +60,7 @@ Page({
       flyInfo.doubleCost = req.doubleCost;
       flyInfo.gold = req.gold;
       flyInfo.holiday = req.holiday;
-      flyInfo.location = req.location;
+      flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
       flyInfo.season = Season[req.season];
       flyInfo.weather = sheet.Weather.Get(req.weather).icon;
       this.setData({
@@ -126,7 +112,6 @@ Page({
    */
   onHide: function () {
     clearInterval(time)
-    clearTimeout(timer)
   },
 
   /**
@@ -134,7 +119,6 @@ Page({
    */
   onUnload: function () {
     clearInterval(time)
-    clearTimeout(timer)
   },
 
   startTour() {
@@ -183,11 +167,7 @@ Page({
             this.setData({
               destination
             })
-            timer = setTimeout(() => {
-              this.setData({
-                isArrive: true
-              })
-            }, 2500)
+            this.planeFly(locationCid,cid)
           }
         }, 100)
       }
@@ -196,16 +176,25 @@ Page({
       }
     }
     else {
-      timer = setTimeout(() => {
-        this.setData({
-          isArrive: true
-        })
-      }, 2500)
+      this.planeFly(locationCid, cid)
     }
+  },
+
+  planeFly(from,to) {
+    let airlines = [
+      { from, to },
+      // {from:205, to:3}//海口-上海
+    ]
+    this.setData({
+      airlines,
+    })
   },
 
   onArrived() {
     console.log('plane arrived')
+    this.setData({
+      isArrive: true
+    })
   },
 
   tip(tip) {

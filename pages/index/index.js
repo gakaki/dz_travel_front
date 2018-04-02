@@ -158,7 +158,7 @@ Page({
         playerCnt: req.playerCnt,
         nickName: userInfo.nickName,
         avatar: userInfo.avatarUrl,
-        location: req.location,
+        location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn')
       })
     })
