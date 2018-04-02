@@ -30,7 +30,8 @@ Page({
     isSingleFirst: false,   //是否第一次单人起飞
     isDoubleFirst: false,   //是否第一次双人起飞
     date: '',      //当前日期
-    flyInfo:{weather:'sun'}      //页面相关信息,默认给weather：sun，避免渲染层报错
+    flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
+    showHelp:false
    },
 
   /**
@@ -266,10 +267,22 @@ Page({
     })
   },
 
+  showHelp() {
+    this.setData({
+      showHelp: true
+    })
+  },
+
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
       url: '../play/play',
+    })
+  },
+
+  _helpCfr() {
+    this.setData({
+      showHelp: false
     })
   },
 
