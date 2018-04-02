@@ -1,4 +1,14 @@
 <view class="con">
+ <view class="location f-c">
+    <view class='date'>
+      <text class="city">{{flyInfo.location}}</text>
+      <text>{{date}}</text>
+    </view>
+    <view class="flex">
+      <text class="season">{{flyInfo.season}}</text>
+      <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{flyInfo.weather}}.png"></image>
+    </view>
+  </view> 
   <view class="my-gold flex">
     <mygold goldNum="{{flyInfo.gold}}"></mygold>
     
@@ -36,15 +46,6 @@
         <image class="gold-icon random-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
         <text class="cost-number">{{flyInfo.cost}}</text>
       </view>
-      <!-- <view class="location">
-        <view class='date'>
-          <text>{{date}}</text>
-        </view>
-        <view class="flex">
-          <text class="season">{{flyInfo.season}}</text>
-          <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{flyInfo.weather}}.png"></image>
-        </view>
-      </view> -->
     </view>
     <view wx:else> 
       <view class="info f-r-sb">

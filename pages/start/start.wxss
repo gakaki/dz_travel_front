@@ -15,6 +15,7 @@
 #map{
   position: relative;
   left: 10px;
+  top: 30rpx;
 }
 
 /* .mark{
@@ -264,4 +265,19 @@
 .random-icon{
   width: 40rpx;
   height: 40rpx;
+}
+
+.location{
+  position: absolute;
+  right: 20rpx;
+  top: 15rpx;
+  z-index: 1000;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.location .city{
+  font: bold 36rpx 'Microsoft Yahei';
+  margin-right: 20rpx;
+  color: #000;
 }
