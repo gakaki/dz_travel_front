@@ -91,6 +91,8 @@ class Code{
     
     static NEED_ADDRESS = -173;
     
+    static NONE_ADDRESS = -174;
+    
     static HAS_SIGNIN = -144;
     
     static UNKNOWN = -1000;
@@ -1483,10 +1485,10 @@ class ModifyRealInfo extends Base {
         this._name = null;
         this._birthday = null;
         this._phone = null;
-        this._adress = null;
+        this._address = null;
         this._realInfo = null;
-        this.requireFileds = ["name","birthday","phone","adress"];
-        this.reqFields = ["name","birthday","phone","adress"];
+        this.requireFileds = ["name","birthday","phone","address"];
+        this.reqFields = ["name","birthday","phone","address"];
         this.resFields = ["realInfo"];
     }
     //client input, require, type: string
@@ -1499,8 +1501,8 @@ class ModifyRealInfo extends Base {
     get phone() {return this._phone}
     set phone(v) {this._phone = v}
     //client input, require, type: string
-    get adress() {return this._adress}
-    set adress(v) {this._adress = v}
+    get address() {return this._address}
+    set address(v) {this._address = v}
     //server output, type: RealInfo
     get realInfo() {return this._realInfo}
     set realInfo(v) {this._realInfo = v}
@@ -1554,13 +1556,17 @@ class CommentPost extends Base {
         super();
         this.action = 'post.commentpost';
     
+        this._cityId = null;
         this._postId = null;
         this._content = null;
         this._type = null;
-        this.requireFileds = ["postId","content","type"];
-        this.reqFields = ["postId","content","type"];
+        this.requireFileds = ["cityId","postId","content","type"];
+        this.reqFields = ["cityId","postId","content","type"];
         this.resFields = [];
     }
+    //client input, require, type: string//城市id
+    get cityId() {return this._cityId}
+    set cityId(v) {this._cityId = v}
     //client input, require, type: string//景点或特产id
     get postId() {return this._postId}
     set postId(v) {this._postId = v}
@@ -1623,19 +1629,15 @@ class ThumbComment extends Base {
         this.action = 'post.thumbcomment';
     
         this._commentId = null;
-        this._type = null;
         this._thumbs = null;
         this._haslike = null;
-        this.requireFileds = ["commentId","type"];
-        this.reqFields = ["commentId","type"];
+        this.requireFileds = ["commentId"];
+        this.reqFields = ["commentId"];
         this.resFields = ["thumbs","haslike"];
     }
     //client input, require, type: string//评论id
     get commentId() {return this._commentId}
     set commentId(v) {this._commentId = v}
-    //client input, require, type: PostType//帖子类型：景点or特产
-    get type() {return this._type}
-    set type(v) {this._type = v}
     //server output, type: number//点赞数
     get thumbs() {return this._thumbs}
     set thumbs(v) {this._thumbs = v}

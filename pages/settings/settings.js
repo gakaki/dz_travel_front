@@ -17,38 +17,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.settings) {
+      this.data.settings = options.settings;
+    }
     let req = new GetRealInfo();
     req.fetch().then(()=>{
       this.getInfo(req)
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
   },
 
   //提交的表单数据（用户收货信息）
@@ -56,16 +31,25 @@ Page({
     console.log(e.detail.value)
     let value = e.detail.value
     let req = new ModifyRealInfo();
-    req.name = value.name;
-    req.birthday = value.birthday;
-    req.phone = value.phone;
-    req.address = value.address;
+    req.name = value.name ? value.name : this.data.name;
+    req.birthday = value.birthday ? value.birthday : this.data.birthday;
+    req.phone = value.phone ? value.phone : this.data.phone;
+    req.address = value.address ? value.address : this.data.address;
     req.fetch().then(()=>{
       this.getInfo(req,()=>{
         wx.showToast({
           title: '已保存',
-          icon: 'none'
+          icon: 'none',
+          duration:1000
         })
+        
+        if (this.data.settings) {
+          setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+            })
+          }, 1000)
+        }
       })
     })
   },
@@ -92,19 +76,6 @@ Page({
     }
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
 
   /**
    * 用户点击右上角分享
