@@ -10,7 +10,7 @@ Page({
     name:'请输入真实姓名',
     birthday:'请输入生日',
     phone:'请输入手机号',
-    adress:'请输入地址'
+    address:'请输入地址'
   },
 
   /**
@@ -59,7 +59,7 @@ Page({
     req.name = value.name;
     req.birthday = value.birthday;
     req.phone = value.phone;
-    req.adress = value.adress;
+    req.address = value.address;
     req.fetch().then(()=>{
       this.getInfo(req,()=>{
         wx.showToast({
@@ -80,12 +80,12 @@ Page({
     else {
       let info = req.realInfo;
       //当用户所有信息都有的时候显示用户信息
-      if (info.name && info.birthday && info.phoneNumber && info.adress) {
+      if (info.name && info.birthday && info.phoneNumber && info.address) {
         this.setData({
           name: info.name,
           birthday: info.birthday,
           phone: info.phoneNumber,
-          adress: info.adress
+          address: info.address
         })
         suc()
       }
