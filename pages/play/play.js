@@ -72,6 +72,16 @@ Page({
       title: '成都游玩'
     })
   },
+  showDesc() {
+this.setData({
+  isShowIntro: true
+})
+  },
+  hideDesc() {
+    this.setData({
+      isShowIntro: false
+    })
+  },
   zoomplus() {
     if (this.data.zoom !== 2) {
       this.setData({
@@ -322,9 +332,9 @@ Page({
     })
   },
   startplay() {
-    wx.navigateTo({
-      url: '../goSight/goSight'
-    })
+    // wx.navigateTo({
+    //   url: '../goSight/goSight'
+    // })
     if (this.data.poepleLocationNum < this.data.finalPoints.length - 1) {
       new Promise((resolve, reject) => {
         this.playStep(this.data.finalPoints[this.data.poepleLocationNum + 1].x + 'rpx', this.data.finalPoints[this.data.poepleLocationNum + 1].y + 'rpx')
