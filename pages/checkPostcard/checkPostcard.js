@@ -59,14 +59,10 @@ Page({
       nickName: spliceStr(allMessage[i].userInfo.nickName, 8),
       btnInfo: '留言',
       write: false,
-      time: this.formatTime(allMessage[i].time),
+      time: allMessage[i].time,
       message:''
     })
     this.spiltMessage(allMessage[i].message);  //展示的消息
-  },
-  formatTime(t){
-    let timeArr = t.split(' ')[0].split('-');
-    return Number(timeArr[1]) + '月' + Number(timeArr[2]) + '日';
   },
   spiltMessage(mes){
     let mes1='';

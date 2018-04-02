@@ -82,15 +82,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    init:data.reverse(),
-    myIdx: 'myIdx' + (data.length-1)
+    init:null,
+    // myIdx: 'myIdx' + (this.data.init.length-1)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let req = new TravelLog();
+    req.fetch().then(req => {
+      console.log(req.allLogs)
+      this.setData({
+        init: req.allLogs
+      })
 
+    })
     
   },
   formatTime(time, dateType){
