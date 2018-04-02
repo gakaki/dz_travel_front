@@ -159,7 +159,8 @@ Page({
         nickName: userInfo.nickName,
         avatar: userInfo.avatarUrl,
         location: req.location ? sheet.City.Get(req.location).city : '',
-        date: ymd('cn')
+        date: ymd('cn'),
+        chooseInd: 0
       })
     })
 
