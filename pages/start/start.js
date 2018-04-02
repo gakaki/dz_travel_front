@@ -137,10 +137,6 @@ Page({
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
-    if (onlyDouble && !this.data.partnerName){
-      this.tip('赠送的双人机票不可单独起飞');
-      return;
-    }
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
@@ -219,7 +215,7 @@ Page({
             this.setData({
               destination
             })
-            this.planeFly(locationCid,cid)
+            this.planeFly(locationCid ? locationCid : 1,cid)
           }
         }, 100)
       }
@@ -228,7 +224,7 @@ Page({
       }
     }
     else {
-      this.planeFly(locationCid ? locationCid : '1', cid)
+      this.planeFly(locationCid ? locationCid : 1, cid)
     }
   },
 
