@@ -439,6 +439,9 @@ class TicketInfo {
         //prop type: string
         this.cid = null;
     
+        //prop type: string
+        this.tid = null;
+    
         //prop type: PresentTktType
         this.type = null;
     
@@ -969,8 +972,9 @@ class StartGame extends Base {
         this._cid = null;
         this._cost = null;
         this._partnerUid = null;
+        this._tid = null;
         this.requireFileds = ["type","cid","cost"];
-        this.reqFields = ["type","cid","cost","partnerUid"];
+        this.reqFields = ["type","cid","cost","partnerUid","tid"];
         this.resFields = [];
     }
     //client input, require, type: TicketType
@@ -985,6 +989,9 @@ class StartGame extends Base {
     //client input, optional, type: string
     get partnerUid() {return this._partnerUid}
     set partnerUid(v) {this._partnerUid = v}
+    //client input, optional, type: string
+    get tid() {return this._tid}
+    set tid(v) {this._tid = v}
 }
 class viewpointInfo extends Base {
     constructor() {

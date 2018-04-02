@@ -5,7 +5,7 @@ const app = getApp()
 const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
-let cid; //城市id
+let cid , tid; //城市id和赠送的机票id
 let locationCid;   //当前所在城市cid
 let time = null
 let onlySingle = false, onlyDouble = false
@@ -43,6 +43,10 @@ Page({
     }
     else if (options.type == TicketType.DOUBLEPRESENT){
       onlyDouble = true
+    }
+
+    if(options && options.tid){
+      tid = options.tid
     }
     //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
@@ -150,6 +154,7 @@ Page({
       else if (onlyDouble && !this.data.isDoubleFirst){
         start.cost = 0;
         start.type = TicketType.DOUBLEPRESENT;
+        start.tid = tid;
       }
       else{
         start.cost = this.data.flyInfo.doubleCost;
@@ -172,6 +177,7 @@ Page({
       else if (onlySingle && !this.data.isSingleFirst){
         start.cost = 0;
         start.type = TicketType.SINGLEPRESENT;
+        start.tid = tid;
       }
       else{
         start.cost = this.data.flyInfo.cost;
@@ -191,6 +197,8 @@ Page({
         case Code.PARAMETER_NOT_MATCH:
           this.tip('非法传参，请检查参数');
           break;
+        case Code.NOT_FOUND:
+          this.tip('道具不存在或已使用');
         default:
           this.tip('未知错误');
       }
