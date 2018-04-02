@@ -240,7 +240,7 @@ Page({
   planeFly(from,to) {
     let airlines = [
       { from, to },
-      // {from:205, to:3}//海口-上海
+      // {from:205, to:3}
     ]
     this.setData({
       airlines,
