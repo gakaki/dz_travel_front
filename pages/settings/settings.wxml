@@ -6,14 +6,16 @@
       <input class="name-right info-right" name='name' placeholder='{{name}}' placeholder-class='info-1'></input>
     </view>
     <view class="line-1"></view>
-    <view class="birthday info">
-      <text class="birthday-left info-left">生日：</text>
-      <input class="birthday-right info-right" name='birthday' placeholder='{{birthday}}' placeholder-class='info-1'></input>
-    </view>
+    <picker class="birthday picker" name='birthday' mode="date" value="{{birthday}}" start="1910-01-01" end="2018-01-01" bindchange="chooseDate">
+      <view class="info">
+        <text class="birthday-left info-left">生日：</text>
+        <text class="birthday-right info-right {{changeColor ? '' : 'info-1'}}" >{{birthday}}</text>
+      </view>
+    </picker>
     <view class="line-1"></view>
     <view class="phone info">
       <text class="phone-left info-left">手机号：</text>
-      <input class="phone-right info-right" type='number' name='phone' placeholder='{{phone}}' placeholder-class='info-1'></input>
+      <input class="phone-right info-right" type='number' name='phone' placeholder='{{phone}}' placeholder-class='info-1' bindblur='checkPhone'></input>
     </view>
     <view class="line-1"></view>
     <view class="address">

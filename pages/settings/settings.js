@@ -10,7 +10,8 @@ Page({
     name:'请输入真实姓名',
     birthday:'请输入生日',
     phone:'请输入手机号',
-    address:'请输入地址'
+    address:'请输入地址',
+    changeColor: false,
   },
 
   /**
@@ -19,6 +20,7 @@ Page({
   onLoad: function (options) {
     let req = new GetRealInfo();
     req.fetch().then(()=>{
+      console.log(req,'setting数据')
       this.getInfo(req)
     })
   },
@@ -54,13 +56,23 @@ Page({
   //提交的表单数据（用户收货信息）
   formSubmit(e) {
     console.log(e.detail.value)
+    
     let value = e.detail.value
+    //判断电话号码是否符合
+    if (value.phone.length != 11){
+      wx.showToast({
+        title: '请输入正确的电话号码',
+        icon: 'none'
+      })
+      return;
+    }
     let req = new ModifyRealInfo();
-    req.name = value.name;
-    req.birthday = value.birthday;
-    req.phone = value.phone;
-    req.address = value.address;
+    req.name = value.name ? value.name : this.data.name;
+    req.birthday = value.birthday ? value.birthday : this.data.birthday;
+    req.phone = value.phone ? value.phone : this.data.phone;
+    req.address = value.address ? value.address : this.data.address;
     req.fetch().then(()=>{
+      console.log(req)
       this.getInfo(req,()=>{
         wx.showToast({
           title: '已保存',
@@ -87,8 +99,28 @@ Page({
           phone: info.phoneNumber,
           address: info.address
         })
-        suc()
+        suc && suc()
       }
+    }
+  },
+
+  chooseDate(e) {
+    console.log(e.detail.value)
+    if(e.detail.value != this.data.birthday){
+      this.setData({
+        birthday: e.detail.value,
+        changeColor: true 
+      })
+    }
+    
+  },
+
+  checkPhone(e) {
+    if(e.detail.value.length != 11 ){
+      wx.showToast({
+        title: '请输入正确的电话号码',
+        icon: 'none'
+      })
     }
   },
 
