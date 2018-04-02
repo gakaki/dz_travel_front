@@ -7,10 +7,10 @@
 .sightimage {
   width: 50rpx;
   height: 50rpx;
-  position:absolute
+  position: absolute;
 }
 
-.people{
+.people {
   position: absolute;
   width: 32rpx;
   height: 72rpx;
@@ -49,6 +49,10 @@
   font-size: 26rpx;
   font-weight: 400;
   line-height: 26rpx;
+}
+
+.ofs {
+  overflow: scroll;
 }
 
 .bgscroll {
@@ -309,7 +313,7 @@
   width: 550rpx;
   height: 850rpx;
   background-color: #fff;
-  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, .1);
+  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
   padding: 40rpx 30rpx 0 30rpx;
 }
 
@@ -326,20 +330,20 @@
   height: 16rpx;
   border-radius: 50%;
   background-color: #b9c3d0;
-  box-shadow: 0 0 2rpx 0 inset
+  box-shadow: 0 0 2rpx 0 inset;
 }
 
 #line {
   width: 12rpx;
   height: 210rpx;
   top: -60rpx;
-  z-index: 12
+  z-index: 12;
 }
 
 .post-pic {
   width: 550rpx;
   height: 515rpx;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .post-name {
@@ -352,7 +356,7 @@
   font: normal 30rpx 'Microsoft YaHei';
   color: #8d8d8d;
   margin-bottom: 10rpx;
-  letter-spacing: 2rpx
+  letter-spacing: 2rpx;
 }
 
 .btn-icon {
@@ -373,10 +377,9 @@
   width: 610rpx;
   padding: 0 30rpx;
   background-color: #fff;
-  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, .1);
+  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
-
 
 .play-mission {
   border-radius: 20rpx;
@@ -386,14 +389,14 @@
   padding: 20rpx 20rpx 0 20rpx;
 }
 
-.play-mission-double{
+.play-mission-double {
   height: 710rpx;
 }
 
 .play-mission .imgBox {
   width: 520rpx;
   height: 280rpx;
-  margin: 0 auto 43rpx
+  margin: 0 auto 43rpx;
 }
 
 .play-mission .imgBox image {
@@ -407,7 +410,7 @@
 
 .play-mission .contentBox .mission-gray-font {
   margin-bottom: 12rpx;
-  text-align: justify
+  text-align: justify;
 }
 
 .play-mission .contentBox .ml14 {
@@ -418,10 +421,12 @@
   margin-left: 18rpx;
   line-height: 40rpx;
 }
+
 .play-mission .contentBox .ml48 {
   margin-left: 48rpx;
   line-height: 40rpx;
 }
+
 .play-dialogQuestion {
   width: 610rpx;
   background-color: #fff;
@@ -555,6 +560,7 @@
   top: 0;
   left: -24rpx;
 }
+
 .rule-con {
   width: 500rpx;
   font: bold 24rpx/35rpx 'Microsoft YaHei';
@@ -594,4 +600,26 @@
 
 .rule7::before {
   content: '7.';
+}
+.draw-line {
+ height: 0;
+  transform-origin: 0 0;
+  -ms-transform-origin:0 0;
+  -webkit-transform-origin:0 0;
+}
+.dash-line {
+  border: 2rpx dashed red;
+}
+.shi-line {
+border: 2rpx solid red;
+}
+.testImg {
+  position: absolute;
+   height: 54rpx;
+  width: 54rpx;
+  z-index: 101;
+  transform: translate(-50%,-50%)
+}
+.shi-line-box {
+  overflow: hidden
 }

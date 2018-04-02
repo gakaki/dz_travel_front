@@ -1,5 +1,5 @@
 .nan-box {
-  z-index: 100;
+  z-index: 102;
   width: 38rpx;
   height: 81rpx;
   overflow: hidden;

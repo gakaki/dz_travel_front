@@ -1,5 +1,5 @@
 <!--components/rankDirections/rankDirections.wxml-->
-<view class="wrap bs" style='height:{{resHeight}}rpx;'>
+<view class="wrap bs {{helpId==2?'newTop': ''}}" style='height:{{resHeight}}rpx;'>
   <view class="title flex {{helpId==2?'nomb': ''}}">
     <text>{{title}}</text>
   </view>

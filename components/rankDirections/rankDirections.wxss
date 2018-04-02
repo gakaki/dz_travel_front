@@ -11,7 +11,9 @@
   border-radius: 40rpx;
   overflow: hidden;
 }
-
+.newTop {
+  top: 50rpx
+}
 .title{
   width: 100%;
   font: bold 36rpx 'Microsoft Yahei';

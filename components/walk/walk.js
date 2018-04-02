@@ -1,7 +1,7 @@
 let timer
 let sto
 let walkInfoObj = {}
-let st = 6000  //模拟服务器的时间戳
+let st = 3000  //模拟服务器的时间戳
 let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
@@ -22,7 +22,7 @@ Component({
     show: false,
     animationData: {},
     left: 0,
-    // walkInfo: { x: 0, y: 0, tX: 100, tY: 100, time: 3000 }  // time为未来的时间戳
+    // walkInfo: { x: 0, y: 0, idx:0, time: 3000 }  // time为未来的时间戳
     x: 0,
     y: 0
   },
@@ -75,17 +75,19 @@ Component({
           show: true
         })
         this.move({ tX: curPoint.x, tY: curPoint.y, time: 1 })
-        let st = setTimeout(() => {
+        let tempSt = setTimeout(() => {
           this.move(obj)
-          clearTimeout(st)
+          clearTimeout(tempSt)
         }, 1000)   //时间记得减1秒
 
       } else {
         this.move(obj)
       }
 
-      st = st + restTime + 1000
+      st = st + restTime 
       sto = setTimeout(() => {
+        
+        clearTimeout(sto)
         this.func()
       }, restTime)
     },

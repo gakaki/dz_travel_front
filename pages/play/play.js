@@ -1,5 +1,8 @@
 // pages/play/play.js
-
+let startPoint//起点
+let arr = []
+let i = 0
+let pointArr = []
 import {
   Timeline
 } from '../../utils/util.js'
@@ -10,6 +13,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    walkPoint: [],
+    gender: 1,
+    oneLineWidth: 0,//当前路线走的百分比
+    lineArr: [],//实线数组
+    dashedLine: [],//虚线数组
+    testArr: [],
+    scale: 2,  //超过10个景点就能缩放
     animationData: {},
     animation: null,
     isPop: false,
@@ -68,286 +78,239 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    this.setData({
+      testArr: this.getPoint()
+    })
+
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
   },
+
+  testFunc(arr) {
+    if (arr.length > 10) {
+      this.setData({
+        scale: 2
+      })
+    }
+
+  },
+  startplay() {
+    if (this.data.dashedLine) {
+      pointArr[0] = { x: startPoint.x, y: startPoint.y,idx:0,time:2000}
+      for (let i = 0; i < this.data.dashedLine.length;i++) {
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i+1, time: 5000*(i+1) }
+      }
+      this.setData({
+        walkPoint: pointArr
+      })
+      console.log(pointArr)
+    }
+  },
+  //画虚线
+  drawDashedLine(e) {
+    i++
+    console.log(e.currentTarget)
+    let lastPoint, curPoint
+    let idx = e.currentTarget.dataset.idx
+    if (idx == 1) return   //点击起点
+    curPoint = this.data.testArr.find(v => {
+      return v.idx == idx
+    })
+
+    if (this.data.dashedLine.length == 0) {
+      lastPoint = startPoint
+    }
+    else lastPoint = this.data.dashedLine[this.data.dashedLine.length - 1]
+    let wid = this.drawOneLine(lastPoint.x, lastPoint.y, curPoint.x, curPoint.y)
+    console.log(wid)
+    let jiaodu = this.calcAngleDegrees(lastPoint, curPoint)
+    let line = {
+      idx: this.data.dashedLine.length == 0 ? 0 : this.data.dashedLine.length,
+      x: curPoint.x,
+      y: curPoint.y,
+      wid: wid,
+      time: 5000 * i,
+      style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg)'
+    }
+
+    arr.push(line)
+    console.log('arr', arr)
+    this.setData({
+      dashedLine: arr
+    })
+    console.log(this.data.dashedLine)
+
+  },
+  //旋转角度
+  calcAngleDegrees(a, b) {
+    if (a === undefined || b === undefined) return
+    return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI
+  },
+  //画线段
+  drawOneLine(x, y, X, Y) {  //起点，终点坐标
+    let w = Math.abs(X - x)
+    let h = Math.abs(Y - y)
+    return Math.round(Math.hypot(w, h))
+  },
+  getPoint() {
+    function getRandomArbitrary(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function flatten(arr) {
+      return arr.reduce(function (prev, item) {
+        return prev.concat(Array.isArray(item) ? flatten(item) : item);
+      }, []);
+    }
+
+    const getDistace = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
+
+    let points = [{
+      name: 'A',
+      id: 1,
+      x: 116.403414,
+      y: 39.924091
+    },
+    {
+      name: 'b',
+      id: 2,
+      x: 116.274853,
+      y: 39.998547
+    },
+    {
+      name: 'c',
+      id: 3,
+      x: 116.404081,
+      y: 39.910098
+    },
+    {
+      name: 'd',
+      id: 4,
+      x: 116.417115,
+      y: 39.886376
+    },
+    {
+      name: 'e',
+      id: 5,
+      x: 116.314154,
+      y: 40.01651
+    },
+    {
+      name: 'easd',
+      id: 6,
+      x: 116.395486,
+      y: 39.932913
+    },
+
+    {
+      name: 'f',
+      id: 7,
+      x: 116.016033,
+      y: 40.364233
+    },
+    {
+      name: 'g',
+      id: 8,
+      x: 116.409512,
+      y: 39.93986
+    },
+    {
+      name: 'aa',
+      id: 11,
+      x: 116.400512,
+      y: 39.95986
+    },
+    {
+      name: 'h',
+      id: 9,
+      x: 116.391656,
+      y: 39.948203
+    },
+    {
+      name: 'i',
+      id: 10,
+      x: 116.402359,
+      y: 39.999763
+    }
+    ]
+
+    let arrx = [1, 3, 5, 7, 9]
+    let arry = [1, 3, 5, 7, 9, 11, 13]
+
+    let res = []
+    for (let i = 0; i < arrx.length; i++) {
+      res[i] = []
+      for (let j = 0; j < arry.length; j++) {
+        res[i][j] = {}
+        res[i][j]['x'] = arrx[i]
+        res[i][j]['y'] = arry[j]
+      }
+    }
+    res = flatten(res)
+    let finalRes = []
+    for (let i = 0; i < points.length; i++) {
+      let len = res.length
+      finalRes.push(res.splice(parseInt(getRandomArbitrary(0, len)), 1)[0])
+      len--
+    }
+
+    let pointsDistance = points.map(item => {
+      return Object.assign({}, item, {
+        distance: getDistace({
+          x: 0,
+          y: 0
+        }, item)
+      })
+    })
+    let finalResDistance = finalRes.map((item, i) => {
+      return Object.assign({}, item, {
+        id: i + 1,
+        distance: getDistace({
+          x: 0,
+          y: 0
+        }, item)
+      })
+    })
+
+    finalResDistance.sort((a, b) => b.distance - a.distance)
+    pointsDistance.sort((a, b) => b.distance - a.distance)
+
+    let finalratio = finalResDistance.map((item, i) => {
+      return Object.assign({}, {
+        x: item.x * 60,
+        y: item.y * 80,
+        name: pointsDistance[i].name,
+        idx: pointsDistance[i].id
+      })
+    })
+
+
+    startPoint = finalratio.find(v => {
+      return v.idx == 1
+    })
+    console.log(finalratio)
+    console.log(startPoint)
+    return finalratio
+  },
   showDesc() {
-this.setData({
-  isShowIntro: true
-})
+    this.setData({
+      isShowIntro: true
+    })
   },
   hideDesc() {
     this.setData({
       isShowIntro: false
     })
   },
-  zoomplus() {
-    if (this.data.zoom !== 2) {
-      this.setData({
-        scrollHeight: '200vh',
-        scrollWidth: '200vw',
-        zoom: 2,
-        points: this.data.points
-      })
-      this.zoomPAndL(2)
-      this.draw()
-    } else if (this.data.zoom) {
-      wx.showToast({
-        title: '地图已经最大',
-        icon: 'none'
-      })
-      return
-    }
-  },
-  zoomminus() {
-    if (this.data.zoom !== 1) {
-      this.setData({
-        scrollHeight: '100vh',
-        scrollWidth: '100vw',
-        zoom: 1
-      })
-      this.zoomPAndL(0.5)
-      this.draw()
-    } else if (this.data.zoom === 1) {
-      wx.showToast({
-        title: '地图已经最小',
-        icon: 'none'
-      })
-      return
-    }
-  },
-  // 划线的方法集
-  dottedLineReg(str, multiple) {
-    let reg = /([0-9])/g
-    str.replace(reg, '$1')
-    return str.replace(reg, RegExp.$1 * multiple)
-  },
-  objTostring(obj) {
-    let str = ''
-    for (let item in obj) {
-      str += `${item}: ${obj[item]};`
-    }
-    return str
-  },
-  calcAngleDegrees(a, b) {
-    if (a === undefined || b === undefined) return
-    return Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI
-  },
-  getMiddlePoint(a, b) {
-    if (a === undefined || b === undefined) return
-    return ({
-      x: Math.abs((a.x + b.x) / 2),
-      y: Math.abs((a.y + b.y) / 2)
-    })
-  },
-  getDistace(a, b) {
-    if (a === undefined || b === undefined) return
-    return Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
-  },
-  getHeorizonWidth(a, b) {
-    if (a === undefined || b === undefined) return
-    return Math.abs(b.x - a.x)
-  },
+
   strToNum(str) {
     // let reg = /[^0-9]/g
     // return parseInt(str.replace(reg, ''))
     return parseInt(str)
   },
-  repScale(str, muntiple) {
-    return str.replace("scale(1)", `scale(${muntiple})`)
-  },
-  // 绘图方法
-  draw() {
-    this.setData({
-      finalPoints: this.data.points.map(item => {
-        return Object.assign({}, item, {
-          newstyle: this.objTostring(item.style)
-        })
-      })
-    })
-    this.setData({
-      finalLines: this.data.lines.map(item => {
-        return Object.assign({}, item, {
-          newstyle: this.objTostring(item.style)
-        })
-      })
-    })
-    this.setData({
-      finalpassLines: this.data.passLines.map(item => {
-        return Object.assign({}, item, {
-          newstyle: this.objTostring(item.style)
-        })
-      })
-    })
-  },
-  // 数据准备（点和线）
-  dataPrep(e, zoom) {
-    this.setData({
-      points: this.data.points.concat({
-        id: this.data.currentPoint, //点的id
-        x: e.x, //x坐标
-        y: e.y, //y坐标
-        style: {
-          width: zoom === 1 ? '10rpx' : '20rpx',
-          height: zoom === 1 ? '10rpx' : '20rpx',
-          'border-radius': '50%',
-          'background-color': 'red',
-          position: "absolute",
-          top: e.y - 5 + 'rpx',
-          left: e.x - 5 + 'rpx',
-        }
-      })
-    })
-    let lineWidth = this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
-    let midPoint = this.getMiddlePoint(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
-    let degree = this.calcAngleDegrees(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint])
-    let piancha = this.getHeorizonWidth(this.data.points[this.data.currentPoint - 1], midPoint)
 
-    this.setData({
-      currentPoint: this.data.currentPoint + 1
-    })
-    if (this.data.currentPoint > 1) {
-      this.setData({
-        lines: this.data.lines.concat({
-          // lineWidth: this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint]),          
-          id: this.data.currentPoint - 1,
-          show: true,
-          style: {
-            height: 0,
-            // height: zoom === 1 ? '2rpx' : '4rpx',
-            position: 'absolute',
-            // 'background-color': 'red',
-            'border-bottom': `dotted ${zoom === 1 ? '4rpx' : '8rpx'} red`,
-            width: lineWidth + 'rpx',
-            transform: "rotateZ(" + degree + "deg) scale(1)",
-            top: midPoint ? midPoint['y'] + 1 * zoom + 'rpx' : null,
-            left: midPoint ? midPoint['x'] + 1 * zoom - lineWidth / 2 + 'rpx' : null
-          }
-        }),
-        passLines: this.data.passLines.concat({
-          // lineWidth: this.getDistace(this.data.points[this.data.currentPoint - 1], this.data.points[this.data.currentPoint]),          
-          id: this.data.currentPoint - 1,
-          show: true,
-          style: {
-            // height: 0,
-            height: zoom === 1 ? '2rpx' : '4rpx',
-            position: 'absolute',
-            'background-color': 'red',
-            // 'border-bottom': `dotted ${zoom === 1 ? '4rpx' : '8rpx'} red`,
-            width: lineWidth + 'rpx',
-            transform: "rotateZ(" + degree + "deg) scale(1)",
-            top: midPoint ? midPoint['y'] * zoom + 'rpx' : null,
-            left: midPoint ? midPoint['x'] * zoom - lineWidth / 2 + 'rpx' : null
-          }
-        }),
-      })
-    }
-  },
-  // 缩放点和线
-  zoomPAndL(multiple) {
-    console.log(multiple);
-    this.setData({
-      locations: this.data.locations.map(item => {
-        return Object.assign({}, {
-          type: item.type,
-          x: item.x * multiple,
-          y: item.y * multiple
-        })
-      }),
-      points: this.data.points.map(item => {
-        return Object.assign({}, item, {
-          x: item.x * multiple,
-          y: item.y * multiple,
-          style: {
-            width: this.strToNum(item.style.width) * multiple + 'rpx',
-            height: this.strToNum(item.style.height) * multiple + 'rpx',
-            'border-radius': '50%',
-            'background-color': 'red',
-            position: "absolute",
-            top: this.strToNum(item.style.top) * multiple + 'rpx',
-            left: this.strToNum(item.style.left) * multiple + 'rpx'
-          }
-        })
-      }),
-      lines: this.data.lines.map((item, index, arr) => {
-        var newPiancha
-        if (index > 0) {
-          newPiancha = this.getDistace(arr[index - 1], arr[index])
-        }
-        console.log(item.style.left);
-        return Object.assign({}, item, {
-          id: item.id,
-          style: {
-            height: 0,
-            // height: this.strToNum(item.style.height) * multiple + 'rpx',
-            position: 'absolute',
-            // 'background-color': 'red',
-            'border-bottom': this.dottedLineReg(item.style['border-bottom'], multiple),
-            width: this.strToNum(item.style.width) * multiple + 'rpx',
-            transform: item.style.transform,
-            top: this.strToNum(item.style.top) * multiple + 'rpx',
-            left: this.strToNum(item.style.left + newPiancha) * multiple + 'rpx',
-          }
-        })
-      }),
-      passLines: this.data.passLines.map((item, index, arr) => {
-        var newPiancha
-        if (index > 0) {
-          newPiancha = this.getDistace(arr[index - 1], arr[index])
-        }
-        console.log(item.style.left);
-        return Object.assign({}, item, {
-          id: item.id,
-          style: {
-            // height: 0,
-            height: this.strToNum(item.style.height) * multiple + 'rpx',
-            position: 'absolute',
-            'background-color': 'red',
-            // 'border-bottom': this.dottedLineReg(item.style['border-bottom'], multiple),
-            width: this.strToNum(item.style.width) * multiple + 'rpx',
-            transform: item.style.transform,
-            top: this.strToNum(item.style.top) * multiple + 'rpx',
-            left: this.strToNum(item.style.left + newPiancha) * multiple + 'rpx',
-          }
-        })
-      })
-    })
-  },
-  // 点击地图方法
-  drawPoint(e) {
-    let point = e.currentTarget.dataset.point
-    console.log(point);
-    this.dataPrep(point, this.data.zoom)
-    this.draw()
-  },
-  // 开始游玩
-  playStep(x, y) {
-    if (x === undefined || y === undefined) return
-    this.animation.top(y).left(x).step({
-      duration: 3000
-    })
-    this.setData({
-      animationData: this.animation.export()
-    })
-  },
-  startplay() {
-    // wx.navigateTo({
-    //   url: '../goSight/goSight'
-    // })
-    if (this.data.poepleLocationNum < this.data.finalPoints.length - 1) {
-      new Promise((resolve, reject) => {
-        this.playStep(this.data.finalPoints[this.data.poepleLocationNum + 1].x + 'rpx', this.data.finalPoints[this.data.poepleLocationNum + 1].y + 'rpx')
-        setTimeout(() => {
-          this.setData({
-            poepleLocationNum: this.data.poepleLocationNum + 1
-          })
-          this.startplay()
-        }, 3000)
-        resolve()
-      })
-    }
-  },
   toPr() {
     wx.navigateTo({
       url: '../pointRaiders/pointRaiders'
@@ -363,7 +326,7 @@ this.setData({
       isPop: true
     })
   },
-  hideDialogQuestion(){
+  hideDialogQuestion() {
     this.setData({
       isDialogQuestion: false
     })
