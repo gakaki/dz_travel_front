@@ -70,7 +70,7 @@ const xyCitys = citys.map(c => {
   o.y = xy.y;
   o.imgWd = 6;//根据美术资源尺寸
   o.imgHt = 6;
-  o.statusImgs = ['', '../../assets/index/gold.png'];
+  o.statusImgs = ['', '../../assets/province/light.png'];
   return o;
 })
 
