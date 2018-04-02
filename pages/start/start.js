@@ -200,6 +200,8 @@ Page({
           break;
         case Code.NOT_FOUND:
           this.tip('道具不存在或已使用');
+        case Code.REQUIREMENT_FAILED:
+          this.tip('已在当前城市，请重新选择城市进行游玩');
         default:
           this.tip('未知错误');
       }

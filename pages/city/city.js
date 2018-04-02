@@ -119,7 +119,7 @@ Page({
   toFly(cid,terminal,ticket) {
     if(location == terminal){
       wx.showToast({
-        title: '不能选择您目前所在地起飞',
+        title: '已在当前城市，请重新选择',
         icon: 'none'
       })
     }
