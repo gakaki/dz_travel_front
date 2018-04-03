@@ -58,9 +58,13 @@ Component({
         }, 10);
       }
     },
-    statusImgs: {
-      type: Array,
-      value: []
+    // statusImgs: {
+    //   type: Array,
+    //   value: []
+    // },
+    img: {
+      type:String,
+      value: ''
     },
       status: {
       type: Number,
@@ -77,7 +81,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    img: '',//当前状态下显示的图片，
+    // img: '',//当前状态下显示的图片，
     mvHdl: null,//移动倒计时
   },
 
@@ -85,21 +89,21 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    setStatus(idx, oldIdx) {
-        console.log(idx, oldIdx)
-      if (idx == oldIdx) {
-        return;
-      }
-      if (idx >= this.data.statusImgs.length) {
-        return;
-      }
+    // setStatus(idx, oldIdx) {
+    //     console.log(idx, oldIdx)
+    //   if (idx == oldIdx) {
+    //     return;
+    //   }
+    //   if (idx >= this.data.statusImgs.length) {
+    //     return;
+    //   }
 
-      let img = this.data.statusImgs[idx];
-      this.setData({
-        img: img,
-      })
+    //   let img = this.data.statusImgs[idx];
+    //   this.setData({
+    //     img: img,
+    //   })
 
-    },
+    // },
 
     onEleTap(e) {
       console.log(this.img, 'element tap')
@@ -140,13 +144,13 @@ Component({
   },
 
   attached() {
-    if (!this.data.img && this.data.statusImgs.length) {
-      let img = this.data.statusImgs[0];
-      this.setData({
-        status: 0,
-        img: img
-      })
-    }
+    // if (!this.data.img && this.data.statusImgs.length) {
+    //   let img = this.data.statusImgs[0];
+    //   this.setData({
+    //     status: 0,
+    //     img: img
+    //   })
+    // }
   },
 
 })

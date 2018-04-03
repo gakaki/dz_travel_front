@@ -97,7 +97,7 @@ Page({
         console.log(res, '签到数据')
         this.setData({
           theDay: res.theDay,
-          hasSign: res.hasSign
+          hasSign: res.hasSign,
         })
       })
     
