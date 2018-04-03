@@ -1,5 +1,5 @@
 // pages/integral/integral.js
-import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo} from '../../api.js';
+import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail} from '../../api.js';
 
 Page({
 
@@ -45,9 +45,17 @@ Page({
     m.id = this.data.id;
     m.tel = this.data.userInfo.phoneNumber;
     m.addr = this.data.userInfo.address;
-    console.log(this.data.userInfo)
+    console.log(this.data.userInfo.phoneNumber)
     m.fetch().then(res=>{
       console.log(res)
+      wx.showToast({
+        title: '兑换成功',
+      })
+      let req = new ExchangeDetail();
+      req.page = 0;
+      req.fetch().then(res=>{
+        console.log(res)
+      })
     })
   },
 
@@ -110,7 +118,7 @@ Page({
         rank: res.rank,
         shops: res.shops
       })
-      console.log(this.data.shops)
+      console.log(res)
     })
   },
 

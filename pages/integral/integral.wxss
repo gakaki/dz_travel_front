@@ -44,7 +44,8 @@
   width: 703rpx;
   height: 428rpx;
   display: flex;
-  justify-content: flex-start;
+  flex-direction:row;
+  justify-content: flex-start; 
   background-color: #fff;
   margin-top: -50rpx;
   border-radius: 20rpx;
