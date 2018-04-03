@@ -45,7 +45,7 @@ Page({
     m.id = this.data.id;
     m.tel = this.data.userInfo.phoneNumber;
     m.addr = this.data.userInfo.address;
-    console.log(this.data.userInfo)
+    console.log(this.data.userInfo.phoneNumber)
     m.fetch().then(res=>{
       console.log(res)
     })
