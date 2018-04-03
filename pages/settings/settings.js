@@ -34,7 +34,7 @@ Page({
     
     let value = e.detail.value
     //判断电话号码是否符合
-    if (value.phone.length != 11){
+    if (value.phone.length != 11 && value.phone){
       wx.showToast({
         title: '请输入正确的电话号码',
         icon: 'none'

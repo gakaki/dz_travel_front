@@ -91,8 +91,6 @@ class Code{
     
     static NEED_ADDRESS = -173;
     
-    static NONE_ADDRESS = -174;
-    
     static HAS_SIGNIN = -144;
     
     static UNKNOWN = -1000;
@@ -1069,11 +1067,12 @@ class RankInfo extends Base {
     
         this._rankType = null;
         this._rankSubtype = null;
+        this._page = null;
         this._limit = null;
         this._selfRank = null;
         this._ranks = null;
         this.requireFileds = ["rankType","rankSubtype"];
-        this.reqFields = ["rankType","rankSubtype","limit"];
+        this.reqFields = ["rankType","rankSubtype","page","limit"];
         this.resFields = ["selfRank","ranks"];
     }
     //client input, require, type: RankType
@@ -1082,6 +1081,9 @@ class RankInfo extends Base {
     //client input, require, type: RankSubtype
     get rankSubtype() {return this._rankSubtype}
     set rankSubtype(v) {this._rankSubtype = v}
+    //client input, optional, type: number
+    get page() {return this._page}
+    set page(v) {this._page = v}
     //client input, optional, type: number
     get limit() {return this._limit}
     set limit(v) {this._limit = v}
@@ -1765,18 +1767,14 @@ class ExchangeShop extends Base {
         this.action = 'integralShop.exchangeshop';
     
         this._id = null;
-        this._tel = null;
         this._addr = null;
-        this.requireFileds = ["id","tel","addr"];
-        this.reqFields = ["id","tel","addr"];
+        this.requireFileds = ["id","addr"];
+        this.reqFields = ["id","addr"];
         this.resFields = [];
     }
     //client input, require, type: string
     get id() {return this._id}
     set id(v) {this._id = v}
-    //client input, require, type: string
-    get tel() {return this._tel}
-    set tel(v) {this._tel = v}
     //client input, require, type: string
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
@@ -1914,7 +1912,7 @@ class RechargeRankInfo extends RankInfo {
     
         this._myRecharge = null;
         this.requireFileds = ["rankType","rankSubtype"];
-        this.reqFields = ["rankType","rankSubtype","limit"];
+        this.reqFields = ["rankType","rankSubtype","page","limit"];
         this.resFields = ["myRecharge","selfRank","ranks"];
     }
     //server output, type: number

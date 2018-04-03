@@ -7,8 +7,8 @@ let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
 let locationCid;   //当前所在城市cid
-let time = null
-let onlySingle = false, onlyDouble = false
+let time = null , preventFastClick = false;
+let onlySingle = false , onlyDouble = false;
 
 Page({
 
@@ -31,7 +31,8 @@ Page({
     isDoubleFirst: false,   //是否第一次双人起飞
     date: '',      //当前日期
     flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
-    showHelp:false
+    showHelp:false,
+    
    },
 
   /**
@@ -137,11 +138,14 @@ Page({
   onUnload: function () {
     onlyDouble = false
     onlySingle = false
+    preventFastClick = false
     clearInterval(time)
   },
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    if (preventFastClick) return;
+    preventFastClick = true;
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
@@ -205,6 +209,7 @@ Page({
         default:
           this.tip('未知错误');
       }
+      preventFastClick = false;
     })
     
   },
@@ -254,6 +259,7 @@ Page({
     this.setData({
       isArrive: true
     })
+    preventFastClick = false;
   },
 
   tip(tip) {
