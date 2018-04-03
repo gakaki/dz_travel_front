@@ -21,6 +21,29 @@ Page({
     confirmAdress:false,
     cfmStr:'确定'
   },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let m = new IntegralShop();
+    m.fetch().then(res => {
+      this.setData({
+        integral: res.integral,
+        rank: res.rank,
+        shops: res.shops
+      })
+      console.log(res)
+    })
+    this.getExchangeDetail()
+    
+  },
+  getExchangeDetail(){
+    let m = new ExchangeDetail();
+    m.page = 1;
+    m.fetch().then(res => {
+      console.log(res)
+    })
+  }, 
 
   buttonItems: function(e){
     this.setData({
@@ -51,11 +74,7 @@ Page({
       wx.showToast({
         title: '兑换成功',
       })
-      let req = new ExchangeDetail();
-      req.page = 0;
-      req.fetch().then(res=>{
-        console.log(res)
-      })
+      this.getExchangeDetail()
     })
   },
 
@@ -107,21 +126,7 @@ Page({
     
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let m = new IntegralShop();
-    m.fetch().then(res=>{
-      this.setData({
-        integral: res.integral,
-        rank: res.rank,
-        shops: res.shops
-      })
-      console.log(res)
-    })
-  },
-
+  
   /**
    * 页面上拉触底事件的处理函数
    */
