@@ -290,5 +290,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  test() {
+    wx.navigateTo({
+      url: '../settings/settings',
+    })
   }
 })

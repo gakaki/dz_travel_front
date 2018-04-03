@@ -128,3 +128,16 @@
   left: 0;
   opacity: 0;
 }
+
+.picker{
+  width: 670rpx;
+  margin-left: 40rpx;
+}
+
+.birthday-left{
+  margin-left: 0;
+}
+
+.birthday-right{
+  margin-right: 0;
+}

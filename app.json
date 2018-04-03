@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/settings/settings",
     "pages/play/play",
     "pages/goSight/goSight",
     "pages/cityRaiders/cityRaiders",
@@ -12,7 +13,6 @@
     "pages/recharge/recharge",
     "pages/raiders/raiders",
     "pages/city/city",
-    "pages/settings/settings",
     "pages/integral/integral",
     "pages/postcard/postcard",
     "pages/other/other",
