@@ -179,6 +179,7 @@ Page({
       loopTime--
       console.log(loopTime,'请求查看未读消息倒计时')
       if (loopTime<=0){
+        loopTime = 600;
         let msgCnt = new CheckMsgCnt()
         msgCnt.fetch().then((req) => {
           console.log(req, '消息条数')
