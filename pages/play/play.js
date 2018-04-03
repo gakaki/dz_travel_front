@@ -3,6 +3,7 @@ let startPoint//起点
 let arr = []
 let i = 0
 let pointArr = []
+let isStart = false  //是否开始行走
 import {
   Timeline
 } from '../../utils/util.js'
@@ -13,10 +14,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showWalk: false,
     walkPoint: [],
     gender: 1,
-    oneLineWidth: 0,//当前路线走的百分比
-    lineArr: [],//实线数组
+    shixianArr: [],
+    shixian: {},//当前变化的实线数据
     dashedLine: [],//虚线数组
     testArr: [],
     scale: 2,  //超过10个景点就能缩放
@@ -82,65 +84,208 @@ Page({
     this.setData({
       testArr: this.getPoint()
     })
-
+    console.log(this.data.testArr)
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
   },
-
-  testFunc(arr) {
-    if (arr.length > 10) {
+  //缩放点和线
+  scaleXy(v) {
+    let that = this
+    startPoint =  Object.assign({}, {
+      name: startPoint.name,
+      idx: startPoint.idx,
+      x: startPoint.x * v,
+      y: startPoint.y * v
+      })
+    let temptestArr = this.data.testArr.map(item => {
+      return Object.assign({}, {
+        name: item.name,
+        idx: item.idx,
+        x: item.x * v,
+        y: item.y * v
+      })
+    })
+    this.setData({
+      testArr: temptestArr
+    })
+    if (this.data.dashedLine.length > 0) {
+      let obj = this.data.dashedLine.map(item => {
+        return Object.assign({}, {
+          idx: item.idx,
+          x: item.x * v,
+          y: item.y * v,
+          tx: item.tx * v,
+          ty: item.ty * v,
+          jiaodu: item.jiaodu,
+          wid: item.wid * v,
+          time: item.time,
+          style: 'position:absolute;top:' + item.ty * v + 'rpx;' + 'left: ' + item.tx * v + 'rpx;width:' + item.wid * v + 'rpx;transform: rotate(' + item.jiaodu + 'deg);'
+        })
+      })
       this.setData({
-        scale: 2
+        dashedLine: obj
       })
     }
+    if (this.data.shixianArr.length > 0) {
+      let obj = this.data.shixianArr.map(item => {
+        return Object.assign({}, {
+          idx: item.idx,
+          x: item.x * v,
+          y: item.y * v,
+          tx: item.tx * v,
+          ty: item.ty * v,
+          jiaodu: item.jiaodu,
+          wid: item.wid * v,
+          time: item.time,
+          style: 'position:absolute;top:' + item.ty * v + 'rpx;' + 'left: ' + item.tx * v + 'rpx;width:' + item.wid * v + 'rpx;transform: rotate(' + item.jiaodu + 'deg);'
+        })
+      })
+      this.setData({
+        shixianArr: obj
+      })
+    }
+    // if (this.data.walkPoint.length > 0) {
+    //   let obj = this.data.walkPoint.map(item => {
+    //     return Object.assign({}, {
+    //       x: item.x * v,
+    //       y: item.y * v,
+    //       idx: item.idx,
+    //       time: item.time,
+    //       jiaodu: item.jiaodu,
+    //       wid: item.wid * v
+    //     })
+    //   })
+    //   this.setData({
+    //     walkPoint: obj
+    //   })
+    //   setTimeout(()=>{
+    //     this.setData({
+    //       showWalk: true
+    //     }) 
+    //   },1000)
+    // }
+    if (isStart) {
+      this.setData({
+        showWalk: false
+      })
+      setTimeout(() => {
+        that.startplay()
+      }, 30)
+    }
+       
+
+  },
+  zoomplus() {
+    if (this.data.zoom !== 2) {
+      this.setData({
+        scrollHeight: '200vh',
+        scrollWidth: '200vw',
+        zoom: 2,
+        points: this.data.points
+      })
+      this.scaleXy(2)
+
+    } else if (this.data.zoom) {
+      wx.showToast({
+        title: '地图已经最大',
+        icon: 'none'
+      })
+      return
+    }
+  },
+  zoomminus() {
+    if (this.data.zoom !== 1) {
+      this.setData({
+        scrollHeight: '100vh',
+        scrollWidth: '100vw',
+        zoom: 1
+      })
+      this.scaleXy(0.5)
+    } else if (this.data.zoom === 1) {
+      wx.showToast({
+        title: '地图已经最小',
+        icon: 'none'
+      })
+      return
+    }
+  },
+  chgWid(e) {
+
+    let obj = e.detail
+
+    this.setData({
+      shixianArr: this.data.dashedLine.slice(0, obj.idx - 1)
+    })
+    if (obj.idx == this.data.walkPoint.length) return
+    let xuxianObj = this.data.walkPoint[obj.idx]
+    let shixian = { x: this.data.walkPoint[obj.idx - 1].x, y: this.data.walkPoint[obj.idx - 1].y, wid: 0, jiaodu: xuxianObj.jiaodu }
+    this.setData({
+      shixian: shixian
+    })
+    setTimeout(() => {
+      //实线的长短
+      let animation = wx.createAnimation({
+        duration: obj.time,
+        timingFunction: 'linear'
+      })
+      // this.animation = animation
+      animation.width(this.data.dashedLine[obj.idx - 1].wid + 'rpx').step()
+      this.setData({
+        animationData: animation.export()
+      })
+      console.log('animationData', this.data.animationData)
+    }, 30)
 
   },
   startplay() {
+    isStart = true
     if (this.data.dashedLine) {
-      pointArr[0] = { x: startPoint.x, y: startPoint.y,idx:0,time:2000}
-      for (let i = 0; i < this.data.dashedLine.length;i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i+1, time: 5000*(i+1) }
+      pointArr[0] = { x: startPoint.x, y: startPoint.y, idx: 0, time: 2000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      for (let i = 0; i < this.data.dashedLine.length; i++) {
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 5000 * (i + 1) }
       }
       this.setData({
-        walkPoint: pointArr
+        walkPoint: pointArr,
+        showWalk: true
       })
-      console.log(pointArr)
     }
   },
   //画虚线
   drawDashedLine(e) {
-    i++
-    console.log(e.currentTarget)
+    console.log(e)
     let lastPoint, curPoint
     let idx = e.currentTarget.dataset.idx
     if (idx == 1) return   //点击起点
     curPoint = this.data.testArr.find(v => {
       return v.idx == idx
     })
-
+    i++
     if (this.data.dashedLine.length == 0) {
       lastPoint = startPoint
     }
+
     else lastPoint = this.data.dashedLine[this.data.dashedLine.length - 1]
+
     let wid = this.drawOneLine(lastPoint.x, lastPoint.y, curPoint.x, curPoint.y)
-    console.log(wid)
     let jiaodu = this.calcAngleDegrees(lastPoint, curPoint)
     let line = {
       idx: this.data.dashedLine.length == 0 ? 0 : this.data.dashedLine.length,
       x: curPoint.x,
       y: curPoint.y,
+      tx: lastPoint.x,
+      ty: lastPoint.y,
+      jiaodu: jiaodu,
       wid: wid,
       time: 5000 * i,
-      style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg)'
+      style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
     }
 
     arr.push(line)
-    console.log('arr', arr)
+    console.log(arr)
     this.setData({
       dashedLine: arr
     })
-    console.log(this.data.dashedLine)
 
   },
   //旋转角度
@@ -290,8 +435,7 @@ Page({
     startPoint = finalratio.find(v => {
       return v.idx == 1
     })
-    console.log(finalratio)
-    console.log(startPoint)
+    console.log('startPoint', startPoint)
     return finalratio
   },
   showDesc() {

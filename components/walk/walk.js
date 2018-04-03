@@ -6,6 +6,7 @@ let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
 let idx = 0 //第几次执行move方法
+let index = 0 //初始化需清零
 import { Base } from '../../api.js';
 Component({
   properties: {
@@ -30,6 +31,7 @@ Component({
 
   },
   ready() {
+    console.log(66666666666)
     timer = setInterval(() => {
       let l = this.data.left - 38 == -228 ? 0 : this.data.left - 38
       this.setData({
@@ -40,6 +42,8 @@ Component({
   },
 
   detached() {
+    //idx = 0
+    index =0
     clearInterval(timer)
     if (sto) clearTimeout(sto)
   },
@@ -48,7 +52,22 @@ Component({
    */
   methods: {
     func() {
-      if (isLast) return
+     
+      console.log('idxidxidxidxidxidxidx',idx)
+      if (isLast) {
+        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': idx+1 })
+
+       if(index == 0) {
+         this.setData({
+           x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
+           y: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].y,
+           show: true
+         })
+       }
+        return 
+      }
+      idx++
+      index++
       //let st = Base.servertime
       walkInfoObj = this.properties.walkInfoArr.find((v, i) => {
         return v.time > st
@@ -67,22 +86,31 @@ Component({
 
 
 
-      idx++
-      if (idx == 1) {
+     
+      if (index == 1) {
+        console.log('obj', obj.x, obj.y, obj.time)
         this.setData({
           x: obj.x,
           y: obj.y,
           show: true
         })
-        this.move({ tX: curPoint.x, tY: curPoint.y, time: 1 })
-        let tempSt = setTimeout(() => {
+        console.log('this.data.show', this.data.show)
+        setTimeout(() => {
+          console.log('move', obj.x, obj.y, obj.time)
+          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx})
           this.move(obj)
-          clearTimeout(tempSt)
-        }, 1000)   //时间记得减1秒
+        }, 30)
 
       } else {
+        this.setData({
+          x: obj.x,
+          y: obj.y,
+          show: true
+        })
+        this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx})
         this.move(obj)
       }
+      
 
       st = st + restTime 
       sto = setTimeout(() => {
