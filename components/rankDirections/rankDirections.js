@@ -17,6 +17,10 @@ Component({
     title:{
       type: String,
       value: '达人排行榜规则',
+    },
+    showNum:{
+      type:Boolean,
+      value: true
     }
   },
 

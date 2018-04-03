@@ -224,6 +224,13 @@ Page({
 
   useTkt() {
     console.log(cid)
+    if(this.data.location == terminal){
+      wx.showToast({
+        title: '已在当前城市，请重新选择',
+        icon: 'none'
+      })
+      return 
+    }
     this.setData({
       showTicket: false
     })
@@ -283,5 +290,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  test() {
+    wx.navigateTo({
+      url: '../settings/settings',
+    })
   }
 })

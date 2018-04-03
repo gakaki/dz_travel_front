@@ -16,7 +16,7 @@
   <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' players='{{players}}' airlines='{{airlines}}' bind:arrived='onArrived' ></cmap>
   <image class="shadow {{isDouble ? '' : 'shadow-random'}}" src="https://gengxin.odao.com/update/h5/travel/start/shadow.png"></image>
   <view class="tour-info f-c-fs {{isDouble ? '' : 'tour-random'}}">
-    <image class="help" hidden="{{isRandom || onlySingle}}" src="https://gengxin.odao.com/update/h5/travel/start/tip.png"></image>
+    <image class="help" hidden="{{isRandom || onlySingle}}" src="https://gengxin.odao.com/update/h5/travel/start/tip.png" bindtap='showHelp'></image>
     <view class="tips f-r-sb {{flyInfo.location ? '' : 'self-right'}}">
       <text hidden='{{!flyInfo.location}}'>出发地</text>
       <text>目的地</text>
@@ -92,7 +92,7 @@
         </view>
       </view>
       <view class="double-tip" hidden="{{partnerName}}">
-        <text wx:if="{{onlyDouble}}">(未邀请好友单人出发票价2000金币)</text>
+        <text wx:if="{{onlyDouble}}">(未邀请好友单人出发票价{{flyInfo.cost}}金币)</text>
         <text wx:else>(邀请好友双人旅行消耗{{flyInfo.doubleCost}}金币,好友无需购买机票)</text>
       </view>
     </view>
@@ -114,4 +114,5 @@
     </view>
   </view>
   <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="航班已到达祝您旅途愉快" outer-class="content" bind:confirm="_confirm"></tip>
+  <directions wx:if="{{showHelp}}" resHeight="940" helpId="1" title="玩法介绍" showNum="{{false}}" bind:confirm="_helpCfr"></directions>
 </view>

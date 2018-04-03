@@ -7,8 +7,8 @@ let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
 let locationCid;   //当前所在城市cid
-let time = null
-let onlySingle = false, onlyDouble = false
+let time = null , preventFastClick = false;
+let onlySingle = false , onlyDouble = false;
 
 Page({
 
@@ -30,7 +30,9 @@ Page({
     isSingleFirst: false,   //是否第一次单人起飞
     isDoubleFirst: false,   //是否第一次双人起飞
     date: '',      //当前日期
-    flyInfo:{weather:'sun'}      //页面相关信息,默认给weather：sun，避免渲染层报错
+    flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
+    showHelp:false,
+    
    },
 
   /**
@@ -136,11 +138,14 @@ Page({
   onUnload: function () {
     onlyDouble = false
     onlySingle = false
+    preventFastClick = false
     clearInterval(time)
   },
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    if (preventFastClick) return;
+    preventFastClick = true;
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
@@ -199,9 +204,12 @@ Page({
           break;
         case Code.NOT_FOUND:
           this.tip('道具不存在或已使用');
+        case Code.REQUIREMENT_FAILED:
+          this.tip('已在当前城市，请重新选择城市进行游玩');
         default:
           this.tip('未知错误');
       }
+      preventFastClick = false;
     })
     
   },
@@ -239,7 +247,7 @@ Page({
   planeFly(from,to) {
     let airlines = [
       { from, to },
-      // {from:205, to:3}//海口-上海
+      // {from:205, to:3}
     ]
     this.setData({
       airlines,
@@ -251,6 +259,7 @@ Page({
     this.setData({
       isArrive: true
     })
+    preventFastClick = false;
   },
 
   tip(tip) {
@@ -266,10 +275,22 @@ Page({
     })
   },
 
+  showHelp() {
+    this.setData({
+      showHelp: true
+    })
+  },
+
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
       url: '../play/play',
+    })
+  },
+
+  _helpCfr() {
+    this.setData({
+      showHelp: false
     })
   },
 

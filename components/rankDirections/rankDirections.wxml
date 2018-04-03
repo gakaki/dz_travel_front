@@ -1,11 +1,11 @@
 <!--components/rankDirections/rankDirections.wxml-->
-<view class="wrap bs {{helpId==2?'newTop': ''}}" style='height:{{resHeight}}rpx;'>
+<view class="wrap bs {{helpId==2 || helpId==1 ? 'newTop' : ''}}" style='height:{{resHeight}}rpx;'>
   <view class="title flex {{helpId==2?'nomb': ''}}">
     <text>{{title}}</text>
   </view>
-<text class="rule fs">本地游玩规则：</text>
+  <text class="rule fs" wx:if="{{helpId==2}}">本地游玩规则：</text>
   <view class="content" wx:for="{{con}}" wx:key="{{index}}">
-    <view class="number">{{index+1}}.</view> 
+    <view class="number" wx:if="{{showNum}}">{{index+1}}.</view> 
     <view class="direction">
       <text>{{item}}</text>
     </view>

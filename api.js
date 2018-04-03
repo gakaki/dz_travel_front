@@ -91,6 +91,12 @@ class Code{
     
     static NEED_ADDRESS = -173;
     
+    static NONE_ADDRESS = -174;
+    
+    static RANK_NOT_MEET = 150;
+    
+    static INTEGRAL_NOT_MEET = 151;
+    
     static HAS_SIGNIN = -144;
     
     static UNKNOWN = -1000;
@@ -478,12 +484,6 @@ class Comment {
     constructor() {
     
     
-        //prop type: string//帖子id
-        this.postId = null;
-    
-        //prop type: string//景点或特产图片url
-        this.img = null;
-    
         //prop type: UserBriefInfo//用户简单信息
         this.user = null;
     
@@ -498,6 +498,9 @@ class Comment {
     
         //prop type: number//点赞数
         this.thumbs = null;
+    
+        //prop type: boolean//是否已经点赞
+        this.haslike = null;
     
         //prop type: string//创建时间
         this.time = null;
@@ -529,7 +532,7 @@ class Post {
         //prop type: string//景点或特产图片url
         this.img = null;
     
-        //prop type: number//帖子的评分
+        //prop type: string//帖子的评分
         this.score = null;
     
         //prop type: number//评论数
@@ -733,7 +736,9 @@ class Base {
         }
         return Base.SID;
     }
-   static Start(appName, url) {
+   static Start(appName, url, shareUid) {
+        if(shareUid)
+            this.shareUid=shareUid;
         return new Promise((resolve,reject) => {
             let app=getApp();
             if (this.LOGINED) {
@@ -796,6 +801,10 @@ class Base {
         let req=new Base();
         req.action='user.login';
         req.reqFields=[ 'info'];
+        if (this.shareUid) {
+            req.reqFields.push('shareUid');
+            req.shareUid=this.shareUid;
+        }
         //wx login
         wx.getUserInfo({
             success: info =>{
@@ -805,6 +814,8 @@ class Base {
                 req.fetch().then(()=>{
                     this.AUTHED=true;
                     this.LOGINED=true;
+                    this.shareUid=null;
+                    
                     app.globalData.userInfo=req.info;
                     this.SID=req.sid;
                     this._timestampD=Date.now()/1000  - req.timestamp;
@@ -1070,11 +1081,12 @@ class RankInfo extends Base {
     
         this._rankType = null;
         this._rankSubtype = null;
+        this._page = null;
         this._limit = null;
         this._selfRank = null;
         this._ranks = null;
         this.requireFileds = ["rankType","rankSubtype"];
-        this.reqFields = ["rankType","rankSubtype","limit"];
+        this.reqFields = ["rankType","rankSubtype","page","limit"];
         this.resFields = ["selfRank","ranks"];
     }
     //client input, require, type: RankType
@@ -1083,6 +1095,9 @@ class RankInfo extends Base {
     //client input, require, type: RankSubtype
     get rankSubtype() {return this._rankSubtype}
     set rankSubtype(v) {this._rankSubtype = v}
+    //client input, optional, type: number
+    get page() {return this._page}
+    set page(v) {this._page = v}
     //client input, optional, type: number
     get limit() {return this._limit}
     set limit(v) {this._limit = v}
@@ -1486,10 +1501,10 @@ class ModifyRealInfo extends Base {
         this._name = null;
         this._birthday = null;
         this._phone = null;
-        this._adress = null;
+        this._address = null;
         this._realInfo = null;
-        this.requireFileds = ["name","birthday","phone","adress"];
-        this.reqFields = ["name","birthday","phone","adress"];
+        this.requireFileds = ["name","birthday","phone","address"];
+        this.reqFields = ["name","birthday","phone","address"];
         this.resFields = ["realInfo"];
     }
     //client input, require, type: string
@@ -1502,8 +1517,8 @@ class ModifyRealInfo extends Base {
     get phone() {return this._phone}
     set phone(v) {this._phone = v}
     //client input, require, type: string
-    get adress() {return this._adress}
-    set adress(v) {this._adress = v}
+    get address() {return this._address}
+    set address(v) {this._address = v}
     //server output, type: RealInfo
     get realInfo() {return this._realInfo}
     set realInfo(v) {this._realInfo = v}
@@ -1557,18 +1572,26 @@ class CommentPost extends Base {
         super();
         this.action = 'post.commentpost';
     
+        this._cityId = null;
         this._postId = null;
         this._content = null;
-        this.requireFileds = ["postId","content"];
-        this.reqFields = ["postId","content"];
+        this._type = null;
+        this.requireFileds = ["cityId","postId","content","type"];
+        this.reqFields = ["cityId","postId","content","type"];
         this.resFields = [];
     }
+    //client input, require, type: string//城市id
+    get cityId() {return this._cityId}
+    set cityId(v) {this._cityId = v}
     //client input, require, type: string//景点或特产id
     get postId() {return this._postId}
     set postId(v) {this._postId = v}
     //client input, require, type: string//评论内容
     get content() {return this._content}
     set content(v) {this._content = v}
+    //client input, require, type: PostType//帖子类型：景点or特产
+    get type() {return this._type}
+    set type(v) {this._type = v}
 }
 class PostComments extends Base {
     constructor() {
@@ -1577,12 +1600,16 @@ class PostComments extends Base {
     
         this._cityId = null;
         this._postId = null;
-        this._lastCmtId = null;
+        this._page = null;
         this._limit = null;
+        this._type = null;
+        this._content = null;
+        this._name = null;
+        this._img = null;
         this._comments = null;
-        this.requireFileds = ["cityId","postId","lastCmtId","limit"];
-        this.reqFields = ["cityId","postId","lastCmtId","limit"];
-        this.resFields = ["comments"];
+        this.requireFileds = ["cityId","postId","page","limit","type"];
+        this.reqFields = ["cityId","postId","page","limit","type"];
+        this.resFields = ["content","name","img","comments"];
     }
     //client input, require, type: string//城市id
     get cityId() {return this._cityId}
@@ -1590,12 +1617,24 @@ class PostComments extends Base {
     //client input, require, type: string//帖子id
     get postId() {return this._postId}
     set postId(v) {this._postId = v}
-    //client input, require, type: number//上一屏最后comment的id
-    get lastCmtId() {return this._lastCmtId}
-    set lastCmtId(v) {this._lastCmtId = v}
+    //client input, require, type: number//页码
+    get page() {return this._page}
+    set page(v) {this._page = v}
     //client input, require, type: number//本次拉取的条数
     get limit() {return this._limit}
     set limit(v) {this._limit = v}
+    //client input, require, type: PostType//帖子类型：景点or特产
+    get type() {return this._type}
+    set type(v) {this._type = v}
+    //server output, type: string//帖子内容，为景点或特产的介绍
+    get content() {return this._content}
+    set content(v) {this._content = v}
+    //server output, type: 
+    get name() {return this._name}
+    set name(v) {this._name = v}
+    //server output, type: string//景点或特产图片url
+    get img() {return this._img}
+    set img(v) {this._img = v}
     //server output, type: Comment[]//该帖子下的评论
     get comments() {return this._comments}
     set comments(v) {this._comments = v}
@@ -1606,13 +1645,21 @@ class ThumbComment extends Base {
         this.action = 'post.thumbcomment';
     
         this._commentId = null;
+        this._thumbs = null;
+        this._haslike = null;
         this.requireFileds = ["commentId"];
         this.reqFields = ["commentId"];
-        this.resFields = [];
+        this.resFields = ["thumbs","haslike"];
     }
     //client input, require, type: string//评论id
     get commentId() {return this._commentId}
     set commentId(v) {this._commentId = v}
+    //server output, type: number//点赞数
+    get thumbs() {return this._thumbs}
+    set thumbs(v) {this._thumbs = v}
+    //server output, type: boolean//是否点赞
+    get haslike() {return this._haslike}
+    set haslike(v) {this._haslike = v}
 }
 class PlayerInfo extends Base {
     constructor() {
@@ -1734,14 +1781,18 @@ class ExchangeShop extends Base {
         this.action = 'integralShop.exchangeshop';
     
         this._id = null;
+        this._tel = null;
         this._addr = null;
-        this.requireFileds = ["id","addr"];
-        this.reqFields = ["id","addr"];
+        this.requireFileds = ["id","tel","addr"];
+        this.reqFields = ["id","tel","addr"];
         this.resFields = [];
     }
     //client input, require, type: string
     get id() {return this._id}
     set id(v) {this._id = v}
+    //client input, require, type: string
+    get tel() {return this._tel}
+    set tel(v) {this._tel = v}
     //client input, require, type: string
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
@@ -1879,7 +1930,7 @@ class RechargeRankInfo extends RankInfo {
     
         this._myRecharge = null;
         this.requireFileds = ["rankType","rankSubtype"];
-        this.reqFields = ["rankType","rankSubtype","limit"];
+        this.reqFields = ["rankType","rankSubtype","page","limit"];
         this.resFields = ["myRecharge","selfRank","ranks"];
     }
     //server output, type: number

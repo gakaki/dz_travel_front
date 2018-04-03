@@ -16,7 +16,7 @@ const lineArcDMin = Math.PI / 6;//最小弧度
 const arcDt = 250;//航线弧度修正参考
 const stepDg = 1 / 180 * Math.PI;//步进度数
 
-const mapAssetsRoot = '../../assets/province/';
+const mapAssetsRoot = 'https://gengxin.odao.com/update/h5/travel/province/';
 const mapBg = mapAssetsRoot + 'china.png';
 const mapWidth = 714;
 const mapHeight = 828;

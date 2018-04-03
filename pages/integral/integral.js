@@ -1,23 +1,56 @@
 // pages/integral/integral.js
+import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail} from '../../api.js';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    getRewardInfo: [{ avatar: "", name: "胖迪", goods: "冰淇凌" }, 
-    { avatar: "", name: "胖迪1", goods: "冰淇凌1" },
-    { avatar: "", name: "胖迪2", goods: "冰淇凌2" },
-    { avatar: "", name: "胖迪3", goods: "冰淇凌3" },
-    { avatar: "", name: "胖迪4", goods: "冰淇凌4" }],
-    goodsInfo: [{ img: "", goodsName: "冰淇凌1", integral:"3000"},
-      { img: "", goodsName: "冰淇凌2", integral: "4000" },
-      { img: "", goodsName: "冰淇凌3", integral: "5000" }],
     underline:0,
     exchange:false,
     exchangeCon:'',
-    confirmAdress:false
+    confirmAdress:false,
+    cfmStr:'确定',
+    page:1,
+    exchangeDetail:[]
+
   },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getUserInfo()
+  },
+  getUserInfo(){
+    let m = new IntegralShop();
+    m.fetch().then(res => {
+      this.setData({
+        integral: res.integral,
+        rank: res.rank,
+        shops: res.shops
+      })
+      console.log(res)
+    })
+    this.getExchangeDetail(true)
+  },
+  getExchangeDetail(refresh){
+    let m = new ExchangeDetail();
+    m.page = refresh ? 1 : this.data.page;
+    m.fetch().then(res => {
+      let detail=[]
+      if (refresh) {
+        detail = res.exchangeDetail;
+      } else {
+        detail = this.data.exchangeDetail;
+        detail = detail.concat(res.exchangeDetail);
+      }
+      this.setData({
+        exchangeDetail: detail,
+        page:this.data.page+1
+      })
+    })
+  }, 
 
   buttonItems: function(e){
     this.setData({
@@ -26,10 +59,11 @@ Page({
   },
 
   exchange(e) {
-    let data = e.currentTarget.dataset
+    let data = e.currentTarget.dataset;
     this.setData({
       exchange:true,
-      exchangeCon:'确定消耗'+data.int+'积分兑换'+data.name
+      exchangeCon:'确定消耗'+data.int+'积分兑换'+data.name,
+      id: data.id
     })
   },
 
@@ -37,11 +71,25 @@ Page({
     this.setData({
       confirmAdress:false
     })
+    let m = new ExchangeShop();
+    m.id = this.data.id;
+    m.tel = this.data.userInfo.phoneNumber;
+    m.addr = this.data.userInfo.address;
+    console.log(this.data.userInfo.phoneNumber)
+    m.fetch().then(res=>{
+      console.log(res)
+      wx.showToast({
+        title: '兑换成功',
+      })
+      setTimeout(()=>{
+        this.getUserInfo(true)
+      },100)
+    })
   },
 
   toSetting() {
     wx.navigateTo({
-      url: '../settings/settings',
+      url: '../settings/settings?settings=true',
     })
     this.setData({
       confirmAdress: false
@@ -53,56 +101,42 @@ Page({
       exchange:false
     })
   },
-
   _confirm() {
-    this.setData({
-      exchange:false,
-      confirmAdress:true
-    })
+    if (this.data.cfmStr == '确定') {
+      let m = new GetUserLocation();
+      m.fetch().then(res => {
+        console.log(res)
+        let m = new GetRealInfo();
+        m.fetch().then(res=>{
+          console.log(res)
+          this.setData({
+            exchange: false,
+            confirmAdress: true,
+            userInfo: res.realInfo
+          })
+        })
+        
+      }).catch(res => {
+        if (res == -174) {
+          this.setData({
+            exchangeCon: '您尚未设置个人信息',
+            cfmStr: '前往设置'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url:'../settings/settings?settings=true'
+      })
+    }
+    
+    
+  },
+  lower(){
+    this.getExchangeDetail()
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
   
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */

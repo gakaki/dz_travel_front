@@ -5,7 +5,7 @@
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
   </view>
-  <scroll-view class='reach-city' scroll-y='true' scroll-into-view="{{myIdx}}">
+  <scroll-view class='reach-city' scroll-y='true' scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
     <view class='start'>
       <view class='mark mark-start'>起</view>
     </view>
