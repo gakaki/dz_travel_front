@@ -6,46 +6,57 @@
         <text class='jifen text-color1'>积分：</text>
         <text class='jinfenshu text-color'>{{integral}}</text>
       </view>
-      <view class='show-wenzi'>
-        <text class='jifenbang text-color1'>积分榜排名：</text>
-        <text class='paiming text-color'>{{rank?rank:'未上榜'}}</text>
+      <view class='show-wenzi wenzi-b'>
+        <text class='jifenbang text-color1'>积分榜排名：{{rank?'':'未上榜'}}</text>
+        <text class='paiming text-color'>{{rank?rank:''}}</text>
         <image class="tupian" src="https://gengxin.odao.com/update/h5/travel/integral/tip.png"></image>
       </view>
     </view>
+    <view class='pd'>本期积分兑换</view>
   </view>
-  <view class='exchange bs'>
-    <view class="items f-c-fs {{index==2 ? 'last-item' : ''}}" wx:for="{{shops}}" wx:key="{{index}}" bindtap='buttonItems' data-items="{{index}}">
-      <image class='goods-tu' src="{{item.url}}"></image>
-      <text class="goods-zi">{{item.name}}</text>
-      <text class="goods-fen">{{item.integral}}积分</text>
+  <scroll-view scroll-x class='exchange bs'>
+    <view class="items {{index==2 ? 'last-item' : ''}}" wx:for="{{shops}}" wx:key="{{index}}" bindtap='buttonItems' data-items="{{index}}">
+      <view>
+        <image class='goods-tu' src="{{item.url}}"></image>
+      </view>
+      
+      <view class="goods-zi">{{item.name}}</view>
+      <view class="goods-fen">{{item.integral}}积分</view>
       <view class="goods-anniu" bindtap='exchange' data-id='{{item.id}}' data-int="{{item.integral}}" data-name="{{item.name}}">
         <text>兑换</text>
       </view>
       <view class="xuanzhong" wx:if="{{index==underline}}"></view>
     </view>
-  </view>
+  </scroll-view >
     <view class='title'>
       <text>兑换详情</text>
     </view>
-  <view class="info f-r-fs" wx:for="{{getRewardInfo}}" wx:key="{{index}}">
-    <avatar avatarWid="72" avatarHeg="72" src="{{item.avatarUrl}}" showGoldAndIntegral='{{false}}'></avatar>
-    <text>{{item.nickName}}兑换了{{item.shopName}}</text>
-  </view>
+    <scroll-view scroll-y bindscrolltolower='lower' class='info-wrap'>
+      <view  class="info" wx:for="{{exchangeDetail}}" wx:key="{{index}}">
+        <view class='f-r-fs'>
+          <avatar avatarWid="72" avatarHeg="72" src="{{item.avatarUrl}}" showGoldAndIntegral='{{false}}'></avatar>
+          <text>{{item.nickName}}兑换了{{item.shopName}}</text>
+        </view>
+      </view>
+    </scroll-view>
   <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
-  <view class="tanchuang" wx:if="{{confirmAdress}}">
-    <view class="xinxi f-c-fs">
-      <text class="fs">请核对快递信息</text>
-      <text class="fs">收件人：{{userInfo.name}}</text>
-      <text class="fs">手机号：{{userInfo.phoneNumber}}</text>
-      <text class="fs">收货地址：{{userInfo.address}}</text>
-    </view>
-    <view class="anniu ">
-      <view class="xiugai" bindtap='toSetting'>
-        <text>修改快递信息</text>
+  <view class='xinxi-wrap' wx:if="{{confirmAdress}}">
+    <view class='mask'></view>
+     <view class="tanchuang">
+      <view class="xinxi f-c-fs">
+        <text class="fs">请核对快递信息</text>
+        <text class="fs">收件人：{{userInfo.name}}</text>
+        <text class="fs">手机号：{{userInfo.phoneNumber}}</text>
+        <text class="fs">收货地址：{{userInfo.address}}</text>
       </view>
-      <view class="quren" bindtap='confirmExc'>
-        <text>确认</text>
+      <view class="anniu ">
+        <view class="xiugai" bindtap='toSetting'>
+          <text>修改快递信息</text>
+        </view>
+        <view class="quren" bindtap='confirmExc'>
+          <text>确认</text>
+        </view>
       </view>
     </view>
-  </view>
+  </view> 
 </view>
