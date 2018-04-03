@@ -52,6 +52,7 @@ Page({
       console.log(req)
     })
     message = []
+    page = 1
     this.setData({
       message,
     })
