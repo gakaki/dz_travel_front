@@ -30,13 +30,27 @@
   margin-left: 20rpx;
 }
 
+
 .text-color{
-  font:bold 32rpx "Microsoft YaHei";
+  font:bold 32rpx/28rpx "Microsoft YaHei";
   color: #fff;
 }
 
 .text-color1{
-  font:bold 28rpx "Microsoft YaHei";
+  font:bold 28rpx/28rpx "Microsoft YaHei";
+  color: #fff;
+}
+.wenzi-b {
+  padding-top: 12rpx;
+}
+.pd {
+  position: relative;
+  top: 20rpx;
+  z-index: 9;
+  background: url('https://gengxin.odao.com/update/h5/travel/sign/pd.png') center center no-repeat;
+  background-size: 404rpx 82rpx;
+  font: bold 32rpx/70rpx 'Microsoft YaHei'; 
+  text-align: center;
   color: #fff;
 }
 
@@ -52,12 +66,14 @@
 }
 
 .items{
+  display: inline-block;
   margin-top: 92rpx;
   width: 233rpx;
   height: 301rpx;
   background-color: #fff;
   border-right:2rpx solid #f2f2f2;
   position: relative;
+  text-align: center;
 }
 
 .last-item{
@@ -69,6 +85,7 @@
   height: 160rpx;
   border-radius: 15rpx;
   background-color: beige;
+  vertical-align: top;
 }
 
 .goods-zi{
@@ -91,7 +108,7 @@
   font: bold 20rpx "Microsoft YaHei";
   color: #fff;
   text-align: center;
-  margin-top: 15rpx;
+  margin: 15rpx auto 0;
 }
 
 .goods-anniu text{
@@ -109,11 +126,15 @@
 }
 
 .title{
-  font:bold 36rpx "Microsoft YaHei";
+  font:bold 36rpx/1 "Microsoft YaHei";
   color: #000;
-  margin-top: 60rpx;
+  margin-top: 54rpx;
 }
 
+.info-wrap {
+  width: 710rpx;
+  height: 500rpx;
+}
 .info{
   width: 710rpx;
   height: 92rpx;
@@ -130,12 +151,21 @@
   font: bold 30rpx "Microsoft YaHei";
   color: #b8b8b8;
 }
+.xinxi-wrap{
+  position: relative;
+  z-index: 11;
+  width: 100vw;
+  height: 100wh;
+}
 
 .tanchuang{
   width: 610rpx;
   height: 380rpx;
-  position: absolute;
-  top: 350rpx;
+  position: fixed;
+  z-index: 11;
+  left: 50%;
+  top: 50%;
+  margin: -190rpx 0 0 -305rpx;
   background-color: #fff;
   border-radius: 40rpx;
   border-right:2rpx solid #f2f2f2;

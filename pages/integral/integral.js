@@ -7,24 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    getRewardInfo: [{ avatar: "", name: "胖迪", goods: "冰淇凌" }, 
-    { avatar: "", name: "胖迪1", goods: "冰淇凌1" },
-    { avatar: "", name: "胖迪2", goods: "冰淇凌2" },
-    { avatar: "", name: "胖迪3", goods: "冰淇凌3" },
-    { avatar: "", name: "胖迪4", goods: "冰淇凌4" }],
-    goodsInfo: [{ img: "", goodsName: "冰淇凌1", integral:"3000"},
-      { img: "", goodsName: "冰淇凌2", integral: "4000" },
-      { img: "", goodsName: "冰淇凌3", integral: "5000" }],
     underline:0,
     exchange:false,
     exchangeCon:'',
     confirmAdress:false,
-    cfmStr:'确定'
+    cfmStr:'确定',
+    page:1,
+    exchangeDetail:[]
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getUserInfo()
+  },
+  getUserInfo(){
     let m = new IntegralShop();
     m.fetch().then(res => {
       this.setData({
@@ -34,14 +32,23 @@ Page({
       })
       console.log(res)
     })
-    this.getExchangeDetail()
-    
+    this.getExchangeDetail(true)
   },
-  getExchangeDetail(){
+  getExchangeDetail(refresh){
     let m = new ExchangeDetail();
-    m.page = 1;
+    m.page = refresh ? 1 : this.data.page;
     m.fetch().then(res => {
-      console.log(res)
+      let detail=[]
+      if (refresh) {
+        detail = res.exchangeDetail;
+      } else {
+        detail = this.data.exchangeDetail;
+        detail = detail.concat(res.exchangeDetail);
+      }
+      this.setData({
+        exchangeDetail: detail,
+        page:this.data.page+1
+      })
     })
   }, 
 
@@ -74,7 +81,9 @@ Page({
       wx.showToast({
         title: '兑换成功',
       })
-      this.getExchangeDetail()
+      setTimeout(()=>{
+        this.getUserInfo(true)
+      },100)
     })
   },
 
@@ -93,7 +102,6 @@ Page({
     })
   },
   _confirm() {
-    console.log('确定')
     if (this.data.cfmStr == '确定') {
       let m = new GetUserLocation();
       m.fetch().then(res => {
@@ -110,7 +118,6 @@ Page({
         
       }).catch(res => {
         if (res == -174) {
-
           this.setData({
             exchangeCon: '您尚未设置个人信息',
             cfmStr: '前往设置'
@@ -124,6 +131,9 @@ Page({
     }
     
     
+  },
+  lower(){
+    this.getExchangeDetail()
   },
 
   

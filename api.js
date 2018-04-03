@@ -93,6 +93,10 @@ class Code{
     
     static NONE_ADDRESS = -174;
     
+    static RANK_NOT_MEET = 150;
+    
+    static INTEGRAL_NOT_MEET = 151;
+    
     static HAS_SIGNIN = -144;
     
     static UNKNOWN = -1000;
@@ -732,7 +736,9 @@ class Base {
         }
         return Base.SID;
     }
-   static Start(appName, url) {
+   static Start(appName, url, shareUid) {
+        if(shareUid)
+            this.shareUid=shareUid;
         return new Promise((resolve,reject) => {
             let app=getApp();
             if (this.LOGINED) {
@@ -795,6 +801,10 @@ class Base {
         let req=new Base();
         req.action='user.login';
         req.reqFields=[ 'info'];
+        if (this.shareUid) {
+            req.reqFields.push('shareUid');
+            req.shareUid=this.shareUid;
+        }
         //wx login
         wx.getUserInfo({
             success: info =>{
@@ -804,6 +814,8 @@ class Base {
                 req.fetch().then(()=>{
                     this.AUTHED=true;
                     this.LOGINED=true;
+                    this.shareUid=null;
+                    
                     app.globalData.userInfo=req.info;
                     this.SID=req.sid;
                     this._timestampD=Date.now()/1000  - req.timestamp;
