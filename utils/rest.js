@@ -33,11 +33,6 @@ const initHttpLoop = () => {
   apis.Http.init();
 }
 
-const initHttpLoop = () => {
-  console.log('initHttp')
-  api.Http.init();
-}
-
 const wsSend = (action, data) => {
   apis.Base.WsSend(action, data);
 }
