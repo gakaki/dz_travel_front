@@ -132,6 +132,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     enterOnload = false
   },
 
@@ -168,7 +169,7 @@ Page({
       })
     })
 
-    Http.listen(CheckMsgCnt, this.loopMsg, this, 6000);
+    Http.listen(CheckMsgCnt, this.loopMsg, this, 600000);
   },
 
   loopMsg(res) {
