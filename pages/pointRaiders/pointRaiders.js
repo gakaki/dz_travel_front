@@ -1,8 +1,10 @@
 import { spliceStr } from '../../utils/util.js'
-import { PostList, PostType } from '../../api.js';
+import { PostList, PostType, CommentPost } from '../../api.js';
 const LIMIT = 5;
 const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
+const sheet = require('../../sheets.js');
+let cityId = ''
 Page({
 
   /**
@@ -13,36 +15,55 @@ Page({
   specialty: false,
   starWid: 240,
   starCount: 1,
-  testStr: '阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是阿桑的歌士大夫敢死队风格山东分公司的说法士大夫士大夫敢死队风格但是',
-  posts: []
+  postArr: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (typeof options.cityId != 'undefined') {
+      cityId = options.cityId
+      this.pullList(PostType.JINGDIAN)
+    }else {
+      let cityArr = []
+      sheet.citys.forEach(o=>{
+        if (o.city == options.city) {
+          cityArr.push(o)
+        }
+      })
+       cityId = cityArr[0].id
+       this.pullList(PostType.JINGDIAN)
+    }
+    
     wx.setNavigationBarTitle({
       title: options.city+'攻略'
     })
-   this.setData({
-     testStr:spliceStr(this.data.testStr,42)
-   })
-   this.pullList(PostType.JINGDIAN)
+   
   },
   pullList(v) {
     let req = new PostList()
-    req.lastPostId = 0
+    req.cityId = cityId
+    req.page = 1
     req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
+      let arr = []
+      if(v == 1) {
+         arr = req.posts.map(o => {
+          o.content = spliceStr(o.content, 42)
+          return o
+        })
+      } else arr = req.posts
+      
       this.setData({
-        posts: req.posts
+        postArr: arr
       })
     })
   },
   toDetail(e) {
     wx.navigateTo({
-      url: '../raiders/raiders?id=' + e.currentTarget.dataset.id
+      url: '../raiders/raiders?cityId=' + e.currentTarget.dataset.cityId + '&postId=' + e.currentTarget.dataset.postId + '&type=' + e.currentTarget.dataset.type + '&name=' + e.currentTarget.dataset.name
     })
   },
   chgTab() {
@@ -50,12 +71,12 @@ this.setData({
   viewpoint: !this.data.viewpoint,
   specialty: !this.data.specialty
 })
-// if(!this.data.specialty) {
-//   this.pullList(PostType.JINGDIAN)
-// }
-// else {
-//   this.pullList(PostType.TECHAN)
-// }
+if(!this.data.specialty) {
+  this.pullList(PostType.JINGDIAN)
+}
+else {
+  this.pullList(PostType.TECHAN)
+}
   },
   //超出字数部分用...代替
   /**

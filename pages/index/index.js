@@ -1,12 +1,11 @@
 // pages/index/index.js
 import { shareSuc, shareTitle } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, Base, IndexInfo, GetMessage, Ws, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
+import { SignInfo, Base, IndexInfo, GetMessage, Http, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
-let tktType , cid , terminal , tid;
-let loopTime = 600 , time = null; //当用户一直在此页面时请求未读消息时10分钟请求一次
+let tktType , cid , terminal , tid , locationCid;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -87,7 +86,7 @@ Page({
   toPlay() {
     //需要判断是否在游玩
     wx.navigateTo({
-      url: '../play/play'
+      url: '../play/play?cid=' + locationCid
       // url: '../cityRaiders/cityRaiders'
     })
   },
@@ -135,8 +134,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    loopTime = 600
-    clearInterval(time)
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     enterOnload = false
   },
 
@@ -144,8 +142,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    loopTime = 600
-    clearInterval(time)
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     enterOnload = false
   },
 
@@ -154,6 +151,7 @@ Page({
     let req = new IndexInfo();
     req.fetch().then(req => {
       console.log(req, '首页数据')
+      locationCid = req.location
       let season = Season[req.season]
       let weather = sheet.Weather.Get(req.weather).icon
       app.globalData.season = season
@@ -174,26 +172,15 @@ Page({
       })
     })
 
-    this.loopMsg()
+    Http.listen(CheckMsgCnt, this.loopMsg, this, 600000);
   },
 
-  loopMsg() {
-    //没10分钟查看是否有未读消息
-    time = setInterval(()=>{
-      loopTime--
-      // console.log(loopTime,'请求查看未读消息倒计时')
-      if (loopTime<=0){
-        loopTime = 600;
-        let msgCnt = new CheckMsgCnt()
-        msgCnt.fetch().then((req) => {
-          console.log(req, '消息条数')
-          this.setData({
-            messages: req.unreadMsgCnt
-          })
-        })
-      }
-      
-    },1000)
+  loopMsg(res) {
+    console.log(res,'httpLoop查询消息')
+    this.setData({
+      message: res.unreadMsgCnt
+    });
+    
     
   },
 

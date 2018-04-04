@@ -1,7 +1,7 @@
 let timer
 let sto
 let walkInfoObj = {}
-let st = 3000  //模拟服务器的时间戳
+let st = 11000  //模拟服务器的时间戳
 let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
@@ -25,7 +25,8 @@ Component({
     left: 0,
     // walkInfo: { x: 0, y: 0, idx:0, time: 3000 }  // time为未来的时间戳
     x: 0,
-    y: 0
+    y: 0,
+    deg: 0//小人是否需要旋转
   },
   attached() {
 
@@ -43,7 +44,7 @@ Component({
 
   detached() {
     //idx = 0
-    index =0
+    index = 0
     clearInterval(timer)
     if (sto) clearTimeout(sto)
   },
@@ -52,19 +53,19 @@ Component({
    */
   methods: {
     func() {
-     
-      console.log('idxidxidxidxidxidxidx',idx)
-      if (isLast) {
-        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': idx+1 })
 
-       if(index == 0) {
-         this.setData({
-           x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
-           y: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].y,
-           show: true
-         })
-       }
-        return 
+      console.log('idxidxidxidxidxidxidx', idx)
+      if (isLast) {
+        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': idx + 1 })
+
+        if (index == 0) {
+          this.setData({
+            x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
+            y: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].y,
+            show: true
+          })
+        }
+        return
       }
       idx++
       index++
@@ -75,7 +76,15 @@ Component({
       if (walkInfoObj.idx == this.properties.walkInfoArr.length - 1) {
         isLast = true
       }
-
+      if (walkInfoObj.x - this.properties.walkInfoArr[idx - 1].x >= 0) {
+        this.setData({
+          deg: 0
+        })
+      }else {
+        this.setData({
+          deg: 180
+        })
+      }
       let lastObj = this.properties.walkInfoArr[walkInfoObj.idx - 1]
       //一段路走过的百分比hideIntro
       let per = (st - lastObj.time) / (walkInfoObj.time - lastObj.time)
@@ -86,7 +95,7 @@ Component({
 
 
 
-     
+
       if (index == 1) {
         console.log('obj', obj.x, obj.y, obj.time)
         this.setData({
@@ -97,7 +106,7 @@ Component({
         console.log('this.data.show', this.data.show)
         setTimeout(() => {
           console.log('move', obj.x, obj.y, obj.time)
-          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx})
+          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx })
           this.move(obj)
         }, 30)
 
@@ -107,14 +116,14 @@ Component({
           y: obj.y,
           show: true
         })
-        this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx})
+        this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx })
         this.move(obj)
       }
-      
 
-      st = st + restTime 
+
+      st = st + restTime
       sto = setTimeout(() => {
-        
+
         clearTimeout(sto)
         this.func()
       }, restTime)

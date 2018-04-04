@@ -85,7 +85,7 @@
 }
 
 .item-bot {
-  max-width: 89%;
+  width: 89%;
   margin: 0 40rpx 60rpx 40rpx;
   color: #b0afb3;
   font-size: 24rpx;

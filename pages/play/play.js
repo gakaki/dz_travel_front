@@ -16,6 +16,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isChg: false,//是否正在修改路线
     showWalk: false,
     walkPoint: [],
     gender: 1,
@@ -30,7 +31,7 @@ Page({
     isFirstIn: false,
     isGetPost: false,
     canPhoto: false,
-    isDialogQuestion: true,
+    isDialogQuestion: false,
     isCongratulations: false,
     isMissionOpen: false,
     isMissionOpenDouble: false,
@@ -91,15 +92,22 @@ Page({
       title: '成都游玩'
     })
   },
+  //修改路线
+  chgLine() {
+    this.setData({
+      isChg: !this.data.isChg
+    })
+    console.log(this.data.isChg)
+  },
   //缩放点和线
   scaleXy(v) {
     let that = this
-    startPoint =  Object.assign({}, {
+    startPoint = Object.assign({}, {
       name: startPoint.name,
       idx: startPoint.idx,
       x: startPoint.x * v,
       y: startPoint.y * v
-      })
+    })
     let temptestArr = this.data.testArr.map(item => {
       return Object.assign({}, {
         name: item.name,
@@ -175,7 +183,7 @@ Page({
         that.startplay()
       }, 30)
     }
-       
+
 
   },
   zoomplus() {
@@ -219,6 +227,15 @@ Page({
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx - 1)
     })
+    setTimeout(() => {
+      if (this.data.shixianArr.length == this.data.dashedLine.length) {
+        try {
+          wx.removeStorageSync('clickedPoint')
+          wx.removeStorageSync('isStart')
+        } catch (e) {
+        }
+      }
+    }, 30)
     if (obj.idx == this.data.walkPoint.length) return
     let xuxianObj = this.data.walkPoint[obj.idx]
     let shixian = { x: this.data.walkPoint[obj.idx - 1].x, y: this.data.walkPoint[obj.idx - 1].y, wid: 0, jiaodu: xuxianObj.jiaodu }
@@ -241,11 +258,28 @@ Page({
 
   },
   startplay() {
-    isStart = true
+    
+    try {
+      let value = wx.getStorageSync('isStart')
+      if (value) { 
+        isStart = true
+      return
+      }
+      else {
+        try {
+          wx.setStorageSync('isStart', true)
+        } catch (e) {
+        }
+      }
+    } catch (e) {
+      console.log('err')
+    }
+   
+
     if (this.data.dashedLine) {
-      pointArr[0] = { x: startPoint.x, y: startPoint.y, idx: 0, time: 2000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      pointArr[0] = { x: startPoint.x, y: startPoint.y, idx: 0, time: 1000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 5000 * (i + 1) }
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 1000000 * (i + 1) }
       }
       this.setData({
         walkPoint: pointArr,
@@ -255,10 +289,50 @@ Page({
   },
   //画虚线
   drawDashedLine(e) {
-    console.log(e)
+    if (idx == 1) return   //点击起点
     let lastPoint, curPoint
     let idx = e.currentTarget.dataset.idx
-    if (idx == 1) return   //点击起点
+
+    let pArr = [idx]
+
+    //是否开始游玩
+    try {
+      let value = wx.getStorageSync('isStart')
+      if (value) {
+        if (this.data.isChg) {
+          
+        }else return
+      }
+    
+    } catch (e) {
+      console.log('err')
+    }
+    //游玩还未结束点击过的点
+    try {
+      let value = wx.getStorageSync('clickedPoint')
+      if (value) {
+        if (value.includes(idx)) {
+          return
+        }
+        else {
+          try {
+            wx.setStorageSync('clickedPoint', value.concat(idx))
+          } catch (e) {
+          }
+        }
+
+      } else {
+        try {
+          wx.setStorageSync('clickedPoint', pArr)
+        } catch (e) {
+        }
+      }
+    } catch (e) {
+      console.log('err')
+    }
+
+
+
     curPoint = this.data.testArr.find(v => {
       return v.idx == idx
     })

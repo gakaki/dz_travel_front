@@ -16,29 +16,61 @@ const showErr = msg => {
 //启动（会默认走一遍登录流程）
 const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
-    console.log(res)
+
+    console.log(res,'start')
+
+    //初始化http轮询
+    initHttpLoop();
     suc(true);
-    // initWs(); 
+    //测试websocket,实际上应该在业务层写ws相关逻辑
+    testWs();
   }).catch(()=> {
     // suc(false);
+    console.log('init false')
   })
 }
 
+
 const initWs = () => {
-  apis.Base.InitWs(wss);
+  return apis.Ws.init(wss);
 }
 
-const wsSend = (action, data) => {
-  apis.Base.WsSend(action, data);
+const initHttpLoop = () => {
+  apis.Http.init();
 }
 
-const wsReceive = (action, suc) => {
-  apis.Base.WsReceive(action, suc);
+const wsSend = (apiModel) => {
+  apis.Ws.send(apiModel);
 }
 
-function wsClose(...actions) {
-  apis.Base.WsClose.apply(api.Base, actions);
+const wsListen = (apiCls, cb, ctx) => {
+  apis.Ws.listen(apiCls, cb, ctx);
 }
+
+const wsUnlisten = (apiCls, cb, ctx) => {
+  apis.Ws.unlisten(apiCls, cb, ctx);
+}
+
+function wsClose() {
+  apis.Ws.close();
+}
+
+function testWs() {
+  initWs().then(()=>{
+    //send
+    let test = new apis.TestSend();
+    test.test = 'test send websocket';
+
+
+    //receive
+    wsListen(apis.SysMessage, res=>{
+      console.log('ws received:',res.content)
+    })
+    wsSend(test);
+  })
+  
+}
+
 
 function getMd() {
   let date1 = new Date().toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
@@ -73,7 +105,8 @@ module.exports = {
   showErr,
   initWs,
   wsSend,
-  wsReceive,
+  wsListen,
+  wsUnlisten,
   wsClose,
   ymd
 }

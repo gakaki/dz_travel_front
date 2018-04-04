@@ -4,7 +4,7 @@ const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
-
+let page = 1, ranks = [], topThree = [];
 Page({
 
   /**
@@ -21,7 +21,7 @@ Page({
     //好友排行榜
     rankingFriend: [],
     //自己的排名
-    selfRank:{rank:'未上榜',value:9999},
+    selfRank:{rank:'未上榜',achievement:9999},
     showHelp:false,
     title: '达人排行榜规则',
     id:5,
@@ -33,28 +33,26 @@ Page({
   onLoad: function (options) {
 
     //test(假数据,仅为了看页面显示效果,接入真数据时直接把这块代码删除即可)----------
-    let topThree = [], rankingCountry = [], rankingFriend = [];
-    for(let i = 0 ;i < 20; i++ ){
-      let obj = {};
-      obj.rank = i+1;
-      obj.avatar = 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0';
-      obj.nickName = '昵称几个字';
-      obj.value = Math.floor(Math.random()*10000+1);
-      obj.gold = Math.floor(Math.random() * 10000+1);
-      obj.uid = 'aaa'
-      if(i<3){
-        topThree[i] = obj;
-      }
-      else{
-        rankingCountry[i-3] = obj;
-      }
-      rankingFriend[i] = obj;
-    }
-    this.setData({
-      topThree,
-      rankingCountry,
-      rankingFriend,
-    })
+    // let topThree = [], rankingCountry = [], rankingFriend = [];
+    // for(let i = 0 ;i < 20; i++ ){
+    //   let obj = {};
+    //   obj.rank = i+1;
+    //   obj.userInfo = { avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字', gold: Math.floor(Math.random() * 10000 + 1), uid:'aaaa'};
+    //   obj.achievement = Math.floor(Math.random()*10000+1);
+    //   if(i<3){
+    //     topThree[i] = obj;
+    //   }
+    //   else{
+    //     rankingCountry[i-3] = obj;
+    //   }
+    //   rankingFriend[i] = obj;
+    // }
+    // console.log(topThree, rankingCountry)
+    // this.setData({
+    //   topThree,
+    //   rankingCountry,
+    //   rankingFriend,
+    // })
     //--------------------------------------------------------------------
 
     this.getRankInfo();
@@ -71,71 +69,85 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getRankInfo()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    this.resetInfo();
+    rankType = RankType.THUMBS; 
+    rankSubtype = RankSubtype.COUNTRY;
+    this.setData({
+      rankType,
+      rankSubtype,
+      toView: 'rank0',
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    this.resetInfo();
+    rankType = RankType.THUMBS; 
+    rankSubtype = RankSubtype.COUNTRY;
+    this.setData({
+      rankType,
+      rankSubtype,
+      toView: 'rank0',
+    })
+  },
+
+  //重置调api的信息
+  resetInfo() {
+    console.log('reset')
+    page = 1;
+    ranks = [];
+    topThree = [];
   },
 
   getRankInfo() {
+    console.log(page,'page')
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
-    req.fetch().then(() => {
-      let ranks = [];
-      let info = req.ranks.userInfo;
-      let selfRank = {};
-      let vKye;
-      //通过rankType来决定需要渲染数据中的value取items中哪个值
-      switch(rankType){
-        case RankType.THUMBS:
-          vKye = sheet.Item.COMPLETE;
-          break;
-        case RankType.FOOT:
-          vKye = sheet.Item.MAPLIGHT;
-          break;
-        case RankType.SCORE:
-          vKye = sheet.Item.NOWPOINT;
-          break;
-      }
-      //给selfRank赋值
-      selfRank.rank = req.selfRank.rank;
-      selfRank.value = req.selfRank.userInfo.items.get(vKye);
-      //通过循环返回的数据只取出其中需要的数据再setdata以减少数据传输大小。
-      for (let i =0;i<req.ranks.length;i++){
-        let obj={};
-        obj.rank = req.ranks.rank;
-        obj.avatar = info.avatarUrl;
-        obj.nickName = info.nickName;
-        obj.uid = info.uid;
-        obj.value = info.items.get(vKye);
-        obj.gold = info.items.get(sheet.Item.GOLD);
-        ranks[i] = obj;
-      }
+    req.page = page;
+    req.fetch().then(() => { 
+      ranks = ranks.concat(req.ranks);
+      console.log(ranks,page,'排行榜数据',req.selfRank)
       //全国榜单需要把前三名分开
       if (rankSubtype == RankSubtype.COUNTRY){
-        let topThree = ranks.splice(0,3);
-        this.setData({
-          topThree,
-          rankingCountry:ranks,
-        })
+        if(page == 1){
+          topThree = ranks.splice(0, 3);
+          this.setData({
+            topThree,
+            rankingCountry: ranks,
+            selfRank: req.selfRank
+          })
+        }
+        else{
+          this.setData({
+            rankingCountry: ranks,
+          })
+        }
       }
       else{
-        this.setData({
-          rankingFriend:ranks
-        })
+        if(page == 1){
+          this.setData({
+            rankingFriend: ranks,
+            selfRank: req.selfRank
+          })
+        }
+        else{
+          this.setData({
+            rankingFriend: ranks,
+          })
+        }
       }
+
+      page++;
     })
   },
 
@@ -145,6 +157,7 @@ Page({
       rankSubtype,
       toView: 'rank0',
     })
+    this.resetInfo()
     this.getRankInfo();
   },
 
@@ -154,6 +167,7 @@ Page({
       rankSubtype,
       toView: 'rank0',
     })
+    this.resetInfo()
     this.getRankInfo();
   },
 
@@ -167,6 +181,7 @@ Page({
       id: '5',
       title: '达人排行榜规则'
     })
+    this.resetInfo()
     this.getRankInfo();
   },
 
@@ -180,6 +195,7 @@ Page({
       id: '4',
       title: '足迹排行榜规则'
     })
+    this.resetInfo()
     this.getRankInfo();
   },
 
@@ -193,6 +209,7 @@ Page({
       id: '3',
       title: '积分排行榜规则'
     })
+    this.resetInfo()
     this.getRankInfo();
   },
 

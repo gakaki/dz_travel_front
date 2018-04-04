@@ -3,8 +3,13 @@
 const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
 import { Comment, CommentPost, PostComments, ThumbComment } from '../../api.js'
-let postId, lastCmtId = 0;
+let postId
+let lastCmtId = 0
+let cityId = ''
+let types
+let name
 const LIMIT = 5;
+let num = 1
 Page({
 
   /**
@@ -15,29 +20,61 @@ Page({
     isShowPop: false,
     starWid: 130,
     starCount: 5,
-    comments: [],
+    comments: [],  //评论列表
     tipPop: false,
-    commentId: 1
+    commentId: 1,
+    content: ''
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    console.log(options)
+    postId = options.postId
+    cityId = options.cityId
+    types = options.type
+    name = options.name
     wx.setNavigationBarTitle({
-      title: '中央大街'
+      title: name
     })
-
-    postId = options.postId;
-    this.freshList();
+    this.freshList(num)
   },
-  dianzan() {
-    // let req = new ThumbComment();
-    // req.commentId = commentId;
-    // req.fetch().then(() => {
-    //   //评论列表后面追加一条，并翻转顺序
-    //   //let comments = this.data.comments.concat(req.comments);
-    // })
+  onUnload() {
+num = 0
+  },
+  addPage() {
+    this.freshList(num++)
+  },
+  dianzan(e) {
+    console.log(e.currentTarget.dataset)
+    let obj = e.currentTarget.dataset
+    let req = new ThumbComment();
+    req.commentId = obj.id;
+    req.fetch().then(() => {
+
+      //评论列表后面追加一条，并翻转顺序
+      //let comments = this.data.comments.concat(req.comments);
+      let newCmts = this.data.comments
+      newCmts.map(o => {
+        if (o.commentId == obj.id) {
+          o.thumbs = o.thumbs + 1
+        }
+        return o
+      })
+      this.setData({
+        comments: newCmts
+      })
+    },()=>{
+      // if(req.code == -521) {
+      //   wx.showToast({
+      //     title: '你已经点赞过了哦',
+      //     icon: 'none',
+      //     mask: true
+      //   })
+      // }
+    })
   },
   hideTipPop() {
     this.setData({
@@ -45,18 +82,27 @@ Page({
     })
   },
   judge(v) {
+    let that = this
+    console.log(v)
     this.setData({
       tipPop: true,
       isShowPop: !this.data.isShowPop
     })
-    // let req = new CommentPost();
-    // req.postId = postId;
-    // req.content = v.detail.str;
-    // req.score = v.detail.star;
-    // req.fetch().then(() => {
-    //   //评论列表后面追加一条，并翻转顺序
-    //   //let comments = this.data.comments.concat(req.comments);
-    // })
+    let req = new CommentPost()
+    req.type = types
+    req.postId = postId
+    req.cityId = cityId
+    req.content = v.detail.str
+    req.score = parseInt(v.detail.star)
+    req.fetch().then(() => {
+      console.log(req)
+      //把我刚才的评论插到第一条
+      let tArr = that.data.comments
+      tArr.unshift(req.comments)
+       that.setData({
+         comments: tArr
+      })
+    })
   },
   isPop() {
     this.setData({
@@ -92,15 +138,19 @@ Page({
 
   },
 
-  freshList() {
-    let req = new PostComments();
-    req.postId = postId;
-    req.lastCmtId = lastCmtId;
-    req.limit = LIMIT;
+  freshList(num) {
+    let req = new PostComments()
+    req.cityId = cityId
+    req.postId = postId
+    req.page = num
+    req.limit = LIMIT
+    req.type = types
 
     req.fetch().then(() => {
-      let comments = this.data.comments.concat(req.comments);
-      // this.setData({comments})
+      this.setData({
+        content:req.content
+      })
+      this.setData({ comments: this.data.comments.concat(req.comments)})
     });
   },
   /**
