@@ -76,7 +76,7 @@ Component({
       if (walkInfoObj.idx == this.properties.walkInfoArr.length - 1) {
         isLast = true
       }
-      if (walkInfoObj.idx.x - this.properties.walkInfoArr[idx - 1].x >= 0) {
+      if (walkInfoObj.x - this.properties.walkInfoArr[idx - 1].x >= 0) {
         this.setData({
           deg: 0
         })
