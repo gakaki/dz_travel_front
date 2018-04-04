@@ -18,7 +18,7 @@
         <text class="abc font">{{item.proLetter}}</text>
         <text class="pro font">{{item.proName}}</text>
       </view>
-      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}"  bindtap='check' data-city="{{ite.cityname}}" data-id='{{item.proLetter}}{{idx}}'>
+      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}"  bindtap='check' data-city-id="{{ite.cityId}}" data-city="{{ite.cityname}}" data-id='{{item.proLetter}}{{idx}}'>
         <view class="city f-r-sb" >
           <text class="c-name">{{ite.cityname}}</text>
           <text class="c-per">城市完成度{{ite.cityper}}%</text>

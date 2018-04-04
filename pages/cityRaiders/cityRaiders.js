@@ -2,6 +2,7 @@ import { CityListPer, ProvencePer } from '../../api.js'
 import { ymd } from '../../utils/rest.js'
 const app = getApp()
 let city //选中的城市
+let cityId = ''
 let arr  //数据列表
 Page({
 
@@ -113,6 +114,7 @@ Page({
       checkId: e.currentTarget.dataset.id
     })
     city = e.currentTarget.dataset.city
+    cityId = e.currentTarget.dataset.cityId
   },
   focus(e) {
     this.setData({
@@ -133,7 +135,7 @@ Page({
   },
   tocR() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?city=' + city   //还要把城市id传过去
+      url: '../pointRaiders/pointRaiders?city=' + city+ '&cityId='+cityId   //还要把城市id传过去
     })
   },
   /**

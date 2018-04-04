@@ -1,6 +1,8 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
 const LIMIT = 5;
+const sheet = require('../../sheets.js');
+let cityId = ''
 Page({
 
   /**
@@ -18,14 +20,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (typeof options.cityId != 'undefined') {
+      cityId = options.cityId
+      this.pullList(PostType.JINGDIAN)
+    }else {
+      let cityArr = []
+      sheet.citys.forEach(o=>{
+        if (o.city == options.city) {
+          cityArr.push(o)
+        }
+      })
+       cityId = cityArr[0].id
+       this.pullList(PostType.JINGDIAN)
+    }
+    
     wx.setNavigationBarTitle({
       title: options.city+'攻略'
     })
-   this.pullList(PostType.JINGDIAN)
+   
   },
   pullList(v) {
     let req = new PostList()
-    req.cityId = 1
+    req.cityId = cityId
     req.page = 1
     req.limit = LIMIT
     req.type = v
