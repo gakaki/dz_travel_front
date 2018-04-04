@@ -1,5 +1,7 @@
-import { spliceStr } from '../../utils/util.js'
+const app = getApp();
+import { spliceStr,shareSuc, shareTitle  } from '../../utils/util.js'
 import { DetailPostcard, SendPostcard } from '../../api.js';
+
 Page({
 
   /**
@@ -26,6 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.title = shareTitle(4)
     if (options && options.id) {
       this.data.id = options.id
     }
@@ -45,7 +48,8 @@ Page({
         //如果有留言,就将留言当成文本展示
         if (res.lastestMessage.length) {  
           this.setData({
-            allMessage: res.lastestMessage
+            allMessage: res.lastestMessage,
+            url:res.mainUrl
           })
           this.nowInfo(this.data.index)
         } 
@@ -182,9 +186,10 @@ Page({
   onShareAppMessage: function () {
     let _that = this;
     return {
-      title: '自定义转发标题',
-      path: '/page/index/index',
+      title: _that.data.title,
+      path: '/page/index/index?shareUid: ' + _that.data.uid,
       success:function(){
+        shareSuc()
         if (_that.data.btnInfo == '分享明信片') {
           _that.sendPost('分享成功')
         }

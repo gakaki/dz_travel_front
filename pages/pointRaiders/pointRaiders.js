@@ -1,6 +1,8 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
 const LIMIT = 5;
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let cityId = ''
 Page({

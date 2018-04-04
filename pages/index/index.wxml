@@ -12,7 +12,7 @@
         <view class="gold-info flex">
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
           <text class="font">{{gold}}</text>
-          <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
+          <image class="add" bindtap='toShop' src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
         </view>
       </view>
     </view>
@@ -27,8 +27,8 @@
       </view>
     </view>
   </view>
-  <view class="ad" bindtap='toIntegralShop'>
-    广告位
+  <view class="ad flex" bindtap='toIntegralShop'>
+    <image src="https://gengxin.odao.com/update/h5/travel/index/exchangeGoods.png"></image>
   </view>
   <view class="main">
     <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' uid='{{uid}}' players='{{players}}'></cmap>

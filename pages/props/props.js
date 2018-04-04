@@ -1,4 +1,6 @@
 const sheet = require('../../sheets.js')
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { RentProp, SpeList, BuySpe, SellSpe } from '../../api.js'
 let type
 Page({

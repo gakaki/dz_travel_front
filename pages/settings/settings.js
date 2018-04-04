@@ -1,6 +1,7 @@
 // pages/settings/settings.js
 import { GetRealInfo, ModifyRealInfo } from '../../api.js'
-
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 Page({
 
   /**

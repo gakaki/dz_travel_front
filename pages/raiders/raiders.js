@@ -1,5 +1,8 @@
 
-import { PostType, CommentPost, PostComments, ThumbComment } from '../../api.js'
+// pages/raiders/raiders.js
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
+import { Comment, CommentPost, PostComments, ThumbComment } from '../../api.js'
 let postId
 let lastCmtId = 0
 let cityId = ''

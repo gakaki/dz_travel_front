@@ -1,4 +1,6 @@
 // pages/xiangce/xiangce.js
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { CityPostcards } from '../../api.js';
 let province = '';
 let data = [{

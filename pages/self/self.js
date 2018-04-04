@@ -3,6 +3,7 @@ import { getUserInfo } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
 import { Item, items } from '../../sheets.js';
 const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 
 Page({
 

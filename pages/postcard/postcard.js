@@ -1,6 +1,7 @@
 // pages/postcard/postcard.js
 import { MyPostcards } from '../../api.js';
-
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 Page({
 
   /**

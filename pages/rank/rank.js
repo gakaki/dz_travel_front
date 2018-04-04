@@ -1,6 +1,7 @@
 // pages/rank/rank.js
 import { RankInfo, RankType, RankSubtype } from '../../api.js';
 const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
