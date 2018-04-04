@@ -18,10 +18,10 @@ const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
 
     console.log(res,'start')
-    suc(true);
 
     //初始化http轮询
     initHttpLoop();
+    suc(true);
     //测试websocket,实际上应该在业务层写ws相关逻辑
     testWs();
   }).catch(()=> {
