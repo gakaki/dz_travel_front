@@ -946,6 +946,7 @@ class Http {
         
     }
    static init() {
+        console.log('HttpLoopInit')
         this.LS_IDLE='IDLE';
         this.LS_BUSY='BUSY';
         this.LS_SUC='SUC';

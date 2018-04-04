@@ -16,8 +16,9 @@ const showErr = msg => {
 //启动（会默认走一遍登录流程）
 const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
-    console.log(res)
+    console.log(res,'start')
     suc(true);
+    initHttpLoop();
     // initWs(); 
   }).catch(()=> {
     // suc(false);
@@ -26,6 +27,11 @@ const start = (suc, shareUid) => {
 
 const initWs = () => {
   apis.Base.InitWs(wss);
+}
+
+const initHttpLoop = () => {
+  console.log('initHttp')
+  api.Http.init();
 }
 
 const wsSend = (action, data) => {
