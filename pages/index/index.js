@@ -5,7 +5,7 @@ import { SignInfo, Base, IndexInfo, GetMessage, Http, LookTicket, Season, Ticket
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
-let tktType , cid , terminal , tid;
+let tktType , cid , terminal , tid , locationCid;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -84,7 +84,7 @@ Page({
   toPlay() {
     //需要判断是否在游玩
     wx.navigateTo({
-      url: '../play/play'
+      url: '../play/play?cid=' + locationCid
       // url: '../cityRaiders/cityRaiders'
     })
   },
@@ -149,6 +149,7 @@ Page({
     let req = new IndexInfo();
     req.fetch().then(req => {
       console.log(req, '首页数据')
+      locationCid = req.location
       let season = Season[req.season]
       let weather = sheet.Weather.Get(req.weather).icon
       app.globalData.season = season
