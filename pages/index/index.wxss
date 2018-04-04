@@ -91,6 +91,11 @@
   border-bottom: 2rpx solid #e9e8ec;
 }
 
+.ad image{
+  width: 710rpx;
+  height: 127rpx;
+}
+
 .main {
   width: 100%;
   position: relative;

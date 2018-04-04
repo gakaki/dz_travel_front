@@ -21,12 +21,13 @@
   display: inline-block;
   color: #fc6161;
   font:  bold 26rpx/38rpx 'Microsoft YaHei';
-  padding-right: 40rpx;
+  /* padding-right: 40rpx; */
 }
 .plus {
-  position: absolute;
-  right: 13rpx;
-  top: 14rpx;
+  /* position: absolute;
+  right: 0;
+  top: 0; */
+  padding: 14rpx 13rpx; 
   width: 16rpx;
   height: 16rpx;
 }

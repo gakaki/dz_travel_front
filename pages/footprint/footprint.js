@@ -1,5 +1,7 @@
 // pages/footprint/footprint.js
-let app = getApp()
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
+
 import { Item, items } from '../../sheets.js';
 import { TravelFootprint } from '../../api.js';
 Page({

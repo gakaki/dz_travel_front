@@ -1,7 +1,6 @@
 // pages/start/start.js
 import { FlyInfo, StartGame, TicketType, Season, Code } from '../../api.js';
 import { ymd } from '../../utils/rest.js';
-const app = getApp()
 const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
@@ -9,6 +8,8 @@ let cid , tid; //城市id和赠送的机票id
 let locationCid;   //当前所在城市cid
 let time = null , preventFastClick = false;
 let onlySingle = false , onlyDouble = false;
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 
 Page({
 
@@ -285,7 +286,7 @@ Page({
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
-      url: '../play/play',
+      url: '../play/play?cid=' + locationCid,
     })
   },
 

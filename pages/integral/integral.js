@@ -1,6 +1,7 @@
 // pages/integral/integral.js
 import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail} from '../../api.js';
-
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 Page({
 
   /**

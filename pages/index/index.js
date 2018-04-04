@@ -1,11 +1,11 @@
 // pages/index/index.js
-
+import { shareSuc, shareTitle } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
 import { SignInfo, Base, IndexInfo, GetMessage, Http, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
-let tktType , cid , terminal , tid;
+let tktType , cid , terminal , tid , locationCid;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -41,10 +41,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.title = shareTitle(1);
+    console.log(this.data.title)
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo();
-    })
+    }, options.shareUid)
     // var stage = new createjs.Stage('myCanvas');
     // var shape = new createjs.Shape();
     // shape.graphics.beginFill('red').drawRect(0, 0, 120, 120);
@@ -84,7 +86,7 @@ Page({
   toPlay() {
     //需要判断是否在游玩
     wx.navigateTo({
-      url: '../play/play'
+      url: '../play/play?cid=' + locationCid
       // url: '../cityRaiders/cityRaiders'
     })
   },
@@ -149,6 +151,7 @@ Page({
     let req = new IndexInfo();
     req.fetch().then(req => {
       console.log(req, '首页数据')
+      locationCid = req.location
       let season = Season[req.season]
       let weather = sheet.Weather.Get(req.weather).icon
       app.globalData.season = season
@@ -278,6 +281,11 @@ Page({
       url: '../integral/integral',
     })
   },
+  toShop(){
+    wx.navigateTo({
+      url: '../recharge/recharge',
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -296,7 +304,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let _that = this;
+    return {
+      title: _that.data.title,
+      path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
+      success:function(){
+        shareSuc()
+      }
+    }
   },
 
   test() {
