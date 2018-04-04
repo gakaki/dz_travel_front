@@ -83,6 +83,8 @@ class Code{
     
     static NOT_FOUND = -10086;
     
+    static HAS_LIKE = -521;
+    
     static NEED_COUPON = -170;
     
     static NEED_MONEY = -171;
@@ -891,10 +893,13 @@ class Ws {
         
     }
    static init(wss) {
+        if (this.IO) {
+            return;
+        }
         //初始化websocket
-        this.WSS=wss=wss || `wss://h5.ddz2018.com/${this.APP_NAME}`;//websocket服务器链接
-        this.IO=this.IO || require('./libs/io.js')(wss + `?_sid=${this.SID}&appName=${this.APP_NAME}`);
-        this._listenings=this._listenings || new Map();
+        this.WSS=wss=wss || `wss://h5.ddz2018.com/${Base.APP_NAME}`;//websocket服务器链接
+        this.IO=require('./libs/io.js')(wss + `?_sid=${Base.GetSID()}&uid=${Base.GetUID()}&appName=${Base.APP_NAME}`);//query里直接用sid连接不上，必须用_sid，不知道为啥
+        this._listenings=new Map();
         return new Promise(resolve => {
             this.IO.on('connect', () => {
                 console.log('socket connected')
@@ -922,7 +927,7 @@ class Ws {
         }
         let listener=this._listenings.get(action);
         listener.cbx ={cb, ctx};
-        this.IO.on(action, this._onReceive);
+        this.IO.on(action, this._onReceive.bind(this));
     }
    static unlisten(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
@@ -936,11 +941,13 @@ class Ws {
         }
     }
    static _onReceive(res) {
-        let action=res.action;
+        let data=res.data
+        let action=data.action;
         if (!this._listenings.has(action))
             return;
         let listener=this._listenings.get(action);
-        listener.parse(res);
+        listener.parse(data);
+        listener.code=res.code;
         let cbx=listener.cbx;
         cbx && cbx.ctx ? cbx.cb.call(cbx.ctx, listener):cbx.cb(listener);
     }
@@ -948,8 +955,11 @@ class Ws {
         this.IO.emit(wsSend.action, wsSend.reqData);
     }
    static close() {
-        this.IO.close();
-        wx.closeWebsocket();
+        if(this.IO) {
+            this.IO.close();
+            wx.closeWebsocket();
+            this.IO=null;
+        }
     }
 }
 class Http {
@@ -1052,6 +1062,45 @@ class QuestReport {
         
     }
 }
+class Position {
+    constructor() {
+    
+    
+        //prop type: number
+        this.x = null;
+    
+        //prop type: number
+        this.y = null;
+    
+        
+        
+        
+    }
+}
+class NextSpot {
+    constructor() {
+    
+    
+        //prop type: number
+        this.spodIdNext = null;
+    
+        //prop type: Date
+        this.createDate = null;
+    
+        //prop type: Date
+        this.arrivedDate = null;
+    
+        //prop type: string
+        this.needTime = null;
+    
+        //prop type: number
+        this.elapsedTimeSecond = null;
+    
+        
+        
+        
+    }
+}
 class LookTicket extends Base {
     constructor() {
         super();
@@ -1066,35 +1115,81 @@ class LookTicket extends Base {
     get ticket() {return this._ticket}
     set ticket(v) {this._ticket = v}
 }
-class StartGame extends Base {
+class FlyInfo extends Base {
     constructor() {
         super();
-        this.action = 'startGame.startgame';
+        this.action = 'startGame.flyinfo';
     
         this._type = null;
-        this._cid = null;
+        this._gold = null;
+        this._isSingleFirst = null;
+        this._isDoubleFirst = null;
+        this._season = null;
+        this._weather = null;
         this._cost = null;
-        this._partnerUid = null;
-        this._tid = null;
-        this.requireFileds = ["type","cid","cost"];
-        this.reqFields = ["type","cid","cost","partnerUid","tid"];
-        this.resFields = [];
+        this._doubleCost = null;
+        this._location = null;
+        this._holiday = null;
+        this._cid = null;
+        this.requireFileds = ["type"];
+        this.reqFields = ["type"];
+        this.resFields = ["gold","isSingleFirst","isDoubleFirst","season","weather","cost","doubleCost","location","holiday","cid"];
     }
     //client input, require, type: TicketType
     get type() {return this._type}
     set type(v) {this._type = v}
-    //client input, require, type: number
-    get cid() {return this._cid}
-    set cid(v) {this._cid = v}
-    //client input, require, type: number
+    //server output, type: number
+    get gold() {return this._gold}
+    set gold(v) {this._gold = v}
+    //server output, type: Boolean
+    get isSingleFirst() {return this._isSingleFirst}
+    set isSingleFirst(v) {this._isSingleFirst = v}
+    //server output, type: Boolean
+    get isDoubleFirst() {return this._isDoubleFirst}
+    set isDoubleFirst(v) {this._isDoubleFirst = v}
+    //server output, type: Season
+    get season() {return this._season}
+    set season(v) {this._season = v}
+    //server output, type: number
+    get weather() {return this._weather}
+    set weather(v) {this._weather = v}
+    //server output, type: number
     get cost() {return this._cost}
     set cost(v) {this._cost = v}
-    //client input, optional, type: string
-    get partnerUid() {return this._partnerUid}
-    set partnerUid(v) {this._partnerUid = v}
-    //client input, optional, type: string
-    get tid() {return this._tid}
-    set tid(v) {this._tid = v}
+    //server output, type: number
+    get doubleCost() {return this._doubleCost}
+    set doubleCost(v) {this._doubleCost = v}
+    //server output, type: string
+    get location() {return this._location}
+    set location(v) {this._location = v}
+    //server output, type: string
+    get holiday() {return this._holiday}
+    set holiday(v) {this._holiday = v}
+    //server output, type: string
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+}
+class nextRouter extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.nextrouter';
+    
+        this._spotId = null;
+        this._position = null;
+        this._nextSpot = null;
+        this.requireFileds = ["spotId","position"];
+        this.reqFields = ["spotId","position"];
+        this.resFields = ["nextSpot"];
+    }
+    //client input, require, type: number
+    get spotId() {return this._spotId}
+    set spotId(v) {this._spotId = v}
+    //client input, require, type: Position
+    get position() {return this._position}
+    set position(v) {this._position = v}
+    //server output, type: NextSpot
+    get nextSpot() {return this._nextSpot}
+    set nextSpot(v) {this._nextSpot = v}
 }
 class questEnterSpot extends Base {
     constructor() {
@@ -1214,60 +1309,6 @@ class CityListPer extends Base {
     get data() {return this._data}
     set data(v) {this._data = v}
 }
-class FlyInfo extends Base {
-    constructor() {
-        super();
-        this.action = 'startGame.flyinfo';
-    
-        this._type = null;
-        this._gold = null;
-        this._isSingleFirst = null;
-        this._isDoubleFirst = null;
-        this._season = null;
-        this._weather = null;
-        this._cost = null;
-        this._doubleCost = null;
-        this._location = null;
-        this._holiday = null;
-        this._cid = null;
-        this.requireFileds = ["type"];
-        this.reqFields = ["type"];
-        this.resFields = ["gold","isSingleFirst","isDoubleFirst","season","weather","cost","doubleCost","location","holiday","cid"];
-    }
-    //client input, require, type: TicketType
-    get type() {return this._type}
-    set type(v) {this._type = v}
-    //server output, type: number
-    get gold() {return this._gold}
-    set gold(v) {this._gold = v}
-    //server output, type: Boolean
-    get isSingleFirst() {return this._isSingleFirst}
-    set isSingleFirst(v) {this._isSingleFirst = v}
-    //server output, type: Boolean
-    get isDoubleFirst() {return this._isDoubleFirst}
-    set isDoubleFirst(v) {this._isDoubleFirst = v}
-    //server output, type: Season
-    get season() {return this._season}
-    set season(v) {this._season = v}
-    //server output, type: number
-    get weather() {return this._weather}
-    set weather(v) {this._weather = v}
-    //server output, type: number
-    get cost() {return this._cost}
-    set cost(v) {this._cost = v}
-    //server output, type: number
-    get doubleCost() {return this._doubleCost}
-    set doubleCost(v) {this._doubleCost = v}
-    //server output, type: string
-    get location() {return this._location}
-    set location(v) {this._location = v}
-    //server output, type: string
-    get holiday() {return this._holiday}
-    set holiday(v) {this._holiday = v}
-    //server output, type: string
-    get cid() {return this._cid}
-    set cid(v) {this._cid = v}
-}
 class ShareInfo extends Base {
     constructor() {
         super();
@@ -1281,6 +1322,36 @@ class ShareInfo extends Base {
     //server output, type: boolean
     get isFirst() {return this._isFirst}
     set isFirst(v) {this._isFirst = v}
+}
+class StartGame extends Base {
+    constructor() {
+        super();
+        this.action = 'startGame.startgame';
+    
+        this._type = null;
+        this._cid = null;
+        this._cost = null;
+        this._partnerUid = null;
+        this._tid = null;
+        this.requireFileds = ["type","cid","cost"];
+        this.reqFields = ["type","cid","cost","partnerUid","tid"];
+        this.resFields = [];
+    }
+    //client input, require, type: TicketType
+    get type() {return this._type}
+    set type(v) {this._type = v}
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: number
+    get cost() {return this._cost}
+    set cost(v) {this._cost = v}
+    //client input, optional, type: string
+    get partnerUid() {return this._partnerUid}
+    set partnerUid(v) {this._partnerUid = v}
+    //client input, optional, type: string
+    get tid() {return this._tid}
+    set tid(v) {this._tid = v}
 }
 class TraveledPlaces extends Base {
     constructor() {
@@ -1575,10 +1646,22 @@ class changeRouter extends Base {
         super();
         this.action = 'tour.changerouter';
     
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = [];
+        this._spotId = null;
+        this._position = null;
+        this._nextSpot = null;
+        this.requireFileds = ["spotId","position"];
+        this.reqFields = ["spotId","position"];
+        this.resFields = ["nextSpot"];
     }
+    //client input, require, type: number
+    get spotId() {return this._spotId}
+    set spotId(v) {this._spotId = v}
+    //client input, require, type: Position
+    get position() {return this._position}
+    set position(v) {this._position = v}
+    //server output, type: NextSpot
+    get nextSpot() {return this._nextSpot}
+    set nextSpot(v) {this._nextSpot = v}
 }
 class ModifyRealInfo extends Base {
     constructor() {
@@ -1839,10 +1922,12 @@ class CommentPost extends Base {
         this._cityId = null;
         this._postId = null;
         this._content = null;
+        this._score = null;
         this._type = null;
-        this.requireFileds = ["cityId","postId","content","type"];
-        this.reqFields = ["cityId","postId","content","type"];
-        this.resFields = [];
+        this._comments = null;
+        this.requireFileds = ["cityId","postId","content","score","type"];
+        this.reqFields = ["cityId","postId","content","score","type"];
+        this.resFields = ["comments"];
     }
     //client input, require, type: string//城市id
     get cityId() {return this._cityId}
@@ -1853,9 +1938,15 @@ class CommentPost extends Base {
     //client input, require, type: string//评论内容
     get content() {return this._content}
     set content(v) {this._content = v}
+    //client input, require, type: number//评分
+    get score() {return this._score}
+    set score(v) {this._score = v}
     //client input, require, type: PostType//帖子类型：景点or特产
     get type() {return this._type}
     set type(v) {this._type = v}
+    //server output, type: Comment//自己的的评论信息
+    get comments() {return this._comments}
+    set comments(v) {this._comments = v}
 }
 class PostComments extends Base {
     constructor() {
@@ -2146,10 +2237,14 @@ class tourIndexInfo extends IndexInfo {
         super();
         this.action = 'tour.tourindexinfo';
     
+        this._nextSpot = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["isFirst","season","weather","playerCnt","friends","unreadMsgCnt","location","gold"];
+        this.resFields = ["nextSpot","isFirst","season","weather","playerCnt","friends","unreadMsgCnt","location","gold"];
     }
+    //server output, type: NextSpot
+    get nextSpot() {return this._nextSpot}
+    set nextSpot(v) {this._nextSpot = v}
 }
 //-------------exports---------------
 exports.Season = Season;
@@ -2188,8 +2283,11 @@ exports.CityPer = CityPer;
 exports.Ws = Ws;
 exports.Http = Http;
 exports.QuestReport = QuestReport;
+exports.Position = Position;
+exports.NextSpot = NextSpot;
 exports.LookTicket = LookTicket;
-exports.StartGame = StartGame;
+exports.FlyInfo = FlyInfo;
+exports.nextRouter = nextRouter;
 exports.questEnterSpot = questEnterSpot;
 exports.answerQuestion = answerQuestion;
 exports.questRandom = questRandom;
@@ -2198,8 +2296,8 @@ exports.leaveTour = leaveTour;
 exports.WsReceive = WsReceive;
 exports.WsSend = WsSend;
 exports.CityListPer = CityListPer;
-exports.FlyInfo = FlyInfo;
 exports.ShareInfo = ShareInfo;
+exports.StartGame = StartGame;
 exports.TraveledPlaces = TraveledPlaces;
 exports.viewpointInfo = viewpointInfo;
 exports.Photograph = Photograph;
