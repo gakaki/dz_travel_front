@@ -1011,30 +1011,29 @@ class Http {
             return;
         }
         this._listenHdl=setInterval(() => {
-            for (let lsnr in this._listenings) {
+            this._listenings.forEach(lsnr => {
                 lsnr.passedTm += this.LOOP_INTERVAL;
-                if (lsnr.passedTm < lsnr.interval) {
-                    continue;
+                if (lsnr.passedTm >= lsnr.interval) {
+                    lsnr.passedTm=0;
+                    switch(lsnr.status) {
+                        case LS_IDLE:
+                            lsnr.status=this.LS_BUSY;
+                            lsnr.fetch().then(()=>{
+                                lsnr.status=this.LS_SUC;
+                            })
+                            break;
+                        case LS_SUC:
+                            lsnr.status=LS_BUSY;
+                            let cbx=lsnr.cbx;
+                            cbx.ctx ? cbx.cb.call(cbx.ctx, lsnr):cbx.cb(lsnr);
+                            lsnr.status=LS_IDLE;
+                            break;
+                        case LS_BUSY:
+                            //wait to be suc
+                            break;
+                    }
                 }
-                lsnr.passedTm=0;
-                switch(lsnr.status) {
-                    case LS_IDLE:
-                        lsnr.status=this.LS_BUSY;
-                        lsnr.fetch().then(()=>{
-                            lsnr.status=this.LS_SUC;
-                        })
-                        break;
-                    case LS_SUC:
-                        lsnr.status=LS_BUSY;
-                        let cbx=lsnr.cbx;
-                        cbx.ctx ? cbx.cb.call(cbx.ctx, lsnr):cbx.cb(lsnr);
-                        lsnr.status=LS_IDLE;
-                        break;
-                    case LS_BUSY:
-                        //wait to be suc
-                        break;
-                }
-            }
+            })
         }, this.LOOP_INTERVAL);
     }
    static clearLoop() {
