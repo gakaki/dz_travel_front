@@ -26,7 +26,11 @@ const start = (suc, shareUid) => {
 }
 
 const initWs = () => {
-  apis.Base.InitWs(wss);
+  apis.Base.init(wss);
+}
+
+const initHttpLoop = () => {
+  apis.Http.init();
 }
 
 const initHttpLoop = () => {
