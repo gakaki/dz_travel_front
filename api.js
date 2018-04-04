@@ -216,24 +216,24 @@ class MessageType{
     
 }
 //------------classes--------------
-class oneSpot {
+class Sight {
     constructor() {
     
+    
+        //prop type: string//景点id
+        this.pointId = null;
+    
+        //prop type: string//返回景点的图片地址
+        this.img = null;
     
         
         
         
     }
 }
-class Event {
+class oneSpot {
     constructor() {
     
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
     
         
         
@@ -828,21 +828,6 @@ class Base {
         return ( Date.now()/1000-this._timestampD) * 1000
     }
 }
-class Sight {
-    constructor() {
-    
-    
-        //prop type: string//景点id
-        this.pointId = null;
-    
-        //prop type: string//返回景点的图片地址
-        this.img = null;
-    
-        
-        
-        
-    }
-}
 class ProvencePer {
     constructor() {
     
@@ -855,6 +840,27 @@ class ProvencePer {
     
         //prop type: 
         this.citys = null;
+    
+        
+        
+        
+    }
+}
+class CityPer {
+    constructor() {
+    
+    
+        //prop type: string//城市id
+        this.cityId = null;
+    
+        //prop type: 
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
+    
+        //prop type: 
+        this.cityEff = null;
     
         
         
@@ -931,6 +937,88 @@ class Ws {
         wx.closeWebsocket();
     }
 }
+class Http {
+    constructor() {
+    
+    
+        
+        
+        
+    }
+   static init() {
+        this.LS_IDLE='IDLE';
+        this.LS_BUSY='BUSY';
+        this.LS_SUC='SUC';
+        this.LOOP_INTERVAL=300;
+        this._listenings=this._listenings || new Map();
+    }
+   static listen(apiCls, cb, ctx, interval=300) {
+        if (!this._listenings) {
+            console.error('ws has not inited');
+            return;
+        }
+        let action=apiCls.name.toLowerCase();
+        if (!this._listenings.has(action)) {
+            this._listenings.set(action, new apiCls);
+        }
+        let listener=this._listenings.get(action);
+        listener.cbx ={cb, ctx, interval, status: this.LS_IDLE, passedTm: 0};
+        //start loop
+        this.loopListen();
+    }
+   static unlisten(apiCls, cb, ctx) {
+        if (!this._listenings) {
+            console.error('ws has not inited');
+            return;
+        }
+        let action=apiCls.name.toLowerCase();
+        if (this._listenings.has(action)) {
+            let listener=this._listenings.get(action);
+            listener.cbx=null;
+            this._listenings.delete(action);
+            if (!this._listenings.size) {
+                this.clearLoop();
+            }
+        }
+    }
+   static loopListen() {
+        if (this._listenHdl) {
+            return;
+        }
+        this._listenHdl=setInterval(() => {
+            for (let lsnr in this._listenings) {
+                lsnr.passedTm += this.LOOP_INTERVAL;
+                if (lsnr.passedTm < lsnr.interval) {
+                    continue;
+                }
+                lsnr.passedTm=0;
+                switch(lsnr.status) {
+                    case LS_IDLE:
+                        lsnr.status=this.LS_BUSY;
+                        lsnr.fetch().then(()=>{
+                            lsnr.status=this.LS_SUC;
+                        })
+                        break;
+                    case LS_SUC:
+                        lsnr.status=LS_BUSY;
+                        let cbx=lsnr.cbx;
+                        cbx.ctx ? cbx.cb.call(cbx.ctx, lsnr):cbx.cb(lsnr);
+                        lsnr.status=LS_IDLE;
+                        break;
+                    case LS_BUSY:
+                        //wait to be suc
+                        break;
+                }
+            }
+        }, this.LOOP_INTERVAL);
+    }
+   static clearLoop() {
+        if (this._listenHdl) {
+            clearInterval(this._listenHdr);
+            this._listenHdl=null;
+        }
+    }
+}
 class QuestReport {
     constructor() {
     
@@ -949,12 +1037,9 @@ class QuestReport {
         
     }
 }
-class CityPer {
+class Event {
     constructor() {
     
-    
-        //prop type: string//城市id
-        this.cityId = null;
     
         //prop type: 
         this.cityname = null;
@@ -962,53 +1047,64 @@ class CityPer {
         //prop type: 
         this.cityper = null;
     
-        //prop type: 
-        this.cityEff = null;
-    
         
         
         
     }
 }
-class ModifyRealInfo extends Base {
+class LookTicket extends Base {
     constructor() {
         super();
-        this.action = 'player.modifyrealinfo';
+        this.action = 'player.lookticket';
     
-        this._name = null;
-        this._birthday = null;
-        this._phone = null;
-        this._address = null;
-        this._realInfo = null;
-        this.requireFileds = ["name","birthday","phone","address"];
-        this.reqFields = ["name","birthday","phone","address"];
-        this.resFields = ["realInfo"];
-    }
-    //client input, require, type: string
-    get name() {return this._name}
-    set name(v) {this._name = v}
-    //client input, require, type: string
-    get birthday() {return this._birthday}
-    set birthday(v) {this._birthday = v}
-    //client input, require, type: string
-    get phone() {return this._phone}
-    set phone(v) {this._phone = v}
-    //client input, require, type: string
-    get address() {return this._address}
-    set address(v) {this._address = v}
-    //server output, type: RealInfo
-    get realInfo() {return this._realInfo}
-    set realInfo(v) {this._realInfo = v}
-}
-class changeRouter extends Base {
-    constructor() {
-        super();
-        this.action = 'tour.changerouter';
-    
+        this._ticket = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = [];
+        this.resFields = ["ticket"];
     }
+    //server output, type: TicketInfo[]
+    get ticket() {return this._ticket}
+    set ticket(v) {this._ticket = v}
+}
+class questEnterSpot extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.questenterspot';
+    
+        this._spotId = null;
+        this._eventId = null;
+        this._userinfo = null;
+        this.requireFileds = ["spotId"];
+        this.reqFields = ["spotId"];
+        this.resFields = ["eventId","userinfo"];
+    }
+    //client input, require, type: number
+    get spotId() {return this._spotId}
+    set spotId(v) {this._spotId = v}
+    //server output, type: number
+    get eventId() {return this._eventId}
+    set eventId(v) {this._eventId = v}
+    //server output, type: UserInfo
+    get userinfo() {return this._userinfo}
+    set userinfo(v) {this._userinfo = v}
+}
+class answerQuestion extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.answerquestion';
+    
+        this._answerResult = null;
+        this._userinfo = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["answerResult","userinfo"];
+    }
+    //server output, type: boolean
+    get answerResult() {return this._answerResult}
+    set answerResult(v) {this._answerResult = v}
+    //server output, type: UserInfo
+    get userinfo() {return this._userinfo}
+    set userinfo(v) {this._userinfo = v}
 }
 class questRandom extends Base {
     constructor() {
@@ -1056,29 +1152,16 @@ class leaveTour extends Base {
     get cityPer() {return this._cityPer}
     set cityPer(v) {this._cityPer = v}
 }
-class GetUserLocation extends Base {
+class WsReceive extends Base {
     constructor() {
         super();
-        this.action = 'integralShop.getuserlocation';
     
-        this._nickName = null;
-        this._tel = null;
-        this._address = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["nickName","tel","address"];
+        
+        
+        
     }
-    //server output, type: string
-    get nickName() {return this._nickName}
-    set nickName(v) {this._nickName = v}
-    //server output, type: string
-    get tel() {return this._tel}
-    set tel(v) {this._tel = v}
-    //server output, type: string
-    get address() {return this._address}
-    set address(v) {this._address = v}
 }
-class WsReceive extends Base {
+class WsSend extends Base {
     constructor() {
         super();
     
@@ -1185,15 +1268,6 @@ class StartGame extends Base {
     get tid() {return this._tid}
     set tid(v) {this._tid = v}
 }
-class WsSend extends Base {
-    constructor() {
-        super();
-    
-        
-        
-        
-    }
-}
 class TraveledPlaces extends Base {
     constructor() {
         super();
@@ -1215,6 +1289,40 @@ class TraveledPlaces extends Base {
     //server output, type: string[]//点亮的城市名数组，如[‘苏州’]
     get citys() {return this._citys}
     set citys(v) {this._citys = v}
+}
+class viewpointInfo extends Base {
+    constructor() {
+        super();
+        this.action = 'sight.viewpointinfo';
+    
+        this._pointId = null;
+        this._season = null;
+        this._weather = null;
+        this._img = null;
+        this._name = null;
+        this._desc = null;
+        this.requireFileds = ["pointId"];
+        this.reqFields = ["pointId"];
+        this.resFields = ["season","weather","img","name","desc"];
+    }
+    //client input, require, type: string
+    get pointId() {return this._pointId}
+    set pointId(v) {this._pointId = v}
+    //server output, type: Season
+    get season() {return this._season}
+    set season(v) {this._season = v}
+    //server output, type: number
+    get weather() {return this._weather}
+    set weather(v) {this._weather = v}
+    //server output, type: string//返回景点的图片地址
+    get img() {return this._img}
+    set img(v) {this._img = v}
+    //server output, type: string//景点名称
+    get name() {return this._name}
+    set name(v) {this._name = v}
+    //server output, type: string//景点介绍
+    get desc() {return this._desc}
+    set desc(v) {this._desc = v}
 }
 class Photograph extends Base {
     constructor() {
@@ -1404,6 +1512,28 @@ class Spe extends Base {
     get count() {return this._count}
     set count(v) {this._count = v}
 }
+class GetUserLocation extends Base {
+    constructor() {
+        super();
+        this.action = 'integralShop.getuserlocation';
+    
+        this._nickName = null;
+        this._tel = null;
+        this._address = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["nickName","tel","address"];
+    }
+    //server output, type: string
+    get nickName() {return this._nickName}
+    set nickName(v) {this._nickName = v}
+    //server output, type: string
+    get tel() {return this._tel}
+    set tel(v) {this._tel = v}
+    //server output, type: string
+    get address() {return this._address}
+    set address(v) {this._address = v}
+}
 class ExchangeShop extends Base {
     constructor() {
         super();
@@ -1426,59 +1556,45 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class ExchangeDetail extends Base {
+class changeRouter extends Base {
     constructor() {
         super();
-        this.action = 'integralShop.exchangedetail';
+        this.action = 'tour.changerouter';
     
-        this._page = null;
-        this._exchangeDetail = null;
-        this.requireFileds = ["page"];
-        this.reqFields = ["page"];
-        this.resFields = ["exchangeDetail"];
-    }
-    //client input, require, type: number
-    get page() {return this._page}
-    set page(v) {this._page = v}
-    //server output, type: ExchangeShopDetail[]
-    get exchangeDetail() {return this._exchangeDetail}
-    set exchangeDetail(v) {this._exchangeDetail = v}
-}
-class LookTicket extends Base {
-    constructor() {
-        super();
-        this.action = 'player.lookticket';
-    
-        this._ticket = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["ticket"];
+        this.resFields = [];
     }
-    //server output, type: TicketInfo[]
-    get ticket() {return this._ticket}
-    set ticket(v) {this._ticket = v}
 }
-class questEnterSpot extends Base {
+class ModifyRealInfo extends Base {
     constructor() {
         super();
-        this.action = 'tour.questenterspot';
+        this.action = 'player.modifyrealinfo';
     
-        this._spotId = null;
-        this._eventId = null;
-        this._userinfo = null;
-        this.requireFileds = ["spotId"];
-        this.reqFields = ["spotId"];
-        this.resFields = ["eventId","userinfo"];
+        this._name = null;
+        this._birthday = null;
+        this._phone = null;
+        this._address = null;
+        this._realInfo = null;
+        this.requireFileds = ["name","birthday","phone","address"];
+        this.reqFields = ["name","birthday","phone","address"];
+        this.resFields = ["realInfo"];
     }
-    //client input, require, type: number
-    get spotId() {return this._spotId}
-    set spotId(v) {this._spotId = v}
-    //server output, type: number
-    get eventId() {return this._eventId}
-    set eventId(v) {this._eventId = v}
-    //server output, type: UserInfo
-    get userinfo() {return this._userinfo}
-    set userinfo(v) {this._userinfo = v}
+    //client input, require, type: string
+    get name() {return this._name}
+    set name(v) {this._name = v}
+    //client input, require, type: string
+    get birthday() {return this._birthday}
+    set birthday(v) {this._birthday = v}
+    //client input, require, type: string
+    get phone() {return this._phone}
+    set phone(v) {this._phone = v}
+    //client input, require, type: string
+    get address() {return this._address}
+    set address(v) {this._address = v}
+    //server output, type: RealInfo
+    get realInfo() {return this._realInfo}
+    set realInfo(v) {this._realInfo = v}
 }
 class GetRealInfo extends Base {
     constructor() {
@@ -1653,27 +1769,23 @@ class UserInfo extends UserBriefInfo {
         
     }
 }
-class IntegralShop extends Base {
+class ExchangeDetail extends Base {
     constructor() {
         super();
-        this.action = 'integralShop.integralshop';
+        this.action = 'integralShop.exchangedetail';
     
-        this._integral = null;
-        this._rank = null;
-        this._shops = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["integral","rank","shops"];
+        this._page = null;
+        this._exchangeDetail = null;
+        this.requireFileds = ["page"];
+        this.reqFields = ["page"];
+        this.resFields = ["exchangeDetail"];
     }
-    //server output, type: number
-    get integral() {return this._integral}
-    set integral(v) {this._integral = v}
-    //server output, type: number
-    get rank() {return this._rank}
-    set rank(v) {this._rank = v}
-    //server output, type: Shop[]
-    get shops() {return this._shops}
-    set shops(v) {this._shops = v}
+    //client input, require, type: number
+    get page() {return this._page}
+    set page(v) {this._page = v}
+    //server output, type: ExchangeShopDetail[]
+    get exchangeDetail() {return this._exchangeDetail}
+    set exchangeDetail(v) {this._exchangeDetail = v}
 }
 class PostList extends Base {
     constructor() {
@@ -1799,47 +1911,27 @@ class ThumbComment extends Base {
     get haslike() {return this._haslike}
     set haslike(v) {this._haslike = v}
 }
-class IndexInfo extends Base {
+class IntegralShop extends Base {
     constructor() {
         super();
-        this.action = 'travel.indexinfo';
+        this.action = 'integralShop.integralshop';
     
-        this._isFirst = null;
-        this._season = null;
-        this._weather = null;
-        this._playerCnt = null;
-        this._friends = null;
-        this._unreadMsgCnt = null;
-        this._location = null;
-        this._gold = null;
+        this._integral = null;
+        this._rank = null;
+        this._shops = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["isFirst","season","weather","playerCnt","friends","unreadMsgCnt","location","gold"];
+        this.resFields = ["integral","rank","shops"];
     }
-    //server output, type: Boolean
-    get isFirst() {return this._isFirst}
-    set isFirst(v) {this._isFirst = v}
-    //server output, type: Season
-    get season() {return this._season}
-    set season(v) {this._season = v}
     //server output, type: number
-    get weather() {return this._weather}
-    set weather(v) {this._weather = v}
+    get integral() {return this._integral}
+    set integral(v) {this._integral = v}
     //server output, type: number
-    get playerCnt() {return this._playerCnt}
-    set playerCnt(v) {this._playerCnt = v}
-    //server output, type: string[]
-    get friends() {return this._friends}
-    set friends(v) {this._friends = v}
-    //server output, type: number
-    get unreadMsgCnt() {return this._unreadMsgCnt}
-    set unreadMsgCnt(v) {this._unreadMsgCnt = v}
-    //server output, type: number
-    get location() {return this._location}
-    set location(v) {this._location = v}
-    //server output, type: number
-    get gold() {return this._gold}
-    set gold(v) {this._gold = v}
+    get rank() {return this._rank}
+    set rank(v) {this._rank = v}
+    //server output, type: Shop[]
+    get shops() {return this._shops}
+    set shops(v) {this._shops = v}
 }
 class GetMessage extends Base {
     constructor() {
@@ -1921,39 +2013,47 @@ class TravelLog extends Base {
     get allLogs() {return this._allLogs}
     set allLogs(v) {this._allLogs = v}
 }
-class viewpointInfo extends Base {
+class IndexInfo extends Base {
     constructor() {
         super();
-        this.action = 'sight.viewpointinfo';
+        this.action = 'travel.indexinfo';
     
-        this._pointId = null;
+        this._isFirst = null;
         this._season = null;
         this._weather = null;
-        this._img = null;
-        this._name = null;
-        this._desc = null;
-        this.requireFileds = ["pointId"];
-        this.reqFields = ["pointId"];
-        this.resFields = ["season","weather","img","name","desc"];
+        this._playerCnt = null;
+        this._friends = null;
+        this._unreadMsgCnt = null;
+        this._location = null;
+        this._gold = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["isFirst","season","weather","playerCnt","friends","unreadMsgCnt","location","gold"];
     }
-    //client input, require, type: string
-    get pointId() {return this._pointId}
-    set pointId(v) {this._pointId = v}
+    //server output, type: Boolean
+    get isFirst() {return this._isFirst}
+    set isFirst(v) {this._isFirst = v}
     //server output, type: Season
     get season() {return this._season}
     set season(v) {this._season = v}
     //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
-    //server output, type: string//返回景点的图片地址
-    get img() {return this._img}
-    set img(v) {this._img = v}
-    //server output, type: string//景点名称
-    get name() {return this._name}
-    set name(v) {this._name = v}
-    //server output, type: string//景点介绍
-    get desc() {return this._desc}
-    set desc(v) {this._desc = v}
+    //server output, type: number
+    get playerCnt() {return this._playerCnt}
+    set playerCnt(v) {this._playerCnt = v}
+    //server output, type: string[]
+    get friends() {return this._friends}
+    set friends(v) {this._friends = v}
+    //server output, type: number
+    get unreadMsgCnt() {return this._unreadMsgCnt}
+    set unreadMsgCnt(v) {this._unreadMsgCnt = v}
+    //server output, type: number
+    get location() {return this._location}
+    set location(v) {this._location = v}
+    //server output, type: number
+    get gold() {return this._gold}
+    set gold(v) {this._gold = v}
 }
 class TestSend extends WsSend {
     constructor() {
@@ -2046,8 +2146,8 @@ exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
 exports.PostType = PostType;
 exports.MessageType = MessageType;
+exports.Sight = Sight;
 exports.oneSpot = oneSpot;
-exports.Event = Event;
 exports.OneCityLog = OneCityLog;
 exports.Log = Log;
 exports.Shop = Shop;
@@ -2068,23 +2168,25 @@ exports.SelfRank = SelfRank;
 exports.RankItem = RankItem;
 exports.OneDayLog = OneDayLog;
 exports.Base = Base;
-exports.Sight = Sight;
 exports.ProvencePer = ProvencePer;
-exports.Ws = Ws;
-exports.QuestReport = QuestReport;
 exports.CityPer = CityPer;
-exports.ModifyRealInfo = ModifyRealInfo;
-exports.changeRouter = changeRouter;
+exports.Ws = Ws;
+exports.Http = Http;
+exports.QuestReport = QuestReport;
+exports.Event = Event;
+exports.LookTicket = LookTicket;
+exports.questEnterSpot = questEnterSpot;
+exports.answerQuestion = answerQuestion;
 exports.questRandom = questRandom;
 exports.showQuestReport = showQuestReport;
 exports.leaveTour = leaveTour;
-exports.GetUserLocation = GetUserLocation;
 exports.WsReceive = WsReceive;
+exports.WsSend = WsSend;
 exports.CityListPer = CityListPer;
 exports.FlyInfo = FlyInfo;
 exports.StartGame = StartGame;
-exports.WsSend = WsSend;
 exports.TraveledPlaces = TraveledPlaces;
+exports.viewpointInfo = viewpointInfo;
 exports.Photograph = Photograph;
 exports.TravelFootprint = TravelFootprint;
 exports.ToSign = ToSign;
@@ -2094,10 +2196,10 @@ exports.SignInfo = SignInfo;
 exports.mySpe = mySpe;
 exports.SpeList = SpeList;
 exports.Spe = Spe;
+exports.GetUserLocation = GetUserLocation;
 exports.ExchangeShop = ExchangeShop;
-exports.ExchangeDetail = ExchangeDetail;
-exports.LookTicket = LookTicket;
-exports.questEnterSpot = questEnterSpot;
+exports.changeRouter = changeRouter;
+exports.ModifyRealInfo = ModifyRealInfo;
 exports.GetRealInfo = GetRealInfo;
 exports.PlayerInfo = PlayerInfo;
 exports.DetailLiveMessage = DetailLiveMessage;
@@ -2106,17 +2208,17 @@ exports.CityPostcards = CityPostcards;
 exports.DetailPostcard = DetailPostcard;
 exports.SendPostcard = SendPostcard;
 exports.UserInfo = UserInfo;
-exports.IntegralShop = IntegralShop;
+exports.ExchangeDetail = ExchangeDetail;
 exports.PostList = PostList;
 exports.CommentPost = CommentPost;
 exports.PostComments = PostComments;
 exports.ThumbComment = ThumbComment;
-exports.IndexInfo = IndexInfo;
+exports.IntegralShop = IntegralShop;
 exports.GetMessage = GetMessage;
 exports.CheckMsgCnt = CheckMsgCnt;
 exports.ClearMsg = ClearMsg;
 exports.TravelLog = TravelLog;
-exports.viewpointInfo = viewpointInfo;
+exports.IndexInfo = IndexInfo;
 exports.TestSend = TestSend;
 exports.SysMessage = SysMessage;
 exports.SellSpe = SellSpe;
