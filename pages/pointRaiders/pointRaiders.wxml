@@ -3,46 +3,46 @@
     <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>景点</view>
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
   </view>
-  <view wx:if="{{viewpoint}}" class="list point-list f-c-fs">
+  <scroll-view class="sv" scroll-y>
+   <view wx:if="{{viewpoint}}" wx:for="{{postArr}}" wx:key="{{index}}"  class="list point-list f-c-fs">
     <view class="point-top fs f-r-fs">
       <image src="" class="spe-pic point-pic"></image>
       <view class="f-c-fs point-top-rgt">
-        <text class="point-name fs font">格瓦斯</text>
-        <text class="point-desc fs font">{{testStr}}</text>
+        <text class="point-name fs font">{{item.name}}</text>
+        <text class="point-desc fs font">{{item.content}}</text>
       </view>
     </view>
     <view class="point-bot flex">
       <view class="point-bot-left f-r-fs">
-        <star wid='{{starWid}}' starNum="{{starCount}}"></star>
-        <text class="num font">{{starCount}}</text>
+        <star wid='{{starWid}}' starNum="{{item.score}}"></star>
+        <text class="num font">{{item.score}}</text>
         <text class="fen font">分</text>
       </view>
       <view class="point-bot-rgt f-r-fe">
         <image class="chat" src="https://gengxin.odao.com/update/h5/travel/raiders/chat.png"></image>
-        <text class="chat-num font fg">7777</text>
-        <view class="more font" bindtap='toDetail' data-id='{{}}'>查看更多</view>
+        <text class="chat-num font fg">{{item.commentNum}}</text>
+        <view class="more font" bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>查看更多</view>
       </view>
     </view>
   </view>
-
-
-
-  <view wx:if="{{specialty}}" class="list spe-list f-r-fs">
+  <view wx:if="{{specialty}}"  wx:for="{{postArr}}" wx:key="{{index}}" class="list spe-list f-r-fs">
     <image src="" class="spe-pic "></image>
     <view class="spe-item-sec f-c-sb">
-      <text class="spe-name fs font">格瓦斯</text>
+      <text class="spe-name fs font">{{item.name}}</text>
       <view class="fs f-r-fs mmt">
-        <star wid='{{starWid}}' starNum="{{starCount}}"></star>
-        <text class="num font">{{starCount}}</text>
+        <star wid='{{starWid}}' starNum="{{item.score}}"></star>
+        <text class="num font">{{item.score}}</text>
         <text class="fen font">分</text>
       </view>
       <view class="spe-sec-bot f-r-fs fs">
         <image class="chat" src="https://gengxin.odao.com/update/h5/travel/raiders/chat.png"></image>
-        <text class="chat-num font">7777</text>
-        <view class="more font" bindtap='toDetail'>查看更多</view>
+        <text class="chat-num font">{{item.commentNum}}</text>
+        <view class="more font" bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>查看更多</view>
       </view>
     </view>
   </view>
+  </scroll-view>
+ 
 
 
 </view>
