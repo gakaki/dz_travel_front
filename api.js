@@ -898,7 +898,7 @@ class Ws {
         }
         //初始化websocket
         this.WSS=wss=wss || `wss://h5.ddz2018.com/${Base.APP_NAME}`;//websocket服务器链接
-        this.IO=require('./libs/io.js')(wss + `?_sid=${Base.GetSID()}&uid=${Base.GetUID()}&appName=${Base.APP_NAME}`);//query里直接用sid连接不上，必须用_sid，不知道为啥
+        this.IO=require('./libs/io.js')(wss + `/?sid=${Base.GetSID()}&appName=${Base.APP_NAME}`);
         this._listenings=new Map();
         return new Promise(resolve => {
             this.IO.on('connect', () => {
@@ -927,7 +927,7 @@ class Ws {
         }
         let listener=this._listenings.get(action);
         listener.cbx ={cb, ctx};
-        this.IO.on(action, this._onReceive.bind(this));
+        this.IO.on(action, this._onReceive);
     }
    static unlisten(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
@@ -941,13 +941,11 @@ class Ws {
         }
     }
    static _onReceive(res) {
-        let data=res.data
-        let action=data.action;
+        let action=res.action;
         if (!this._listenings.has(action))
             return;
         let listener=this._listenings.get(action);
-        listener.parse(data);
-        listener.code=res.code;
+        listener.parse(res);
         let cbx=listener.cbx;
         cbx && cbx.ctx ? cbx.cb.call(cbx.ctx, listener):cbx.cb(listener);
     }

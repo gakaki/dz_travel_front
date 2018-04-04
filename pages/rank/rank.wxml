@@ -16,42 +16,42 @@
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>
-      <image class="avatar" src="{{item.avatar}}" bindtap='toOther' data-uid="{{item.uid}}"></image>
+      <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
       <view class="nickname">
-        <text>{{item.nickName}}</text>
+        <text>{{item.userInfo.nickName}}</text>
       </view>
       <view class="info f-r-sb">
         <view class="rank-info f-r-sb">
           <image class="famous-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-small.png"></image>
           <image class="rank-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
           <image class="score-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
-          <text>{{item.value}}</text>
+          <text>{{item.achievement}}</text>
         </view>
         <view class="xian"></view>
         <view class="gold f-r-sb">
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
-          <text>{{item.gold}}</text>
+          <text>{{item.userInfo.gold}}</text>
         </view>
       </view>
     </view>
   </view>
-  <scroll-view scroll-y class="rank-other {{rankSubtype==1 ? '' : 'friend'}}" scroll-into-view="{{toView}}">
+  <scroll-view scroll-y class="rank-other {{rankSubtype==1 ? '' : 'friend'}}" scroll-into-view="{{toView}}" bindscrolltolower="getRankInfo">
     <view id="rank{{index}}" class="person-info f-r-sb" wx:for="{{rankSubtype==1 ? rankingCountry : rankingFriend}}" wx:key="{{index}}">
       <view class="f-r-sb">
         <text class="ranking">{{item.rank}}</text>
-        <image class="avatar" src="{{item.avatar}}" bindtap='toOther' data-uid="{{item.uid}}"></image>
-        <text class="name">{{item.nickName}}</text>
+        <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
+        <text class="name">{{item.userInfo.nickName}}</text>
       </view>
       <view class="f-c-fs">
         <view class="ranking-info f-r-sb">
         <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
           <image class="ranking-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
           <image class="scoreing-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
-          <text>{{item.value}}</text>
+          <text>{{item.achievement}}</text>
         </view>
         <view class="person-gold f-r-sb">
           <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
-          <text>{{item.gold}}</text>
+          <text>{{item.userInfo.gold}}</text>
         </view>
       </view>
     </view>
@@ -59,14 +59,14 @@
   <view class="self-info f-r-sb">
     <view class="self-ranking">
       <text>我的排名</text>
-      <text>{{selfRank.rank}}</text>
+      <text>{{selfRank.rank==0 ? '未上榜' : selfRank.rank}}</text>
     </view>
     <view class="f-r-sb">
       <view class="self-ranking-info f-r-sb">
         <image class='self-famous' wx:if="{{rankType==1}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
         <image class="self-icon" wx:elif="{{rankType==2}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
         <image class="self-score" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
-        <text>{{selfRank.value}}</text>
+        <text>{{selfRank.achievement}}</text>
       </view>
       <view class="share">
         炫耀排名

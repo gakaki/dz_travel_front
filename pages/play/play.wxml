@@ -7,8 +7,10 @@
       <view class="shi-line draw-line" wx:if="{{shixian}}"   style="top:{{shixian.y}}rpx;left:{{shixian.x}}rpx;transform: rotate({{shixian.jiaodu}}deg);width:0;"></view>
 <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
+<view wx:if='{{showWalk}}'>
+<walk  hidden="{{isChg}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}" ></walk>
+</view>
 
-<walk wx:if='{{showWalk}}' walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}" ></walk>
     <!-- </view>
 <view class="con bg" catchtap=""> -->
 
@@ -47,7 +49,7 @@
         <view class="progressBar"></view>
       </view>
     </view>
-    <view class="changeLine f-c-fs">
+    <view class="changeLine f-c-fs" bindtap='chgLine'>
       <text class="fontWhite changeLineText font font26">修改路线</text>
       <text class="fontWhite changeLineMoney font font26">$100</text>
     </view>
