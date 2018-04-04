@@ -216,24 +216,24 @@ class MessageType{
     
 }
 //------------classes--------------
-class Sight {
+class oneSpot {
     constructor() {
     
-    
-        //prop type: string//景点id
-        this.pointId = null;
-    
-        //prop type: string//返回景点的图片地址
-        this.img = null;
     
         
         
         
     }
 }
-class oneSpot {
+class Event {
     constructor() {
     
+    
+        //prop type: 
+        this.cityname = null;
+    
+        //prop type: 
+        this.cityper = null;
     
         
         
@@ -624,6 +624,21 @@ class RankItem {
         
     }
 }
+class Sight {
+    constructor() {
+    
+    
+        //prop type: string//景点id
+        this.pointId = null;
+    
+        //prop type: string//返回景点的图片地址
+        this.img = null;
+    
+        
+        
+        
+    }
+}
 class OneDayLog {
     constructor() {
     
@@ -954,7 +969,7 @@ class Http {
     }
    static listen(apiCls, cb, ctx, interval=300) {
         if (!this._listenings) {
-            console.error('ws has not inited');
+            console.error('Http loop has not inited');
             return;
         }
         let action=apiCls.name.toLowerCase();
@@ -1037,21 +1052,6 @@ class QuestReport {
         
     }
 }
-class Event {
-    constructor() {
-    
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
-    
-        
-        
-        
-    }
-}
 class LookTicket extends Base {
     constructor() {
         super();
@@ -1065,6 +1065,36 @@ class LookTicket extends Base {
     //server output, type: TicketInfo[]
     get ticket() {return this._ticket}
     set ticket(v) {this._ticket = v}
+}
+class StartGame extends Base {
+    constructor() {
+        super();
+        this.action = 'startGame.startgame';
+    
+        this._type = null;
+        this._cid = null;
+        this._cost = null;
+        this._partnerUid = null;
+        this._tid = null;
+        this.requireFileds = ["type","cid","cost"];
+        this.reqFields = ["type","cid","cost","partnerUid","tid"];
+        this.resFields = [];
+    }
+    //client input, require, type: TicketType
+    get type() {return this._type}
+    set type(v) {this._type = v}
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: number
+    get cost() {return this._cost}
+    set cost(v) {this._cost = v}
+    //client input, optional, type: string
+    get partnerUid() {return this._partnerUid}
+    set partnerUid(v) {this._partnerUid = v}
+    //client input, optional, type: string
+    get tid() {return this._tid}
+    set tid(v) {this._tid = v}
 }
 class questEnterSpot extends Base {
     constructor() {
@@ -1238,35 +1268,19 @@ class FlyInfo extends Base {
     get cid() {return this._cid}
     set cid(v) {this._cid = v}
 }
-class StartGame extends Base {
+class ShareInfo extends Base {
     constructor() {
         super();
-        this.action = 'startGame.startgame';
+        this.action = 'player.shareinfo';
     
-        this._type = null;
-        this._cid = null;
-        this._cost = null;
-        this._partnerUid = null;
-        this._tid = null;
-        this.requireFileds = ["type","cid","cost"];
-        this.reqFields = ["type","cid","cost","partnerUid","tid"];
-        this.resFields = [];
+        this._isFirst = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["isFirst"];
     }
-    //client input, require, type: TicketType
-    get type() {return this._type}
-    set type(v) {this._type = v}
-    //client input, require, type: number
-    get cid() {return this._cid}
-    set cid(v) {this._cid = v}
-    //client input, require, type: number
-    get cost() {return this._cost}
-    set cost(v) {this._cost = v}
-    //client input, optional, type: string
-    get partnerUid() {return this._partnerUid}
-    set partnerUid(v) {this._partnerUid = v}
-    //client input, optional, type: string
-    get tid() {return this._tid}
-    set tid(v) {this._tid = v}
+    //server output, type: boolean
+    get isFirst() {return this._isFirst}
+    set isFirst(v) {this._isFirst = v}
 }
 class TraveledPlaces extends Base {
     constructor() {
@@ -2146,8 +2160,8 @@ exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
 exports.PostType = PostType;
 exports.MessageType = MessageType;
-exports.Sight = Sight;
 exports.oneSpot = oneSpot;
+exports.Event = Event;
 exports.OneCityLog = OneCityLog;
 exports.Log = Log;
 exports.Shop = Shop;
@@ -2166,6 +2180,7 @@ exports.ProvincePostcardInfo = ProvincePostcardInfo;
 exports.Specialty = Specialty;
 exports.SelfRank = SelfRank;
 exports.RankItem = RankItem;
+exports.Sight = Sight;
 exports.OneDayLog = OneDayLog;
 exports.Base = Base;
 exports.ProvencePer = ProvencePer;
@@ -2173,8 +2188,8 @@ exports.CityPer = CityPer;
 exports.Ws = Ws;
 exports.Http = Http;
 exports.QuestReport = QuestReport;
-exports.Event = Event;
 exports.LookTicket = LookTicket;
+exports.StartGame = StartGame;
 exports.questEnterSpot = questEnterSpot;
 exports.answerQuestion = answerQuestion;
 exports.questRandom = questRandom;
@@ -2184,7 +2199,7 @@ exports.WsReceive = WsReceive;
 exports.WsSend = WsSend;
 exports.CityListPer = CityListPer;
 exports.FlyInfo = FlyInfo;
-exports.StartGame = StartGame;
+exports.ShareInfo = ShareInfo;
 exports.TraveledPlaces = TraveledPlaces;
 exports.viewpointInfo = viewpointInfo;
 exports.Photograph = Photograph;

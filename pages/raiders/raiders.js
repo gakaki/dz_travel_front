@@ -1,5 +1,7 @@
 
 // pages/raiders/raiders.js
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { Comment, CommentPost, PostComments, ThumbComment } from '../../api.js'
 let postId, lastCmtId = 0;
 const LIMIT = 5;

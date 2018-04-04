@@ -1,5 +1,6 @@
 // pages/city/city.js
 const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 import { TicketType } from '../../api.js';
 let cid;//选中的城市id
@@ -20,7 +21,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.data.title = shareTitle(1)
+    console.log(this.data.title)
     location = options.location;
 
     let readCity = sheet.finds.map(o=>{
@@ -38,49 +40,6 @@ Page({
     this.setData({
       province,
     })
-  },
-
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
   },
 
   toStart() {
@@ -146,6 +105,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
-  }
+    let _that = this;
+    return {
+      title: _that.data.title,
+      path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
+      success: function () {
+        shareSuc()
+      }
+    }
+  },
 })

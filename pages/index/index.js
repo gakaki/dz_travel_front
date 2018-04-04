@@ -1,5 +1,5 @@
 // pages/index/index.js
-
+import { shareSuc, shareTitle } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
 import { SignInfo, Base, IndexInfo, GetMessage, Ws, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
 const sheet = require('../../sheets.js');
@@ -42,10 +42,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.title = shareTitle(1);
+    console.log(this.data.title)
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo();
-    })
+    }, options.shareUid)
     // var stage = new createjs.Stage('myCanvas');
     // var shape = new createjs.Shape();
     // shape.graphics.beginFill('red').drawRect(0, 0, 120, 120);
@@ -292,6 +294,11 @@ Page({
       url: '../integral/integral',
     })
   },
+  toShop(){
+    wx.navigateTo({
+      url: '../recharge/recharge',
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -310,7 +317,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let _that = this;
+    return {
+      title: _that.data.title,
+      path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
+      success:function(){
+        shareSuc()
+      }
+    }
   },
 
   test() {

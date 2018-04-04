@@ -4,7 +4,7 @@
 <view class="con">
   <form bindsubmit="formSubmit"> 
     <view class="pic-box pb bs">
-      <image src="" class="pic"></image>
+      <image wx:if='{{url}}' src="{{tools.allImg(url)}}" class="pic"></image>
     </view>
     <view class="pic-box bs">
       <view class="pic">
@@ -13,12 +13,13 @@
             <view class="circle f-r-sb fs">
               <view class="cir" wx:for='{{6}}' wx:key='{{index}}'></view>
             </view>
-            <view class="date-nn">
+            <view class="date-nn" wx:if='{{!write}}'>
               <text class="date" wx:if='{{lastestMessage.time}}'>{{tools.formatTime(time)}}</text>
               <text class="nn">{{nickName}}</text>
             </view>
           </view>
-          <image src="" class="icon fs"></image>
+          <image  wx:if='{{!write}}' src="{{lastestMessage.userInfo.avatarUrl}}" class="icon fs"></image>
+          <image  wx:else='' src="https://gengxin.odao.com/update/h5/travel/icon/icon.png" class="icon fs"></image>
         </view>
 
         <view class="pc-bot f-r-sb">

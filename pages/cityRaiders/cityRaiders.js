@@ -1,6 +1,8 @@
+
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { CityListPer, ProvencePer } from '../../api.js'
 import { ymd } from '../../utils/rest.js'
-const app = getApp()
 let city //选中的城市
 let arr  //数据列表
 Page({

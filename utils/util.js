@@ -1,5 +1,6 @@
 //const sheet = require('../sheets.js');
-
+import { ShareInfo } from '../api.js'
+import { shares } from '../sheets.js'
 //dateType输出时间格式类型
 //1. 2018/03/09 
 //2. 2月1日 
@@ -320,6 +321,18 @@ export function formatNum(num, limit) {
   }
 }
 
+function shareSuc(){
+  let m = new ShareInfo();
+  m.fetch()
+}
+
+function shareTitle(type) {
+  let titles = shares.filter(v=>{
+    return v.type == type
+  })
+  return titles[parseInt(Math.random() * titles.length)].title
+}
+
 
 module.exports = {
   getRankFrame,
@@ -330,5 +343,7 @@ module.exports = {
   getPersonFrame,
   spliceStr,
   getUserInfo,
-  formatNum
+  formatNum,
+  shareSuc,
+  shareTitle
 }

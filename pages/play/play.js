@@ -1,4 +1,6 @@
 // pages/play/play.js
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 let startPoint//起点
 let arr = []
 let i = 0

@@ -1,6 +1,8 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType } from '../../api.js';
 const LIMIT = 5;
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 Page({
 
   /**
