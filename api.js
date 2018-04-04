@@ -898,7 +898,7 @@ class Ws {
         }
         //初始化websocket
         this.WSS=wss=wss || `wss://h5.ddz2018.com/${Base.APP_NAME}`;//websocket服务器链接
-        this.IO=require('./libs/io.js')(wss + `/?sid=${Base.GetSID()}&appName=${Base.APP_NAME}`);
+        this.IO=require('./libs/io.js')(wss + `?_sid=${Base.GetSID()}&uid=${Base.GetUID()}&appName=${Base.APP_NAME}`);//query里直接用sid连接不上，必须用_sid，不知道为啥
         this._listenings=new Map();
         return new Promise(resolve => {
             this.IO.on('connect', () => {
@@ -927,7 +927,7 @@ class Ws {
         }
         let listener=this._listenings.get(action);
         listener.cbx ={cb, ctx};
-        this.IO.on(action, this._onReceive);
+        this.IO.on(action, this._onReceive.bind(this));
     }
    static unlisten(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
@@ -941,11 +941,13 @@ class Ws {
         }
     }
    static _onReceive(res) {
-        let action=res.action;
+        let data=res.data
+        let action=data.action;
         if (!this._listenings.has(action))
             return;
         let listener=this._listenings.get(action);
-        listener.parse(res);
+        listener.parse(data);
+        listener.code=res.code;
         let cbx=listener.cbx;
         cbx && cbx.ctx ? cbx.cb.call(cbx.ctx, listener):cbx.cb(listener);
     }
@@ -1009,30 +1011,29 @@ class Http {
             return;
         }
         this._listenHdl=setInterval(() => {
-            for (let lsnr in this._listenings) {
+            this._listenings.forEach(lsnr => {
                 lsnr.passedTm += this.LOOP_INTERVAL;
-                if (lsnr.passedTm < lsnr.interval) {
-                    continue;
+                if (lsnr.passedTm >= lsnr.interval) {
+                    lsnr.passedTm=0;
+                    switch(lsnr.status) {
+                        case LS_IDLE:
+                            lsnr.status=this.LS_BUSY;
+                            lsnr.fetch().then(()=>{
+                                lsnr.status=this.LS_SUC;
+                            })
+                            break;
+                        case LS_SUC:
+                            lsnr.status=LS_BUSY;
+                            let cbx=lsnr.cbx;
+                            cbx.ctx ? cbx.cb.call(cbx.ctx, lsnr):cbx.cb(lsnr);
+                            lsnr.status=LS_IDLE;
+                            break;
+                        case LS_BUSY:
+                            //wait to be suc
+                            break;
+                    }
                 }
-                lsnr.passedTm=0;
-                switch(lsnr.status) {
-                    case LS_IDLE:
-                        lsnr.status=this.LS_BUSY;
-                        lsnr.fetch().then(()=>{
-                            lsnr.status=this.LS_SUC;
-                        })
-                        break;
-                    case LS_SUC:
-                        lsnr.status=LS_BUSY;
-                        let cbx=lsnr.cbx;
-                        cbx.ctx ? cbx.cb.call(cbx.ctx, lsnr):cbx.cb(lsnr);
-                        lsnr.status=LS_IDLE;
-                        break;
-                    case LS_BUSY:
-                        //wait to be suc
-                        break;
-                }
-            }
+            })
         }, this.LOOP_INTERVAL);
     }
    static clearLoop() {

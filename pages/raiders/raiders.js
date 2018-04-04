@@ -64,14 +64,13 @@ num = 0
         comments: newCmts
       })
     },()=>{
-      console.log(req.code)
-      if(req.code == -521) {
-        wx.showToast({
-          title: '你已经点赞过了哦',
-          icon: 'none',
-          mask: true
-        })
-      }
+      // if(req.code == -521) {
+      //   wx.showToast({
+      //     title: '你已经点赞过了哦',
+      //     icon: 'none',
+      //     mask: true
+      //   })
+      // }
     })
   },
   hideTipPop() {
