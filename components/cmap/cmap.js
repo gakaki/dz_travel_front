@@ -66,9 +66,9 @@ const xyCitys = citys.map(c => {
   let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
   o.x = xy.x;
   o.y = xy.y;
-  o.imgWd = 6;//根据美术资源尺寸
-  o.imgHt = 6;
-  o.statusImgs = ['', '../../assets/province/light.png'];
+  o.imgWd = 8;//根据美术资源尺寸
+  o.imgHt = 8;
+  o.img = '../../assets/province/light.png';
   return o;
 })
 
@@ -132,7 +132,7 @@ Component({
     uid: {
       //该地图足迹的用户uid
       type: String,
-      value: 0,
+      value: null,
       observer: 'updatePlayer'
     },
     
@@ -196,6 +196,8 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
+      if (!this.data.uid)
+        return;
       let req = new TraveledPlaces();
       req.playerUid = this.data.uid;
 
@@ -205,7 +207,7 @@ Component({
           return true;
         });
         let citys = xyCitys.filter(c => {
-          c.light = req.citys.indexOf(c.name) != -1;
+          c.light = true//req.citys.indexOf(c.name) != -1;
 
           return c.light;
         })
@@ -359,11 +361,13 @@ Component({
 
   attached() {
     setTimeout(()=> {
-      if (!this.data.uid) {
+      if (this.data.uid === null) {
         //如果未传入uid，则使用当前用户的uid
         this.data.uid = Base.GetUID();
+        this.updatePlayer()//server not implement yet
+        console.log('aaaaaaaaaaaaaaaa', this.data.uid)
       }
-    }, 800)
+    }, 1500)
   },
   detached() {
     this.clearPlaneTm();
