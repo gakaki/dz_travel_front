@@ -1,4 +1,6 @@
 // pages/message/message.js
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { GetMessage, ClearMsg } from '../../api.js';
 let page = 1 , message = [];
 Page({

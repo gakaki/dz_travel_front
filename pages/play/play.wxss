@@ -618,7 +618,7 @@ border: 2rpx solid red;
   position: absolute;
    height: 54rpx;
   width: 54rpx;
-  z-index: 101;
+  z-index: 0;
   transform: translate(-50%,-50%)
 }
 .shi-line-box {

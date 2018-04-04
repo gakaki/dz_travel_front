@@ -18,11 +18,11 @@
       <text class='main-content'>旅行足迹</text> 
     </view>
     <view class='main-wrap f-c' bindtap='toOtherPage' data-id='2'>
-      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/postcard.png'></image>
       <text class='main-content'>我的明信片</text> 
     </view>
     <view class='main-wrap one-last f-c'  bindtap='toOtherPage' data-id='3'>
-      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/footprint.png'></image>
+      <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/log.png'></image>
       <text class='main-content'>旅行日志</text> 
     </view>
   </view>

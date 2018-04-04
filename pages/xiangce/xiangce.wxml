@@ -1,3 +1,5 @@
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+
 <view class='con'>
   <view class="tab flex">
     <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>
@@ -10,7 +12,7 @@
         <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
       <view class="img-box" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}'>
-        <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{img.id}}"></image>
+        <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{tools.allImg(img.url)}}"></image>
       </view>      
     </view>
 
@@ -21,7 +23,7 @@
       </view>
       <view wx:for='{{item.postcardsDetail}}' wx:if='{{img.id}}'  wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
         <view class="img-box-flex">
-          <image class="img-sm" src="{{img.url}}"></image>
+          <image class="img-sm" src="{{tools.allImg(img.url)}}"></image>
           <view class="content">
             <text class="pro1">{{img.lastestLiveMessage.userInfo.nickName}}</text>
             <text class="message ellipsis fs">{{img.lastestLiveMessage.message}}</text>

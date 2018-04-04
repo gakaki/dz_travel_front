@@ -1,6 +1,7 @@
 
 function formatTime(date, dateType) {
   var timeArr = date.split(' ')[0].split('-');
+  console.log(timeArr)
   timeArr = timeArr.map(function(v){
     return Number(v)
   })
@@ -8,6 +9,11 @@ function formatTime(date, dateType) {
   return res;
 }
 
+function allImg(src) {
+  return "https://gengxin.odao.com/update/h5/travel/" + src
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  allImg: allImg
 }

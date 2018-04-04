@@ -1,6 +1,8 @@
+
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 import { CityListPer, ProvencePer } from '../../api.js'
 import { ymd } from '../../utils/rest.js'
-const app = getApp()
 let city //选中的城市
 let cityId = ''
 let arr  //数据列表
@@ -135,7 +137,7 @@ Page({
   },
   tocR() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?city=' + city+ '&cityId='+cityId   //还要把城市id传过去
+      url: '../pointRaiders/pointRaiders?city=' + city+ '&cid='+cityId   //还要把城市id传过去
     })
   },
   /**

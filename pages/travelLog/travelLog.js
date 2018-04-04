@@ -1,7 +1,8 @@
 // pages/travelLog/travelLog.js
 import { formatTime } from '../../utils/util.js'
 import { TravelLog } from '../../api.js';
-
+const app = getApp();
+import { shareSuc, shareTitle } from '../../utils/util.js';
 
 
 Page({
