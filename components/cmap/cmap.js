@@ -198,6 +198,8 @@ Component({
     updatePlayer() {
       if (!this.data.uid)
         return;
+      
+      return;//server not ok
       let req = new TraveledPlaces();
       req.playerUid = this.data.uid;
 
