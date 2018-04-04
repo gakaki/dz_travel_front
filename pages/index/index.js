@@ -1,7 +1,7 @@
 // pages/index/index.js
 
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, Base, IndexInfo, GetMessage, Ws, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
+import { SignInfo, Base, IndexInfo, GetMessage, Http, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
@@ -31,6 +31,7 @@ Page({
     date:'',
     hasSign:1,
     location:'',
+    uid:'',
     presentTkt:[],
     chooseInd: 0,
     showTicket:false
@@ -97,7 +98,8 @@ Page({
         console.log(res, '签到数据')
         this.setData({
           theDay: res.theDay,
-          hasSign: res.hasSign
+          hasSign: res.hasSign,
+          uid:userInfo.uid
         })
       })
     
@@ -130,6 +132,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     enterOnload = false
   },
 
@@ -137,6 +140,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     enterOnload = false
   },
 
@@ -160,18 +164,21 @@ Page({
         avatar: userInfo.avatarUrl,
         location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn'),
-        chooseInd: 0
-      })
-    })
-
-    //查看是否有未读消息
-    let msgCnt = new CheckMsgCnt()
-    msgCnt.fetch().then((req)=>{
-      console.log(req,'消息条数')
-      this.setData({
+        chooseInd: 0,
         messages: req.unreadMsgCnt
       })
     })
+
+    Http.listen(CheckMsgCnt, this.loopMsg, this, 600000);
+  },
+
+  loopMsg(res) {
+    console.log(res,'httpLoop查询消息')
+    this.setData({
+      message: res.unreadMsgCnt
+    });
+    
+    
   },
 
   /**

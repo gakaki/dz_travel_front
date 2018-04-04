@@ -85,6 +85,7 @@ Page({
         avatarSrc: userInfo.avatarUrl,
         onlySingle,
         onlyDouble,
+        players: [{ location: locationCid, img: userInfo.avatarUrl}]
       })
     })
 
