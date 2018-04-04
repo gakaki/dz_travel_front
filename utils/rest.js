@@ -16,10 +16,12 @@ const showErr = msg => {
 //启动（会默认走一遍登录流程）
 const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
-    console.log(res)
-    initHttpLoop();
-    // suc(true);
 
+    console.log(res,'start')
+    suc(true);
+
+    //初始化http轮询
+    initHttpLoop();
     //测试websocket,实际上应该在业务层写ws相关逻辑
     testWs();
   }).catch(()=> {
