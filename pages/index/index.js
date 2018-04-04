@@ -32,6 +32,7 @@ Page({
     date:'',
     hasSign:1,
     location:'',
+    uid:'',
     presentTkt:[],
     chooseInd: 0,
     showTicket:false
@@ -99,6 +100,7 @@ Page({
         this.setData({
           theDay: res.theDay,
           hasSign: res.hasSign,
+          uid:userInfo.uid
         })
       })
     
@@ -177,7 +179,7 @@ Page({
     //没10分钟查看是否有未读消息
     time = setInterval(()=>{
       loopTime--
-      console.log(loopTime,'请求查看未读消息倒计时')
+      // console.log(loopTime,'请求查看未读消息倒计时')
       if (loopTime<=0){
         loopTime = 600;
         let msgCnt = new CheckMsgCnt()

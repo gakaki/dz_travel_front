@@ -18,6 +18,7 @@ const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
     console.log(res)
     suc(true);
+    initHttpLoop();
     // initWs(); 
   }).catch(()=> {
     // suc(false);
@@ -25,7 +26,11 @@ const start = (suc, shareUid) => {
 }
 
 const initWs = () => {
-  apis.Base.InitWs(wss);
+  apis.Base.init(wss);
+}
+
+const initHttpLoop = () => {
+  apis.Http.init();
 }
 
 const wsSend = (action, data) => {
