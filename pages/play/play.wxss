@@ -4,17 +4,7 @@
   position: absolute;
 }
 
-.sightimage {
-  width: 50rpx;
-  height: 50rpx;
-  position: absolute;
-}
 
-.people {
-  position: absolute;
-  width: 32rpx;
-  height: 72rpx;
-}
 
 .fontWhite {
   color: #fff;
@@ -601,26 +591,170 @@
 .rule7::before {
   content: '7.';
 }
+
 .draw-line {
- height: 0;
+  height: 0;
   transform-origin: 0 0;
-  -ms-transform-origin:0 0;
-  -webkit-transform-origin:0 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
   position: absolute;
 }
+
 .dash-line {
   border: 2rpx dashed red;
 }
+
 .shi-line {
-border: 2rpx solid red;
+  border: 2rpx solid red;
 }
+
 .testImg {
   position: absolute;
-   height: 54rpx;
-  width: 54rpx;
+  /* height: 54rpx;
+  width: 54rpx; */
   z-index: 0;
-  transform: translate(-50%,-50%)
+  transform: translate(-50%, -50%);
+}
+.icon-name {
+  position: absolute;
+  transform: translate(-50%, 100%);
+  font: bold 24rpx 'Microsoft YaHei';
+  color: #fff;
+  text-shadow: 2rpx 2rpx rgba(0,0,0,.5)
 }
 .shi-line-box {
-  overflow: hidden
+  overflow: hidden;
+}
+
+.start {
+  height: 120rpx;
+  width: 80rpx;
+}
+.icon-1a {
+  width: 123rpx;
+  height: 98rpx;
+}
+.icon-2a {
+ width: 105rpx;
+  height: 60rpx;
+}
+.icon-3a {
+ width: 117rpx;
+  height: 77rpx;
+}
+.icon-4a {
+ width: 78rpx;
+  height: 106rpx;
+}
+.icon-5a {
+ width: 92rpx;
+  height: 115rpx;
+}
+.icon-6a {
+ width: 90rpx;
+  height: 97rpx;
+}
+.icon-7a {
+ width: 91rpx;
+  height: 132rpx;
+}
+.icon-8a {
+ width: 90rpx;
+  height: 110rpx;
+}
+.icon-9a {
+ width: 92rpx;
+  height: 85rpx;
+}
+.icon-10a {
+ width: 96rpx;
+  height: 126rpx;
+}
+.icon-11a {
+ width: 91rpx;
+  height: 90rpx;
+}
+.icon-12a {
+ width: 106rpx;
+  height: 106rpx;
+}
+.icon-13a {
+ width: 105rpx;
+  height: 111rpx;
+}
+.icon-14a {
+ width: 93rpx;
+  height: 172rpx;
+}
+.icon-15a {
+ width: 105rpx;
+  height: 108rpx;
+}
+.icon-16a {
+ width: 81rpx;
+  height: 126rpx;
+}
+.icon-17a {
+ width: 105rpx;
+  height: 161rpx;
+}
+.icon-18a {
+ width: 104rpx;
+  height: 108rpx;
+}
+.icon-19a {
+ width: 99rpx;
+  height: 95rpx;
+}
+.icon-20a {
+ width: 104rpx;
+  height: 100rpx;
+}
+.icon-21a {
+ width: 52rpx;
+  height: 143rpx;
+}
+.icon-22a {
+ width: 92rpx;
+  height: 139rpx;
+}
+.icon-23a {
+ width: 91rpx;
+  height: 127rpx;
+}
+.icon-24a {
+ width: 104rpx;
+  height: 80rpx;
+}
+.icon-25a {
+ width: 108rpx;
+  height: 124rpx;
+}
+.icon-26a {
+ width: 39rpx;
+  height: 142rpx;
+}
+.icon-27a {
+ width: 72rpx;
+  height: 136rpx;
+}
+.icon-28a {
+ width: 104rpx;
+  height: 63rpx;
+}
+.icon-29a {
+ width: 76rpx;
+  height: 109rpx;
+}
+.icon-30a {
+ width: 91rpx;
+  height: 130rpx;
+}
+.icon-31a {
+ width: 104rpx;
+  height: 96rpx;
+}
+.icon-32a {
+ width: 104rpx;
+  height: 148rpx;
 }

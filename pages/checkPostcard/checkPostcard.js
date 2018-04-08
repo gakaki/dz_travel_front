@@ -10,14 +10,14 @@ Page({
   data: {
     secTa: true,
     tipPOp: false,
-    lastestMessage:null,
+    lastestMessage:null, //玩家最后一条留言信息
     mes1:'',
     mes2:'',
     btnInfo:'分享明信片',
     tip:'',
     nickName:'',
     write:true,
-    allMessage:null,
+    allMessage:null, //玩家所有留言信息
     index:0,
     time:'',
     message:''
@@ -100,15 +100,20 @@ Page({
     this.setData({
       message:str
     })      
-
+    console.log(this.data.btnInfo)
+    let lastestMessage = this.data.lastestMessage
+    // lastestMessage.hasNext = false;
+    console.log(this.data.allMessage)
     if (this.data.btnInfo == '留言') {
       this.setData({
         btnInfo: '发送明信片',
         write: true,
         index:-1,
         nickName:'',
-        time:''
+        time:'',
+        lastestMessage: this.data.allMessage[0]
       })
+      console.log(this.data.lastestMessage)
     } else {  //按钮在分享或者发送明信片时
       //如果玩家没有留言就开始点击分享明信片,提示玩家
       if (!str.trim().length) {

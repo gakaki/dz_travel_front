@@ -23,7 +23,7 @@ const start = (suc, shareUid) => {
     initHttpLoop();
     suc(true);
     //测试websocket,实际上应该在业务层写ws相关逻辑
-    // testWs();
+   // testWs();
   }).catch(()=> {
     // suc(false);
     console.log('init false')

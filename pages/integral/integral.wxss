@@ -6,12 +6,27 @@
 
 .back{
   width: 100%;
-  height: 758rpx;
-  /* background: url('https://gengxin.odao.com/update/h5/travel/common/confirm.png') 0 0 no-repeat;
-  background-size: cover; */
-  background-color: burlywood;
+  height: 760rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/integral/logo.jpg') 0 0 no-repeat; 
+  background-size: cover;
 }
-
+.audio {
+  position: absolute;
+  width: 133rpx;
+  height: 46rpx;
+}
+.audio-women {
+  top: 320rpx;
+  left: 610rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/integral/women.png') 0 0 no-repeat; 
+  background-size: cover;
+}
+.audio-men {
+  top: 230rpx;
+  left: 230rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/integral/men.png') 0 0 no-repeat; 
+  background-size: cover;
+}
 .show{
   width: 100%;
   height: 68rpx;
@@ -33,12 +48,10 @@
 
 .text-color{
   font:bold 32rpx/28rpx "Microsoft YaHei";
-  color: #fff;
 }
 
 .text-color1{
   font:bold 28rpx/28rpx "Microsoft YaHei";
-  color: #fff;
 }
 .wenzi-b {
   padding-top: 12rpx;
@@ -55,11 +68,10 @@
 }
 
 .exchange{
+  overflow:hidden;
+  white-space:nowrap;
   width: 703rpx;
   height: 428rpx;
-  display: flex;
-  flex-direction:row;
-  justify-content: flex-start; 
   background-color: #fff;
   margin-top: -50rpx;
   border-radius: 20rpx;
@@ -114,17 +126,6 @@
 .goods-anniu text{
   line-height: 36rpx;
 }
-
-.xuanzhong{
-  width: 158rpx;
-  height: 8rpx;
-  background-color: #e5e5e5;
-  position: absolute;
-  bottom: -20rpx;
-  left: 50%;
-  transform: translate(-50%,0);
-}
-
 .title{
   font:bold 36rpx/1 "Microsoft YaHei";
   color: #000;
