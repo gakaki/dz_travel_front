@@ -30,7 +30,7 @@
         <view class="xian"></view>
         <view class="gold f-r-sb">
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
-          <text>{{item.userInfo.gold}}</text>
+          <text>{{item.reward}}</text>
         </view>
       </view>
     </view>
@@ -51,7 +51,7 @@
         </view>
         <view class="person-gold f-r-sb">
           <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
-          <text>{{item.userInfo.gold}}</text>
+          <text>{{item.reward}}</text>
         </view>
       </view>
     </view>

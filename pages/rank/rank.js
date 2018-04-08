@@ -1,5 +1,5 @@
 // pages/rank/rank.js
-import { RankInfo, RankType, RankSubtype } from '../../api.js';
+import { RankInfo, RankType, RankSubtype, Code } from '../../api.js';
 const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
@@ -148,6 +148,20 @@ Page({
       }
 
       page++;
+    }).catch((req) => {
+      switch (req) { 
+        case Code.NOT_FOUND:
+          this.tip('榜单类型错误，请检查参数');
+        default:
+          this.tip('未知错误');
+      }
+    })
+  },
+
+  tip(tip) {
+    wx.showToast({
+      title: tip,
+      icon: 'none'
     })
   },
 
