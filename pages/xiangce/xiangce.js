@@ -1,6 +1,6 @@
 // pages/xiangce/xiangce.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 import { CityPostcards } from '../../api.js';
 let province = '';
 let data = [{
@@ -123,6 +123,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1)
   }
 })

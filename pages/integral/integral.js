@@ -1,7 +1,6 @@
 // pages/integral/integral.js
 import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail} from '../../api.js';
-const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 Page({
 
   /**
@@ -138,18 +137,11 @@ Page({
     this.getExchangeDetail()
   },
 
-  
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1)
   }
 })

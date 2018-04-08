@@ -322,11 +322,6 @@ export function formatNum(num, limit) {
   }
 }
 
-function shareSuc(){
-  let m = new ShareInfo();
-  m.fetch()
-}
-
 function shareTitle(type) {
   let titles = shares.filter(v=>{
     return v.type == type
@@ -335,12 +330,19 @@ function shareTitle(type) {
 }
 
 
-function shareToIndex(_that,type){
+function shareToIndex(_that, type, page) {
+  let nowPath;
+  if(page) {
+    nowPath  = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=' + page;
+  } else {
+    nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid;
+  }  
   return {
     title: shareTitle(type),
-    path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
+    path: nowPath,
     success: function () {
-      shareSuc()
+      let m = new ShareInfo();
+      m.fetch()
     }
   }
 }
@@ -356,7 +358,5 @@ module.exports = {
   spliceStr,
   getUserInfo,
   formatNum,
-  shareSuc,
-  shareTitle,
   shareToIndex
 }

@@ -1,6 +1,6 @@
 // pages/footprint/footprint.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 
 import { Item, items } from '../../sheets.js';
 import { TravelFootprint } from '../../api.js';
@@ -55,6 +55,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,2,'footprint')
   }
 })

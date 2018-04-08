@@ -1,7 +1,6 @@
 // pages/rank/rank.js
 import { RankInfo, RankType, RankSubtype } from '../../api.js';
-const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
@@ -235,23 +234,9 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this, 5,'rank')
   }
 })

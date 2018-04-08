@@ -41,10 +41,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.title)
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo();
+      console.log(options)
     }, options.shareUid)
     // var stage = new createjs.Stage('myCanvas');
     // var shape = new createjs.Shape();
