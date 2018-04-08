@@ -1,49 +1,38 @@
 <view class="con ofs">
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
-     <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="{{item.style}}"></view> 
-<!-- <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="top:{{item.ty}}rpx;left:{{item.tx}}rpx;width:{{item.wid}}rpx;transform: rotate({{item.jiaodu}}deg);"></view> -->
+    <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="{{item.style}}"></view>
+    <!-- <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="top:{{item.ty}}rpx;left:{{item.tx}}rpx;width:{{item.wid}}rpx;transform: rotate({{item.jiaodu}}deg);"></view> -->
 
-       <view class="shi-line draw-line" wx:if="{{shixian}}"   style="top:{{shixian.y}}rpx;left:{{shixian.x}}rpx;transform: rotate({{shixian.jiaodu}}deg);width:0;"></view> 
-<view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
+    <view class="shi-line draw-line" wx:if="{{shixian}}" style="top:{{shixian.y}}rpx;left:{{shixian.x}}rpx;transform: rotate({{shixian.jiaodu}}deg);width:0;"></view>
+    <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
-<view wx:if='{{showWalk}}'>
-<walk  hidden="{{isChg}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}" ></walk>
+    <view wx:if='{{showWalk}}'>
+      <walk hidden="{{isChg}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+    </view>
+
+
+<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/startPoint.png'}}"  bindtap='drawDashedLine'
+      style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
+
+<view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
+<image   src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}' data-id='{{item.id}}' bindtap='drawDashedLine'
+      style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
+      <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
 </view>
-
-    <!-- </view>
-<view class="con bg" catchtap=""> -->
+    
 
 
-
-    <!-- <view class="points" wx:key="{{index}}" wx:for="{{finalPoints}}" style="{{item.newstyle}}"></view>
-  <view class="lines" wx:key="{{index}}" wx:for="{{finalLines}}" wx:if="{{item.id > poepleLocationNum}}" style="{{item.newstyle}}"></view>
-  <view class="lines" wx:key="{{index}}" wx:for="{{finalpassLines}}" wx:if="{{item.id < poepleLocationNum + 1}}" style="{{item.newstyle}}"></view> -->
-
-    <!-- <view class="progressLines" wx:key="{{index}}" wx:for="{{finalLines}}" style="{{item.newstyle}}"></view> -->
-    <!-- <image wx:key="{{index}}" wx:for="{{locations}}" class="sightimage" data-point="{{item}}" catchtap="drawPoint" style="{{'top:'+item.y+'rpx; left:'+item.x+'rpx'}}" src="{{item.type === 'start' ? 'https://gengxin.odao.com/update/h5/travel/play/startPoint.png' : 'https://gengxin.odao.com/update/h5/travel/play/changeLine.png'}}"></image>
-  
-  <image animation="{{animationData}}" class="people" style="{{'top:'+poepleLocation.y+'rpx; left:'+poepleLocation.x+'rpx'}}" src="https://gengxin.odao.com/update/h5/travel/play/people.png"></image> -->
-
-
-    <image wx:for="{{testArr}}" wx:key="{{index}}" src="{{item.name == 'A'?'https://gengxin.odao.com/update/h5/travel/play/startPoint.png':'https://gengxin.odao.com/update/h5/travel/play/tip.png'}}" data-idx='{{item.idx}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx"
-      class="testImg"></image>
-
-
-
-    <!-- 点和线 -->
-    <!-- 屏幕边缘提示 -->
-    <!-- 距离 -->
     <view class="distance">
-      <text class="fontWhite font">999</text>
+      <text class="fontWhite font">{{licheng}}</text>
       <text class="fontWhite font">km</text>
     </view>
     <!-- 天气 -->
-    <view class="weather"></view>
+    <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
     <!-- 提示 -->
     <view class="tip" bindtap='showDesc'></view>
     <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs">
+    <view class="mission f-c-fs" bindtap='showTask'>
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
         <view class="progressBar"></view>

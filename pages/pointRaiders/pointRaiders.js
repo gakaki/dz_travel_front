@@ -4,7 +4,7 @@ const LIMIT = 5;
 const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
-let cityId = ''
+let cid = ''
 Page({
 
   /**
@@ -22,8 +22,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (typeof options.cityId != 'undefined') {
-      cityId = options.cid
+    if (typeof options.cid != 'undefined') {
+      cid = options.cid
       this.pullList(PostType.JINGDIAN)
     }else {
       let cityArr = []
@@ -32,7 +32,7 @@ Page({
           cityArr.push(o)
         }
       })
-       cityId = cityArr[0].id
+       cid = cityArr[0].id
        this.pullList(PostType.JINGDIAN)
     }
     
@@ -43,7 +43,7 @@ Page({
   },
   pullList(v) {
     let req = new PostList()
-    req.cityId = cityId
+    req.cityId = cid
     req.page = 1
     req.limit = LIMIT
     req.type = v

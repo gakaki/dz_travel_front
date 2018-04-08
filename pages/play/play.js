@@ -1,14 +1,13 @@
 // pages/play/play.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
-let startPoint//起点
+import { shareSuc, shareTitle, Timeline } from '../../utils/util.js';
+import { TourIndexInfo, Season } from '../../api.js';
+const sheet = require('../../sheets.js');
 let arr = []
 let i = 0
 let pointArr = []
 let isStart = false  //是否开始行走
-import {
-  Timeline
-} from '../../utils/util.js'
+let cid //城市id
 
 Page({
 
@@ -16,12 +15,57 @@ Page({
    * 页面的初始数据
    */
   data: {
+    startPoint: {  //起点
+      cid: 1,
+      x: 200,
+      y: 200,
+      "isStart": true
+    },
+
+    spots: [
+
+      {
+        id: "100102",
+        cid: 1,
+        x: 400,
+        y: 400,
+        isStart: false,
+        tracked: true,
+        index: 2,
+        no: 1,
+        name: "颐和园",
+        desc: "颐和园坐落于北京西郊，是中国古典园林之首，总面积约290公顷，由万寿山和昆明湖组成。全园分3个区域：以仁寿殿为中心的政治活动区；以玉澜堂、乐寿堂为主体的帝后生活区；以万寿山和昆明湖组成的风景旅游区。",
+        building: [
+          "2a",
+          "2b"
+        ]
+      },
+      {
+        id: "100103",
+        cid: 1,
+        x: 600,
+        y: 400,
+        isStart: false,
+        tracked: false,
+        index: 3,
+        no: 1,
+        name: "天安门广场",
+        desc: "在长安街南侧，北京城的传统中轴线上，座落着世界上最大的广场——天安门广场，广场中心为人民英雄纪念碑，继续向南穿过毛主席纪念堂就到了正阳门，也就是人们常说的前门。广场的西侧是人民大会堂，东侧是国家博物馆。",
+        building: [
+          "20a",
+          "20b"
+        ]
+      }
+    ],
+    season: 'SPRING',
+    licheng: 0,
+    weather: '',
     isChg: false,//是否正在修改路线
     showWalk: false,
     walkPoint: [],
     gender: 1,
     shixianArr: [],
-    shixian: {},//当前变化的实线数据
+    shixian: null,//当前变化的实线数据
     dashedLine: [],//虚线数组
     testArr: [],
     scale: 2,  //超过10个景点就能缩放
@@ -84,13 +128,41 @@ Page({
    */
   onLoad: function (options) {
 
-    this.setData({
-      testArr: this.getPoint()
+    //获取路线的最新状态
+    let spots = this.data.spots.slice()
+    console.log(spots)
+    // let lineArr = spots.filter(o => {
+    //   return o.tracked == true
+    // })
+
+
+    //游玩过
+    // this.lineState(spots)
+
+    let req = new TourIndexInfo()
+    req.cid = options.cid
+    req.fetch().then(req => {
+      console.log(req)
+      this.setData({
+        weather: sheet.Weather.Get(req.weather).icon,
+        licheng: req.userInfo.mileage,
+        season: Season[req.season]
+      })
+      console.log(this.data.weather)
     })
-    console.log(this.data.testArr)
+    cid = options.cid
+    // this.setData({
+    //   testArr: this.getPoint()
+    // })
+    // console.log(this.data.testArr)
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
+  },
+  showTask() {
+this.setData({
+  isMissionOpen: true  
+})
   },
   //修改路线
   chgLine() {
@@ -102,22 +174,16 @@ Page({
   //缩放点和线
   scaleXy(v) {
     let that = this
-    startPoint = Object.assign({}, {
-      name: startPoint.name,
-      idx: startPoint.idx,
-      x: startPoint.x * v,
-      y: startPoint.y * v
-    })
-    let temptestArr = this.data.testArr.map(item => {
-      return Object.assign({}, {
-        name: item.name,
-        idx: item.idx,
+    let temptestArr = this.data.spots.map(item => {
+      return Object.assign({}, item, {
+        // name: item.name,
+        // idx: item.idx,
         x: item.x * v,
         y: item.y * v
       })
     })
     this.setData({
-      testArr: temptestArr
+      spots: temptestArr
     })
     if (this.data.dashedLine.length > 0) {
       let obj = this.data.dashedLine.map(item => {
@@ -221,11 +287,16 @@ Page({
     }
   },
   chgWid(e) {
-
     let obj = e.detail
-
+let spots = this.data.spots
+spots[obj.idx-1].tracked = true
+this.setData({
+  spots: spots
+})
+    
+    console.log(obj)
     this.setData({
-      shixianArr: this.data.dashedLine.slice(0, obj.idx - 1)
+      shixianArr: this.data.dashedLine.slice(0, obj.idx)
     })
     setTimeout(() => {
       if (this.data.shixianArr.length == this.data.dashedLine.length) {
@@ -258,12 +329,12 @@ Page({
 
   },
   startplay() {
-    
+
     try {
       let value = wx.getStorageSync('isStart')
-      if (value) { 
+      if (value) {
         isStart = true
-      return
+        return
       }
       else {
         try {
@@ -274,12 +345,12 @@ Page({
     } catch (e) {
       console.log('err')
     }
-   
+
 
     if (this.data.dashedLine) {
-      pointArr[0] = { x: startPoint.x, y: startPoint.y, idx: 0, time: 1000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: 1000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 1000000 * (i + 1) }
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 40000 * (i + 1) }
       }
       this.setData({
         walkPoint: pointArr,
@@ -289,9 +360,20 @@ Page({
   },
   //画虚线
   drawDashedLine(e) {
-    if (idx == 1) return   //点击起点
+    console.log(e)
+    let dSet = e.currentTarget.dataset
+
     let lastPoint, curPoint
-    let idx = e.currentTarget.dataset.idx
+    let idx = dSet.idx
+    if (idx == 1) return   //点击起点
+    //如果该景点走过了，点击跳转至观光
+    if (dSet.track) {
+      wx.navigateTo({
+        url: '../goSight/goSight?pointId=' + dSet.id
+      })
+      return
+    }
+
 
     let pArr = [idx]
 
@@ -300,10 +382,10 @@ Page({
       let value = wx.getStorageSync('isStart')
       if (value) {
         if (this.data.isChg) {
-          
-        }else return
+
+        } else return
       }
-    
+
     } catch (e) {
       console.log('err')
     }
@@ -333,12 +415,12 @@ Page({
 
 
 
-    curPoint = this.data.testArr.find(v => {
-      return v.idx == idx
+    curPoint = this.data.spots.find(v => {
+      return v.index == idx
     })
     i++
     if (this.data.dashedLine.length == 0) {
-      lastPoint = startPoint
+      lastPoint = this.data.startPoint
     }
 
     else lastPoint = this.data.dashedLine[this.data.dashedLine.length - 1]
@@ -358,11 +440,59 @@ Page({
     }
 
     arr.push(line)
-    console.log(arr)
+
     this.setData({
       dashedLine: arr
     })
+    console.log(this.data.dashedLine)
+  },
+  //进页面时游玩初始状态
+  lineState(arrs) {
+    console.log(arrs)
+    let lastPoint, curPoint
+    curPoint = this.data.spots.find(v => {
+      return v.index == arrs[0].index
+    })
+    i++
+    if (arr.length == 0) {
+      lastPoint = this.data.startPoint
+    }
+    else lastPoint = arr[arr.length - 1]
 
+    let wid = this.drawOneLine(lastPoint.x, lastPoint.y, curPoint.x, curPoint.y)
+    let jiaodu = this.calcAngleDegrees(lastPoint, curPoint)
+    let line = {
+      idx: this.data.dashedLine.length == 0 ? 0 : this.data.dashedLine.length,
+      x: curPoint.x,
+      y: curPoint.y,
+      tx: lastPoint.x,
+      ty: lastPoint.y,
+      jiaodu: jiaodu,
+      wid: wid,
+      time: 5000 * i,
+      style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
+    }
+
+    arr.push(line)
+    arrs.shift()
+    if (arrs.length > 0) {
+      this.lineState(arrs)
+    }
+    else {
+      this.setData({
+        dashedLine: arr
+      })
+      let num = 0  //几条实线
+      for (let i = 0; i < this.data.spots.length; i++) {
+        if (this.data.spots[i].tracked) num++
+      }
+      this.setData({
+        shixianArr: this.data.dashedLine.slice(0, num)
+      })
+      this.startplay()
+      console.log(this.data.dashedLine)
+      console.log(this.data.shixianArr)
+    }
   },
   //旋转角度
   calcAngleDegrees(a, b) {
@@ -405,56 +535,56 @@ Page({
       id: 3,
       x: 116.404081,
       y: 39.910098
-    },
-    {
-      name: 'd',
-      id: 4,
-      x: 116.417115,
-      y: 39.886376
-    },
-    {
-      name: 'e',
-      id: 5,
-      x: 116.314154,
-      y: 40.01651
-    },
-    {
-      name: 'easd',
-      id: 6,
-      x: 116.395486,
-      y: 39.932913
-    },
-
-    {
-      name: 'f',
-      id: 7,
-      x: 116.016033,
-      y: 40.364233
-    },
-    {
-      name: 'g',
-      id: 8,
-      x: 116.409512,
-      y: 39.93986
-    },
-    {
-      name: 'aa',
-      id: 11,
-      x: 116.400512,
-      y: 39.95986
-    },
-    {
-      name: 'h',
-      id: 9,
-      x: 116.391656,
-      y: 39.948203
-    },
-    {
-      name: 'i',
-      id: 10,
-      x: 116.402359,
-      y: 39.999763
     }
+      // {
+      //   name: 'd',
+      //   id: 4,
+      //   x: 116.417115,
+      //   y: 39.886376
+      // },
+      // {
+      //   name: 'e',
+      //   id: 5,
+      //   x: 116.314154,
+      //   y: 40.01651
+      // },
+      // {
+      //   name: 'easd',
+      //   id: 6,
+      //   x: 116.395486,
+      //   y: 39.932913
+      // },
+
+      // {
+      //   name: 'f',
+      //   id: 7,
+      //   x: 116.016033,
+      //   y: 40.364233
+      // },
+      // {
+      //   name: 'g',
+      //   id: 8,
+      //   x: 116.409512,
+      //   y: 39.93986
+      // },
+      // {
+      //   name: 'aa',
+      //   id: 11,
+      //   x: 116.400512,
+      //   y: 39.95986
+      // },
+      // {
+      //   name: 'h',
+      //   id: 9,
+      //   x: 116.391656,
+      //   y: 39.948203
+      // },
+      // {
+      //   name: 'i',
+      //   id: 10,
+      //   x: 116.402359,
+      //   y: 39.999763
+      // }
     ]
 
     let arrx = [1, 3, 5, 7, 9]
@@ -512,6 +642,7 @@ Page({
       return v.idx == 1
     })
     console.log('startPoint', startPoint)
+    console.log('finalratio', finalratio)
     return finalratio
   },
   showDesc() {
@@ -533,7 +664,7 @@ Page({
 
   toPr() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders'
+      url: '../pointRaiders/pointRaiders?cid=' + cid
     })
   },
   toProps() {
