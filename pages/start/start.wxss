@@ -251,7 +251,7 @@
 }
 
 .random-cost{
-  padding-top: 20rpx;
+  padding-top: 10rpx;
 }
 
 .random-cost text{
