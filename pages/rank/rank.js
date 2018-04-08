@@ -151,6 +151,7 @@ Page({
       switch (req) { 
         case Code.NOT_FOUND:
           this.tip('榜单类型错误，请检查参数');
+          break;
         default:
           this.tip('未知错误');
       }
