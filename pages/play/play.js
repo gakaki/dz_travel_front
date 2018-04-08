@@ -1,13 +1,9 @@
 // pages/play/play.js
-<<<<<<< HEAD
 const app = getApp();
-import { shareSuc, shareTitle, Timeline } from '../../utils/util.js';
+import { Timeline, shareToIndex } from '../../utils/util.js';
 import { TourIndexInfo, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
-=======
-import { shareToIndex } from '../../utils/util.js';
 let startPoint//起点
->>>>>>> a670f5a16cfad35979bf495ead8c3a6a1b737135
 let arr = []
 let i = 0
 let pointArr = []

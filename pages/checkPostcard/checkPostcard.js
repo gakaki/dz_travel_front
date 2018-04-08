@@ -100,15 +100,17 @@ Page({
     this.setData({
       message:str
     })      
-
+    console.log(this.data.btnInfo)
     if (this.data.btnInfo == '留言') {
       this.setData({
         btnInfo: '发送明信片',
         write: true,
         index:-1,
         nickName:'',
-        time:''
+        time:'',
+        lastestMessage:''
       })
+      console.log(this.data.index)
     } else {  //按钮在分享或者发送明信片时
       //如果玩家没有留言就开始点击分享明信片,提示玩家
       if (!str.trim().length) {
