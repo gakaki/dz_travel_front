@@ -47,7 +47,7 @@ class Code{
     
     static ROOM_USER_EXISTS = -111;
     
-    static GANG_FULLED = -112;
+    static BAG_FULLED = -112;
     
     static NEED_ITEMS = -113;
     
@@ -620,7 +620,7 @@ class Sight {
         
     }
 }
-class Specialty {
+class Speciality {
     constructor() {
     
     
@@ -1427,17 +1427,13 @@ class CheckCode extends Base {
         this.action = 'startGame.checkcode';
     
         this._inviteCode = null;
-        this._expire = null;
         this.requireFileds = ["inviteCode"];
         this.reqFields = ["inviteCode"];
-        this.resFields = ["expire"];
+        this.resFields = [];
     }
     //client input, require, type: string
     get inviteCode() {return this._inviteCode}
     set inviteCode(v) {this._inviteCode = v}
-    //server output, type: Boolean
-    get expire() {return this._expire}
-    set expire(v) {this._expire = v}
 }
 class DeleteCode extends Base {
     constructor() {
@@ -1517,7 +1513,7 @@ class TraveledPlaces extends Base {
     get citys() {return this._citys}
     set citys(v) {this._citys = v}
 }
-class MySpe extends Specialty {
+class MySpe extends Speciality {
     constructor() {
         super();
     
@@ -1535,7 +1531,7 @@ class MySpe extends Specialty {
 class CitySpes extends Base {
     constructor() {
         super();
-        this.action = 'specialty.cityspes';
+        this.action = 'speciality.cityspes';
     
         this._cityId = null;
         this._specialtys = null;
@@ -1546,14 +1542,14 @@ class CitySpes extends Base {
     //client input, require, type: number//城市id
     get cityId() {return this._cityId}
     set cityId(v) {this._cityId = v}
-    //server output, type: Specialty[]
+    //server output, type: Speciality[]
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
 }
 class MySpes extends Base {
     constructor() {
         super();
-        this.action = 'specialty.myspes';
+        this.action = 'speciality.myspes';
     
         this._specialtys = null;
         this.requireFileds = [];
@@ -1567,7 +1563,7 @@ class MySpes extends Base {
 class Spe extends Base {
     constructor() {
         super();
-        this.action = 'specialty.spe';
+        this.action = 'speciality.spe';
     
         this._propId = null;
         this._count = null;
@@ -2295,10 +2291,10 @@ class StartGame extends Base {
         this._type = null;
         this._cid = null;
         this._cost = null;
-        this._partnerUid = null;
+        this._inviteCode = null;
         this._tid = null;
         this.requireFileds = ["type","cid","cost"];
-        this.reqFields = ["type","cid","cost","partnerUid","tid"];
+        this.reqFields = ["type","cid","cost","inviteCode","tid"];
         this.resFields = [];
     }
     //client input, require, type: TicketType
@@ -2311,8 +2307,8 @@ class StartGame extends Base {
     get cost() {return this._cost}
     set cost(v) {this._cost = v}
     //client input, optional, type: string
-    get partnerUid() {return this._partnerUid}
-    set partnerUid(v) {this._partnerUid = v}
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
     //client input, optional, type: string
     get tid() {return this._tid}
     set tid(v) {this._tid = v}
@@ -2382,7 +2378,7 @@ class TourIndexInfo extends IndexInfo {
 class SellSpe extends Spe {
     constructor() {
         super();
-        this.action = 'specialty.sellspe';
+        this.action = 'speciality.sellspe';
     
         this._goldNum = null;
         this.requireFileds = ["propId","count"];
@@ -2396,17 +2392,13 @@ class SellSpe extends Spe {
 class BuySpe extends Spe {
     constructor() {
         super();
-        this.action = 'specialty.buyspe';
+        this.action = 'speciality.buyspe';
     
-        this._items = null;
         this._goldNum = null;
         this.requireFileds = ["propId","count"];
         this.reqFields = ["propId","count"];
-        this.resFields = ["items","goldNum"];
+        this.resFields = ["goldNum"];
     }
-    //server output, type: KV[]
-    get items() {return this._items}
-    set items(v) {this._items = v}
     //server output, type: number//返回剩余的金币数
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
@@ -2440,7 +2432,7 @@ exports.ProvincePostcardInfo = ProvincePostcardInfo;
 exports.SelfRank = SelfRank;
 exports.RankItem = RankItem;
 exports.Sight = Sight;
-exports.Specialty = Specialty;
+exports.Speciality = Speciality;
 exports.OneDayLog = OneDayLog;
 exports.Base = Base;
 exports.ProvencePer = ProvencePer;
