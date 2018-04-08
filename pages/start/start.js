@@ -5,7 +5,7 @@ const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
-let locationCid;   //当前所在城市cid
+let locationCid , partnerCid;   //当前所在城市cid
 let time = null , preventFastClick = false;
 let onlySingle = false , onlyDouble = false;
 let inviteCode;  //邀请码
@@ -56,10 +56,16 @@ Page({
     let userInfo = app.globalData.userInfo
 
     //获取页面信息,判断是不是通过邀请进来的
-    if(!options.share){
+    if(options.share){
       inviteCode = options.inviteCode;
       cid = options.cid;
-      Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+      let info = new PartnerInfo();
+      info.inviteCode = inviteCode;
+      info.fetch().then(req=>{
+        
+      }).catch(req=>{
+
+      })
     }
     else{
       let info = new FlyInfo();
@@ -163,6 +169,19 @@ Page({
     if (err) {
       console.log('http listen error, code:', err)
     }
+    else{
+      if(res.nickName && res.avatarUrl){
+        partnerCid = res.location;
+        this.setData({
+          isWaiting: false,
+          partnerName: res.nickName,
+          avatarSrc: res.avatarUrl,
+          players: [{ location: locationCid, img: userInfo.avatarUrl },
+            { location: partnerCid, img: res.avatarUrl}
+          ]
+        })
+      }
+    }
   },
 
   startTour() {
@@ -265,7 +284,18 @@ Page({
       }
     }
     else {
-      this.planeFly(locationCid ? locationCid : 1, cid)
+      if(isWaiting){
+        this.planeFly(locationCid ? locationCid : 1, cid)
+      }
+      else{
+        let airlines = [
+          { from: locationCid, to: cid },
+          { from: partnerCid, to: cid}
+        ]
+        this.setData({
+          airlines,
+        })
+      }
     }
   },
 
@@ -304,6 +334,7 @@ Page({
       create.fetch().then(req=>{
         console.log(req,'生成邀请码')
         inviteCode = req.inviteCode
+        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
       }) 
     }
     else{
