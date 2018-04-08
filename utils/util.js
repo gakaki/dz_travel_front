@@ -333,12 +333,20 @@ function shareTitle(type,par) {
   return title
 }
 
-
-function shareToIndex(_that, type, page, par) {
+//_that 当前页面的this
+//type 分享的类型  对象表里的type
+//page 跳转到哪个页面
+//par 分享标题里的自定义参数
+function shareToIndex(_that, type, page, par,inviteCode) {
   let nowPath;
   if (app.globalData.userInfo.uid) {
     if(page) {
-      nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=' + page;    
+      if (inviteCode) {
+        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' +inviteCode;
+      } else {
+        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true';
+      }
+     
     } else {
       nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid    
     }
