@@ -1,0 +1,24 @@
+/* components/newPlayer/newbieGuide.wxss */
+.guide-wrap { 
+  position: relative;
+  margin: 0 auto; 
+  padding-top: 50rpx;
+  width: 628rpx;
+  height: 998rpx;
+}
+.img {
+  width: 628rpx;
+  height: 998rpx;
+}
+.btn {
+  position: absolute;
+  bottom: 40rpx;
+  width: 120rpx;
+  height: 36rpx;
+}
+.prev {
+  left: 30rpx;
+} 
+.next {
+  right: 30rpx;
+}
