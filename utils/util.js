@@ -332,11 +332,16 @@ function shareTitle(type) {
 
 function shareToIndex(_that, type, page) {
   let nowPath;
-  if(page) {
-    nowPath  = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=' + page;
+  if (app.globalData.userInfo.uid) {
+    if(page) {
+      nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=' + page;    
+    } else {
+      nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid    
+    }
   } else {
-    nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid;
+    nowPath = '/pages/index/index';
   }  
+  console.log(nowPath)
   return {
     title: shareTitle(type),
     path: nowPath,

@@ -22,7 +22,6 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
-    console.log(userInfo)
     let m = new TravelFootprint();
     if (options.uid) {  //个人主页进入不会传uid,只有从分享页进来的才会传uid
       m.playerUid = options.uid
