@@ -1,7 +1,7 @@
 // pages/index/index.js
 import { shareToIndex } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, Base, IndexInfo, GetMessage, Http, LookTicket, Season, TicketType, CheckMsgCnt } from '../../api.js';
+import { SignInfo, Base, IndexInfo, Http, LookTicket, Season, TicketType, CheckMsgCnt, CheckCode, Code } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
@@ -44,43 +44,9 @@ Page({
   
     enterOnload = true;
     start(ok=> {
-      ok && this.gotUserInfo();
+      ok && this.gotUserInfo(options);
       console.log(options,'index')
     }, options.shareUid)
-    // var stage = new createjs.Stage('myCanvas');
-    // var shape = new createjs.Shape();
-    // shape.graphics.beginFill('red').drawRect(0, 0, 120, 120);
-    // stage.addChild(shape);
-    // stage.update();
-
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    //   console.log(app.globalData.userInfo)
-    // } else if (this.data.canIUse) {
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
 
   },
   toPlay() {
@@ -90,7 +56,8 @@ Page({
       // url: '../cityRaiders/cityRaiders'
     })
   },
-  gotUserInfo() {
+  //options主要为了处理分享出去进来的跳转设置
+  gotUserInfo(options) {
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
@@ -106,10 +73,46 @@ Page({
       })
     
       this.getIndexInfo(userInfo) 
+      this.shareTo(options)
+      
     }
     else {
       console.log('用户拒绝授权个人信息！！')
     }
+  },
+
+  //分享相关跳转
+  shareTo(options) {
+    if(options.start){
+      let check = new CheckCode();
+      check.inviteCode = options.inviteCode;
+      check.fetch().then(req=>{
+        wx.navigateTo({
+          url: '../start/start?share=true&inviteCode=' + options.inviteCode,
+        })
+      }).catch(req=>{
+        switch (req) {
+          case Code.ROOM_EXPIRED:
+            this.tip('邀请码已过期');
+            break;
+          case Code.ROOM_USER_EXISTS:
+            this.tip('已在房间内');
+            break;
+          case Code.ROOM_FULLED:
+            this.tip('房间已满');
+            break;
+          default:
+            this.tip('未知错误');
+        }
+      })
+    }
+  },
+
+  tip(tip) {
+    wx.showToast({
+      title: tip,
+      icon: 'none'
+    })
   },
 
   /**
@@ -170,6 +173,14 @@ Page({
         chooseInd: 0,
         messages: req.unreadMsgCnt
       })
+    }).catch(() => {
+      switch (req) {
+        case Code.USER_NOT_FOUND:
+          this.tip('用户不存在');
+          break;
+        default:
+          this.tip('未知错误');
+      }
     })
 
     Http.listen(CheckMsgCnt, this.loopMsg, this, 600000);
@@ -215,6 +226,14 @@ Page({
         wx.navigateTo({
           url: '../city/city?location=' + this.data.location,
         })
+      }
+    }).catch(()=>{
+      switch (req) {
+        case Code.USER_NOT_FOUND:
+          this.tip('用户不存在');
+          break;
+        default:
+          this.tip('未知错误');
       }
     })
     this.setData({
