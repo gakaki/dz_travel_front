@@ -1,6 +1,7 @@
 //const sheet = require('../sheets.js');
 import { ShareInfo } from '../api.js'
 import { shares } from '../sheets.js'
+let app = getApp()
 //dateType输出时间格式类型
 //1. 2018/03/09 
 //2. 2月1日 
@@ -334,6 +335,17 @@ function shareTitle(type) {
 }
 
 
+function shareToIndex(_that,type){
+  return {
+    title: shareTitle(type),
+    path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
+    success: function () {
+      shareSuc()
+    }
+  }
+}
+
+
 module.exports = {
   getRankFrame,
   formatTime,
@@ -345,5 +357,6 @@ module.exports = {
   getUserInfo,
   formatNum,
   shareSuc,
-  shareTitle
+  shareTitle,
+  shareToIndex
 }
