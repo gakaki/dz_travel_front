@@ -23,7 +23,7 @@ Page({
    */
   onLoad: function (options) {
     if (typeof options.cityId != 'undefined') {
-      cityId = options.cityId
+      cityId = options.cid
       this.pullList(PostType.JINGDIAN)
     }else {
       let cityArr = []

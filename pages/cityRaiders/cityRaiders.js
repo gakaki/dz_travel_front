@@ -137,7 +137,7 @@ Page({
   },
   tocR() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?city=' + city+ '&cityId='+cityId   //还要把城市id传过去
+      url: '../pointRaiders/pointRaiders?city=' + city+ '&cid='+cityId   //还要把城市id传过去
     })
   },
   /**

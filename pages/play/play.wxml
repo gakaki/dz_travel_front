@@ -4,7 +4,7 @@
      <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="{{item.style}}"></view> 
 <!-- <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="top:{{item.ty}}rpx;left:{{item.tx}}rpx;width:{{item.wid}}rpx;transform: rotate({{item.jiaodu}}deg);"></view> -->
 
-      <view class="shi-line draw-line" wx:if="{{shixian}}"   style="top:{{shixian.y}}rpx;left:{{shixian.x}}rpx;transform: rotate({{shixian.jiaodu}}deg);width:0;"></view>
+       <view class="shi-line draw-line" wx:if="{{shixian}}"   style="top:{{shixian.y}}rpx;left:{{shixian.x}}rpx;transform: rotate({{shixian.jiaodu}}deg);width:0;"></view> 
 <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
 <view wx:if='{{showWalk}}'>
