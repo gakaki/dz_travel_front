@@ -322,15 +322,19 @@ export function formatNum(num, limit) {
   }
 }
 
-function shareTitle(type) {
+function shareTitle(type,par) {
   let titles = shares.filter(v=>{
     return v.type == type
   })
-  return titles[parseInt(Math.random() * titles.length)].title
+  let title = titles[parseInt(Math.random() * titles.length)].title;
+  if(par) {
+    title = title.replace('%s',par)
+  }
+  return title
 }
 
 
-function shareToIndex(_that, type, page) {
+function shareToIndex(_that, type, page, par) {
   let nowPath;
   if (app.globalData.userInfo.uid) {
     if(page) {
@@ -343,7 +347,7 @@ function shareToIndex(_that, type, page) {
   }  
   console.log(nowPath)
   return {
-    title: shareTitle(type),
+    title: shareTitle(type, par),
     path: nowPath,
     success: function () {
       let m = new ShareInfo();
