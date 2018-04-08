@@ -5,7 +5,7 @@
       <view class="message" wx:for="{{message}}" wx:key="{{index}}">
         <view class="top f-r-sb">
           <view class="title">
-            <text>{{item.title}}{{item.mid}}</text>
+            <text>{{item.title}}</text>
           </view>
           <view class="time">
             <text>{{item.date}}</text>
