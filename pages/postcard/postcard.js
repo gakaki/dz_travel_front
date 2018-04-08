@@ -1,7 +1,6 @@
 // pages/postcard/postcard.js
 import { MyPostcards } from '../../api.js';
-const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 Page({
 
   /**
@@ -16,65 +15,35 @@ Page({
    */
   onLoad: function (options) {
     let m = new MyPostcards();
+    if(options.uid) {
+      m.palyerUid = options.uid;
+      this.data.uid = options.uid;
+    }
     m.fetch().then(res=>{
       console.log(res)
        this.setData({
          init: res.postcardInfo
       })
     })
+    console.log(111111)
    
   },
   toMyXc() {
+    let path = '';
+    if(this.data.uid) {
+      path = '../xiangce/xiangce?uid='+this.data.uid
+    } else {
+      path = '../xiangce/xiangce'
+    }
     wx.navigateTo({
-      url: '../xiangce/xiangce',
+      url: path,
     })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1)
   }
 })

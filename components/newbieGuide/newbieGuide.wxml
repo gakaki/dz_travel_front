@@ -1,0 +1,10 @@
+<!--components/newPlayer/newbieGuide.wxml-->
+<view class='mask' wx:if="{{mask}}">
+  <view class='guide-wrap'>
+    <image class='img' src='{{allImgs[index]}}'></image>  
+    <image wx:if='{{index>0}}' class='btn prev'  bindtap='toPrev' src='https://gengxin.odao.com/update/h5/travel/newbieGuide/prev.png'></image>
+    <image wx:if='{{index<allImgs.length-1}}' bindtap='toNext' class='btn next' src='https://gengxin.odao.com/update/h5/travel/newbieGuide/next.png'></image>
+    <image wx:if='{{index == allImgs.length-1}}'  bindtap='toSure' class='btn next' src='https://gengxin.odao.com/update/h5/travel/newbieGuide/sure.png'></image>
+  </view>
+</view>
+

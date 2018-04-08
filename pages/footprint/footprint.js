@@ -1,6 +1,6 @@
 // pages/footprint/footprint.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 
 import { Item, items } from '../../sheets.js';
 import { TravelFootprint } from '../../api.js';
@@ -22,7 +22,6 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
-    console.log(userInfo)
     let m = new TravelFootprint();
     if (options.uid) {  //个人主页进入不会传uid,只有从分享页进来的才会传uid
       m.playerUid = options.uid
@@ -55,6 +54,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,2,'footprint')
   }
 })

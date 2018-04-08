@@ -1,8 +1,13 @@
 // pages/play/play.js
+<<<<<<< HEAD
 const app = getApp();
 import { shareSuc, shareTitle, Timeline } from '../../utils/util.js';
 import { TourIndexInfo, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
+=======
+import { shareToIndex } from '../../utils/util.js';
+let startPoint//起点
+>>>>>>> a670f5a16cfad35979bf495ead8c3a6a1b737135
 let arr = []
 let i = 0
 let pointArr = []
@@ -744,38 +749,11 @@ this.setData({
     this.animation = animation
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return shareToIndex(this,1)
   }
 })

@@ -1,5 +1,5 @@
 // pages/start/start.js
-import { FlyInfo, StartGame, TicketType, Season, Code } from '../../api.js';
+import { FlyInfo, StartGame, TicketType, Season, Code, CreateCode, DeleteCode } from '../../api.js';
 import { ymd } from '../../utils/rest.js';
 const sheet = require('../../sheets.js');
 let allCity = [];
@@ -8,8 +8,9 @@ let cid , tid; //城市id和赠送的机票id
 let locationCid;   //当前所在城市cid
 let time = null , preventFastClick = false;
 let onlySingle = false , onlyDouble = false;
+let inviteCode;  //邀请码
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 
 Page({
 
@@ -129,19 +130,20 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    onlyDouble = false
-    onlySingle = false
     clearInterval(time)
+    console.log("onHide")
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.delCode()
     onlyDouble = false
     onlySingle = false
     preventFastClick = false
     clearInterval(time)
+    console.log("onUnload")
   },
 
   startTour() {
@@ -275,6 +277,27 @@ Page({
     this.setData({
       isDouble:true
     })
+    //根据isWaiting来判断是生成code还是删除code。一般来说isWaiting为false时表示已经有好友进来此时已生成过code
+    if(this.data.isWaiting){
+      let create = new CreateCode()
+      create.fetch().then(req=>{
+        console.log(req,'生成邀请码')
+        inviteCode = req.inviteCode
+      }) 
+    }
+    else{
+      this.delCode()
+    }
+  },
+
+  delCode() {
+    let det = new DeleteCode()
+    det.inviteCode = inviteCode
+    det.fetch().then(req => {
+      console.log(req, '删除邀请码')
+    }).catch(req => {
+
+    })
   },
 
   showHelp() {
@@ -295,25 +318,10 @@ Page({
       showHelp: false
     })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,3,'start')
   }
 })

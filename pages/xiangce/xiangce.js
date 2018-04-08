@@ -1,56 +1,8 @@
 // pages/xiangce/xiangce.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 import { CityPostcards } from '../../api.js';
 let province = '';
-let data = [{
-  city:'哈尔滨',
-  collectPostcardNum:10,
-  allPostcardNum:5,
-  postcardsDetail:[
-    {
-      id:1,
-      url:'',
-      lastestLiveMessage:'我大姐按实际开发阿康师傅安居客是否安居客按时是是'
-    },
-    {
-      id: 1,
-      url: ''
-    }]},
-  {
-    city: '哈尔滨',
-    collectPostcardNum: 10,
-    allPostcardNum: 5,
-    postcardsDetail: [
-      {
-        id: 1,
-        url: '',
-        lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
-      },
-      {
-        id: 1,
-        url: '',
-        lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
-        }]
-      },
-      {
-        city: '哈尔滨',
-        collectPostcardNum: 10,
-        allPostcardNum: 5,
-        postcardsDetail: [
-          {
-            id: 1,
-            url: '',
-            lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
-          },
-          {
-            id: 1,
-            url: '',
-            lastestLiveMessage: '我大姐按实际开发阿康师傅安居客是否安居客按时是是'
-          }]
-      }
-    ];
-
 Page({
 
   /**
@@ -65,6 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(options.uid) {
+      this.data.uid = options.uid
+    }
     wx.setNavigationBarTitle({
       title: options.province
     })
@@ -78,10 +33,12 @@ Page({
     
   },
   toMsgPost(e) {
-    let v = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: '../checkPostcard/checkPostcard?id=' + v.id + '&postid=' + v.postid,
-    })
+    if(!this.data.uid) {
+      let v = e.currentTarget.dataset;
+      wx.navigateTo({
+        url: '../checkPostcard/checkPostcard?id=' + v.id + '&postid=' + v.postid,
+      })
+    } 
   },
   chgTab(e) {
     let v = e.currentTarget.dataset.id;
@@ -104,6 +61,9 @@ Page({
     let m = new CityPostcards();
     m.LM = lm;
     m.province = province;
+    if(this.data.uid) {
+      m.playerUid = this.data.uid
+    }
     m.fetch().then(res => {
       console.log(res)
       if(lm == 0) {
@@ -123,6 +83,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1)
   }
 })

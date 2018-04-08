@@ -1,8 +1,7 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
 const LIMIT = 5;
-const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let cid = ''
 Page({
@@ -79,52 +78,12 @@ else {
 }
   },
   //超出字数部分用...代替
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+ 
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1)
   }
 })

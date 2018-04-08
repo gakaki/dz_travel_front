@@ -10,6 +10,7 @@
   position: absolute;
   bottom: 182rpx;
   right: 40rpx;
+  z-index: 10;
 }
 
 #map{
@@ -251,7 +252,7 @@
 }
 
 .random-cost{
-  padding-top: 20rpx;
+  padding-top: 10rpx;
 }
 
 .random-cost text{
@@ -271,7 +272,7 @@
   position: absolute;
   right: 20rpx;
   top: 15rpx;
-  z-index: 1000;
+  z-index: 10;
   text-align: right;
   align-items: flex-end;
 }
