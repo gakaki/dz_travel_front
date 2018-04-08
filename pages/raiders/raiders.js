@@ -1,7 +1,6 @@
 
 // pages/raiders/raiders.js
-const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 import { Comment, CommentPost, PostComments, ThumbComment } from '../../api.js'
 let postId
 let lastCmtId = 0
@@ -154,23 +153,9 @@ num = 0
     });
   },
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return shareToIndex(this,1)
   }
 })

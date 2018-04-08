@@ -1,6 +1,6 @@
 // pages/city/city.js
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 import { TicketType } from '../../api.js';
 let cid;//选中的城市id
@@ -21,7 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.title = shareTitle(1)
     console.log(this.data.title)
     location = options.location;
 
@@ -105,13 +104,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    let _that = this;
-    return {
-      title: _that.data.title,
-      path: '/pages/index/index?shareUid:' + app.globalData.userInfo.uid,
-      success: function () {
-        shareSuc()
-      }
-    }
+    return shareToIndex(this,1)
   },
 })

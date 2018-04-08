@@ -2,7 +2,7 @@
 import { formatTime } from '../../utils/util.js'
 import { TravelLog } from '../../api.js';
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
+import { shareToIndex } from '../../utils/util.js';
 
 
 Page({
@@ -60,6 +60,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,6,'travelLog')
   }
 })

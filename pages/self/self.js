@@ -1,9 +1,8 @@
 // pages/self/self.js
-import { getUserInfo } from '../../utils/util.js';
+import { getUserInfo, shareToIndex } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
 import { Item, items } from '../../sheets.js';
 const app = getApp();
-import { shareSuc, shareTitle } from '../../utils/util.js';
 
 Page({
 
@@ -71,6 +70,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return shareToIndex(this,1,'other')
   }
 })
