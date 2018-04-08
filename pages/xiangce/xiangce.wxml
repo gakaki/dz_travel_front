@@ -1,7 +1,7 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 
 <view class='con'>
-  <view class="tab flex">
+  <view class="tab flex" wx:if='{{!uid}}'>
     <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab' data-id='1'>留言明信片</view>
   </view>

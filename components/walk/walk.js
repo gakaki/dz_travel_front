@@ -1,7 +1,7 @@
 let timer
 let sto
 let walkInfoObj = {}
-let st = 11000  //模拟服务器的时间戳
+let st = 50000  //模拟服务器的时间戳
 let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
@@ -56,7 +56,7 @@ Component({
 
       console.log('idxidxidxidxidxidxidx', idx)
       if (isLast) {
-        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': idx + 1 })
+        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': this.properties.walkInfoArr.length-1 })
 
         if (index == 0) {
           this.setData({
@@ -106,7 +106,7 @@ Component({
         console.log('this.data.show', this.data.show)
         setTimeout(() => {
           console.log('move', obj.x, obj.y, obj.time)
-          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx })
+          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx-1 })
           this.move(obj)
         }, 30)
 
@@ -116,7 +116,7 @@ Component({
           y: obj.y,
           show: true
         })
-        this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': idx })
+        this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx-1 })
         this.move(obj)
       }
 

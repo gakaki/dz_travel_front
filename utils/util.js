@@ -322,23 +322,40 @@ export function formatNum(num, limit) {
   }
 }
 
-function shareTitle(type) {
+function shareTitle(type,par) {
   let titles = shares.filter(v=>{
     return v.type == type
   })
-  return titles[parseInt(Math.random() * titles.length)].title
+  let title = titles[parseInt(Math.random() * titles.length)].title;
+  if(par) {
+    title = title.replace('%s',par)
+  }
+  return title
 }
 
-
-function shareToIndex(_that, type, page) {
+//_that 当前页面的this
+//type 分享的类型  对象表里的type
+//page 跳转到哪个页面
+//par 分享标题里的自定义参数
+function shareToIndex(_that, type, page, par,inviteCode,cid) {
   let nowPath;
-  if(page) {
-    nowPath  = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=' + page;
+  if (app.globalData.userInfo.uid) {
+    if(page) {
+      if (inviteCode && cid) {
+        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' + inviteCode + '&cid=' + cid;
+      } else {
+        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true';
+      } 
+     
+    } else {
+      nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid    
+    }
   } else {
-    nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid;
+    nowPath = '/pages/index/index';
   }  
+  console.log(nowPath)
   return {
-    title: shareTitle(type),
+    title: shareTitle(type, par),
     path: nowPath,
     success: function () {
       let m = new ShareInfo();

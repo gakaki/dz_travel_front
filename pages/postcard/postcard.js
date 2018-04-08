@@ -15,17 +15,28 @@ Page({
    */
   onLoad: function (options) {
     let m = new MyPostcards();
+    if(options.uid) {
+      m.palyerUid = options.uid;
+      this.data.uid = options.uid;
+    }
     m.fetch().then(res=>{
       console.log(res)
        this.setData({
          init: res.postcardInfo
       })
     })
+    console.log(111111)
    
   },
   toMyXc() {
+    let path = '';
+    if(this.data.uid) {
+      path = '../xiangce/xiangce?uid='+this.data.uid
+    } else {
+      path = '../xiangce/xiangce'
+    }
     wx.navigateTo({
-      url: '../xiangce/xiangce',
+      url: path,
     })
   },
 

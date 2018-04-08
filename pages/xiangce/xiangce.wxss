@@ -77,8 +77,10 @@ margin: 0 0 0 20rpx;
   font: bold 28rpx 'Microsoft YaHei';
 }
 .per1 {
+  width: 160rpx;
   font: bold 20rpx/50rpx 'Microsoft YaHei';
-  color: #b8b8b8
+  color: #b8b8b8;
+  
 }
 .message {
   display: inline-block;
