@@ -57,8 +57,9 @@ Page({
 
     //获取页面信息,判断是不是通过邀请进来的
     if(!options.share){
-      // Http.listen(PartnerInfo, this.parInfo, this, 1000);
-      this.parInfo()
+      inviteCode = options.inviteCode;
+      cid = options.cid;
+      Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     }
     else{
       let info = new FlyInfo();
@@ -119,6 +120,10 @@ Page({
     }
   },
 
+  fillCode(req) {
+    req.inviteCode = inviteCode;
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -153,14 +158,11 @@ Page({
     console.log("onUnload")
   },
 
-  parInfo(res) {
-    let par = new PartnerInfo();
-    par.inviteCode = 'da7ebef0-3b1d-11e8-ba83-31c6f99e764c';
-    par.fetch().then(req=>{
-      console.log(req)
-    }).catch(req=>{
-      console.log(req)
-    })
+  parInfo(res, err) {
+    console.log(res)
+    if (err) {
+      console.log('http listen error, code:', err)
+    }
   },
 
   startTour() {
@@ -341,6 +343,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode)
+    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
   }
 })
