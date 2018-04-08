@@ -44,7 +44,7 @@ Page({
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo();
-      console.log(options)
+      console.log(options,'index')
     }, options.shareUid)
     // var stage = new createjs.Stage('myCanvas');
     // var shape = new createjs.Shape();

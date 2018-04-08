@@ -1,6 +1,6 @@
 // pages/rank/rank.js
-import { RankInfo, RankType, RankSubtype } from '../../api.js';
 import { shareToIndex } from '../../utils/util.js';
+import { RankInfo, RankType, RankSubtype, Code } from '../../api.js';
 const sheet = require('../../sheets.js');
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
@@ -147,6 +147,20 @@ Page({
       }
 
       page++;
+    }).catch((req) => {
+      switch (req) { 
+        case Code.NOT_FOUND:
+          this.tip('榜单类型错误，请检查参数');
+        default:
+          this.tip('未知错误');
+      }
+    })
+  },
+
+  tip(tip) {
+    wx.showToast({
+      title: tip,
+      icon: 'none'
     })
   },
 
