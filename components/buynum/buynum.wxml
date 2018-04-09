@@ -7,7 +7,7 @@
         <text class='goods-desc font fs'>{{desc}}</text>
       </view>
     </view>
-    <text class="num font">购买数量</text>
+    <text class="num font">{{maimai}}数量</text>
     <view class="operate flex">
       <image class="icon" bindtap='rGold' src="https://gengxin.odao.com/update/h5/travel/props/reduce.png"></image>
       <view class="num-box font">{{goldNum}}</view>
@@ -18,7 +18,7 @@
       <view class="cancel font" catchtap='toHide' hidden="{{single}}">取消</view>
       <view class="confirm font flex" catchtap='toCfm'>
       <!-- <image class="gold fs" src="https://gengxin.odao.com/update/h5/travel/props/gold-icon.png"></image> -->
-      <text class="fs">{{single?'获得':''}}$ {{gold}}</text>
+      <text class="fs">{{single?'获得':''}}$ {{money}}</text>
       </view>
     </view>
   </view>

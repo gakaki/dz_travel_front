@@ -94,99 +94,26 @@
 }
 
 .two-mid-bot-str {
-  margin-bottom: 16rpx;
   color: #b0afb3;
+  margin-bottom: 16rpx;
   font-size: 22rpx;
   max-width: 300rpx;
+  
 }
-
+.three-mid-bot-str{
+  font: normal 34rpx  'Microsoft YaHei';
+  margin-bottom: 10rpx;
+  color: #aaa
+}
 .spe-num {
   color: #878689;
   font-size: 32rpx;
   letter-spacing: 3rpx;
 }
-
-/* .pop-car-bg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 0;
+.sc {
+  position: fixed;
+  top: 235rpx;
+  bottom: 0;
   left: 0;
-  z-index: 99;
+  right: 0;
 }
-
-.pop-car-con {
-  width: 610rpx;
-  height: 400rpx;
-  background-color: #fff;
-  border-radius: 40rpx;
-  transform: translateY(-64rpx);
-}
-
-.car-top {
-  width: 100%;
-}
-
-.car-rgt {
-  height: 110rpx;
-}
-
-.pop-car {
-  margin: 30rpx 20rpx 26rpx 30rpx;
-}
-
-.gold {
-  width: 38rpx;
-  height: 38rpx;
-  margin-right: 5rpx;
-}
-
-.car-name {
-  font-size: 32rpx;
-  letter-spacing: 3rpx;
-}
-
-.car-tip {
-  font-size: 30rpx;
-  letter-spacing: 3rpx;
-  color: #b8b8b8;
-  margin-left: 30rpx;
-}
-
-.mg {
-  margin: 0 0 10rpx 30rpx;
-}
-
-.car-line {
-  width: 570rpx;
-  height: 2rpx;
-  background-color: #f2f2f2;
-}
-
-.bot-btn {
-  width: 100%;
-  margin-top: 30rpx;
-}
-
-.cancel, .confirm {
-  line-height: 75rpx;
-  letter-spacing: 20rpx;
-  width: 245rpx;
-  height: 113rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
-  background-size: cover;
-  font-size: 30rpx;
-  color: #fff;
-  text-align: center;
-}
-
-.cancel {
-  margin-left: 30rpx;
-}
-
-.confirm {
-  margin-right: 30rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
-  background-size: cover;
-} */

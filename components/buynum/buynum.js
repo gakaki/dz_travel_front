@@ -16,6 +16,14 @@ Component({
       type: String,
       value: '冒菜'
     },
+    maxNum: {
+      type: Number,
+      value: -1
+    },
+    maimai: {
+      type: String,
+      value: '购买'
+    },
     // goldNum: {
     //   type: Number,
     //   value: 1
@@ -26,7 +34,7 @@ Component({
     },
     gold: {
       type: Number,
-      value: 100
+      value: 10
     }
   },
 
@@ -34,13 +42,19 @@ Component({
    * 组件的初始数据
    */
   data: {
-    goldNum: 10
+    goldNum: 1,
+    money: 0
   },
-
+  ready() {
+    this.setData({
+      money: this.properties.gold
+    })
+  },
   /**
    * 组件的方法列表
    */
   methods: {
+
     toHide() {
       this.triggerEvent('toclose')
     },
@@ -48,18 +62,27 @@ Component({
       this.triggerEvent('notDo')
     },
     toCfm() {
-      this.triggerEvent('toBuy')
+      this.triggerEvent('toBuy', { num: this.data.goldNum })
     },
     rGold() {
-      let t = this.data.goldNum-- > 0 ? this.data.goldNum:0
+      let t = this.data.goldNum-- > 1 ? this.data.goldNum : 1
       this.setData({
-        goldNum: t
+        goldNum: t,
+        money: this.properties.gold * t
       })
     },
     pGold() {
-      let t = this.data.goldNum++ < 10 ? this.data.goldNum : 10
+      let t = 0
+      console.log(this.properties.maxNum)
+      if (this.properties.maxNum == -1) {
+        t = this.data.goldNum+1
+      } else {
+        t = this.data.goldNum++ < this.properties.maxNum ? this.data.goldNum : this.properties.maxNum
+      }
+
       this.setData({
-        goldNum: t
+        goldNum: t,
+        money: this.properties.gold * t
       })
     }
   }

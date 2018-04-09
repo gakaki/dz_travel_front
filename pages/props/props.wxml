@@ -5,51 +5,59 @@
     <view class="tab-item font {{tabThree? 'act': ''}}" bindtap='clkThree'>售卖特产</view>
   </view>
 
-
-  <view id="one-list" class="f-c-fs" wx:if="{{tabOne}}">
-    <view class="my-gold">
+<view class="my-gold">
       <mygold goldNum="{{myGold}}"></mygold>
     </view>
-    <text class="tips font fs">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</text>
-    <view class="line"></view>
-    <view class="one-item f-r-fs" wx:for="{{rentProp}}">
-      <image class="one-pic" src="{{item.image}}"></image>
-       <text class="one-i-str font">{{item.propsname}}</text> 
+    <text class="tips font fs" wx:if="{{tabOne}}">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</text>
+    <text class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随事件和市场变动</text>
 
-<!-- <view class="f-c-sb two-mid">
+    <view class="line"></view>
+  <view id="one-list" class="f-c-fs sc">
+    
+    <view class="one-item f-r-fs " wx:if="{{tabOne}}" wx:for="{{rentProp}}" wx:key="{{index}}">
+      <image class="one-pic" src="{{item.image}}"></image>
+      <text class="one-i-str font">{{item.propsname}}</text>
+
+      <!-- <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.propsname}}</text>
         <text class="two-mid-bot-str font fs">{{item.rechargedescription}}</text>
       </view> -->
 
-      <view class="one-i-price f-r-fs" data-type="0" data-id="{{item.id}}" bindtap='rentCar'>
+      <view class="one-i-price f-r-fs" data-id="{{item.id}}" bindtap='rentCar'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.price}}</text>
       </view>
     </view>
   </view>
 
-  <view id="two-list" class="f-c-fs" wx:if="{{tabTwo}}">
-    <view class="one-item f-r-fs">
+  <scroll-view id="two-list" scroll-y class="f-c-fs sc" wx:if="{{tabTwo}}">
+    <view class="one-item f-r-fs " wx:for='{{speArr}}' wx:key='{{index}}'>
       <image class="one-pic" src=""></image>
       <view class="f-c-sb two-mid">
-        <text class="two-mid-top-str font fs">舒适自驾车</text>
-        <text class="two-mid-bot-str font fs">舒适自速格和的风格和的风格和的风格和的风格和驾车</text>
+        <text class="two-mid-top-str font fs">{{item.name}}</text>
+        <text class="two-mid-bot-str font fs">{{item.desc}}</text>
       </view>
-      <view class="one-i-price f-r-fs" data-type="1" bindtap='buySpe'>
+      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" data-idx="{{index}}" bindtap='buySpe'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
-        <text class='gold-num font'>777</text>
+        <text class='gold-num font'>{{item.price}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view id="three-list" class="f-c-fs sc" wx:if="{{tabThree}}">
+    <view class="one-item f-r-fs " wx:for="{{mySpe}}" wx:key='{{index}}'>
+      <image class="one-pic" src=""></image>
+      <view class="f-c-sb two-mid">
+        <text class="two-mid-top-str font fs">{{item.name}}</text>
+        <text class="three-mid-bot-str fs">{{item.num}}个</text>
+      </view>
+      <view class="one-i-price f-r-fs" data-idx="{{index}}" bindtap='sell'>
+        <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
+        <text class='gold-num font'>{{item.sellPrice}}</text>
       </view>
     </view>
   </view>
 
-  <view id="three-list" class="f-c-fs" data-type="2" wx:if="{{tabThree}}">
-    <view class="one-item f-r-fs" bindtap='sell'>
-      <image class="one-pic" src=""></image>
-      <text class="one-i-str font">舒适自驾车</text>
-      <text class='spe-num font'>777个</text>
-    </view>
-  </view>
-
-  <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}"  desc="{{propDesc}}" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
-   <buynum wx:if="{{popBuyNum}}" single="{{singal}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum> 
+  <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
+  <buynum wx:if="{{popBuyNum}}" single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum>
 </view>

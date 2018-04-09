@@ -627,8 +627,8 @@
 }
 
 .start {
-  height: 120rpx;
-  width: 80rpx;
+  height: 80rpx;
+  width: 93rpx;
 }
 .icon-1a {
   width: 123rpx;
