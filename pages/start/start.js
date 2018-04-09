@@ -5,7 +5,7 @@ const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
-let locationCid;   //当前所在城市cid
+let locationCid , partnerCid;   //当前所在城市cid
 let time = null , preventFastClick = false;
 let onlySingle = false , onlyDouble = false;
 let inviteCode;  //邀请码
@@ -56,9 +56,16 @@ Page({
     let userInfo = app.globalData.userInfo
 
     //获取页面信息,判断是不是通过邀请进来的
-    if(!options.share){
-      // Http.listen(PartnerInfo, this.parInfo, this, 1000);
-      this.parInfo()
+    if(options.share){
+      inviteCode = options.inviteCode;
+      cid = options.cid;
+      let info = new PartnerInfo();
+      info.inviteCode = inviteCode;
+      info.fetch().then(req=>{
+        
+      }).catch(req=>{
+
+      })
     }
     else{
       let info = new FlyInfo();
@@ -119,6 +126,10 @@ Page({
     }
   },
 
+  fillCode(req) {
+    req.inviteCode = inviteCode;
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -153,14 +164,24 @@ Page({
     console.log("onUnload")
   },
 
-  parInfo(res) {
-    let par = new PartnerInfo();
-    par.inviteCode = 'da7ebef0-3b1d-11e8-ba83-31c6f99e764c';
-    par.fetch().then(req=>{
-      console.log(req)
-    }).catch(req=>{
-      console.log(req)
-    })
+  parInfo(res, err) {
+    console.log(res)
+    if (err) {
+      console.log('http listen error, code:', err)
+    }
+    else{
+      if(res.nickName && res.avatarUrl){
+        partnerCid = res.location;
+        this.setData({
+          isWaiting: false,
+          partnerName: res.nickName,
+          avatarSrc: res.avatarUrl,
+          players: [{ location: locationCid, img: userInfo.avatarUrl },
+            { location: partnerCid, img: res.avatarUrl}
+          ]
+        })
+      }
+    }
   },
 
   startTour() {
@@ -263,7 +284,18 @@ Page({
       }
     }
     else {
-      this.planeFly(locationCid ? locationCid : 1, cid)
+      if(isWaiting){
+        this.planeFly(locationCid ? locationCid : 1, cid)
+      }
+      else{
+        let airlines = [
+          { from: locationCid, to: cid },
+          { from: partnerCid, to: cid}
+        ]
+        this.setData({
+          airlines,
+        })
+      }
     }
   },
 
@@ -302,6 +334,7 @@ Page({
       create.fetch().then(req=>{
         console.log(req,'生成邀请码')
         inviteCode = req.inviteCode
+        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
       }) 
     }
     else{
@@ -341,6 +374,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode)
+    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
   }
 })
