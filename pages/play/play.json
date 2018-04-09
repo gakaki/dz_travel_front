@@ -3,6 +3,7 @@
     "play": "../../../components/play/play",
     "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
     "walk":"/components/walk/walk",
-    "directions": "/components/rankDirections/rankDirections"
+    "directions": "/components/rankDirections/rankDirections",
+    "guide":"/components/newbieGuide/newbieGuide"
   }
 }

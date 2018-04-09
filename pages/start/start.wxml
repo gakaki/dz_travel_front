@@ -34,8 +34,14 @@
       </view>
     </view>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/start/separatrix.png"></image>
-    <view class="info f-r-sb {{isWaiting ? '' : 'has-partner'}}" wx:if="{{isRandom || !flyInfo.location || onlySingle}}">
-      <view class="cost random-cost flex" wx:if="{{isSingleFirst && isWaiting}}">
+    <view class="info f-r-sb {{isWaiting ? '' : 'has-partner'}}" wx:if="{{isRandom || !flyInfo.location || onlySingle || invitee}}">
+      <view class="cost flex" wx:if="{{invitee}}">
+        <text class="letter-s">被邀请人不消耗金币</text>
+        <view class="holiday" wx:if="{{flyInfo.holiday}}">
+            {{flyInfo.holiday}}
+          </view>
+      </view>
+      <view class="cost random-cost flex" wx:elif="{{isSingleFirst && isWaiting}}">
         <text class="letter-s">首次单人起飞不消耗金币</text>
         <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}

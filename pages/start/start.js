@@ -23,7 +23,7 @@ Page({
     onlySingle: false,    //是否是赠送的单人票  
     onlyDouble: false,    //是否是赠送的双人票
     isWaiting:true,       //是否在等待好友接收邀请
-    isRandom:true,        //是否是随机机票
+    isRandom:false,        //是否是随机机票
     destination: '',
     isArrive: false,      //是否到达目的地
     partnerName: '',
@@ -34,7 +34,7 @@ Page({
     date: '',      //当前日期
     flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
     showHelp:false,
-    
+    invitee:false
    },
 
   /**
@@ -59,12 +59,39 @@ Page({
     if(options.share){
       inviteCode = options.inviteCode;
       cid = options.cid;
+      
       let info = new PartnerInfo();
       info.inviteCode = inviteCode;
       info.fetch().then(req=>{
-        
+        let flyInfo = {};
+        flyInfo.gold = req.gold;
+        flyInfo.holiday = req.holiday;
+        flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
+        flyInfo.season = Season[req.season];
+        flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+        this.setData({
+          flyInfo,
+          isWaiting:false,
+          isDouble:true,
+          invitee: true,
+          date: ymd('cn'),
+          partnerName: userInfo.nickName,
+          avatarSrc: userInfo.avatarUrl,
+          players: [{ location: req.location, img: req.avatarUrl },
+          { location: req.parLocation, img: userInfo.avatarUrl }
+          ]
+        })
       }).catch(req=>{
-
+        switch (req) {
+          case Code.ROOM_EXPIRED:
+            this.tip('邀请码错误');
+            break;
+          case Code.ROOM_FULLED:
+            this.tip('房间已满');
+            break;
+          default:
+            this.tip('未知错误');
+        }
       })
     }
     else{
@@ -160,14 +187,24 @@ Page({
     onlyDouble = false
     onlySingle = false
     preventFastClick = false
+    inviteCode = ''
     clearInterval(time)
     console.log("onUnload")
   },
 
   parInfo(res, err) {
-    console.log(res)
     if (err) {
       console.log('http listen error, code:', err)
+      switch (err) {
+        case Code.ROOM_EXPIRED:
+          this.tip('邀请码错误');
+          break;
+        case Code.ROOM_FULLED:
+          this.tip('房间已满');
+          break;
+        default:
+          this.tip('未知错误');
+      }
     }
     else{
       if(res.nickName && res.avatarUrl){
@@ -325,9 +362,12 @@ Page({
   },
 
   double() {
-    this.setData({
-      isDouble:true
-    })
+    if(!this.data.isDouble){
+      this.setData({
+        isDouble: true
+      })
+    }
+    
     //根据isWaiting来判断是生成code还是删除code。一般来说isWaiting为false时表示已经有好友进来此时已生成过code
     if(this.data.isWaiting){
       let create = new CreateCode()
@@ -338,7 +378,21 @@ Page({
       }) 
     }
     else{
-      this.delCode()
+      if(this.data.invitee){
+        wx.redirectTo({
+          url: '../index/index',
+        })
+      }
+      else{
+        this.delCode()
+        let userInfo = app.globalData.userInfo
+        this.setData({
+          isWaiting: true,
+          partnerName: '',
+          avatarSrc: '',
+          players: [{ location: locationCid, img: userInfo.avatarUrl }]
+        })
+      }
     }
   },
 

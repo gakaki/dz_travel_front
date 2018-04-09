@@ -1,4 +1,13 @@
 /* components/newPlayer/newbieGuide.wxss */
+.mask{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .guide-wrap { 
   position: relative;
   margin: 0 auto; 

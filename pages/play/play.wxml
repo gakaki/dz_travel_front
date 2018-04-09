@@ -141,3 +141,4 @@
     <dialogQuestion wx:if="{{isDialogQuestion}}" catchtap="hideDialogQuestion"></dialogQuestion>
   </view>
 </view>
+<guide></guide>
