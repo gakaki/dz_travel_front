@@ -81,6 +81,18 @@ Page({
           { location: req.parLocation, img: userInfo.avatarUrl }
           ]
         })
+        if(req.isFly){
+          let airlines = [
+            { from: req.location, to: cid },
+            { from: req.parLocation, to: cid }
+          ]
+          this.setData({
+            airlines,
+          })
+        }
+        else{
+          Http.listen(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+        }
       }).catch(req=>{
         switch (req) {
           case Code.ROOM_EXPIRED:
@@ -150,6 +162,33 @@ Page({
         isRandom: false,
         destination: options.terminal,
       })
+    }
+  },
+
+  listenFly(res, err){
+    if (err) {
+      console.log('http listen error, code:', err)
+      switch (err) {
+        case Code.ROOM_EXPIRED:
+          this.tip('邀请码错误');
+          break;
+        case Code.ROOM_FULLED:
+          this.tip('房间已满');
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    }
+    else {
+      if(res.isFly){
+        let airlines = [
+          { from: req.location, to: cid },
+          { from: req.parLocation, to: cid }
+        ]
+        this.setData({
+          airlines,
+        })
+      }
     }
   },
 
