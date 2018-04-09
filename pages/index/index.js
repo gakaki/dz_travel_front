@@ -317,8 +317,9 @@ Page({
   },
 
   test() {
-    wx.navigateTo({
-      url: '../settings/settings',
-    })
+    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
+    // wx.navigateTo({
+    //   url: '../settings/settings',
+    // })
   }
 })

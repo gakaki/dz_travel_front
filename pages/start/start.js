@@ -248,8 +248,8 @@ Page({
     preventFastClick = false
     inviteCode = ''
     clearInterval(time)
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     console.log("onUnload")
   },
 
@@ -286,6 +286,7 @@ Page({
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    
     if(this.data.invitee){
       wx.showToast({
         title: '只有邀请人可以开始旅行',
@@ -419,12 +420,13 @@ Page({
   },
 
   onArrived() {
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
     console.log('plane arrived')
     this.setData({
       isArrive: true
     })
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    
     preventFastClick = false;
   },
 
@@ -461,6 +463,19 @@ Page({
           avatarSrc: '',
           players: [{ location: locationCid, img: userInfo.avatarUrl }]
         })
+        let create = new CreateCode()
+        create.fetch().then(req => {
+          console.log(req, '生成邀请码')
+          inviteCode = req.inviteCode
+        }).catch(req => {
+          switch (req) {
+            case Code.ROOM_USER_EXISTS:
+              this.tip('生成邀请码已在房间内');
+              break;
+            default:
+              this.tip('未知错误');
+          }
+        }) 
       }
     }
   },
