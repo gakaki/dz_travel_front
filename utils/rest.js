@@ -1,8 +1,8 @@
 const apis = require('../api.js');
 const APPNAME = 'travel';
 
-// const srv = "https://h5t.ddz2018.com/";
-// const wss = "wss://h5t.ddz2018.com/travel";
+// const srv = "https://tt.ddz2018.com/";
+// const wss = "wss://tt.ddz2018.com/travel";
 const srv = "https://local.ddz2018.com/";
 const wss = "wss://local.ddz2018.com/travel";
 

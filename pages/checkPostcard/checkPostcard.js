@@ -20,7 +20,8 @@ Page({
     allMessage:null, //玩家所有留言信息
     index:0,
     time:'',
-    message:''
+    message:'',
+    pattern:1
     
   },
 
@@ -48,7 +49,8 @@ Page({
         if (res.lastestMessage.length) {  
           this.setData({
             allMessage: res.lastestMessage,
-            url:res.mainUrl
+            url:res.mainUrl,
+            pattern: res.pattern
           })
           this.nowInfo(this.data.index)
         } 

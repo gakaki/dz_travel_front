@@ -13,7 +13,12 @@ function allImg(src) {
   return "https://gengxin.odao.com/update/h5/travel/" + src
 }
 
+function postcardBg(src) {
+  return "https://gengxin.odao.com/update/h5/travel/postcard/" + src + '.png'
+}
+
 module.exports = {
   formatTime: formatTime,
-  allImg: allImg
+  allImg: allImg,
+  postcardBg: postcardBg
 }

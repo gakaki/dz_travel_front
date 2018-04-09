@@ -980,7 +980,7 @@ class Http {
         this.LOOP_INTERVAL=300;
         this._listenings=this._listenings || new Map();
     }
-   static listen(apiCls, cb, ctx, interval=300) {
+   static listen(apiCls, cb, ctx, interval=300, preFetch=null) {
         if (!this._listenings) {
             console.error('Http loop has not inited');
             return;
@@ -990,7 +990,7 @@ class Http {
             this._listenings.set(action, new apiCls);
         }
         let listener=this._listenings.get(action);
-        listener.cbx ={cb, ctx, interval, status: this.LS_IDLE, passedTm: 0};
+        listener.cbx ={cb, ctx, interval, status: this.LS_IDLE, passedTm: 0, preFetch: preFetch};
         //start loop
         this.loopListen();
     }
@@ -1022,9 +1022,15 @@ class Http {
                     switch(cfg.status) {
                         case this.LS_IDLE:
                             cfg.status=this.LS_BUSY;
+                            if (cfg.preFetch) {
+                                //fetch之前，可以通过此回调，对lsnr请求字段付值
+                                cfg.ctx ? cfg.preFetch.call(cfg.ctx, lsnr):cfg.preFetch(lsnr);
+                            }
                             lsnr.fetch().then(()=>{
                                 cfg.status=this.LS_SUC;
-                            })
+                            }).catch(errCode => {
+                                cfg.ctx ? cfg.cb.call(cfg.ctx, lsnr, errCode):cfg.cb(lsnr, errCode);
+                            });
                             break;
                         case this.LS_SUC:
                             cfg.status=this.LS_BUSY;
@@ -1945,11 +1951,12 @@ class DetailPostcard extends Base {
         this._id = null;
         this._page = null;
         this._messageLength = null;
+        this._pattern = null;
         this._mainUrl = null;
         this._lastestMessage = null;
         this.requireFileds = ["id"];
         this.reqFields = ["id","page","messageLength"];
-        this.resFields = ["mainUrl","lastestMessage"];
+        this.resFields = ["pattern","mainUrl","lastestMessage"];
     }
     //client input, require, type: number
     get id() {return this._id}
@@ -1960,6 +1967,9 @@ class DetailPostcard extends Base {
     //client input, optional, type: number
     get messageLength() {return this._messageLength}
     set messageLength(v) {this._messageLength = v}
+    //server output, type: number
+    get pattern() {return this._pattern}
+    set pattern(v) {this._pattern = v}
     //server output, type: string
     get mainUrl() {return this._mainUrl}
     set mainUrl(v) {this._mainUrl = v}

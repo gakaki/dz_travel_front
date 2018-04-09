@@ -13,17 +13,29 @@
 .pic {
   width: 100%;
   height: 100%;
-  background-color: #f9f5f0;
-  position: relative
+  /* background-color: #f9f5f0; */
+  position: relative;
+}
+
+.pattern {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 680rpx;
+  height: 478rpx;
 }
 
 .pc-top {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 152rpx;
 }
 
 .circle {
   margin: 15rpx 0 0 30rpx;
+  height: 35rpx;
 }
 
 .cir {
@@ -35,10 +47,11 @@
 }
 
 .icon {
+  border-radius: 50%;
   margin: 35rpx 40rpx 0 0;
   width: 95rpx;
   height: 95rpx;
-  background-color: wheat;
+  /* background-color: wheat; */
 }
 
 .pc-bot {
