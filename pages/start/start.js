@@ -228,7 +228,7 @@ Page({
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
-    if (this.data.partnerName) {
+    if (!this.data.isWaiting) {
       //有没有免费的
       if(this.data.isDoubleFirst){
         start.cost = 0;
@@ -271,6 +271,7 @@ Page({
     start.fetch().then((req) => {
       this.readyFly()
     }).catch((req) => {
+      console.log(req)
       switch(req){
         case Code.NEED_ITEMS:
           this.tip('金币或道具不足');
@@ -321,7 +322,7 @@ Page({
       }
     }
     else {
-      if(isWaiting){
+      if(this.data.isWaiting){
         this.planeFly(locationCid ? locationCid : 1, cid)
       }
       else{

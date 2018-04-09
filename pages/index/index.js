@@ -1,5 +1,5 @@
 // pages/index/index.js
-import { shareToIndex } from '../../utils/util.js'
+import { shareToIndex, redGold, addGold } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
 import { SignInfo, Base, IndexInfo, Http, LookTicket, Season, TicketType, CheckMsgCnt, CheckCode, Code } from '../../api.js';
 const sheet = require('../../sheets.js');
@@ -50,6 +50,10 @@ Page({
 
   },
   toPlay() {
+    console.log(app.globalData.gold)
+    redGold(10)
+    console.log(app.globalData.gold)
+    return
     //需要判断是否在游玩
     wx.navigateTo({
       url: '../play/play?cid=' + locationCid
