@@ -1,6 +1,6 @@
 // pages/play/play.js
 const app = getApp();
-import { Timeline, shareToIndex } from '../../utils/util.js';
+import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
 import { TourIndexInfo, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
@@ -138,7 +138,7 @@ Page({
 
 
     //游玩过
-    // this.lineState(spots)
+     this.lineState(spots)
 
     let req = new TourIndexInfo()
     req.cid = options.cid
@@ -670,7 +670,7 @@ this.setData({
   },
   toProps() {
     wx.navigateTo({
-      url: '../props/props'
+      url: '../props/props?cid='+cid
     })
   },
   showisPop() {

@@ -1,11 +1,11 @@
 // pages/start/start.js
-import { FlyInfo, StartGame, TicketType, Season, Code, CreateCode, DeleteCode } from '../../api.js';
+import { FlyInfo, StartGame, TicketType, Season, Code, CreateCode, DeleteCode, Http, PartnerInfo } from '../../api.js';
 import { ymd } from '../../utils/rest.js';
 const sheet = require('../../sheets.js');
 let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
-let locationCid;   //当前所在城市cid
+let locationCid , partnerCid;   //当前所在城市cid
 let time = null , preventFastClick = false;
 let onlySingle = false , onlyDouble = false;
 let inviteCode;  //邀请码
@@ -23,7 +23,7 @@ Page({
     onlySingle: false,    //是否是赠送的单人票  
     onlyDouble: false,    //是否是赠送的双人票
     isWaiting:true,       //是否在等待好友接收邀请
-    isRandom:true,        //是否是随机机票
+    isRandom:false,        //是否是随机机票
     destination: '',
     isArrive: false,      //是否到达目的地
     partnerName: '',
@@ -34,7 +34,7 @@ Page({
     date: '',      //当前日期
     flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
     showHelp:false,
-    
+    invitee:false
    },
 
   /**
@@ -55,41 +55,82 @@ Page({
     //从全局变量中把用户信息拿过来
     let userInfo = app.globalData.userInfo
 
-    //获取页面信息
-    let info = new FlyInfo();
-    info.type = options.type
-    info.fetch().then((req)=>{
-      locationCid = req.location
-      //以下数据不进行渲染（仅在调api时发送）
-      ticketType = options.type;
-      //不是随机机票就从options中获取cid
-      if(req.cid){
-        cid = req.cid;
-      }
-      else{
-        cid = options.cid
-      }
+    //获取页面信息,判断是不是通过邀请进来的
+    if(options.share){
+      inviteCode = options.inviteCode;
+      cid = options.cid;
       
-      console.log(req,'起飞界面数据',onlySingle)
-      let flyInfo = {};
-      flyInfo.cost = req.cost;
-      flyInfo.doubleCost = req.doubleCost;
-      flyInfo.gold = req.gold;
-      flyInfo.holiday = req.holiday;
-      flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
-      flyInfo.season = Season[req.season];
-      flyInfo.weather = sheet.Weather.Get(req.weather).icon;
-      this.setData({
-        flyInfo,
-        date: ymd('cn'),
-        isSingleFirst: req.isSingleFirst,
-        isDoubleFirst: req.isDoubleFirst,
-        avatarSrc: userInfo.avatarUrl,
-        onlySingle,
-        onlyDouble,
-        players: [{ location: locationCid, img: userInfo.avatarUrl}]
+      let info = new PartnerInfo();
+      info.inviteCode = inviteCode;
+      info.fetch().then(req=>{
+        let flyInfo = {};
+        flyInfo.gold = req.gold;
+        flyInfo.holiday = req.holiday;
+        flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
+        flyInfo.season = Season[req.season];
+        flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+        this.setData({
+          flyInfo,
+          isWaiting:false,
+          isDouble:true,
+          invitee: true,
+          date: ymd('cn'),
+          partnerName: userInfo.nickName,
+          avatarSrc: userInfo.avatarUrl,
+          players: [{ location: req.location, img: req.avatarUrl },
+          { location: req.parLocation, img: userInfo.avatarUrl }
+          ]
+        })
+      }).catch(req=>{
+        switch (req) {
+          case Code.ROOM_EXPIRED:
+            this.tip('邀请码错误');
+            break;
+          case Code.ROOM_FULLED:
+            this.tip('房间已满');
+            break;
+          default:
+            this.tip('未知错误');
+        }
       })
-    })
+    }
+    else{
+      let info = new FlyInfo();
+      info.type = options.type
+      info.fetch().then((req) => {
+        locationCid = req.location
+        //以下数据不进行渲染（仅在调api时发送）
+        ticketType = options.type;
+        //不是随机机票就从options中获取cid
+        if (req.cid) {
+          cid = req.cid;
+        }
+        else {
+          cid = options.cid
+        }
+
+        console.log(req, '起飞界面数据', onlySingle)
+        let flyInfo = {};
+        flyInfo.cost = req.cost;
+        flyInfo.doubleCost = req.doubleCost;
+        flyInfo.gold = req.gold;
+        flyInfo.holiday = req.holiday;
+        flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
+        flyInfo.season = Season[req.season];
+        flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+        this.setData({
+          flyInfo,
+          date: ymd('cn'),
+          isSingleFirst: req.isSingleFirst,
+          isDoubleFirst: req.isDoubleFirst,
+          avatarSrc: userInfo.avatarUrl,
+          onlySingle,
+          onlyDouble,
+          players: [{ location: locationCid, img: userInfo.avatarUrl }]
+        })
+      })
+    }
+    
 
     //是否是随机机票
     if(options && options.random){
@@ -110,6 +151,10 @@ Page({
         destination: options.terminal,
       })
     }
+  },
+
+  fillCode(req) {
+    req.inviteCode = inviteCode;
   },
 
   /**
@@ -142,8 +187,38 @@ Page({
     onlyDouble = false
     onlySingle = false
     preventFastClick = false
+    inviteCode = ''
     clearInterval(time)
     console.log("onUnload")
+  },
+
+  parInfo(res, err) {
+    if (err) {
+      console.log('http listen error, code:', err)
+      switch (err) {
+        case Code.ROOM_EXPIRED:
+          this.tip('邀请码错误');
+          break;
+        case Code.ROOM_FULLED:
+          this.tip('房间已满');
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    }
+    else{
+      if(res.nickName && res.avatarUrl){
+        partnerCid = res.location;
+        this.setData({
+          isWaiting: false,
+          partnerName: res.nickName,
+          avatarSrc: res.avatarUrl,
+          players: [{ location: locationCid, img: userInfo.avatarUrl },
+            { location: partnerCid, img: res.avatarUrl}
+          ]
+        })
+      }
+    }
   },
 
   startTour() {
@@ -169,7 +244,7 @@ Page({
         start.cost = this.data.flyInfo.doubleCost;
         start.type = TicketType.DOUBLEBUY;
       }
-      start.partnerUid = 1
+      start.inviteCode = inviteCode;
     }
     else{
       //有没有免费的
@@ -208,8 +283,10 @@ Page({
           break;
         case Code.NOT_FOUND:
           this.tip('道具不存在或已使用');
+          break;
         case Code.REQUIREMENT_FAILED:
           this.tip('已在当前城市，请重新选择城市进行游玩');
+          break;
         default:
           this.tip('未知错误');
       }
@@ -244,7 +321,18 @@ Page({
       }
     }
     else {
-      this.planeFly(locationCid ? locationCid : 1, cid)
+      if(isWaiting){
+        this.planeFly(locationCid ? locationCid : 1, cid)
+      }
+      else{
+        let airlines = [
+          { from: locationCid, to: cid },
+          { from: partnerCid, to: cid}
+        ]
+        this.setData({
+          airlines,
+        })
+      }
     }
   },
 
@@ -274,19 +362,37 @@ Page({
   },
 
   double() {
-    this.setData({
-      isDouble:true
-    })
+    if(!this.data.isDouble){
+      this.setData({
+        isDouble: true
+      })
+    }
+    
     //根据isWaiting来判断是生成code还是删除code。一般来说isWaiting为false时表示已经有好友进来此时已生成过code
     if(this.data.isWaiting){
       let create = new CreateCode()
       create.fetch().then(req=>{
         console.log(req,'生成邀请码')
         inviteCode = req.inviteCode
+        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
       }) 
     }
     else{
-      this.delCode()
+      if(this.data.invitee){
+        wx.redirectTo({
+          url: '../index/index',
+        })
+      }
+      else{
+        this.delCode()
+        let userInfo = app.globalData.userInfo
+        this.setData({
+          isWaiting: true,
+          partnerName: '',
+          avatarSrc: '',
+          players: [{ location: locationCid, img: userInfo.avatarUrl }]
+        })
+      }
     }
   },
 
@@ -309,7 +415,7 @@ Page({
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
-      url: '../play/play?cid=' + locationCid,
+      url: '../play/play?cid=' + cid,
     })
   },
 
@@ -322,6 +428,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,3,'start')
+    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
   }
 })

@@ -12,7 +12,7 @@
     </view>
 
 
-<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/startPoint.png'}}"  bindtap='drawDashedLine'
+<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}"  bindtap='drawDashedLine'
       style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
 <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">

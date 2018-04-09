@@ -1,7 +1,7 @@
 // pages/message/message.js
 const app = getApp();
 import { shareSuc, shareTitle } from '../../utils/util.js';
-import { GetMessage, ClearMsg } from '../../api.js';
+import { GetMessage, ClearMsg, Code } from '../../api.js';
 let page = 1 , message = [];
 Page({
 
@@ -52,6 +52,17 @@ Page({
     clear.mid = message[0].mid
     clear.fetch().then((req)=>{
       console.log(req)
+    }).catch((req)=>{
+      switch (req) {
+        case Code.USER_NOT_FOUND:
+          this.tip('用户不存在');
+          break;
+        case Code.NOT_FOUND:
+          this.tip('未找到消息');
+          break;
+        default:
+          this.tip('未知错误');
+      }
     })
     message = []
     page = 1
@@ -75,6 +86,24 @@ Page({
       this.setData({
         message,
       })
+    }).catch((req)=>{
+      switch (req) {
+        case Code.USER_NOT_FOUND:
+          this.tip('用户不存在');
+          break;
+        case Code.PARAMETER_NOT_MATCH:
+          this.tip('非法传参，请检查参数');
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    })
+  },
+
+  tip(tip) {
+    wx.showToast({
+      title: tip,
+      icon: 'none'
     })
   },
 
