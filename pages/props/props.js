@@ -27,7 +27,8 @@ Page({
     speArr: [],
     mySpe: [],
     maimai: '购买',
-    maxNum: 0
+    maxNum: 0,
+    xg: false
   },
   rentCar(e) {
     let str
@@ -54,6 +55,7 @@ Page({
       popCar: true,
       cfmStr: '购买',
       maxNum: -1,
+      xg: true,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
       goldNum: this.data.speArr[dSet.idx].price
@@ -94,6 +96,7 @@ Page({
     this.setData({
       popBuyNum: true,
       singal: true,
+      xg: false,
       maxNum: this.data.mySpe[dSet.idx].num,
       propName: this.data.mySpe[dSet.idx].name,
       goldNum: this.data.mySpe[dSet.idx].sellPrice,
@@ -140,7 +143,23 @@ Page({
         reqs.propId = propId
         reqs.count = e.detail.num
         reqs.fetch().then(() => {
-
+          let mySpe = this.data.mySpe
+          mySpe.map(o => {
+            if (o.propId = propId) {
+              o.num = o.num - e.detail.num
+            }
+            return o
+          })
+          let item = mySpe.find(o => {
+           return o.num == 0
+          })
+          if (item) {
+            mySpe.splice(mySpe.indexOf(item), 1)
+          }
+          console.log(mySpe)
+          this.setData({
+            mySpe: mySpe
+          })
         })
         break;
       default:
@@ -188,7 +207,7 @@ Page({
       console.log(req)
       this.setData({
         mySpe: req.specialtys,
-        
+
       })
     })
 

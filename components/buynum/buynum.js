@@ -16,6 +16,10 @@ Component({
       type: String,
       value: '冒菜'
     },
+    xg: { //限购
+      type: Boolean,
+      value: false
+    },
     maxNum: {
       type: Number,
       value: -1
