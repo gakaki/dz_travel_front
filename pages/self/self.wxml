@@ -47,6 +47,6 @@
       <text>获得特产数量</text>
       <text>{{init.otherUserInfo.specialty}}</text>
     </view>
-
   </scroll-view>
+  <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
 </view>

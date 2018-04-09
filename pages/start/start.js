@@ -75,12 +75,26 @@ Page({
           isDouble:true,
           invitee: true,
           date: ymd('cn'),
-          partnerName: userInfo.nickName,
-          avatarSrc: userInfo.avatarUrl,
-          players: [{ location: req.location, img: req.avatarUrl },
-          { location: req.parLocation, img: userInfo.avatarUrl }
+          partnerName: req.nickName,
+          avatarSrc: req.avatarUrl,
+          players: [{ location: req.parLocation, img: req.avatarUrl },
+          { location: req.location, img: userInfo.avatarUrl }
           ]
         })
+        locationCid = req.location ? req.location : 10000
+        partnerCid = req.parLocation ? req.parLocation : 10000
+        if(req.isFly){
+          let airlines = [
+            { from: locationCid, to: cid },
+            { from: partnerCid, to: cid }
+          ]
+          this.setData({
+            airlines,
+          })
+        }
+        else{
+          Http.listen(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+        }
       }).catch(req=>{
         switch (req) {
           case Code.ROOM_EXPIRED:
@@ -98,7 +112,7 @@ Page({
       let info = new FlyInfo();
       info.type = options.type
       info.fetch().then((req) => {
-        locationCid = req.location
+        locationCid = req.location ? req.location : 10000 
         //以下数据不进行渲染（仅在调api时发送）
         ticketType = options.type;
         //不是随机机票就从options中获取cid
@@ -146,10 +160,55 @@ Page({
       })
     }
     else{
+      //只要不是固定了单人飞行的就在此处生成邀请码，否则在点击邀请好友时生成邀请码会导致分享出去的邀请码为空。
+      if (!onlySingle && !options.share){
+        let create = new CreateCode()
+        create.fetch().then(req => {
+          console.log(req, '生成邀请码')
+          inviteCode = req.inviteCode
+        }).catch(req=>{
+          switch (req) {
+            case Code.ROOM_USER_EXISTS:
+              this.tip('生成邀请码已在房间内');
+              break;
+            default:
+              this.tip('未知错误');
+          }
+        }) 
+      }
+      
       this.setData({
         isRandom: false,
         destination: options.terminal,
       })
+    }
+  },
+
+  listenFly(res, err){
+    if (err) {
+      console.log('http listen error, code:', err)
+      switch (err) {
+        case Code.ROOM_EXPIRED:
+          this.tip('邀请码过期');
+          break;
+        case Code.ROOM_FULLED:
+          this.tip('房间已满');
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    }
+    else {
+      console.log(res,'http')
+      if(res.isFly){
+        let airlines = [
+          { from: locationCid, to: cid },
+          { from: partnerCid, to: cid }
+        ]
+        this.setData({
+          airlines,
+        })
+      }
     }
   },
 
@@ -189,6 +248,8 @@ Page({
     preventFastClick = false
     inviteCode = ''
     clearInterval(time)
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
     console.log("onUnload")
   },
 
@@ -208,7 +269,9 @@ Page({
     }
     else{
       if(res.nickName && res.avatarUrl){
-        partnerCid = res.location;
+        let userInfo = app.globalData.userInfo;
+        partnerCid = res.parLocation ? res.parLocation : 10000;
+        console.log(partnerCid,locationCid,res.parLocation,'小伙伴cid，自己cid，返回小伙伴cid')
         this.setData({
           isWaiting: false,
           partnerName: res.nickName,
@@ -223,12 +286,19 @@ Page({
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    if(this.data.invitee){
+      wx.showToast({
+        title: '只有邀请人可以开始旅行',
+        icon: 'none'
+      })
+      return;
+    }
     if (preventFastClick) return;
     preventFastClick = true;
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
-    if (this.data.partnerName) {
+    if (!this.data.isWaiting) {
       //有没有免费的
       if(this.data.isDoubleFirst){
         start.cost = 0;
@@ -271,6 +341,7 @@ Page({
     start.fetch().then((req) => {
       this.readyFly()
     }).catch((req) => {
+      console.log(req)
       switch(req){
         case Code.NEED_ITEMS:
           this.tip('金币或道具不足');
@@ -312,7 +383,7 @@ Page({
             this.setData({
               destination
             })
-            this.planeFly(locationCid ? locationCid : 1,cid)
+            this.planeFly(locationCid,cid)
           }
         }, 100)
       }
@@ -321,10 +392,11 @@ Page({
       }
     }
     else {
-      if(isWaiting){
-        this.planeFly(locationCid ? locationCid : 1, cid)
+      if(this.data.isWaiting){
+        this.planeFly(locationCid, cid)
       }
       else{
+        console.log(partnerCid, locationCid, '小伙伴cid，自己cid')
         let airlines = [
           { from: locationCid, to: cid },
           { from: partnerCid, to: cid}
@@ -351,6 +423,8 @@ Page({
     this.setData({
       isArrive: true
     })
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
     preventFastClick = false;
   },
 
@@ -370,12 +444,7 @@ Page({
     
     //根据isWaiting来判断是生成code还是删除code。一般来说isWaiting为false时表示已经有好友进来此时已生成过code
     if(this.data.isWaiting){
-      let create = new CreateCode()
-      create.fetch().then(req=>{
-        console.log(req,'生成邀请码')
-        inviteCode = req.inviteCode
-        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
-      }) 
+      Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     }
     else{
       if(this.data.invitee){

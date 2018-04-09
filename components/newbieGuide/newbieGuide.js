@@ -42,6 +42,7 @@ Component({
         index: 0,
         mask:false
       })
+      this.triggerEvent('played')
     }
   }
 })

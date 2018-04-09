@@ -88,7 +88,7 @@ Page({
       check.inviteCode = options.inviteCode;
       check.fetch().then(req=>{
         wx.navigateTo({
-          url: '../start/start?share=true&inviteCode=' + options.inviteCode + '&cid=' + options.cid,
+          url: '../start/start?share=true&inviteCode=' + options.inviteCode + '&cid=' + options.cid + '&terminal=' + options.terminal,
         })
       }).catch(req=>{
         switch (req) {

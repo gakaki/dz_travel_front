@@ -39,9 +39,6 @@ App({
   onShow: function(options) {
     console.log(options);
   },
-  onHide: function() {
-    alert('hide');
-  },
   globalData: {
     userInfo: null,
     season: '',

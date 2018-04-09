@@ -1,8 +1,7 @@
 // pages/travelLog/travelLog.js
-import { formatTime } from '../../utils/util.js'
+import { formatTime, shareToIndex } from '../../utils/util.js'
 import { TravelLog } from '../../api.js';
 const app = getApp();
-import { shareToIndex } from '../../utils/util.js';
 
 
 Page({
@@ -16,7 +15,6 @@ Page({
     uid:'',
     hasInfo:true
   },
-
   /**
    * 生命周期函数--监听页面加载
    */

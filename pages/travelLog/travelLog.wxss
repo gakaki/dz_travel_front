@@ -7,10 +7,18 @@
   position: fixed;
   top: 20rpx;
   right: 10rpx;
+  z-index: 99;
+  /* background: red; */
 }
 .share-icon {
   width: 112rpx;
   height: 46rpx;
+}
+.share-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 .start {
   height: 138rpx;
@@ -18,15 +26,17 @@
 
 
 .reach-city {
-  position: relative;
+  box-sizing: border-box;
   width: 100vw;
-  height: 1076rpx;
+  height: 1076rpx; 
 }
 .year {
   position: absolute;
-  right: 35rpx;
+  right: 20rpx;
   top: -60rpx;
   height: 55rpx;
+  width: 100rpx;
+  text-align: right;
   font: bold 28rpx/138rpx 'Microsoft YaHei';
 }
 .one-city {
@@ -87,8 +97,20 @@
   border-radius: 50%;
 }
 .btn-wrap {
-  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  bottom: -25rpx;
+  height: 150rpx;
+  width: 100%;
   padding-top: 20rpx;
-  height: 130rpx;
+  box-sizing: border-box;
   overflow: hidden;
+}
+
+.cut-off{
+  width: 100%;
+  height: 9rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
