@@ -32,7 +32,7 @@
 
   <scroll-view id="two-list" scroll-y class="f-c-fs sc" wx:if="{{tabTwo}}">
     <view class="one-item f-r-fs " wx:for='{{speArr}}' wx:key='{{index}}'>
-      <image class="one-pic" src=""></image>
+      <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
         <text class="two-mid-bot-str font fs">{{item.desc}}</text>
@@ -46,7 +46,7 @@
 
   <view id="three-list" class="f-c-fs sc" wx:if="{{tabThree}}">
     <view class="one-item f-r-fs " wx:for="{{mySpe}}" wx:key='{{index}}'>
-      <image class="one-pic" src=""></image>
+      <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
         <text class="three-mid-bot-str fs">{{item.num}}个</text>
@@ -60,4 +60,5 @@
 
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" bindtoclose="hideCar" bind:confirm="toBuy"></buy>
   <buynum wx:if="{{popBuyNum}}" xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum>
+  <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往充值"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往充值" isBuy="{{false}}"></buy>
 </view>

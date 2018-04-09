@@ -1,12 +1,13 @@
 let timer
 let sto
 let walkInfoObj = {}
-let st = 50000  //模拟服务器的时间戳
+let st = 2000  //模拟服务器的时间戳
 let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
 let idx = 0 //第几次执行move方法
 let index = 0 //初始化需清零
+let rgt = true//上一次小人是否向右行走
 import { Base } from '../../api.js';
 Component({
   properties: {
@@ -76,15 +77,29 @@ Component({
       if (walkInfoObj.idx == this.properties.walkInfoArr.length - 1) {
         isLast = true
       }
-      if (walkInfoObj.x - this.properties.walkInfoArr[idx - 1].x >= 0) {
-        this.setData({
-          deg: 0
-        })
-      }else {
+      let i = this.properties.walkInfoArr.indexOf(walkInfoObj)
+      if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x >= 0 && rgt) {
+          this.setData({
+            deg: 0
+          })
+        rgt = true
+      } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x >= 0 && !rgt) {
         this.setData({
           deg: 180
         })
+        rgt = false
+      } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x < 0 && rgt) {
+        this.setData({
+          deg: 180
+        })
+        rgt = true
+      } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x < 0 && !rgt) {
+        this.setData({
+          deg: 0
+        })
+        rgt = false
       }
+      console.log(this.data.deg)
       let lastObj = this.properties.walkInfoArr[walkInfoObj.idx - 1]
       //一段路走过的百分比hideIntro
       let per = (st - lastObj.time) / (walkInfoObj.time - lastObj.time)
@@ -129,13 +144,24 @@ Component({
       }, restTime)
     },
     move(obj) {
+      //rotateX(this.data.deg+'deg')
       //移动动画
       let animation = wx.createAnimation({
-        duration: obj.time,
+         duration: obj.time,
         timingFunction: 'linear'
       })
       this.animation = animation
       animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step()
+
+
+
+      // animation.rotateY(this.data.deg + 'deg').step({
+      //   duration: 10,
+      //   timingFunction: 'linear'
+      // }).top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
+      //   duration: obj.time-10,
+      //   timingFunction: 'linear'
+      // })
       this.setData({
         animationData: animation.export()
       })

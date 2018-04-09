@@ -1,8 +1,8 @@
 <view class="con f-c-fs">
-  <image class="photo" src=""> </image>
+  <image class="photo" src="https://gengxin.odao.com/update/h5/travel/{{pic}}"> </image>
   <view class="info f-c-sb">
     <view class="f-r-sb i-top">
-      <text class="font gps">索菲亚教堂</text>
+      <text class="font gps">{{spotName}}</text>
       <image bindtap='checkMore' src="https://gengxin.odao.com/update/h5/travel/play/arrow.png" class="arrow {{toTop?'to-top':''}}"></image>
     </view>
     <view class="i-bot f-r-sb">
@@ -20,24 +20,30 @@
   <scroll-view id="sv">
     <view class="f-c-fs ">
       <text class="font chu">触发事件</text>
-      <text wx:if="{{true}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
-      <text wx:if="{{true}}" class="font get ">观光一次消耗50金币</text>
-      <text class="event " wx:if="{{false}}">16:40 支付公司发的敢死队风格但是士大夫敢死队风格士大夫敢死队风格是豆腐干大概</text>
+      <text wx:if="{{evtArr.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
+      <text wx:if="{{evtArr.length == 0}}" class="font get ">观光一次消耗50金币</text>
+      <text class="event " wx:if="{{evtArr.length > 0}}" wx:for="{{evtArr}}" wx:key="{{index}}">{{item.time}} {{item.describe}}</text>
       <view class="t-line" wx:if="{{false}}"></view>
     </view>
   </scroll-view>
 
   <view class="btn-box f-r-sb">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-bg lt font" bindtap='getPost'>景点拍照</view>
-    <view class="btn-bg rgt font" bindtap=''>观光</view>
+    <view class="btn-bg lt f-c-fs" bindtap='getPost'>
+    <text class="btn-top">景点拍照</text>
+    <text class="btn-bot">免费次数0/2</text>
+    </view>
+    <view class="btn-bg rgt-btn f-c-fs" bindtap=''>
+    <text class="btn-top rgt">观光</text>
+    <text class="btn-bot">免费次数0/2</text>
+    </view>
   </view>
   <buy outer-class="fc" bindtoclose="hidePop"  bind:confirm="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
   <view class="pop-bg" wx:if="{{isGetPost}}">
     <image class="hc" src="https://gengxin.odao.com/update/h5/travel/raiders/line.png" id="line"></image>
     <view class="hc cir"></view>
     <view  id="postal" class="hc f-c-fs">
-      <image class="post-pic"></image>
+      <image class="post-pic" src="https://gengxin.odao.com/update/h5/travel/{{url}}"></image>
       <text class="post-name">获得索菲亚教堂明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
       <text class="post-desc">获得一张不同的明信片可增加100积分</text>

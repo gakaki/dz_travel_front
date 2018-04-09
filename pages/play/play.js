@@ -18,24 +18,38 @@ Page({
   data: {
     startPoint: {  //起点
       cid: 1,
-      x: 200,
-      y: 200,
-      "isStart": true
+      x: 400,
+      y: 400,
+      "isStart": true,
+      index: 1
     },
 
     spots: [
-
+      {
+        id: "100101",
+        cid: 1,
+        x: 100,
+        y: 400,
+        isStart: false,
+        tracked: false,
+        index: 2,
+        no: 1,
+        name: "故宫",
+        building: [
+          "1a",
+          "1b"
+        ]
+      },
       {
         id: "100102",
         cid: 1,
-        x: 400,
-        y: 400,
+        x: 200,
+        y: 200,
         isStart: false,
-        tracked: true,
-        index: 2,
+        tracked: false,
+        index: 3,
         no: 1,
         name: "颐和园",
-        desc: "颐和园坐落于北京西郊，是中国古典园林之首，总面积约290公顷，由万寿山和昆明湖组成。全园分3个区域：以仁寿殿为中心的政治活动区；以玉澜堂、乐寿堂为主体的帝后生活区；以万寿山和昆明湖组成的风景旅游区。",
         building: [
           "2a",
           "2b"
@@ -48,10 +62,9 @@ Page({
         y: 400,
         isStart: false,
         tracked: false,
-        index: 3,
+        index: 4,
         no: 1,
         name: "天安门广场",
-        desc: "在长安街南侧，北京城的传统中轴线上，座落着世界上最大的广场——天安门广场，广场中心为人民英雄纪念碑，继续向南穿过毛主席纪念堂就到了正阳门，也就是人们常说的前门。广场的西侧是人民大会堂，东侧是国家博物馆。",
         building: [
           "20a",
           "20b"
@@ -70,7 +83,7 @@ Page({
     dashedLine: [],//虚线数组
     testArr: [],
     scale: 2,  //超过10个景点就能缩放
-    animationData: {},
+    animationDatas: {},
     animation: null,
     isPop: false,
     isFirstIn: false,
@@ -145,7 +158,7 @@ Page({
 
 
     //游玩过
-     this.lineState(spots)
+    //this.lineState(spots)
 
     let req = new TourIndexInfo()
     req.cid = options.cid
@@ -168,9 +181,9 @@ Page({
     })
   },
   showTask() {
-this.setData({
-  isMissionOpen: true  
-})
+    this.setData({
+      isMissionOpen: true
+    })
   },
   //修改路线
   chgLine() {
@@ -296,12 +309,13 @@ this.setData({
   },
   chgWid(e) {
     let obj = e.detail
-let spots = this.data.spots
-spots[obj.idx-1].tracked = true
-this.setData({
-  spots: spots
-})
-    
+    let spots = this.data.spots
+    if (obj.idx - 1 < 0) return
+    spots[obj.idx - 1].tracked = true
+    this.setData({
+      spots: spots
+    })
+
     console.log(obj)
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx)
@@ -330,9 +344,9 @@ this.setData({
       // this.animation = animation
       animation.width(this.data.dashedLine[obj.idx - 1].wid + 'rpx').step()
       this.setData({
-        animationData: animation.export()
+        animationDatas: animation.export()
       })
-      console.log('animationData', this.data.animationData)
+      console.log('animationDatas', this.data.animationDatas)
     }, 30)
 
   },
@@ -358,7 +372,7 @@ this.setData({
     if (this.data.dashedLine) {
       pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: 1000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 40000 * (i + 1) }
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: 20000 * (i + 1) }
       }
       this.setData({
         walkPoint: pointArr,
@@ -677,7 +691,7 @@ this.setData({
   },
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid='+cid
+      url: '../props/props?cid=' + cid
     })
   },
   showisPop() {
@@ -761,6 +775,6 @@ this.setData({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1)
+    return shareToIndex(this, 1)
   }
 })

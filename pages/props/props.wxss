@@ -117,3 +117,8 @@
   left: 0;
   right: 0;
 }
+.fc {
+  font: bold 32rpx/40rpx 'Microsoft YaHei';
+  color: #b8b8b8;
+  letter-spacing: 3rpx
+}

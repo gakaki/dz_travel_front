@@ -337,7 +337,7 @@ function shareTitle(type,par) {
 //type 分享的类型  对象表里的type
 //page 跳转到哪个页面
 //par 分享标题里的自定义参数
-function shareToIndex(_that, type, page, par, inviteCode, cid) {
+function shareToIndex(_that, type, page, par,inviteCode,cid) {
   let nowPath;
   if (app.globalData.userInfo.uid) {
     if(page) {

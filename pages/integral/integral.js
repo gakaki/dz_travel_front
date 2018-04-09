@@ -22,6 +22,16 @@ Page({
   onLoad: function (options) {
     this.getUserInfo()
   },
+  onShow:function(){
+    this.audioMen = wx.createAudioContext('men')
+    this.audioWomen = wx.createAudioContext('women')
+  },
+  onHide() {
+    this.audioMen && this.audioMen.destroy();
+    this.audioMen = null;
+    this.audioWomen && this.audioWomen.destroy();
+    this.audioWomen = null;
+  },
   getUserInfo(){
     let m = new IntegralShop();
     m.fetch().then(res => {
@@ -128,7 +138,9 @@ Page({
   lower(){
     this.getExchangeDetail()
   },
-
+  toPlay(e){
+    e.currentTarget.dataset.men ? this.audioMen.play() : this.audioWomen.play() 
+  },
 
   /**
    * 用户点击右上角分享
