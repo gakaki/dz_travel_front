@@ -367,7 +367,6 @@ Component({
         //如果未传入uid，则使用当前用户的uid
         this.data.uid = Base.GetUID();
         this.updatePlayer()//server not implement yet
-        console.log('aaaaaaaaaaaaaaaa', this.data.uid)
       }
     }, 1500)
   },

@@ -34,14 +34,14 @@
       </view>
     </view>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/start/separatrix.png"></image>
-    <view class="info f-r-sb {{partnerName ? 'has-partner' : ''}}" wx:if="{{isRandom || !flyInfo.location || onlySingle}}">
-      <view class="cost random-cost flex" wx:if="{{isSingleFirst && !partnerName}}">
+    <view class="info f-r-sb {{isWaiting ? '' : 'has-partner'}}" wx:if="{{isRandom || !flyInfo.location || onlySingle}}">
+      <view class="cost random-cost flex" wx:if="{{isSingleFirst && isWaiting}}">
         <text class="letter-s">首次单人起飞不消耗金币</text>
         <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}
           </view>
       </view>
-      <view class="cost flex" wx:elif="{{isDoubleFirst && partnerName}}">
+      <view class="cost flex" wx:elif="{{isDoubleFirst && !isWaiting}}">
         <text class="letter-s">首次双人起飞不消耗金币</text>
         <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}
@@ -63,14 +63,14 @@
       </view>
     </view>
     <view wx:else> 
-      <view class="info f-r-sb {{partnerName ? 'has-partner' : ''}}">
-        <view class="cost flex" wx:if="{{(isDoubleFirst && partnerName) || (isDoubleFirst && onlyDouble)}}">
+      <view class="info f-r-sb {{isWaiting ? '' : 'has-partner'}}">
+        <view class="cost flex" wx:if="{{(isDoubleFirst && !isWaiting) || (isDoubleFirst && onlyDouble)}}">
           <text class="letter-s">首次双人起飞不消耗金币</text>
           <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}
           </view>
         </view>
-        <view class="cost flex" wx:elif="{{isSingleFirst && !partnerName}}">
+        <view class="cost flex" wx:elif="{{isSingleFirst && isWaiting}}">
           <text class="letter-s">首次单人起飞不消耗金币</text>
           <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}
@@ -83,15 +83,15 @@
           </view>
         </view>
         <view class="cost flex" wx:else>
-          <text class="letter-s">{{partnerName ? '双人' : '单人'}}飞行票价</text>
+          <text class="letter-s">{{isWaiting ? '单人' : '双人'}}飞行票价</text>
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/start/gold.png"></image>
-          <text>{{partnerName ? flyInfo.doubleCost : flyInfo.cost}}</text>
+          <text>{{isWaiting ? flyInfo.cost : flyInfo.doubleCost}}</text>
           <view class="holiday" wx:if="{{flyInfo.holiday}}">
             {{flyInfo.holiday}}
           </view>
         </view>
       </view>
-      <view class="double-tip" hidden="{{partnerName}}">
+      <view class="double-tip" hidden="{{!isWaiting}}">
         <text wx:if="{{onlyDouble}}">(未邀请好友单人出发票价{{flyInfo.cost}}金币)</text>
         <text wx:else>(邀请好友双人旅行消耗{{flyInfo.doubleCost}}金币,好友无需购买机票)</text>
       </view>

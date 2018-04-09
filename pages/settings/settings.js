@@ -1,5 +1,5 @@
 // pages/settings/settings.js
-import { GetRealInfo, ModifyRealInfo } from '../../api.js'
+import { GetRealInfo, ModifyRealInfo, Code } from '../../api.js'
 import { shareToIndex } from '../../utils/util.js';
 Page({
 
