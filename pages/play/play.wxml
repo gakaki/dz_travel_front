@@ -141,8 +141,4 @@
     <dialogQuestion wx:if="{{isDialogQuestion}}" catchtap="hideDialogQuestion"></dialogQuestion>
   </view>
 </view>
-<<<<<<< HEAD
-<!-- <guide></guide> -->
-=======
 <guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
->>>>>>> c38900ac2a56fc12112bd4ffdc18fc604f032179

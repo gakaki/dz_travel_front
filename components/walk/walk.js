@@ -7,7 +7,7 @@ let curPoint = { x: 0, y: 0 }
 let isLast = false
 let idx = 0 //第几次执行move方法
 let index = 0 //初始化需清零
-let rgt: true,//上一次小人是否向右行走
+let rgt = true//上一次小人是否向右行走
 import { Base } from '../../api.js';
 Component({
   properties: {
