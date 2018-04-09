@@ -1,19 +1,21 @@
 const sheet = require('../../sheets.js')
-import { shareToIndex } from '../../utils/util.js';
+import { shareToIndex, redGold, addGold } from '../../utils/util.js';
 import { CitySpes, MySpes, Spe, BuySpe, SellSpe } from '../../api.js'
 let type
 let propId
 let cid = ''
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    goldBuzu: false,
     tabOne: true,
     tabTwo: false,
     tabThree: false,
-    myGold: 77,
+    myGold: 0,
     popCar: false,
     popBuyNum: false,
     singal: false,
@@ -29,6 +31,16 @@ Page({
     maimai: '购买',
     maxNum: 0,
     xg: false
+  },
+  hidePop() {
+    this.setData({
+      goldBuzu: false
+    })
+  },
+  toShop() {
+wx.navigateTo({
+  url: '../recharge/recharge'
+})
   },
   rentCar(e) {
     let str
@@ -86,7 +98,8 @@ Page({
     // })
     let arr = sheet.shops
     this.setData({
-      rentProp: arr
+      rentProp: arr,
+      myGold: app.globalData.gold
     })
     console.log(this.data.rentProp)
   },
@@ -130,12 +143,23 @@ Page({
     this.hideBuyNum()
     switch (type) {
       case 1:
+        if (this.data.goldNum * e.detail.num > app.globalData.gold) {
+          this.setData({
+            goldBuzu: true
+          })
+          return
+        }
+
         //购买特产
         let req = new BuySpe()
         req.propId = propId
         req.count = e.detail.num
         req.fetch().then(() => {
-
+          let num = this.data.goldNum * e.detail.num
+          redGold(num)
+          this.setData({
+            myGold: app.globalData.gold
+          })
         })
         break;
       case 2:
@@ -143,6 +167,12 @@ Page({
         reqs.propId = propId
         reqs.count = e.detail.num
         reqs.fetch().then(() => {
+          let num = this.data.goldNum * e.detail.num
+          addGold(num)
+          this.setData({
+            myGold: app.globalData.gold
+          })
+
           let mySpe = this.data.mySpe
           mySpe.map(o => {
             if (o.propId = propId) {
@@ -151,7 +181,7 @@ Page({
             return o
           })
           let item = mySpe.find(o => {
-           return o.num == 0
+            return o.num == 0
           })
           if (item) {
             mySpe.splice(mySpe.indexOf(item), 1)
