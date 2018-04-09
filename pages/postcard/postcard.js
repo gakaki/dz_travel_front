@@ -24,9 +24,12 @@ Page({
        this.setData({
          init: res.postcardInfo
       })
+    })   
+  },
+  toShop(){
+    wx.navigateTo({
+      url: '../props/props',
     })
-    console.log(111111)
-   
   },
   toMyXc() {
     let path = '';

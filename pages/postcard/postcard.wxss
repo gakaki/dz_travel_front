@@ -38,3 +38,21 @@ margin: 0 15rpx 0 20rpx;
    background-color: #278cff;
    text-align: center;
 }
+
+.no-postcard {
+  text-align: center;
+}
+.icon {
+  margin: 250rpx auto 63rpx;
+  width: 280rpx;
+  height: 246rpx;
+}
+.content-t {
+  font: bold 34rpx/1  'Microsoft YaHei';
+  color: #878689;
+}
+.content-c {
+  margin: 24rpx 0 132rpx;
+  font: bold 24rpx/1  'Microsoft YaHei';
+  color: #b0afb3;
+}

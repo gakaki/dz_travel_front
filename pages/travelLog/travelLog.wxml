@@ -4,6 +4,7 @@
 <view class='travelLog'>
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
+    <button class='share-icon share-btn' open-type='share'></button>
   </view>
   <scroll-view class='reach-city' scroll-y='true' scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
     <view class='start'>
@@ -18,7 +19,7 @@
         <view class='time'>{{tools.formatTime(city.time)}}</view>
         <view class='timeLine'></view>
       </view>
-      <view class='one-city' wx:for='{{city.scenicSpots}}' wx:key='{{index}}' wx:for-item='oneday'>
+      <view class='one-city' wx:if='{{oneday.spots}}' wx:for='{{city.scenicSpots}}' wx:key='{{index}}' wx:for-item='oneday'>
         <view class='mark-circle'></view>
         <view class='log-content'>
           <text>前往</text>

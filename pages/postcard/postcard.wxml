@@ -1,6 +1,6 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 
-<scroll-view class="con" scroll-y>
+<scroll-view wx:if='{{init.length}}' class="con" scroll-y>
   <navigator url='../xiangce/xiangce?province={{item.province}}' class="post-item  bs f-r-fs" wx:for='{{init}}' wx:key="{{index}}">
     <image src="{{tools.allImg(item.url)}}" class="img"></image>
     <view class="post-rgt f-c-sb">
@@ -12,3 +12,11 @@
     </view>
   </navigator>
 </scroll-view>
+<view class="con f-c-fs no-postcard" wx:else=''>
+  <image class='icon' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></image> 
+  <view class='f-c-sb'>
+    <view class='content-t'>暂无明信片</view>
+    <view class='content-c' wx:if='{{!uid}}'>可前往旅行道具处购买明信片</view>
+  </view>
+  <view class='btn-big-blue' wx:if='{{!uid}}' bindtap='toShop'>前往购买</view>
+</view>

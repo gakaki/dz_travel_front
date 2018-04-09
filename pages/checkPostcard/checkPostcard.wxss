@@ -51,7 +51,6 @@
   margin: 35rpx 40rpx 0 0;
   width: 95rpx;
   height: 95rpx;
-  /* background-color: wheat; */
 }
 
 .pc-bot {
@@ -103,7 +102,7 @@
   opacity: 0
 }
 .date-nn {
-  margin-top: 15rpx
+  margin-top: 50rpx;
 }
 .date,.nn {
   font: bold 30rpx 'Microsoft YaHei';
