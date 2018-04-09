@@ -1,7 +1,9 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex } from '../../utils/util.js';
-import { RentProp, SpeList, BuySpe, SellSpe } from '../../api.js'
+import { CitySpes, MySpes, Spe, BuySpe, SellSpe } from '../../api.js'
 let type
+let propId
+let cid = ''
 Page({
 
   /**
@@ -23,9 +25,11 @@ Page({
     propName: '购买',
     propId: 0,
     speArr: [],
+    mySpe: [],
+    maimai: '购买',
+    maxNum: 0
   },
   rentCar(e) {
-    this.type = e.currentTarget.dataset.type
     let str
     let obj = sheet.Shop.Get(e.currentTarget.dataset.id)
     if (obj.type == 1) {
@@ -44,18 +48,21 @@ Page({
     })
   },
   buySpe(e) {
-    this.type = e.currentTarget.dataset.type
+    let dSet = e.currentTarget.dataset
+    propId = dSet.propId
     this.setData({
       popCar: true,
-      cfmStr: '购买'
-
+      cfmStr: '购买',
+      maxNum: -1,
+      propName: this.data.speArr[dSet.idx].name,
+      propDesc: this.data.speArr[dSet.idx].desc,
+      goldNum: this.data.speArr[dSet.idx].price
     })
   },
   toBuy() {
-    console.log(this.type)
     this.hideCar()
     this.toBuyNUm()
-    if (this.type == 0) {
+    if (type == 0) {
       // let req = new RentProp();
       // req.rentId = this.data.propId;
       // req.fetch().then(() => {
@@ -68,6 +75,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    cid = options.cid
     wx.setNavigationBarTitle({
       title: '旅行道具'
     })
@@ -81,10 +89,16 @@ Page({
     console.log(this.data.rentProp)
   },
   sell(e) {
-    this.type = e.currentTarget.dataset.type
+    let dSet = e.currentTarget.dataset
+    propId = this.data.mySpe[dSet.idx].propId
     this.setData({
       popBuyNum: true,
-      singal: true
+      singal: true,
+      maxNum: this.data.mySpe[dSet.idx].num,
+      propName: this.data.mySpe[dSet.idx].name,
+      goldNum: this.data.mySpe[dSet.idx].sellPrice,
+      propDesc: '花费' + this.data.mySpe[dSet.idx].price
+      + '金币单价买入，卖出单价为' + this.data.mySpe[dSet.idx].sellPrice + '金币'
     })
   },
 
@@ -109,22 +123,24 @@ Page({
     this.buyNum()
   },
   buyCount(e) {
+    console.log(e)
     this.hideBuyNum()
-    switch (this.type) {
+    switch (type) {
       case 1:
         //购买特产
-        // let req = new BuySpe()
-        // req.propId = 0
-        // req.count = 1
-        // req.fetch().then(() => {
-
-        // })
-        brek;
-      case 2:
-        let req = new SellSpe()
-        req.propId = 0
-        req.count = 1
+        let req = new BuySpe()
+        req.propId = propId
+        req.count = e.detail.num
         req.fetch().then(() => {
+
+        })
+        break;
+      case 2:
+        let reqs = new SellSpe()
+        reqs.propId = propId
+        reqs.count = e.detail.num
+        reqs.fetch().then(() => {
+
         })
         break;
       default:
@@ -132,6 +148,7 @@ Page({
     }
   },
   clkOne() {
+    type = 0
     this.setData({
       tabOne: true,
       tabTwo: false,
@@ -139,15 +156,19 @@ Page({
     })
   },
   clkTwo() {
+    type = 1
     this.setData({
       tabOne: false,
       tabTwo: true,
-      tabThree: false
+      tabThree: false,
+      maimai: '购买'
     })
 
-    let req = new SpeList();
-    req.cityId = 0;
-    req.fetch().then(() => {
+    let req = new CitySpes();
+    //req.cityId = cid;
+    req.cityId = '1'
+    req.fetch().then((res) => {
+      console.log(req)
       this.setData({
         speArr: req.specialtys
       })
@@ -155,17 +176,28 @@ Page({
 
   },
   clkThree() {
+    type = 2
     this.setData({
       tabOne: false,
       tabTwo: false,
-      tabThree: true
+      tabThree: true,
+      maimai: '售卖'
     })
+    let req = new MySpes();
+    req.fetch().then((res) => {
+      console.log(req)
+      this.setData({
+        mySpe: req.specialtys,
+        
+      })
+    })
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1)
+    return shareToIndex(this, 1)
   }
 })
