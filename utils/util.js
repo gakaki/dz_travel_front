@@ -363,7 +363,12 @@ function shareToIndex(_that, type, page, par,inviteCode,cid) {
     }
   }
 }
-
+function redGold(v) {
+  app.globalData.gold = app.globalData.gold - v
+}
+function addGold(v) {
+  app.globalData.gold = app.globalData.gold + v
+}
 
 module.exports = {
   getRankFrame,
@@ -375,5 +380,7 @@ module.exports = {
   spliceStr,
   getUserInfo,
   formatNum,
-  shareToIndex
+  shareToIndex,
+  redGold,
+  addGold
 }

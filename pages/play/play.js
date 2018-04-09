@@ -1,15 +1,8 @@
 // pages/play/play.js
 const app = getApp();
-<<<<<<< HEAD
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
 import { TourIndexInfo, Season } from '../../api.js';
 const sheet = require('../../sheets.js');
-
-=======
-import { Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season } from '../../api.js';
-const sheet = require('../../sheets.js');
->>>>>>> 1aa9d9297ebbfc065af5a1b73cdbdb64cb95ff2f
 let startPoint//起点
 let arr = []
 let i = 0
