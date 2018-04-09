@@ -7,10 +7,17 @@
   position: fixed;
   top: 20rpx;
   right: 10rpx;
+  z-index: 9;
 }
 .share-icon {
   width: 112rpx;
   height: 46rpx;
+}
+.share-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 .start {
   height: 138rpx;
