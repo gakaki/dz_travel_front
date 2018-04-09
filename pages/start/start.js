@@ -158,6 +158,15 @@ Page({
       })
     }
     else{
+      //只要不是固定了单人飞行的就在此处生成邀请码，否则在点击邀请好友时生成邀请码会导致分享出去的邀请码为空。
+      if (!onlySingle){
+        let create = new CreateCode()
+        create.fetch().then(req => {
+          console.log(req, '生成邀请码')
+          inviteCode = req.inviteCode
+        }) 
+      }
+      
       this.setData({
         isRandom: false,
         destination: options.terminal,
@@ -228,6 +237,8 @@ Page({
     preventFastClick = false
     inviteCode = ''
     clearInterval(time)
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
     console.log("onUnload")
   },
 
@@ -410,12 +421,7 @@ Page({
     
     //根据isWaiting来判断是生成code还是删除code。一般来说isWaiting为false时表示已经有好友进来此时已生成过code
     if(this.data.isWaiting){
-      let create = new CreateCode()
-      create.fetch().then(req=>{
-        console.log(req,'生成邀请码')
-        inviteCode = req.inviteCode
-        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
-      }) 
+      Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     }
     else{
       if(this.data.invitee){
