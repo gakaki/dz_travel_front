@@ -12,7 +12,9 @@
       </view>
     </view>
   </view>
-  <view class="btn-big-blue ivt">邀请好友</view>
+  <view class="btn-big-blue ivt">邀请好友
+    <button  class="btn-big-blue ivt-btn" open-type='share'></button>
+  </view>
   <text class="ivt-str">邀请新用户进入小程序获得$800</text>
    <buy wx:if="{{pop}}" isBuy="{{false}}" outer-class="pop-str" content='获得{{gCount}}金币' cfmStr="{{mCount}}元购买" bindtoclose="hide" bind:confirm="toBuy"></buy> 
 </view>

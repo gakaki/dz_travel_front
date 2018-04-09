@@ -1,7 +1,7 @@
 // pages/play/play.js
 const app = getApp();
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season } from '../../api.js';
+import { TourIndexInfo, Season, FinishGuide, CheckGuide } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
 let arr = []
@@ -128,6 +128,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let m = new CheckGuide();
+    m.fetch().then(res=>{
+      console.log(res)
+      this.setData({
+        hasPlay: res.hasPlay
+      })
+    })
 
     //获取路线的最新状态
     let spots = this.data.spots.slice()
@@ -745,7 +752,11 @@ this.setData({
     this.animation = animation
   },
 
-
+  played(){
+    let m = new FinishGuide();
+    m.play = true
+    m.fetch()
+  },
   /**
    * 用户点击右上角分享
    */
