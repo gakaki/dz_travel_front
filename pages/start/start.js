@@ -6,7 +6,7 @@ let allCity = [];
 let ticketType; //机票类型
 let cid , tid; //城市id和赠送的机票id
 let locationCid , partnerCid;   //当前所在城市cid
-let time = null , preventFastClick = false;
+let time = null , preventFastClick = false , startFly = true//标记被邀请人是否执行飞行动画;
 let onlySingle = false , onlyDouble = false;
 let inviteCode;  //邀请码
 const app = getApp();
@@ -200,7 +200,8 @@ Page({
     }
     else {
       console.log(res,'http')
-      if(res.isFly){
+      if(res.isFly && startFly){
+        startFly = false;
         let airlines = [
           { from: locationCid, to: cid },
           { from: partnerCid, to: cid }
@@ -243,13 +244,14 @@ Page({
    */
   onUnload: function () {
     this.delCode()
-    onlyDouble = false
-    onlySingle = false
-    preventFastClick = false
-    inviteCode = ''
-    clearInterval(time)
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    startFly = true;
+    onlyDouble = false;
+    onlySingle = false;
+    preventFastClick = false;
+    inviteCode = '';
+    clearInterval(time);
     Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     console.log("onUnload")
   },
 
@@ -286,6 +288,7 @@ Page({
 
   startTour() {
     console.log(cid, this.data.flyInfo.cost)
+    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
     if(this.data.invitee){
       wx.showToast({
         title: '只有邀请人可以开始旅行',
@@ -419,12 +422,12 @@ Page({
   },
 
   onArrived() {
+    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
     console.log('plane arrived')
     this.setData({
       isArrive: true
     })
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    
     preventFastClick = false;
   },
 
@@ -460,6 +463,19 @@ Page({
           partnerName: '',
           avatarSrc: '',
           players: [{ location: locationCid, img: userInfo.avatarUrl }]
+        })
+        let create = new CreateCode()
+        create.fetch().then(req => {
+          console.log(req, '生成邀请码')
+          inviteCode = req.inviteCode
+        }).catch(req => {
+          switch (req) {
+            case Code.ROOM_USER_EXISTS:
+              this.tip('生成邀请码已在房间内');
+              break;
+            default:
+              this.tip('未知错误');
+          }
         })
       }
     }
@@ -497,6 +513,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    
     return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
   }
 })

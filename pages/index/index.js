@@ -49,7 +49,8 @@ Page({
     }, options.shareUid)
 
   },
-  toPlay() {
+  toPlay(e) {
+    if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
     wx.navigateTo({
       url: '../play/play?cid=' + locationCid
@@ -84,6 +85,7 @@ Page({
   //分享相关跳转
   shareTo(options) {
     if(options.start){
+      console.log(options,'start options')
       let check = new CheckCode();
       check.inviteCode = options.inviteCode;
       check.fetch().then(req=>{
@@ -198,7 +200,8 @@ Page({
   /**
    * 点击事件
    */
-  toFly() {
+  toFly(e) {
+    if (app.preventMoreTap(e)) return;
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
@@ -236,13 +239,10 @@ Page({
           this.tip('未知错误');
       }
     })
-    this.setData({
-      isFirst: false
-    })
-    
   },
 
-  buyTkt() {
+  buyTkt(e) {
+    if (app.preventMoreTap(e)) return;
     this.setData({
       showTicket:false
     })
@@ -251,7 +251,8 @@ Page({
     })
   },
 
-  useTkt() {
+  useTkt(e) {
+    if (app.preventMoreTap(e)) return;
     console.log(cid)
     if(this.data.location == terminal){
       wx.showToast({
@@ -268,13 +269,15 @@ Page({
     })
   },
 
-  toMessage() {
+  toMessage(e) {
+    if (app.preventMoreTap(e)) return;
     wx.navigateTo({
       url: '../message/message',
     })
   },
 
   chooseTicket(e) {
+    if (app.preventMoreTap(e)) return;
     let data = e.currentTarget.dataset
     this.initTer(data)
     this.setData({
@@ -295,12 +298,14 @@ Page({
     terminal = data.city
     tid = data.tid
   },
-  toIntegralShop(){
+  toIntegralShop(e){
+    if (app.preventMoreTap(e)) return;
     wx.navigateTo({
       url: '../integral/integral',
     })
   },
-  toShop(){
+  toShop(e){
+    if (app.preventMoreTap(e)) return;
     wx.navigateTo({
       url: '../recharge/recharge',
     })
@@ -309,12 +314,21 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1,'')
+    return shareToIndex(this, 1, '')
   },
 
-  test() {
-    wx.navigateTo({
-      url: '../settings/settings',
-    })
+  test(e) {
+    if(app.preventMoreTap(e)) return;
+
+    console.log(2222222)
+    // wx.showShareMenu({
+    //   success(){
+    //     console.log(12121212)
+    //   }
+    // })
+    // Http.unlisten(CheckMsgCnt, this.loopMsg, this);
+    // wx.navigateTo({
+    //   url: '../settings/settings',
+    // })
   }
 })

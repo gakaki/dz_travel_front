@@ -342,7 +342,7 @@ function shareToIndex(_that, type, page, par,inviteCode,cid) {
   if (app.globalData.userInfo.uid) {
     if(page) {
       if (inviteCode && cid) {
-        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' + inviteCode + '&cid=' + cid;
+        nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' + inviteCode + '&cid=' + cid + '&terminal=' + par;
       } else {
         nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true';
       } 
