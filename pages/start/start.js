@@ -476,7 +476,7 @@ Page({
             default:
               this.tip('未知错误');
           }
-        }) 
+        })
       }
     }
   },
@@ -513,6 +513,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    
     return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
   }
 })
