@@ -197,6 +197,7 @@ Page({
     else {
       console.log(res,'http')
       if(res.isFly && startFly){
+        console.log(locationCid, cid,'起飞城市id')
         startFly = false;
         let airlines = [
           { from: locationCid, to: cid },
@@ -494,7 +495,7 @@ Page({
         this.createCode()
       }
     }).catch(req => {
-      
+
     })
   },
 

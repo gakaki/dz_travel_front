@@ -17,7 +17,7 @@ const showErr = msg => {
 const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
 
-    console.log(res,'start')
+    //console.log(res,'start')
 
     //初始化http轮询
     initHttpLoop();
