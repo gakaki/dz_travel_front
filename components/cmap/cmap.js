@@ -219,7 +219,6 @@ Component({
     },
 
     showLocation() {
-      console.log(this.data.players)
       let location = this.data.players;
       if (!location){
         return; 
@@ -236,7 +235,7 @@ Component({
         l.imgHt = 30;
         return l;
       })
-      console.log(player)
+      console.log(player, 'cmap player')
       this.setData({player})
     },
 

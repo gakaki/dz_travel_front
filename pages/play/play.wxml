@@ -12,7 +12,7 @@
     </view>
 
 
-<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}"  bindtap='drawDashedLine'
+<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" 
       style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
 <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
@@ -24,8 +24,9 @@
 
 
     <view class="distance">
-      <text class="fontWhite font">{{licheng}}</text>
-      <text class="fontWhite font">km</text>
+     <text class="zi">里程:</text>
+      <text class="fontWhite">{{licheng}}</text>
+       <text class="zi">km</text>
     </view>
     <!-- 天气 -->
     <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
@@ -35,7 +36,7 @@
     <view class="mission f-c-fs" bindtap='showTask'>
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
-        <view class="progressBar"></view>
+        <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
     <view class="changeLine f-c-fs" bindtap='chgLine'>
@@ -88,7 +89,7 @@
         </view>
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-          <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（3/6）</text>
+          <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（0/6）</text>
           <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
           <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
         </view>

@@ -1,10 +1,10 @@
 const apis = require('../api.js');
 const APPNAME = 'travel';
 
-// const srv = "https://tt.ddz2018.com/";
-// const wss = "wss://tt.ddz2018.com/travel";
-const srv = "https://local.ddz2018.com/";
-const wss = "wss://local.ddz2018.com/travel";
+const srv = "https://tt.ddz2018.com/";
+const wss = "wss://tt.ddz2018.com/travel";
+// const srv = "https://local.ddz2018.com/";
+// const wss = "wss://local.ddz2018.com/travel";
 
 
 const showErr = msg => {
@@ -17,7 +17,7 @@ const showErr = msg => {
 const start = (suc, shareUid) => {
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
 
-    console.log(res,'start')
+    //console.log(res,'start')
 
     //初始化http轮询
     initHttpLoop();
