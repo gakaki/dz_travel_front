@@ -1,8 +1,10 @@
 <!--pages/integral/integral.wxml-->
 <view class='integral f-c'>
   <view class='back'>
-    <audio class='audio audio-men' id="men" bindtap='toPlay' data-men='{{true}}' src='https://gengxin.odao.com/update/h5/travel/integral/men.mp3'></audio>
-    <audio class='audio audio-women' id='women' bindtap='toPlay' src='https://gengxin.odao.com/update/h5/travel/integral/women.mp3'></audio>
+    <!-- <audio class='audio audio-men' id="men" bindtap='toPlay' data-men='{{true}}' src='https://gengxin.odao.com/update/h5/travel/integral/men.mp3'></audio>
+    <audio class='audio audio-women' id='women' bindtap='toPlay' src='https://gengxin.odao.com/update/h5/travel/integral/women.mp3'></audio> -->
+    <view class='audio audio-men' bindtap='toPlay' data-men='{{true}}'></view>
+    <view class='audio audio-women' bindtap='toPlay'></view>
     <view class='show'>
       <view class='show-wenzi'>
         <text class='jifen text-color1'>积分：</text>
