@@ -494,7 +494,7 @@ Page({
         this.createCode()
       }
     }).catch(req => {
-
+      
     })
   },
 

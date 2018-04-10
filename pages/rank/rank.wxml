@@ -25,10 +25,10 @@
           <image class="famous-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-small.png"></image>
           <image class="rank-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
           <image class="score-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
-          <text>{{item.achievement}}</text>
+          <text>{{item.achievement}}{{percent ? '%' : ''}}</text>
         </view>
-        <view class="xian"></view>
-        <view class="gold f-r-sb">
+        <view class="xian" wx:if="{{!noReward}}"></view>
+        <view class="gold f-r-sb" wx:if="{{!noReward}}">
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
           <text>{{item.reward}}</text>
         </view>
@@ -47,9 +47,9 @@
         <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
           <image class="ranking-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
           <image class="scoreing-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
-          <text>{{item.achievement}}</text>
+          <text>{{item.achievement}}{{percent ? '%' : ''}}</text>
         </view>
-        <view class="person-gold f-r-sb">
+        <view class="person-gold f-r-sb" wx:if="{{!noReward}}">
           <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
           <text>{{item.reward}}</text>
         </view>
