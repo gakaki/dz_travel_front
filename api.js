@@ -55,6 +55,8 @@ class Code{
     
     static FRIEND_DONE = -115;
     
+    static SPE_LIMIT = -116;
+    
     static PICKED = -117;
     
     static REQUIRED_LOST = -118;
@@ -2632,17 +2634,21 @@ class TourIndexInfo extends IndexInfo {
         this.action = 'tour.tourindexinfo';
     
         this._cid = null;
+        this._line = null;
         this._firstPlay = null;
         this._spots = null;
         this._userInfo = null;
         this._task = null;
         this.requireFileds = ["cid"];
-        this.reqFields = ["cid"];
+        this.reqFields = ["cid","line"];
         this.resFields = ["firstPlay","spots","userInfo","task","isFirst","season","weather","playerCnt","friends","unreadMsgCnt","location","gold"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
     set cid(v) {this._cid = v}
+    //client input, optional, type: 
+    get line() {return this._line}
+    set line(v) {this._line = v}
     //server output, type: boolean
     get firstPlay() {return this._firstPlay}
     set firstPlay(v) {this._firstPlay = v}

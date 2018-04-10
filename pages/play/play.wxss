@@ -7,9 +7,13 @@
 
 
 .fontWhite {
+  font: normal 30rpx 'Microsoft YaHei';
   color: #fff;
 }
-
+.zi {
+  font: normal 26rpx 'Microsoft YaHei';
+  color: #fff;
+}
 .font34 {
   font-size: 34rpx;
   line-height: 34rpx;
@@ -126,7 +130,6 @@
 }
 
 .progressBar {
-  width: 60rpx;
   height: 16rpx;
   background-color: #dbff13;
   border-radius: 30rpx;
@@ -617,10 +620,9 @@
 }
 .icon-name {
   position: absolute;
-  transform: translate(-50%, 100%);
+  transform: translate(-50%, 120%);
   font: bold 24rpx 'Microsoft YaHei';
-  color: #fff;
-  text-shadow: 2rpx 2rpx rgba(0,0,0,.5)
+  color: #000;
 }
 .shi-line-box {
   overflow: hidden;
