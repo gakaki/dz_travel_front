@@ -1,6 +1,7 @@
 // components/search/search.js
 const sheet = require('../../sheets.js');
 let allCity = [], cityId = []//城市id;
+let app = getApp()
 
 Component({
   /**
@@ -38,6 +39,12 @@ Component({
       cityId.push.apply(cityId, item.cityid)
     })
      if (this.properties.mineCity.length != 0) allCity = this.properties.mineCity
+  },
+
+  detached() {
+    console.log('detached')
+    allCity = [];
+    cityId = [];
   },
 
   /**
@@ -102,7 +109,8 @@ Component({
 
 
     //此处为向父组件抛事件上去，一般为隐藏该组件
-    _back() {
+    _back(e) {
+      if (app.preventMoreTap(e)) return;
       this.setData({
         inputText: '',
         matchCity: [],
@@ -115,6 +123,7 @@ Component({
 
     //此处为选中的搜索结果
     _selected(e) {
+      if (app.preventMoreTap(e)) return;
       let select = e.currentTarget.dataset.city.join('')
       let id = e.currentTarget.dataset.id
       this.triggerEvent("selected", { select, id })

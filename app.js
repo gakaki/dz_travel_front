@@ -44,5 +44,16 @@ App({
     season: '',
     weather: '',
     gold: null
-  }
+  },
+  preventMoreTap: function (e) {
+    let globaTime = this.globalData.globalLastTapTime;
+    let time = e.timeStamp;
+    if (Math.abs(time - globaTime) < 1000 && globaTime != 0) {
+      this.globalData.globalLastTapTime = time;
+      return true;
+    } else {
+      this.globalData.globalLastTapTime = time;
+      return false;
+    }
+  },
 })

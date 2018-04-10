@@ -21,7 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.title)
     location = options.location;
 
     let readCity = sheet.finds.map(o=>{
@@ -41,7 +40,8 @@ Page({
     })
   },
 
-  toStart() {
+  toStart(e) {
+    if (app.preventMoreTap(e)) return;
     if(this.data.isChoose){
       
       this.toFly(cid, this.data.isChoose, TicketType.SINGLEBUY)
@@ -54,13 +54,15 @@ Page({
     }
   },
 
-  toRandom() {
+  toRandom(e) {
+    if (app.preventMoreTap(e)) return;
     wx.redirectTo({
       url: '../start/start?random=true&type=' + TicketType.RANDOMBUY,
     })
   },
 
   choose(e) {
+    if (app.preventMoreTap(e)) return;
     console.log(e.currentTarget.dataset)
     cid = e.currentTarget.dataset.id
     this.setData({

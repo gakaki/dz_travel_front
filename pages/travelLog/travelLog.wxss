@@ -8,11 +8,12 @@
   top: 20rpx;
   right: 10rpx;
   z-index: 99;
-  /* background: red; */
+  
 }
 .share-icon {
   width: 112rpx;
   height: 46rpx;
+  background: #f5f4f9; 
 }
 .share-btn {
   position: absolute;
@@ -50,6 +51,7 @@
   top: -30rpx;
   width: 77rpx;
   height: 63rpx;
+  z-index: 1;
 }
 .mark {
   position: absolute;
@@ -72,7 +74,6 @@
   width: 2rpx;
   height: 138rpx;
   background: #dcdbe0; 
-  z-index: -1
 }
 .log-content {
   display: inline-block;
@@ -95,6 +96,7 @@
   height: 14rpx;
   background: #278cff;
   border-radius: 50%;
+  z-index: 1;
 }
 .btn-wrap {
   position: fixed;
