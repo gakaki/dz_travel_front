@@ -1,6 +1,6 @@
 <view class="con bg">
   <view class="tab flex">
-    <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>景点</view>
+    <view class="tab-item font {{viewpoint?'act':''}}" data-id='1' bindtap='chgTab'>景点</view>
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
   </view>
   <scroll-view class="sv" scroll-y>

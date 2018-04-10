@@ -47,6 +47,7 @@ Page({
     req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
+      console.log(req)
       let arr = []
       if(v == 1) {
          arr = req.posts.map(o => {
@@ -65,17 +66,24 @@ Page({
       url: '../raiders/raiders?cityId=' + e.currentTarget.dataset.cityId + '&postId=' + e.currentTarget.dataset.postId + '&type=' + e.currentTarget.dataset.type + '&name=' + e.currentTarget.dataset.name
     })
   },
-  chgTab() {
-this.setData({
-  viewpoint: !this.data.viewpoint,
-  specialty: !this.data.specialty
-})
-if(!this.data.specialty) {
-  this.pullList(PostType.JINGDIAN)
-}
-else {
-  this.pullList(PostType.TECHAN)
-}
+  chgTab(e) {
+    if(e.currentTarget.dataset.id == 1) {
+      this.setData({
+        viewpoint: true,
+        specialty: false
+      })
+    } else {
+      this.setData({
+        viewpoint: false,
+        specialty: true
+      })
+    }
+    if(!this.data.specialty) {
+      this.pullList(PostType.JINGDIAN)
+    }
+    else {
+      this.pullList(PostType.TECHAN)
+    }
   },
   //超出字数部分用...代替
  
