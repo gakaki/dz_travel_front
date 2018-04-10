@@ -1,6 +1,5 @@
 
 
-<!-- <view class="nan-box" wx:if="{{show}}" animation="{{animationData}}"  style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;" > -->
 <view class="nan-box" wx:if="{{show}}"  style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;" animation="{{animationData}}" >
 <image  style="top:0;left:{{left}}rpx"  src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 1 ? 'nan' : 'nv'}}.png" class="walk-icon"></image>
 </view>
