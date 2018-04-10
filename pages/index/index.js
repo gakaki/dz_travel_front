@@ -84,6 +84,7 @@ Page({
   //分享相关跳转
   shareTo(options) {
     if(options.start){
+      console.log(options,'start options')
       let check = new CheckCode();
       check.inviteCode = options.inviteCode;
       check.fetch().then(req=>{
@@ -309,11 +310,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1,'')
+    return shareToIndex(this, 1, '')
   },
 
   test() {
-    Http.unlisten(CheckMsgCnt, this.loopMsg, this);
+    wx.showShareMenu({
+      success(){
+        console.log(12121212)
+      }
+    })
+    // Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     // wx.navigateTo({
     //   url: '../settings/settings',
     // })
