@@ -255,8 +255,8 @@ Page({
     inviteCode = '';
     clearInterval(time);
     clearTimeout(timer);
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this);
+    Http.unlisten(PartnerInfo, this.parInfo, this);
     console.log("start------------->onUnload")
   },
 
@@ -304,8 +304,8 @@ Page({
   },
 
   startTour() {
-    console.log(cid, this.data.flyInfo.cost)
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    // console.log(cid, this.data.flyInfo.cost,'startTour cost')
+    Http.unlisten(PartnerInfo, this.parInfo, this);
     if(this.data.invitee){
       wx.showToast({
         title: '只有邀请人可以开始旅行',
@@ -435,7 +435,7 @@ Page({
   },
 
   onArrived() {
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.listenFly, this);
     console.log('plane arrived')
     this.setData({
       isArrive: true,
@@ -480,7 +480,7 @@ Page({
           players: [{ location: locationCid, img: userInfo.avatarUrl }]
         })
         
-        Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+        Http.unlisten(PartnerInfo, this.parInfo, this);
       }
     }
   },
