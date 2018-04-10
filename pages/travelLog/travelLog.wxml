@@ -1,7 +1,7 @@
 <!--pages/travelLog/travelLog.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 
-<view class='travelLog'>
+<view class='travelLog con'>
   <view class='share'>
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
     <button class='share-icon share-btn' open-type='share'></button>
