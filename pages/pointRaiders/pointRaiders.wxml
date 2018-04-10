@@ -5,7 +5,7 @@
     <view class="tab-item font {{viewpoint?'act':''}}" data-id='1' bindtap='chgTab'>景点</view>
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
   </view>
-  <scroll-view class="sv" scroll-y>
+  <scroll-view class="sv" scroll-y bindscrolltolower='lower' >
    <view wx:if="{{viewpoint}}" wx:for="{{postArr}}" wx:key="{{index}}"  class="list point-list f-c-fs"  bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>
     <view class="point-top fs f-r-fs">
       <image src="{{tools.allImg(item.img)}}" class="spe-pic point-pic"></image>

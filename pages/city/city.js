@@ -62,7 +62,7 @@ Page({
   },
 
   choose(e) {
-    if (app.preventMoreTap(e)) return;
+    // if (app.preventMoreTap(e)) return;
     console.log(e.currentTarget.dataset)
     cid = e.currentTarget.dataset.id
     this.setData({

@@ -10,14 +10,10 @@
       <view class="pic">
         <image class='pattern' src='{{tools.postcardBg(pattern)}}'></image>
         <view class="pc-top f-r-sb">
-          <view>
-            <view class="date-nn" wx:if='{{!write}}'>
-              <text class="date" wx:if='{{lastestMessage.time}}'>{{tools.formatTime(time)}}</text>
-              <text class="nn">{{nickName}}</text>
-            </view>
+          <view class="date-nn" wx:if='{{!write}}'>
+            <text class="date" wx:if='{{lastestMessage.time}}'>{{tools.formatTime(time)}}</text>
+            <text class="nn">{{nickName}}</text>
           </view>
-          <image  wx:if='{{!write}}' src="{{lastestMessage.userInfo.avatarUrl}}" class="icon fs"></image>
-          <image  wx:else='' src="https://gengxin.odao.com/update/h5/travel/icon/icon.png" class="icon fs"></image>
         </view>
 
         <view class="pc-bot f-r-sb">

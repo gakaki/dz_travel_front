@@ -277,7 +277,7 @@ Page({
   },
 
   chooseTicket(e) {
-    if (app.preventMoreTap(e)) return;
+    // if (app.preventMoreTap(e)) return;
     let data = e.currentTarget.dataset
     this.initTer(data)
     this.setData({
@@ -318,6 +318,7 @@ Page({
   },
 
   test(e) {
+    console.log(sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value)
     if(app.preventMoreTap(e)) return;
 
     console.log(2222222)
