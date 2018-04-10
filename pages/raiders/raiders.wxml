@@ -1,7 +1,8 @@
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="con">
 <scroll-view class="con-box" scroll-y bindscrolltolower='addPage'>
-<image class="photo" src=""> </image>
-  <view class="desc-bg font">
+<image class="photo" wx:if='{{img}}' src="{{tools.allImg(img)}}"> </image>
+  <view wx:if='{{content}}' class="desc-bg font">
     {{content}}
   </view>
     <view class="item f-c" wx:for="{{comments}}" wx:key="{{index}}">
@@ -11,13 +12,12 @@
           <text class="font nn">{{item.user.nickName}}</text>
           <view class="sec f-r-fs">
             <view class="flex">
-              <star wid='{{starWid}}' starNum="{{starCount}}"></star>
+              <star wid='{{starWid}}' starNum="{{item.score}}"></star>
             </view>
             <text class="num font ">{{item.score}}</text>
             <text class="fen font ">分</text>
             <text class="heart-num font ">{{item.thumbs}}</text>
             <image class="heart " data-id="{{item.commentId}}" src="https://gengxin.odao.com/update/h5/travel/raiders/heart.png" bindtap='dianzan'></image>
-
           </view>
         </view>
       </view>

@@ -22,14 +22,13 @@ Page({
     comments: [],  //评论列表
     tipPop: false,
     commentId: 1,
-    content: ''
+    content: '',
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
     console.log(options)
     postId = options.postId
     cityId = options.cityId
@@ -41,10 +40,10 @@ Page({
     this.freshList(num)
   },
   onUnload() {
-num = 0
+    num = 1
   },
   addPage() {
-    this.freshList(num++)
+    this.freshList(++num)
   },
   dianzan(e) {
     console.log(e.currentTarget.dataset)
@@ -109,34 +108,6 @@ num = 0
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   freshList(num) {
     let req = new PostComments()
     req.cityId = cityId
@@ -146,8 +117,10 @@ num = 0
     req.type = types
 
     req.fetch().then(() => {
+      console.log(req)
       this.setData({
-        content:req.content
+        content:req.content,
+        img:req.img
       })
       this.setData({ comments: this.data.comments.concat(req.comments)})
     });
