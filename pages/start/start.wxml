@@ -119,6 +119,6 @@
       </view>
     </view>
   </view>
-  <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="在哈尔滨旅行路线规划评分：50分，奖励50金币\n航班已到达祝您旅途愉快" outer-class="content" bind:confirm="_confirm"></tip>
+  <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="{{tipContent}}" outer-class="content" bind:confirm="_confirm"></tip>
   <directions wx:if="{{showHelp}}" resHeight="940" helpId="1" title="玩法介绍" showNum="{{false}}" bind:confirm="_helpCfr"></directions>
 </view>
