@@ -88,7 +88,7 @@ Page({
           this.planeFly(airlines);
         }
         else{
-          Http.listen(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+          Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
         }
       }).catch(req=>{
         switch (req) {
@@ -174,39 +174,6 @@ Page({
     return flyInfo;
   },
 
-  listenFly(res, err){
-    if (err) {
-      console.log('http listen error, code:', err)
-      switch (err) {
-        case Code.ROOM_EXPIRED:
-          this.tip('对方解除组队');
-          timer = setTimeout(function(){
-            wx.navigateBack({
-              delta: 1
-            })
-          },1500)
-          
-          break;
-        case Code.ROOM_FULLED:
-          this.tip('房间已满');
-          break;
-        default:
-          this.tip('未知错误');
-      }
-    }
-    else {
-      console.log(res,'http')
-      if(res.isFly && startFly){
-        startFly = false;
-        let airlines = [
-          { from: locationCid, to: cid },
-          { from: partnerCid, to: cid }
-        ]
-        this.planeFly(airlines)
-      }
-    }
-  },
-
   fillCode(req) {
     req.inviteCode = inviteCode;
   },
@@ -254,8 +221,7 @@ Page({
     inviteCode = '';
     clearInterval(time);
     clearTimeout(timer);
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.parInfo, this);
     console.log("start------------->onUnload")
   },
 
@@ -264,7 +230,19 @@ Page({
       console.log('http listen error, code:', err)
       switch (err) {
         case Code.ROOM_EXPIRED:
-          this.tip('邀请码错误');
+          
+          if(this.data.invitee){
+            this.tip('对方解除组队');
+            timer = setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1500)
+          }
+          else{
+            this.tip('邀请码错误');
+          }
+          
           break;
         case Code.ROOM_FULLED:
           this.tip('房间已满');
@@ -274,37 +252,49 @@ Page({
       }
     }
     else{
-      let userInfo = app.globalData.userInfo;
-      if(res.nickName && res.avatarUrl && !partnerEnter){
-        partnerEnter = true
-        partnerCid = res.parLocation ? res.parLocation : 10000;
-        console.log(partnerCid,locationCid,res.parLocation,'小伙伴cid，自己cid，返回小伙伴cid')
-        this.setData({
-          isWaiting: false,
-          partnerName: res.nickName,
-          avatarSrc: res.avatarUrl,
-          players: [{ location: locationCid, img: userInfo.avatarUrl },
-            { location: partnerCid, img: res.avatarUrl}
+      if(this.data.invitee){
+        if (res.isFly && startFly) {
+          console.log(locationCid, cid, '起飞城市id')
+          startFly = false;
+          let airlines = [
+            { from: locationCid, to: cid },
+            { from: partnerCid, to: cid }
           ]
-        })
+          this.planeFly(airlines)
+        }
       }
-      else if (!res.nickName && !res.avatarUrl && partnerEnter){
-        console.log('小伙伴退出了-------------')
-        partnerEnter = false 
-        this.setData({
-          isWaiting: true,
-          partnerName: res.nickName,
-          avatarSrc: res.avatarUrl,
-          players: [{ location: locationCid, img: userInfo.avatarUrl }
-          ]
-        })
+      else{
+        let userInfo = app.globalData.userInfo;
+        if (res.nickName && res.avatarUrl && !partnerEnter) {
+          partnerEnter = true
+          partnerCid = res.parLocation ? res.parLocation : 10000;
+          console.log(partnerCid, locationCid, res.parLocation, '小伙伴cid，自己cid，返回小伙伴cid')
+          this.setData({
+            isWaiting: false,
+            partnerName: res.nickName,
+            avatarSrc: res.avatarUrl,
+            players: [{ location: locationCid, img: userInfo.avatarUrl },
+            { location: partnerCid, img: res.avatarUrl }
+            ]
+          })
+        }
+        else if (!res.nickName && !res.avatarUrl && partnerEnter) {
+          console.log('小伙伴退出了-------------')
+          partnerEnter = false
+          this.setData({
+            isWaiting: true,
+            partnerName: res.nickName,
+            avatarSrc: res.avatarUrl,
+            players: [{ location: locationCid, img: userInfo.avatarUrl }
+            ]
+          })
+        }
       }
     }
   },
 
   startTour() {
-    console.log(cid, this.data.flyInfo.cost)
-    Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+    // console.log(cid, this.data.flyInfo.cost,'startTour cost')
     if(this.data.invitee){
       wx.showToast({
         title: '只有邀请人可以开始旅行',
@@ -314,6 +304,7 @@ Page({
     }
     if (preventFastClick) return;
     preventFastClick = true;
+    Http.unlisten(PartnerInfo, this.parInfo, this);
     let start = new StartGame();
     start.cid = cid;
     //判断是不是双人起飞
@@ -434,7 +425,7 @@ Page({
   },
 
   onArrived() {
-    Http.unlisten(PartnerInfo, this.listenFly, this, 1000, this.fillCode);
+    Http.unlisten(PartnerInfo, this.parInfo, this);
     console.log('plane arrived')
     this.setData({
       isArrive: true,
@@ -479,7 +470,7 @@ Page({
           players: [{ location: locationCid, img: userInfo.avatarUrl }]
         })
         
-        Http.unlisten(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+        Http.unlisten(PartnerInfo, this.parInfo, this);
       }
     }
   },
@@ -494,7 +485,7 @@ Page({
         this.createCode()
       }
     }).catch(req => {
-      
+
     })
   },
 

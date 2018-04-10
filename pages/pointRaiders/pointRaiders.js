@@ -14,7 +14,9 @@ Page({
   specialty: false,
   starWid: 240,
   starCount: 1,
-  postArr: []
+  postArr: [],
+  jdArr:[],
+  index:1
   },
 
   /**
@@ -43,22 +45,29 @@ Page({
   pullList(v) {
     let req = new PostList()
     req.cityId = cid
-    req.page = 1
+    req.page = this.data.index
     req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
       console.log(req)
       let arr = []
-      if(v == 1) {
+      if (v == PostType.JINGDIAN) {
          arr = req.posts.map(o => {
           o.content = spliceStr(o.content, 42)
           return o
         })
-      } else arr = req.posts
+         arr = this.data.postArr.concat(arr)
+         this.setData({
+           postArr: arr
+         })
+      } else {
+        arr = this.data.jdArr.concat(req.posts )
+        this.setData({
+          jdArr: arr
+        })
+      }
       
-      this.setData({
-        postArr: arr
-      })
+     
     })
   },
   toDetail(e) {
@@ -70,12 +79,14 @@ Page({
     if(e.currentTarget.dataset.id == 1) {
       this.setData({
         viewpoint: true,
-        specialty: false
+        specialty: false,
+        index:1
       })
     } else {
       this.setData({
         viewpoint: false,
-        specialty: true
+        specialty: true,
+        index:1
       })
     }
     if(!this.data.specialty) {
@@ -86,7 +97,13 @@ Page({
     }
   },
   lower(){
-    console.log(111)
+    this.data.index = this.data.index + 1;
+    if (!this.data.specialty) {
+      this.pullList(PostType.JINGDIAN)
+    }
+    else {
+      this.pullList(PostType.TECHAN)
+    }
   },
 
   /**
