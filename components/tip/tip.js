@@ -20,7 +20,7 @@ Component({
   attached() {
     timer = setTimeout(() => {
       this.hide()
-    }, 2000)
+    }, 1000)
   },
   detached() {
     clearTimeout(timer)

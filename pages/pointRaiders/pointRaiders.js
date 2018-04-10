@@ -85,8 +85,9 @@ Page({
       this.pullList(PostType.TECHAN)
     }
   },
-  //超出字数部分用...代替
- 
+  lower(){
+    console.log(111)
+  },
 
   /**
    * 用户点击右上角分享
