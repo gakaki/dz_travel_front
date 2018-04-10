@@ -1,16 +1,19 @@
 // pages/play/play.js
 const app = getApp();
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide,Base } from '../../api.js';
+import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
+let clickedPoint//未点击游玩，点击过的景点
 let arr = []
 let i = 0
+let ii = 0
 let pointArr = []
-let isStart = false  //是否开始行走
+let isStart = false  //是否游玩中
 let cid //城市id
 let scale = false
 let pointIds = [] //景点id
+let linePointArr//路线中的点
 Page({
 
   /**
@@ -19,7 +22,7 @@ Page({
   data: {
     startPoint: {  //起点
       cid: 1,
-      x: 400,
+      x: 500,
       y: 400,
       "isStart": true,
       index: 1
@@ -168,7 +171,9 @@ Page({
       passedStatus: false
     }]
   },
-
+  onUnload() {
+    arr = []
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -188,20 +193,37 @@ Page({
     // })
 
 
-    //游玩过
-    //this.lineState(spots)
+
     let req = new TourIndexInfo()
     req.cid = options.cid
     req.fetch().then(req => {
       console.log(req.spots)
       this.setData({
         weather: sheet.Weather.Get(req.weather).icon,
-        licheng: app.globalData.mileage,
+        licheng: app.globalData.userInfo.mileage,
         season: app.globalData.season,
         spots: req.spots
       })
+      let playing = this.data.spots.every(o => {
+        return o.index == -1
+      })
+      isStart = !playing
+      console.log('isStartisStartisStart', isStart)
+      if (isStart) { //游玩过
+        //this.startplay()
+        let arrs = this.data.spots.slice()
+        arrs.sort((x, y) => {
+          return x.index - y.index
+        })
+        let count = 0
+        for (let i = 0; i < arrs.length; i++) {
+          if (arrs[i].index != -1) count++
+        }
+        arrs = arrs.slice(-count)//路线中的点
+        this.lineState(arrs)
+      }
+
     })
-    console.log(this.data.licheng)
     cid = options.cid
     // this.setData({
     //   testArr: this.getPoint()
@@ -304,7 +326,7 @@ Page({
         showWalk: false
       })
       setTimeout(() => {
-        that.startplay()
+        that.start()
       }, 30)
     }
 
@@ -348,11 +370,16 @@ Page({
     let obj = e.detail
     let spots = this.data.spots
     console.log('obj.idx', obj.idx)
-    if (obj.idx - 1 < 0) return
-    spots[obj.idx - 1].tracked = true
-    this.setData({
-      spots: spots
+    if (obj.idx  <= 0) return
+    let spotss = spots.map(o => {
+      if (obj.idx -1 == o.index) o.tracked = true
+      return o
     })
+    //spots[obj.idx - 1].tracked = true
+    this.setData({
+      spots: spotss
+    })
+    console.log('spots',this.data.spots)
 
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx)
@@ -390,8 +417,6 @@ Page({
 
   },
   startplay() {
-
-
     let req = new TourIndexInfo()
     req.cid = cid
     req.line = pointIds
@@ -399,56 +424,48 @@ Page({
       this.setData({
         spots: req.spots
       })
-
-      try {
-        let value = wx.getStorageSync('isStart')
-        if (value) {
-          isStart = true
-          if (!scale) return
-          else scale = false
-        }
-        else {
-          try {
-            wx.setStorageSync('isStart', true)
-            isStart = true
-          } catch (e) {
-          }
-        }
-      } catch (e) {
-        console.log('err')
-      }
-
-
-      if (this.data.dashedLine) {
-        let spots = this.data.spots
-        spots.sort((x, y) => {
-          return x.index - y.index
-        })
-       let arr = spots.slice(-this.data.dashedLine.length)//选中的点
-
-       pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: Base.servertime, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
-        for (let i = 0; i < this.data.dashedLine.length; i++) {
-          pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: arr[i].createDate }
-        }
-        this.setData({
-          walkPoint: pointArr,
-          showWalk: true
-        })
-      }
-
-
-
+      this.start()
     })
-    
+  },
+  start() {
+    try {
+      let value = wx.getStorageSync('isStart')
+      if (value) {
+        isStart = true
+        if (!scale) return
+        else scale = false
+      }
+      else {
+        try {
+          wx.setStorageSync('isStart', true)
+          isStart = true
+        } catch (e) {
+        }
+      }
+    } catch (e) {
+      console.log('err')
+    }
+    if (this.data.dashedLine) {
+      let spots = this.data.spots
+      spots.sort((x, y) => {
+        return x.index - y.index
+      })
+      linePointArr = spots.slice(-this.data.dashedLine.length)//选中的点
 
-
+      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: Base.servertime, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      for (let i = 0; i < this.data.dashedLine.length; i++) {
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].createDate }
+      }
+      this.setData({
+        walkPoint: pointArr,
+        showWalk: true
+      })
+    }
   },
   //画虚线
   drawDashedLine(e) {
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
-    let idx = dSet.idx
-    if (idx == 1) return   //点击起点
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
       wx.navigateTo({
@@ -458,49 +475,51 @@ Page({
     }
 
 
-    let pArr = [idx]
-
+    //let pArr = [idx]
+    if (!isStart) {
+      // clickedPoint = pArr
+    }
     //是否开始游玩
-    try {
-      let value = wx.getStorageSync('isStart')
-      if (value) {
-        if (this.data.isChg) {
+    // try {
+    //   let value = wx.getStorageSync('isStart')
+    //   if (value) {
+    //     if (this.data.isChg) {
 
-        } else return
-      }
+    //     } else return
+    //   }
 
-    } catch (e) {
-      console.log('err')
-    }
-    //游玩还未结束点击过的点
-    try {
-      let value = wx.getStorageSync('clickedPoint')
-      if (value) {
-        if (value.includes(idx)) {
-          return
-        }
-        else {
-          try {
-            wx.setStorageSync('clickedPoint', value.concat(idx))
-          } catch (e) {
-          }
-        }
+    // } catch (e) {
+    //   console.log('err')
+    // }
+    // //游玩还未结束点击过的点
+    // try {
+    //   let value = wx.getStorageSync('clickedPoint')
+    //   if (value) {
+    //     if (value.includes(idx)) {
+    //       return
+    //     }
+    //     else {
+    //       try {
+    //         wx.setStorageSync('clickedPoint', value.concat(idx))
+    //       } catch (e) {
+    //       }
+    //     }
 
-      } else {
-        try {
-          wx.setStorageSync('clickedPoint', pArr)
-        } catch (e) {
-        }
-      }
-    } catch (e) {
-      console.log('err')
-    }
+    //   } else {
+    //     try {
+    //       wx.setStorageSync('clickedPoint', pArr)
+    //     } catch (e) {
+    //     }
+    //   }
+    // } catch (e) {
+    //   console.log('err')
+    // }
 
     pointIds.push(dSet.id)
 
 
     curPoint = this.data.spots.find(v => {
-      return v.index == idx
+      return v.id == dSet.id
     })
     i++
     if (this.data.dashedLine.length == 0) {
@@ -531,11 +550,12 @@ Page({
   },
   //进页面时游玩初始状态
   lineState(arrs) {
+
     let lastPoint, curPoint
     curPoint = this.data.spots.find(v => {
       return v.index == arrs[0].index
     })
-    i++
+    ii++
     if (arr.length == 0) {
       lastPoint = this.data.startPoint
     }
@@ -551,7 +571,7 @@ Page({
       ty: lastPoint.y,
       jiaodu: jiaodu,
       wid: wid,
-      time: 5000 * i,
+      time: arrs[0].createDate,
       style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
     }
 
@@ -561,6 +581,7 @@ Page({
       this.lineState(arrs)
     }
     else {
+      console.log(arr)
       this.setData({
         dashedLine: arr
       })
@@ -571,7 +592,7 @@ Page({
       this.setData({
         shixianArr: this.data.dashedLine.slice(0, num)
       })
-      this.startplay()
+      this.start()
     }
   },
   //旋转角度
