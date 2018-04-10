@@ -103,6 +103,12 @@ class Parameter {
 
     static get THUMLIMIT() { return 32 };
 
+    static get CHANGELINE() { return 33 };
+
+    static get REFRESHSHOP() { return 34 };
+
+    static get LOCALSALE() { return 35 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
@@ -242,6 +248,18 @@ class Item {
     static Get(id){ return id in _data.item ? new Item(_data.item[id]) : null; }
 }
 
+class Maskword {
+    constructor(d) {
+    this.cfg = d;
+    }
+
+    // id
+    get id(){ return this.cfg.id; }
+
+
+    static Get(id){ return id in _data.maskword ? new Maskword(_data.maskword[id]) : null; }
+}
+
 class Pay {
     constructor(d) {
     this.cfg = d;
@@ -338,6 +356,7 @@ exports.shops = Object.values(_data.shop);
 exports.ranks = Object.values(_data.rank);
 exports.finds = Object.values(_data.find);
 exports.items = Object.values(_data.item);
+exports.maskwords = Object.values(_data.maskword);
 exports.pays = Object.values(_data.pay);
 exports.messages = Object.values(_data.message);
 exports.weathers = Object.values(_data.weather);
@@ -353,6 +372,7 @@ exports.Shop = Shop;
 exports.Rank = Rank;
 exports.Find = Find;
 exports.Item = Item;
+exports.Maskword = Maskword;
 exports.Pay = Pay;
 exports.Message = Message;
 exports.Weather = Weather;

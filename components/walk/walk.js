@@ -2,7 +2,7 @@ let timer, timerTwo
 let aa = 0
 let sto
 let walkInfoObj = {}
-let st = 2000  //模拟服务器的时间戳
+let st = 0  //模拟服务器的时间戳
 let restTime = 0 // 当前的数据对象，此段路程剩余的时间
 let curPoint = { x: 0, y: 0 }
 let isLast = false
@@ -49,7 +49,6 @@ Component({
     //idx = 0
     rgt = true
     clearInterval(timerTwo)
-    st = 2000+aa
     index = 0
     this.setData({
       deg: 0
@@ -75,7 +74,7 @@ Component({
         return
       }
       index++
-      //let st = Base.servertime
+      st = Base.servertime
       walkInfoObj = this.properties.walkInfoArr.find((v) => {
         return v.time > st
       })
@@ -83,30 +82,25 @@ Component({
       if (i == this.properties.walkInfoArr.length - 1) {
         isLast = true
       }
-      console.log(walkInfoObj)
       if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x >= 0 && rgt) {
-        console.log(1)
         this.setData({
           //deg: 0
           deg: this.data.deg
         })
         rgt = true
       } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x >= 0 && !rgt) {
-        console.log(2)
         this.setData({
           //deg: 180
           deg: this.data.deg+180
         })
         rgt = true
       } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x < 0 && rgt) {
-        console.log(3)
         this.setData({
           //deg: 180
           deg: this.data.deg + 180
         })
         rgt = false
       } else if (walkInfoObj.x - this.properties.walkInfoArr[i - 1].x < 0 && !rgt) {
-        console.log(4)
         this.setData({
           //deg: 0
           deg: this.data.deg
@@ -144,9 +138,6 @@ Component({
         this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
         this.move(obj)
       }
-
-
-      st = st + restTime
       sto = setTimeout(() => {
 
         clearTimeout(sto)
@@ -154,7 +145,6 @@ Component({
       }, restTime)
     },
     move(obj) {
-      //rotateX(this.data.deg+'deg')
       //移动动画
       // let animation = wx.createAnimation({
       //   duration: obj.time,
@@ -162,8 +152,6 @@ Component({
       // })
       // this.animation = animation
       // animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step()
-
-        console.log('deg',this.data.deg)
 
         let animation = wx.createAnimation({})
         animation.rotateY(this.data.deg).step({
