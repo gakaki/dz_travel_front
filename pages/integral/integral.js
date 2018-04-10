@@ -13,7 +13,8 @@ Page({
     confirmAdress:false,
     cfmStr:'确定',
     page:1,
-    exchangeDetail:[]
+    exchangeDetail:[],
+    audioC:null
 
   },
   /**
@@ -23,14 +24,10 @@ Page({
     this.getUserInfo()
   },
   onShow:function(){
-    this.audioMen = wx.createAudioContext('men')
-    this.audioWomen = wx.createAudioContext('women')
+    this.data.audioC = wx.createInnerAudioContext()
   },
   onHide() {
-    this.audioMen && this.audioMen.destroy();
-    this.audioMen = null;
-    this.audioWomen && this.audioWomen.destroy();
-    this.audioWomen = null;
+    this.data.audioC && this.data.audioC.destroy();
   },
   getUserInfo(){
     let m = new IntegralShop();
@@ -139,7 +136,14 @@ Page({
     this.getExchangeDetail()
   },
   toPlay(e){
-    e.currentTarget.dataset.men ? this.audioMen.play() : this.audioWomen.play() 
+    let audio = this.data.audioC
+    if (e.currentTarget.dataset.men) {
+      audio.src = 'https://gengxin.odao.com/update/h5/travel/integral/men.mp3'
+    } else {
+      audio.src = 'https://gengxin.odao.com/update/h5/travel/integral/women.mp3'
+    }
+    audio.autoplay = true
+    audio.loop = false
   },
 
   /**
