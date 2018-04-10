@@ -1,11 +1,13 @@
 <!--components/sign/sign.wxml-->
 <view class='mask' wx:if='{{hasSign == 0}}'>
-  <view class='drop'>
-   <image class='line' src='https://gengxin.odao.com/update/h5/travel/sign/line.png'></image>  
-  </view>
   <view class='main'>
-    <view class='circle'></view>
-    <view class='title'>每日签到</view>
+    <view class='header'>
+        <image class='title' src='https://gengxin.odao.com/update/h5/travel/sign/pd1.png'></image>  
+      <view class='gz-wrap fsb'>
+        <image class='gz' src='https://gengxin.odao.com/update/h5/travel/sign/gz.png'></image>
+        <image class='gz' src='https://gengxin.odao.com/update/h5/travel/sign/gz.png'></image>
+      </view>
+    </view>
     <view class='seven-day f-r-sa'>
       <view class='one-day f-c-fs' wx:for='{{init}}' wx:key='{{index}}'>
         <text class='day-title' wx:if='{{index+1>=theDay}}'>{{index+1}}天</text> 
