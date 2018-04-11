@@ -60,7 +60,7 @@
   position: relative;
   top: 20rpx;
   z-index: 9;
-  background: url('https://gengxin.odao.com/update/h5/travel/sign/pd.png') center center no-repeat;
+  background: url('https://gengxin.odao.com/update/h5/travel/integral/pd.png') center center no-repeat;
   background-size: 404rpx 82rpx;
   font: bold 32rpx/70rpx 'Microsoft YaHei'; 
   text-align: center;
