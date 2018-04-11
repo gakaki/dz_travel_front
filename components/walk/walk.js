@@ -64,7 +64,6 @@ Component({
      
       if (isLast) {
         this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': this.properties.walkInfoArr.length - 1 })
-        console.log(this.properties.walkInfoArr.length - 1)
         if (index == 0) {
           this.setData({
             x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
@@ -127,7 +126,6 @@ Component({
         })
         setTimeout(() => {
           this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
-          console.log(walkInfoObj.idx - 1)
           this.move(obj)
         }, 30)
 
@@ -138,7 +136,6 @@ Component({
           show: true
         })
         this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
-        console.log(walkInfoObj.idx - 1)
         this.move(obj)
       }
       sto = setTimeout(() => {
