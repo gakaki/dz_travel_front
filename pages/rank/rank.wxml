@@ -12,7 +12,7 @@
     <view class="rank-item {{rankSubtype==1 ? 'rank-choose' : ''}}" bindtap='rankCountry'>全国排行榜</view>
     <view class="rank-item {{rankSubtype==1 ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
   </view>
-  <view class="top-three f-r-sb" wx:if="{{rankSubtype==1}}">
+  <view class="top-three f-r-sb" wx:if="{{rankSubtype==1 && topThree.length}}">
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>
@@ -75,5 +75,10 @@
     </view>
   </view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
+  <view class="f-c no-rank" wx:if="{{!topThree.length}}">
+    <image class="no-rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/no-rank.png"></image>
+    <view class="tip-con">暂无排名</view>
+    <view class="up-time">排行榜没周日23:30更新</view>
+  </view>
   <directions bind:confirm="_hide" wx:if="{{showHelp}}" helpId="{{id}}" title="{{title}}"></directions>
 </view>
