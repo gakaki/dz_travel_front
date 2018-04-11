@@ -1,4 +1,5 @@
 // components/buy/buy.js
+let app = getApp();
 Component({
   /**
    * 外部样式类,由外部传进来的样式决定组件内的样式
@@ -53,13 +54,15 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    toHide() {
+    toHide(e) {
+      if (app.preventMoreTap(e)) return;
       this.triggerEvent('toclose')
     },
     notDo() {
       this.triggerEvent('notDo')
     },
-    toCfm() {
+    toCfm(e) {
+      if (app.preventMoreTap(e)) return;
       this.triggerEvent('confirm')
     }
   }

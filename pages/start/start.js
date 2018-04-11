@@ -35,7 +35,8 @@ Page({
     date: '',      //当前日期
     flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
     showHelp:false,
-    invitee:false
+    invitee:false,
+    needItem:false
    },
 
   /**
@@ -353,7 +354,9 @@ Page({
     }).catch((req) => {
       switch(req){
         case Code.NEED_ITEMS:
-          this.tip('金币或道具不足');
+          this.setData({
+            needItem:true
+          })
           break;
         case Code.USER_NOT_FOUND:
           this.tip('获取用户信息失败');
@@ -505,6 +508,21 @@ Page({
   _helpCfr() {
     this.setData({
       showHelp: false
+    })
+  },
+
+  _close() {
+    this.setData({
+      needItem:false
+    })
+  },
+
+  _toShop() {
+    this.setData({
+      needItem:false
+    })
+    wx.navigateTo({
+      url: '../recharge/recharge',
     })
   },
   /**
