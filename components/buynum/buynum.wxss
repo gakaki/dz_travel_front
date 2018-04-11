@@ -55,7 +55,8 @@
    margin-bottom: 36rpx; 
 }
 .xg {
-  font: normal 20rpx 'Microsoft YaHei';
+   height: 30rpx; 
+  font: 20rpx 'Microsoft YaHei';
   color: rgba(0,0,0,0.4);
   margin: 0 auto;
 }

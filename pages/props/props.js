@@ -1,7 +1,7 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, redGold, addGold } from '../../utils/util.js';
-import { CitySpes, MySpes, Spe, BuySpe, SellSpe } from '../../api.js'
-let type
+import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp } from '../../api.js'
+let type = 0;
 let propId
 let cid = ''
 const app = getApp();
@@ -30,7 +30,7 @@ Page({
     mySpe: [],
     maimai: '购买',
     maxNum: 0,
-    xg: false
+    xg: -1
   },
   hidePop() {
     this.setData({
@@ -38,13 +38,13 @@ Page({
     })
   },
   toShop() {
-wx.navigateTo({
-  url: '../recharge/recharge'
-})
+    wx.navigateTo({
+      url: '../recharge/recharge'
+    })
   },
   rentCar(e) {
     let str
-    let obj = sheet.Shop.Get(e.currentTarget.dataset.id)
+    let obj = sheet.Shop.Get(e.currentTarget.dataset.id);
     if (obj.type == 1) {
       str = '租用'
     } else if (obj.type == 0) {
@@ -59,31 +59,25 @@ wx.navigateTo({
       // picUrl: obj.image,
       propName: obj.propsname
     })
+    console.log(this.data.propId)
   },
   buySpe(e) {
     let dSet = e.currentTarget.dataset
+    console.log(dSet)
     propId = dSet.propId
     this.setData({
       popCar: true,
       cfmStr: '购买',
-      maxNum: -1,
-      xg: true,
+      maxNum: dSet.xg,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
-      goldNum: this.data.speArr[dSet.idx].price
+      goldNum: this.data.speArr[dSet.idx].price,
+      xg: dSet.xg
     })
   },
   toBuy() {
     this.hideCar()
-    this.toBuyNUm()
-    if (type == 0) {
-      // let req = new RentProp();
-      // req.rentId = this.data.propId;
-      // req.fetch().then(() => {
-
-      // })
-    }
-
+    this.buyNum()
   },
   /**
    * 生命周期函数--监听页面加载
@@ -109,7 +103,6 @@ wx.navigateTo({
     this.setData({
       popBuyNum: true,
       singal: true,
-      xg: false,
       maxNum: this.data.mySpe[dSet.idx].num,
       propName: this.data.mySpe[dSet.idx].name,
       goldNum: this.data.mySpe[dSet.idx].sellPrice,
@@ -134,27 +127,36 @@ wx.navigateTo({
       popBuyNum: true
     })
   },
-  toBuyNUm() {
-    this.hideCar()
-    this.buyNum()
+  checkGold(num){
+    if (this.data.goldNum * num > app.globalData.gold) {
+      this.setData({
+        goldBuzu: true
+      })
+      return
+    }
   },
   buyCount(e) {
-    console.log(e)
+    console.log(e, type)
     this.hideBuyNum()
+    
     switch (type) {
+      case 0: 
+        // console.log(this.data.propId)
+        // this.checkGold(e.detail.num)
+        // let m = new RentProp();
+        // m.rentId = this.data.propId;
+        // m.fetch().then(()=>{
+        //   console.log(m)
+        // })
+        break;
       case 1:
-        if (this.data.goldNum * e.detail.num > app.globalData.gold) {
-          this.setData({
-            goldBuzu: true
-          })
-          return
-        }
-
+        this.checkGold(e.detail.num)
         //购买特产
         let req = new BuySpe()
         req.propId = propId
         req.count = e.detail.num
         req.fetch().then(() => {
+          console.log(req)
           let num = this.data.goldNum * e.detail.num
           redGold(num)
           this.setData({
@@ -172,24 +174,7 @@ wx.navigateTo({
           this.setData({
             myGold: app.globalData.gold
           })
-
-          let mySpe = this.data.mySpe
-          mySpe.map(o => {
-            if (o.propId = propId) {
-              o.num = o.num - e.detail.num
-            }
-            return o
-          })
-          let item = mySpe.find(o => {
-            return o.num == 0
-          })
-          if (item) {
-            mySpe.splice(mySpe.indexOf(item), 1)
-          }
-          console.log(mySpe)
-          this.setData({
-            mySpe: mySpe
-          })
+          this.clkThree()
         })
         break;
       default:
@@ -237,7 +222,6 @@ wx.navigateTo({
       console.log(req)
       this.setData({
         mySpe: req.specialtys,
-
       })
     })
 
