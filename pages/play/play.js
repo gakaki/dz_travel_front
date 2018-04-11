@@ -369,7 +369,6 @@ Page({
   chgWid(e) {
     let obj = e.detail
     let spots = this.data.spots
-    console.log('obj.idx', obj.idx)
     if (obj.idx  <= 0) return
     let spotss = spots.map(o => {
       if (obj.idx -1 == o.index) o.tracked = true
@@ -379,7 +378,6 @@ Page({
     this.setData({
       spots: spotss
     })
-    console.log('spots',this.data.spots)
 
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx)

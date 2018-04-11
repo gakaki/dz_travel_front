@@ -913,7 +913,7 @@ class CityPer {
         
     }
 }
-class QuestList {
+class Quest {
     constructor() {
     
     
@@ -924,13 +924,16 @@ class QuestList {
         this.id = null;
     
         //prop type: string
+        this.type = null;
+    
+        //prop type: string
         this.describe = null;
     
         //prop type: number
         this.gold_used = null;
     
         //prop type: KV[]
-        this.item = null;
+        this.rewards = null;
     
         
         
@@ -982,7 +985,7 @@ class Ws {
         listener.cbx ={cb, ctx};
         this.IO.on(action, this._onReceive.bind(this));
     }
-   static unlisten(wsReceiveCls) {
+   static unlisten(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
             console.error('ws has not inited');
             return;
@@ -1044,7 +1047,7 @@ class Http {
         //start loop
         this.loopListen();
     }
-   static unlisten(apiCls) {
+   static unlisten(apiCls, cb, ctx) {
         if (!this._listenings) {
             console.error('Http loop has not inited');
             return;
@@ -1463,10 +1466,10 @@ class Enterspot extends Base {
         this._uid = null;
         this._spotId = null;
         this._spot = null;
-        this._questList = null;
+        this._quests = null;
         this.requireFileds = ["uid","spotId"];
         this.reqFields = ["uid","spotId"];
-        this.resFields = ["spot","questList"];
+        this.resFields = ["spot","quests"];
     }
     //client input, require, type: number
     get uid() {return this._uid}
@@ -1477,9 +1480,9 @@ class Enterspot extends Base {
     //server output, type: EnterSpot
     get spot() {return this._spot}
     set spot(v) {this._spot = v}
-    //server output, type: QuestList[]
-    get questList() {return this._questList}
-    set questList(v) {this._questList = v}
+    //server output, type: Quest[]
+    get quests() {return this._quests}
+    set quests(v) {this._quests = v}
 }
 class SpotTour extends Base {
     constructor() {
@@ -1515,9 +1518,10 @@ class EventShow extends Base {
         this._uid = null;
         this._cid = null;
         this._quest = null;
+        this._userinfo = null;
         this.requireFileds = ["uid","cid"];
         this.reqFields = ["uid","cid"];
-        this.resFields = ["quest"];
+        this.resFields = ["quest","userinfo"];
     }
     //client input, require, type: number
     get uid() {return this._uid}
@@ -1528,6 +1532,9 @@ class EventShow extends Base {
     //server output, type: Quest
     get quest() {return this._quest}
     set quest(v) {this._quest = v}
+    //server output, type: UserInfo
+    get userinfo() {return this._userinfo}
+    set userinfo(v) {this._userinfo = v}
 }
 class ShowQuestReport extends Base {
     constructor() {
@@ -2747,7 +2754,7 @@ exports.Speciality = Speciality;
 exports.ProvencePer = ProvencePer;
 exports.Base = Base;
 exports.CityPer = CityPer;
-exports.QuestList = QuestList;
+exports.Quest = Quest;
 exports.Ws = Ws;
 exports.Http = Http;
 exports.QuestReport = QuestReport;
