@@ -67,7 +67,7 @@
   margin: 30rpx 0 58rpx;
 }
 .one-day {
-  margin: 32rpx 6rpx 0;
+  margin: 32rpx 5rpx 0;
   width: 160rpx;
   height: 214rpx;
   border-radius: 15rpx;

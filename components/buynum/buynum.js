@@ -17,8 +17,8 @@ Component({
       value: '冒菜'
     },
     xg: { //限购
-      type: Boolean,
-      value: false
+      type: Number,
+      value: -1
     },
     maxNum: {
       type: Number,
@@ -77,7 +77,6 @@ Component({
     },
     pGold() {
       let t = 0
-      console.log(this.properties.maxNum)
       if (this.properties.maxNum == -1) {
         t = this.data.goldNum+1
       } else {

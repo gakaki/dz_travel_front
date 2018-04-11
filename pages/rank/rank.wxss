@@ -346,3 +346,24 @@
   top: 10rpx;
   right: 20rpx;
 }
+
+.no-rank{
+  margin-top: 150rpx;
+}
+
+.no-rank-icon{
+  width: 280rpx;
+  height: 246rpx;
+}
+
+.tip-con{
+  font: bold 34rpx 'Microsoft Yahei';
+  color: #878689;
+  margin-top: 60rpx;
+}
+
+.up-time{
+  font: bold 24rpx 'Microsoft Yahei';
+  color: #b0afb3;
+  margin-top: 20rpx;
+}

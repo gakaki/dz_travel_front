@@ -86,14 +86,14 @@
 .cancel, .confirm {
   line-height: 80rpx;
   letter-spacing: 20rpx;
-  width: 245rpx;
+  width: 225rpx;
   height: 113rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 30rpx;
   color: #fff;
   text-align: center;
-  padding-left: 20rpx;
+  padding-left: 20rpx; 
 }
 
 .cancel {
@@ -114,7 +114,9 @@
 }
 
 .sls {
+  width: 242rpx;
   letter-spacing: 1rpx;
+  padding-left: 3rpx;
 }
 
 .pic-desc {
