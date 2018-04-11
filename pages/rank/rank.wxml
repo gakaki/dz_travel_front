@@ -66,7 +66,7 @@
         <image class='self-famous' wx:if="{{rankType==1}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
         <image class="self-icon" wx:elif="{{rankType==2}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
         <image class="self-score" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
-        <text>{{selfRank.achievement}}</text>
+        <text>{{selfRank.achievement}}{{percent ? '%' : ''}}</text>
       </view>
       <view class="share">
         炫耀排名
