@@ -13,7 +13,7 @@
       <view class="num-box font">{{goldNum}}</view>
       <image class="icon" bindtap='pGold' src="https://gengxin.odao.com/update/h5/travel/props/plus-icon.png"></image>
     </view>
-    <text class='xg' wx:if="{{xg}}">限购1个</text>
+    <view class='xg'><text wx:if="{{xg>0}}">限购{{xg}}个</text></view>
     <view class="car-line"></view>
     <view class="bot-btn  {{single ? 'flex' : 'f-r-sb'}}">
       <view class="cancel font" catchtap='toHide' hidden="{{single}}">取消</view>
