@@ -111,6 +111,8 @@ class Parameter {
 
     static get NEWUSERROUTE() { return 36 };
 
+    static get SCOREREWARD() { return 37 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
@@ -349,6 +351,21 @@ class Chatsys {
     static Get(id){ return id in _data.chatsys ? new Chatsys(_data.chatsys[id]) : null; }
 }
 
+class Newuser {
+    constructor(d) {
+    this.cfg = d;
+    }
+
+    // ID
+    get id(){ return this.cfg.id; }
+
+    // 缩短百分比
+    get shorten(){ return this.cfg.shorten; }
+
+
+    static Get(id){ return id in _data.newuser ? new Newuser(_data.newuser[id]) : null; }
+}
+
 
 exports.citys = Object.values(_data.city);
 exports.parameters = Object.values(_data.parameter);
@@ -364,6 +381,7 @@ exports.messages = Object.values(_data.message);
 exports.weathers = Object.values(_data.weather);
 exports.helps = Object.values(_data.help);
 exports.chatsyss = Object.values(_data.chatsys);
+exports.newusers = Object.values(_data.newuser);
 
 
 exports.City = City;
@@ -380,3 +398,4 @@ exports.Message = Message;
 exports.Weather = Weather;
 exports.Help = Help;
 exports.Chatsys = Chatsys;
+exports.Newuser = Newuser;

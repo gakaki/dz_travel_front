@@ -68,6 +68,10 @@
   margin-right: 20rpx;
 }
 
+.one-i-price-c {
+  border-color: #278cff;
+}
+
 .gold-sm {
   width: 32rpx;
   height: 32rpx;
@@ -80,6 +84,12 @@
   margin-left: 6rpx;
   letter-spacing: 3rpx;
 }
+.font-c {
+  flex: 1;
+  text-align: center;
+  color: #278cff;
+}
+
 
 .two-mid {
   height: 100%;
