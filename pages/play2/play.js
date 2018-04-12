@@ -14,8 +14,8 @@ Page({
         weatherImg: '',//天气图标
         licheng: 0, //里程,
         spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了
-        dasheLines, [] //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-        solidLines, [] //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
+        dasheLines: [], //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
+        solidLines: [], //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         started: false, //是否已经开始（规划完路线就算开始了）
     },
 
