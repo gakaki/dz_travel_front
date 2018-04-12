@@ -220,6 +220,7 @@ Component({
 
     showLocation() {
       let location = this.data.players;
+      console.log(location,'showLocation')
       if (!location){
         return; 
       }

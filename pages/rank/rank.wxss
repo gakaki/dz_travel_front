@@ -304,8 +304,8 @@
 }
 
 .famous-icon{
-  width: 24rpx;
-  height: 23rpx;
+  width: 25rpx;
+  height: 24rpx;
   margin-right: 4rpx;
 }
 
@@ -366,4 +366,8 @@
   font: bold 24rpx 'Microsoft Yahei';
   color: #b0afb3;
   margin-top: 20rpx;
+}
+
+.flex-left{
+  justify-content: flex-start;
 }

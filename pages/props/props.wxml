@@ -17,10 +17,13 @@
     <view class="one-item f-r-fs " wx:if="{{tabOne}}" wx:for="{{rentProp}}" wx:key="{{index}}">
       <image class="one-pic" src="{{item.image}}.png"></image>
       <text class="one-i-str font">{{item.propsname}}</text>
-      <view class="one-i-price f-r-fs" data-id="{{item.id}}" bindtap='rentCar'>
+      <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{daoju[index]}}'>
+        <view class='gold-num font font-c'>已租用</view> 
+      </view> 
+      <view class="one-i-price f-r-fs"  wx:else='' data-id="{{item.id}}" bindtap='rentCar'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.price}}</text>
-      </view>
+      </view> 
     </view>
   </view>
 

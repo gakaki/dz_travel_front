@@ -49,6 +49,7 @@
 
 .address-right{
   margin-top: 40rpx;
+  width: 500rpx;
 }
 
 .line-1{
