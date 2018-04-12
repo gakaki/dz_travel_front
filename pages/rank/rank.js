@@ -169,10 +169,20 @@ Page({
 
   rankCountry() {
     rankSubtype = RankSubtype.COUNTRY;
-    this.setData({
-      rankSubtype,
-      toView: 'rank0',
-    })
+    if (rankType == RankType.SCORE){
+      this.setData({
+        rankSubtype,
+        toView: 'rank0',
+        noReward: true,
+      })
+    }
+    else{
+      this.setData({
+        rankSubtype,
+        toView: 'rank0',
+        noReward: false,
+      })
+    }
     this.resetInfo()
     this.getRankInfo();
   },
@@ -182,6 +192,7 @@ Page({
     this.setData({
       rankSubtype,
       toView: 'rank0',
+      noReward: true,
     })
     this.resetInfo()
     this.getRankInfo();
