@@ -12,7 +12,7 @@
     <view class="rank-item {{rankSubtype==1 ? 'rank-choose' : ''}}" bindtap='rankCountry'>全国排行榜</view>
     <view class="rank-item {{rankSubtype==1 ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
   </view>
-  <view class="top-three f-r-sb" wx:if="{{rankSubtype==1 && topThree.length}}">
+  <view class="top-three flex {{topThree.length==2 ? 'flex-left' : ''}}" wx:if="{{rankSubtype==1 && topThree.length}}">
     <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>

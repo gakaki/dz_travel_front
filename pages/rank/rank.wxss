@@ -49,20 +49,16 @@
 .first{
   order: 2;
   margin-top: 66rpx;
-  left: 50%;
-  transform: translate(-50%,0);
 }
 
 .second{
   order: 1;
   margin-top: 78rpx;
-  left: 0;
 }
 
 .third{
   order: 3;
   margin-top: 97rpx;
-  right: 0;
 }
 
 .first .mark{
@@ -370,4 +366,8 @@
   font: bold 24rpx 'Microsoft Yahei';
   color: #b0afb3;
   margin-top: 20rpx;
+}
+
+.flex-left{
+  justify-content: flex-start;
 }
