@@ -141,8 +141,9 @@ Page({
       this.setData({
         goldBuzu: true
       })
-      return
+      return false
     }
+    return true
   },
   buyCount(e) {
     console.log(e, type)
@@ -150,7 +151,7 @@ Page({
     
     switch (type) {
       case 0: 
-        this.checkGold(e.detail.num)
+        if (!this.checkGold(e.detail.num)) {return }
         let m = new RentProp();
         m.rentId = this.data.propId;
         m.fetch().then(()=>{
@@ -158,7 +159,7 @@ Page({
         })
         break;
       case 1:
-        this.checkGold(e.detail.num)
+        if (!this.checkGold(e.detail.num)) { return }
         //购买特产
         let req = new BuySpe()
         req.propId = propId
