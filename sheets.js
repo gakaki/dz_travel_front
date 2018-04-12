@@ -109,6 +109,8 @@ class Parameter {
 
     static get LOCALSALE() { return 35 };
 
+    static get NEWUSERROUTE() { return 36 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 

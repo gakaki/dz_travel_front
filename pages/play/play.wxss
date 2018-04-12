@@ -170,7 +170,10 @@
 
 .zoomBtn {
   width: 270rpx;
-  margin-bottom: 79rpx;
+  position: fixed;
+  left: 50%;
+  bottom: 240rpx;
+  transform: translate(-50%,0);
 }
 
 .zoomBtn .add {
@@ -629,8 +632,8 @@
 }
 
 .start {
-  height: 80rpx;
-  width: 93rpx;
+  height: 93rpx;
+  width: 80rpx;
 }
 .icon-1a {
   width: 123rpx;

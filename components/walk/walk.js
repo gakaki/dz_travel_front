@@ -46,6 +46,7 @@ Component({
   },
 
   detached() {
+    isLast = false
     //idx = 0
     rgt = true
     clearInterval(timerTwo)
@@ -61,16 +62,15 @@ Component({
    */
   methods: {
     func() {
-     
       if (isLast) {
-        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': this.properties.walkInfoArr.length - 1 })
-        if (index == 0) {
-          this.setData({
-            x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
-            y: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].y,
-            show: true
-          })
-        }
+        this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': this.properties.walkInfoArr.length-1 })
+        // if (index == 0) {
+        //   this.setData({
+        //     x: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].x,
+        //     y: this.properties.walkInfoArr[this.properties.walkInfoArr.length - 1].y,
+        //     show: true
+        //   })
+        // }
         return
       }
       index++
@@ -78,6 +78,9 @@ Component({
       walkInfoObj = this.properties.walkInfoArr.find((v) => {
         return v.time > st
       })
+        if (!walkInfoObj) {
+          walkInfoObj = this.properties.walkInfoArr[this.properties.walkInfoArr.length-1]
+        }
       let i = this.properties.walkInfoArr.indexOf(walkInfoObj)
       if (i == this.properties.walkInfoArr.length - 1) {
         isLast = true
@@ -137,6 +140,7 @@ Component({
         })
         this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
         this.move(obj)
+      
       }
       sto = setTimeout(() => {
 

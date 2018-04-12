@@ -39,21 +39,23 @@
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine f-c-fs" bindtap='chgLine'>
+    <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{isStart}}">
       <text class="fontWhite changeLineText font font26">修改路线</text>
       <text class="fontWhite changeLineMoney font font26">$100</text>
     </view>
+    <!-- 缩放按钮  -->
+    <view class="zoomBtn f-r-sa">
+      <view class="add" catchtap="zoomplus"></view>
+      <view class="minus" catchtap="zoomminus"></view>
+    </view> 
     <!-- 按钮组 -->
     <view class="btnBoxWrap f-c-fs">
-      <!-- 缩放按钮 -->
-      <view class="zoomBtn f-r-sa">
-        <view class="add" catchtap="zoomplus"></view>
-        <view class="minus" catchtap="zoomminus"></view>
-      </view>
+      
       <!-- 三个按钮 -->
       <view class="btnBox f-r-sa">
         <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" catchtap="startplay">开始游玩</view>
+        <view class="travelStart font fontWhite  font32" catchtap="startplay" wx:if="{{!isStart}}">开始游玩</view>
+        <view class="travelStart font fontWhite  font32" catchtap="startplay" wx:if='{{isStart}}'>正在游玩</view>
         <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
       </view>
       <!-- 虚拟地图警告 -->

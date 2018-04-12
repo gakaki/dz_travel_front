@@ -60,7 +60,10 @@ Page({
     if(options.share){
       inviteCode = options.inviteCode;
       cid = options.cid;
-      
+      //通过分享进来的在此处设置两人的坐标城市id
+      locationCid = req.location ? req.location : initCity
+      partnerCid = req.parLocation ? req.parLocation : initCity
+
       let info = new PartnerInfo();
       info.inviteCode = inviteCode;
       info.fetch().then(req=>{
@@ -74,13 +77,11 @@ Page({
           partnerName: req.nickName,
           
           avatarSrc: req.avatarUrl,
-          players: [{ location: req.parLocation, img: req.avatarUrl },
-          { location: req.location, img: userInfo.avatarUrl }
+          players: [{ location: partnerCid, img: req.avatarUrl },
+            { location: locationCid, img: userInfo.avatarUrl }
           ]
         })
-        //通过分享进来的在此处设置两人的坐标城市id
-        locationCid = req.location ? req.location : initCity
-        partnerCid = req.parLocation ? req.parLocation : initCity
+        
         if(req.isFly){
           let airlines = [
             { from: locationCid, to: cid },
