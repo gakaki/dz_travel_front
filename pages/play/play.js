@@ -8,11 +8,10 @@ let arr = []
 let i = 0
 let ii = 0
 //  let pointArr = []
-// let isStart = false  //是否游玩中
 let cid //城市id
 let scale = false
 let pointIds = [] //景点id
-let dian = []//规划路线时点击过的点
+let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
 Page({
 
@@ -94,12 +93,12 @@ Page({
   },
   onUnload() {
     arr = []
+    dian = []
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.userInfo)
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
@@ -108,30 +107,28 @@ Page({
     })
 
     //获取路线的最新状态
-   // let spots = this.data.spots.slice()
+    // let spots = this.data.spots.slice()
     // let lineArr = spots.filter(o => {
     //   return o.tracked == true
     // })
-
-
-
     let req = new TourIndexInfo()
     req.cid = options.cid
     req.fetch().then(req => {
-      console.log(req.spots)
       this.setData({
         weather: sheet.Weather.Get(req.weather).icon,
         licheng: app.globalData.userInfo.mileage,
         season: app.globalData.season,
-        spots: req.spots
+        spots: req.spots,
+        startPoint: req.startPos._cfg
       })
       let playing = this.data.spots.every(o => {
         return o.index == -1
       })
-      
+
       this.setData({
         isStart: !playing
       })
+      console.log(this.data.isStart)
       if (this.data.isStart) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
@@ -218,37 +215,12 @@ Page({
         shixianArr: obj
       })
     }
-    // if (this.data.walkPoint.length > 0) {
-    //   let obj = this.data.walkPoint.map(item => {
-    //     return Object.assign({}, {
-    //       x: item.x * v,
-    //       y: item.y * v,
-    //       idx: item.idx,
-    //       time: item.time,
-    //       jiaodu: item.jiaodu,
-    //       wid: item.wid * v
-    //     })
-    //   })
-    //   this.setData({
-    //     walkPoint: obj
-    //   })
-    //   setTimeout(()=>{
-    //     this.setData({
-    //       showWalk: true
-    //     }) 
-    //   },1000)
-    // }
-    scale = true
-    if (this.data.isStart) {
       this.setData({
         showWalk: false
       })
       setTimeout(() => {
         that.start()
       }, 30)
-    }
-
-
   },
   zoomplus() {
     if (this.data.zoom !== 2) {
@@ -285,16 +257,20 @@ Page({
     }
   },
   chgWid(e) {
-    
+
     let obj = e.detail
-    console.log('idx', obj.idx)
     let spots = this.data.spots
-    if (obj.idx  <= 0) return
+    if (obj.idx <= 0) return
     let spotss = spots.map(o => {
-      if (obj.idx -1 == o.index) o.tracked = true
-      this.setData({
-        isStart: false
-      })
+      if (obj.idx - 1 == o.index) {
+        o.tracked = true
+       
+      }
+      if (this.data.walkPoint.length-1 == obj.idx-1) {
+        this.setData({
+          isStart: false
+        })
+      }
       return o
     })
     //spots[obj.idx - 1].tracked = true
@@ -329,8 +305,6 @@ Page({
 
   },
   startplay(chg) {
-   
-    console.log(pointIds)
     if (this.data.isStart && !this.data.isChg) return
     this.setData({
       showWalk: false
@@ -341,18 +315,17 @@ Page({
     req.cid = cid;
     req.line = pointIds;
     req.fetch().then(req => {
-      
+
       this.setData({
         spots: req.spots,
         isChg: false,
         isStart: true
       })
-      console.log(this.data.isStart)
-      if (chg) {
-        this.setData({
-          isChg: true
-        })
-      }
+      // if (chg) {
+      //   this.setData({
+      //     isChg: true
+      //   })
+      // }
       this.start()
     })
   },
@@ -370,6 +343,10 @@ Page({
       for (let i = 0; i < this.data.dashedLine.length; i++) {
         pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].createDate }
       }
+      // pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: -1, time: linePointArr[i].createDate - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      // for (let i = 0; i < this.data.dashedLine.length; i++) {
+      //   pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i , jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].createDate }
+      // }
       this.setData({
         walkPoint: []
       })
@@ -378,7 +355,6 @@ Page({
           walkPoint: pointArr,
           showWalk: true
         })
-        console.log(this.data.walkPoint)
       }, 30)
 
     }
@@ -399,7 +375,7 @@ Page({
     // })
     // if (curDian) {
     //   let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
-     
+
     //   pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
     // }
     // this.setData({
@@ -415,32 +391,24 @@ Page({
     // }, 30)
     // this.startplay(true)
 
+    let curDian = this.data.spots.find(o => {
+      return o.createDate > Base.servertime
+    })
+    if (curDian) {
+      let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
+
+      pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
+    }
     let req = new Base();
     req.action = 'tour.changerouter';
     req.reqFields = ['line'];
     // req.cid = cid;
     req.line = pointIds.slice();
     req.fetch().then(req => {
-
-
-
       dian = []
       this.setData({
         isChg: true
       })
-      let curDian = this.data.spots.find(o => {
-        return o.createDate > Base.servertime
-      })
-      if (curDian) {
-        let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
-
-        pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
-      }
-      this.setData({
-        dashedLine: []
-      })
-
-
       arr = []
       this.setData({
         spots: req.spots,
@@ -456,7 +424,11 @@ Page({
         if (arrs[i].index != -1) count++
       }
       arrs = arrs.slice(-count)//路线中的点
-      this.lineState(arrs)
+      let ab = arrs.find(o => {
+        return o.id == curDian.id
+      })
+      let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
+      this.lineState(abc)
     })
 
   },
@@ -474,69 +446,19 @@ Page({
     }
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) return
-    pointIds.push(dSet.id)
+
     dian.push(dSet.id)
     curPoint = this.data.spots.find(v => {
       return v.id == dSet.id
     })
-
-    //let pArr = [idx]
-    if (this.data.isStart && this.data.isChg) {
-      arr = []
-      let dashedLines = this.data.dashedLine.slice()
-
-      let spots = this.data.spots.slice()
-      let curDian = spots.find(o => {
-        return o.createDate > Base.servertime
-      })
-      let aa = spots.find(o => {
-        return o.id == dSet.id
-      })
-      if (aa == curDian) return
-
-
-      let cur = dashedLines.find(o => {
-        return o.x == curPoint.x
-      })
-      let i = dashedLines.indexOf(cur)
-      if (cur) {
-        dashedLines = dashedLines.slice(0, i + 1)//取消还未走过的路线
-        this.setData({
-          dashedLine: []
-        })
-        setTimeout(() => {
-          this.setData({
-            dashedLine: dashedLines
-          })
-        }, 30)
-      } else {
-        if (this.data.dashedLine.length == 0) {
-          lastPoint = this.data.startPoint
-        }
-
-        else lastPoint = this.data.dashedLine[this.data.dashedLine.length - 1]
-
-        let wid = this.drawOneLine(lastPoint.x, lastPoint.y, curPoint.x, curPoint.y)
-        let jiaodu = this.calcAngleDegrees(lastPoint, curPoint)
-        let line = {
-          idx: this.data.dashedLine.length == 0 ? 0 : this.data.dashedLine.length,
-          x: curPoint.x,
-          y: curPoint.y,
-          tx: lastPoint.x,
-          ty: lastPoint.y,
-          jiaodu: jiaodu,
-          wid: wid,
-          style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
-        }
-        arr = this.data.dashedLine
-        arr.push(line)
-        this.setData({
-          dashedLine: arr
-        })
-      }
-
-      return
-    }
+        //   let curDian = spots.find(o => {
+    //     return o.createDate > Base.servertime
+    //   })
+    //   let aa = spots.find(o => {
+    //     return o.id == dSet.id
+    //   })
+    //    //if (aa == curDian) return
+    pointIds.push(dSet.id)
     if (this.data.dashedLine.length == 0) {
       lastPoint = this.data.startPoint
     }
