@@ -39,6 +39,7 @@ Component({
         left: l
       })
     }, 150)
+      //timerTwo是什么作用？？
     timerTwo = setInterval(()=>{
       aa = aa + 1000
     },1000)

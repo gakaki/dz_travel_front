@@ -1,0 +1,34 @@
+<!--pages/play2/pops/eventQuest.wxml-->
+<!--选项-->
+<view class="f-c-fs dialog_question" catchtap='btn_next_question_tap'>
+
+    <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="pic-box"></image>
+
+
+    <view class="div_question">
+        以下哪个景点是图中所示哈尔滨景点名称？
+    </view>
+
+    <view class="div_answers" bindtap='btn_tap_question'>
+        <view class="answer_options">中央大街</view>
+        <view class="answer_options">东方明珠</view>
+        <view class="answer_options">索菲亚教堂</view>
+        <view class="answer_options">索菲亚教堂</view>
+    </view>
+
+</view>
+
+<view>
+
+<!--选择之后-->
+<view>
+    <view class="imgBox" slot="imgBox">
+        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
+        <view class="ten font">1/10</view>
+    </view>
+    <view class="contentBox" slot="contentBox">
+        <text class="head-font congratulations-head-font ml14">恭喜答对</text>
+        <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
+        <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
+    </view>
+</view>
