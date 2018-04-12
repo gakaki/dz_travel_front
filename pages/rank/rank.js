@@ -25,7 +25,8 @@ Page({
     title: '达人排行榜规则',
     id:5,
     noReward:false,
-    percent: true
+    percent: true,
+    isFriend:false
   },
 
   /**
@@ -174,6 +175,7 @@ Page({
         rankSubtype,
         toView: 'rank0',
         noReward: true,
+        isFriend: false,
       })
     }
     else{
@@ -181,6 +183,7 @@ Page({
         rankSubtype,
         toView: 'rank0',
         noReward: false,
+        isFriend: false,
       })
     }
     this.resetInfo()
@@ -193,6 +196,7 @@ Page({
       rankSubtype,
       toView: 'rank0',
       noReward: true,
+      isFriend: true,
     })
     this.resetInfo()
     this.getRankInfo();
@@ -208,6 +212,7 @@ Page({
       id: '5',
       noReward: false,
       percent: true,
+      isFriend: false,
       title: '达人排行榜规则'
     })
     this.resetInfo()
@@ -224,6 +229,7 @@ Page({
       id: '4',
       noReward: false,
       percent: false,
+      isFriend: false,
       title: '足迹排行榜规则'
     })
     this.resetInfo()
@@ -240,6 +246,7 @@ Page({
       id: '3',
       noReward: true,
       percent: false,
+      isFriend: false,
       title: '积分排行榜规则'
     })
     this.resetInfo()
