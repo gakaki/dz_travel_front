@@ -131,10 +131,18 @@ Page({
             let cur = spots[i];
             let nxt = spots[i+1];
 
-            if (nxt.tracked) {
-                //已经到达过，cur点延伸的路径为实线
-
+            if (nxt.index == -1) {
+                break;
             }
+
+            let dy = nxt.y - cur.y;
+            let dx = nxt.x - cur.x;
+            let wd = wd = Math.hypot(dy, dx);
+            let rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+            let p = {x: cur.x, y: cur.y, wd, rotation};
+
+            nxt.tracked ? solids.push(p) : dashes.push(p);
+
         }
     }
 })
