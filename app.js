@@ -48,7 +48,7 @@ App({
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;
     let time = e.timeStamp;
-    if (Math.abs(time - globaTime) < 1000 && globaTime != 0) {
+    if (Math.abs(time - globaTime) < 500 && globaTime != 0) {
       this.globalData.globalLastTapTime = time;
       return true;
     } else {

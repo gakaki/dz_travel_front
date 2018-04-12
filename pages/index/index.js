@@ -173,8 +173,13 @@ Page({
         location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn'),
         chooseInd: 0,
-        messages: req.unreadMsgCnt
+        messages: req.unreadMsgCnt,
       })
+      if(req.location){
+        this.setData({
+          players:[{location:req.location, img:userInfo.avatarUrl}]
+        })
+      }
     }).catch(() => {
       switch (req) {
         case Code.USER_NOT_FOUND:
