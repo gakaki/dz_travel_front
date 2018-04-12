@@ -1,6 +1,6 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, redGold, addGold } from '../../utils/util.js';
-import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp } from '../../api.js'
+import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp } from '../../api.js'
 let type = 0;
 let propId
 let cid = ''
@@ -79,10 +79,19 @@ Page({
     this.hideCar()
     this.buyNum()
   },
+  checkRentStatus(){
+    let m = new RentedProp();
+    m.fetch().then(m=>{
+      this.setData({
+        daoju:m.rentItems
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.checkRentStatus()
     cid = options.cid
     wx.setNavigationBarTitle({
       title: '旅行道具'
@@ -141,13 +150,12 @@ Page({
     
     switch (type) {
       case 0: 
-        // console.log(this.data.propId)
-        // this.checkGold(e.detail.num)
-        // let m = new RentProp();
-        // m.rentId = this.data.propId;
-        // m.fetch().then(()=>{
-        //   console.log(m)
-        // })
+        this.checkGold(e.detail.num)
+        let m = new RentProp();
+        m.rentId = this.data.propId;
+        m.fetch().then(()=>{
+          this.checkRentStatus()
+        })
         break;
       case 1:
         this.checkGold(e.detail.num)
