@@ -173,6 +173,10 @@ class Code{
     
     static REST_NEED_RELISTEN = 10001;
     
+    static NO_DB_ROW = 11001;
+    
+    static NO_CFG_ROW = 11002;
+    
 }
 class TicketType{
     
@@ -1154,7 +1158,7 @@ class Spot {
         this.cid = null;
     
         //prop type: number
-        this.spotId = null;
+        this.id = null;
     
         //prop type: number
         this.x = null;
@@ -1173,6 +1177,9 @@ class Spot {
     
         //prop type: number
         this.index = null;
+    
+        //prop type: number
+        this.createDate = null;
     
         
         
@@ -1645,6 +1652,44 @@ class RentedProp extends Base {
     //server output, type: KV[]//已租用的所有道具。
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
+}
+class TourStart extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.tourstart';
+    
+        this._cid = null;
+        this._line = null;
+        this._friendList = null;
+        this._spots = null;
+        this._startPos = null;
+        this._task = null;
+        this._weather = null;
+        this.requireFileds = ["cid","line"];
+        this.reqFields = ["cid","line"];
+        this.resFields = ["friendList","spots","startPos","task","weather"];
+    }
+    //client input, require, type: string
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: array
+    get line() {return this._line}
+    set line(v) {this._line = v}
+    //server output, type: array
+    get friendList() {return this._friendList}
+    set friendList(v) {this._friendList = v}
+    //server output, type: Spot[]
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: Position
+    get startPos() {return this._startPos}
+    set startPos(v) {this._startPos = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
+    //server output, type: number
+    get weather() {return this._weather}
+    set weather(v) {this._weather = v}
 }
 class WsSend extends Base {
     constructor() {
@@ -2835,6 +2880,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.Minapppay = Minapppay;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
+exports.TourStart = TourStart;
 exports.WsSend = WsSend;
 exports.ShareInfo = ShareInfo;
 exports.CityListPer = CityListPer;
