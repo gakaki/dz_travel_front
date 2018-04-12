@@ -265,8 +265,8 @@ Page({
             { from: partnerCid, to: cid }
           ]
           this.planeFly(airlines)
-          // score = res.score;
-          // reward = res.reward;
+          score = res.score;
+          reward = res.reward;
         }
       }
       else{
@@ -355,8 +355,8 @@ Page({
       }
     }
     start.fetch().then((req) => {
-      // score = req.score;
-      // reward = req.reward;
+      score = req.score;
+      reward = req.reward;
       this.readyFly()
     }).catch((req) => {
       switch(req){
@@ -440,7 +440,7 @@ Page({
     if(this.data.flyInfo.location){
       this.setData({
         isArrive: true,
-        tipContent: '在' + this.data.flyInfo.location + '旅行路线规划评分：' + score + '分，奖励' + reward + '金币\n航班已到达祝您旅途愉快',
+        tipContent: '在' + this.data.flyInfo.location + '旅行路线规划评分：' + score + '分，奖励' + reward + '积分\n航班已到达祝您旅途愉快',
       })
     }
     else{
