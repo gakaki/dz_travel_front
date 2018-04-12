@@ -8,7 +8,7 @@
    <view wx:if='{{!mySelf}}' class='.btn-big-blue' bindtap='toIndex'>{{content}}</view>
    <view wx:else='' class='btn-wrap'>
      <view class='.btn-big-blue'>{{content}}</view>
-     <button class='btn-big-blue tocenter btn' open-type='share'>{{content}}</button>
+     <button wx:if='{{content == "炫耀足迹"}}' class='btn-big-blue tocenter btn' open-type='share'>{{content}}</button>
    </view>
 </view>
 
