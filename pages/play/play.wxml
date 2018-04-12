@@ -1,4 +1,5 @@
 <view class="con ofs">
+<cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}"  bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
     <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="{{item.style}}"></view>
@@ -12,21 +13,21 @@
     </view>
 
 
-<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" 
-      style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
+    <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
-<view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-<image   src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}' data-id='{{item.id}}' bindtap='drawDashedLine'
-      style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
+    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
+      <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
+        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
-</view>
-    
+    </view>
+ <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">
+</image> 
 
 
     <view class="distance">
-     <text class="zi">里程:</text>
+      <text class="zi">里程:</text>
       <text class="fontWhite">{{licheng}}</text>
-       <text class="zi">km</text>
+      <text class="zi">km</text>
     </view>
     <!-- 天气 -->
     <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
@@ -39,7 +40,7 @@
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{isStart}}">
+    <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{isStart}}">
       <text class="fontWhite changeLineText font font26">修改路线</text>
       <text class="fontWhite changeLineMoney font font26">$100</text>
     </view>
@@ -47,10 +48,10 @@
     <view class="zoomBtn f-r-sa">
       <view class="add" catchtap="zoomplus"></view>
       <view class="minus" catchtap="zoomminus"></view>
-    </view> 
+    </view>
     <!-- 按钮组 -->
     <view class="btnBoxWrap f-c-fs">
-      
+
       <!-- 三个按钮 -->
       <view class="btnBox f-r-sa">
         <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
@@ -85,7 +86,7 @@
       </view>
     </view>
     <view class="pop-bg" wx:if="{{isMissionOpen}}" catchtap="hideMissionOpen">
-      <play class="play-pop play-mission f-c-fs">
+      <task class="play-pop play-mission f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
         </view>
@@ -95,10 +96,10 @@
           <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
           <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isMissionOpenDouble}}" catchtap="hideMissionOpen">
-      <play class="play-pop play-mission play-mission-double f-c-fs">
+      <task class="play-pop play-mission play-mission-double f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
         </view>
@@ -114,10 +115,10 @@
           自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）
         </text>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isCongratulations}}" catchtap="hideCongratulations">
-      <play class="play-pop play-congratulations f-c-fs">
+      <task class="play-pop play-congratulations f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
           <view class="ten font">1/10</view>
@@ -127,7 +128,7 @@
           <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
           <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isGetPost}}">
       <image class="hc" src="https://gengxin.odao.com/update/h5/travel/play/mission.png" id="line"></image>

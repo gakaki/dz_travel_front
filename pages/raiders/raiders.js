@@ -23,6 +23,7 @@ Page({
     tipPop: false,
     commentId: 1,
     content: '',
+    img: ''
   },
   
   /**

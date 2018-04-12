@@ -1,4 +1,4 @@
-.sights {
+weather.sights {
   width: 50rpx;
   height: 50rpx;
   position: absolute;
@@ -80,13 +80,11 @@
 }
 
 .weather {
-  width: 40rpx;
-  height: 40rpx;
+  width: 46rpx;
+  height: 46rpx;
   border: solid 3rpx #fff;
   position: fixed;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+  right: 110rpx;
   top: 22rpx;
   border-radius: 3px;
 }
@@ -607,11 +605,15 @@
 }
 
 .dash-line {
-  border: 2rpx dashed red;
+  border-width: 10rpx;
+  border-style:dotted  none none none;
+  border-color: rgba(0,0,0,0.5);
 }
 
 .shi-line {
-  border: 2rpx solid red;
+  border-width: 10rpx;
+  border-style:solid none none none;
+  border-color: #000;
 }
 
 .testImg {

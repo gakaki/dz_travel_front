@@ -1,9 +1,10 @@
 {
   "usingComponents": {
-    "play": "../../../components/play/play",
+    "task": "../../../components/task/task",
     "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
     "walk":"/components/walk/walk",
     "directions": "/components/rankDirections/rankDirections",
-    "guide":"/components/newbieGuide/newbieGuide"
+    "guide":"/components/newbieGuide/newbieGuide",
+    "cfm": "../../components/buy/buy"
   }
 }

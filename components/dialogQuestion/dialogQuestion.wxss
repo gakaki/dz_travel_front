@@ -62,3 +62,9 @@
   color: black;
   text-align: center;
 }
+.hook {
+  width: 49rpx;
+  height: 36rpx;
+  margin-right: 50rpx;
+  flex-shrink: 0;
+}
