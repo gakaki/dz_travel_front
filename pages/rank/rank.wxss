@@ -49,16 +49,20 @@
 .first{
   order: 2;
   margin-top: 66rpx;
+  left: 50%;
+  transform: translate(-50%,0);
 }
 
 .second{
   order: 1;
   margin-top: 78rpx;
+  left: 0;
 }
 
 .third{
   order: 3;
   margin-top: 97rpx;
+  right: 0;
 }
 
 .first .mark{
@@ -304,8 +308,8 @@
 }
 
 .famous-icon{
-  width: 24rpx;
-  height: 23rpx;
+  width: 25rpx;
+  height: 24rpx;
   margin-right: 4rpx;
 }
 
