@@ -83,6 +83,8 @@ class Code{
     
     static ITEM_MAX = -141;
     
+    static ITEM_LESS = -142;
+    
     static NOT_FOUND = -10086;
     
     static HAS_LIKE = -521;
@@ -345,7 +347,7 @@ class Shop {
         this.id = null;
     
         //prop type: string
-        this.url = null;
+        this.pic = null;
     
         //prop type: string
         this.name = null;
