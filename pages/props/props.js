@@ -42,9 +42,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '旅行道具'
     })
-    // let arr = sheet.shops.map(o => {
-    //   return o
-    // })
     let arr = sheet.shops
     this.setData({
       rentProp: arr,
@@ -88,24 +85,25 @@ Page({
     this.setData({
       type: 'buy',
       popBuyNum: true,
-      // maxNum: dSet.xg,
-      maxNum: 2,
+      maxNum: dSet.xg,
+      // maxNum: 2,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
       goldNum: this.data.speArr[dSet.idx].price,
     })
   },
   sell(e) {
-    let dSet = e.currentTarget.dataset
-    propId = this.data.mySpe[dSet.idx].propId
+    let dSet = e.currentTarget.dataset;
+    let spec = this.data.mySpe[dSet.idx]
+    propId = spec.propId
     this.setData({
       type:'sell',
       popBuyNum: true,
-      maxNum: this.data.mySpe[dSet.idx].num,
-      propName: this.data.mySpe[dSet.idx].name,
-      goldNum: this.data.mySpe[dSet.idx].sellPrice,
-      propDesc: '花费' + this.data.mySpe[dSet.idx].price
-      + '金币单价买入，卖出单价为' + this.data.mySpe[dSet.idx].sellPrice + '金币'
+      maxNum: spec.num,
+      propName: spec.name,
+      goldNum: spec.sellPrice,
+      propDesc: '花费' + spec.price
+      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币'
     })
   },
   toBuy() {

@@ -34,6 +34,14 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({userInfo})
+
+    let a = JSON.stringify({ "a": 1, b: '2' }) 
+
+
+
+    console.log('https://gengxin.odao.com/par =' + a)
+
+
   },
   onShow:function(){
     this.updateInfo()

@@ -1,4 +1,4 @@
-// pages/xiangce/xiangce.js
+  // pages/xiangce/xiangce.js
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 import { CityPostcards } from '../../api.js';
