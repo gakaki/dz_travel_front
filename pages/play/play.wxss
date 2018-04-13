@@ -193,28 +193,48 @@ weather.sights {
 }
 
 .travelTips {
+  position: fixed;
+  bottom: 36rpx;
+  left: 36rpx;
   width: 168rpx;
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
   background-size: cover;
-  line-height: 80rpx;
+
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
 }
 
 .travelStart {
+  position: fixed;
+  bottom: 30rpx;
+  left: 50%;
+  right:0;
+  transform: translateX(-50%);
   width: 268rpx;
   height: 115rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 28rpx;
-  line-height: 84rpx;
+
   margin-top: 20rpx;
   line-height: 88rpx;
 }
+.start-icon {
+ position: fixed;
+  bottom: 30rpx;
+  left: 50%;
+  right:0;
+  transform: translateX(-50%);
+  width: 268rpx;
+  height: 115rpx;
+}
 
 .tarvelProps {
+  position: fixed;
+  bottom: 36rpx;
+  right: 36rpx;
   width: 168rpx;
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
@@ -222,7 +242,7 @@ weather.sights {
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
-  line-height: 80rpx;
+
 }
 
 .warningBox {
@@ -613,7 +633,7 @@ weather.sights {
 .shi-line {
   border-width: 10rpx;
   border-style:solid none none none;
-  border-color: #000;
+  border-color: rgba(0,0,0,0.8);
 }
 
 .testImg {

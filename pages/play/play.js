@@ -7,6 +7,7 @@ let startPoint//起点
 let arr = []
 let i = 0
 let ii = 0
+let playing = false//是否开始游玩
 //  let pointArr = []
 let cid //城市id
 let scale = false
@@ -126,7 +127,7 @@ Page({
         spots: req.spots,
         startPoint: req.startPos._cfg
       })
-      let playing = this.data.spots.every(o => {
+       playing = this.data.spots.every(o => {
         return o.index == -1
       })
 
@@ -156,6 +157,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
+    // this.scaleXy(2)
   },
   showTask() {
     this.setData({
@@ -220,12 +222,14 @@ Page({
         shixianArr: obj
       })
     }
-    this.setData({
-      showWalk: false
-    })
-    setTimeout(() => {
-      that.start()
-    }, 30)
+    if ( !playing) {
+      this.setData({
+        showWalk: false
+      })
+      setTimeout(() => {
+        that.start()
+      }, 30)
+    }
   },
   zoomplus() {
     if (this.data.zoom !== 2) {
@@ -271,13 +275,13 @@ Page({
         o.tracked = true
 
       }
-      if (this.data.walkPoint.length - 1 == obj.idx - 1) {
-        this.setData({
-          isStart: false
-        })
-      }
       return o
     })
+    if (this.data.walkPoint.length - 1 == obj.idx) {
+      this.setData({
+        isStart: false
+      })
+    }
     //spots[obj.idx - 1].tracked = true
     this.setData({
       spots: spotss
@@ -325,6 +329,9 @@ Page({
         spots: req.spots,
         isChg: false,
         isStart: true
+      })
+      playing = this.data.spots.every(o => {
+        return o.index == -1
       })
       // if (chg) {
       //   this.setData({
@@ -449,6 +456,9 @@ Page({
       this.setData({
         isChg: true,
         chgLine: false
+      })
+      playing = this.data.spots.every(o => {
+        return o.index == -1
       })
       arr = []
       this.setData({
