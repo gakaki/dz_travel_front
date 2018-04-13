@@ -34,16 +34,18 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({userInfo})
+  },
+  onShow:function(){
+    this.updateInfo()
+  },
+  updateInfo(){
     let m = new PlayerInfo();
-    m.fetch().then(res=>{
-      console.log(res.info)
+    m.fetch().then(res => {
       this.setData({
         init: res.info,
         gold: res.info.items[Item.GOLD],
         integral: res.info.items[Item.POINT]
       })
-      
-      
     })
   },
   toOtherPage(e) {

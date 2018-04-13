@@ -30,19 +30,19 @@
   <view class="btn-box f-r-sb">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-bg lt f-c-fs" bindtap='getPost'>
-    <text class="btn-top">景点拍照</text>
-    <text class="btn-bot">免费次数0/2</text>
+      <text class="btn-top">景点拍照</text>
+      <text class="btn-bot">免费次数0/2</text>
     </view>
-    <view class="btn-bg rgt-btn f-c-fs" bindtap=''>
-    <text class="btn-top rgt">观光</text>
-    <text class="btn-bot">免费次数0/2</text>
+    <view class="btn-bg rgt-btn f-c-fs" bindtap='guanguang'>
+      <text class="btn-top rgt">观光</text>
+      <text class="btn-bot">免费次数0/2</text>
     </view>
   </view>
-  <buy outer-class="fc" bindtoclose="hidePop"  bind:confirm="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
+  <buy outer-class="fc" bindtoclose="hidePop" bind:confirm="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
   <view class="pop-bg" wx:if="{{isGetPost}}">
     <image class="hc" src="https://gengxin.odao.com/update/h5/travel/raiders/line.png" id="line"></image>
     <view class="hc cir"></view>
-    <view  id="postal" class="hc f-c-fs">
+    <view id="postal" class="hc f-c-fs">
       <image class="post-pic" src="https://gengxin.odao.com/update/h5/travel/{{url}}"></image>
       <text class="post-name">获得索菲亚教堂明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
@@ -50,6 +50,18 @@
       <view class="btn-icon btn-big-blue" bindtap='hidePost'>确定</view>
     </view>
   </view>
-
-
+  <view class="pop-bg" wx:if="{{isCongratulations}}" catchtap="hideCongratulations">
+    <task class="play-pop play-congratulations f-c-fs">
+      <view class="imgBox" slot="imgBox">
+        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
+        <view class="ten font">1/10</view>
+      </view>
+      <view class="contentBox" slot="contentBox">
+        <text class="head-font congratulations-head-font ml14">恭喜答对</text>
+        <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
+        <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">确定</view>
+      </view>
+    </task>
+  </view>
+  <dialogQuestion wx:if="{{isDialogQuestion}}" bind:right='jiangli' catchtap="hideDialogQuestion"></dialogQuestion>
 </view>
