@@ -357,6 +357,7 @@ function shareToIndex(_that, type, page, par,inviteCode,cid,suc) {
   return {
     title: shareTitle(type, par),
     path: nowPath,
+    imageUrl:'https://gengxin.odao.com/update/h5/travel/share/' + type + '.png',
     success: function () {
       let m = new ShareInfo();
       m.fetch()
