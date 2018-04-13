@@ -67,6 +67,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,2,'footprint')
+    return shareToIndex(this,{type:2},{'footprint':true})
   }
 })
