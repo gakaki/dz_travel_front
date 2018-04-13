@@ -1666,13 +1666,14 @@ class TourStart extends Base {
     
         this._cid = null;
         this._line = null;
+        this._weather = null;
         this._friendList = null;
         this._spots = null;
         this._startPos = null;
         this._task = null;
         this._weather = null;
-        this.requireFileds = ["cid","line"];
-        this.reqFields = ["cid","line"];
+        this.requireFileds = ["cid","line","weather"];
+        this.reqFields = ["cid","line","weather"];
         this.resFields = ["friendList","spots","startPos","task","weather"];
     }
     //client input, require, type: string
@@ -1681,6 +1682,9 @@ class TourStart extends Base {
     //client input, require, type: array
     get line() {return this._line}
     set line(v) {this._line = v}
+    //client input, require, type: string
+    get weather() {return this._weather}
+    set weather(v) {this._weather = v}
     //server output, type: array
     get friendList() {return this._friendList}
     set friendList(v) {this._friendList = v}
