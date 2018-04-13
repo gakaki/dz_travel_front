@@ -10,28 +10,28 @@
     <view class="line"></view>
   </view>
   <view class="rgt-box f-c">
-    <text wx:for="{{abc}}" wx:key="index" bindtap='choose' data-idx="{{index}}" class="rgt font  {{myAbc[index]==abc[index]?'can-click':''}} {{(num == index && myAbc[index]==abc[index]) ?'act': ''}}">{{item}}</text>
+    <text wx:for="{{abc}}" wx:key="index" bindtap='choose' data-idx="{{index}}" class="rgt flex font  {{myAbc[index]==abc[index]?'can-click':''}} {{(num == index && myAbc[index]==abc[index]) ?'act': ''}}">{{item}}</text>
   </view>
   <scroll-view class="sv" scroll-y scroll-into-view="{{id}}" scroll-with-animation="{{true}}">
     <view class="city-list" wx:for="{{cityData}}" wx:key="index" id="{{item.proLetter}}">
-      <view class="pro-box f-r-fs" >
-        <text class="abc font">{{item.proLetter}}</text>
+      <view class="pro-box f-r-fs">
+        <text class="abc font ">{{item.proLetter}}</text>
         <text class="pro font">{{item.proName}}</text>
       </view>
-      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}"  bindtap='check' data-city-id="{{ite.cityId}}" data-city="{{ite.cityname}}" data-id='{{item.proLetter}}{{idx}}'>
-        <view class="city f-r-sb" >
+      <view class="city-box" wx:for="{{item.citys}}" wx:for-index="idx" wx:for-item="ite" wx:key="{{idx}}" bindtap='check' data-city-id="{{ite.cityId}}" data-city="{{ite.cityname}}" data-id='{{item.proLetter}}{{idx}}'>
+        <view class="city f-r-sb">
           <text class="c-name">{{ite.cityname}}</text>
           <text class="c-per">城市完成度{{ite.cityper}}%</text>
-          <image wx:if="{{item.proLetter+idx == checkId}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+          <image wx:if="{{ite.cityId == checkId}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
         </view>
         <view class="line-sm" wx:if="{{item.citys.length != idx+1}}"></view>
       </view>
 
     </view>
   </scroll-view>
-   <view class="btn-box flex">
+  <view class="btn-box flex">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon font" bindtap='tocR'>确定</view>
-  </view> 
-     <!-- <walk wx:for="{{walkArr}}" sex="{{gender}}" walkInfo="{{item}}"></walk>     -->
+  </view>
+  <!-- <walk wx:for="{{walkArr}}" sex="{{gender}}" walkInfo="{{item}}"></walk>     -->
 </view>

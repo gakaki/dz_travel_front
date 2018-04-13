@@ -22,15 +22,13 @@
       </view>
       <view class="info f-r-sb">
         <view class="rank-info f-r-sb">
-          <image class="famous-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-small.png"></image>
-          <image class="rank-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-small.png"></image>
-          <image class="score-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
-          <text>{{item.achievement}}{{percent ? '%' : ''}}</text>
+          <image class="famous-icon" wx:if='{{rankType==3}}' src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
+          <text wx:else>本周</text>
+          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}{{percent ? '%' : ''}}</text>
         </view>
         <view class="xian" wx:if="{{!noReward}}"></view>
         <view class="gold f-r-sb" wx:if="{{!noReward}}">
-          <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/rank/gold-small.png"></image>
-          <text>{{item.reward}}</text>
+          <text>历史{{item.achievement}}{{percent ? '%' : ''}}</text>
         </view>
       </view>
     </view>
@@ -42,16 +40,20 @@
         <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
         <text class="name">{{item.userInfo.nickName}}</text>
       </view>
-      <view class="f-c-fs">
-        <view class="ranking-info f-r-sb">
-        <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
+      <view class="align-start f-c-fs">
+        <view class="ranking-info f-r-sb" wx:if="{{rankSubtype==1}}">
+          <image class="famousing-icon" wx:if='{{rankType==3}}' src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
+          <text wx:else>本周</text>
+          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}{{percent ? '%' : ''}}</text>
+        </view>
+        <view class="ranking-info f-r-sb" wx:else>
+          <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>
           <image class="ranking-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot.png"></image>
           <image class="scoreing-icon" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
           <text>{{item.achievement}}{{percent ? '%' : ''}}</text>
         </view>
         <view class="person-gold f-r-sb" wx:if="{{!noReward}}">
-          <image class="ranking-gold" src="https://gengxin.odao.com/update/h5/travel/rank/gold.png"></image>
-          <text>{{item.reward}}</text>
+          <text>历史{{item.achievement}}{{percent ? '%' : ''}}</text>
         </view>
       </view>
     </view>
@@ -61,10 +63,21 @@
       <text>我的排名</text>
       <text>{{selfRank.rank==0 ? '未上榜' : selfRank.rank}}</text>
     </view>
+    
     <view class="f-r-sb">
-      <view class="self-ranking-info f-r-sb">
-        <image class='self-famous' wx:if="{{rankType==1}}" src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
-        <image class="self-icon" wx:elif="{{rankType==2}}" src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
+      <view class="ranking-info f-c-fs self-start" wx:if="{{rankSubtype==1}}">
+        <view class="flex">
+          <image class="self-score" wx:if='{{rankType==3}}' src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
+          <text wx:else>本周</text>
+          <text>{{rankType==3 ? selfRank.achievement : selfRank.weekAchievement}}{{percent ? '%' : ''}}</text>
+        </view>
+        <view wx:if="{{rankType!=3}}">
+          <text>历史{{selfRank.achievement}}{{percent ? '%' : ''}}</text>
+        </view>
+      </view>
+      <view class="ranking-info f-r-sb" wx:else>
+        <image class="self-famous" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous-big.png"></image>
+        <image class="self-icon" wx:elif='{{rankType==2}}' src="https://gengxin.odao.com/update/h5/travel/rank/foot-big.png"></image>
         <image class="self-score" wx:else src="https://gengxin.odao.com/update/h5/travel/rank/score-big.png"></image>
         <text>{{selfRank.achievement}}{{percent ? '%' : ''}}</text>
       </view>
@@ -80,5 +93,5 @@
     <view class="tip-con">暂无排名</view>
     <view class="up-time">排行榜每周日23:30更新</view>
   </view>
-  <directions bind:confirm="_hide" wx:if="{{showHelp}}" helpId="{{id}}" title="{{title}}"></directions>
+  <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="840" helpId="{{id}}" title="{{title}}"></directions>
 </view>

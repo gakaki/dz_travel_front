@@ -116,14 +116,6 @@ Page({
       icon: 'none'
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -175,11 +167,27 @@ Page({
         chooseInd: 0,
         messages: req.unreadMsgCnt,
       })
+
+      //地图上显示好友所在位置
+      let players = []
+      players = req.friends.map(o=>{
+        let friend = {}
+        friend.location = o.cid;
+        friend.img = o.avatarUrl;
+        return friend;
+      });
       if(req.location){
+        let self = {}
+        self.location = req.location
+        self.img = userInfo.avatarUrl
+        players.push(self)
+      }
+      if(players.length){
         this.setData({
-          players:[{location:req.location, img:userInfo.avatarUrl}]
+          players,
         })
       }
+      
     }).catch(() => {
       switch (req) {
         case Code.USER_NOT_FOUND:
@@ -319,7 +327,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 1, '')
+    return shareToIndex(this)
   },
 
   test(e) {

@@ -39,7 +39,11 @@ Component({
    */
   data: {
     isShow: false,
-    animation: ''
+    animation: '',
+    a: false,
+    b: false,
+    c: false,
+    d: false
   },
 
 
@@ -51,6 +55,42 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    tabOne() {
+      this.setData({
+        a: true,
+        b: false,
+        c: false,
+        d: false,
+      })
+      this.triggerEvent("right")
+    },
+    tabTwo() {
+      this.setData({
+        a: false,
+        b: true,
+        c: false,
+        d: false,
+      })
+      this.triggerEvent("right")
+    },
+    tabThree() {
+      this.setData({
+        a: false,
+        b: false,
+        c: true,
+        d: false,
+      })
+      this.triggerEvent("right")
+    },
+    tabFour() {
+      this.setData({
+        a: false,
+        b: false,
+        c: false,
+        d: true,
+      })
+      this.triggerEvent("right")
+    },
     hide() {
       this.triggerEvent("hidetip")
     },

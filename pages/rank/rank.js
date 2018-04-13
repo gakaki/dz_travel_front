@@ -85,6 +85,9 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
+      noReward: false,
+      percent: true,
+      isFriend: false
     })
   },
 
@@ -111,7 +114,7 @@ Page({
   },
 
   getRankInfo() {
-    console.log(page,'page')
+    console.log(page, 'page', this.data.noReward)
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
@@ -278,6 +281,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 5,'rank')
+    return shareToIndex(this, {type:5},{'rank':true})
   }
 })

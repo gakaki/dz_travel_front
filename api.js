@@ -1970,7 +1970,7 @@ class TraveledPlaces extends Base {
     get citys() {return this._citys}
     set citys(v) {this._citys = v}
 }
-class viewpointInfo extends Base {
+class ViewpointInfo extends Base {
     constructor() {
         super();
         this.action = 'sight.viewpointinfo';
@@ -2798,7 +2798,7 @@ exports.Spe = Spe;
 exports.TravelFootprint = TravelFootprint;
 exports.GetUserLocation = GetUserLocation;
 exports.TraveledPlaces = TraveledPlaces;
-exports.viewpointInfo = viewpointInfo;
+exports.ViewpointInfo = ViewpointInfo;
 exports.Photograph = Photograph;
 exports.ShareInfo = ShareInfo;
 exports.CityListPer = CityListPer;

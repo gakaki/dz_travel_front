@@ -191,8 +191,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,4,'checkPostcard','','','',()=>{
-      this.showMask(this, '', '分享成功')
-    })
+    let toShareLink = {
+      checkPostcard:true,
+      suc:function(that){
+        that.showMask(that, '', '分享成功')
+      }
+    }
+    return shareToIndex(this, {type:4}, toShareLink)
   }
 })

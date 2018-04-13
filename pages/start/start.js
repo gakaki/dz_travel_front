@@ -544,6 +544,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 3, 'start', this.data.destination, inviteCode, cid)
+    let toShareLink = {
+      start: true,
+      terminal: this.data.destination,
+      inviteCode: inviteCode,
+      cid: cid
+    }
+    return shareToIndex(this, {type:3}, toShareLink)
   }
 })

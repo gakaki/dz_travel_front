@@ -1,4 +1,5 @@
 <view class="con ofs">
+  <cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
     <view class="dash-line draw-line" wx:for="{{dashedLine}}" wx:key="{{index}}" style="{{item.style}}"></view>
@@ -12,34 +13,34 @@
     </view>
 
 
-<image   src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" 
-      style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
+    <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
-<view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-<image   src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}' data-id='{{item.id}}' bindtap='drawDashedLine'
-      style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
+    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
+      <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
+        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
-</view>
-    
+    </view>
+    <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">
+    </image>
 
 
     <view class="distance">
-     <text class="zi">里程:</text>
+      <text class="zi">里程:</text>
       <text class="fontWhite">{{licheng}}</text>
-       <text class="zi">km</text>
+      <text class="zi">km</text>
     </view>
     <!-- 天气 -->
     <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
     <!-- 提示 -->
     <view class="tip" bindtap='showDesc'></view>
     <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='showTask'>
+    <view class="mission f-c-fs" bindtap='showTask' hidden="{{!isStart || isChg}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{isStart}}">
+    <view class="changeLine f-c-fs" bindtap='xiugaiLine' hidden="{{!isStart || isChg}}">
       <text class="fontWhite changeLineText font font26">修改路线</text>
       <text class="fontWhite changeLineMoney font font26">$100</text>
     </view>
@@ -47,17 +48,18 @@
     <view class="zoomBtn f-r-sa">
       <view class="add" catchtap="zoomplus"></view>
       <view class="minus" catchtap="zoomminus"></view>
-    </view> 
+    </view>
     <!-- 按钮组 -->
     <view class="btnBoxWrap f-c-fs">
-      
+
       <!-- 三个按钮 -->
-      <view class="btnBox f-r-sa">
-        <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" catchtap="startplay" wx:if="{{!isStart}}">开始游玩</view>
-        <view class="travelStart font fontWhite  font32" catchtap="startplay" wx:if='{{isStart}}'>正在游玩</view>
-        <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
-      </view>
+       <!-- <view class="btnBox f-r-sa">  -->
+        <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{!isStart || isChg}}">旅行攻略</view>
+        <view class="travelStart font fontWhite  font32 " catchtap="startplay" >{{isStart? '正在游玩':'开始游玩'}}
+        <!-- <image class="start-icon" hidden="{{!isStart}}" src="https://gengxin.odao.com/update/h5/travel/play/start-gray.png">游玩中</image> -->
+        </view>
+        <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{!isStart || isChg}}">旅行道具</view>
+       <!-- </view>  -->
       <!-- 虚拟地图警告 -->
       <view class="warningBox"></view>
     </view>
@@ -85,7 +87,7 @@
       </view>
     </view>
     <view class="pop-bg" wx:if="{{isMissionOpen}}" catchtap="hideMissionOpen">
-      <play class="play-pop play-mission f-c-fs">
+      <task class="play-pop play-mission f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
         </view>
@@ -95,10 +97,10 @@
           <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
           <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isMissionOpenDouble}}" catchtap="hideMissionOpen">
-      <play class="play-pop play-mission play-mission-double f-c-fs">
+      <task class="play-pop play-mission play-mission-double f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
         </view>
@@ -114,10 +116,10 @@
           自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）
         </text>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isCongratulations}}" catchtap="hideCongratulations">
-      <play class="play-pop play-congratulations f-c-fs">
+      <task class="play-pop play-congratulations f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
           <view class="ten font">1/10</view>
@@ -127,7 +129,7 @@
           <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
           <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
         </view>
-      </play>
+      </task>
     </view>
     <view class="pop-bg" wx:if="{{isGetPost}}">
       <image class="hc" src="https://gengxin.odao.com/update/h5/travel/play/mission.png" id="line"></image>

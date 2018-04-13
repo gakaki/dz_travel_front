@@ -7,18 +7,23 @@ let startPoint//起点
 let arr = []
 let i = 0
 let ii = 0
+let playing = false//是否开始游玩
 //  let pointArr = []
 let cid //城市id
 let scale = false
 let pointIds = [] //景点id
 let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
+const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    chgLine: false,
+    cfmStr: '',
+    cfmDesc: '是否花费 100金币修改路线',
     startPoint: {
       x: 500,
       y: 300
@@ -99,6 +104,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
@@ -121,7 +127,7 @@ Page({
         spots: req.spots,
         startPoint: req.startPos._cfg//这个后端传的时候改一下，前端不必再取一次_cfg
       })
-      let playing = this.data.spots.every(o => {
+       playing = this.data.spots.every(o => {
         return o.index == -1
       })
 
@@ -151,6 +157,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '成都游玩'
     })
+    // this.scaleXy(2)
   },
   showTask() {
     this.setData({
@@ -215,12 +222,14 @@ Page({
         shixianArr: obj
       })
     }
+    if ( !playing) {
       this.setData({
         showWalk: false
       })
       setTimeout(() => {
         that.start()
       }, 30)
+    }
   },
   zoomplus() {
     if (this.data.zoom !== 2) {
@@ -264,15 +273,15 @@ Page({
     let spotss = spots.map(o => {
       if (obj.idx - 1 == o.index) {
         o.tracked = true
-       
-      }
-      if (this.data.walkPoint.length-1 == obj.idx-1) {
-        this.setData({
-          isStart: false
-        })
+
       }
       return o
     })
+    if (this.data.walkPoint.length - 1 == obj.idx) {
+      this.setData({
+        isStart: false
+      })
+    }
     //spots[obj.idx - 1].tracked = true
     this.setData({
       spots: spotss
@@ -321,6 +330,9 @@ Page({
         isChg: false,
         isStart: true
       })
+      playing = this.data.spots.every(o => {
+        return o.index == -1
+      })
       // if (chg) {
       //   this.setData({
       //     isChg: true
@@ -359,8 +371,42 @@ Page({
 
     }
   },
+  hidePop() {
+    this.setData({
+      chgLine: false
+    })
+  },
+  toCfm() {
+    if (app.globalData.gold > 100) this.chgLines()
+    else {
+      wx.navigateTo({
+        url: '../recharge/recharge'
+      })
+      this.setData({
+        chgLine: false
+      })
+    }
+  },
   //修改路线
-  chgLine() {
+  xiugaiLine() {
+    if (app.globalData.gold < 100) {
+      this.setData({
+        chgLine: true,
+        cfmStr: '前往充值',
+        cfmDesc: '金币不足，可前往充值'
+      })
+      console.log(this.data.cfmStr)
+      return
+    } else {
+      this.setData({
+        chgLine: true,
+        cfmStr: '确定'
+      })
+    }
+
+  },
+  //修改路线
+  chgLines() {
     // pointArr = []
     //pointIds = []
 
@@ -391,6 +437,7 @@ Page({
     // }, 30)
     // this.startplay(true)
 
+
     let curDian = this.data.spots.find(o => {
       return o.createDate > Base.servertime
     })
@@ -407,7 +454,11 @@ Page({
     req.fetch().then(req => {
       dian = []
       this.setData({
-        isChg: true
+        isChg: true,
+        chgLine: false
+      })
+      playing = this.data.spots.every(o => {
+        return o.index == -1
       })
       arr = []
       this.setData({
@@ -424,17 +475,22 @@ Page({
         if (arrs[i].index != -1) count++
       }
       arrs = arrs.slice(-count)//路线中的点
-      let ab = arrs.find(o => {
-        return o.id == curDian.id
-      })
-      let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
-      this.lineState(abc)
+      if (curDian) {
+        let ab = arrs.find(o => {
+          return o.id == curDian.id
+        })
+        let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
+        this.lineState(abc)
+      }
+      else {
+        this.lineState(arrs)
+      }  
     })
 
   },
   //画虚线
   drawDashedLine(e) {
-    if (this.data.isStart && !this.data.isChg) return
+   
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
@@ -444,6 +500,7 @@ Page({
       })
       return
     }
+    if (this.data.isStart && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) return
 
@@ -451,7 +508,7 @@ Page({
     curPoint = this.data.spots.find(v => {
       return v.id == dSet.id
     })
-        //   let curDian = spots.find(o => {
+    //   let curDian = spots.find(o => {
     //     return o.createDate > Base.servertime
     //   })
     //   let aa = spots.find(o => {
@@ -785,6 +842,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 1)
+    return shareToIndex(this)
   }
 })

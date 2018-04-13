@@ -8,18 +8,18 @@
       </view>
     </view>
     <text class="num font">{{maimai}}数量</text>
-    <view class="operate flex {{xg?'':'mg'}}">
+    <view class="operate flex {{maxNum>0 && type=='buy'?'':'mg'}}">
       <image class="icon" bindtap='rGold' src="https://gengxin.odao.com/update/h5/travel/props/reduce.png"></image>
       <view class="num-box font">{{goldNum}}</view>
       <image class="icon" bindtap='pGold' src="https://gengxin.odao.com/update/h5/travel/props/plus-icon.png"></image>
     </view>
-    <view class='xg'><text wx:if="{{xg>0}}">限购{{xg}}个</text></view>
+    <view class='xg'><text wx:if="{{maxNum>0 && type=='buy'}}">限购{{maxNum}}个</text></view>
     <view class="car-line"></view>
     <view class="bot-btn  {{single ? 'flex' : 'f-r-sb'}}">
       <view class="cancel font" catchtap='toHide' hidden="{{single}}">取消</view>
       <view class="confirm font flex" catchtap='toCfm'>
       <!-- <image class="gold fs" src="https://gengxin.odao.com/update/h5/travel/props/gold-icon.png"></image> -->
-      <text class="fs">{{single?'获得':''}}$ {{money}}</text>
+      <text class="fs">{{type=='sell'?'获得':''}}$ {{money}}</text>
       </view>
     </view>
   </view>
