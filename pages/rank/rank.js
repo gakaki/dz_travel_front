@@ -281,6 +281,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 5,'rank')
+    return shareToIndex(this, {type:5},{'rank':true})
   }
 })

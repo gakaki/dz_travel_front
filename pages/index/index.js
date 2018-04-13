@@ -116,14 +116,6 @@ Page({
       icon: 'none'
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -319,7 +311,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, 1, '')
+    return shareToIndex(this)
   },
 
   test(e) {

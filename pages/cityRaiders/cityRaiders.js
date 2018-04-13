@@ -48,6 +48,14 @@ Page({
           cityArr = cityArr.concat(v.cityname)
         })
       })
+      let zimu = ''
+      for(let i = 0;i< arr.length;i++) {
+        if (zimu == '') zimu = arr[i].proLetter
+        else {
+          if (zimu == arr[i].proLetter) arr[i].proLetter = ''
+          else zimu = arr[i].proLetter
+        }
+      }
       this.setData({
         allCity: cityArr,
         cityData: arr,
@@ -56,7 +64,10 @@ Page({
         })
       })
       ///test------
-      let arr1 = this.data.myAbc
+      let arr1 = []
+      this.data.myAbc.forEach(o=>{
+        if(o != '') arr1.push(o)
+      })
       let abc = this.data.abc
       for (let i = 0; i < abc.length; i++) {
         if (abc[i] == arr1[i]) continue
@@ -65,7 +76,7 @@ Page({
       this.setData({
         myAbc: arr1
       })
-
+console.log('arr1',arr1)
     })
 
 
@@ -113,8 +124,9 @@ Page({
   },
   check(e) {
     this.setData({
-      checkId: e.currentTarget.dataset.id
+      checkId: e.currentTarget.dataset.cityId
     })
+    console.log(this.data.checkId)
     city = e.currentTarget.dataset.city
     cityId = e.currentTarget.dataset.cityId
   },
@@ -140,12 +152,6 @@ Page({
       url: '../pointRaiders/pointRaiders?city=' + city+ '&cid='+cityId   //还要把城市id传过去
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -158,6 +164,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1)
+    return shareToIndex(this)
   }
 })

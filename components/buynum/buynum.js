@@ -16,12 +16,12 @@ Component({
       type: String,
       value: '冒菜'
     },
-    xg: { //限购
-      type: Number,
-      value: -1
+    type: {  //限购和最大售卖数量
+      type: String,
+      value: 'sell'
     },
-    maxNum: {
-      type: Number,
+    maxNum: {  //限购和最大售卖数量
+      type: Number,   
       value: -1
     },
     maimai: {
