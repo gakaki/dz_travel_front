@@ -32,6 +32,23 @@ Page({
     maxNum: 0,
     xg: -1
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.checkRentStatus()
+    cid = options.cid
+    wx.setNavigationBarTitle({
+      title: '旅行道具'
+    })
+    let arr = sheet.shops
+    this.setData({
+      rentProp: arr,
+      myGold: app.globalData.gold
+    })
+    console.log(this.data.rentProp)
+  },
   hidePop() {
     this.setData({
       goldBuzu: false
@@ -66,18 +83,43 @@ Page({
     console.log(dSet)
     propId = dSet.propId
     this.setData({
-      popCar: true,
-      cfmStr: '购买',
+      type: 'buy',
+      popBuyNum: true,
       maxNum: dSet.xg,
+      // maxNum: 2,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
       goldNum: this.data.speArr[dSet.idx].price,
-      xg: dSet.xg
+    })
+  },
+  sell(e) {
+    let dSet = e.currentTarget.dataset;
+    let spec = this.data.mySpe[dSet.idx]
+    propId = spec.propId
+    this.setData({
+      type:'sell',
+      popBuyNum: true,
+      maxNum: spec.num,
+      propName: spec.name,
+      goldNum: spec.sellPrice,
+      propDesc: '花费' + spec.price
+      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币'
     })
   },
   toBuy() {
     this.hideCar()
-    this.buyNum()
+    if (!this.checkGold()) { return }
+    let m = new RentProp();
+    m.rentId = this.data.propId;
+    m.fetch().then(() => {
+      this.checkRentStatus();
+      let v = this.data.rentProp[this.data.propId - 1].price;
+      redGold(v)
+      this.setData({
+        myGold: app.globalData.gold
+      })
+    })
+    
   },
   checkRentStatus(){
     let m = new RentedProp();
@@ -87,40 +129,6 @@ Page({
       })
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.checkRentStatus()
-    cid = options.cid
-    wx.setNavigationBarTitle({
-      title: '旅行道具'
-    })
-    // let arr = sheet.shops.map(o => {
-    //   return o
-    // })
-    let arr = sheet.shops
-    this.setData({
-      rentProp: arr,
-      myGold: app.globalData.gold
-    })
-    console.log(this.data.rentProp)
-  },
-  sell(e) {
-    let dSet = e.currentTarget.dataset
-    propId = this.data.mySpe[dSet.idx].propId
-    this.setData({
-      popBuyNum: true,
-      singal: true,
-      maxNum: this.data.mySpe[dSet.idx].num,
-      propName: this.data.mySpe[dSet.idx].name,
-      goldNum: this.data.mySpe[dSet.idx].sellPrice,
-      propDesc: '花费' + this.data.mySpe[dSet.idx].price
-      + '金币单价买入，卖出单价为' + this.data.mySpe[dSet.idx].sellPrice + '金币'
-    })
-  },
-
-
   hideCar() {
     this.setData({
       popCar: false
@@ -137,28 +145,20 @@ Page({
     })
   },
   checkGold(num){
-    if (this.data.goldNum * num > app.globalData.gold) {
+    let v = num ? this.data.goldNum * num > app.globalData.gold : this.data.goldNum > app.globalData.gold
+    if (v) {
       this.setData({
         goldBuzu: true
       })
-      return
+      return false
     }
+    return true
   },
   buyCount(e) {
-    console.log(e, type)
     this.hideBuyNum()
-    
     switch (type) {
-      case 0: 
-        this.checkGold(e.detail.num)
-        let m = new RentProp();
-        m.rentId = this.data.propId;
-        m.fetch().then(()=>{
-          this.checkRentStatus()
-        })
-        break;
       case 1:
-        this.checkGold(e.detail.num)
+        if (!this.checkGold(e.detail.num)) { return }
         //购买特产
         let req = new BuySpe()
         req.propId = propId
@@ -203,7 +203,7 @@ Page({
       tabOne: false,
       tabTwo: true,
       tabThree: false,
-      maimai: '购买'
+      // maimai: '购买'
     })
 
     let req = new CitySpes();

@@ -337,7 +337,7 @@ function shareTitle(type,par) {
 //type 分享的类型  对象表里的type
 //page 跳转到哪个页面
 //par 分享标题里的自定义参数
-function shareToIndex(_that, type, page, par,inviteCode,cid) {
+function shareToIndex(_that, type, page, par,inviteCode,cid,suc) {
   let nowPath;
   if (app.globalData.userInfo.uid) {
     if(page) {
@@ -357,9 +357,11 @@ function shareToIndex(_that, type, page, par,inviteCode,cid) {
   return {
     title: shareTitle(type, par),
     path: nowPath,
+    imageUrl:'https://gengxin.odao.com/update/h5/travel/share/' + type + '.png',
     success: function () {
       let m = new ShareInfo();
       m.fetch()
+      suc()
     }
   }
 }

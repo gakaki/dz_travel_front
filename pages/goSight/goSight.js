@@ -4,13 +4,15 @@ import { spliceStr } from '../../utils/util.js'
 import { ymd } from '../../utils/rest.js'
 import { Photograph, Season } from '../../api.js'
 const sheet = require('../../sheets.js');
-let oldStr=''
+let oldStr = ''
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    isCongratulations: false,
+    isDialogQuestion: false,
     evtArr: [],
     spotName: '',
     pic: '',
@@ -59,7 +61,7 @@ Page({
         }
       }
       ]
-  }
+    }
     //test
     console.log(this.data.season)
     oldStr = pointData.spot.description
@@ -69,7 +71,7 @@ Page({
       pic: pointData.spot.picture,
       spotName: pointData.spot.scenicspot,
       testStr: pointData.spot.description,
-      evtArr: pointData.questList,
+     // evtArr: pointData.questList,
       myGold: app.globalData.gold ? app.globalData.gold : 0,
       date: ymd('cn')
     })
@@ -78,6 +80,42 @@ Page({
     })
     console.log(123)
     this.spliceStr()
+  },
+  hideDialogQuestion() {
+    this.setData({
+      isDialogQuestion: false
+    })
+  },
+  jiangli() {
+this.setData({
+  isCongratulations: true,
+  isDialogQuestion: false
+})
+  },
+  hideFirstIn() {
+    let evtArr = this.data.evtArr.slice()
+    let arr = {
+      time: "16:00",
+      id: "110067",
+      describe: "回答了问题",
+      gold_used: 5,
+      item: {
+        100020: 5
+      }
+    }
+    evtArr.push(arr)
+    this.setData({
+      isCongratulations: false,
+      evtArr: evtArr
+    })
+  },
+  hideCongratulations() {
+    isCongratulations: false
+  },
+  guanguang() {
+    this.setData({
+      isDialogQuestion: true
+    })
   },
   spliceStr() {
     let str = spliceStr(this.data.testStr, 46)

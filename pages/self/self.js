@@ -34,16 +34,26 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({userInfo})
+
+    let a = JSON.stringify({ "a": 1, b: '2' }) 
+
+
+
+    console.log('https://gengxin.odao.com/par =' + a)
+
+
+  },
+  onShow:function(){
+    this.updateInfo()
+  },
+  updateInfo(){
     let m = new PlayerInfo();
-    m.fetch().then(res=>{
-      console.log(res.info)
+    m.fetch().then(res => {
       this.setData({
         init: res.info,
         gold: res.info.items[Item.GOLD],
         integral: res.info.items[Item.POINT]
       })
-      
-      
     })
   },
   toOtherPage(e) {

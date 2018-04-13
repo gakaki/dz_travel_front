@@ -1,6 +1,8 @@
 {"disableScroll": true,
 "usingComponents": {
   "mygold": "../../components/mygold/mygold",
-  "buy": "../../components/buy/buy"
+  "buy": "../../components/buy/buy",
+  "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
+  "task": "../../../components/task/task"
 }
 }

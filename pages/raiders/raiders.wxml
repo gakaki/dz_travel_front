@@ -1,7 +1,8 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="con">
 <scroll-view class="con-box" scroll-y bindscrolltolower='addPage'>
-<image class="photo" wx:if='{{img}}' src="{{tools.allImg(img)}}"> </image>
+<!-- <image class="photo" wx:if='{{img}}' src="{{tools.allImg(img)}}"> </image> -->
+<image class="photo"  src="https://gengxin.odao.com/update/h5/travel/{{img}}"> </image>
   <view wx:if='{{content}}' class="desc-bg font">
     {{content}}
   </view>

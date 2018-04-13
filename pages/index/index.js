@@ -116,14 +116,6 @@ Page({
       icon: 'none'
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -173,8 +165,13 @@ Page({
         location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn'),
         chooseInd: 0,
-        messages: req.unreadMsgCnt
+        messages: req.unreadMsgCnt,
       })
+      if(req.location){
+        this.setData({
+          players:[{location:req.location, img:userInfo.avatarUrl}]
+        })
+      }
     }).catch(() => {
       switch (req) {
         case Code.USER_NOT_FOUND:

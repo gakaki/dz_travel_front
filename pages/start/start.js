@@ -9,6 +9,7 @@ let time = null, timer = null, preventFastClick = false, startFly = true//标记
 let onlySingle = false , onlyDouble = false;
 let inviteCode;  //邀请码
 let partnerEnter = false //判断小伙伴是否进入
+let score = 50 , reward = 50;    //上次旅行得分和奖励
 let initCity = sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value;
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
@@ -60,13 +61,14 @@ Page({
     if(options.share){
       inviteCode = options.inviteCode;
       cid = options.cid;
-      //通过分享进来的在此处设置两人的坐标城市id
-      locationCid = req.location ? req.location : initCity
-      partnerCid = req.parLocation ? req.parLocation : initCity
+      
 
       let info = new PartnerInfo();
       info.inviteCode = inviteCode;
       info.fetch().then(req=>{
+        //通过分享进来的在此处设置两人的坐标城市id
+        locationCid = req.location ? req.location : initCity
+        partnerCid = req.parLocation ? req.parLocation : initCity
         let flyInfo = this.setFlyInfo(req);
         this.setData({
           flyInfo,
@@ -263,6 +265,8 @@ Page({
             { from: partnerCid, to: cid }
           ]
           this.planeFly(airlines)
+          score = res.score;
+          reward = res.reward;
         }
       }
       else{
@@ -351,6 +355,8 @@ Page({
       }
     }
     start.fetch().then((req) => {
+      score = req.score;
+      reward = req.reward;
       this.readyFly()
     }).catch((req) => {
       switch(req){
@@ -431,10 +437,18 @@ Page({
   onArrived() {
     Http.unlisten(PartnerInfo, this.parInfo, this);
     console.log('plane arrived')
-    this.setData({
-      isArrive: true,
-      tipContent: '在' + this.data.flyInfo.location + '旅行路线规划评分：50分，奖励50金币\n航班已到达祝您旅途愉快',
-    })
+    if(this.data.flyInfo.location){
+      this.setData({
+        isArrive: true,
+        tipContent: '在' + this.data.flyInfo.location + '旅行路线规划评分：' + score + '分，奖励' + reward + '积分\n航班已到达祝您旅途愉快',
+      })
+    }
+    else{
+      this.setData({
+        isArrive: true,
+        tipContent: '航班已到达祝您旅途愉快',
+      })
+    }
     
     preventFastClick = false;
   },

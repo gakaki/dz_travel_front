@@ -7,14 +7,27 @@
     <!-- <view class="font_black">奖励{{coin}}金币,{{credit}}积分</view> -->
 
     <view class="div_question">
-      以下哪个景点是图中所示哈尔滨景点名称？        
+      以下哪个景点是图中所示哈尔滨景点名称？
     </view>
 
     <view class="div_answers" bindtap='btn_tap_question'>
-       <view class="answer_options">中央大街</view>
-       <view class="answer_options">东方明珠</view>
-       <view class="answer_options">索菲亚教堂</view>
-       <view class="answer_options">索菲亚教堂</view>
+      <view class="answer_options f-r-sb" catchtap='tabOne'>
+        <text>中央大街</text>
+        <image class="hook" wx:if="{{a}}" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+      </view>
+
+      <view class="answer_options f-r-sb" catchtap='tabTwo'>
+      <text>东方明珠</text>
+        <image class="hook" wx:if="{{b}}"  src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+      </view>
+      <view class="answer_options f-r-sb" catchtap='tabThree'>
+       <text>索菲亚教堂</text>
+        <image class="hook" wx:if="{{c}}"  src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+      </view>
+      <view class="answer_options f-r-sb" catchtap='tabFour'>
+      <text>外滩</text>
+        <image class="hook" wx:if="{{d}}"  src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+      </view>
     </view>
 
   </view>

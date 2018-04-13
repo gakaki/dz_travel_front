@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/cityRaiders/cityRaiders",
     "pages/goSight/goSight",
     "pages/play/play",
     "pages/pointRaiders/pointRaiders",
-    "pages/cityRaiders/cityRaiders",
     "pages/settings/settings",
     "pages/rank/rank",
     "pages/travelLog/travelLog",
@@ -20,7 +20,8 @@
     "pages/xiangce/xiangce",
     "pages/message/message",
     "pages/self/self",
-    "pages/footprint/footprint"
+    "pages/footprint/footprint",
+    "pages/play2/play"
   ],
   "window": {
     "backgroundTextStyle": "light",

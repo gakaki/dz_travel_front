@@ -17,7 +17,7 @@ Page({
     tip:'',
     nickName:'',
     write:true,
-    allMessage:null, //玩家所有留言信息
+    allMessage:[], //玩家所有留言信息
     index:0,
     time:'',
     message:'',
@@ -92,8 +92,8 @@ Page({
       this.setData({
         index:0
       })
-      this.getData()
       this.showMask(this, '', tip)
+      this.getData()
     })
   },
   formSubmit(e) {
@@ -102,10 +102,12 @@ Page({
     this.setData({
       message:str
     })      
-    console.log(this.data.btnInfo)
-    let lastestMessage = this.data.lastestMessage
-    // lastestMessage.hasNext = false;
-    console.log(this.data.allMessage)
+    let lastestMessage = {};
+    if (!this.data.allMessage[0] || !this.data.allMessage[0].hasUp) {
+      lastestMessage.hasUp = true;
+    } else {
+      lastestMessage = this.data.allMessage[0]
+    }
     if (this.data.btnInfo == '留言') {
       this.setData({
         btnInfo: '发送明信片',
@@ -113,7 +115,7 @@ Page({
         index:-1,
         nickName:'',
         time:'',
-        lastestMessage: this.data.allMessage[0]
+        lastestMessage: lastestMessage
       })
       console.log(this.data.lastestMessage)
     } else {  //按钮在分享或者发送明信片时
@@ -122,10 +124,9 @@ Page({
         this.showMask(this, '', '请先写信再分享至好友')
         return
       } 
-      if (this.data.btnInfo == '发送明信片') {
+      if (this.data.btnInfo != '留言' ) {
         this.sendPost('发送成功')
-      }
-
+      }    
     }
     
   },
@@ -190,6 +191,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,4,'checkPostcard')
+    return shareToIndex(this,4,'checkPostcard','','','',()=>{
+      this.showMask(this, '', '分享成功')
+    })
   }
 })

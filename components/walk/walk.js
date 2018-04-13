@@ -39,6 +39,7 @@ Component({
         left: l
       })
     }, 150)
+      //timerTwo是什么作用？？
     timerTwo = setInterval(()=>{
       aa = aa + 1000
     },1000)
@@ -128,7 +129,10 @@ Component({
           show: true
         })
         setTimeout(() => {
-          this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
+          if (walkInfoObj.idx != this.properties.walkInfoArr.length -1) {
+            this.triggerEvent('lineWidth', { 'per': per, 'time': restTime, 'idx': walkInfoObj.idx - 1 })
+          }
+         
           this.move(obj)
         }, 30)
 
