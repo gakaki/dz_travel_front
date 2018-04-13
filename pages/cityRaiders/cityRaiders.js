@@ -152,12 +152,6 @@ console.log('arr1',arr1)
       url: '../pointRaiders/pointRaiders?city=' + city+ '&cid='+cityId   //还要把城市id传过去
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -170,6 +164,6 @@ console.log('arr1',arr1)
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1)
+    return shareToIndex(this)
   }
 })
