@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "pop-event-normal": "./pops/eventNormal",
+    "pop-event-quest": "./pops/eventQuest",
+    "pop-free-rent": "./pops/freeRent",
+    "directions": "/components/rankDirections/rankDirections",
+    "pop-got-post": "./pops/gotPost",
+    "guide":"/components/newbieGuide/newbieGuide"
+  }
+}
