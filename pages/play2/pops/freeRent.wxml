@@ -1,0 +1,8 @@
+<!--pages/play2/pops/freeRent.wxml-->
+<view class="play-pop play-first-in f-c-fs" catchtap="notDo">
+    <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
+    <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
+    <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
+    <view class="line"></view>
+    <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">确 定</view>
+</view>

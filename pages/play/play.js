@@ -125,7 +125,7 @@ Page({
         licheng: app.globalData.userInfo.mileage,
         season: app.globalData.season,
         spots: req.spots,
-        startPoint: req.startPos._cfg
+        startPoint: req.startPos._cfg//这个后端传的时候改一下，前端不必再取一次_cfg
       })
        playing = this.data.spots.every(o => {
         return o.index == -1

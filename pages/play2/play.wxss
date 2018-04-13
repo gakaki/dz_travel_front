@@ -1,0 +1,24 @@
+/* pages/play2/play.wxss */
+.play-dash-line, .play-solid-line {
+    height: 0;
+    border: 6rpx solid #333333;
+    border-width: 0 0 6rpx 0;
+}
+
+.play-role {
+    width: 38rpx;
+    height: 81rpx;
+    background-clip: content-box;
+    background-repeat: no-repeat;
+}
+@keyframes role-clip {
+    100% {
+        background-position: -228rpx 0;
+    }
+}
+.stand {
+    background-position: 0 0;
+}
+.walk {
+    animation: role-clip 0.6s steps(6) infinite;
+}
