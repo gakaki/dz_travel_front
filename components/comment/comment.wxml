@@ -21,7 +21,7 @@
   </view>
   <text class="tips">觉得怎么样，打个分吧</text>
   <view class="input-box">
-    <textarea name="ta" bindinput='chgTextarer' show-confirm-bar="{{false}}" class="do-comment" placeholder="亲，你对这次旅行还满意吗">
+    <textarea name="ta" bindinput='chgTextarer'  class="do-comment" placeholder="亲，你对这次旅行还满意吗">
     </textarea>
     <text class="num">{{strLen}}/100</text>
   </view>
