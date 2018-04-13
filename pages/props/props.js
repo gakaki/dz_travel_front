@@ -32,6 +32,26 @@ Page({
     maxNum: 0,
     xg: -1
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.checkRentStatus()
+    cid = options.cid
+    wx.setNavigationBarTitle({
+      title: '旅行道具'
+    })
+    // let arr = sheet.shops.map(o => {
+    //   return o
+    // })
+    let arr = sheet.shops
+    this.setData({
+      rentProp: arr,
+      myGold: app.globalData.gold
+    })
+    console.log(this.data.rentProp)
+  },
   hidePop() {
     this.setData({
       goldBuzu: false
@@ -77,7 +97,11 @@ Page({
   },
   toBuy() {
     this.hideCar()
-    this.buyNum()
+    if(type) {
+      this.buyNum()
+    } else {
+      this.buyCount()
+    }
   },
   checkRentStatus(){
     let m = new RentedProp();
@@ -86,25 +110,6 @@ Page({
         daoju:m.rentItems
       })
     })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.checkRentStatus()
-    cid = options.cid
-    wx.setNavigationBarTitle({
-      title: '旅行道具'
-    })
-    // let arr = sheet.shops.map(o => {
-    //   return o
-    // })
-    let arr = sheet.shops
-    this.setData({
-      rentProp: arr,
-      myGold: app.globalData.gold
-    })
-    console.log(this.data.rentProp)
   },
   sell(e) {
     let dSet = e.currentTarget.dataset
@@ -137,7 +142,8 @@ Page({
     })
   },
   checkGold(num){
-    if (this.data.goldNum * num > app.globalData.gold) {
+    let v = num ? this.data.goldNum * num > app.globalData.gold : this.data.goldNum > app.globalData.gold
+    if (v) {
       this.setData({
         goldBuzu: true
       })
@@ -148,14 +154,17 @@ Page({
   buyCount(e) {
     console.log(e, type)
     this.hideBuyNum()
-    
+
     switch (type) {
       case 0: 
-        if (!this.checkGold(e.detail.num)) {return }
+      console.log('zhuangbei')
+
+      if (!this.checkGold()) { return } 
         let m = new RentProp();
         m.rentId = this.data.propId;
         m.fetch().then(()=>{
           this.checkRentStatus()
+          console.log('zzzzzzzzzz')
         })
         break;
       case 1:
