@@ -624,6 +624,9 @@ class SelfRank {
         this.rank = null;
     
         //prop type: number
+        this.weekAchievement = null;
+    
+        //prop type: number
         this.achievement = null;
     
         
@@ -637,6 +640,9 @@ class RankItem {
     
         //prop type: number
         this.rank = null;
+    
+        //prop type: number
+        this.weekAchievement = null;
     
         //prop type: number
         this.achievement = null;

@@ -80,5 +80,5 @@
     <view class="tip-con">暂无排名</view>
     <view class="up-time">排行榜每周日23:30更新</view>
   </view>
-  <directions bind:confirm="_hide" wx:if="{{showHelp}}" helpId="{{id}}" title="{{title}}"></directions>
+  <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="940" helpId="{{id}}" title="{{title}}"></directions>
 </view>
