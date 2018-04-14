@@ -19,6 +19,10 @@ Component({
     sex: {
       type: Number,
       value: 1
+    },
+    evt: {
+      type:Boolean,
+      value: false
     }
   },
   data: {
@@ -62,6 +66,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    touchEvt() {
+      this.triggerEvent('chufaEvt')
+    },
     func() {
       if (isLast) {
         this.triggerEvent('lineWidth', { 'per': 0, 'time': 0, 'idx': this.properties.walkInfoArr.length-1 })

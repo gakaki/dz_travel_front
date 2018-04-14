@@ -1,7 +1,7 @@
 // pages/play/play.js
 const app = getApp();
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base } from '../../api.js';
+import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base, Http, PlayLoop, FreshSpots, SetRouter, EventShow } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
 let arr = []
@@ -21,6 +21,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    event: false,//是否有事件
+    lineDown: false,//规划的路线是否走完
+    double: false,
     chgLine: false,
     cfmStr: '',
     cfmDesc: '是否花费 100金币修改路线',
@@ -99,6 +102,12 @@ Page({
   onUnload() {
     arr = []
     dian = []
+  //  Http.unlisten(PlayLoop, this.freshspots, this)
+  },
+  onHide: function () {
+    arr = []
+    dian = []
+   // Http.unlisten(PlayLoop, this.freshspots, this)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -125,14 +134,24 @@ Page({
         licheng: app.globalData.userInfo.mileage,
         season: app.globalData.season,
         spots: req.spots,
-        startPoint: req.startPos._cfg//这个后端传的时候改一下，前端不必再取一次_cfg
+        startPoint: req.startPos
       })
-       playing = this.data.spots.every(o => {
+      playing = this.data.spots.every(o => {
         return o.index == -1
       })
 
+      if (playing) {
+        //游玩状态下开启轮询
+      //  Http.listen(PlayLoop, this.freshspots, this, 60000)
+      }
+
+
+      let lineDown = this.data.spots.every(o => {
+        return o.tracked == true
+      })
       this.setData({
-        isStart: !playing
+        isStart: !playing,
+        lineDown: lineDown
       })
       console.log(this.data.isStart)
       if (this.data.isStart) { //游玩过
@@ -151,13 +170,44 @@ Page({
 
     })
     cid = options.cid
-    // this.setData({
-    //   testArr: this.getPoint()
-    // })
     wx.setNavigationBarTitle({
-      title: '成都游玩'
+      title: sheet.City.Get(options.cid).city + '游玩'
     })
     // this.scaleXy(2)
+  },
+  //触发事件
+  touchEvt() {
+    let req = new EventShow()
+    req.fetch().then(req => {
+
+    })
+  },
+  //刷新景点信息
+  freshspots(res) {
+    if (res.freshSpots) {
+      let req = new FreshSpots()
+      req.fetch().then(req => {
+        this.setData({
+          spots: req.spotss
+        })
+      })
+    }
+    if (req.newEvent) {
+
+    }
+    //更新景点状态
+
+    if (req.spotsTracked > 0) {
+      let spotss = this.data.spots.map(o => {
+        if (o.index < req.spotsTracked) {
+          o.tracked = true
+        }
+        return o
+      })
+      this.setData({
+        spots: spotss
+      })
+    }
   },
   showTask() {
     this.setData({
@@ -222,7 +272,7 @@ Page({
         shixianArr: obj
       })
     }
-    if ( !playing) {
+    if (!playing) {
       this.setData({
         showWalk: false
       })
@@ -273,13 +323,13 @@ Page({
     let spotss = spots.map(o => {
       if (obj.idx - 1 == o.index) {
         o.tracked = true
-
       }
       return o
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-        isStart: false
+        isStart: false,
+        lineDown: true
       })
     }
     //spots[obj.idx - 1].tracked = true
@@ -318,11 +368,14 @@ Page({
     this.setData({
       showWalk: false
     })
-    let req = new Base();
-    req.action = 'tour.tourstart';
-    req.reqFields = ['cid', 'line'];
-    req.cid = cid;
-    req.line = pointIds;
+    // let req = new Base();
+    // req.action = 'tour.tourstart';
+    // req.reqFields = ['cid', 'line'];
+    // req.cid = cid;
+    // req.line = pointIds;
+    let req = new SetRouter()
+    req.cid = cid
+    req.line = pointIds
     req.fetch().then(req => {
 
       this.setData({
@@ -344,6 +397,9 @@ Page({
   start() {
     let pointArr = []
     dian = []
+    this.setData({
+      lineDown: false
+    })
     if (this.data.dashedLine) {
       let spots = this.data.spots
       spots.sort((x, y) => {
@@ -387,8 +443,14 @@ Page({
       })
     }
   },
-  //修改路线
+  //添加或修改路线
   xiugaiLine() {
+    if (!this.data.playing || lineDown) {
+      this.setData({
+        isChg: true
+      })
+      return
+    }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLine: true,
@@ -405,37 +467,8 @@ Page({
     }
 
   },
-  //修改路线
+  //添加或修改路线
   chgLines() {
-    // pointArr = []
-    //pointIds = []
-
-
-
-    // dian = []
-    // this.setData({
-    //   isChg: true
-    // })
-    // let curDian = this.data.spots.find(o => {
-    //   return o.createDate > Base.servertime
-    // })
-    // if (curDian) {
-    //   let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
-
-    //   pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
-    // }
-    // this.setData({
-    //   dashedLine: []
-    // })
-
-
-
-    // setTimeout(() => {
-    //   this.setData({
-    //     dashedLine: dashedLines
-    //   })
-    // }, 30)
-    // this.startplay(true)
 
 
     let curDian = this.data.spots.find(o => {
@@ -446,11 +479,11 @@ Page({
 
       pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
     }
-    let req = new Base();
-    req.action = 'tour.changerouter';
-    req.reqFields = ['line'];
-    // req.cid = cid;
-    req.line = pointIds.slice();
+
+
+    let req = new SetRouter()
+    req.cid = options.cid
+    req.line = pointIds.slice()
     req.fetch().then(req => {
       dian = []
       this.setData({
@@ -461,6 +494,7 @@ Page({
         return o.index == -1
       })
       arr = []
+      let dash = this.data.dashedLine.slice()
       this.setData({
         spots: req.spots,
         showWalk: false,
@@ -475,34 +509,61 @@ Page({
         if (arrs[i].index != -1) count++
       }
       arrs = arrs.slice(-count)//路线中的点
+
+      
       if (curDian) {
         let ab = arrs.find(o => {
           return o.id == curDian.id
         })
         let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
-        this.lineState(abc)
+
+       // this.lineState(abc) //优化
+        //优化，改为只把没走过的虚线清掉就行了
+        this.setData({
+          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+        })
+
       }
       else {
-        this.lineState(arrs)
-      }  
-    })
+       // this.lineState(arrs) //优化
 
+        //优化，改为只把没走过的虚线清掉就行了
+        this.setData({
+          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+        })
+      }
+    })
   },
   //画虚线
   drawDashedLine(e) {
-   
+    if (!this.data.isChg) {
+      wx.showToast({
+        title: '请先点击添加路线，才能规划路线',
+        icon: 'none',
+        mask: true
+      })
+      return
+    }
+
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
       wx.navigateTo({
-        url: '../goSight/goSight?pointId=' + dSet.id
+        url: '../goSight/goSight?pointId=' + dSet.id+'&cid='+cid
       })
       return
     }
     if (this.data.isStart && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
-    if (dian.indexOf(dSet.id) != -1) return
+    if (dian.indexOf(dSet.id) != -1) {
+      wx.showToast({
+        title: '路线规划不可前往相同景点',
+        icon: 'none',
+        mask: true
+      })
+      return
+    }
 
     dian.push(dSet.id)
     curPoint = this.data.spots.find(v => {
@@ -534,9 +595,11 @@ Page({
       wid: wid,
       style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
     }
-    arr.push(line)
+    //arr.push(line)
+    let dashs = this.data.dashedLine
+    dashs.push(line)
     this.setData({
-      dashedLine: arr
+      dashedLine: dashs
     })
   },
   //进页面时游玩初始状态
@@ -596,144 +659,7 @@ Page({
     let h = Math.abs(Y - y)
     return Math.round(Math.hypot(w, h))
   },
-  getPoint() {
-    function getRandomArbitrary(min, max) {
-      return Math.random() * (max - min) + min;
-    }
 
-    function flatten(arr) {
-      return arr.reduce(function (prev, item) {
-        return prev.concat(Array.isArray(item) ? flatten(item) : item);
-      }, []);
-    }
-
-    const getDistace = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
-
-    let points = [{
-      name: 'A',
-      id: 1,
-      x: 116.403414,
-      y: 39.924091
-    },
-    {
-      name: 'b',
-      id: 2,
-      x: 116.274853,
-      y: 39.998547
-    },
-    {
-      name: 'c',
-      id: 3,
-      x: 116.404081,
-      y: 39.910098
-    }
-      // {
-      //   name: 'd',
-      //   id: 4,
-      //   x: 116.417115,
-      //   y: 39.886376
-      // },
-      // {
-      //   name: 'e',
-      //   id: 5,
-      //   x: 116.314154,
-      //   y: 40.01651
-      // },
-      // {
-      //   name: 'easd',
-      //   id: 6,
-      //   x: 116.395486,
-      //   y: 39.932913
-      // },
-
-      // {
-      //   name: 'f',
-      //   id: 7,
-      //   x: 116.016033,
-      //   y: 40.364233
-      // },
-      // {
-      //   name: 'g',
-      //   id: 8,
-      //   x: 116.409512,
-      //   y: 39.93986
-      // },
-      // {
-      //   name: 'aa',
-      //   id: 11,
-      //   x: 116.400512,
-      //   y: 39.95986
-      // },
-      // {
-      //   name: 'h',
-      //   id: 9,
-      //   x: 116.391656,
-      //   y: 39.948203
-      // },
-      // {
-      //   name: 'i',
-      //   id: 10,
-      //   x: 116.402359,
-      //   y: 39.999763
-      // }
-    ]
-
-    let arrx = [1, 3, 5, 7, 9]
-    let arry = [1, 3, 5, 7, 9, 11, 13]
-
-    let res = []
-    for (let i = 0; i < arrx.length; i++) {
-      res[i] = []
-      for (let j = 0; j < arry.length; j++) {
-        res[i][j] = {}
-        res[i][j]['x'] = arrx[i]
-        res[i][j]['y'] = arry[j]
-      }
-    }
-    res = flatten(res)
-    let finalRes = []
-    for (let i = 0; i < points.length; i++) {
-      let len = res.length
-      finalRes.push(res.splice(parseInt(getRandomArbitrary(0, len)), 1)[0])
-      len--
-    }
-
-    let pointsDistance = points.map(item => {
-      return Object.assign({}, item, {
-        distance: getDistace({
-          x: 0,
-          y: 0
-        }, item)
-      })
-    })
-    let finalResDistance = finalRes.map((item, i) => {
-      return Object.assign({}, item, {
-        id: i + 1,
-        distance: getDistace({
-          x: 0,
-          y: 0
-        }, item)
-      })
-    })
-
-    finalResDistance.sort((a, b) => b.distance - a.distance)
-    pointsDistance.sort((a, b) => b.distance - a.distance)
-
-    let finalratio = finalResDistance.map((item, i) => {
-      return Object.assign({}, {
-        x: item.x * 60,
-        y: item.y * 80,
-        name: pointsDistance[i].name,
-        idx: pointsDistance[i].id
-      })
-    })
-
-
-    startPoint = finalratio.find(v => {
-      return v.idx == 1
-    })
-    return finalratio
-  },
   showDesc() {
     this.setData({
       isShowIntro: true

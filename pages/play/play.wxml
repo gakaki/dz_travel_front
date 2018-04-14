@@ -9,7 +9,7 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk hidden="{{isChg}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk hidden="{{isChg}}" bind:chufaEvt="touchEvt" evt="{{event}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
@@ -29,20 +29,21 @@
       <text class="fontWhite">{{licheng}}</text>
       <text class="zi">km</text>
     </view>
+    <view class="cancle-double flex" hidden="{{!double}}">取消双人旅行</view>
     <!-- 天气 -->
     <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
     <!-- 提示 -->
     <view class="tip" bindtap='showDesc'></view>
     <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='showTask' hidden="{{!isStart || isChg}}">
+    <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg || playing}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine f-c-fs" bindtap='xiugaiLine' hidden="{{!isStart || isChg}}">
-      <text class="fontWhite changeLineText font font26">修改路线</text>
-      <text class="fontWhite changeLineMoney font font26">$100</text>
+    <view class="changeLine f-c-fs" bindtap='xiugaiLine' hidden="{{!isStart && !lineDown && playing}}">
+      <text class="fontWhite changeLineText font font26">{{lineDown?'添加路线': (playing?'修改路线':'添加路线')}}</text>
+      <text class="fontWhite changeLineMoney font font26" hidden="{{!lineDown}}">$100</text>
     </view>
     <!-- 缩放按钮  -->
     <view class="zoomBtn f-r-sa">
@@ -53,13 +54,12 @@
     <view class="btnBoxWrap f-c-fs">
 
       <!-- 三个按钮 -->
-       <!-- <view class="btnBox f-r-sa">  -->
-        <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{!isStart || isChg}}">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32 " catchtap="startplay" >{{isStart? '正在游玩':'开始游玩'}}
-        <!-- <image class="start-icon" hidden="{{!isStart}}" src="https://gengxin.odao.com/update/h5/travel/play/start-gray.png">游玩中</image> -->
-        </view>
-        <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{!isStart || isChg}}">旅行道具</view>
-       <!-- </view>  -->
+      <!-- <view class="btnBox f-r-sa">  -->
+      <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{isStart}}">开始游玩 </view>
+      <view class="start-icon font fontWhite  font32 " hidden="{{!isStart}}">{{lineDown?'游玩结束':'游玩中'}}</view>
+      <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
+      <!-- </view>  -->
       <!-- 虚拟地图警告 -->
       <view class="warningBox"></view>
     </view>

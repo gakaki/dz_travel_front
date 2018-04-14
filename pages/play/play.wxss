@@ -78,7 +78,17 @@ weather.sights {
   left: 10rpx;
   text-align: center;
 }
-
+.cancle-double {
+  background-color: #FD6259;
+  font: normal 24rpx 'Microsoft YaHei';
+  color: #fff;
+  width: 178rpx;
+  height: 50rpx;
+  position: fixed;
+  top: 90rpx;
+  left: 10rpx;
+  border-radius: 30rpx;
+}
 .weather {
   width: 46rpx;
   height: 46rpx;
@@ -205,30 +215,26 @@ weather.sights {
   line-height: 74rpx;
   margin-top: 25rpx;
 }
-
-.travelStart {
-  position: fixed;
+.travelStart,.start-icon {
+   position: fixed;
   bottom: 30rpx;
   left: 50%;
   right:0;
   transform: translateX(-50%);
   width: 268rpx;
   height: 115rpx;
+  font-size: 28rpx;
+}
+.travelStart {
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
   background-size: cover;
-  font-size: 28rpx;
-
   margin-top: 20rpx;
   line-height: 88rpx;
 }
 .start-icon {
- position: fixed;
-  bottom: 30rpx;
-  left: 50%;
-  right:0;
-  transform: translateX(-50%);
-  width: 268rpx;
-  height: 115rpx;
+   background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
+   background-size: cover;
+  line-height: 85rpx
 }
 
 .tarvelProps {
