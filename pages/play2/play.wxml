@@ -26,8 +26,8 @@
             <view class="minus" catchtap="zoomminus"></view>
         </view>
     </view>
-    <!--控件-游玩中-->
-    <view id="play-control-playing" wx:if="{{started}}">
+    <!--控件-非规划路线状态-->
+    <view id="play-control-playing" wx:if="{{!planing}}">
         <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
         <!-- 提示 -->
         <view class="tip" bindtap='popPlayIntro'></view>
@@ -38,7 +38,7 @@
                 <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
             </view>
         </view>
-        <view class="changeLine f-c-fs" bindtap='chgLine' >
+        <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
             <text class="fontWhite changeLineText font font26">修改路线</text>
             <text class="fontWhite changeLineMoney font font26">$100</text>
         </view>
@@ -48,7 +48,7 @@
             <!-- 三个按钮 -->
             <view class="btnBox f-r-sa">
                 <view class="travelTips font fontWhite font28" catchtap="toPr">旅行攻略</view>
-                <view class="travelStart font fontWhite  font32" wx:if="{{!hasPath}}">规划路线</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" catchtap="chgLine">规划路线</view>
                 <view class="travelStart font fontWhite  font32" wx:else>正在游玩</view>
                 <view class="tarvelProps font fontWhite font28" catchtap="toProps">旅行道具</view>
             </view>
@@ -80,5 +80,5 @@
         <pop-mission-info wx:if="{{showMissionInfo}}" bind:hide="hidePop"></pop-mission-info>
     </view>
 </view>
-<guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
+<guide wx:if="{{!hasPlay}}" bindplayed='finishGuide'></guide>
 

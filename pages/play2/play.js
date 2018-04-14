@@ -22,7 +22,9 @@ Page({
         dasheLines: [], //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         solidLines: [], //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         roles: [], //行人[{x,y, img, rotation, walk:Boolean}]
+        planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
+        spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: '', // 事件气泡图标
         unreadEventCnt: 0, //未读事件数
         showPlayIntro: false, //是否显示玩法提示pop
@@ -104,18 +106,37 @@ Page({
 
     //更新景点状态列表
     updateSpots(spots) {
+
         if (this.data.spots.length) {
-            //如果已经有spots数据，则只更新 新spot里带来的tracked和arriveStamp字段，保留旧Spot里的x,y等信息
             let olds = this.data.spots;
             olds.sort((a,b) => a.id - b.id);
             spots.sort((a,b) => a.id - b.id);
-            for (let i = 0; i < olds.length; i++) {
-                let o = olds[i];
-                let n = spots[i];
-                o.tracked = n.tracked;
-                o.arriveStamp = n.arriveStamp;
+
+            //check if all same
+            let allSame = true;
+
+            for (let i = 0; i < spots.length; i++) {
+                if (i < olds.length) {
+                    let o = olds[i];
+                    let n = spots[i];
+                    let tracked = n.tracked;
+                    let arriveStamp = n.arriveStamp;
+
+                    allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
+                    //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
+                    Object.assign(n, o, {tracked, arriveStamp})
+                }
+                else {
+                    //新的景点列表，数量比 旧的多，理论上不会出现这种情况
+                    allSame = false;
+                    break;
+                }
             }
-            spots = olds;
+
+            if (allSame) {
+                //全部一样的话，不必更新渲染
+                return;
+            }
         }
         this.data.spots = spots;
         let planedSpots = spots.filter(o => {
@@ -169,6 +190,7 @@ Page({
     chgLine() {
         this.setData({
             started: false,//设为非游玩状态
+            planing: true, //设为编辑路线状态
             planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
         })
     },
@@ -189,6 +211,7 @@ Page({
         else {
             //规划路线
             if (this.data.planedSpots.indexOf(spot) == -1) {
+                spot.index = this.data.planedSpots.length;
                 this.data.planedSpots.push(spot);
                 //render
                 this.updateLines();
@@ -204,11 +227,11 @@ Page({
     sendPath() {
         let req = new SetRouter();
         req.cid = this.data.cid;
-        req.line = this.data.planedSpots;
+        req.line = this.data.planedSpots.map(s => s.id);
 
         req.fetch().then(()=> {
             app.globalData.gold = req.goldNum;
-            this.data.spots = req.spots;
+            this.updateSpots(req.spots);
         })
     },
 
@@ -262,5 +285,12 @@ Page({
         })
     },
 
+    //标记完成新手引导
+    finishGuide() {
+        let req = new FinishGuide();
+        req.fetch().then(()=> {
+            this.setData({hasPlay: true});
+        })
 
+    },
 })
