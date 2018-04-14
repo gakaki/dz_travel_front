@@ -1,4 +1,4 @@
-// pages/xiangce/xiangce.js
+  // pages/xiangce/xiangce.js
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 import { CityPostcards } from '../../api.js';
@@ -83,6 +83,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this,1)
+    return shareToIndex(this)
   }
 })
