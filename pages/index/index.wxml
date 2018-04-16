@@ -40,16 +40,16 @@
         <text class="font">{{playerCnt}}</text>
       </view>
     </view>
-    <view class="choose">
-      <view class="city-travel btn font" bindtap='toPlay'>
-        城市游玩
-      </view>
-      <view class="fly btn font" bindtap='toFly'>
-        起飞旅行
-      </view>
-    </view>
     <view class="message" bindtap='toMessage' wx:if="{{messages}}">
       <text class="font">{{messages}}</text>
+    </view>
+  </view>
+  <view class="choose">
+    <view class="city-travel btn font" bindtap='toPlay'>
+      城市游玩
+    </view>
+    <view class="fly btn font" bindtap='toFly'>
+      起飞旅行
     </view>
   </view>
   <view class="cut-off"></view>
