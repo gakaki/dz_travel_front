@@ -108,7 +108,7 @@ Page({
       // console.log(i, 'testI', sheet.Find.Get(i + 1) , page ,'page')
       let item = sheet.Find.Get(i + 1);
       if (item && item.province != item.city) {
-        console.log(item, true, i)
+        // console.log(item, true, i)
         let obj = {}
         obj.init = item.pword;
         obj.name = item.province;
