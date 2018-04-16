@@ -15,6 +15,7 @@ let pointIds = [] //景点id
 let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
 let startTime = 0
+let city = ''
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -171,8 +172,9 @@ Page({
 
     })
     cid = options.cid
+    city = sheet.City.Get(options.cid).city
     wx.setNavigationBarTitle({
-      title: sheet.City.Get(options.cid).city + '游玩'
+      title: city + '游玩'
     })
     // this.scaleXy(2)
   },
@@ -689,7 +691,7 @@ Page({
 
   toPr() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?cid=' + cid
+      url: '../pointRaiders/pointRaiders?cid=' + cid + '&city=' + city
     })
   },
   toProps() {

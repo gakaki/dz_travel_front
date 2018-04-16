@@ -5,8 +5,6 @@ const APPNAME = 'travel';
 // const wss = "wss://tt.ddz2018.com/travel";
 const srv = "https://local.ddz2018.com/";
 const wss = "wss://local.ddz2018.com/travel";
-// const srv = "10.1.70.189/";
-// const wss = "10.1.70.189/travel";
 
 
 const showErr = msg => {
