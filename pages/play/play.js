@@ -14,6 +14,7 @@ let scale = false
 let pointIds = [] //景点id
 let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
+let startTime = 0
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -364,6 +365,14 @@ Page({
 
   },
   startplay(chg) {
+    if (pointIds.length == 0) {
+      wx.showToast({
+        title: '请先规划路线',
+        icon: 'none',
+        mask: true
+      })
+      return
+    }
     if (this.data.isStart && !this.data.isChg) return
     this.setData({
       showWalk: false
@@ -377,7 +386,8 @@ Page({
     req.cid = cid
     req.line = pointIds
     req.fetch().then(req => {
-
+     // startTime = req.spots[0].startime
+      req.spots.splice(0, 1)
       this.setData({
         spots: req.spots,
         isChg: false,
@@ -407,13 +417,13 @@ Page({
       })
       linePointArr = spots.slice(-this.data.dashedLine.length)//选中的点
 
-      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: linePointArr[i].createDate - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: Base.servertime-3000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].createDate }
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
       }
-      // pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: -1, time: linePointArr[i].createDate - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      // pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: -1, time: linePointArr[i].arriveStamp - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       // for (let i = 0; i < this.data.dashedLine.length; i++) {
-      //   pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i , jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].createDate }
+      //   pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i , jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
       // }
       this.setData({
         walkPoint: []
@@ -472,7 +482,7 @@ Page({
 
 
     let curDian = this.data.spots.find(o => {
-      return o.createDate > Base.servertime
+      return o.arriveStamp > Base.servertime
     })
     if (curDian) {
       let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
@@ -570,7 +580,7 @@ Page({
       return v.id == dSet.id
     })
     //   let curDian = spots.find(o => {
-    //     return o.createDate > Base.servertime
+    //     return o.arriveStamp > Base.servertime
     //   })
     //   let aa = spots.find(o => {
     //     return o.id == dSet.id
@@ -625,7 +635,7 @@ Page({
       ty: lastPoint.y,
       jiaodu: jiaodu,
       wid: wid,
-      time: arrs[0].createDate,
+      time: arrs[0].arriveStamp,
       style: 'position:absolute;top:' + lastPoint.y + 'rpx;' + 'left: ' + lastPoint.x + 'rpx;width:' + wid + 'rpx;transform: rotate(' + jiaodu + 'deg);'
     }
 
