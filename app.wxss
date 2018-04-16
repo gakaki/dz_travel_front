@@ -8,70 +8,83 @@
   bottom: 0;
   right: 0;
   z-index: 999;
-  overflow: hidden
+  overflow: hidden;
 }
+
 .bs {
-  box-shadow: 0 3rpx 6rpx 2rpx rgba(0,0,0,.1)
+  box-shadow: 0 3rpx 6rpx 2rpx rgba(0, 0, 0, 0.1);
 }
+
 .con {
   width: 100vw;
   height: 100vh;
   background-color: #f5f4f9;
   overflow: hidden;
 }
+
 .w-line {
   width: 100%;
   height: 8rpx;
   background-color: #e9e8ec;
 }
+
 .t-line {
-   width: 710rpx;
+  width: 710rpx;
   height: 2rpx;
   background-color: #e9e8ec;
 }
+
 .fs {
   align-self: flex-start;
 }
+
 .asc {
-  align-self: center
+  align-self: center;
 }
+
 .flex {
   display: flex;
   display: -webkit-flex;
   justify-content: center;
   align-items: center;
-} 
+}
+
 .f-c {
-   display: flex;
-   flex-direction: column;
+  display: flex;
+  flex-direction: column;
   display: -webkit-flex;
   justify-content: center;
   align-items: center;
 }
+
 .f-r-sb {
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .f-r-sa {
   display: flex;
   display: -webkit-flex;
   justify-content: space-around;
   align-items: center;
-}  
+}
+
 .f-r-fs {
   display: flex;
   display: -webkit-flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 .f-r-fe {
   display: flex;
   display: -webkit-flex;
   justify-content: flex-end;
   align-items: center;
 }
+
 .f-c-fs {
   display: flex;
   flex-direction: column;
@@ -79,43 +92,51 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .f-c-sb {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
+
 .f-c-sa {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
+
 .patl {
   position: absolute;
   left: 0;
   top: 0;
 }
+
 .patr {
   position: absolute;
   right: 0;
   top: 0;
 }
+
 .pabl {
   position: absolute;
   left: 0;
   bottom: 0;
 }
+
 .pabr {
   position: absolute;
   right: 0;
   bottom: 0;
 }
-.font{
+
+.font {
   font-family: 'Microsoft YaHei';
   font-weight: bold;
   color: #000;
 }
+
 .jiexian {
   width: 100%;
   height: 9rpx;
@@ -132,6 +153,7 @@
   bottom: 0;
   left: 0;
 }
+
 .btn-big-blue {
   margin: 0 auto;
   color: #fff;
@@ -140,30 +162,33 @@
   background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat;
   background-size: cover;
   letter-spacing: 3rpx;
-  text-align: center; 
-  font:  32rpx/90rpx  'Microsoft YaHei';
+  text-align: center;
+  font: 32rpx/90rpx 'Microsoft YaHei';
 }
 
 .ellipsis {
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 /* 颜色  */
-.color_background_gray{
-  
-} 
+
+.color_background_gray {
+}
+
 .color_gray_more {
   color: #959595;
 }
+
 .tocenter {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
-.mask{
+
+.mask {
   position: fixed;
   top: 0;
   left: 0;

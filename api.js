@@ -1256,14 +1256,10 @@ class FinishGuide extends Base {
         super();
         this.action = 'tour.finishguide';
     
-        this._play = null;
-        this.requireFileds = ["play"];
-        this.reqFields = ["play"];
+        this.requireFileds = [];
+        this.reqFields = [];
         this.resFields = [];
     }
-    //client input, require, type: boolean
-    get play() {return this._play}
-    set play(v) {this._play = v}
 }
 class TourIndexInfo extends Base {
     constructor() {
@@ -1274,10 +1270,11 @@ class TourIndexInfo extends Base {
         this._weather = null;
         this._spots = null;
         this._task = null;
+        this._startPos = null;
         this._others = null;
         this.requireFileds = ["cid"];
         this.reqFields = ["cid"];
-        this.resFields = ["weather","spots","task","others"];
+        this.resFields = ["weather","spots","task","startPos","others"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1291,6 +1288,9 @@ class TourIndexInfo extends Base {
     //server output, type: TourTask
     get task() {return this._task}
     set task(v) {this._task = v}
+    //server output, type: object//
+    get startPos() {return this._startPos}
+    set startPos(v) {this._startPos = v}
     //server output, type: string[]
     get others() {return this._others}
     set others(v) {this._others = v}
@@ -1551,10 +1551,11 @@ class SetRouter extends Base {
         this._cid = null;
         this._line = null;
         this._spots = null;
+        this._startTime = null;
         this._goldNum = null;
         this.requireFileds = ["cid","line"];
         this.reqFields = ["cid","line"];
-        this.resFields = ["spots","goldNum"];
+        this.resFields = ["spots","startTime","goldNum"];
     }
     //client input, require, type: string
     get cid() {return this._cid}
@@ -1562,9 +1563,12 @@ class SetRouter extends Base {
     //client input, require, type: array//景点id数组,每次传的都市完整的路线（包含已走过的）
     get line() {return this._line}
     set line(v) {this._line = v}
-    //server output, type: RouterSpot[]
+    //server output, type: RouterSpot[]//不包括起点
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
+    //server output, type: 
+    get startTime() {return this._startTime}
+    set startTime(v) {this._startTime = v}
     //server output, type: number
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}

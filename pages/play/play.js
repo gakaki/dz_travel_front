@@ -134,6 +134,7 @@ Page({
       this.setData({
         weather: sheet.Weather.Get(req.weather).icon,
         licheng: app.globalData.userInfo.mileage,
+        // licheng: 0,
         season: app.globalData.season,
         spots: req.spots,
         startPoint: req.startPos
