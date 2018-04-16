@@ -1,8 +1,20 @@
 /* pages/play2/play.wxss */
-.play-dash-line, .play-solid-line {
+#play-page{
+    position: relative;
+}
+#play-map {
+    width: 100vw;
+    height: 100vh;
+}
+
+.play-line {
     height: 0;
-    border: 6rpx solid #333333;
-    border-width: 0 0 6rpx 0;
+    border: 8rpx solid #666;
+    border-width: 0 0 8rpx 0;
+}
+
+.dashed-line {
+    border-style: dashed;
 }
 
 .play-role {
@@ -21,4 +33,239 @@
 }
 .walk {
     animation: role-clip 0.6s steps(6) infinite;
+}
+
+weather.sights {
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+}
+
+.play-start-img {
+    width: 80rpx;
+    height: 93rpx;
+}
+
+.fontWhite {
+    font: normal 30rpx 'Microsoft YaHei';
+    color: #fff;
+}
+.zi {
+    font: normal 26rpx 'Microsoft YaHei';
+    color: #fff;
+}
+.font34 {
+    font-size: 34rpx;
+    line-height: 34rpx;
+    text-align: center;
+}
+
+.font32 {
+    font-size: 32rpx;
+    line-height: 32rpx;
+    text-align: center;
+}
+
+.font30 {
+    font-size: 30rpx;
+    line-height: 30rpx;
+    text-align: center;
+}
+
+.font28 {
+    text-align: center;
+    font-size: 28rpx;
+    line-height: 28rpx;
+}
+
+.font26 {
+    text-align: center;
+    font-size: 26rpx;
+    font-weight: 400;
+    line-height: 26rpx;
+}
+.play-spots {
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.play-spot-txt {
+    display: block;
+    font-size: 20rpx;
+    font-weight: bold;
+}
+#play-pops, #play-pop-bg, .controll-layer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
+
+#play-pop-bg {
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+}
+
+.zoomBtn {
+    width: 270rpx;
+    position: fixed;
+    left: 50%;
+    bottom: 240rpx;
+    transform: translate(-50%,0);
+}
+
+.zoomBtn .add {
+    width: 105rpx;
+    height: 70rpx;
+    background: url("https://gengxin.odao.com/update/h5/travel/play/add.png") 0 0 no-repeat;
+    background-size: cover;
+}
+
+.zoomBtn .minus {
+    width: 105rpx;
+    height: 70rpx;
+    background: url("https://gengxin.odao.com/update/h5/travel/play/minus.png") 0 0 no-repeat;
+    background-size: cover;
+}
+
+.weather {
+    width: 46rpx;
+    height: 46rpx;
+    border: solid 3rpx #fff;
+    position: fixed;
+    right: 110rpx;
+    top: 22rpx;
+    border-radius: 3px;
+}
+
+.tip {
+    background: url("https://gengxin.odao.com/update/h5/travel/play/tip.png") 0 0 no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 20rpx;
+    right: 20rpx;
+    height: 54rpx;
+    width: 54rpx;
+}
+
+.mission {
+    background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
+    background-size: cover;
+    position: fixed;
+    bottom: 500rpx;
+    right: 0;
+    height: 124rpx;
+    width: 169rpx;
+}
+
+.missionText {
+    right: 34rpx;
+    position: absolute;
+    top: 28rpx;
+}
+
+.progressBox {
+    width: 108rpx;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 20rpx;
+    border-radius: 30rpx;
+    position: absolute;
+    top: 60rpx;
+    right: 10rpx;
+}
+
+.progressBar {
+    height: 16rpx;
+    background-color: #dbff13;
+    border-radius: 30rpx;
+    position: absolute;
+    top: 1rpx;
+    left: 1rpx;
+}
+
+.changeLine {
+    background: url("https://gengxin.odao.com/update/h5/travel/play/changeLine.png") 0 0 no-repeat;
+    background-size: cover;
+    position: fixed;
+    bottom: 390rpx;
+    right: 0;
+    height: 124rpx;
+    width: 169rpx;
+}
+
+.changeLineText {
+    right: 10rpx;
+    position: absolute;
+    top: 26rpx;
+}
+
+.changeLineMoney {
+    position: absolute;
+    top: 27px;
+    right: 18px;
+}
+
+/* 旅行按钮样式 */
+
+.btnBoxWrap {
+    width: 100%;
+    position: fixed;
+    bottom: 0rpx;
+}
+
+.travelTips {
+    position: fixed;
+    bottom: 36rpx;
+    left: 36rpx;
+    width: 168rpx;
+    height: 105rpx;
+    background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
+    background-size: cover;
+
+    font-size: 24rpx;
+    line-height: 74rpx;
+    margin-top: 25rpx;
+}
+.travelStart,.start-icon {
+    position: fixed;
+    bottom: 30rpx;
+    left: 50%;
+    right:0;
+    transform: translateX(-50%);
+    width: 268rpx;
+    height: 115rpx;
+    font-size: 28rpx;
+}
+.travelStart {
+    background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
+    background-size: cover;
+    margin-top: 20rpx;
+    line-height: 88rpx;
+}
+.start-icon {
+    background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
+    background-size: cover;
+    line-height: 85rpx
+}
+
+.tarvelProps {
+    position: fixed;
+    bottom: 36rpx;
+    right: 36rpx;
+    width: 168rpx;
+    height: 105rpx;
+    background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
+    background-size: cover;
+    font-size: 24rpx;
+    line-height: 74rpx;
+    margin-top: 25rpx;
+
+}
+
+.warningBox {
+    width: 532rpx;
+    height: 28rpx;
+    background: url("https://gengxin.odao.com/update/h5/travel/play/warningText.png") 0 0 no-repeat;
+    background-size: cover;
+    margin-bottom: 5rpx;
 }

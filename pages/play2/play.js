@@ -1,8 +1,50 @@
 // pages/play2/play.js
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
+import {City, Weather} from '../../sheets.js';
+import { TourIndexInfo, Base, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
+const scaleMax = 2;
+let tapStamp;
+const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
+const startImg = `${resRoot}start.png`;
 const app = getApp();
+const selfInfo = app.globalData.userInfo;
+const GENDER_MALE = 1;
+
+const spotSize = {
+    '1a': {wd: 123, ht: 98},
+    '2a': {wd: 105, ht: 60},
+    '3a': {wd: 117, ht: 77},
+    '4a': {wd: 78, ht: 106},
+    '5a': {wd: 92, ht: 115},
+    '6a': {wd: 90, ht: 97},
+    '7a': {wd: 91, ht: 132},
+    '8a': {wd: 90, ht: 110},
+    '9a': {wd: 92, ht: 85},
+    '10a': {wd: 96, ht: 126},
+    '11a': {wd: 91, ht: 90},
+    '12a': {wd: 106, ht: 106},
+    '13a': {wd: 105, ht: 111},
+    '14a': {wd: 93, ht: 172},
+    '15a': {wd: 105, ht: 108},
+    '16a': {wd: 81, ht: 126},
+    '17a': {wd: 105, ht: 161},
+    '18a': {wd: 104, ht: 108},
+    '19a': {wd: 99, ht: 95},
+    '20a': {wd: 104, ht: 100},
+    '21a': {wd: 52, ht: 143},
+    '22a': {wd: 92, ht: 139},
+    '23a': {wd: 91, ht: 127},
+    '24a': {wd: 104, ht: 80},
+    '25a': {wd: 108, ht: 124},
+    '26a': {wd: 39, ht: 142},
+    '27a': {wd: 72, ht: 136},
+    '28a': {wd: 104, ht: 63},
+    '29a': {wd: 76, ht: 109},
+    '30a': {wd: 91, ht: 130},
+    '31a': {wd: 104, ht: 96},
+    '32a': {wd: 104, ht: 148},
+}
 Page({
 
     /**
@@ -11,8 +53,11 @@ Page({
     data: {
         hasPlay: true,//是否玩过，玩过的不显示新手引导
         scale: 1, // 当前缩放倍率
+        double: false,//是否放大了
         cid: 0, //城市id
         mapBg: '', //背景图url
+        mapWidth: 750,
+        mapHeight: 1340,
         season: '', //季节
         weather: '',//天气图标
         licheng: 0, //里程,
@@ -21,12 +66,15 @@ Page({
         planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
         dasheLines: [], //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         solidLines: [], //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-        roles: [], //行人[{x,y, img, rotation, walk:Boolean}]
+        lines: [],//实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
+        roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
+        roleFriend :null,//组队好友{x,y, img, rotation, walk:Boolean}
         planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
         spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: '', // 事件气泡图标
         unreadEventCnt: 0, //未读事件数
+        showPop: false,//是否显示弹出
         showPlayIntro: false, //是否显示玩法提示pop
         showEventNormal: false, //是否显示普通事件pop
         showEventQuest: false, //是否显示问题事件pop
@@ -46,6 +94,7 @@ Page({
         });
 
         this.data.cid = options.cid;
+        let city = City.Get(options.cid);
 
         //拉取初始信息、景点列表、路线状态等
         let req = new TourIndexInfo();
@@ -53,16 +102,23 @@ Page({
 
         req.fetch().then(()=> {
 
+            let startPoint = Object.assign({index: -1, img: startImg, arriveStamp: req.startTime}, req.startPos);
+            //小人儿
+            let roleBg = resRoot + selfInfo.gender == GENDER_MALE ? 'nan.png' : 'nv.png';
+            let roleMe = {x: startPoint.x, y: startPoint.y, img: roleBg, walk: false};
+
             this.setData({
-                weatherImg: sheet.Weather.Get(req.weather).icon,
+                weatherImg: Weather.Get(req.weather).icon,
                 licheng: app.globalData.userInfo.mileage,
                 season: app.globalData.season,
-                startPoint: req.startPos,
+                startPoint,
+                roleMe,
+                mapBg: `${resRoot}bg/${city.picture}-1.jpg`
             });
 
             this.updateSpots(req.spots);
 
-        })
+        });
 
     },
 
@@ -138,10 +194,24 @@ Page({
                 return;
             }
         }
+        else {
+            //第一次设置spots
+            spots.forEach(s => {
+                let building = s.building;
+                s.img1 = `${resRoot}build/${building[0]}.png`;
+                s.img2 = `${resRoot}build/${building[1]}.png`;
+                let size = spotSize[building[0]];
+                if (size) {
+                    s.wd = size.wd;
+                    s.ht = size.ht;
+                }
+            })
+        }
         this.data.spots = spots;
         let planedSpots = spots.filter(o => {
             return o.index > -1;
-        });
+        }).sort((a,b) => {return a.index - b.index});
+
         this.data.planedSpots = planedSpots;
         let started = planedSpots.length > 0;
         this.setData({
@@ -158,9 +228,16 @@ Page({
         if (!this.data.planedSpots.length) {
             return;
         }
-        let spots = this.data.planedSpots.concat().sort((a,b) => {return a.index - b.index});
-        let dashes = [];
-        let solids = [];
+        let spots = this.data.planedSpots.concat();
+
+        let startPoint = this.data.startPoint;
+        spots.unshift(startPoint);//将起点加入
+
+        let lines = [];
+        let roleTrackedSpot = spots[0];
+        let roleTrackingSpot = spots[1];
+        let roleTrackingLineLength = 0;
+        let roleTrackingAngle = 0;
 
         let len = spots.length - 1;
         for (let i = 0; i < len; i++) {
@@ -170,21 +247,35 @@ Page({
             let dy = nxt.y - cur.y;
             let dx = nxt.x - cur.x;
             let wd = wd = Math.hypot(dy, dx);
-            let rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+            let angle = Math.atan2(dy, dx);
+            let rotation = angle * 180 / Math.PI;
             let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation};
 
-            nxt.tracked ? solids.push(p) : dashes.push(p);
+            if (cur.tracked) {
+                roleTrackedSpot = cur;
+                roleTrackingSpot = nxt;
+                roleTrackingLineLength = wd;
+                roleTrackingAngle = angle;
+            }
+
+            lines.push(p);
 
         }
+            
+        //update role pos
+        let now = Base.servertime;
+        let dtBefore = now - roleTrackedSpot.arriveStamp;
+        let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
+        let distBefore = roleTrackingLineLength * dtBefore / dtAll;
+        let roleMe = this.data.roleMe;
+        roleMe.x = Math.cos(angle) * distBefore + roleTrackedSpot.x;
+        roleMe.y = Math.sin(angle) * distBefore + roleTrackedSpot.y;
+        const halfPI = Math.PI / 2;
+        roleMe.scale = angle > -halfPI && angle <= halfPI ? 1 : -1;
 
-        this.setData({solidLines: solids, dashLines: dashes});
+        this.setData({ lines, roleMe });
+
     },
-
-    createRoles() {
-
-    },
-
-    updateRoles() {},
 
     //修改路线
     chgLine() {
@@ -197,7 +288,7 @@ Page({
 
     //点击景点
     tapSpot(e) {
-        let sid = e.target.dataset.sid;
+        let sid = e.currentTarget.dataset.sid;
         let spot = this.data.spots.find(s => s.id == sid);
         console.log('click spot', spot)
 
@@ -208,7 +299,7 @@ Page({
                 this.toTour(sid);
             }
         }
-        else {
+        else if (this.data.planing){
             //规划路线
             if (this.data.planedSpots.indexOf(spot) == -1) {
                 spot.index = this.data.planedSpots.length;
@@ -218,13 +309,41 @@ Page({
             }
             else {
                 //已经在路线中了
-                wx.showToast({title: '此景点已经在路线当中了！'});
+                wx.showToast({title: '此景点已选过！'});
             }
         }
     },
 
+    touchMap() {
+        // check if triggered double tap
+        let now = Date.now();
+        if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
+            this.doubleTap();
+        }
+        tapStamp = now;
+    },
+    doubleTap() {
+        let double = !this.data.double;
+        let scale = double ? scaleMax : 1;
+        this.setData({ double, scale });
+    },
+    zoomplus() {
+        this.setData({
+            double: true,
+            scale: scaleMax
+        })
+    },
+    zoomminus(){
+        this.setData({
+            double: false,
+            scale: 1
+        })
+    },
+
     //提交路径到服务器
     sendPath() {
+        this.setData({planing: false});
+
         let req = new SetRouter();
         req.cid = this.data.cid;
         req.line = this.data.planedSpots.map(s => s.id);
@@ -232,6 +351,7 @@ Page({
         req.fetch().then(()=> {
             app.globalData.gold = req.goldNum;
             this.updateSpots(req.spots);
+            this.updateRoles();
         })
     },
 
