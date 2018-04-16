@@ -273,7 +273,7 @@ Page({
         let userInfo = app.globalData.userInfo;
         if (res.nickName && res.avatarUrl && !partnerEnter) {
           partnerEnter = true
-          partnerCid = res.parLocation ? res.parLocation : 10000;
+          partnerCid = res.parLocation ? res.parLocation : initCity;
           console.log(partnerCid, locationCid, res.parLocation, '小伙伴cid，自己cid，返回小伙伴cid')
           this.setData({
             isWaiting: false,
