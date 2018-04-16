@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/cityRaiders/cityRaiders",
-    "pages/goSight/goSight",
     "pages/play/play",
+    "pages/goSight/goSight",
+    "pages/cityRaiders/cityRaiders",
     "pages/pointRaiders/pointRaiders",
     "pages/settings/settings",
     "pages/rank/rank",

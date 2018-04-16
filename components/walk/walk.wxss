@@ -4,7 +4,10 @@
   height: 81rpx;
   overflow: hidden;
   position: absolute;
+  top: 0;
+  left: 38rpx;
 }
+
 .walk-icon {
   width: 228rpx;
   height: 81rpx;
@@ -12,10 +15,20 @@
   top: 0;
   left: 0;
 }
+
 .pop {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -19rpx;
+  left: 0rpx;
   width: 38rpx;
   height: 38rpx;
+}
+
+.walk-box {
+  z-index: 102;
+  width: 76rpx;
+  height: 81rpx;
+  position: absolute;
+  /* top: 0;
+  left: 0; */
 }

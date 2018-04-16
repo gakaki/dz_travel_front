@@ -143,8 +143,9 @@
 }
 
 .choose {
-  position: relative;
-  top: -90rpx;
+  position: absolute;
+  bottom: 44rpx;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;

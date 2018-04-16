@@ -13,7 +13,7 @@
       <text class='font'>国际城市</text>
     </view>
   </view>
-  <scroll-view scroll-y class="choose-city">
+  <scroll-view scroll-y class="choose-city" bindscrolltolower="getProvince" lower-threshold="150">
     <view class="zhixiashi">
       <text class="city {{'北京'==isChoose ? 'city-choose' : ''}}" data-ind="北京" data-id='1' bindtap='choose'>北京</text>
       <text class="city {{'天津'==isChoose ? 'city-choose' : ''}}" data-ind="天津" data-id='2' bindtap='choose'>天津</text>
