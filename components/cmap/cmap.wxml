@@ -3,10 +3,10 @@
   <image wx:if='{{mapBg}}' src='{{mapBg}}' style='position:absolute;top:0;left:0; z-index:{{mapZ}}; height:{{ mapHeight * scale * scale}}rpx; width:{{ mapWidth * scale * scale}}rpx'></image>
   <view class='cmap-layer' style='position:absolute;box-sizing:border-box;text-align:center;transform-origin: 0 0;width:{{innerWd * scale}}rpx; height: {{innerHt * scale}}rpx; transform: scale({{scale}}, {{scale}});' >
     <element wx:for='{{provinces}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale }}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
-      statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' status='{{item.light ? 1 : 0}}' ></element>
+      img='{{item.light ? item.img : ""}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' ></element>
 
-     <element wx:for='{{citys}}' wx:key='{{index}}' class='{{item.light ? "light" : ""}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'  img="{{item.img}}"
-      statusImgs='{{item.statusImgs}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}' status='{{item.light ? 1 : 0}}' txt="{{item.name}}"></element>
+     <element wx:for='{{citys}}' wx:key='{{index}}' class='{{item.light ? "light" : ""}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+      img='{{item.light ? item.img : ""}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}'></element>
 
   
     <!-- 航线 -->

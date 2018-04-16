@@ -66,11 +66,6 @@ Component({
       type:String,
       value: ''
     },
-      status: {
-      type: Number,
-          value: 0,//当前状态
-          observer: 'setStatus'
-      },
     txt: {
       type: String,
       value: ''
@@ -89,21 +84,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    // setStatus(idx, oldIdx) {
-    //     console.log(idx, oldIdx)
-    //   if (idx == oldIdx) {
-    //     return;
-    //   }
-    //   if (idx >= this.data.statusImgs.length) {
-    //     return;
-    //   }
-
-    //   let img = this.data.statusImgs[idx];
-    //   this.setData({
-    //     img: img,
-    //   })
-
-    // },
 
     onEleTap(e) {
       console.log(this.img, 'element tap')
@@ -144,13 +124,6 @@ Component({
   },
 
   attached() {
-    // if (!this.data.img && this.data.statusImgs.length) {
-    //   let img = this.data.statusImgs[0];
-    //   this.setData({
-    //     status: 0,
-    //     img: img
-    //   })
-    // }
-  },
+  }
 
 })
