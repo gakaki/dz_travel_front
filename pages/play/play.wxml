@@ -43,7 +43,7 @@
       </view>
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{(!isStart && !lineDown && playing) || isChg}}">
-      <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{lineDown?'规划路线': (playing?'修改路线':'规划路线')}}</text>
+      <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
       <text class="fontWhite changeLineMoney font font26" hidden="{{!lineDown}}">$100</text>
     </view>
     <!-- 缩放按钮  -->
@@ -57,7 +57,7 @@
       <!-- 三个按钮 -->
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{isStart}}">开始游玩 </view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{isStart || !isChg}}">开始游玩 </view>
       <view class="start-icon font fontWhite  font32 " hidden="{{!isStart}}">{{lineDown?'游玩结束':'游玩中'}}</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->

@@ -22,7 +22,7 @@ Component({
     },
     evt: {
       type:Boolean,
-      value: false
+      value: true
     }
   },
   data: {
@@ -177,7 +177,8 @@ Component({
           animationData: animation.export()
         })
         setTimeout(()=>{
-          animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
+          // animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
+          animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 38 + 'rpx').step({
             duration: obj.time - 40,
             timingFunction: 'linear'
           })
