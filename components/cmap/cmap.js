@@ -55,7 +55,7 @@ const provinces = [
   { name: '台湾', img: 'taiwan', x: 614, y: 454, imgWd: 24, imgHt: 57, txtX: 6, txtY: 16 },
   { name: '海南', img: 'hainan', x: 444, y: 554, imgWd: 37, imgHt: 33, txtX: 6, txtY: 10 }
 ].map(o => {
-  o.img ? mapAssetsRoot + o + '.png' : ''
+  o.img = mapAssetsRoot + o.img + '.png'
   return o;
 });
 
@@ -148,6 +148,10 @@ Component({
       type: Object,
       value: [],
       observer: 'updateAirline'
+    },
+    log:{
+      type:Boolean,
+      value:false
     }
   },
 
@@ -196,18 +200,19 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
-      if (!this.data.uid)
-        return;
-      
-      return;//server not ok
-      let req = new TraveledPlaces();
-      req.playerUid = this.data.uid;
+      // if (!this.data.uid)
+      //   return;
+      // if(!this.data.log) return
+      // return;//server not ok
+      // let req = new TraveledPlaces();
+      // req.playerUid = this.data.uid;
 
-      req.fetch().then(()=> {
+      // req.fetch().then(()=> {
         provinces.every(o => {
-          o.light = req.provinces.indexOf(o.name) != -1;
+          o.light = true// req.provinces.indexOf(o.name) != -1;
           return true;
         });
+        
         let citys = xyCitys.filter(c => {
           c.light = true//req.citys.indexOf(c.name) != -1;
 
@@ -215,7 +220,7 @@ Component({
         })
 
         this.setData({ provinces, citys: citys });
-      })
+      // })
     },
 
     showLocation() {
