@@ -148,6 +148,10 @@ Component({
       type: Object,
       value: [],
       observer: 'updateAirline'
+    },
+    log:{
+      type:Boolean,
+      value:false
     }
   },
 
@@ -198,8 +202,8 @@ Component({
     updatePlayer() {
       if (!this.data.uid)
         return;
-      
-      return;//server not ok
+      if(!this.data.log) return
+      // return;//server not ok
       let req = new TraveledPlaces();
       req.playerUid = this.data.uid;
 
