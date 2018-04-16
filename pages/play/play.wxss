@@ -167,7 +167,9 @@ weather.sights {
   top: 27px;
   right: 18px;
 }
-
+.md {
+  top: 36rpx
+}
 /* 旅行按钮样式 */
 
 .btnBoxWrap {
@@ -654,6 +656,14 @@ weather.sights {
   transform: translate(-50%, 120%);
   font: bold 24rpx 'Microsoft YaHei';
   color: #000;
+}
+.icon-num {
+  position: absolute;
+  transform: translate(-50%, -200%);
+  font: bold 34rpx 'Microsoft YaHei';
+  color: #fff;
+  text-shadow:#2E8CFF 2rpx 0 0,#2E8CFF 0 2rpx 0,#2E8CFF -2rpx 0 0,#2E8CFF 0 -2rpx 0;
+  z-index: 9
 }
 .shi-line-box {
   overflow: hidden;
