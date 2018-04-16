@@ -200,27 +200,27 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
-      // if (!this.data.uid)
-      //   return;
-      // if(!this.data.log) return
-      // return;//server not ok
-      // let req = new TraveledPlaces();
-      // req.playerUid = this.data.uid;
+      if (!this.data.uid)
+        return;
+      if(!this.data.log) return
+      return;//server not ok
+      let req = new TraveledPlaces();
+      req.playerUid = this.data.uid;
 
-      // req.fetch().then(()=> {
+      req.fetch().then(()=> {
         provinces.every(o => {
-          o.light = true// req.provinces.indexOf(o.name) != -1;
+          o.light =  req.provinces.indexOf(o.name) != -1;
           return true;
         });
         
         let citys = xyCitys.filter(c => {
-          c.light = true//req.citys.indexOf(c.name) != -1;
+          c.light = req.citys.indexOf(c.name) != -1;
 
           return c.light;
         })
 
         this.setData({ provinces, citys: citys });
-      // })
+      })
     },
 
     showLocation() {

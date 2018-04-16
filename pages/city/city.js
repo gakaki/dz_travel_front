@@ -5,6 +5,7 @@ const sheet = require('../../sheets.js');
 import { TicketType } from '../../api.js';
 let cid;//选中的城市id
 let location;//用户现在所在城市
+let province = [] , pages = 1 , endPage = true;
 Page({
 
   /**
@@ -23,21 +24,27 @@ Page({
   onLoad: function (options) {
     location = options.location;
 
-    let readCity = sheet.finds.map(o=>{
-      let obj={}
-      obj.init =  new sheet.Find(o).pword;
-      obj.name = new sheet.Find(o).province;
-      obj.cities = new sheet.Find(o).city;
-      obj.cityid = new sheet.Find(o).cityid;
-      return obj;
-    })
-    //过滤掉直辖市和特别行政区
-    let province = readCity.filter((item)=>{
-      return item.name!=item.cities
-    })
-    this.setData({
-      province,
-    })
+    // let readCity = sheet.finds.map(o=>{
+    //   let obj={}
+    //   obj.init =  new sheet.Find(o).pword;
+    //   obj.name = new sheet.Find(o).province;
+    //   obj.cities = new sheet.Find(o).city;
+    //   obj.cityid = new sheet.Find(o).cityid;
+    //   return obj;
+    // })
+    // //过滤掉直辖市和特别行政区
+    // let province = readCity.filter((item)=>{
+    //   return item.name!=item.cities
+    // })
+    
+    this.pageProvince(pages,10)
+    
+  },
+
+  onUnload() {
+    province = []; 
+    pages = 1; 
+    endPage = true;
   },
 
   toStart(e) {
@@ -88,6 +95,46 @@ Page({
         url: '../start/start?cid=' + cid + '&terminal=' + terminal + '&type=' + ticket,
       })
     }
+  },
+
+  getProvince() {
+    this.pageProvince(pages,10)
+  },
+
+  pageProvince(page,limit) {
+    let start = (page-1)*limit
+    let end = page*limit
+    for (let i = start; i < end; i++) {
+      // console.log(i, 'testI', sheet.Find.Get(i + 1) , page ,'page')
+      let item = sheet.Find.Get(i + 1);
+      if (item && item.province != item.city) {
+        // console.log(item, true, i)
+        let obj = {}
+        obj.init = item.pword;
+        obj.name = item.province;
+        obj.cities = item.city;
+        obj.cityid = item.cityid;
+        province.push(obj);
+        // console.log(province,'push province')
+      }
+      else if(item == null){
+        if(endPage){
+          // console.log('setData')
+          this.setData({
+            province,
+          })
+          endPage = false
+        }
+        pages++
+        
+        return;
+      }
+    }
+    // console.log(province)
+    pages++
+    this.setData({
+      province,
+    })
   },
 
   _back() {
