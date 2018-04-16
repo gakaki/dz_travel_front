@@ -1,7 +1,8 @@
 // pages/play2/play.js
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base } from '../../api.js';
-
+import { TourIndexInfo, Season, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
+const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
+const app = getApp();
 Page({
 
     /**
@@ -9,14 +10,28 @@ Page({
      */
     data: {
         hasPlay: true,//是否玩过，玩过的不显示新手引导
+        scale: 1, // 当前缩放倍率
         cid: 0, //城市id
+        mapBg: '', //背景图url
         season: '', //季节
-        weatherImg: '',//天气图标
+        weather: '',//天气图标
         licheng: 0, //里程,
-        spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了
+        hasPath: false, //是否已经规划了路线
+        spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
+        planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
         dasheLines: [], //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         solidLines: [], //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
+        roles: [], //行人[{x,y, img, rotation, walk:Boolean}]
+        planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
+        spotsAllTraced: false, //地图上的所有景点是否都走过了
+        eventTipImg: '', // 事件气泡图标
+        unreadEventCnt: 0, //未读事件数
+        showPlayIntro: false, //是否显示玩法提示pop
+        showEventNormal: false, //是否显示普通事件pop
+        showEventQuest: false, //是否显示问题事件pop
+        showFreeRent: false, //是否显示免费租赁pop
+        showMissionInfo: false, //是否显示任务信息pop
     },
 
     /**
@@ -37,36 +52,16 @@ Page({
         req.cid = options.cid;
 
         req.fetch().then(()=> {
+
             this.setData({
                 weatherImg: sheet.Weather.Get(req.weather).icon,
                 licheng: app.globalData.userInfo.mileage,
                 season: app.globalData.season,
-                spots: req.spots,
-                startPoint: req.startPos
+                startPoint: req.startPos,
             });
-            let started = this.data.spots.some(o => {
-                return o.index > -1;
-            })
 
-            this.setData({
-                started
-            })
-            this.createLines();
+            this.updateSpots(req.spots);
 
-
-            // if (started) { //游玩过
-            //     //this.startplay()
-            //     let arrs = this.data.spots.slice()
-            //     arrs.sort((x, y) => {
-            //         return x.index - y.index
-            //     })
-            //     let count = 0
-            //     for (let i = 0; i < arrs.length; i++) {
-            //         if (arrs[i].index != -1) count++
-            //     }
-            //     arrs = arrs.slice(-count)//路线中的点
-            //     this.lineState(arrs)
-            // }
         })
 
     },
@@ -82,35 +77,21 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        Http.listen(PlayLoop, this.onPlayLoop, this, 60000);
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
     },
 
     /**
@@ -119,10 +100,65 @@ Page({
     onShareAppMessage: function () {
 
     },
+    onPlayLoop(res) {
 
-    //生成路线
-    createLines() {
-        let spots = this.data.spots.concat().sort((a,b) => {return a.index - b.index});
+    },
+
+    //更新景点状态列表
+    updateSpots(spots) {
+
+        if (this.data.spots.length) {
+            let olds = this.data.spots;
+            olds.sort((a,b) => a.id - b.id);
+            spots.sort((a,b) => a.id - b.id);
+
+            //check if all same
+            let allSame = true;
+
+            for (let i = 0; i < spots.length; i++) {
+                if (i < olds.length) {
+                    let o = olds[i];
+                    let n = spots[i];
+                    let tracked = n.tracked;
+                    let arriveStamp = n.arriveStamp;
+
+                    allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
+                    //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
+                    Object.assign(n, o, {tracked, arriveStamp})
+                }
+                else {
+                    //新的景点列表，数量比 旧的多，理论上不会出现这种情况
+                    allSame = false;
+                    break;
+                }
+            }
+
+            if (allSame) {
+                //全部一样的话，不必更新渲染
+                return;
+            }
+        }
+        this.data.spots = spots;
+        let planedSpots = spots.filter(o => {
+            return o.index > -1;
+        });
+        this.data.planedSpots = planedSpots;
+        let started = planedSpots.length > 0;
+        this.setData({
+            spots,
+            started,
+            hasPath: started
+        });
+        
+        this.updateLines();
+    },
+    
+    //更新路线
+    updateLines() {
+        if (!this.data.planedSpots.length) {
+            return;
+        }
+        let spots = this.data.planedSpots.concat().sort((a,b) => {return a.index - b.index});
         let dashes = [];
         let solids = [];
 
@@ -131,18 +167,130 @@ Page({
             let cur = spots[i];
             let nxt = spots[i+1];
 
-            if (nxt.index == -1) {
-                break;
-            }
-
             let dy = nxt.y - cur.y;
             let dx = nxt.x - cur.x;
             let wd = wd = Math.hypot(dy, dx);
             let rotation = Math.atan2(dy, dx) * 180 / Math.PI;
-            let p = {x: cur.x, y: cur.y, wd, rotation};
+            let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation};
 
             nxt.tracked ? solids.push(p) : dashes.push(p);
 
         }
-    }
+
+        this.setData({solidLines: solids, dashLines: dashes});
+    },
+
+    createRoles() {
+
+    },
+
+    updateRoles() {},
+
+    //修改路线
+    chgLine() {
+        this.setData({
+            started: false,//设为非游玩状态
+            planing: true, //设为编辑路线状态
+            planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
+        })
+    },
+
+    //点击景点
+    tapSpot(e) {
+        let sid = e.target.dataset.sid;
+        let spot = this.data.spots.find(s => s.id == sid);
+        console.log('click spot', spot)
+
+        //游玩中
+        if (this.data.started) {
+            if (spot.tracked) {
+                //已经到达了，点击后进入观光
+                this.toTour(sid);
+            }
+        }
+        else {
+            //规划路线
+            if (this.data.planedSpots.indexOf(spot) == -1) {
+                spot.index = this.data.planedSpots.length;
+                this.data.planedSpots.push(spot);
+                //render
+                this.updateLines();
+            }
+            else {
+                //已经在路线中了
+                wx.showToast({title: '此景点已经在路线当中了！'});
+            }
+        }
+    },
+
+    //提交路径到服务器
+    sendPath() {
+        let req = new SetRouter();
+        req.cid = this.data.cid;
+        req.line = this.data.planedSpots.map(s => s.id);
+
+        req.fetch().then(()=> {
+            app.globalData.gold = req.goldNum;
+            this.updateSpots(req.spots);
+        })
+    },
+
+    hidePop() {
+      this.setData({
+          showPop: false,
+          showPlayIntro: false, //是否显示玩法提示pop
+          showEventNormal: false, //是否显示普通事件pop
+          showEventQuest: false, //是否显示问题事件pop
+          showFreeRent: false, //是否显示免费租赁pop
+          showMissionInfo: false, //是否显示任务信息pop
+      });
+    },
+
+    popPlayIntro() {
+        this.setData({showPlayIntro: true});
+    },
+
+    popEventNormal() {
+        this.setData({showEventNormal: true});
+    },
+
+    popEventQuest() {
+        this.setData({showEventQuest: true});
+    },
+
+    popFreeRent() {
+        this.setData({showFreeRent: true});
+    },
+
+    popMissionInfo() {
+        this.setData({showMissionInfo: true});
+    },
+
+    //到攻略页面
+    toPr() {
+        wx.navigateTo({
+            url: '../pointRaiders/pointRaiders?cid=' + this.data.cid
+        })
+    },
+    //到道具和特产页面
+    toProps() {
+        wx.navigateTo({
+            url: '../props/props?cid=' + this.data.cid
+        })
+    },
+    //到观光页面
+    toTour(sid) {
+        wx.navigateTo({
+            url: '../goSight/goSight?pointId=' + sid
+        })
+    },
+
+    //标记完成新手引导
+    finishGuide() {
+        let req = new FinishGuide();
+        req.fetch().then(()=> {
+            this.setData({hasPlay: true});
+        })
+
+    },
 })

@@ -158,22 +158,9 @@
   color: #8d8d8d;
 }
 
-.gold{
-  height: 30rpx;
-  border: 2rpx solid #fc6161;
-  border-radius: 20rpx;
-  margin-top: 2rpx;
-}
-
-.gold-icon{
-  width: 25rpx;
-  height: 25rpx;
-  margin:0 4rpx 0 2rpx;
-}
-
 .gold text{
   font: 22rpx 'Microsoft Yahei';
-  color: #fc6161;
+  color: #278cff;
   margin-right: 9rpx;
 }
 
@@ -225,22 +212,14 @@
   color: #8d8d8d;
 }
 
-.person-gold{
-  height: 36rpx;
-  border: 2rpx solid #fc1818;
-  border-radius: 20rpx;
-}
-
-.ranking-gold{
-  width: 32rpx;
-  height: 32rpx;
-  margin:0 6rpx 0 3rpx;
+.align-start{
+  align-items: flex-start;
+  margin-right: 25rpx;
 }
 
 .person-gold text{
   font: bold 28rpx 'Microsoft Yahei';
-  color: #fc6161;
-  margin-right: 10rpx;
+  color: #278cff;
 }
 
 .self-info{
@@ -370,4 +349,8 @@
 
 .flex-left{
   justify-content: flex-start;
+}
+
+.self-start{
+  align-items: flex-start;
 }

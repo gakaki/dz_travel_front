@@ -23,6 +23,9 @@ class City {
     // 坐标
     get coordinate(){ return this.cfg.coordinate; }
 
+    // 背景图片
+    get picture(){ return this.cfg.picture; }
+
 
     static Get(id){ return id in _data.city ? new City(_data.city[id]) : null; }
 }
@@ -109,9 +112,11 @@ class Parameter {
 
     static get LOCALSALE() { return 35 };
 
-    static get NEWUSERROUTE() { return 36 };
+    static get SCOREREWARD() { return 36 };
 
-    static get SCOREREWARD() { return 37 };
+    static get MAINFRIEND() { return 37 };
+
+    static get PLAYFRIEND() { return 38 };
 
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
@@ -366,6 +371,21 @@ class Newuser {
     static Get(id){ return id in _data.newuser ? new Newuser(_data.newuser[id]) : null; }
 }
 
+class Error {
+    constructor(d) {
+    this.cfg = d;
+    }
+
+    // id
+    get id(){ return this.cfg.id; }
+
+    // 内容
+    get message(){ return this.cfg.message; }
+
+
+    static Get(id){ return id in _data.error ? new Error(_data.error[id]) : null; }
+}
+
 
 exports.citys = Object.values(_data.city);
 exports.parameters = Object.values(_data.parameter);
@@ -382,6 +402,7 @@ exports.weathers = Object.values(_data.weather);
 exports.helps = Object.values(_data.help);
 exports.chatsyss = Object.values(_data.chatsys);
 exports.newusers = Object.values(_data.newuser);
+exports.errors = Object.values(_data.error);
 
 
 exports.City = City;
@@ -399,3 +420,4 @@ exports.Weather = Weather;
 exports.Help = Help;
 exports.Chatsys = Chatsys;
 exports.Newuser = Newuser;
+exports.Error = Error;

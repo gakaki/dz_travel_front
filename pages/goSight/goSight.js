@@ -2,8 +2,10 @@ const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 import { spliceStr } from '../../utils/util.js'
 import { ymd } from '../../utils/rest.js'
-import { Photograph, Season } from '../../api.js'
+import { Photograph, Season, ReqEnterspot, SpotTour } from '../../api.js'
 const sheet = require('../../sheets.js');
+let pointId = ''
+let cid = ''
 let oldStr = ''
 Page({
 
@@ -31,6 +33,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    pointId = options.pointId
+    cid = options.cid
     this.checkMore()
     //test
     let pointData = {
@@ -63,6 +67,13 @@ Page({
       ]
     }
     //test
+
+    // let req = new ReqEnterspot()
+    // req.spotId = pointId
+    // req.fetch().then(req => {
+
+    // })
+
     console.log(this.data.season)
     oldStr = pointData.spot.description
     this.setData({
@@ -71,7 +82,7 @@ Page({
       pic: pointData.spot.picture,
       spotName: pointData.spot.scenicspot,
       testStr: pointData.spot.description,
-     // evtArr: pointData.questList,
+      // evtArr: pointData.questList,
       myGold: app.globalData.gold ? app.globalData.gold : 0,
       date: ymd('cn')
     })
@@ -87,10 +98,10 @@ Page({
     })
   },
   jiangli() {
-this.setData({
-  isCongratulations: true,
-  isDialogQuestion: false
-})
+    this.setData({
+      isCongratulations: true,
+      isDialogQuestion: false
+    })
   },
   hideFirstIn() {
     let evtArr = this.data.evtArr.slice()
@@ -113,6 +124,12 @@ this.setData({
     isCongratulations: false
   },
   guanguang() {
+    let req = new SpotTour()
+    req.cid = cid
+    req.spotId = pointId
+    req.fetch().then(req => {
+    })
+
     this.setData({
       isDialogQuestion: true
     })
