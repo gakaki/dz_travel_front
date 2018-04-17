@@ -149,7 +149,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -479,12 +479,7 @@ Page({
   },
   //添加或修改路线
   xiugaiLine() {
-    if (!this.data.playing || this.data.lineDown) {
-      this.setData({
-        isChg: true
-      })
-      return
-    }
+    
     if (app.globalData.gold < 100) {
       this.setData({
         chgLine: true,
@@ -499,6 +494,12 @@ Page({
         cfmStr: '确定',
         isChg: true
       })
+      // if (!this.data.playing || this.data.lineDown) {
+      //   this.setData({
+      //     isChg: true
+      //   })
+      //   return
+      // }
     }
 
   },
@@ -529,72 +530,73 @@ Page({
       })
       pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
+      console.log(pointIds)
       // this.start()
     })
     return
 
 
-    let curDian = this.data.spots.find(o => {
-      return o.arriveStamp > Base.servertime
-    })
-    if (curDian) {
-      let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
-      dashedLines.forEach(o => {
-        pointIds.push(o.id)
-      })
-      pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
-    }
+    // let curDian = this.data.spots.find(o => {
+    //   return o.arriveStamp > Base.servertime
+    // })
+    // if (curDian) {
+    //   let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
+    //   dashedLines.forEach(o => {
+    //     pointIds.push(o.id)
+    //   })
+    //   pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
+    // }
 
 
-    let req = new SetRouter()
-    req.cid = cid
-    req.line = pointIds.slice()
-    req.fetch().then(req => {
-      dian = []
-      this.setData({
-        isChg: true,
-        chgLine: false
-      })
-      arr = []
-      let dash = this.data.dashedLine.slice()
-      this.setData({
-        spots: req.spots,
-        // showWalk: false,
-        dashedLine: []
-      })
-      let arrs = this.data.spots.slice()
-      arrs.sort((x, y) => {
-        return x.index - y.index
-      })
-      let count = 0
-      for (let i = 0; i < arrs.length; i++) {
-        if (arrs[i].index != -1) count++
-      }
-      arrs = arrs.slice(-count)//路线中的点
+    // let req = new SetRouter()
+    // req.cid = cid
+    // req.line = pointIds.slice()
+    // req.fetch().then(req => {
+    //   dian = []
+    //   this.setData({
+    //     isChg: true,
+    //     chgLine: false
+    //   })
+    //   arr = []
+    //   let dash = this.data.dashedLine.slice()
+    //   this.setData({
+    //     spots: req.spots,
+    //     // showWalk: false,
+    //     dashedLine: []
+    //   })
+    //   let arrs = this.data.spots.slice()
+    //   arrs.sort((x, y) => {
+    //     return x.index - y.index
+    //   })
+    //   let count = 0
+    //   for (let i = 0; i < arrs.length; i++) {
+    //     if (arrs[i].index != -1) count++
+    //   }
+    //   arrs = arrs.slice(-count)//路线中的点
 
 
-      if (curDian) {
-        let ab = arrs.find(o => {
-          return o.id == curDian.id
-        })
-        let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
+    //   if (curDian) {
+    //     let ab = arrs.find(o => {
+    //       return o.id == curDian.id
+    //     })
+    //     let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
 
-        // this.lineState(abc) //优化
-        //优化，改为只把没走过的虚线清掉就行了
-        this.setData({
-          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
-        })
+    //     // this.lineState(abc) //优化
+    //     //优化，改为只把没走过的虚线清掉就行了
+    //     this.setData({
+    //       dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+    //     })
 
-      }
-      else {
-        // this.lineState(arrs) //优化
+    //   }
+    //   else {
+    //     // this.lineState(arrs) //优化
 
-        //优化，改为只把没走过的虚线清掉就行了
-        this.setData({
-          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
-        })
-      }
-    })
+    //     //优化，改为只把没走过的虚线清掉就行了
+    //     this.setData({
+    //       dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+    //     })
+    //   }
+    // })
   },
   //画虚线
   drawDashedLine(e) {

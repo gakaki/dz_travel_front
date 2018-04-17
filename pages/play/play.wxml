@@ -45,7 +45,7 @@
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{(!isStart && !lineDown && playing) || isChg}}">
       <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
-      <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown && playing}}">$100</text>
+      <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown ||  !playing}}">$100</text>
     </view>
     <!-- 缩放按钮  -->
     <view class="zoomBtn f-r-sa">
