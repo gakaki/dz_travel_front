@@ -104,12 +104,12 @@ Page({
   onUnload() {
     arr = []
     dian = []
-    //  Http.unlisten(PlayLoop, this.freshspots, this)
+    Http.unlisten(PlayLoop, this.freshspots, this)
   },
   onHide: function () {
     arr = []
     dian = []
-    // Http.unlisten(PlayLoop, this.freshspots, this)
+    Http.unlisten(PlayLoop, this.freshspots, this)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -142,14 +142,14 @@ Page({
         spots: req.spots,
         startPoint: req.startPos
       })
-      startTime=req.startTime
+      startTime = req.startTime
       let playState = this.data.spots.every(o => {
         return o.index == -1
       })
 
       if (!playState) {
         //游玩状态下开启轮询
-        //  Http.listen(PlayLoop, this.freshspots, this, 60000)
+        Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -197,30 +197,53 @@ Page({
   },
   //刷新景点信息
   freshspots(res) {
-    if (res.freshSpots) {
-      let req = new FreshSpots()
-      req.fetch().then(req => {
-        this.setData({
-          spots: req.spotss
-        })
+    //点亮景点
+    let num = 0
+    this.data.spots.forEach(o => {
+      if (o.tracked) num++
+    })
+    if (res.spotsTracked > num) {
+      let spots = this.data.spots.slice()
+      for (let i = 0; i < res.spotsTracked; i++) {
+        spots[i].tracked == true
+      }
+      this.setData({
+        spots: spots
       })
-    }
-    if (req.newEvent) {
-
     }
     //更新景点状态
 
-    if (req.spotsTracked > 0) {
-      let spotss = this.data.spots.map(o => {
-        if (o.index < req.spotsTracked) {
-          o.tracked = true
-        }
-        return o
-      })
+    // if (res.spotsTracked > 0) {
+    //   let spotss = this.data.spots.map(o => {
+    //     if (o.index < req.spotsTracked) {
+    //       o.tracked = true
+    //     }
+    //     return o
+    //   })
+    //   this.setData({
+    //     spots: spotss
+    //   })
+    // }
+
+
+
+
+    //刷新景点数组
+    // if (res.freshSpots) {
+    //   let req = new FreshSpots()
+    //   req.fetch().then(req => {
+    //     this.setData({
+    //       spots: req.spotss
+    //     })
+    //   })
+    // }
+    //刷新事件
+    if (res.newEvent) {
       this.setData({
-        spots: spotss
+        event: true
       })
     }
+
   },
   showTask() {
     this.setData({
@@ -285,7 +308,7 @@ Page({
         shixianArr: obj
       })
     }
-    if (!this.data.playing) {
+    if (this.data.playing) {
       this.setData({
         showWalk: false
       })
@@ -401,8 +424,8 @@ Page({
         isStart: true,
         playing: true
       })
-      startTime=req.startTime
-        this.start() 
+      startTime = req.startTime
+      this.start()
     })
   },
   start() {
@@ -496,15 +519,15 @@ Page({
         chgLine: false
       })
       let num = 0
-      req.spots.forEach(o=>{
-        if(o.index > -1) num++
+      req.spots.forEach(o => {
+        if (o.index > -1) num++
       })
       let dashs = this.data.dashedLine.slice()
       dashs = dashs.slice(0, num)
       this.setData({
         dashedLine: dashs
       })
-      pointIds = pointIds.slice(0,num)
+      pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
       // this.start()
     })
@@ -579,10 +602,10 @@ Page({
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
-      wx.navigateTo({
-        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
-      })
-      return
+    wx.navigateTo({
+      url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
+    })
+    return
     }
     if (!this.data.isChg) {
       wx.showToast({
@@ -593,8 +616,8 @@ Page({
       return
     }
 
-   
-   
+
+
     if (this.data.isStart && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) {

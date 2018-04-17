@@ -13,10 +13,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
     events: [],
     isCongratulations: false,
     isDialogQuestion: false,
-    evtArr: [],
     spotName: '',
     pic: '',
     url: '',
@@ -25,7 +25,7 @@ Page({
     weather: 'sun',
     myGold: 0,
     testStr: '',
-    canPhoto: false,
+    goldBuzu: false,
     isGetPost: false,
     toTop: true,
     freePhoto: [],
@@ -76,32 +76,31 @@ Page({
       isDialogQuestion: false
     })
   },
-  hideFirstIn() {
-    let evtArr = this.data.evtArr.slice()
-    let arr = {
-      time: "16:00",
-      id: "110067",
-      describe: "回答了问题",
-      gold_used: 5,
-      item: {
-        100020: 5
-      }
-    }
-    evtArr.push(arr)
-    this.setData({
-      isCongratulations: false,
-      evtArr: evtArr
-    })
-  },
+
   hideCongratulations() {
     isCongratulations: false
   },
   guanguang() {
+    
+    if (this.data.freePhoto[0] == 0) {
+      this.setData({
+        goldBuzu: true
+      })
+      return
+    }
     let req = new SpotTour()
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
-
+      let freeSight = this.data.freeSight.slice()
+      let events = this.data.events
+      freeSight[0] = freeSight[0] - 1
+      events.push(req.event)
+      this.setData({
+        events: events,
+        freeSight: freeSight
+      })
+      console.log(this.data.events)
     })
 
     this.setData({
@@ -128,18 +127,24 @@ Page({
 
   },
   getPost() {
-   
+    if (this.data.freePhoto[0] == 0) {
+      this.setData({
+        goldBuzu: true
+      })
+      return
+    }
     let req = new Photography();
     req.cityId = 0;
     req.spotId = 100101
     req.fetch().then(req => {
       let freePhoto = this.data.freePhoto.slice()
-      freePhoto[0] = freePhoto[0]+1
+      freePhoto[0] = freePhoto[0] - 1
+      
       this.setData({
         isGetPost: true,
         freePhoto: freePhoto,
         //url:req.picture
-         url: "jingdian/shanxi/xian/jd/2.jpg"
+        url: "jingdian/shanxi/xian/jd/2.jpg"
       })
     })
   },
@@ -156,7 +161,7 @@ Page({
   },
   hidePop() {
     this.setData({
-      canPhoto: false
+      goldBuzu: false
     })
   },
 
