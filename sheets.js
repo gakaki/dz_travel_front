@@ -118,6 +118,8 @@ class Parameter {
 
     static get PLAYFRIEND() { return 38 };
 
+    static get SCENICSPOTAGAIN() { return 39 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
