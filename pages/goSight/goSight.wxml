@@ -30,15 +30,15 @@
   <view class="btn-box f-r-sb">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-bg lt f-c-fs" bindtap='getPost'>
-      <text class="btn-top">景点拍照</text>
+      <text class="btn-top {{freePhoto[0] == 0 ? 'one-row':''}}">景点拍照</text>
       <text class="btn-bot" wx:if="{{freePhoto[0]>0}}">免费次数{{freePhoto[0]}}/{{freePhoto[1]}}</text>
     </view>
     <view class="btn-bg rgt-btn f-c-fs" bindtap='guanguang'>
-      <text class="btn-top rgt">观光</text>
+      <text class="btn-top rgt {{freeSight[0] == 0 ? 'one-row':''}}">观光</text>
       <text class="btn-bot" wx:if="{{freeSight[0] >0}}">免费次数{{freeSight[0]}}/{{freeSight[1]}}</text>
     </view>
   </view>
-  <buy outer-class="fc" bindtoclose="hidePop" bind:confirm="toBuy" wx:if="{{goldBuzu}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
+  <buy outer-class="fc" bindtoclose="hidePop" bind:confirm="toBuy" content="{{content}}" wx:if="{{countBuzu}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></buy>
   <view class="pop-bg" wx:if="{{isGetPost}}">
     <image class="hc" src="https://gengxin.odao.com/update/h5/travel/raiders/line.png" id="line"></image>
     <view class="hc cir"></view>

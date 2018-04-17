@@ -269,6 +269,7 @@ weather.sights {
   margin: 0 auto;
   margin-top: 100rpx;
   overflow: hidden;
+  position: relative
 }
 
 .pic-box {
@@ -315,7 +316,11 @@ weather.sights {
   font-size: 28rpx;
   line-height: 74rpx;
   margin: 0 auto;
-  margin-top: 50rpx;
+  /* margin-top: 50rpx; */
+  position: absolute;
+  bottom: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
   color: #fff;
   text-align: center;
 }

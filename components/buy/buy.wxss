@@ -84,7 +84,7 @@
 }
 
 .cancel, .confirm {
-  line-height: 80rpx;
+  line-height: 74rpx;
   letter-spacing: 20rpx;
   width: 225rpx;
   height: 113rpx;

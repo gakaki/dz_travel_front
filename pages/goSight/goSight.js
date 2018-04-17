@@ -13,6 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cfmStr: '',
+    content: '',
     ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
     events: [],
     isCongratulations: false,
@@ -25,7 +27,7 @@ Page({
     weather: 'sun',
     myGold: 0,
     testStr: '',
-    goldBuzu: false,
+    countBuzu: false,
     isGetPost: false,
     toTop: true,
     freePhoto: [],
@@ -82,9 +84,11 @@ Page({
   },
   guanguang() {
     
-    if (this.data.freePhoto[0] == 0) {
+    if (this.data.freeSight[0] == 0) {
       this.setData({
-        goldBuzu: true
+        content: '本地游玩免费观光次数（' + sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value + '次)已使用完毕\n是否花费'+this.data.ggGold+'金币进行观光',
+        cfmStr: '确定',
+        countBuzu: true
       })
       return
     }
@@ -129,7 +133,9 @@ Page({
   getPost() {
     if (this.data.freePhoto[0] == 0) {
       this.setData({
-        goldBuzu: true
+        content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value+'次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
+        cfmStr: '前往旅行装备',
+        countBuzu: true
       })
       return
     }
@@ -161,7 +167,7 @@ Page({
   },
   hidePop() {
     this.setData({
-      goldBuzu: false
+      countBuzu: false
     })
   },
 
