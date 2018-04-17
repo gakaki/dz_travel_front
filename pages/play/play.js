@@ -115,6 +115,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      gender: app.globalData.userInfo.gender
+    })
 
     let m = new CheckGuide();
     m.fetch().then(res => {
@@ -483,6 +486,7 @@ Page({
     // req.cid = cid
     // req.line = pointIds
     reqs.fetch().then(req => {
+      // pointIds = []
       // startTime = req.spots[0].startime
       reqs.spots.splice(0, 1)
       this.setData({
@@ -500,6 +504,7 @@ Page({
       this.setData({
         dashedLine: dashs
       })
+      pointIds = pointIds.slice(0,num)
       app.globalData.gold = req.goldNum
       // this.start()
     })
@@ -570,15 +575,6 @@ Page({
   },
   //画虚线
   drawDashedLine(e) {
-    if (!this.data.isChg) {
-      wx.showToast({
-        title: '请先点击添加路线，才能规划路线',
-        icon: 'none',
-        mask: true
-      })
-      return
-    }
-
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
@@ -588,6 +584,17 @@ Page({
       })
       return
     }
+    if (!this.data.isChg) {
+      wx.showToast({
+        title: '请先点击添加路线，才能规划路线',
+        icon: 'none',
+        mask: true
+      })
+      return
+    }
+
+   
+   
     if (this.data.isStart && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) {

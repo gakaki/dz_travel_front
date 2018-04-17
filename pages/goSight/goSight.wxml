@@ -20,9 +20,9 @@
   <scroll-view id="sv">
     <view class="f-c-fs ">
       <text class="font chu">触发事件</text>
-      <text wx:if="{{evtArr.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
-      <text wx:if="{{evtArr.length == 0}}" class="font get ">观光一次消耗50金币</text>
-      <text class="event " wx:if="{{evtArr.length > 0}}" wx:for="{{evtArr}}" wx:key="{{index}}">{{item.time}} {{item.describe}}</text>
+      <text wx:if="{{events.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
+      <text wx:if="{{events.length == 0}}" class="font get ">观光一次消耗50金币</text>
+      <text class="event " wx:if="{{events.length > 0}}" wx:for="{{events}}" wx:key="{{index}}"> {{item}}</text>
       <view class="t-line" wx:if="{{false}}"></view>
     </view>
   </scroll-view>
@@ -31,11 +31,11 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-bg lt f-c-fs" bindtap='getPost'>
       <text class="btn-top">景点拍照</text>
-      <text class="btn-bot">免费次数0/2</text>
+      <text class="btn-bot" wx:if="{{freePhoto[0]>0}}">免费次数{{freePhoto[0]}}/{{freePhoto[1]}}</text>
     </view>
     <view class="btn-bg rgt-btn f-c-fs" bindtap='guanguang'>
       <text class="btn-top rgt">观光</text>
-      <text class="btn-bot">免费次数0/2</text>
+      <text class="btn-bot" wx:if="{{freeSight[0] >0}}">免费次数{{freeSight[0]}}/{{freeSight[1]}}</text>
     </view>
   </view>
   <buy outer-class="fc" bindtoclose="hidePop" bind:confirm="toBuy" wx:if="{{canPhoto}}" cfmStr="前往旅行装备" isBuy="{{false}}"></buy>
@@ -50,18 +50,5 @@
       <view class="btn-icon btn-big-blue" bindtap='hidePost'>确定</view>
     </view>
   </view>
-  <view class="pop-bg" wx:if="{{isCongratulations}}" catchtap="hideCongratulations">
-    <task class="play-pop play-congratulations f-c-fs">
-      <view class="imgBox" slot="imgBox">
-        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
-        <view class="ten font">1/10</view>
-      </view>
-      <view class="contentBox" slot="contentBox">
-        <text class="head-font congratulations-head-font ml14">恭喜答对</text>
-        <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
-        <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">确定</view>
-      </view>
-    </task>
-  </view>
-  <dialogQuestion wx:if="{{isDialogQuestion}}" bind:right='jiangli' catchtap="hideDialogQuestion"></dialogQuestion>
+
 </view>
