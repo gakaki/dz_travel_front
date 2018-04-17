@@ -1,4 +1,5 @@
-<view class="con ofs">
+<guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
+<view class="con ofs" wx:if="{{hasPlay}}">
   <cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
@@ -16,7 +17,7 @@
     <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
     <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-    <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?index+1:''}}</text>
+    <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
         data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
@@ -44,7 +45,7 @@
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{(!isStart && !lineDown && playing) || isChg}}">
       <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
-      <text class="fontWhite changeLineMoney font font26" hidden="{{!lineDown}}">$100</text>
+      <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown ||  !playing}}">$100</text>
     </view>
     <!-- 缩放按钮  -->
     <view class="zoomBtn f-r-sa">
@@ -147,4 +148,3 @@
     <dialogQuestion wx:if="{{isDialogQuestion}}" catchtap="hideDialogQuestion"></dialogQuestion>
   </view>
 </view>
-<guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>

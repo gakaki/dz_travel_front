@@ -38,7 +38,13 @@ Component({
   },
   ready() {
     timer = setInterval(() => {
-      let l = this.data.left - 38 == -228 ? 0 : this.data.left - 38
+      
+      // if (this.properties.sex == 1) {
+        let l = this.data.left - 38 == -228 ? 0 : this.data.left - 38
+      // }
+      // if (this.properties.sex == 0) {
+      //   let l = this.data.left - 34 == -204 ? 0 : this.data.left - 34
+      // }
       this.setData({
         left: l
       })
@@ -178,7 +184,7 @@ Component({
         })
         setTimeout(()=>{
           // animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
-          animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 38 + 'rpx').step({
+          animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
             duration: obj.time - 40,
             timingFunction: 'linear'
           })

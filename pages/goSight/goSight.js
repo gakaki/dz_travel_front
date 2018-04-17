@@ -2,7 +2,7 @@ const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 import { spliceStr } from '../../utils/util.js'
 import { ymd } from '../../utils/rest.js'
-import { Photograph, Season, ReqEnterspot, SpotTour } from '../../api.js'
+import { Photography, Season, ReqEnterspot, SpotTour } from '../../api.js'
 const sheet = require('../../sheets.js');
 let pointId = ''
 let cid = ''
@@ -13,9 +13,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
+    events: [],
     isCongratulations: false,
     isDialogQuestion: false,
-    evtArr: [],
     spotName: '',
     pic: '',
     url: '',
@@ -24,9 +25,11 @@ Page({
     weather: 'sun',
     myGold: 0,
     testStr: '',
-    canPhoto: false,
+    goldBuzu: false,
     isGetPost: false,
-    toTop: true
+    toTop: true,
+    freePhoto: [],
+    freeSight: []
   },
 
   /**
@@ -35,62 +38,32 @@ Page({
   onLoad: function (options) {
     pointId = options.pointId
     cid = options.cid
+
+    let req = new ReqEnterspot()
+    req.spotId = pointId
+    req.fetch().then(req => {
+      console.log('req', req)
+      console.log(this.data.season)
+      oldStr = req.spot.description
+      this.setData({
+        freePhoto: req.spot.freePhoto,
+        freeSight: req.spot.freeSight,
+        events: req.events,
+        season: app.globalData.season,
+        weather: sheet.Weather.Get(req.spot.weather).icon,
+        pic: req.spot.picture,
+        spotName: req.spot.scenicspot,
+        testStr: req.spot.description,
+        // evtArr: req.questList,
+        myGold: app.globalData.gold ? app.globalData.gold : 0,
+        date: ymd('cn')
+      })
+      wx.setNavigationBarTitle({
+        title: '景点观光'
+      })
+      this.spliceStr()
+    })
     this.checkMore()
-    //test
-    let pointData = {
-      spot: {
-        id: "100104",
-        scenicspot: "天坛",
-        season: "SPRING",
-        weather: 1,
-        picture: "jingdian/shanxi/xian/jd/2.jpg",
-        description: "天坛位于北京城南端，是明清两代皇帝祭祀天地之神和祈祷五谷丰收的地方。天坛包括圜丘和祈谷二坛，围墙分内外两层，呈回字形。北围墙为弧圆形，南围墙与东西墙成直角相交，为方形。"
-      },
-      questList: [{
-        time: "16:00",
-        id: "110067",
-        describe: "与好友一起逛街拍照吃小吃。",
-        gold_used: 5,
-        item: {
-          100020: 5
-        }
-      },
-      {
-        time: "17:05",
-        id: "110048",
-        describe: "风景区地势陡峭，因有好友同行，两人相互帮助攀上峰顶。",
-        gold_used: 5,
-        item: {
-          100023: 15
-        }
-      }
-      ]
-    }
-    //test
-
-    // let req = new ReqEnterspot()
-    // req.spotId = pointId
-    // req.fetch().then(req => {
-
-    // })
-
-    console.log(this.data.season)
-    oldStr = pointData.spot.description
-    this.setData({
-      season: Season[pointData.spot.season],
-      weather: sheet.Weather.Get(pointData.spot.weather).icon,
-      pic: pointData.spot.picture,
-      spotName: pointData.spot.scenicspot,
-      testStr: pointData.spot.description,
-      // evtArr: pointData.questList,
-      myGold: app.globalData.gold ? app.globalData.gold : 0,
-      date: ymd('cn')
-    })
-    wx.setNavigationBarTitle({
-      title: '景点观光'
-    })
-    console.log(123)
-    this.spliceStr()
   },
   hideDialogQuestion() {
     this.setData({
@@ -103,31 +76,31 @@ Page({
       isDialogQuestion: false
     })
   },
-  hideFirstIn() {
-    let evtArr = this.data.evtArr.slice()
-    let arr = {
-      time: "16:00",
-      id: "110067",
-      describe: "回答了问题",
-      gold_used: 5,
-      item: {
-        100020: 5
-      }
-    }
-    evtArr.push(arr)
-    this.setData({
-      isCongratulations: false,
-      evtArr: evtArr
-    })
-  },
+
   hideCongratulations() {
     isCongratulations: false
   },
   guanguang() {
+    
+    if (this.data.freePhoto[0] == 0) {
+      this.setData({
+        goldBuzu: true
+      })
+      return
+    }
     let req = new SpotTour()
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
+      let freeSight = this.data.freeSight.slice()
+      let events = this.data.events
+      freeSight[0] = freeSight[0] - 1
+      events.push(req.event)
+      this.setData({
+        events: events,
+        freeSight: freeSight
+      })
+      console.log(this.data.events)
     })
 
     this.setData({
@@ -154,17 +127,26 @@ Page({
 
   },
   getPost() {
-    console.log(333)
-    this.setData({
-      isGetPost: true,
-      url: "jingdian/shanxi/xian/jd/2.jpg"
+    if (this.data.freePhoto[0] == 0) {
+      this.setData({
+        goldBuzu: true
+      })
+      return
+    }
+    let req = new Photography();
+    req.cityId = 0;
+    req.spotId = 100101
+    req.fetch().then(req => {
+      let freePhoto = this.data.freePhoto.slice()
+      freePhoto[0] = freePhoto[0] - 1
+      
+      this.setData({
+        isGetPost: true,
+        freePhoto: freePhoto,
+        //url:req.picture
+        url: "jingdian/shanxi/xian/jd/2.jpg"
+      })
     })
-    // let req = new Photograph();
-    // req.cityId = 0;
-    // req.spotId = 100101
-    // req.fetch().then(() => {
-
-    // })
   },
   hidePost() {
     this.setData({
@@ -179,7 +161,7 @@ Page({
   },
   hidePop() {
     this.setData({
-      canPhoto: false
+      goldBuzu: false
     })
   },
 
