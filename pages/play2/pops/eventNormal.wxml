@@ -1,9 +1,8 @@
 <!--pages/play2/pops/eventNormal.wxml-->
-<view class="pop-con">
-    <view class="pic-box">
-        <image class="point-pic" src=""></image>
-        <view class="ten font">1/10</view>
-    </view>
-    <text class="evt font">途径索菲亚教堂为食鸽子，花费5金币，获得2积分</text>
-    <view class="next-evt font">下一事件</view>
+<wxs src="../../../filter/tools.wxs" module="tools"></wxs>
+<view class="pic-box">
+    <image class="point-pic" src="{{picture}}"></image>
+    <view class="ten font">{{current}}/{{total}}</view>
 </view>
+<text class="evt font">{{content}}...{{tools.rewardStr(rewards)}}</text>
+<view class="next-evt font" catch:tap="toNext">下一事件</view>

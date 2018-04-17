@@ -1,33 +1,31 @@
 <!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
-<view class="f-c-fs dialog_question" catchtap='btn_next_question_tap'>
+<wxs src="../../../filter/tools.wxs" module="tools"></wxs>
+<view class="f-c-fs dialog_question" >
 
-    <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="pic-box"></image>
-
+    <image src="{{picture}}" class="pic-box"></image>
 
     <view class="div_question">
-        以下哪个景点是图中所示哈尔滨景点名称？
+        {{content}}
     </view>
 
-    <view class="div_answers" bindtap='btn_tap_question'>
-        <view class="answer_options">中央大街</view>
-        <view class="answer_options">东方明珠</view>
-        <view class="answer_options">索菲亚教堂</view>
-        <view class="answer_options">索菲亚教堂</view>
+    <view class="div_answers" >
+        <view class="answer_options" catch:tap='choose' wx:for="{{answers}}" data-str="{{item}}">{{item}}</view>
     </view>
 
 </view>
 
 
 <!--选择之后-->
-<view>
-    <view class="imgBox" slot="imgBox">
-        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
-        <view class="ten font">1/10</view>
+<view class="dialog-result" wx:if="{{showResult}}">
+    <view class="pic-box" >
+        <image src="{{picture}}"></image>
+        <view class="ten font">{{current}}/{{total}}</view>
     </view>
-    <view class="contentBox" slot="contentBox">
-        <text class="head-font congratulations-head-font ml14">恭喜答对</text>
-        <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
-        <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
+    <view class="content-box" >
+        <text class="head-font congratulations-head-font ml14" wx:if="{{correct}}">恭喜答对</text>
+        <text class="head-font congratulations-head-font ml14" wx:else >再接再厉</text>
+        <text class="gray-font congratulations-gray-font ml18" wx:if="{{rewards}}">{{tools.rewardStr(rewards)}}</text>
+        <view class="btn-big-blue cfm-btn" catch:tap="toNext">下一事件</view>
     </view>
 </view>
