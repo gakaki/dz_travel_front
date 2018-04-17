@@ -23,7 +23,7 @@ Page({
    */
   data: {
     playing: false,//是否开始游玩
-    event: true,//是否有事件
+    event: false,//是否有事件
     lineDown: false,//规划的路线是否走完
     double: false,
     chgLine: false,
