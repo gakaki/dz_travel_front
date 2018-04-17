@@ -479,7 +479,12 @@ Page({
   },
   //添加或修改路线
   xiugaiLine() {
-    
+     if (!this.data.playing || this.data.lineDown) {
+        this.setData({
+          isChg: true
+        })
+        return
+      }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLine: true,
@@ -494,12 +499,7 @@ Page({
         cfmStr: '确定',
         isChg: true
       })
-      // if (!this.data.playing || this.data.lineDown) {
-      //   this.setData({
-      //     isChg: true
-      //   })
-      //   return
-      // }
+     
     }
 
   },
