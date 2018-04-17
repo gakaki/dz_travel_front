@@ -42,7 +42,7 @@ Page({
     isChg: false,//是否正在修改路线
     showWalk: false,
     walkPoint: [],
-    gender: 0,
+    gender: 1,
     shixianArr: [],
     shixian: null,//当前变化的实线数据
     dashedLine: [],//虚线数组
@@ -115,6 +115,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      gender: app.globalData.userInfo.gender
+    })
 
     let m = new CheckGuide();
     m.fetch().then(res => {

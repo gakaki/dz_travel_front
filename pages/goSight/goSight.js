@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    quests: [],
+    events: [],
     isCongratulations: false,
     isDialogQuestion: false,
     evtArr: [],
@@ -48,7 +48,7 @@ Page({
       this.setData({
         freePhoto: req.spot.freePhoto,
         freeSight: req.spot.freeSight,
-        quests: req.quests,
+        events: req.events,
         season: app.globalData.season,
         weather: sheet.Weather.Get(req.spot.weather).icon,
         pic: req.spot.picture,
@@ -101,7 +101,7 @@ Page({
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
-      
+
     })
 
     this.setData({

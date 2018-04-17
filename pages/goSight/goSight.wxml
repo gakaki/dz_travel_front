@@ -20,16 +20,16 @@
   <scroll-view id="sv">
     <view class="f-c-fs ">
       <text class="font chu">触发事件</text>
-      <text wx:if="{{quests.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
-      <text wx:if="{{quests.length == 0}}" class="font get ">观光一次消耗50金币</text>
-      <text class="event " wx:if="{{quests.length > 0}}" wx:for="{{quests}}" wx:key="{{index}}"> {{item}}</text>
+      <text wx:if="{{events.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
+      <text wx:if="{{events.length == 0}}" class="font get ">观光一次消耗50金币</text>
+      <text class="event " wx:if="{{events.length > 0}}" wx:for="{{events}}" wx:key="{{index}}"> {{item}}</text>
       <view class="t-line" wx:if="{{false}}"></view>
     </view>
   </scroll-view>
 
   <view class="btn-box f-r-sb">
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
-    <view class="btn-bg lt f-c" bindtap='getPost'>
+    <view class="btn-bg lt f-c-fs" bindtap='getPost'>
       <text class="btn-top">景点拍照</text>
       <text class="btn-bot" wx:if="{{freePhoto[0]>0}}">免费次数{{freePhoto[0]}}/{{freePhoto[1]}}</text>
     </view>
