@@ -1,4 +1,5 @@
-<view class="con ofs">
+<guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
+<view class="con ofs" wx:if="{{hasPlay}}">
   <cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
@@ -147,4 +148,3 @@
     <dialogQuestion wx:if="{{isDialogQuestion}}" catchtap="hideDialogQuestion"></dialogQuestion>
   </view>
 </view>
-<guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>

@@ -797,6 +797,9 @@ Page({
     let m = new FinishGuide();
     m.play = true
     m.fetch()
+    this.setData({
+      hasPlay: true
+    })
   },
   /**
    * 用户点击右上角分享
