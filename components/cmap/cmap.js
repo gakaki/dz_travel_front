@@ -5,9 +5,9 @@ import { Base, TraveledPlaces } from '../../api.js'
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 //大地图左上角点的经纬度
-const geoTopLeft = { j: 80.6, w: 55.8 };
+const geoTopLeft = { j: 73.6, w: 53.5 }//{ j: 80.6, w: 55.8 };
 //大地图右下角点的经纬度
-const geoBtmRht = { j: 129.6, w: 4.5 };
+const geoBtmRht = { j: 135.1, w: 3.5 }//{ j: 129.6, w: 4.5 };
 const geoWd = geoBtmRht.j - geoTopLeft.j;
 const geoHt = geoTopLeft.w - geoBtmRht.w;
 
@@ -80,8 +80,8 @@ function jwToxy(j, w) {
   let y = mapHeight * dw / geoHt;
 
   //修正偏移，因为经纬度实际上类似于极坐标，而非简单的直角坐标
-  let offx = dw * 0.75;
-  let offy = -dj * 0.78;
+  let offx = dw * 2.8;//dw * 0.75;
+  let offy = -dj * 0.2;//-dj * 0.78;
   x+= offx;
   y+= offy;
  
