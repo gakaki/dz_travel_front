@@ -16,34 +16,45 @@
 .dashed-line {
     border-style: dashed;
 }
-
-.play-role {
-    width: 38rpx;
+.play-role-nan {
+    width: 36rpx;
     height: 81rpx;
-    background-clip: content-box;
     background-repeat: no-repeat;
+    overflow: visible;
 }
-@keyframes role-clip {
+.play-role-nv {
+    width: 34rpx;
+    height: 81rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+@keyframes role-clip-nan {
     100% {
-        background-position: -228rpx 0;
+        /*background-position: -218rpx 0;*/
+        background-position: right 0;
+    }
+}
+
+@keyframes role-clip-nv {
+    100% {
+        /*background-position: -196rpx 0;*/
+        background-position: right 0;
     }
 }
 .stand {
     background-position: 0 0;
 }
-.walk {
-    animation: role-clip 0.6s steps(6) infinite;
+.walk-nan {
+    animation: role-clip-nan 0.6s steps(5) infinite;
+}
+.walk-nv {
+    animation: role-clip-nv 0.6s steps(5) infinite;
 }
 
 weather.sights {
     width: 50rpx;
     height: 50rpx;
     position: absolute;
-}
-
-.play-start-img {
-    width: 80rpx;
-    height: 93rpx;
 }
 
 .fontWhite {
@@ -104,6 +115,13 @@ weather.sights {
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, .5);
+}
+
+.play-pop {
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50% -50%);
 }
 
 .zoomBtn {
@@ -268,4 +286,18 @@ weather.sights {
     background: url("https://gengxin.odao.com/update/h5/travel/play/warningText.png") 0 0 no-repeat;
     background-size: cover;
     margin-bottom: 5rpx;
+}
+
+.ten {
+    width: 88rpx;
+    height: 36rpx;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30rpx;
+    position: absolute;
+    right: 20rpx;
+    bottom: 20rpx;
+    font-size: 24rpx;
+    line-height: 36rpx;
+    color: #fff;
+    text-align: center;
 }

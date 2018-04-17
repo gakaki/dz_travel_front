@@ -1,15 +1,17 @@
 // pages/play2/play.js
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
 import {City, Weather} from '../../sheets.js';
-import { TourIndexInfo, Base, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
+import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
 const scaleMax = 2;
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
 const app = getApp();
-const selfInfo = app.globalData.userInfo;
 const GENDER_MALE = 1;
+const EVENT_TYPE_NORMAL = 1;
+const EVENT_TYPE_STORY = 2;
+const EVENT_TYPE_QUEST = 3;
 
 const spotSize = {
     '1a': {wd: 123, ht: 98},
@@ -64,18 +66,18 @@ Page({
         hasPath: false, //是否已经规划了路线
         spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
         planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
-        dasheLines: [], //虚线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-        solidLines: [], //实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-        lines: [],//实线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
+        lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
         roleFriend :null,//组队好友{x,y, img, rotation, walk:Boolean}
         planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
+        spotsTracked: 0, //有几个景点到达了
         spotsAllTraced: false, //地图上的所有景点是否都走过了
-        eventTipImg: '', // 事件气泡图标
+        eventTipImg: resRoot + 'evts.png', // 事件气泡图标
         unreadEventCnt: 0, //未读事件数
-        showPop: false,//是否显示弹出
-        showPlayIntro: false, //是否显示玩法提示pop
+        quest: null, //当前要显示的事件
+        showPop: true,//是否显示弹出
+        showPlayIntro: true, //是否显示玩法提示pop
         showEventNormal: false, //是否显示普通事件pop
         showEventQuest: false, //是否显示问题事件pop
         showFreeRent: false, //是否显示免费租赁pop
@@ -102,14 +104,30 @@ Page({
 
         req.fetch().then(()=> {
 
+            let selfInfo = app.globalData.userInfo;
             let startPoint = Object.assign({index: -1, img: startImg, arriveStamp: req.startTime}, req.startPos);
             //小人儿
-            let roleBg = resRoot + selfInfo.gender == GENDER_MALE ? 'nan.png' : 'nv.png';
-            let roleMe = {x: startPoint.x, y: startPoint.y, img: roleBg, walk: false};
+            let roleBg = resRoot;
+            let roleCls = '';
+            let walkCls = ''
+            let wd = 36;
+            let ht = 81;
+            if (selfInfo.gender == GENDER_MALE) {
+                roleBg += 'nan.png';
+                roleCls = 'play-role-nan';
+                walkCls = 'walk-nan';
+            }
+            else {
+                roleBg += 'nv.png';
+                roleCls = 'play-role-nv';
+                walkCls = 'walk-nv';
+                wd = 34;
+            }
+            let roleMe = {x: startPoint.x, y: startPoint.y, img: roleBg,clipNum:6, wd, ht, roleCls, _walkCls:walkCls, walkCls, scale: 1};
 
             this.setData({
                 weatherImg: Weather.Get(req.weather).icon,
-                licheng: app.globalData.userInfo.mileage,
+                licheng: selfInfo.mileage,
                 season: app.globalData.season,
                 startPoint,
                 roleMe,
@@ -156,8 +174,35 @@ Page({
     onShareAppMessage: function () {
 
     },
+    //轮询
     onPlayLoop(res) {
+        if (res.freshSpots) {
+            //景点列表需要刷新
+            this.freshSpots();
+        }
+        else if (res.spotsTracked != this.data.spotsTracked) {
+            //景点到达数有变化
+            this.data.spotsTracked = res.spotsTracked;
+            this.freshSpots();
+        }
 
+        if (res.spotsAllTraced) {
+            //所有景点都走过了,前端表现是？
+            this.data.spotsAllTraced = true;
+        }
+        if (res.newEvent) {
+            //显示事件气泡
+            let unreadEventCnt = this.data.unreadEventCnt;
+            unreadEventCnt++;
+            this.setData({ unreadEventCnt });
+        }
+    },
+    //刷新景点状态列表
+    freshSpots() {
+        let req = new FreshSpots();
+        req.fetch().then(() => {
+            this.updateSpots(req.spots);
+        })
     },
 
     //更新景点状态列表
@@ -224,8 +269,8 @@ Page({
     },
     
     //更新路线
-    updateLines() {
-        if (!this.data.planedSpots.length) {
+    updateLines(force = false) {
+        if (!this.data.planedSpots.length && !force) {
             return;
         }
         let spots = this.data.planedSpots.concat();
@@ -263,17 +308,25 @@ Page({
         }
             
         //update role pos
-        let now = Base.servertime;
-        let dtBefore = now - roleTrackedSpot.arriveStamp;
-        let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
-        let distBefore = roleTrackingLineLength * dtBefore / dtAll;
         let roleMe = this.data.roleMe;
-        roleMe.x = Math.cos(angle) * distBefore + roleTrackedSpot.x;
-        roleMe.y = Math.sin(angle) * distBefore + roleTrackedSpot.y;
-        const halfPI = Math.PI / 2;
-        roleMe.scale = angle > -halfPI && angle <= halfPI ? 1 : -1;
+        if (len > 0) {
+            let now = Base.servertime;
+            let dtBefore = now - roleTrackedSpot.arriveStamp;
+            let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
+            let distBefore = roleTrackingLineLength * dtBefore / dtAll;
+            if (this.data.started) {
+                roleMe.walkCls = roleMe._walkCls
+            }
+            roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+            roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+            const halfPI = Math.PI / 2;
+            roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
 
-        this.setData({ lines, roleMe });
+            this.setData({ lines, roleMe });
+        }
+        else {
+            this.setData({lines:null, 'roleMe.walkCls':''})
+        }
 
     },
 
@@ -283,7 +336,8 @@ Page({
             started: false,//设为非游玩状态
             planing: true, //设为编辑路线状态
             planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
-        })
+        });
+        this.updateLines(true);
     },
 
     //点击景点
@@ -351,7 +405,47 @@ Page({
         req.fetch().then(()=> {
             app.globalData.gold = req.goldNum;
             this.updateSpots(req.spots);
-            this.updateRoles();
+        })
+    },
+
+    //点击小人
+    tapRole() {
+        if (this.data.unreadEventCnt) {
+            this.fetchEvent();
+        }
+    },
+
+    //请求一次事件信息
+    fetchEvent() {
+        let req = new EventShow();
+        req.cid = this.data.cid;
+
+        req.fetch().then(()=> {
+            this.data.unreadEventCnt = req.total - req.current;
+            let quest = req.quest;
+            this.data.quest = quest;
+            let curEvtIdx = req.current;
+            let totalEvt = req.total;
+
+            switch (quest.type) {
+                case EVENT_TYPE_NORMAL:
+                    this.setData({
+                        showPop: true,
+                        showEventNormal: true,
+                        curEvtIdx,
+                        totalEvt
+                    });
+                    break;
+                case EVENT_TYPE_STORY:
+                case EVENT_TYPE_QUEST:
+                    this.setData({
+                        showPop: true,
+                        showEventQuest: true,
+                        curEvtIdx,
+                        totalEvt
+                    });
+                    break;
+            }
         })
     },
 
@@ -367,23 +461,23 @@ Page({
     },
 
     popPlayIntro() {
-        this.setData({showPlayIntro: true});
+        this.setData({showPop: true, showPlayIntro: true});
     },
 
     popEventNormal() {
-        this.setData({showEventNormal: true});
+        this.setData({showPop: true, showEventNormal: true});
     },
 
     popEventQuest() {
-        this.setData({showEventQuest: true});
+        this.setData({showPop: true, showEventQuest: true});
     },
 
     popFreeRent() {
-        this.setData({showFreeRent: true});
+        this.setData({showPop: true, showFreeRent: true});
     },
 
     popMissionInfo() {
-        this.setData({showMissionInfo: true});
+        this.setData({showPop: true, showMissionInfo: true});
     },
 
     //到攻略页面

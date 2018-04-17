@@ -1,1 +1,72 @@
 /* pages/play2/pops/eventQuest.wxss */
+.dialog_question, .dialog-result{
+    width: 610rpx;
+    background-color: #fff;
+    border-radius: 20rpx;
+    overflow: hidden;
+    padding: 20rpx;
+}
+
+.div_question {
+    padding: 20rpx 0;
+    font-size: 32rpx;
+    font-weight: 400;
+    line-height: 40rpx;
+}
+
+.div_answers {
+    width: 100%;
+}
+
+.div_answers .answer_options {
+    background-color: #EFEFEF;
+    border-radius: 80rpx;
+    text-indent: 40rpx;
+    text-align: left;
+    font-weight: 350;
+    font-size: 32rpx;
+    color: #959595;
+    padding: 24rpx 0;
+    margin: 0 10rpx 20rpx;
+    box-sizing: border-box;
+}
+
+.question {
+    padding: 30rpx 0rpx;
+}
+
+.pic-box {
+    width: 100%;
+    height: 435rpx;
+    position: relative;
+}
+
+.point-pic {
+    width: 100%;
+    height: 100%;
+}
+
+.font_gray_big {
+    font: bold 76rpx 'Microsoft YaHei';
+    line-height: 76rpx;
+    text-align: center;
+    margin: 20rpx 0;
+    color: gray;
+}
+
+.font_black {
+    font: bold 50rpx 'Microsoft YaHei';
+    line-height: 50rpx;
+    color: black;
+    text-align: center;
+}
+.hook {
+    width: 49rpx;
+    height: 36rpx;
+    margin-right: 50rpx;
+    flex-shrink: 0;
+}
+
+.content-box {
+    text-align: center;
+}

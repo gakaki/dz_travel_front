@@ -1,24 +1,58 @@
-
 function formatTime(date, dateType) {
-  var timeArr = date.split(' ')[0].split('-');
-  console.log(timeArr)
-  timeArr = timeArr.map(function(v){
-    return Number(v)
-  })
-  var res = timeArr[1] + '月' + timeArr[2] + '日';
-  return res;
+    var timeArr = date.split(' ')[0].split('-');
+    console.log(timeArr)
+    timeArr = timeArr.map(function (v) {
+        return Number(v)
+    })
+    var res = timeArr[1] + '月' + timeArr[2] + '日';
+    return res;
 }
 
 function allImg(src) {
-  return "https://gengxin.odao.com/update/h5/travel/" + src
+    return "https://gengxin.odao.com/update/h5/travel/" + src
 }
 
 function postcardBg(src) {
-  return "https://gengxin.odao.com/update/h5/travel/postcard/" + src + '.png'
+    return "https://gengxin.odao.com/update/h5/travel/postcard/" + src + '.png'
+}
+
+//奖项物品转字符串，kv[] -> 获得:aa x b; c x d;
+function rewardsStr(rewards) {
+    const REWARDS_TYPE_GOLD = 1;
+    const REWARDS_TYPE_INTEG = 2;
+    const REWARDS_TYPE_TIME = 3;
+    const REWARDS_TYPE_SPE = 4;
+    const REWARDS_TYPE_POST = 5;
+
+    let resultStr = '';
+    rewards.forEach( function(r){
+        let str = r.v > 0 ? '获得' : '耗费';
+        r.v = r.v > 0 ? r.v : -r.v;
+        switch (r.k) {
+            case REWARDS_TYPE_GOLD:
+                str += '金币 X ' + r.v;
+                break;
+            case REWARDS_TYPE_TIME:
+                str += '时间 X ' + r.v + '分钟';
+                break;
+            case REWARDS_TYPE_INTEG:
+                str += '积分 X ' + r.v;
+                break
+            case REWARDS_TYPE_SPE:
+                str += '特产 X ' + r.v;
+                break
+            case REWARDS_TYPE_POST:
+                str += '明信片 X ' + r.v;
+                break
+        }
+        resultStr += str + ';';
+    });
+    return resultStr;
 }
 
 module.exports = {
-  formatTime: formatTime,
-  allImg: allImg,
-  postcardBg: postcardBg
+    formatTime: formatTime,
+    allImg: allImg,
+    postcardBg: postcardBg,
+    rewardsStr: rewardsStr
 }
