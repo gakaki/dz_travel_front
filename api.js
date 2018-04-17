@@ -1272,9 +1272,10 @@ class TourIndexInfo extends Base {
         this._task = null;
         this._startPos = null;
         this._others = null;
+        this._startTime = null;
         this.requireFileds = ["cid"];
         this.reqFields = ["cid"];
-        this.resFields = ["weather","spots","task","startPos","others"];
+        this.resFields = ["weather","spots","task","startPos","others","startTime"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1294,6 +1295,9 @@ class TourIndexInfo extends Base {
     //server output, type: string[]
     get others() {return this._others}
     set others(v) {this._others = v}
+    //server output, type: 
+    get startTime() {return this._startTime}
+    set startTime(v) {this._startTime = v}
 }
 class ModifyRealInfo extends Base {
     constructor() {
@@ -2665,18 +2669,14 @@ class ModifyRouter extends Base {
         this.action = 'tour.modifyrouter';
     
         this._spots = null;
-        this._startTime = null;
         this._goldNum = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["spots","startTime","goldNum"];
+        this.resFields = ["spots","goldNum"];
     }
     //server output, type: RouterSpot[]//不包括起点
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
-    //server output, type: 
-    get startTime() {return this._startTime}
-    set startTime(v) {this._startTime = v}
     //server output, type: number
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}

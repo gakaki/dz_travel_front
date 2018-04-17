@@ -139,6 +139,7 @@ Page({
         spots: req.spots,
         startPoint: req.startPos
       })
+      startTime=req.startTime
       let playState = this.data.spots.every(o => {
         return o.index == -1
       })
@@ -397,7 +398,8 @@ Page({
         isStart: true,
         playing: true
       })
-      this.start()
+      startTime=req.startTime
+        this.start() 
     })
   },
   start() {
@@ -413,7 +415,7 @@ Page({
       })
       linePointArr = spots.slice(-this.data.dashedLine.length)//选中的点
 
-      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: Base.servertime - 3000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: startTime, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
         pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
       }
@@ -489,6 +491,16 @@ Page({
         isStart: true,
         chgLine: false
       })
+      let num = 0
+      req.spots.forEach(o=>{
+        if(o.index > -1) num++
+      })
+      let dashs = this.data.dashedLine.slice()
+      dashs = dashs.slice(0, num)
+      this.setData({
+        dashedLine: dashs
+      })
+      app.globalData.gold = req.goldNum
       // this.start()
     })
     return
