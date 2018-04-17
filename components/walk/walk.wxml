@@ -6,13 +6,10 @@
 
 
 
-<view class='walk-box' wx:if="{{show}}"  animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-38}}rpx;">
-<view class="nan-box"    >
+<view class='walk-box' wx:if="{{show}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;">
+  <view class="nan-box">
 
-  <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 1 ? 'nan' : 'nv'}}.png" class="walk-icon"></image>
+    <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 1 ? 'nan' : 'nv'}}.png" class="walk-icon"></image>
+  </view>
+  <image hidden="{{!evt}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
 </view>
-<image hidden="{{!evt}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
-</view>
-
-
-
