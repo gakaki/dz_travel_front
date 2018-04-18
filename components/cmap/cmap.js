@@ -64,10 +64,10 @@ const xyCitys = citys.map(c => {
   o.name = c.city;
   o.hideName = true;
   let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
-  o.x = xy.x;
-  o.y = xy.y;
-  o.imgWd = 8;//根据美术资源尺寸
-  o.imgHt = 8;
+  o.x = c.coordinate[0]-2;
+  o.y = c.coordinate[1]-2;
+  o.imgWd = 4;//根据美术资源尺寸
+  o.imgHt = 4;
   o.img = '../../assets/province/light.png';
   o.province = c.province
   return o;
@@ -215,13 +215,13 @@ Component({
         });
 
         let province = provinces.filter(o => {
-          return o.name == provinces[10].name
+          return o.name == provinces[4].name
         })
 
         let citys = xyCitys.filter(c => {
           c.light = true//req.citys.indexOf(c.name) != -1;
           c.hideName = true
-          return c.light && c.province == provinces[10].name;
+          return c.light && c.province == provinces[4].name;
         })
         
         // let citys = xyCitys.filter(c => {
