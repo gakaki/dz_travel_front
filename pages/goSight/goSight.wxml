@@ -11,7 +11,7 @@
       </view>
       <text class="date font">{{date}}</text>
       <text class="jijie jijie">{{season}}</text>
-      <image src="https://gengxin.odao.com/update/h5/travel/index/{{weather}}.png" class="w-icon"></image>
+      <image src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png" class="w-icon"></image>
     </view>
   </view>
   <view class="t-line"></view>
@@ -31,11 +31,11 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-bg lt f-c-fs" bindtap='getPost'>
       <text class="btn-top {{freePhoto <= 0 ? 'one-row':''}}">景点拍照</text>
-      <text class="btn-bot" wx:if="{{freePhoto[0]>0}}">本城可拍照次数{{freePhoto}}</text>
+      <text class="btn-bot" wx:if="{{freePhoto>0}}">本城可拍照次数{{freePhoto}}</text>
     </view>
     <view class="btn-bg rgt-btn f-c-fs" bindtap='guanguang'>
       <text class="btn-top rgt {{freeSight <= 0 ? 'one-row':''}}">观光</text>
-      <text class="btn-bot" wx:if="{{freeSight[0] >0}}">免费次数{{freeSight}}</text>
+      <text class="btn-bot" wx:if="{{freeSight >0}}">免费次数{{freeSight}}</text>
     </view>
   </view>
   <buy outer-class="{{cfmStr == '前往旅行装备' ? 'fc':'gb'}}" bindtoclose="hidePop" bind:confirm="toBuy" content="{{content}}" wx:if="{{countBuzu}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></buy>

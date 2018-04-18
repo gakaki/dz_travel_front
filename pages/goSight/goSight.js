@@ -112,7 +112,7 @@ Page({
       events.push(req.event)
       this.setData({
         events: events,
-        freeSight: freeSight
+        // freeSight: freeSight
       })
       console.log(this.data.events)
     })
@@ -141,36 +141,42 @@ Page({
 
   },
   getPost() {
-    // if (this.data.freePhoto == 0) {
-    //   this.setData({
-    //     content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
-    //     cfmStr: '前往旅行装备',
-    //     countBuzu: true
-    //   })
-    //   toUrl = '../props/props'
-    //   return
-    // }
+    if (this.data.freePhoto == 0) {
+      this.setData({
+        content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
+        cfmStr: '前往旅行装备',
+        countBuzu: true
+      })
+      toUrl = '../props/props'
+      return
+    }
     let req = new Photography();
     req.cid = cid;
     req.spotId = pointId
     req.fetch().then(req => {
+      this.setData({
+        isGetPost: true,
+         freePhoto: this.data.freePhoto-1,
+        url:req.picture
+       // url: "jingdian/shanxi/xian/jd/2.jpg"
+      })
+    },code=>{
       //拍了一次之后
-      if(req.code == 9999) {
+      if (code == -137) {
         wx.showToast({
           title: '每个景点只能拍照一次',
           icon: 'none',
           mask: true
         })
-        return
       }
-
-
-      this.setData({
-        isGetPost: true,
-        // freePhoto: freePhoto,
-        url:req.picture
-       // url: "jingdian/shanxi/xian/jd/2.jpg"
-      })
+      if (code == -131) {
+        this.setData({
+          content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
+          cfmStr: '前往旅行装备',
+          countBuzu: true
+        })
+        toUrl = '../props/props'
+      }
     })
   },
   hidePost() {

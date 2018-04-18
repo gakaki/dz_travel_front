@@ -153,7 +153,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-         Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -384,7 +384,7 @@ Page({
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-        // isStart: false,
+         isStart: 3,
         lineDown: true
       })
     }
@@ -438,7 +438,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+     // if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
@@ -511,7 +511,8 @@ Page({
   xiugaiLine() {
      if (!this.data.playing || this.data.lineDown) {
         this.setData({
-          isChg: true
+          isChg: true,
+          isStart: 1
         })
         return
       }
@@ -526,7 +527,8 @@ Page({
       this.setData({
         chgLine: true,
         cfmStr: '确定',
-        isChg: true
+        isChg: true,
+        isStart: 1
       })
      
     }
@@ -638,6 +640,7 @@ Page({
     })
     return
     }
+    if(this.data.isStart == 2) return
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',
