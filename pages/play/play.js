@@ -22,6 +22,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    onePopInfo: {}, //类型为1的弹窗
     playing: false,//是否开始游玩
     event: false,//是否有事件
     lineDown: false,//规划的路线是否走完
@@ -104,12 +105,12 @@ Page({
   onUnload() {
     arr = []
     dian = []
-    //  Http.unlisten(PlayLoop, this.freshspots, this)
+    Http.unlisten(PlayLoop, this.freshspots, this)
   },
   onHide: function () {
     arr = []
     dian = []
-    // Http.unlisten(PlayLoop, this.freshspots, this)
+    Http.unlisten(PlayLoop, this.freshspots, this)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -142,14 +143,14 @@ Page({
         spots: req.spots,
         startPoint: req.startPos
       })
-      startTime=req.startTime
+      startTime = req.startTime
       let playState = this.data.spots.every(o => {
         return o.index == -1
       })
 
       if (!playState) {
         //游玩状态下开启轮询
-        //  Http.listen(PlayLoop, this.freshspots, this, 60000)
+         Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -192,35 +193,66 @@ Page({
   touchEvt() {
     let req = new EventShow()
     req.fetch().then(req => {
-
+      this.setData({
+        onePopInfo: req.quest.describe
+      })
+      if(req.quest.type == 1) {
+        this.setData({
+          isPop: true
+        })
+      }
+      console.log(this.data.onePopInfo.quest.describe)
     })
   },
   //刷新景点信息
   freshspots(res) {
-    if (res.freshSpots) {
-      let req = new FreshSpots()
-      req.fetch().then(req => {
-        this.setData({
-          spots: req.spotss
-        })
+    //点亮景点
+    let num = 0
+    this.data.spots.forEach(o => {
+      if (o.tracked) num++
+    })
+    if (res.spotsTracked > num) {
+      let spots = this.data.spots.slice()
+      for (let i = 0; i < res.spotsTracked; i++) {
+        spots[i].tracked == true
+      }
+      this.setData({
+        spots: spots
       })
-    }
-    if (req.newEvent) {
-
     }
     //更新景点状态
 
-    if (req.spotsTracked > 0) {
-      let spotss = this.data.spots.map(o => {
-        if (o.index < req.spotsTracked) {
-          o.tracked = true
-        }
-        return o
-      })
+    // if (res.spotsTracked > 0) {
+    //   let spotss = this.data.spots.map(o => {
+    //     if (o.index < req.spotsTracked) {
+    //       o.tracked = true
+    //     }
+    //     return o
+    //   })
+    //   this.setData({
+    //     spots: spotss
+    //   })
+    // }
+
+
+
+
+    //刷新景点数组
+    // if (res.freshSpots) {
+    //   let req = new FreshSpots()
+    //   req.fetch().then(req => {
+    //     this.setData({
+    //       spots: req.spotss
+    //     })
+    //   })
+    // }
+    //刷新事件
+    if (res.newEvent) {
       this.setData({
-        spots: spotss
+        event: true
       })
     }
+
   },
   showTask() {
     this.setData({
@@ -285,7 +317,7 @@ Page({
         shixianArr: obj
       })
     }
-    if (!this.data.playing) {
+    if (this.data.playing) {
       this.setData({
         showWalk: false
       })
@@ -394,15 +426,15 @@ Page({
     req.line = pointIds
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
-      req.spots.splice(0, 1)
+      // req.spots.splice(0, 1)
       this.setData({
         spots: req.spots,
         isChg: false,
         isStart: true,
         playing: true
       })
-      startTime=req.startTime
-        this.start() 
+      startTime = req.startTime
+      this.start()
     })
   },
   start() {
@@ -456,12 +488,12 @@ Page({
   },
   //添加或修改路线
   xiugaiLine() {
-    if (!this.data.playing || this.data.lineDown) {
-      this.setData({
-        isChg: true
-      })
-      return
-    }
+     if (!this.data.playing || this.data.lineDown) {
+        this.setData({
+          isChg: true
+        })
+        return
+      }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLine: true,
@@ -476,6 +508,7 @@ Page({
         cfmStr: '确定',
         isChg: true
       })
+     
     }
 
   },
@@ -493,97 +526,99 @@ Page({
         spots: req.spots,
         isChg: true,
         isStart: true,
-        chgLine: false
+        chgLine: false,
+        showWalk: false
       })
       let num = 0
-      req.spots.forEach(o=>{
-        if(o.index > -1) num++
+      req.spots.forEach(o => {
+        if (o.index > -1) num++
       })
       let dashs = this.data.dashedLine.slice()
       dashs = dashs.slice(0, num)
       this.setData({
         dashedLine: dashs
       })
-      pointIds = pointIds.slice(0,num)
+      pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
-      // this.start()
+      console.log(pointIds)
+       this.start()
     })
     return
 
 
-    let curDian = this.data.spots.find(o => {
-      return o.arriveStamp > Base.servertime
-    })
-    if (curDian) {
-      let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
-      dashedLines.forEach(o => {
-        pointIds.push(o.id)
-      })
-      pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
-    }
+    // let curDian = this.data.spots.find(o => {
+    //   return o.arriveStamp > Base.servertime
+    // })
+    // if (curDian) {
+    //   let dashedLines = this.data.dashedLine.slice(0, curDian.index + 1)//取消还未走过的路线
+    //   dashedLines.forEach(o => {
+    //     pointIds.push(o.id)
+    //   })
+    //   pointIds = pointIds.slice(0, curDian.index + 1)  //更新路线
+    // }
 
 
-    let req = new SetRouter()
-    req.cid = cid
-    req.line = pointIds.slice()
-    req.fetch().then(req => {
-      dian = []
-      this.setData({
-        isChg: true,
-        chgLine: false
-      })
-      arr = []
-      let dash = this.data.dashedLine.slice()
-      this.setData({
-        spots: req.spots,
-        // showWalk: false,
-        dashedLine: []
-      })
-      let arrs = this.data.spots.slice()
-      arrs.sort((x, y) => {
-        return x.index - y.index
-      })
-      let count = 0
-      for (let i = 0; i < arrs.length; i++) {
-        if (arrs[i].index != -1) count++
-      }
-      arrs = arrs.slice(-count)//路线中的点
+    // let req = new SetRouter()
+    // req.cid = cid
+    // req.line = pointIds.slice()
+    // req.fetch().then(req => {
+    //   dian = []
+    //   this.setData({
+    //     isChg: true,
+    //     chgLine: false
+    //   })
+    //   arr = []
+    //   let dash = this.data.dashedLine.slice()
+    //   this.setData({
+    //     spots: req.spots,
+    //     // showWalk: false,
+    //     dashedLine: []
+    //   })
+    //   let arrs = this.data.spots.slice()
+    //   arrs.sort((x, y) => {
+    //     return x.index - y.index
+    //   })
+    //   let count = 0
+    //   for (let i = 0; i < arrs.length; i++) {
+    //     if (arrs[i].index != -1) count++
+    //   }
+    //   arrs = arrs.slice(-count)//路线中的点
 
 
-      if (curDian) {
-        let ab = arrs.find(o => {
-          return o.id == curDian.id
-        })
-        let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
+    //   if (curDian) {
+    //     let ab = arrs.find(o => {
+    //       return o.id == curDian.id
+    //     })
+    //     let abc = arrs.slice(0, arrs.indexOf(ab) + 1)
 
-        // this.lineState(abc) //优化
-        //优化，改为只把没走过的虚线清掉就行了
-        this.setData({
-          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
-        })
+    //     // this.lineState(abc) //优化
+    //     //优化，改为只把没走过的虚线清掉就行了
+    //     this.setData({
+    //       dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+    //     })
 
-      }
-      else {
-        // this.lineState(arrs) //优化
+    //   }
+    //   else {
+    //     // this.lineState(arrs) //优化
 
-        //优化，改为只把没走过的虚线清掉就行了
-        this.setData({
-          dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
-        })
-      }
-    })
+    //     //优化，改为只把没走过的虚线清掉就行了
+    //     this.setData({
+    //       dashedLine: dash.slice(0, arrs.indexOf(ab) + 1)
+    //     })
+    //   }
+    // })
   },
   //画虚线
   drawDashedLine(e) {
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
-    if (dSet.track) {
-      wx.navigateTo({
-        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
-      })
-      return
-    }
+    // if (dSet.track) {
+    wx.navigateTo({
+      url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
+    })
+    return
+    // }
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',
@@ -593,8 +628,8 @@ Page({
       return
     }
 
-   
-   
+
+
     if (this.data.isStart && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) {

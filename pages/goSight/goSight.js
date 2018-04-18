@@ -13,10 +13,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cfmStr: '',
+    content: '',
+    ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
     events: [],
     isCongratulations: false,
     isDialogQuestion: false,
-    evtArr: [],
     spotName: '',
     pic: '',
     url: '',
@@ -25,7 +27,7 @@ Page({
     weather: 'sun',
     myGold: 0,
     testStr: '',
-    canPhoto: false,
+    countBuzu: false,
     isGetPost: false,
     toTop: true,
     freePhoto: [],
@@ -76,32 +78,33 @@ Page({
       isDialogQuestion: false
     })
   },
-  hideFirstIn() {
-    let evtArr = this.data.evtArr.slice()
-    let arr = {
-      time: "16:00",
-      id: "110067",
-      describe: "回答了问题",
-      gold_used: 5,
-      item: {
-        100020: 5
-      }
-    }
-    evtArr.push(arr)
-    this.setData({
-      isCongratulations: false,
-      evtArr: evtArr
-    })
-  },
+
   hideCongratulations() {
     isCongratulations: false
   },
   guanguang() {
+    
+    if (this.data.freeSight[0] == 0) {
+      this.setData({
+        content: '本地游玩免费观光次数（' + sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value + '次)已使用完毕\n是否花费'+this.data.ggGold+'金币进行观光',
+        cfmStr: '确定',
+        countBuzu: true
+      })
+      return
+    }
     let req = new SpotTour()
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
-
+      let freeSight = this.data.freeSight.slice()
+      let events = this.data.events
+      freeSight[0] = freeSight[0] - 1
+      events.push(req.event)
+      this.setData({
+        events: events,
+        freeSight: freeSight
+      })
+      console.log(this.data.events)
     })
 
     this.setData({
@@ -128,18 +131,26 @@ Page({
 
   },
   getPost() {
-   
+    if (this.data.freePhoto[0] == 0) {
+      this.setData({
+        content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value+'次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
+        cfmStr: '前往旅行装备',
+        countBuzu: true
+      })
+      return
+    }
     let req = new Photography();
     req.cityId = 0;
     req.spotId = 100101
     req.fetch().then(req => {
       let freePhoto = this.data.freePhoto.slice()
-      freePhoto[0] = freePhoto[0]+1
+      freePhoto[0] = freePhoto[0] - 1
+      
       this.setData({
         isGetPost: true,
         freePhoto: freePhoto,
         //url:req.picture
-         url: "jingdian/shanxi/xian/jd/2.jpg"
+        url: "jingdian/shanxi/xian/jd/2.jpg"
       })
     })
   },
@@ -156,7 +167,7 @@ Page({
   },
   hidePop() {
     this.setData({
-      canPhoto: false
+      countBuzu: false
     })
   },
 

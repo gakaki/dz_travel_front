@@ -17,7 +17,7 @@
     <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
     <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-    <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
+      <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
         data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
@@ -45,7 +45,7 @@
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{(!isStart && !lineDown && playing) || isChg}}">
       <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
-      <text class="fontWhite changeLineMoney font font26" hidden="{{!lineDown}}">$100</text>
+      <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown ||  !playing}}">$100</text>
     </view>
     <!-- 缩放按钮  -->
     <view class="zoomBtn f-r-sa">
@@ -71,7 +71,7 @@
           <image class="point-pic" src=""></image>
           <view class="ten font">1/10</view>
         </view>
-        <text class="evt font">途径索菲亚教堂为食鸽子，花费5金币，获得2积分</text>
+        <text class="evt font">{{onePopInfo}}</text>
         <view class="next-evt font">下一事件</view>
       </view>
     </view>

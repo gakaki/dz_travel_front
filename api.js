@@ -180,6 +180,15 @@ class Code{
     static NO_CFG_ROW = 11002;
     
 }
+class RentItem{
+    
+    static CAR = 1;
+    
+    static CAMERA = 2;
+    
+    static MEDICALBOX = 3;
+    
+}
 class TicketType{
     
     static RANDOMBUY = '00';
@@ -2753,6 +2762,7 @@ class TestSend extends WsSend {
 exports.Season = Season;
 exports.PresentTktType = PresentTktType;
 exports.Code = Code;
+exports.RentItem = RentItem;
 exports.TicketType = TicketType;
 exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
