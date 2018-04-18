@@ -153,7 +153,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-         Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -438,7 +438,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+     // if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
