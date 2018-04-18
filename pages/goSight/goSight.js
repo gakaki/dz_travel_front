@@ -31,8 +31,8 @@ Page({
     countBuzu: false,
     isGetPost: false,
     toTop: true,
-    freePhoto: [],
-    freeSight: []
+    freePhoto: 0,
+    freeSight: 0
   },
 
   /**
@@ -44,6 +44,7 @@ Page({
 
     let req = new ReqEnterspot()
     req.spotId = pointId
+    req.cid = cid
     req.fetch().then(req => {
       console.log('req', req)
       console.log(this.data.season)
@@ -84,8 +85,8 @@ Page({
     isCongratulations: false
   },
   guanguang() {
-    
-    if (this.data.freeSight[0] == 0) {
+
+    if (this.data.freeSight== 0) {
 
       if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
         this.setData({
@@ -107,9 +108,7 @@ Page({
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
-      let freeSight = this.data.freeSight.slice()
       let events = this.data.events
-      freeSight[0] = freeSight[0] - 1
       events.push(req.event)
       this.setData({
         events: events,
@@ -142,25 +141,33 @@ Page({
 
   },
   getPost() {
-    if (this.data.freePhoto[0] == 0) {
-      this.setData({
-        content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value+'次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
-        cfmStr: '前往旅行装备',
-        countBuzu: true
-      })
-      toUrl = '../props/props'
-      return
-    }
+    // if (this.data.freePhoto == 0) {
+    //   this.setData({
+    //     content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
+    //     cfmStr: '前往旅行装备',
+    //     countBuzu: true
+    //   })
+    //   toUrl = '../props/props'
+    //   return
+    // }
     let req = new Photography();
     req.cityId = 0;
     req.spotId = 100101
     req.fetch().then(req => {
-      let freePhoto = this.data.freePhoto.slice()
-      freePhoto[0] = freePhoto[0] - 1
-      
+      //拍了一次之后
+      if(req.code == 9999) {
+        wx.showToast({
+          title: '每个景点只能拍照一次',
+          icon: 'none',
+          mask: true
+        })
+        return
+      }
+
+
       this.setData({
         isGetPost: true,
-        freePhoto: freePhoto,
+        // freePhoto: freePhoto,
         //url:req.picture
         url: "jingdian/shanxi/xian/jd/2.jpg"
       })

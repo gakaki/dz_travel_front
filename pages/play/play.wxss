@@ -314,16 +314,16 @@ weather.sights {
 }
 
 .next-evt {
-  width: 328rpx;
-  height: 114rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/btn-yellow.png") 0 0 no-repeat;
+  width: 406rpx;
+  height: 121rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 28rpx;
   line-height: 74rpx;
   margin: 0 auto;
   /* margin-top: 50rpx; */
   position: absolute;
-  bottom: 10rpx;
+  /* bottom: 10rpx; */
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
@@ -547,9 +547,9 @@ weather.sights {
   position: absolute;
   bottom: 0rpx;
   color: #fff;
-  width: 446rpx;
-  height: 127rpx;
-  background: url('https://gengxin.odao.com/update/h5/travel/raiders/big-btn-blu.png') no-repeat center center;
+  width: 406rpx;
+  height: 121rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png') no-repeat center center;
   background-size: 70% 90%;
   line-height: 90rpx;
   letter-spacing: 3rpx;
@@ -561,6 +561,7 @@ weather.sights {
   display: block;
   font-size: 32rpx;
   line-height: 32rpx;
+  font-weight: bold
 }
 
 .gray-font {
@@ -606,7 +607,7 @@ weather.sights {
   left: -24rpx;
 }
 
-.rule1::before {
+/* .rule1::before {
   content: '1.';
 }
 
@@ -616,23 +617,7 @@ weather.sights {
 
 .rule3::before {
   content: '3.';
-}
-
-.rule4::before {
-  content: '4.';
-}
-
-.rule5::before {
-  content: '5.';
-}
-
-.rule6::before {
-  content: '6.';
-}
-
-.rule7::before {
-  content: '7.';
-}
+} */
 
 .draw-line {
   height: 0;

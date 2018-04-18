@@ -165,8 +165,6 @@ Page({
         lineDown: lineDown,
         playing: !playState
       })
-      console.log(lineDown, this.data.playing)
-      console.log(this.data.isStart)
       if (this.data.isStart) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
@@ -204,7 +202,6 @@ Page({
           isPop: true
         })
       }
-      console.log(this.data.onePopInfo.quest.describe)
     })
   },
   //刷新景点信息
@@ -302,7 +299,6 @@ Page({
       this.setData({
         dashedLine: obj
       })
-      console.log('this.data.dashedLine', this.data.dashedLine)
     }
     if (this.data.shixianArr.length > 0) {
       let obj = this.data.shixianArr.map(item => {
@@ -476,7 +472,6 @@ Page({
       this.setData({
         walkPoint: []
       })
-      console.log('pointArr', pointArr)
       setTimeout(() => {
         this.setData({
           walkPoint: pointArr,
@@ -516,7 +511,6 @@ Page({
         cfmStr: '前往充值',
         cfmDesc: '金币不足,可前往充值'
       })
-      console.log(this.data.cfmStr)
       return
     } else {
       this.setData({
@@ -556,7 +550,6 @@ Page({
       })
       pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
-      console.log(pointIds)
        this.start()
     })
     return
