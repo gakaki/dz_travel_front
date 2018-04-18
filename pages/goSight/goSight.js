@@ -112,7 +112,7 @@ Page({
       events.push(req.event)
       this.setData({
         events: events,
-        freeSight: freeSight
+        // freeSight: freeSight
       })
       console.log(this.data.events)
     })

@@ -384,7 +384,7 @@ Page({
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-        // isStart: false,
+         isStart: 3,
         lineDown: true
       })
     }
