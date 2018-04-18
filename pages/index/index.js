@@ -183,9 +183,9 @@ Page({
         players.push(self)
       }
       if(players.length){
-        this.setData({
-          players,
-        })
+        // this.setData({
+        //   players,
+        // })
       }
       
     }).catch(() => {
