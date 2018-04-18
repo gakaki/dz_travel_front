@@ -1,5 +1,5 @@
 // pages/play2/pops/eventQuest.js
-import {AnswerQuest} from '/api.js';
+import {AnswerQuest} from '../../../api.js';
 const app = getApp();
 
 Component({

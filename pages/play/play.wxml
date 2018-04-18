@@ -19,7 +19,7 @@
     <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
       <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
-        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{item.isStart == true ?'start': 'icon-'+item.building[0]}}"></image>
+        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
     </view>
     <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">
@@ -37,13 +37,13 @@
     <!-- 提示 -->
     <view class="tip" bindtap='showDesc'></view>
     <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg || playing}}">
+    <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine " bindtap='xiugaiLine' hidden="{{(!isStart && !lineDown && playing) || isChg}}">
+    <view class="changeLine " bindtap='xiugaiLine' hidden="{{isChg}}">
       <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
       <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown ||  !playing}}">$100</text>
     </view>
@@ -58,8 +58,9 @@
       <!-- 三个按钮 -->
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
-      <view class="start-icon font fontWhite  font32 " hidden="{{!isStart || isChg}}">{{lineDown?'游玩结束':'游玩中'}}</view>
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart }}">开始游玩 </view>
+      
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">{{isStart}}开始游玩{{isChg}} </view>
+      <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{isStart}}{{lineDown?'游玩结束':'游玩中'}}{{isChg}}</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->
       <!-- 虚拟地图警告 -->
@@ -108,15 +109,15 @@
         </view>
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-          <text class="gray-font play-rule-con rule1 mission-gray-font ml48">
+          <view class="gray-font play-rule-con rule1 mission-gray-font ml48">
           与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（3/6）
-        </text>
-          <text class="gray-font play-rule-con rule2 mission-gray-font ml48">
+        </view>
+          <view class="gray-font play-rule-con rule2 mission-gray-font ml48">
           自己至少进行2次观光（0/2），旅友至少进行2次观光（0/2）
-        </text>
-          <text class="gray-font play-rule-con rule3 mission-gray-font ml48">
+        </view>
+          <view class="gray-font play-rule-con rule3 mission-gray-font ml48">
           自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）
-        </text>
+        </view>
         </view>
       </task>
     </view>
