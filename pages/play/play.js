@@ -640,6 +640,7 @@ Page({
     })
     return
     }
+    if(this.data.isStart == 2) return
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',
