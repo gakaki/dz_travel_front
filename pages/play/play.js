@@ -15,6 +15,7 @@ let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
 let startTime = 0
 let city = ''
+let beishu = 1//缩放系数
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -29,13 +30,13 @@ Page({
     double: false,
     chgLine: false,
     cfmStr: '',
-    cfmDesc: '是否花费 100金币修改路线',
+    cfmDesc: '是否花费100金币修改路线',
     startPoint: {
       x: 500,
       y: 300
     },
     spots: [],
-    isStart: false,//是否游玩中
+    isStart: 1,//游玩状态  1：开始游玩，2：游玩中，3：游玩结束
     taskPer: 0,//任务完成进度
     season: 'SPRING',
     licheng: 0,
@@ -103,8 +104,10 @@ Page({
     }]
   },
   onUnload() {
+    beishu = 1
     arr = []
     dian = []
+    pointIds = []
     Http.unlisten(PlayLoop, this.freshspots, this)
   },
   onHide: function () {
@@ -150,21 +153,29 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-         Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
       let lineDown = this.data.spots.every(o => {
         return o.tracked == true
       })
+      let state = 1
+      if (!playState && lineDown) {
+        state = 3
+      }
+      if (playState) {
+        state = 1
+      }
+      if (!playState && !lineDown) {
+        state = 2
+      }
       this.setData({
-        isStart: !playState,
+        isStart: state,
         lineDown: lineDown,
         playing: !playState
       })
-      console.log(lineDown, this.data.playing)
-      console.log(this.data.isStart)
-      if (this.data.isStart) { //游玩过
+      if (!playState) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
         arrs.sort((x, y) => {
@@ -201,25 +212,24 @@ Page({
           isPop: true
         })
       }
-      console.log(this.data.onePopInfo.quest.describe)
     })
   },
   //刷新景点信息
   freshspots(res) {
     //点亮景点
-    let num = 0
-    this.data.spots.forEach(o => {
-      if (o.tracked) num++
-    })
-    if (res.spotsTracked > num) {
-      let spots = this.data.spots.slice()
-      for (let i = 0; i < res.spotsTracked; i++) {
-        spots[i].tracked == true
-      }
-      this.setData({
-        spots: spots
-      })
-    }
+    // let num = 0
+    // this.data.spots.forEach(o => {
+    //   if (o.tracked) num++
+    // })
+    // if (res.spotsTracked > num) {
+    //   let spots = this.data.spots.slice()
+    //   for (let i = 0; i < res.spotsTracked; i++) {
+    //     spots[i].tracked == true
+    //   }
+    //   this.setData({
+    //     spots: spots
+    //   })
+    // }
     //更新景点状态
 
     // if (res.spotsTracked > 0) {
@@ -262,6 +272,7 @@ Page({
 
   //缩放点和线
   scaleXy(v) {
+    beishu = v
     let that = this
     let temptestArr = this.data.spots.map(item => {
       return Object.assign({}, item, {
@@ -373,7 +384,7 @@ Page({
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-        isStart: false,
+        // isStart: false,
         lineDown: true
       })
     }
@@ -417,7 +428,7 @@ Page({
       })
       return
     }
-    if (this.data.isStart && !this.data.isChg) return
+    // if (this.data.isStart && !this.data.isChg) return
     this.setData({
       showWalk: false
     })
@@ -427,10 +438,20 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
+     // if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+
+      let temptestArr = req.spots.map(item => {
+        return Object.assign({}, item, {
+          // name: item.name,
+          // idx: item.idx,
+          x: item.x * beishu,
+          y: item.y * beishu
+        })
+      })
       this.setData({
-        spots: req.spots,
+        spots: temptestArr,
         isChg: false,
-        isStart: true,
+        isStart: 2,
         playing: true
       })
       startTime = req.startTime
@@ -498,9 +519,8 @@ Page({
       this.setData({
         chgLine: true,
         cfmStr: '前往充值',
-        cfmDesc: '金币不足，可前往充值'
+        cfmDesc: '金币不足,可前往充值'
       })
-      console.log(this.data.cfmStr)
       return
     } else {
       this.setData({
@@ -525,7 +545,7 @@ Page({
       this.setData({
         spots: req.spots,
         isChg: true,
-        isStart: true,
+        isStart: 1,
         chgLine: false,
         showWalk: false
       })
@@ -540,7 +560,6 @@ Page({
       })
       pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
-      console.log(pointIds)
        this.start()
     })
     return
@@ -613,12 +632,12 @@ Page({
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
-    // if (dSet.track) {
+    if (dSet.track) {
     wx.navigateTo({
       url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
     })
     return
-    // }
+    }
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',
@@ -630,7 +649,7 @@ Page({
 
 
 
-    if (this.data.isStart && !this.data.isChg) return
+    if (this.data.isStart != 1 && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) {
       wx.showToast({

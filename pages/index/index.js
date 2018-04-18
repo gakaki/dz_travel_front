@@ -53,7 +53,7 @@ Page({
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
     wx.navigateTo({
-      url: '../play2/play?cid=' + locationCid
+      url: '../play/play?cid=' + locationCid
       // url: '../cityRaiders/cityRaiders'
     })
   },
@@ -183,9 +183,9 @@ Page({
         players.push(self)
       }
       if(players.length){
-        this.setData({
-          players,
-        })
+        // this.setData({
+        //   players,
+        // })
       }
       
     }).catch(() => {
