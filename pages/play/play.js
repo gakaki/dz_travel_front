@@ -208,19 +208,19 @@ Page({
   //刷新景点信息
   freshspots(res) {
     //点亮景点
-    let num = 0
-    this.data.spots.forEach(o => {
-      if (o.tracked) num++
-    })
-    if (res.spotsTracked > num) {
-      let spots = this.data.spots.slice()
-      for (let i = 0; i < res.spotsTracked; i++) {
-        spots[i].tracked == true
-      }
-      this.setData({
-        spots: spots
-      })
-    }
+    // let num = 0
+    // this.data.spots.forEach(o => {
+    //   if (o.tracked) num++
+    // })
+    // if (res.spotsTracked > num) {
+    //   let spots = this.data.spots.slice()
+    //   for (let i = 0; i < res.spotsTracked; i++) {
+    //     spots[i].tracked == true
+    //   }
+    //   this.setData({
+    //     spots: spots
+    //   })
+    // }
     //更新景点状态
 
     // if (res.spotsTracked > 0) {
@@ -429,6 +429,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
+      if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
       this.setData({
         spots: req.spots,
         isChg: false,
