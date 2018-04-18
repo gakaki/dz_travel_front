@@ -1,4 +1,5 @@
 // pages/play2/pops/eventNormal.js
+import {tplStr} from '../../../utils/util.js';
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/';
 Component({
   /**
@@ -18,6 +19,10 @@ Component({
       total: {
         type: Number,
           value: 1
+      },
+      cityName: {
+          type: String,
+          value: ''
       }
   },
 
@@ -35,7 +40,7 @@ Component({
    */
   methods: {
       toNext() {
-        this.trigger('next');
+        this.triggerEvent('next');
       }
   },
 
@@ -43,7 +48,7 @@ Component({
     let quest = this.properties.quest;
       if (quest) {
         let rewards = quest.rewards;
-        this.setData({picture: resRoot + quest.picture, content: quest.describe, rewards});
+        this.setData({picture: resRoot + quest.picture, content: tplStr(quest.describe, '%s', this.data.cityName), rewards});
       }
     }
 })

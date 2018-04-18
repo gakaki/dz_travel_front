@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "pop-play-intro": "./pops/playIntro",
+    "directions": "/components/rankDirections/rankDirections",
     "pop-event-normal": "./pops/eventNormal",
     "pop-event-quest": "./pops/eventQuest",
     "pop-free-rent": "./pops/freeRent",

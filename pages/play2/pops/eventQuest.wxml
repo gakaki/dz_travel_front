@@ -10,7 +10,7 @@
     </view>
 
     <view class="div_answers" >
-        <view class="answer_options" catch:tap='choose' wx:for="{{answers}}" data-str="{{item}}">{{item}}</view>
+        <view class="answer_options" catch:tap='choose' wx:for="{{answers}}" wx:key="{{index}}" data-str="{{item}}">{{item}}</view>
     </view>
 
 </view>
