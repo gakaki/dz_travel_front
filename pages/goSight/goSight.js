@@ -151,8 +151,8 @@ Page({
     //   return
     // }
     let req = new Photography();
-    req.cityId = 0;
-    req.spotId = 100101
+    req.cid = cid;
+    req.spotId = pointId
     req.fetch().then(req => {
       //拍了一次之后
       if(req.code == 9999) {
@@ -168,8 +168,8 @@ Page({
       this.setData({
         isGetPost: true,
         // freePhoto: freePhoto,
-        //url:req.picture
-        url: "jingdian/shanxi/xian/jd/2.jpg"
+        url:req.picture
+       // url: "jingdian/shanxi/xian/jd/2.jpg"
       })
     })
   },

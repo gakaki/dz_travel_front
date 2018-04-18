@@ -36,7 +36,7 @@ Page({
       y: 300
     },
     spots: [],
-    isStart: false,//是否游玩中
+    isStart: 1,//游玩状态  1：开始游玩，2：游玩中，3：游玩结束
     taskPer: 0,//任务完成进度
     season: 'SPRING',
     licheng: 0,
@@ -160,12 +160,22 @@ Page({
       let lineDown = this.data.spots.every(o => {
         return o.tracked == true
       })
+      let state = 1
+      if (!playState && lineDown) {
+        state = 3
+      }
+      if (playState) {
+        state = 1
+      }
+      if (!playState && !lineDown) {
+        state = 2
+      }
       this.setData({
-        isStart: !playState,
+        isStart: state,
         lineDown: lineDown,
         playing: !playState
       })
-      if (this.data.isStart) { //游玩过
+      if (!playState) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
         arrs.sort((x, y) => {
@@ -374,7 +384,7 @@ Page({
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-        isStart: false,
+        // isStart: false,
         lineDown: true
       })
     }
@@ -418,7 +428,7 @@ Page({
       })
       return
     }
-    if (this.data.isStart && !this.data.isChg) return
+    // if (this.data.isStart && !this.data.isChg) return
     this.setData({
       showWalk: false
     })
@@ -441,7 +451,7 @@ Page({
       this.setData({
         spots: temptestArr,
         isChg: false,
-        isStart: true,
+        isStart: 2,
         playing: true
       })
       startTime = req.startTime
@@ -535,7 +545,7 @@ Page({
       this.setData({
         spots: req.spots,
         isChg: true,
-        isStart: true,
+        isStart: 1,
         chgLine: false,
         showWalk: false
       })
@@ -639,7 +649,7 @@ Page({
 
 
 
-    if (this.data.isStart && !this.data.isChg) return
+    if (this.data.isStart != 1 && !this.data.isChg) return
     // if (pointIds.indexOf(dSet.id) != -1) return
     if (dian.indexOf(dSet.id) != -1) {
       wx.showToast({
