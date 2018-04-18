@@ -105,6 +105,7 @@ Page({
   onUnload() {
     arr = []
     dian = []
+    pointIds = []
     Http.unlisten(PlayLoop, this.freshspots, this)
   },
   onHide: function () {
@@ -298,6 +299,7 @@ Page({
       this.setData({
         dashedLine: obj
       })
+      console.log('this.data.dashedLine', this.data.dashedLine)
     }
     if (this.data.shixianArr.length > 0) {
       let obj = this.data.shixianArr.map(item => {

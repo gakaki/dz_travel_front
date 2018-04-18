@@ -87,7 +87,7 @@ Page({
     
     if (this.data.freeSight[0] == 0) {
 
-      if (app.globalData.gold 《 sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
+      if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
         this.setData({
           content: '金币不足,可前往充值',
           cfmStr: '前往充值',
