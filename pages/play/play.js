@@ -511,7 +511,8 @@ Page({
   xiugaiLine() {
      if (!this.data.playing || this.data.lineDown) {
         this.setData({
-          isChg: true
+          isChg: true,
+          isStart: 1
         })
         return
       }
@@ -526,7 +527,8 @@ Page({
       this.setData({
         chgLine: true,
         cfmStr: '确定',
-        isChg: true
+        isChg: true,
+        isStart: 1
       })
      
     }
