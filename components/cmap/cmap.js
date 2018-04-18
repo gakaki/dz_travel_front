@@ -215,13 +215,13 @@ Component({
         });
 
         let province = provinces.filter(o => {
-          return o.name == provinces[1].name
+          return o.name == provinces[4].name
         })
 
         let citys = xyCitys.filter(c => {
           c.light = true//req.citys.indexOf(c.name) != -1;
           c.hideName = true
-          return c.light && c.province == provinces[1].name;
+          return c.light && c.province == provinces[4].name;
         })
         
         // let citys = xyCitys.filter(c => {
