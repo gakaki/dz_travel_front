@@ -43,7 +43,7 @@
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
       </view>
     </view>
-    <view class="changeLine " bindtap='xiugaiLine' hidden="{{( !lineDown && playing) || isChg}}">
+    <view class="changeLine " bindtap='xiugaiLine' hidden="{{isChg}}">
       <text class="fontWhite changeLineText font font26 {{(lineDown || !playing)?'md':''}}">{{playing?(lineDown?'规划路线':'修改路线'):'规划路线' }}</text>
       <text class="fontWhite changeLineMoney font font26" hidden="{{lineDown ||  !playing}}">$100</text>
     </view>
