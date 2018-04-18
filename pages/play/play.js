@@ -15,6 +15,7 @@ let dian = []//每次规划路线时点击过的点
 let linePointArr//路线中的点
 let startTime = 0
 let city = ''
+let beishu = 1//缩放系数
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -103,6 +104,7 @@ Page({
     }]
   },
   onUnload() {
+    beishu = 1
     arr = []
     dian = []
     pointIds = []
@@ -263,6 +265,7 @@ Page({
 
   //缩放点和线
   scaleXy(v) {
+    beishu = v
     let that = this
     let temptestArr = this.data.spots.map(item => {
       return Object.assign({}, item, {
@@ -430,8 +433,17 @@ Page({
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
       if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+
+      let temptestArr = req.spots.map(item => {
+        return Object.assign({}, item, {
+          // name: item.name,
+          // idx: item.idx,
+          x: item.x * beishu,
+          y: item.y * beishu
+        })
+      })
       this.setData({
-        spots: req.spots,
+        spots: temptestArr,
         isChg: false,
         isStart: true,
         playing: true
@@ -464,6 +476,7 @@ Page({
       this.setData({
         walkPoint: []
       })
+      console.log('pointArr', pointArr)
       setTimeout(() => {
         this.setData({
           walkPoint: pointArr,

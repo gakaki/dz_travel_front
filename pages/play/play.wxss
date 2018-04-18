@@ -158,6 +158,7 @@ weather.sights {
   right: 0;
   height: 124rpx;
   width: 169rpx;
+  z-index: 105
 }
 
 .changeLineText {

@@ -37,7 +37,7 @@
     <!-- 提示 -->
     <view class="tip" bindtap='showDesc'></view>
     <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg || playing}}">
+    <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg || isStart}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
         <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
