@@ -22,6 +22,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    onePopInfo: {}, //类型为1的弹窗
     playing: false,//是否开始游玩
     event: false,//是否有事件
     lineDown: false,//规划的路线是否走完
@@ -149,7 +150,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        // Http.listen(PlayLoop, this.freshspots, this, 10000)
+         Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -192,7 +193,15 @@ Page({
   touchEvt() {
     let req = new EventShow()
     req.fetch().then(req => {
-
+      this.setData({
+        onePopInfo: req.quest.describe
+      })
+      if(req.quest.type == 1) {
+        this.setData({
+          isPop: true
+        })
+      }
+      console.log(this.data.onePopInfo.quest.describe)
     })
   },
   //刷新景点信息
@@ -417,7 +426,7 @@ Page({
     req.line = pointIds
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
-      req.spots.splice(0, 1)
+      // req.spots.splice(0, 1)
       this.setData({
         spots: req.spots,
         isChg: false,
@@ -517,7 +526,8 @@ Page({
         spots: req.spots,
         isChg: true,
         isStart: true,
-        chgLine: false
+        chgLine: false,
+        showWalk: false
       })
       let num = 0
       req.spots.forEach(o => {
@@ -531,7 +541,7 @@ Page({
       pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
       console.log(pointIds)
-      // this.start()
+       this.start()
     })
     return
 
@@ -603,12 +613,12 @@ Page({
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
-    if (dSet.track) {
+    // if (dSet.track) {
     wx.navigateTo({
       url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
     })
     return
-    }
+    // }
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',

@@ -72,6 +72,9 @@ margin-bottom: 6rpx
   font: bold 30rpx 'Microsoft YaHei';
    margin-top: 10rpx 
 }
+.one-row {
+  margin-top: 24rpx
+}
 .btn-bot {
   font: bold 20rpx 'Microsoft YaHei'
 }

@@ -22,7 +22,7 @@ const mapWidth = 714;
 const mapHeight = 828;
 const provinces = [
   { name: '新疆', img: 'xinjiang', x: 3, y: 74, imgWd: 283, imgHt: 214, txtX: 150, txtY: 80 },
-  { name: '内蒙', img: 'neimeng', x: 297, y: 12, imgWd: 313, imgHt: 268, txtX: 100, txtY: 210 },
+  { name: '内蒙古', img: 'neimeng', x: 297, y: 12, imgWd: 313, imgHt: 268, txtX: 100, txtY: 210 },
   { name: '甘肃', img: 'gansu', x: 232, y: 190, imgWd: 206, imgHt: 168, txtX: 30, txtY: 30 },
   { name: '黑龙江', img: 'heilongjiang', x: 552, y: 6, imgWd: 157, imgHt: 141, txtX: 80, txtY: 80 },
   { name: '吉林', img: 'jilin', x: 578, y: 117, imgWd: 116, imgHt: 81, txtX: 35, txtY: 30 },
@@ -69,6 +69,7 @@ const xyCitys = citys.map(c => {
   o.imgWd = 8;//根据美术资源尺寸
   o.imgHt = 8;
   o.img = '../../assets/province/light.png';
+  o.province = c.province
   return o;
 })
 
@@ -80,7 +81,7 @@ function jwToxy(j, w) {
   let y = mapHeight * dw / geoHt;
 
   //修正偏移，因为经纬度实际上类似于极坐标，而非简单的直角坐标
-  let offx = dw * 2.8;//dw * 0.75;
+  let offx = dw * 2.4;//dw * 0.75;
   let offy = -dj * 0.2;//-dj * 0.78;
   x+= offx;
   y+= offy;
@@ -200,27 +201,37 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
-      if (!this.data.uid)
-        return;
-      if(!this.data.log) return
-      return;//server not ok
-      let req = new TraveledPlaces();
-      req.playerUid = this.data.uid;
+      // if (!this.data.uid)
+      //   return;
+      // if(!this.data.log) return
+      // return;//server not ok
+      // let req = new TraveledPlaces();
+      // req.playerUid = this.data.uid;
 
-      req.fetch().then(()=> {
+      // req.fetch().then(()=> {
         provinces.every(o => {
-          o.light =  req.provinces.indexOf(o.name) != -1;
+          o.light =  true//req.provinces.indexOf(o.name) != -1;
           return true;
         });
-        
-        let citys = xyCitys.filter(c => {
-          c.light = req.citys.indexOf(c.name) != -1;
 
-          return c.light;
+        let province = provinces.filter(o => {
+          return o.name == provinces[10].name
         })
 
-        this.setData({ provinces, citys: citys });
-      })
+        let citys = xyCitys.filter(c => {
+          c.light = true//req.citys.indexOf(c.name) != -1;
+          c.hideName = true
+          return c.light && c.province == provinces[10].name;
+        })
+        
+        // let citys = xyCitys.filter(c => {
+        //   c.light = req.citys.indexOf(c.name) != -1;
+
+        //   return c.light;
+        // })
+
+        this.setData({ provinces:province, citys });
+      // })
     },
 
     showLocation() {

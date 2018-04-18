@@ -35,7 +35,7 @@ Component({
     },
     content: {
       type: String,    //content为组件中的描述文字，其中字体样式由外部样式outer-class决定
-      value: '本地游玩免费拍照次数（2次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数'
+      value: ''
     },
     single: {
       type: Boolean,
