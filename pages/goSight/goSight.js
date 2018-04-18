@@ -7,6 +7,7 @@ const sheet = require('../../sheets.js');
 let pointId = ''
 let cid = ''
 let oldStr = ''
+let toUrl = ''//点击弹窗去哪个页面
 Page({
 
   /**
@@ -85,12 +86,22 @@ Page({
   guanguang() {
     
     if (this.data.freeSight[0] == 0) {
-      this.setData({
-        content: '本地游玩免费观光次数（' + sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value + '次)已使用完毕\n是否花费'+this.data.ggGold+'金币进行观光',
-        cfmStr: '确定',
-        countBuzu: true
-      })
-      return
+
+      if (app.globalData.gold 《 sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
+        this.setData({
+          content: '金币不足,可前往充值',
+          cfmStr: '前往充值',
+          countBuzu: true
+        })
+        toUrl = '../recharge/recharge'
+        return
+      }
+      // this.setData({
+      //   content: '本地游玩免费观光次数（' + sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value + '次)已使用完毕\n是否花费' + this.data.ggGold + '金币进行观光',
+      //   cfmStr: '确定',
+      //   countBuzu: true
+      // })
+      // return
     }
     let req = new SpotTour()
     req.cid = cid
@@ -137,6 +148,7 @@ Page({
         cfmStr: '前往旅行装备',
         countBuzu: true
       })
+      toUrl = '../props/props'
       return
     }
     let req = new Photography();
@@ -162,7 +174,7 @@ Page({
   toBuy() {
     this.hidePop()
     wx.navigateTo({
-      url: '../props/props',
+      url: toUrl
     })
   },
   hidePop() {

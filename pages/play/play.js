@@ -29,7 +29,7 @@ Page({
     double: false,
     chgLine: false,
     cfmStr: '',
-    cfmDesc: '是否花费 100金币修改路线',
+    cfmDesc: '是否花费100金币修改路线',
     startPoint: {
       x: 500,
       y: 300
@@ -498,7 +498,7 @@ Page({
       this.setData({
         chgLine: true,
         cfmStr: '前往充值',
-        cfmDesc: '金币不足，可前往充值'
+        cfmDesc: '金币不足,可前往充值'
       })
       console.log(this.data.cfmStr)
       return
@@ -613,12 +613,12 @@ Page({
     let dSet = e.currentTarget.dataset
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
-    // if (dSet.track) {
+    if (dSet.track) {
     wx.navigateTo({
       url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
     })
     return
-    // }
+    }
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',

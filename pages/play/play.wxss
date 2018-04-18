@@ -4,7 +4,11 @@ weather.sights {
   position: absolute;
 }
 
-
+.fc {
+  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  letter-spacing: 6rpx;
+  color: #b8b8b8
+}
 
 .fontWhite {
   font: normal 30rpx 'Microsoft YaHei';

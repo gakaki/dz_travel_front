@@ -151,6 +151,11 @@ margin-right: 30rpx;
   font: bold 28rpx/40rpx 'Microsoft YaHei';
   color: #b8b8b8
 }
+.gb {
+  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  letter-spacing: 6rpx;
+  color: #b8b8b8
+}
 .to-top {
   transform: rotate(180deg)
 }
