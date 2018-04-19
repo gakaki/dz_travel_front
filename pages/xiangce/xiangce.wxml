@@ -16,10 +16,9 @@
       </view>      
     </view>
 
-    <view class="xc-pro" wx:if='{{specialty && LMInit.length}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
+    <view class="xc-pro" wx:if='{{specialty && item.postcardsDetail.length}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
       <view class="pro-top f-r-sb">
         <text class="pro">{{item.city}}</text>
-        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
       <view wx:for='{{item.postcardsDetail}}' wx:if='{{img.id}}'  wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
         <view class="img-box-flex">
