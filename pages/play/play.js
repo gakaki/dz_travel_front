@@ -180,11 +180,14 @@ Page({
     })
   },
   onShow: function () {
-    console.log(123)
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
     this.initData(cid)
   },
   onLoad: function (options) {
-    console.log(123)
     this.setData({
       gender: app.globalData.userInfo.gender
     })
@@ -854,14 +857,6 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    var animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation = animation
-  },
-
   played() {
     let m = new FinishGuide();
     m.play = true
