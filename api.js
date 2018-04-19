@@ -528,6 +528,14 @@ class Base {
                   this.code=res.data.code;
                   if (this.code != Code.OK) {
                       console.log('fetch got an error code',this.code);
+                      let sheets=require('./sheets.js')
+                      let error=sheets.Error.Get(this.code)
+                      if (error && error.message) {
+                        wx.showToast({
+                          title: error.message,
+                          icon: 'none'
+                        })
+                      }
                       reject(this.code);
                   }
                   else {
@@ -1321,6 +1329,7 @@ class TourIndexInfo extends Base {
         this.action = 'tour.tourindexinfo';
     
         this._cid = null;
+        this._inviteCode = null;
         this._weather = null;
         this._spots = null;
         this._task = null;
@@ -1329,13 +1338,16 @@ class TourIndexInfo extends Base {
         this._display = null;
         this._startTime = null;
         this._partener = null;
-        this.requireFileds = ["cid"];
-        this.reqFields = ["cid"];
+        this.requireFileds = ["cid","inviteCode"];
+        this.reqFields = ["cid","inviteCode"];
         this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
     set cid(v) {this._cid = v}
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
     //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}

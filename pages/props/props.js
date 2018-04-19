@@ -228,7 +228,6 @@ Page({
         req.propId = propId
         req.count = e.detail.num
         req.fetch().then(() => {
-          console.log(req)
           let num = this.data.goldNum * e.detail.num
           redGold(num)
           this.setData({
@@ -273,12 +272,10 @@ Page({
     let req = new CitySpes();
     req.cityId = cid;
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
         speArr: req.specialtys,
         restNum: req.restNum
       })
-      console.log(this.data.maxNum)
     })
 
   },
@@ -293,11 +290,9 @@ Page({
     })
     let req = new MySpes();
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
         mySpe: req.specialtys,
       })
-      console.log(this.data.mySpe)
     })
 
   },
