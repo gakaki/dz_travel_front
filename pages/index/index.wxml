@@ -22,7 +22,7 @@
         <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">
-        <text class="today">{{season}}</text>
+        <text class="today {{season=='春' ? 'chun' : season=='夏' ? 'xia' : season=='秋' ? 'qiu' : season=='冬' ? 'dong' : ''}}">{{season}}</text>
         <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
       </view>
     </view>

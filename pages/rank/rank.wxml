@@ -18,8 +18,7 @@
       <view class="mark">{{item.rank}}</view>
       <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
       <view class="nickname">
-        <!-- <text>{{item.userInfo.nickName}}</text> -->
-        <text>哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦</text>
+        <text>{{item.userInfo.nickName}}</text> 
       </view>
       <view class="info f-r-sb">
         <view class="rank-info f-r-sb">
@@ -39,7 +38,7 @@
       <view class="f-r-sb">
         <text class="ranking">{{item.rank}}</text>
         <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
-        <text class="name">{{item.userInfo.nickName}}</text>
+        <text class="name">{{item.userInfo.nickName}}</text> 
       </view>
       <view class="align-start f-c-fs">
         <view class="ranking-info f-r-sb" wx:if="{{rankSubtype==1}}">
