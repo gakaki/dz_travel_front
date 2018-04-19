@@ -111,6 +111,6 @@
       起飞旅行
     </view>
   </view>
-  <view class="mask" wx:if="{{isFirst}}"></view>
+  <view class="mask" wx:if="{{isFirst || showHelp}}"></view>
   <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="840" helpId="{{id}}" title="{{title}}"></directions>
 </view>
