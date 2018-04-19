@@ -197,6 +197,8 @@ Page({
         that.showMask(that, '', '分享成功')
       }
     }
+    if (this.data.id) { toShareLink.id = this.data.id}
+    if (this.data.postid) { toShareLink.postid = this.data.postid }
     return shareToIndex(this, {type:4}, toShareLink)
   }
 })

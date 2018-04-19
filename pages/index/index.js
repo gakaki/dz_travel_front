@@ -84,6 +84,7 @@ Page({
 
   //分享相关跳转
   shareTo(options) {
+    if(!options.shareUid){return}
     if(options.start){
       console.log(options,'start options')
       let check = new CheckCode();
@@ -107,8 +108,31 @@ Page({
             this.tip('未知错误');
         }
       })
+    } else if (options.travelLog) {
+      wx.navigateTo({
+        url: '../travelLog/travelLog?shareUid='+options.shareUid
+      })
+    } else if (options.footprint) {
+      wx.navigateTo({
+        url: '../footprint/footprint?shareUid=' + options.shareUid
+      })
+    } else if (options.other) {
+      wx.navigateTo({
+        url: '../other/other?shareUid=' + options.shareUid
+      })
+    } else if (options.rank) {
+      wx.navigateTo({
+        url: '../rank/rank?shareUid=' + options.shareUid
+      })
+    } else if (options.checkPostcard) {
+      let url = '../checkPostcard/checkPostcard?shareUid=' + options.shareUid
+      if(options.id) { url += '&id=' + options.id }
+      if (options.postid) { url += '&id=' + options.postid }
+      wx.navigateTo({
+        url: url
+      })
     }
-  },
+  }, 
 
   tip(tip) {
     wx.showToast({

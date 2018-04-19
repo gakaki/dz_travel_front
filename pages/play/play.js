@@ -139,7 +139,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        Http.listen(PlayLoop, this.freshspots, this, 10000)
+       // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
 
@@ -179,6 +179,14 @@ Page({
       }
     })
   },
+  onShow: function () {
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    this.initData(cid)
+  },
   onLoad: function (options) {
     this.setData({
       gender: app.globalData.userInfo.gender
@@ -199,10 +207,7 @@ Page({
     })
     // this.scaleXy(2)
   },
-  onShow: function() {
-    console.log(123)
-    this.initData(cid)
-  },
+
   //触发事件
   touchEvt() {
     let req = new EventShow()
@@ -441,7 +446,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+    //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
@@ -852,14 +857,6 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    var animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation = animation
-  },
-
   played() {
     let m = new FinishGuide();
     m.play = true
