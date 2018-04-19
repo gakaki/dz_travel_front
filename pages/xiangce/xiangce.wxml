@@ -32,5 +32,13 @@
         <view class="bl" wx:if='{{item.postcardsDetail.length-1 != index}}'></view>
       </view>      
     </view> 
+    <view class="con f-c-fs no-postcard" wx:if='{{specialty && !item.postcardsDetail.length}}'>
+      <image class='icon' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></image> 
+      <view class='f-c-sb'>
+        <view class='content-t'>暂无留言明信片</view>
+        <view class='content-c' wx:if='{{!uid}}'>明信片可分享给好友进行通信哦~</view>
+      </view>
+    </view>
   </scroll-view>
+  
 </view>
