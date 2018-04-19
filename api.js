@@ -2015,9 +2015,10 @@ class CitySpes extends Base {
     
         this._cityId = null;
         this._specialtys = null;
+        this._restNum = null;
         this.requireFileds = ["cityId"];
         this.reqFields = ["cityId"];
-        this.resFields = ["specialtys"];
+        this.resFields = ["specialtys","restNum"];
     }
     //client input, require, type: number//城市id
     get cityId() {return this._cityId}
@@ -2025,6 +2026,9 @@ class CitySpes extends Base {
     //server output, type: Speciality[]
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
+    //server output, type: number
+    get restNum() {return this._restNum}
+    set restNum(v) {this._restNum = v}
 }
 class MySpes extends Base {
     constructor() {

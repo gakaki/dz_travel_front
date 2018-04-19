@@ -289,3 +289,19 @@
 .has-partner{
   margin-top: 34rpx;
 }
+
+.chun{
+  color: #6ad700;
+}
+
+.xia{
+  color: #fc6161;
+}
+
+.qiu{
+  color: #ff9c00;
+}
+
+.dong{
+  color: #9ba3cd;
+}

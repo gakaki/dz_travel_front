@@ -85,6 +85,14 @@ Page({
         })
         
         if(req.isFly){
+          //修改部分全局变量
+          if (app.globalData.isFirst) {
+            app.globalData.isFirst = false
+          }
+          app.globalData.cid = cid
+          app.globalData.cityName = options.terminal
+
+
           let airlines = [
             { from: locationCid, to: cid },
             { from: partnerCid, to: cid }
@@ -258,6 +266,13 @@ Page({
     else{
       if(this.data.invitee){
         if (res.isFly && startFly) {
+          //修改部分全局变量
+          if (app.globalData.isFirst) {
+            app.globalData.isFirst = false
+          }
+          app.globalData.cid = cid
+          app.globalData.cityName = sheet.City.Get(cid).city
+          
           console.log(locationCid, cid, '起飞城市id')
           startFly = false;
           let airlines = [
@@ -355,10 +370,14 @@ Page({
       }
     }
     start.fetch().then((req) => {
+      //修改部分全局变量
       if (app.globalData.isFirst){
         app.globalData.isFirst = false
       }
-      
+      app.globalData.cid = cid
+      app.globalData.cityName = sheet.City.Get(cid).city
+
+
       score = req.score;
       reward = req.reward;
       this.readyFly()

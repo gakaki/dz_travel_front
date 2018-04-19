@@ -29,6 +29,9 @@ Page({
   onHide() {
     this.data.audioC && this.data.audioC.destroy();
   },
+  onUnload(){
+    this.data.audioC && this.data.audioC.destroy();
+  },
   getUserInfo(){
     let m = new IntegralShop();
     m.fetch().then(res => {

@@ -38,11 +38,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.city) {
-      this.data.city = options.city
+    if (!options.cid) {
+      cid = app.globalData.cid
+      this.setData({
+        city: app.globalData.cityName
+      })
+    } else {
+      cid = options.cid
+      this.setData({
+        city: options.city
+      })
     }
+    
     this.checkRentStatus()
-    cid = options.cid
     wx.setNavigationBarTitle({
       title: '旅行道具'
     })
@@ -51,7 +59,6 @@ Page({
       rentProp: arr,
       myGold: app.globalData.gold
     })
-    console.log(this.data.rentProp)
   },
   hidePop() {
     this.setData({
@@ -81,12 +88,10 @@ Page({
       picUrl: picUrl,
       propName: obj.propsname
     })
-    console.log(this.data.propId)
   },
   buyPostcard(e){
     let dSet = e.currentTarget.dataset;
     let picUrl = `https://gengxin.odao.com/update/h5/travel/${dSet.picture}`
-    console.log()
     this.setData({
       propId: dSet.ptid,
       popCar:true,
@@ -100,22 +105,43 @@ Page({
   },
   buySpe(e) {
     let dSet = e.currentTarget.dataset
-    console.log(dSet)
     propId = dSet.propId
+    let maxNum = -1;
+    if(dSet.xg == -1) {
+      maxNum = this.data.restNum ? this.data.restNum:1
+      this.setData({
+        xg:false
+      })
+    } else {
+      if (this.data.restNum > dSet.xg) {
+        this.setData({
+          xg: false
+        })
+        maxNum = dSet.xg
+      } else {
+        this.setData({
+          xg: true
+        })
+        maxNum = this.data.restNum
+      }
+    }
+    let item = this.data.speArr[dSet.idx];
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${item.img}`
     this.setData({
       type: 'buy',
       popBuyNum: true,
-      maxNum: dSet.xg,
-      // maxNum: 2,
-      propName: this.data.speArr[dSet.idx].name,
-      propDesc: this.data.speArr[dSet.idx].desc,
-      goldNum: this.data.speArr[dSet.idx].price,
+      maxNum: maxNum,
+      propName: item.name,
+      propDesc: item.desc,
+      goldNum: item.price,
+      picUrl: picUrl
     })
   },
   sell(e) {
     let dSet = e.currentTarget.dataset;
     let spec = this.data.mySpe[dSet.idx]
     propId = spec.propId
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${spec.img}`
     this.setData({
       type:'sell',
       popBuyNum: true,
@@ -123,7 +149,8 @@ Page({
       propName: spec.name,
       goldNum: spec.sellPrice,
       propDesc: '花费' + spec.price
-      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币'
+      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币',
+      picUrl: picUrl
     })
   },
   toBuy() {
@@ -222,8 +249,6 @@ Page({
           this.clkThree()
         })
         break;
-      default:
-        return
     }
   },
   clkOne() {
@@ -250,8 +275,10 @@ Page({
     req.fetch().then((res) => {
       console.log(req)
       this.setData({
-        speArr: req.specialtys
+        speArr: req.specialtys,
+        restNum: req.restNum
       })
+      console.log(this.data.maxNum)
     })
 
   },
@@ -270,6 +297,7 @@ Page({
       this.setData({
         mySpe: req.specialtys,
       })
+      console.log(this.data.mySpe)
     })
 
   },
@@ -286,7 +314,6 @@ Page({
     let req = new BuyPostcardList();
     req.cid = cid
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
         speArr: req.ptList
       })

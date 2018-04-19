@@ -11,7 +11,7 @@
     <mygold goldNum="{{myGold}}"></mygold>
   </view>
   <view class="tips font fs" wx:if="{{tabOne}}">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</view>
-  <view class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随事件和市场变动</view>
+  <view class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随时间和市场变动</view>
   <view class="tips font fs" wx:if="{{tabFour}}">明信片可用于与好友通信</view>
   <view class="line"></view>
 
@@ -20,7 +20,7 @@
       <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/props/{{item.image}}"></image>
       <text class="one-i-str font">{{item.propsname}}</text>
       <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{daoju[index]}}'>
-        <view class='gold-num font font-c'>已{{cfmStr}}</view> 
+        <view class='gold-num font font-c'>{{index==rentProp.length-1?"已购买":"已租用"}}</view> 
       </view> 
       <view class="one-i-price f-r-fs"  wx:else='' data-id="{{item.id}}" bindtap='rentCar'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
@@ -44,7 +44,7 @@
   </scroll-view>
 
   <view id="three-list" class="f-c-fs sc" wx:if="{{tabThree}}">
-    <view class="one-item f-r-fs " wx:if="{{mySpe}}" wx:for="{{mySpe}}" wx:key='{{index}}'>
+    <view class="one-item f-r-fs " wx:for="{{mySpe}}" wx:key='{{index}}'>
       <image class="one-pic" wx:if="{{item.img}}" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
@@ -56,13 +56,14 @@
       </view>
     </view>
   </view>
+  <none wx:if='{{tabThree && !mySpe.length}}' title='背包中无特产可售卖' tip='可前往购买特产处进行购买'src='https://gengxin.odao.com/update/h5/travel/props/icon.png'></none>
+  
 
   <view id="four-list" scroll-y class="f-c-fs sc" wx:if="{{tabFour}}">
     <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
       <image class="one-pic"  wx:if="{{item.picture}}" src="{{tools.allImg(item.picture)}}"></image>
       <view class="f-c two-mid">
-        <text class="two-mid-top-str font fs postCard-name">{{item.name}}</text>
-        <!-- <text class="two-mid-bot-str font fs">{{item.desc}}</text> -->
+        <text class="two-mid-top-str font fs postCard-name">{{city}}</text>
       </view>
       <view class="one-i-price f-r-fs" data-ptid="{{item.ptid}}" data-price='{{item.price}}' data-picture='{{item.picture}}' data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buyPostcard'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
@@ -71,7 +72,10 @@
     </view>
   </view>
 
+
+  
+
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" picUrl='{{picUrl}}' bindtoclose="hideCar" bind:confirm="toBuy"></buy>
-  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum>
+  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount" picUrl='{{picUrl}}'></buynum>
   <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往充值"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往充值" isBuy="{{false}}"></buy>
 </view>

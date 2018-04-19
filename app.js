@@ -44,6 +44,8 @@ App({
     season: '',
     weather: '',
     gold: null,
+    cid:null,
+    cityName:null,
     isFirst: false
   },
   preventMoreTap: function (e) {
