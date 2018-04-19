@@ -59,7 +59,7 @@
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
       
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">{{isStart}}开始游玩{{isChg}} </view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
       <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{lineDown?'游玩结束':'游玩中'}}</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->
