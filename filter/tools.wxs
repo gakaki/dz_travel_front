@@ -16,6 +16,10 @@ function postcardBg(src) {
     return "https://gengxin.odao.com/update/h5/travel/postcard/" + src + '.png'
 }
 
+function rentImg(src) {
+  return "https://gengxin.odao.com/update/h5/travel/props/" + src
+}
+
 //奖项物品转字符串，kv[] -> 获得:aa x b; c x d;
 function rewardsStr(rewards) {
     const REWARDS_TYPE_GOLD = 1;
@@ -54,5 +58,6 @@ module.exports = {
     formatTime: formatTime,
     allImg: allImg,
     postcardBg: postcardBg,
-    rewardsStr: rewardsStr
+    rewardsStr: rewardsStr,
+    rentImg: rentImg
 }

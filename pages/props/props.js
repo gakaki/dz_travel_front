@@ -1,6 +1,6 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, redGold, addGold } from '../../utils/util.js';
-import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp } from '../../api.js'
+import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp, BuyPostcard, BuyPostcardList } from '../../api.js'
 let type = 0;
 let propId
 let cid = ''
@@ -21,7 +21,7 @@ Page({
     popBuyNum: false,
     singal: false,
     rentProp: [],
-    cfmStr: '',
+    cfmStr: '租用',
     goldNum: 0,
     propDesc: '',
     picUrl: '',
@@ -38,6 +38,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.city) {
+      this.data.city = options.city
+    }
     this.checkRentStatus()
     cid = options.cid
     wx.setNavigationBarTitle({
@@ -63,10 +66,10 @@ Page({
   rentCar(e) {
     let str
     let obj = sheet.Shop.Get(e.currentTarget.dataset.id);
-    if (obj.type == 1) {
-      str = '租用'
-    } else if (obj.type == 0) {
+    if(obj.type == 3) {
       str = '购买'
+    } else {
+      str = '租用'
     }
     this.setData({
       propId: e.currentTarget.dataset.id,
@@ -74,10 +77,23 @@ Page({
       cfmStr: str,
       goldNum: obj.price,
       propDesc: obj.rechargedescription,
-      // picUrl: obj.image,
+      picUrl: obj.image,
       propName: obj.propsname
     })
     console.log(this.data.propId)
+  },
+  buyPostcard(e){
+    let dSet = e.currentTarget.dataset;
+    this.setData({
+      propId: dSet.ptid,
+      popCar:true,
+      cfmStr: '购买',
+      goldNum: dSet.price,
+      propDesc: null,
+      picUrl: dSet.picture,
+      propName: this.data.city
+    })
+   
   },
   buySpe(e) {
     let dSet = e.currentTarget.dataset
@@ -110,16 +126,33 @@ Page({
   toBuy() {
     this.hideCar()
     if (!this.checkGold()) { return }
-    let m = new RentProp();
-    m.rentId = this.data.propId;
-    m.fetch().then(() => {
-      this.checkRentStatus();
-      let v = this.data.rentProp[this.data.propId - 1].price;
-      redGold(v)
-      this.setData({
-        myGold: app.globalData.gold
+    if(type == 0) {
+      let m = new RentProp();
+      m.rentId = this.data.propId;
+      m.fetch().then(() => {
+        this.checkRentStatus();
+        let v = this.data.rentProp[this.data.propId - 1].price;
+        redGold(v)
+        this.setData({
+          myGold: app.globalData.gold
+        })
       })
-    })
+    } else if(type == 3) {
+       let m = new BuyPostcard();
+       m.ptid = this.data.propId;
+        m.fetch().then(res=>{
+          app.globalData.gold = res.goldNum
+          this.setData({
+            myGold: res.goldNum
+          })
+          wx.showToast({
+            title: '购买成功',
+            icon:'none',
+            duration:1000
+          })
+        })
+    }
+    
     
   },
   checkRentStatus(){
@@ -239,7 +272,7 @@ Page({
 
   },
   clkFour() {
-    type = 1
+    type = 3
     this.setData({
       tabOne: false,
       tabTwo: false,
@@ -248,13 +281,12 @@ Page({
       maimai: '售卖'
     })
 
-    let req = new CitySpes();
-    //req.cityId = cid;
-    req.cityId = '1'
+    let req = new BuyPostcardList();
+    req.cid = cid
     req.fetch().then((res) => {
       console.log(req)
       this.setData({
-        speArr: req.specialtys
+        speArr: req.ptList
       })
     })
   },

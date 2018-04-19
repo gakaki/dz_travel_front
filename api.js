@@ -1631,10 +1631,10 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
-class BuyPostcatdList extends Base {
+class BuyPostcardList extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatdlist';
+        this.action = 'tour.buypostcardlist';
     
         this._cid = null;
         this._ptList = null;
@@ -2807,10 +2807,10 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class BuyPostcatd extends Base {
+class BuyPostcard extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatd';
+        this.action = 'tour.buypostcard';
     
         this._ptid = null;
         this._goldNum = null;
@@ -2956,7 +2956,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
-exports.BuyPostcatdList = BuyPostcatdList;
+exports.BuyPostcardList = BuyPostcardList;
 exports.Minapppay = Minapppay;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
@@ -3005,7 +3005,7 @@ exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcatd = BuyPostcatd;
+exports.BuyPostcard = BuyPostcard;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
