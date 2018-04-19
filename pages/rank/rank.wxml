@@ -18,7 +18,8 @@
       <view class="mark">{{item.rank}}</view>
       <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
       <view class="nickname">
-        <text>{{item.userInfo.nickName}}</text>
+        <!-- <text>{{item.userInfo.nickName}}</text> -->
+        <text>哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦</text>
       </view>
       <view class="info f-r-sb">
         <view class="rank-info f-r-sb">
