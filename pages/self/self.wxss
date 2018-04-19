@@ -80,3 +80,83 @@
   bottom: 0;
   left: 0;
 }
+
+.tips {
+  width: 550rpx;
+  height: 740rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  position: absolute;
+  top: 168rpx;
+  left: 50%;
+  transform: translate(-50%, 0);
+  justify-content: flex-start;
+  z-index: 20;
+}
+
+.area {
+  width: 350rpx;
+  height: 350rpx;
+  margin: 30rpx 0 19rpx;
+}
+
+.welcome {
+  font-size: 44rpx;
+}
+
+.welcome .name {
+  font-size: 44rpx;
+  font-weight: 900;
+}
+
+.free {
+  font-size: 34rpx;
+  color: #878689;
+  font-weight: 400;
+}
+
+.free text {
+  color: #278cff;
+}
+
+.single {
+  margin-top: 10rpx;
+}
+
+.btn-fly {
+  width: 420rpx;
+  height: 138rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/index/btn-blue-big.png") 0 0 no-repeat;
+  background-size: cover;
+  margin-top: 46rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 34rpx;
+  color: #fff;
+}
+
+.piaodai-left {
+  width: 83rpx;
+  height: 52rpx;
+  position: absolute;
+  top: 80rpx;
+  left: -36rpx;
+}
+
+.piaodai-right {
+  width: 81rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 240rpx;
+  right: -30rpx;
+}
+
+.mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}

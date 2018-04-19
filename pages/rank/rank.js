@@ -2,6 +2,7 @@
 import { shareToIndex } from '../../utils/util.js';
 import { RankInfo, RankType, RankSubtype, Code } from '../../api.js';
 const sheet = require('../../sheets.js');
+let app = getApp();
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
 Page({
@@ -26,7 +27,8 @@ Page({
     id:5,
     noReward:false,
     percent: true,
-    isFriend:false
+    isFriend:false,
+    isFirst: false
   },
 
   /**
@@ -71,6 +73,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      isFirst: app.globalData.isFirst
+    })
     this.getRankInfo() 
   },
 
@@ -161,6 +166,13 @@ Page({
         default:
           this.tip('未知错误');
       }
+    })
+  },
+
+  toFly(e) {
+    if (app.preventMoreTap(e)) return;
+    wx.navigateTo({
+      url: '../city/city?location=' + '',
     })
   },
 

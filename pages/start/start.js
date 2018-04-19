@@ -355,6 +355,10 @@ Page({
       }
     }
     start.fetch().then((req) => {
+      if (app.globalData.isFirst){
+        app.globalData.isFirst = false
+      }
+      
       score = req.score;
       reward = req.reward;
       this.readyFly()

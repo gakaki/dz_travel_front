@@ -23,7 +23,6 @@ Page({
    */
   onLoad: function (options) {
     location = options.location;
-
     // let readCity = sheet.finds.map(o=>{
     //   let obj={}
     //   obj.init =  new sheet.Find(o).pword;
@@ -134,6 +133,13 @@ Page({
     pages++
     this.setData({
       province,
+    })
+  },
+
+  international() {
+    wx.showToast({
+      title: '暂未开放',
+      icon: 'none'
     })
   },
 

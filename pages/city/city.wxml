@@ -9,7 +9,7 @@
     <view class="{{isDomestic ? 'choose' : ''}} flight">
       <text class="font">国内城市</text>
     </view>
-    <view class="{{isDomestic ? '' : 'choose'}} flight">
+    <view class="{{isDomestic ? '' : 'choose'}} flight" bindtap='international'>
       <text class='font'>国际城市</text>
     </view>
   </view>

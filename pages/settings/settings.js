@@ -12,6 +12,7 @@ Page({
     phone:'请输入手机号',
     address:'请输入地址',
     changeColor: false,
+    isFirst: false
   },
 
   /**
