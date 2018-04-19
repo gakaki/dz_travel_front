@@ -44,7 +44,7 @@
   </scroll-view>
 
   <view id="three-list" class="f-c-fs sc" wx:if="{{tabThree}}">
-    <view class="one-item f-r-fs " wx:if="{{mySpe}}" wx:for="{{mySpe}}" wx:key='{{index}}'>
+    <view class="one-item f-r-fs " wx:for="{{mySpe}}" wx:key='{{index}}'>
       <image class="one-pic" wx:if="{{item.img}}" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
@@ -56,6 +56,8 @@
       </view>
     </view>
   </view>
+  <none wx:if='{{tabThree && !mySpe.length}}' title='背包中无特产可售卖' tip='可前往购买特产处进行购买'src='https://gengxin.odao.com/update/h5/travel/props/icon.png'></none>
+  
 
   <view id="four-list" scroll-y class="f-c-fs sc" wx:if="{{tabFour}}">
     <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
@@ -70,6 +72,9 @@
       </view>
     </view>
   </view>
+
+
+  
 
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" picUrl='{{picUrl}}' bindtoclose="hideCar" bind:confirm="toBuy"></buy>
   <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum>

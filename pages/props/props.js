@@ -274,6 +274,7 @@ Page({
       this.setData({
         mySpe: req.specialtys,
       })
+      console.log(this.data.mySpe)
     })
 
   },
@@ -290,7 +291,6 @@ Page({
     let req = new BuyPostcardList();
     req.cid = cid
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
         speArr: req.ptList
       })

@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "none": "/components/none/none"
+  }
+}

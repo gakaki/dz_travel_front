@@ -1,0 +1,9 @@
+<!--components/none/none.wxml-->
+<view class="con f-c-fs {{all?'':'wrap'}} ">
+  <image class='icon' wx:if="{{src}}" src='{{src}}'></image> 
+  <view class='f-c-sb'>
+    <view class='content-t' wx:if="{{title}}">{{title}}</view>
+    <view class='content-c' wx:if='{{tip}}'>{{tip}}</view>
+  </view>
+  <view class='btn-big-blue' wx:if='{{btnInfo}}' bindtap='toShop'>{{btnInfo}}</view>
+</view>
