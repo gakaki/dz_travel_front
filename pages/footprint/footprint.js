@@ -10,7 +10,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mySelf: true,
     mapConWd: 750,
     mapConHt: 800,
     content:'炫耀足迹'
@@ -32,7 +31,10 @@ Page({
     } else {
       uid = userInfo.uid
     }
-    this.getApi(uid, TravelFootprint,(res)=>{
+    console.log(options.uid)
+    let m = new TravelFootprint();
+    m.playerUid = uid;
+    m.fetch().then(res => {
       console.log(res)
       this.setData({
         user: res.userInfo,
@@ -45,18 +47,7 @@ Page({
       })
     })
 
-    this.getApi(uid, TraveledPlaces, (res) => {
-      console.log(res)
-     
-    })
 
-  },
-  getApi(uid,Action,suc){
-    let m = new Action();
-    m.playerUid = uid;
-    m.fetch().then(m=>{
-      suc(m)
-    })
   },
   toIndex(){
     wx.reLaunch({

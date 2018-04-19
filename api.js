@@ -2508,6 +2508,9 @@ class Spot extends RouterSpot {
         //prop type: string[]
         this.building = null;
     
+        //prop type: string//还有多久到下一个景点
+        this.countdown = null;
+    
         
         
         

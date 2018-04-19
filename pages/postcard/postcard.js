@@ -17,7 +17,9 @@ Page({
     let m = new MyPostcards();
     if(options.uid) {
       m.palyerUid = options.uid;
-      this.data.uid = options.uid;
+      this.setData({
+        uid: options.uid
+      })
     }
     m.fetch().then(res=>{
       console.log(res)
