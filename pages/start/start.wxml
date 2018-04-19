@@ -5,7 +5,7 @@
       <text>{{date}}</text>
     </view>
     <view class="flex">
-      <text class="season">{{flyInfo.season}}</text>
+      <text class="season {{flyInfo.season=='春' ? 'chun' : flyInfo.season=='夏' ? 'xia' : flyInfo.season=='秋' ? 'qiu' : flyInfo.season=='冬' ? 'dong' : ''}}">{{flyInfo.season}}</text>
       <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{flyInfo.weather}}.png"></image>
     </view>
   </view> 

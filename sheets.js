@@ -21,10 +21,13 @@ class City {
     get postcard(){ return this.cfg.postcard; }
 
     // 坐标
-    get coordinate(){ return this.cfg.coordinate; }
+    get cityxy(){ return this.cfg.cityxy; }
 
     // 背景图片
     get picture(){ return this.cfg.picture; }
+
+    // 起点坐标
+    get coordinate(){ return this.cfg.coordinate; }
 
 
     static Get(id){ return id in _data.city ? new City(_data.city[id]) : null; }

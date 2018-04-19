@@ -134,13 +134,12 @@
 }
 
 .nickname{
-  width: 100%;
   font: bold 26rpx 'Microsoft Yahei';
   margin-top: 10rpx;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 208rpx;
 }
 
 .info{
@@ -198,6 +197,10 @@
 }
 
 .name{
+  display: block;
+  max-width: 208rpx;
+  white-space: nowrap;
+  overflow: hidden;
   font: bold 26rpx 'Microsoft Yahei';
 }
 
