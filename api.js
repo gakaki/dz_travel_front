@@ -99,6 +99,8 @@ class Code{
     
     static NONE_ADDRESS = -174;
     
+    static CANT_BUG = -175;
+    
     static RANK_NOT_MEET = 150;
     
     static INTEGRAL_NOT_MEET = 151;
