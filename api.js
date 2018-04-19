@@ -99,6 +99,8 @@ class Code{
     
     static NONE_ADDRESS = -174;
     
+    static CANT_BUG = -175;
+    
     static RANK_NOT_MEET = 150;
     
     static INTEGRAL_NOT_MEET = 151;
@@ -189,6 +191,17 @@ class RentItem{
     static MEDICALBOX = 3;
     
 }
+class SystemGift{
+    
+    static USERITEM = 1;
+    
+    static SPECIALITY = 2;
+    
+    static POSTCARD = 3;
+    
+    static RENTITEM = 4;
+    
+}
 class TicketType{
     
     static RANDOMBUY = '00';
@@ -246,6 +259,9 @@ class Partener {
     
         //prop type: number//性别
         this.gender = null;
+    
+        //prop type: string//头像地址
+        this.img = null;
     
         //prop type: boolean//是否是邀请者
         this.isInviter = null;
@@ -1297,20 +1313,6 @@ class FinishGuide extends Base {
         this.resFields = [];
     }
 }
-class TaskInfo extends Base {
-    constructor() {
-        super();
-        this.action = 'tour.taskinfo';
-    
-        this._task = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["task"];
-    }
-    //server output, type: TourTask
-    get task() {return this._task}
-    set task(v) {this._task = v}
-}
 class TourIndexInfo extends Base {
     constructor() {
         super();
@@ -1319,13 +1321,15 @@ class TourIndexInfo extends Base {
         this._cid = null;
         this._weather = null;
         this._spots = null;
+        this._task = null;
         this._startPos = null;
         this._others = null;
+        this._display = null;
         this._startTime = null;
         this._partener = null;
         this.requireFileds = ["cid"];
         this.reqFields = ["cid"];
-        this.resFields = ["weather","spots","startPos","others","startTime","partener"];
+        this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1336,12 +1340,18 @@ class TourIndexInfo extends Base {
     //server output, type: Spot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
     //server output, type: object
     get startPos() {return this._startPos}
     set startPos(v) {this._startPos = v}
     //server output, type: string[]
     get others() {return this._others}
     set others(v) {this._others = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
     //server output, type: 
     get startTime() {return this._startTime}
     set startTime(v) {this._startTime = v}
@@ -1454,7 +1464,7 @@ class ReqEnterspot extends Base {
     //server output, type: EnterSpot
     get spot() {return this._spot}
     set spot(v) {this._spot = v}
-    //server output, type: Quest[]
+    //server output, type: string[]
     get events() {return this._events}
     set events(v) {this._events = v}
     //server output, type: number//剩余金币数
@@ -1469,11 +1479,11 @@ class SpotTour extends Base {
         this._cid = null;
         this._spotId = null;
         this._event = null;
-        this._userinfo = null;
+        this._freeSight = null;
         this._goldNum = null;
         this.requireFileds = ["cid","spotId"];
         this.reqFields = ["cid","spotId"];
-        this.resFields = ["event","userinfo","goldNum"];
+        this.resFields = ["event","freeSight","goldNum"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1484,9 +1494,9 @@ class SpotTour extends Base {
     //server output, type: string//产生的新事件
     get event() {return this._event}
     set event(v) {this._event = v}
-    //server output, type: UserInfo
-    get userinfo() {return this._userinfo}
-    set userinfo(v) {this._userinfo = v}
+    //server output, type: number
+    get freeSight() {return this._freeSight}
+    set freeSight(v) {this._freeSight = v}
     //server output, type: number//剩余金币数
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
@@ -1611,6 +1621,24 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
+class BuyPostcatdList extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.buypostcatdlist';
+    
+        this._cid = null;
+        this._ptList = null;
+        this.requireFileds = ["cid"];
+        this.reqFields = ["cid"];
+        this.resFields = ["ptList"];
+    }
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //server output, type: Postcard[]
+    get ptList() {return this._ptList}
+    set ptList(v) {this._ptList = v}
+}
 class Minapppay extends Base {
     constructor() {
         super();
@@ -1632,6 +1660,32 @@ class Minapppay extends Base {
     //server output, type: Payload
     get payload() {return this._payload}
     set payload(v) {this._payload = v}
+}
+class SetRouter extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.setrouter';
+    
+        this._cid = null;
+        this._line = null;
+        this._spots = null;
+        this._startTime = null;
+        this.requireFileds = ["cid","line"];
+        this.reqFields = ["cid","line"];
+        this.resFields = ["spots","startTime"];
+    }
+    //client input, require, type: string
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: array//景点id数组,每次传的都市完整的路线（包含已走过的）
+    get line() {return this._line}
+    set line(v) {this._line = v}
+    //server output, type: RouterSpot[]//不包括起点
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: 
+    get startTime() {return this._startTime}
+    set startTime(v) {this._startTime = v}
 }
 class ModifyRouter extends Base {
     constructor() {
@@ -1657,13 +1711,17 @@ class FreshSpots extends Base {
         this.action = 'tour.freshspots';
     
         this._spots = null;
+        this._display = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["spots"];
+        this.resFields = ["spots","display"];
     }
     //server output, type: RouterSpot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
 }
 class PlayLoop extends Base {
     constructor() {
@@ -2739,31 +2797,23 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class SetRouter extends Base {
+class BuyPostcatd extends Base {
     constructor() {
         super();
-        this.action = 'tour.setrouter';
+        this.action = 'tour.buypostcatd';
     
-        this._cid = null;
-        this._line = null;
-        this._spots = null;
-        this._startTime = null;
-        this.requireFileds = ["cid","line"];
-        this.reqFields = ["cid","line"];
-        this.resFields = ["spots","startTime"];
+        this._ptid = null;
+        this._goldNum = null;
+        this.requireFileds = ["ptid"];
+        this.reqFields = ["ptid"];
+        this.resFields = ["goldNum"];
     }
-    //client input, require, type: string
-    get cid() {return this._cid}
-    set cid(v) {this._cid = v}
-    //client input, require, type: array//景点id数组,每次传的都市完整的路线（包含已走过的）
-    get line() {return this._line}
-    set line(v) {this._line = v}
-    //server output, type: RouterSpot[]//不包括起点
-    get spots() {return this._spots}
-    set spots(v) {this._spots = v}
-    //server output, type: 
-    get startTime() {return this._startTime}
-    set startTime(v) {this._startTime = v}
+    //client input, require, type: number
+    get ptid() {return this._ptid}
+    set ptid(v) {this._ptid = v}
+    //server output, type: number
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class SellSpe extends Spe {
     constructor() {
@@ -2838,6 +2888,7 @@ exports.Season = Season;
 exports.PresentTktType = PresentTktType;
 exports.Code = Code;
 exports.RentItem = RentItem;
+exports.SystemGift = SystemGift;
 exports.TicketType = TicketType;
 exports.RankType = RankType;
 exports.RankSubtype = RankSubtype;
@@ -2880,7 +2931,6 @@ exports.MessageItem = MessageItem;
 exports.ExchangeShopDetail = ExchangeShopDetail;
 exports.Shop = Shop;
 exports.FinishGuide = FinishGuide;
-exports.TaskInfo = TaskInfo;
 exports.TourIndexInfo = TourIndexInfo;
 exports.CancelParten = CancelParten;
 exports.LookTicket = LookTicket;
@@ -2895,7 +2945,9 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
+exports.BuyPostcatdList = BuyPostcatdList;
 exports.Minapppay = Minapppay;
+exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
 exports.FreshSpots = FreshSpots;
 exports.PlayLoop = PlayLoop;
@@ -2942,7 +2994,7 @@ exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.SetRouter = SetRouter;
+exports.BuyPostcatd = BuyPostcatd;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
