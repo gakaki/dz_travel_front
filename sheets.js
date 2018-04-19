@@ -14,9 +14,6 @@ class City {
     // id
     get id(){ return this.cfg.id; }
 
-    // 省份
-    get province(){ return this.cfg.province; }
-
     // 城市
     get city(){ return this.cfg.city; }
 

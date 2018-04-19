@@ -5,11 +5,11 @@ import { Base, TraveledPlaces } from '../../api.js'
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 //大地图左上角点的经纬度
-const geoTopLeft = { j: 73.6, w: 53.5 }//{ j: 80.6, w: 55.8 };
+//const geoTopLeft = { j: 73.6, w: 53.5 }//{ j: 80.6, w: 55.8 };
 //大地图右下角点的经纬度
-const geoBtmRht = { j: 135.1, w: 3.5 }//{ j: 129.6, w: 4.5 };
-const geoWd = geoBtmRht.j - geoTopLeft.j;
-const geoHt = geoTopLeft.w - geoBtmRht.w;
+// const geoBtmRht = { j: 135.1, w: 3.5 }//{ j: 129.6, w: 4.5 };
+// const geoWd = geoBtmRht.j - geoTopLeft.j;
+// const geoHt = geoTopLeft.w - geoBtmRht.w;
 
 const lineArcD = Math.PI / 5;//航线弧线弧度
 const lineArcDMin = Math.PI / 6;//最小弧度
@@ -64,27 +64,27 @@ const xyCitys = citys.map(c => {
   o.name = c.city;
   o.hideName = true;
   let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
-  o.x = c.coordinate[0]-2;
-  o.y = c.coordinate[1]-2;
+  o.x = xy.x;
+  o.y = xy.y;
   o.imgWd = 4;//根据美术资源尺寸
   o.imgHt = 4;
   o.img = '../../assets/province/light.png';
-  o.province = c.province
   return o;
 })
 
 
 function jwToxy(j, w) {
-  let dj = Math.abs(geoTopLeft.j - j);
-  let dw = Math.abs(geoTopLeft.w - w);
-  let x = mapWidth * dj / geoWd;
-  let y = mapHeight * dw / geoHt;
+  // let dj = Math.abs(geoTopLeft.j - j);
+  // let dw = Math.abs(geoTopLeft.w - w);
+  //修成偏移，因美术给的地图上的点是2x2.资源尺寸为4x4
+  let x = j-2
+  let y = w-2
 
   //修正偏移，因为经纬度实际上类似于极坐标，而非简单的直角坐标
-  let offx = dw * 2.4;//dw * 0.75;
-  let offy = -dj * 0.2;//-dj * 0.78;
-  x+= offx;
-  y+= offy;
+  // let offx = dw * 2.4;//dw * 0.75;
+  // let offy = -dj * 0.2;//-dj * 0.78;
+  // x+= offx;
+  // y+= offy;
  
   return { x, y };
 }
@@ -201,37 +201,38 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
-      // if (!this.data.uid)
-      //   return;
-      // if(!this.data.log) return
-      // return;//server not ok
-      // let req = new TraveledPlaces();
-      // req.playerUid = this.data.uid;
+      if (!this.data.uid)
+        return;
+      //if(!this.data.log) return
+      let req = new TraveledPlaces();
+      req.playerUid = this.data.uid;
 
-      // req.fetch().then(()=> {
-        provinces.every(o => {
-          o.light =  true//req.provinces.indexOf(o.name) != -1;
-          return true;
+      req.fetch().then(()=> {
+        provinces.forEach(o => {
+          o.hideName = req.provinces.indexOf(o.name) == -1
+          o.light = req.provinces.indexOf(o.name) != -1;
         });
 
-        let province = provinces.filter(o => {
-          return o.name == provinces[4].name
-        })
-
-        let citys = xyCitys.filter(c => {
-          c.light = true//req.citys.indexOf(c.name) != -1;
-          c.hideName = true
-          return c.light && c.province == provinces[4].name;
-        })
-        
-        // let citys = xyCitys.filter(c => {
-        //   c.light = req.citys.indexOf(c.name) != -1;
-
-        //   return c.light;
+        // let province = provinces.filter(o => {
+        //   return o.name == provinces[29].name
         // })
 
-        this.setData({ provinces:province, citys });
-      // })
+        // let citys = xyCitys.filter(c => {
+        //   c.light = true//req.citys.indexOf(c.name) != -1;
+        //   c.hideName = true
+        //   return c.light && c.province == provinces[29].name;
+        // })
+        
+        
+        let citys = xyCitys.filter(c => {
+          req.citys.find(v => {
+            c.light = v.cfg.city == c.name
+            return v.cfg.city == c.name;
+          })
+          return c.light
+        })
+        this.setData({ provinces, citys });
+      })
     },
 
     showLocation() {
