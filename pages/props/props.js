@@ -206,6 +206,13 @@ Page({
         req.count = e.detail.num
         req.fetch().then(() => {
           console.log(req)
+          if(req.code == -112) {
+            wx.showToast({
+              title: '购买的特产数量总和已超出上限',
+              icon:'none'
+            })
+            return
+          }
           let num = this.data.goldNum * e.detail.num
           redGold(num)
           this.setData({
