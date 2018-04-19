@@ -38,11 +38,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.city) {
+    if (!options.cid) {
+      cid = app.globalData.cid
+      this.data.city = app.globalData.cityName
+    } else {
+      cid = options.cid
       this.data.city = options.city
     }
+    
     this.checkRentStatus()
-    cid = options.cid
     wx.setNavigationBarTitle({
       title: '旅行道具'
     })
@@ -51,7 +55,6 @@ Page({
       rentProp: arr,
       myGold: app.globalData.gold
     })
-    console.log(this.data.rentProp)
   },
   hidePop() {
     this.setData({
@@ -81,12 +84,10 @@ Page({
       picUrl: picUrl,
       propName: obj.propsname
     })
-    console.log(this.data.propId)
   },
   buyPostcard(e){
     let dSet = e.currentTarget.dataset;
     let picUrl = `https://gengxin.odao.com/update/h5/travel/${dSet.picture}`
-    console.log()
     this.setData({
       propId: dSet.ptid,
       popCar:true,
@@ -106,7 +107,6 @@ Page({
       type: 'buy',
       popBuyNum: true,
       maxNum: dSet.xg,
-      // maxNum: 2,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
       goldNum: this.data.speArr[dSet.idx].price,

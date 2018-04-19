@@ -43,7 +43,9 @@ App({
     userInfo: null,
     season: '',
     weather: '',
-    gold: null
+    gold: null,
+    cid:null,
+    cityName:null
   },
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;
