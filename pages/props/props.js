@@ -243,8 +243,7 @@ Page({
     })
 
     let req = new CitySpes();
-    //req.cityId = cid;
-    req.cityId = '1'
+    req.cityId = cid;
     req.fetch().then((res) => {
       console.log(req)
       this.setData({
