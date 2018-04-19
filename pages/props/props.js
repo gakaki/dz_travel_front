@@ -105,12 +105,32 @@ Page({
   },
   buySpe(e) {
     let dSet = e.currentTarget.dataset
-    console.log(dSet)
     propId = dSet.propId
+    let maxNum = -1;
+    if(dSet.xg == -1) {
+      if (this.data.restNum) {
+        maxNum = this.data.restNum
+      }
+      this.setData({
+        xg:false
+      })
+    } else {
+      if (this.data.restNum > dSet.xg) {
+        this.setData({
+          xg: false
+        })
+        maxNum = dSet.xg
+      } else {
+        this.setData({
+          xg: true
+        })
+        maxNum = this.data.restNum
+      }
+    }
     this.setData({
       type: 'buy',
       popBuyNum: true,
-      maxNum: dSet.xg,
+      maxNum: maxNum,
       propName: this.data.speArr[dSet.idx].name,
       propDesc: this.data.speArr[dSet.idx].desc,
       goldNum: this.data.speArr[dSet.idx].price,
@@ -206,13 +226,6 @@ Page({
         req.count = e.detail.num
         req.fetch().then(() => {
           console.log(req)
-          if(req.code == -112) {
-            wx.showToast({
-              title: '购买的特产数量总和已超出上限',
-              icon:'none'
-            })
-            return
-          }
           let num = this.data.goldNum * e.detail.num
           redGold(num)
           this.setData({
@@ -261,8 +274,10 @@ Page({
     req.fetch().then((res) => {
       console.log(req)
       this.setData({
-        speArr: req.specialtys
+        speArr: req.specialtys,
+        restNum: req.restNum
       })
+      console.log(this.data.maxNum)
     })
 
   },

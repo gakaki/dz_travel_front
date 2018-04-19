@@ -28,6 +28,10 @@ Component({
       type: String,
       value: '购买'
     },
+    xg:{
+      type:Boolean,
+      value:false
+    },
     // goldNum: {
     //   type: Number,
     //   value: 1
