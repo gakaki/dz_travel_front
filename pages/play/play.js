@@ -789,7 +789,7 @@ Page({
   },
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + cid
+      url: '../props/props?cid=' + cid + '&city=' + city
     })
   },
   showisPop() {

@@ -7,12 +7,13 @@
       </view>
       <view class="person-info f-c">
         <view class="name">
-          <text class="font">{{nickName}}</text>
+           <text class="font">{{nickName}}</text>  
+           <!-- <text class="font">哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦</text>  -->
         </view>
-        <view class="gold-info flex">
+        <view class="gold-info flex" bindtap='toShop'>
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
           <text class="font">{{gold}}</text>
-          <image class="add" bindtap='toShop' src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
+          <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
         </view>
       </view>
     </view>

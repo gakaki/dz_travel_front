@@ -29,6 +29,12 @@
   align-items: flex-start;
 }
 
+.name{
+  max-width: 290rpx;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .name text {
   font-size: 36rpx;
 }
@@ -208,10 +214,6 @@
   width: 350rpx;
   height: 350rpx;
   margin: 30rpx 0 19rpx;
-}
-
-.name {
-  font-weight: 900;
 }
 
 .welcome {
