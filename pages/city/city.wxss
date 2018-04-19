@@ -54,6 +54,7 @@
   left: 60rpx;
   font-size: 30rpx;
   color: #8d8d8d;
+  line-height: 74rpx;
 }
 
 .search-city-small{

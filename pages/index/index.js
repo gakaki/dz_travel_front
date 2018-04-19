@@ -179,8 +179,10 @@ Page({
       app.globalData.weather = weather
       app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
-      app.globalData.cid = req.location
-      app.globalData.cityName = sheet.City.Get(req.location).city
+      if(req.location){
+        app.globalData.cid = req.location
+        app.globalData.cityName = sheet.City.Get(req.location).city
+      }
       this.setData({
         isFirst: req.isFirst,
         season,

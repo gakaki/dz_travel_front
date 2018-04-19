@@ -109,11 +109,14 @@
 .pre,.next {
 position: absolute;
 bottom: 10rpx;
-font: bold 20rpx 'Microsoft YaHei';
+width: 100rpx;
+height: 40rpx;
+font: bold 20rpx/40rpx 'Microsoft YaHei';
 }
 .pre {
   left: 10rpx;
 }
 .next {
+  text-align: right;
   right: 10rpx;
 }

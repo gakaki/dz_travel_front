@@ -38,6 +38,7 @@
   font-size: 30rpx;
   color: #ccc;
   font-weight: 700;
+  text-indent: 5rpx;
 }
 
 .back{

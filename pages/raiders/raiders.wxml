@@ -1,8 +1,7 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="con">
 <scroll-view class="con-box" scroll-y bindscrolltolower='addPage'>
-<!-- <image class="photo" wx:if='{{img}}' src="{{tools.allImg(img)}}"> </image> -->
-<image class="photo"  src="https://gengxin.odao.com/update/h5/travel/{{img}}"> </image>
+<image class="photo" wx:if="{{img}}" src="https://gengxin.odao.com/update/h5/travel/{{img}}"> </image>
   <view wx:if='{{content}}' class="desc-bg font">
     {{content}}
   </view>
@@ -35,6 +34,6 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
-  <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop"></comment>
+  <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop" placeholder='{{placeholder}}'></comment>
   <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='发表评论成功'></tip>
 </view>

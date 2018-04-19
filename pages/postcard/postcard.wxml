@@ -12,9 +12,9 @@
     </view>
   </navigator>
 </scroll-view>
-<block wx:else>
+<view wx:else>
   <none wx:if='{{!uid}}' title='暂无明信片' tip='可前往旅行道具处购买明信片' btnInfo='前往购买' bindtap='toShop' all='{{true}}' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>
   <none wx:else title='暂无明信片' all='{{true}}' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>
-</block>
+</view>
 
 
