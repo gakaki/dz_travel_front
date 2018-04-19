@@ -108,9 +108,7 @@ Page({
     propId = dSet.propId
     let maxNum = -1;
     if(dSet.xg == -1) {
-      if (this.data.restNum) {
-        maxNum = this.data.restNum
-      }
+      maxNum = this.data.restNum ? this.data.restNum:1
       this.setData({
         xg:false
       })

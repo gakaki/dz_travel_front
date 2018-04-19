@@ -80,11 +80,21 @@ Component({
       })
     },
     pGold() {
-      let t = 0
+      let t = 0;
+      console.log(this.properties.maxNum)
       if (this.properties.maxNum == -1) {
         t = this.data.goldNum+1
       } else {
-        t = this.data.goldNum++ < this.properties.maxNum ? this.data.goldNum : this.properties.maxNum
+        if (this.data.goldNum++ < this.properties.maxNum) {
+          t = this.data.goldNum
+        } else {
+          t = this.properties.maxNum
+          wx.showToast({
+            title: '最大数量超出限制',
+            icon: 'none',
+            duration: 1000,
+          })
+        }
       }
 
       this.setData({
