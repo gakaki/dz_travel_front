@@ -28,7 +28,6 @@ Component({
     starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-act.png'
   },
   attached: function () {
-    console.log(this.properties.wid)
     if (this.properties.wid == 130) {
       this.setData({
         mg: 'sm',
