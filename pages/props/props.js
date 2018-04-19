@@ -71,26 +71,29 @@ Page({
     } else {
       str = '租用'
     }
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/props/${obj.image}`
     this.setData({
       propId: e.currentTarget.dataset.id,
       popCar: true,
       cfmStr: str,
       goldNum: obj.price,
       propDesc: obj.rechargedescription,
-      picUrl: obj.image,
+      picUrl: picUrl,
       propName: obj.propsname
     })
     console.log(this.data.propId)
   },
   buyPostcard(e){
     let dSet = e.currentTarget.dataset;
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${dSet.picture}`
+    console.log()
     this.setData({
       propId: dSet.ptid,
       popCar:true,
       cfmStr: '购买',
       goldNum: dSet.price,
       propDesc: null,
-      picUrl: dSet.picture,
+      picUrl: picUrl,
       propName: this.data.city
     })
    
