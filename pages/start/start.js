@@ -271,7 +271,7 @@ Page({
             app.globalData.isFirst = false
           }
           app.globalData.cid = cid
-          app.globalData.cityName = options.terminal
+          app.globalData.cityName = sheet.City.Get(cid).city
           
           console.log(locationCid, cid, '起飞城市id')
           startFly = false;

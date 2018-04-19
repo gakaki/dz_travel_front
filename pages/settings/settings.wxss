@@ -30,11 +30,11 @@
   font: 34rpx "Microsoft YaHei";
   color: #878689;
   text-align: right;
+  text-indent: 5rpx;
 }
 
 .info-1{
   color: #d4d3d8;
-  text-align: right;
 }
  
 .address{
