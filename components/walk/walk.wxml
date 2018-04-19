@@ -7,6 +7,10 @@
 
 
 <view class='walk-box' wx:if="{{show}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;">
+  <view class="partner-box" wx:if="{{isDouble}}">
+    <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{partnerSex == 2 ? 'nv' : 'nan'}}.png" class="walk-icon-partner"></image>
+  </view>
+
   <view class="nan-box">
 
     <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 2 ? 'nv' : 'nan'}}.png" class="walk-icon"></image>

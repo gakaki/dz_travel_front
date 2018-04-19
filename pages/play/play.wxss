@@ -81,6 +81,7 @@ weather.sights {
   top: 20rpx;
   left: 10rpx;
   text-align: center;
+  z-index: 15
 }
 .cancle-double {
   background-color: #FD6259;
@@ -101,6 +102,7 @@ weather.sights {
   right: 110rpx;
   top: 22rpx;
   border-radius: 3px;
+  z-index: 15
 }
 
 .tip {
@@ -111,6 +113,7 @@ weather.sights {
   right: 20rpx;
   height: 54rpx;
   width: 54rpx;
+  z-index: 15
 }
 
 /* 屏幕边缘按钮样式 */
@@ -123,6 +126,7 @@ weather.sights {
   right: 0;
   height: 124rpx;
   width: 169rpx;
+  z-index: 15
 }
 
 .missionText {
@@ -158,7 +162,7 @@ weather.sights {
   right: 0;
   height: 124rpx;
   width: 169rpx;
-  z-index: 100
+  z-index: 15
 }
 
 .changeLineText {
@@ -189,6 +193,7 @@ weather.sights {
   left: 50%;
   bottom: 240rpx;
   transform: translate(-50%,0);
+  z-index: 15
 }
 
 .zoomBtn .add {
@@ -217,7 +222,7 @@ weather.sights {
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
   background-size: cover;
-
+ z-index: 15;
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
@@ -231,6 +236,7 @@ weather.sights {
   width: 268rpx;
   height: 115rpx;
   font-size: 28rpx;
+  z-index: 15;
 }
 .travelStart {
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
@@ -255,7 +261,7 @@ weather.sights {
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
-
+  z-index: 15;
 }
 
 .warningBox {

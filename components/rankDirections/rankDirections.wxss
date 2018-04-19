@@ -7,7 +7,7 @@
   top: 182rpx;
   left: 50%;
   transform: translate(-50%,0);
-  z-index: 20;
+  z-index: 106;
   border-radius: 40rpx;
   overflow: hidden;
 }
@@ -50,13 +50,6 @@
   padding-left: 25rpx;
 }
 
-.mask{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
-}
 .rule {
   font: bold 30rpx 'Microsoft YaHei';
   letter-spacing: 2rpx;
