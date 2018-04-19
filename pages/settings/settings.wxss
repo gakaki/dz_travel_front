@@ -35,6 +35,7 @@
 
 .info-1{
   color: #d4d3d8;
+  text-align: right;
 }
  
 .address{
