@@ -16,7 +16,15 @@ Component({
       type: Array,
       value: []
     },
+    isDouble: {
+      type: Boolean,
+      value: false
+    },
     sex: {
+      type: Number,
+      value: 1
+    },
+    partnerSex: {
       type: Number,
       value: 1
     },
