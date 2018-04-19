@@ -29,7 +29,7 @@ Page({
     })   
   },
   toShop(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../props/props',
     })
   },
