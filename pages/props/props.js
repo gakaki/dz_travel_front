@@ -15,6 +15,7 @@ Page({
     tabOne: true,
     tabTwo: false,
     tabThree: false,
+    tabFour: false,
     myGold: 0,
     popCar: false,
     popBuyNum: false,
@@ -194,7 +195,8 @@ Page({
     this.setData({
       tabOne: true,
       tabTwo: false,
-      tabThree: false
+      tabThree: false,
+      tabFour: false,
     })
   },
   clkTwo() {
@@ -203,6 +205,7 @@ Page({
       tabOne: false,
       tabTwo: true,
       tabThree: false,
+      tabFour: false,
       // maimai: '购买'
     })
 
@@ -223,6 +226,7 @@ Page({
       tabOne: false,
       tabTwo: false,
       tabThree: true,
+      tabFour: false,
       maimai: '售卖'
     })
     let req = new MySpes();
@@ -233,6 +237,26 @@ Page({
       })
     })
 
+  },
+  clkFour() {
+    type = 1
+    this.setData({
+      tabOne: false,
+      tabTwo: false,
+      tabThree: false,
+      tabFour: true,
+      maimai: '售卖'
+    })
+
+    let req = new CitySpes();
+    //req.cityId = cid;
+    req.cityId = '1'
+    req.fetch().then((res) => {
+      console.log(req)
+      this.setData({
+        speArr: req.specialtys
+      })
+    })
   },
 
   /**

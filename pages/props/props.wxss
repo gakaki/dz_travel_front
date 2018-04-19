@@ -132,3 +132,6 @@
   color: #b8b8b8;
   letter-spacing: 3rpx
 }
+.postCard-name{
+  margin-top: 0;
+}

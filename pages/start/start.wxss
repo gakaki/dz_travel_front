@@ -60,6 +60,7 @@
   width: 526rpx;
   font: bold 30rpx 'Microsoft Yahei';
   margin-top: 14rpx;
+  color: #a3a3a3;
 }
 
 .line{
@@ -77,7 +78,7 @@
   height: 70rpx;
   line-height: 70rpx;
   text-align: center;
-  font: 48rpx 'Microsoft Yahei';
+  font: bold 48rpx 'Microsoft Yahei';
   color: #278cff;
 }
 
