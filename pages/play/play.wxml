@@ -11,17 +11,17 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk hidden="{{isChg}}" bind:chufaEvt="touchEvt" evt="{{event}}" isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk  bind:chufaEvt="touchEvt" evt="{{event}}" isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
     <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
-    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-      <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
+    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex img-box {{'icon-'+item.building[0]}}" style="left:{{item.x}}rpx;top:{{item.y}}rpx">
+      <text class='icon-num' >{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
-        data-id='{{item.id}}' data-name="{{item.name}}" bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{'icon-'+item.building[0]}}"></image>
-      <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
+        data-id='{{item.id}}' data-name="{{item.name}}" bindtap='drawDashedLine'  class="testImg {{'icon-'+item.building[0]}}" ></image>
+      <text class='icon-name' >{{item.name}}</text>
     </view>
     <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">
     </image>

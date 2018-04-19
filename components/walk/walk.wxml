@@ -1,19 +1,29 @@
-<!-- <view class="nan-box" wx:if="{{show}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;" animation="{{animationData}}">
-
-  <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 1 ? 'nan' : 'nv'}}.png" class="walk-icon"></image>
-  <image hidden="{{!evt}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
-</view> -->
-
-
-
-<view class='walk-box' wx:if="{{show}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;">
-  <view class="partner-box" wx:if="{{isDouble}}">
+ <view class='walk-box' wx:if="{{show && display == 'people'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-81}}rpx;left:{{x-19}}rpx;">
+   <view class="partner-box" wx:if="{{isDouble}}">
     <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{partnerSex == 2 ? 'nv' : 'nan'}}.png" class="walk-icon-partner"></image>
   </view>
 
   <view class="nan-box">
-
     <image style="top:0;left:{{left}}rpx" src="https://gengxin.odao.com/update/h5/travel/play/{{sex == 2 ? 'nv' : 'nan'}}.png" class="walk-icon"></image>
-  </view>
+  </view> 
   <image hidden="{{!evt}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
+</view> 
+
+<!-- 豪华车 -->
+<view class='haohua-box' wx:if="{{show && display == 'haohua'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-55}}rpx;left:{{x-60}}rpx;">
+
+  <image class="haohua" src="https://gengxin.odao.com/update/h5/travel/play/haohua.png"></image>
+  <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
+</view>
+<!-- 商务车 -->
+<view class='sw-box' wx:if="{{show && display == 'shangwu'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-73}}rpx;left:{{x-47}}rpx;">
+
+  <image class="shangwu" src="https://gengxin.odao.com/update/h5/travel/play/shangwu.png"></image>
+  <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
+</view>
+<!-- 经济车 -->
+<view class='jj-box' wx:if="{{show && display == 'jingji'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-43}}rpx;left:{{x-38}}rpx;">
+
+  <image class="jingji" src="https://gengxin.odao.com/update/h5/travel/play/jingji.png"></image>
+  <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
 </view>

@@ -109,6 +109,8 @@ class Code{
     
     static HAS_SIGNIN = -144;
     
+    static NO_CURRENTCITY = -145;
+    
     static UNKNOWN = -1000;
     
     static EXCEPTION = -999;
@@ -526,6 +528,14 @@ class Base {
                   this.code=res.data.code;
                   if (this.code != Code.OK) {
                       console.log('fetch got an error code',this.code);
+                      let sheets=require('./sheets.js')
+                      let error=sheets.Error.Get(this.code)
+                      if (error && error.message) {
+                        wx.showToast({
+                          title: error.message,
+                          icon: 'none'
+                        })
+                      }
                       reject(this.code);
                   }
                   else {
@@ -1313,46 +1323,40 @@ class FinishGuide extends Base {
         this.resFields = [];
     }
 }
-class TaskInfo extends Base {
-    constructor() {
-        super();
-        this.action = 'tour.taskinfo';
-    
-        this._task = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["task"];
-    }
-    //server output, type: TourTask
-    get task() {return this._task}
-    set task(v) {this._task = v}
-}
 class TourIndexInfo extends Base {
     constructor() {
         super();
         this.action = 'tour.tourindexinfo';
     
         this._cid = null;
+        this._inviteCode = null;
         this._weather = null;
         this._spots = null;
+        this._task = null;
         this._startPos = null;
         this._others = null;
         this._display = null;
         this._startTime = null;
         this._partener = null;
-        this.requireFileds = ["cid"];
-        this.reqFields = ["cid"];
-        this.resFields = ["weather","spots","startPos","others","display","startTime","partener"];
+        this.requireFileds = ["cid","inviteCode"];
+        this.reqFields = ["cid","inviteCode"];
+        this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
     set cid(v) {this._cid = v}
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
     //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
     //server output, type: Spot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
     //server output, type: object
     get startPos() {return this._startPos}
     set startPos(v) {this._startPos = v}
@@ -1489,11 +1493,11 @@ class SpotTour extends Base {
         this._cid = null;
         this._spotId = null;
         this._event = null;
-        this._userinfo = null;
+        this._freeSight = null;
         this._goldNum = null;
         this.requireFileds = ["cid","spotId"];
         this.reqFields = ["cid","spotId"];
-        this.resFields = ["event","userinfo","goldNum"];
+        this.resFields = ["event","freeSight","goldNum"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1504,9 +1508,9 @@ class SpotTour extends Base {
     //server output, type: string//产生的新事件
     get event() {return this._event}
     set event(v) {this._event = v}
-    //server output, type: UserInfo
-    get userinfo() {return this._userinfo}
-    set userinfo(v) {this._userinfo = v}
+    //server output, type: number
+    get freeSight() {return this._freeSight}
+    set freeSight(v) {this._freeSight = v}
     //server output, type: number//剩余金币数
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
@@ -1722,9 +1726,10 @@ class FreshSpots extends Base {
     
         this._spots = null;
         this._display = null;
+        this._task = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["spots","display"];
+        this.resFields = ["spots","display","task"];
     }
     //server output, type: RouterSpot[]
     get spots() {return this._spots}
@@ -1732,6 +1737,9 @@ class FreshSpots extends Base {
     //server output, type: 
     get display() {return this._display}
     set display(v) {this._display = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
 }
 class PlayLoop extends Base {
     constructor() {
@@ -2019,9 +2027,10 @@ class CitySpes extends Base {
     
         this._cityId = null;
         this._specialtys = null;
+        this._restNum = null;
         this.requireFileds = ["cityId"];
         this.reqFields = ["cityId"];
-        this.resFields = ["specialtys"];
+        this.resFields = ["specialtys","restNum"];
     }
     //client input, require, type: number//城市id
     get cityId() {return this._cityId}
@@ -2029,6 +2038,9 @@ class CitySpes extends Base {
     //server output, type: Speciality[]
     get specialtys() {return this._specialtys}
     set specialtys(v) {this._specialtys = v}
+    //server output, type: number
+    get restNum() {return this._restNum}
+    set restNum(v) {this._restNum = v}
 }
 class MySpes extends Base {
     constructor() {
@@ -2941,7 +2953,6 @@ exports.MessageItem = MessageItem;
 exports.ExchangeShopDetail = ExchangeShopDetail;
 exports.Shop = Shop;
 exports.FinishGuide = FinishGuide;
-exports.TaskInfo = TaskInfo;
 exports.TourIndexInfo = TourIndexInfo;
 exports.CancelParten = CancelParten;
 exports.LookTicket = LookTicket;

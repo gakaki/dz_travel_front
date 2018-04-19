@@ -105,21 +105,43 @@ Page({
   },
   buySpe(e) {
     let dSet = e.currentTarget.dataset
-    console.log(dSet)
     propId = dSet.propId
+    let maxNum = -1;
+    if(dSet.xg == -1) {
+      maxNum = this.data.restNum ? this.data.restNum:1
+      this.setData({
+        xg:false
+      })
+    } else {
+      if (this.data.restNum > dSet.xg) {
+        this.setData({
+          xg: false
+        })
+        maxNum = dSet.xg
+      } else {
+        this.setData({
+          xg: true
+        })
+        maxNum = this.data.restNum
+      }
+    }
+    let item = this.data.speArr[dSet.idx];
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${item.img}`
     this.setData({
       type: 'buy',
       popBuyNum: true,
-      maxNum: dSet.xg,
-      propName: this.data.speArr[dSet.idx].name,
-      propDesc: this.data.speArr[dSet.idx].desc,
-      goldNum: this.data.speArr[dSet.idx].price,
+      maxNum: maxNum,
+      propName: item.name,
+      propDesc: item.desc,
+      goldNum: item.price,
+      picUrl: picUrl
     })
   },
   sell(e) {
     let dSet = e.currentTarget.dataset;
     let spec = this.data.mySpe[dSet.idx]
     propId = spec.propId
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${spec.img}`
     this.setData({
       type:'sell',
       popBuyNum: true,
@@ -127,7 +149,8 @@ Page({
       propName: spec.name,
       goldNum: spec.sellPrice,
       propDesc: '花费' + spec.price
-      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币'
+      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币',
+      picUrl: picUrl
     })
   },
   toBuy() {
@@ -205,14 +228,6 @@ Page({
         req.propId = propId
         req.count = e.detail.num
         req.fetch().then(() => {
-          console.log(req)
-          if(req.code == -112) {
-            wx.showToast({
-              title: '购买的特产数量总和已超出上限',
-              icon:'none'
-            })
-            return
-          }
           let num = this.data.goldNum * e.detail.num
           redGold(num)
           this.setData({
@@ -233,8 +248,6 @@ Page({
           this.clkThree()
         })
         break;
-      default:
-        return
     }
   },
   clkOne() {
@@ -259,9 +272,9 @@ Page({
     let req = new CitySpes();
     req.cityId = cid;
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
-        speArr: req.specialtys
+        speArr: req.specialtys,
+        restNum: req.restNum
       })
     })
 
@@ -277,11 +290,9 @@ Page({
     })
     let req = new MySpes();
     req.fetch().then((res) => {
-      console.log(req)
       this.setData({
         mySpe: req.specialtys,
       })
-      console.log(this.data.mySpe)
     })
 
   },

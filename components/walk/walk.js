@@ -1,5 +1,4 @@
-let timer, timerTwo
-let aa = 0
+let timer
 let sto
 let walkInfoObj = {}
 let st = 0  //模拟服务器的时间戳
@@ -19,6 +18,10 @@ Component({
     isDouble: {
       type: Boolean,
       value: false
+    },
+    display: {
+      type: String,
+      value: 'people'
     },
     sex: {
       type: Number,
@@ -45,22 +48,22 @@ Component({
 
   },
   ready() {
-    timer = setInterval(() => {
-      
-      // if (this.properties.sex == 1) {
+    if (!this.properties.isDouble) {
+      timer = setInterval(() => {
+
+        // if (this.properties.sex == 1) {
         let l = this.data.left - 38 == -228 ? 0 : this.data.left - 38
-      // }
-      // if (this.properties.sex == 0) {
-      //   let l = this.data.left - 34 == -204 ? 0 : this.data.left - 34
-      // }
-      this.setData({
-        left: l
-      })
-    }, 150)
-      //timerTwo是什么作用？？
-    timerTwo = setInterval(()=>{
-      aa = aa + 1000
-    },1000)
+        // }
+        // if (this.properties.sex == 0) {
+        //   let l = this.data.left - 34 == -204 ? 0 : this.data.left - 34
+        // }
+        this.setData({
+          left: l
+        })
+      }, 150)
+    }
+    
+
     this.func()
   },
 
@@ -68,7 +71,6 @@ Component({
     isLast = false
     //idx = 0
     rgt = true
-    clearInterval(timerTwo)
     index = 0
     this.setData({
       deg: 0
@@ -191,11 +193,31 @@ Component({
           animationData: animation.export()
         })
         setTimeout(()=>{
-          // animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
-          animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
-            duration: obj.time - 40,
-            timingFunction: 'linear'
-          })
+          if (this.properties.display == 'people') {
+            animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
+              duration: obj.time - 40,
+              timingFunction: 'linear'
+            })
+          } 
+          
+          if (this.properties.display == 'haohua') {
+            animation.top(obj.tY - 55 + 'rpx').left(obj.tX - 60 + 'rpx').step({
+              duration: obj.time - 40,
+              timingFunction: 'linear'
+            })
+          }
+          if (this.properties.display == 'shangwu') {
+            animation.top(obj.tY - 73 + 'rpx').left(obj.tX - 47 + 'rpx').step({
+              duration: obj.time - 40,
+              timingFunction: 'linear'
+            })
+          }
+          if (this.properties.display == 'jingji') {
+            animation.top(obj.tY - 43 + 'rpx').left(obj.tX - 38 + 'rpx').step({
+              duration: obj.time - 40,
+              timingFunction: 'linear'
+            })
+          }
           this.setData({
             animationData: animation.export()
           })

@@ -76,6 +76,6 @@
   
 
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" picUrl='{{picUrl}}' bindtoclose="hideCar" bind:confirm="toBuy"></buy>
-  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount"></buynum>
+  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount" picUrl='{{picUrl}}'></buynum>
   <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往充值"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往充值" isBuy="{{false}}"></buy>
 </view>
