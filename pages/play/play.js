@@ -199,8 +199,7 @@ Page({
       })
     })
     cid = options.cid
-    this.initData(cid)
-    cid = options.cid
+    //this.initData(cid)
     city = sheet.City.Get(options.cid).city
     wx.setNavigationBarTitle({
       title: city + '游玩'
@@ -644,7 +643,7 @@ Page({
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
       wx.navigateTo({
-        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
+        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid+ '&name='+dSet.name
       })
       return
     }

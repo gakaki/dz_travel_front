@@ -178,6 +178,7 @@ Page({
       app.globalData.season = season
       app.globalData.weather = weather
       app.globalData.gold = req.gold
+      app.globalData.isFirst = req.isFirst
       this.setData({
         isFirst: req.isFirst,
         season,

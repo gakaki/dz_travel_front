@@ -16,6 +16,7 @@ Page({
   data: {
     cfmStr: '',
     content: '',
+    goldNum: 0,
     ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
     events: [],
     isCongratulations: false,
@@ -26,7 +27,6 @@ Page({
     date: '',
     season: '',
     weather: 'sun',
-    myGold: 0,
     testStr: '',
     countBuzu: false,
     isGetPost: false,
@@ -34,7 +34,9 @@ Page({
     freePhoto: 0,
     freeSight: 0
   },
-
+  onHide() {
+    app.globalData.gold = this.data.goldNum
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -50,16 +52,16 @@ Page({
       console.log(this.data.season)
       oldStr = req.spot.description
       this.setData({
+        goldNum: req.goldNum,
         freePhoto: req.spot.freePhoto,
         freeSight: req.spot.freeSight,
         events: req.events,
         season: app.globalData.season,
         weather: sheet.Weather.Get(req.spot.weather).icon,
         pic: req.spot.picture,
-        spotName: req.spot.scenicspot,
+        spotName: options.name,
         testStr: req.spot.description,
         // evtArr: req.questList,
-        myGold: app.globalData.gold ? app.globalData.gold : 0,
         date: ymd('cn')
       })
       wx.setNavigationBarTitle({
@@ -112,6 +114,7 @@ Page({
       events.push(req.event)
       this.setData({
         events: events,
+        goldNum: req.goldNum
         // freeSight: freeSight
       })
       console.log(this.data.events)

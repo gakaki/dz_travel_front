@@ -1,5 +1,6 @@
 <guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
 <view class="con ofs" wx:if="{{hasPlay}}">
+<headbox wx:if="{{false}}"></headbox>
   <cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
@@ -19,7 +20,7 @@
     <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
       <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
-        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{'icon-'+item.building[0]}}"></image>
+        data-id='{{item.id}}' data-name="{{item.name}}" bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{'icon-'+item.building[0]}}"></image>
       <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
     </view>
     <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">

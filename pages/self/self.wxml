@@ -53,4 +53,23 @@
     </view>
   </scroll-view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
+
+  <view class="tips f-c" wx:if="{{isFirst}}">
+    <image class="piaodai-left" src="https://gengxin.odao.com/update/h5/travel/index/sidai-zuo.png"></image>
+    <image class="piaodai-right" src="https://gengxin.odao.com/update/h5/travel/index/sidai-right.png"></image>
+    <image class="area" src="https://gengxin.odao.com/update/h5/travel/index/area.png"></image>
+    <view class="welcome">
+      欢迎来到<text class="name">点亮足迹</text>
+    </view>
+    <view class="free single font">
+      首次起飞机票<text>免费</text>  
+    </view>
+    <view class="free double font">
+      首次双人旅行机票<text>免费</text>
+    </view>
+    <view class="btn-fly" bindtap='toFly'>
+      起飞旅行
+    </view>
+  </view>
+  <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
