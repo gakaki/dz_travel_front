@@ -579,8 +579,18 @@ Page({
       // pointIds = []
       // startTime = req.spots[0].startime
       reqs.spots.splice(0, 1)
+
+      let temptestArr = req.spots.map(item => {
+        return Object.assign({}, item, {
+          // name: item.name,
+          // idx: item.idx,
+          x: item.x * beishu,
+          y: item.y * beishu
+        })
+      })
+
       this.setData({
-        spots: req.spots,
+        spots: temptestArr,
         isChg: true,
         isStart: 1,
         chgLine: false,
