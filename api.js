@@ -1313,6 +1313,20 @@ class FinishGuide extends Base {
         this.resFields = [];
     }
 }
+class TaskInfo extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.taskinfo';
+    
+        this._task = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["task"];
+    }
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
+}
 class TourIndexInfo extends Base {
     constructor() {
         super();
@@ -1321,7 +1335,6 @@ class TourIndexInfo extends Base {
         this._cid = null;
         this._weather = null;
         this._spots = null;
-        this._task = null;
         this._startPos = null;
         this._others = null;
         this._display = null;
@@ -1329,7 +1342,7 @@ class TourIndexInfo extends Base {
         this._partener = null;
         this.requireFileds = ["cid"];
         this.reqFields = ["cid"];
-        this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
+        this.resFields = ["weather","spots","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1340,9 +1353,6 @@ class TourIndexInfo extends Base {
     //server output, type: Spot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
-    //server output, type: TourTask
-    get task() {return this._task}
-    set task(v) {this._task = v}
     //server output, type: object
     get startPos() {return this._startPos}
     set startPos(v) {this._startPos = v}
@@ -1479,11 +1489,11 @@ class SpotTour extends Base {
         this._cid = null;
         this._spotId = null;
         this._event = null;
-        this._freeSight = null;
+        this._userinfo = null;
         this._goldNum = null;
         this.requireFileds = ["cid","spotId"];
         this.reqFields = ["cid","spotId"];
-        this.resFields = ["event","freeSight","goldNum"];
+        this.resFields = ["event","userinfo","goldNum"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1494,9 +1504,9 @@ class SpotTour extends Base {
     //server output, type: string//产生的新事件
     get event() {return this._event}
     set event(v) {this._event = v}
-    //server output, type: number
-    get freeSight() {return this._freeSight}
-    set freeSight(v) {this._freeSight = v}
+    //server output, type: UserInfo
+    get userinfo() {return this._userinfo}
+    set userinfo(v) {this._userinfo = v}
     //server output, type: number//剩余金币数
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
@@ -1621,10 +1631,10 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
-class BuyPostcatdList extends Base {
+class BuyPostcardList extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatdlist';
+        this.action = 'tour.buypostcardlist';
     
         this._cid = null;
         this._ptList = null;
@@ -2797,10 +2807,10 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class BuyPostcatd extends Base {
+class BuyPostcard extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatd';
+        this.action = 'tour.buypostcard';
     
         this._ptid = null;
         this._goldNum = null;
@@ -2931,6 +2941,7 @@ exports.MessageItem = MessageItem;
 exports.ExchangeShopDetail = ExchangeShopDetail;
 exports.Shop = Shop;
 exports.FinishGuide = FinishGuide;
+exports.TaskInfo = TaskInfo;
 exports.TourIndexInfo = TourIndexInfo;
 exports.CancelParten = CancelParten;
 exports.LookTicket = LookTicket;
@@ -2945,7 +2956,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
-exports.BuyPostcatdList = BuyPostcatdList;
+exports.BuyPostcardList = BuyPostcardList;
 exports.Minapppay = Minapppay;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
@@ -2994,7 +3005,7 @@ exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcatd = BuyPostcatd;
+exports.BuyPostcard = BuyPostcard;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
