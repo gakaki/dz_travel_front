@@ -358,7 +358,7 @@ Page({
       if (app.globalData.isFirst){
         app.globalData.isFirst = false
       }
-      
+     
       score = req.score;
       reward = req.reward;
       this.readyFly()
