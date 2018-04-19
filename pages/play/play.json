@@ -5,6 +5,7 @@
     "walk":"/components/walk/walk",
     "directions": "/components/rankDirections/rankDirections",
     "guide":"/components/newbieGuide/newbieGuide",
-    "cfm": "../../components/buy/buy"
+    "cfm": "../../components/buy/buy",
+"headbox": "../../components/head/head"
   }
 }
