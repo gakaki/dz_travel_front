@@ -51,9 +51,17 @@ function rewardsStr(rewards) {
     return resultStr;
 }
 
+function filterNickname(name) {
+  if(name.length>8) {
+    name = name.substring(0,8)
+  }
+  return name
+}
+
 module.exports = {
     formatTime: formatTime,
     allImg: allImg,
     postcardBg: postcardBg,
-    rewardsStr: rewardsStr
+    rewardsStr: rewardsStr,
+    filterNickname: filterNickname
 }
