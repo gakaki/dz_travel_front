@@ -2,6 +2,7 @@
 <view class="con f-c-fs">
   <view class="tab flex">
     <view class="tab-item font {{tabOne? 'act': ''}}" bindtap='clkOne'>装备出租</view>
+    <view class="tab-item font {{tabFour? 'act': ''}}" bindtap='clkFour'>购买明信片</view>
     <view class="tab-item font {{tabTwo? 'act': ''}}" bindtap='clkTwo'>购买特产</view>
     <view class="tab-item font {{tabThree? 'act': ''}}" bindtap='clkThree'>售卖特产</view>
   </view>
@@ -11,6 +12,7 @@
   </view>
   <view class="tips font fs" wx:if="{{tabOne}}">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</view>
   <view class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随事件和市场变动</view>
+  <view class="tips font fs" wx:if="{{tabFour}}">明信片可用于与好友通信</view>
   <view class="line"></view>
 
   <view id="one-list" class="f-c-fs sc">
@@ -51,6 +53,20 @@
       <view class="one-i-price f-r-fs" data-idx="{{index}}" bindtap='sell'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.sellPrice}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view id="four-list" scroll-y class="f-c-fs sc" wx:if="{{tabFour}}">
+    <view class="one-item f-r-fs " wx:for='{{speArr}}' wx:key='{{index}}'>
+      <image class="one-pic" src="{{tools.allImg(item.img)}}"></image>
+      <view class="f-c two-mid">
+        <text class="two-mid-top-str font fs postCard-name">{{item.name}}</text>
+        <!-- <text class="two-mid-bot-str font fs">{{item.desc}}</text> -->
+      </view>
+      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
+        <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
+        <text class='gold-num font'>{{item.price}}</text>
       </view>
     </view>
   </view>
