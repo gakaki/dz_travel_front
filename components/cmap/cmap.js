@@ -63,7 +63,7 @@ const xyCitys = citys.map(c => {
   let o = {};
   o.name = c.city;
   o.hideName = true;
-  let xy = jwToxy(c.coordinate[0], c.coordinate[1]);
+  let xy = jwToxy(c.cityxy[0], c.cityxy[1]);
   o.x = xy.x;
   o.y = xy.y;
   o.imgWd = 4;//根据美术资源尺寸
@@ -245,7 +245,7 @@ Component({
         let l = {};
         let city = City.Get(o.location);
         let locaXY;
-        locaXY = jwToxy(city.coordinate[0], city.coordinate[1]);
+        locaXY = jwToxy(city.cityxy[0], city.cityxy[1]);
         l.x = locaXY.x;
         l.y = locaXY.y;
         l.img = o.img;
@@ -269,11 +269,11 @@ Component({
         let p = {};
         //外面传入的from和to是始/达 城市的配表id
         let city = City.Get(a.from);
-        o.from = jwToxy(city.coordinate[0], city.coordinate[1]);
+        o.from = jwToxy(city.cityxy[0], city.cityxy[1]);
         Object.assign(p, o.from);
 
         city = City.Get(a.to);
-        o.to = jwToxy(city.coordinate[0], city.coordinate[1]);
+        o.to = jwToxy(city.cityxy[0], city.cityxy[1]);
 
         // //判断左弧、右弧
         let dx = o.to.x - o.from.x;
