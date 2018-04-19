@@ -17,7 +17,7 @@
 
   <view id="one-list" class="f-c-fs sc">
     <view class="one-item f-r-fs " wx:if="{{tabOne && rentProp}}" wx:for="{{rentProp}}" wx:key="{{index}}">
-      <image class="one-pic" src="{{tools.rentImg(item.image)}}"></image>
+      <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/props/{{item.image}}"></image>
       <text class="one-i-str font">{{item.propsname}}</text>
       <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{daoju[index]}}'>
         <view class='gold-num font font-c'>已{{cfmStr}}</view> 
