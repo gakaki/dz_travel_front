@@ -99,6 +99,8 @@ class Code{
     
     static NONE_ADDRESS = -174;
     
+    static CANT_BUG = -175;
+    
     static RANK_NOT_MEET = 150;
     
     static INTEGRAL_NOT_MEET = 151;
@@ -1629,6 +1631,24 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
+class BuyPostcardList extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.buypostcardlist';
+    
+        this._cid = null;
+        this._ptList = null;
+        this.requireFileds = ["cid"];
+        this.reqFields = ["cid"];
+        this.resFields = ["ptList"];
+    }
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //server output, type: Postcard[]
+    get ptList() {return this._ptList}
+    set ptList(v) {this._ptList = v}
+}
 class Minapppay extends Base {
     constructor() {
         super();
@@ -2787,19 +2807,23 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class BuyPostcatd extends Base {
+class BuyPostcard extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatd';
+        this.action = 'tour.buypostcard';
     
-        this._buyId = null;
-        this.requireFileds = ["buyId"];
-        this.reqFields = ["buyId"];
-        this.resFields = [];
+        this._ptid = null;
+        this._goldNum = null;
+        this.requireFileds = ["ptid"];
+        this.reqFields = ["ptid"];
+        this.resFields = ["goldNum"];
     }
     //client input, require, type: number
-    get buyId() {return this._buyId}
-    set buyId(v) {this._buyId = v}
+    get ptid() {return this._ptid}
+    set ptid(v) {this._ptid = v}
+    //server output, type: number
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class SellSpe extends Spe {
     constructor() {
@@ -2932,6 +2956,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
+exports.BuyPostcardList = BuyPostcardList;
 exports.Minapppay = Minapppay;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
@@ -2980,7 +3005,7 @@ exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcatd = BuyPostcatd;
+exports.BuyPostcard = BuyPostcard;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
