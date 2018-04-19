@@ -125,19 +125,23 @@ Page({
         maxNum = this.data.restNum
       }
     }
+    let item = this.data.speArr[dSet.idx];
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${item.img}`
     this.setData({
       type: 'buy',
       popBuyNum: true,
       maxNum: maxNum,
-      propName: this.data.speArr[dSet.idx].name,
-      propDesc: this.data.speArr[dSet.idx].desc,
-      goldNum: this.data.speArr[dSet.idx].price,
+      propName: item.name,
+      propDesc: item.desc,
+      goldNum: item.price,
+      picUrl: picUrl
     })
   },
   sell(e) {
     let dSet = e.currentTarget.dataset;
     let spec = this.data.mySpe[dSet.idx]
     propId = spec.propId
+    let picUrl = `https://gengxin.odao.com/update/h5/travel/${spec.img}`
     this.setData({
       type:'sell',
       popBuyNum: true,
@@ -145,7 +149,8 @@ Page({
       propName: spec.name,
       goldNum: spec.sellPrice,
       propDesc: '花费' + spec.price
-      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币'
+      + '金币单价买入，卖出单价为' + spec.sellPrice + '金币',
+      picUrl: picUrl
     })
   },
   toBuy() {
@@ -244,8 +249,6 @@ Page({
           this.clkThree()
         })
         break;
-      default:
-        return
     }
   },
   clkOne() {
