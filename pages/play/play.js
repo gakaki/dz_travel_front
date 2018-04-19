@@ -73,8 +73,6 @@ Page({
     passLines: [],
     finalpassLines: [],
     currentPoint: 0,
-    poepleLocation: {},
-    poepleLocationNum: 0,
     locations: [{
       id: 0,
       type: 'start',
@@ -110,12 +108,19 @@ Page({
     arr = []
     dian = []
     pointIds = []
+    this.setData({
+      showWalk: false
+    })
     Http.unlisten(PlayLoop, this.freshspots, this)
   },
+
   onHide: function () {
     arr = []
     dian = []
     Http.unlisten(PlayLoop, this.freshspots, this)
+    this.setData({
+      showWalk: false
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -142,8 +147,18 @@ Page({
        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
+      let arrs = this.data.spots.slice()
+      arrs.sort((x, y) => {
+        return x.index - y.index
+      })
+      let count = 0
+      for (let i = 0; i < arrs.length; i++) {
+        if (arrs[i].index != -1) count++
+      }
+      arrs = arrs.slice(-count)//路线中的点
 
-      let lineDown = this.data.spots.every(o => {
+
+      let lineDown = arrs.every(o => {
         return o.tracked == true
       })
       let state = 1
@@ -161,6 +176,7 @@ Page({
         lineDown: lineDown,
         playing: !playState
       })
+      console.log('initData', this.data.lineDown)
       if (!playState) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
@@ -394,6 +410,7 @@ Page({
         isStart: 3,
         lineDown: true
       })
+      console.log('chgWid',this.data.lineDown)
     }
     //spots[obj.idx - 1].tracked = true
     this.setData({
@@ -471,6 +488,7 @@ Page({
     this.setData({
       lineDown: false
     })
+    console.log('start', this.data.lineDown)
     if (this.data.dashedLine) {
       let spots = this.data.spots
       spots.sort((x, y) => {
@@ -847,9 +865,6 @@ Page({
    */
   onReady: function () {
     this.play = this.selectComponent("#play");
-    this.setData({
-      poepleLocation: this.data.locations[0]
-    })
 
   },
 

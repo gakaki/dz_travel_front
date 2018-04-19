@@ -15,6 +15,7 @@
   top: 0;
   left: 0;
 }
+
 .partner-box {
   z-index: 14;
   width: 38rpx;
@@ -24,6 +25,7 @@
   top: 0;
   left: -38rpx;
 }
+
 .walk-icon-partner {
   width: 228rpx;
   height: 81rpx;
@@ -31,6 +33,7 @@
   top: 0;
   left: 0;
 }
+
 .pop {
   position: absolute;
   top: -19rpx;
@@ -43,5 +46,53 @@
   z-index: 14;
   width: 38rpx;
   height: 81rpx;
+  position: absolute;
+}
+
+.haohua {
+  width: 120rpx;
+  height: 55rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.shangwu {
+  width: 94rpx;
+  height: 73rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.haohua-box {
+  z-index: 14;
+  width: 120rpx;
+  height: 55rpx;
+  position: absolute;
+}
+.shangwu {
+  width: 94rpx;
+  height: 73rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.sw-box {
+  z-index: 14;
+  width: 94rpx;
+  height: 73rpx;
+  position: absolute;
+}
+.jingji {
+  width: 77rpx;
+  height: 43rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.haohua-box {
+  z-index: 14;
+  width: 77rpx;
+  height: 43rpx;
   position: absolute;
 }
