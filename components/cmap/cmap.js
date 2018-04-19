@@ -203,7 +203,7 @@ Component({
     updatePlayer() {
       if (!this.data.uid)
         return;
-      //if(!this.data.log) return
+      if(!this.data.log) return
       let req = new TraveledPlaces();
       req.playerUid = this.data.uid;
 
