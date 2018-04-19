@@ -16,7 +16,7 @@
       </view>      
     </view>
 
-    <view class="xc-pro" wx:if='{{specialty}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
+    <view class="xc-pro" wx:if='{{specialty && LMInit.length}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
       <view class="pro-top f-r-sb">
         <text class="pro">{{item.city}}</text>
         <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>

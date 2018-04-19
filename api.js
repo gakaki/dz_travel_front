@@ -1631,6 +1631,24 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
+class BuyPostcatdList extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.buypostcatdlist';
+    
+        this._cid = null;
+        this._ptList = null;
+        this.requireFileds = ["cid"];
+        this.reqFields = ["cid"];
+        this.resFields = ["ptList"];
+    }
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //server output, type: Postcard[]
+    get ptList() {return this._ptList}
+    set ptList(v) {this._ptList = v}
+}
 class Minapppay extends Base {
     constructor() {
         super();
@@ -2794,14 +2812,18 @@ class BuyPostcatd extends Base {
         super();
         this.action = 'tour.buypostcatd';
     
-        this._buyId = null;
-        this.requireFileds = ["buyId"];
-        this.reqFields = ["buyId"];
-        this.resFields = [];
+        this._ptid = null;
+        this._goldNum = null;
+        this.requireFileds = ["ptid"];
+        this.reqFields = ["ptid"];
+        this.resFields = ["goldNum"];
     }
     //client input, require, type: number
-    get buyId() {return this._buyId}
-    set buyId(v) {this._buyId = v}
+    get ptid() {return this._ptid}
+    set ptid(v) {this._ptid = v}
+    //server output, type: number
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class SellSpe extends Spe {
     constructor() {
@@ -2934,6 +2956,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
+exports.BuyPostcatdList = BuyPostcatdList;
 exports.Minapppay = Minapppay;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
