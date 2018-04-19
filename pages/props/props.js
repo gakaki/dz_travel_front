@@ -40,10 +40,14 @@ Page({
   onLoad: function (options) {
     if (!options.cid) {
       cid = app.globalData.cid
-      this.data.city = app.globalData.cityName
+      this.setData({
+        city: app.globalData.cityName
+      })
     } else {
       cid = options.cid
-      this.data.city = options.city
+      this.setData({
+        city: options.city
+      })
     }
     
     this.checkRentStatus()

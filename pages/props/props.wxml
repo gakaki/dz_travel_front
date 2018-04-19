@@ -61,7 +61,7 @@
     <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
       <image class="one-pic"  wx:if="{{item.picture}}" src="{{tools.allImg(item.picture)}}"></image>
       <view class="f-c two-mid">
-        <text class="two-mid-top-str font fs postCard-name">{{item.name}}</text>
+        <text class="two-mid-top-str font fs postCard-name">{{city}}</text>
         <!-- <text class="two-mid-bot-str font fs">{{item.desc}}</text> -->
       </view>
       <view class="one-i-price f-r-fs" data-ptid="{{item.ptid}}" data-price='{{item.price}}' data-picture='{{item.picture}}' data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buyPostcard'>
