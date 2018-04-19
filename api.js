@@ -109,6 +109,8 @@ class Code{
     
     static HAS_SIGNIN = -144;
     
+    static NO_CURRENTCITY = -145;
+    
     static UNKNOWN = -1000;
     
     static EXCEPTION = -999;
@@ -1621,10 +1623,10 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
-class BuyPostcatdList extends Base {
+class BuyPostcardList extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatdlist';
+        this.action = 'tour.buypostcardlist';
     
         this._cid = null;
         this._ptList = null;
@@ -1712,9 +1714,10 @@ class FreshSpots extends Base {
     
         this._spots = null;
         this._display = null;
+        this._task = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["spots","display"];
+        this.resFields = ["spots","display","task"];
     }
     //server output, type: RouterSpot[]
     get spots() {return this._spots}
@@ -1722,6 +1725,9 @@ class FreshSpots extends Base {
     //server output, type: 
     get display() {return this._display}
     set display(v) {this._display = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
 }
 class PlayLoop extends Base {
     constructor() {
@@ -2797,10 +2803,10 @@ class ExchangeShop extends Base {
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
-class BuyPostcatd extends Base {
+class BuyPostcard extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcatd';
+        this.action = 'tour.buypostcard';
     
         this._ptid = null;
         this._goldNum = null;
@@ -2945,7 +2951,7 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
-exports.BuyPostcatdList = BuyPostcatdList;
+exports.BuyPostcardList = BuyPostcardList;
 exports.Minapppay = Minapppay;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
@@ -2994,7 +3000,7 @@ exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcatd = BuyPostcatd;
+exports.BuyPostcard = BuyPostcard;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
