@@ -233,6 +233,7 @@ Page({
           this.setData({
             myGold: app.globalData.gold
           })
+          this.clkTwo()
         })
         break;
       case 2:
