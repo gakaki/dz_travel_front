@@ -4,7 +4,7 @@
 <view class="con">
   <form bindsubmit="formSubmit"> 
     <view class="pic-box pb bs">
-      <image wx:if='{{url}}' src="{{tools.allImg(url)}}" class="pic"></image>
+      <image wx:if='{{url}}' src="https://gengxin.odao.com/update/h5/travel/{{url}}" class="pic"></image>
     </view>
     <view class="pic-box bs">
       <view class="pic">
