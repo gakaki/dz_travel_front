@@ -18,6 +18,7 @@ let city = ''
 let beishu = 1//缩放系数
 let music = null
 let spotsTracked = 0//走过的景点数量
+let djsTimer = null//到达下一个景点的时间定时器
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 const loopInterval = 10000 //轮询时间间隔 10秒
 Page({
@@ -26,7 +27,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hasPlay:true,
+    daojishi: '',//到达下一个景点的时间
+    hasPlay: true,
     display: 0,
     isDouble: false,
     partnerSex: 1,
@@ -83,6 +85,7 @@ Page({
     rewardText: ""
   },
   onUnload() {
+    if (djsTimer) clearInterval(djsTimer)
     Http.unlisten(PlayLoop, this.freshspots, this)
     beishu = 1
     arr = []
@@ -93,6 +96,7 @@ Page({
   },
 
   onHide: function () {
+    if (djsTimer) clearInterval(djsTimer)
     beishu = 1
     arr = []
     dian = []
@@ -211,13 +215,13 @@ Page({
     // this.scaleXy(2)
   },
 
-  getEventPicURL(reqQuestPictureURL){
+  getEventPicURL(reqQuestPictureURL) {
     let url = app.globalData.picBase + reqQuestPictureURL;
-    if(reqQuestPictureURL && reqQuestPictureURL.match(/\//)){ //有斜杠说明是正确的url 
-        
-    }else{
+    if (reqQuestPictureURL && reqQuestPictureURL.match(/\//)) { //有斜杠说明是正确的url 
+
+    } else {
       //不然就是6.jpg这种了
-      url   = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
+      url = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
     }
     return url;
   },
@@ -229,13 +233,28 @@ Page({
       this.setData({
         onePopInfo: req.quest.describe,
         eventPic: this.getEventPicURL(req.quest.picture),
-        rewardText : req.quest.rewards
+        rewardText: req.quest.rewards
       })
       if (req.quest.type == 1) {
         this.setData({
           isPop: true
         })
       }
+    })
+  },
+  daojishiFuc(time) {
+    let timeStr = ''
+    if (time / 60 < 1) {
+      timeStr = time + '分钟'
+      if (time == 0) timeStr = ''
+    }
+    else {
+      let hour = parseInt(time / 60)
+      let minute = time % 60
+      timeStr = hour + '小时' + minute + '分钟'
+    }
+    this.setData({
+      daojishi: timeStr
     })
   },
   //刷新到达下一个景点的剩余分钟数
@@ -258,6 +277,15 @@ Page({
     this.setData({
       spots: spots
     })
+
+    let time = 20//到达下一个景点要多少分钟
+    // this.daojishiFuc(time)
+    
+    //计时器
+    // djsTimer = setInterval(() => {
+    //   time = time -1
+    //   this.daojishiFuc(time)
+    // }, 60000)
   },
   //刷新景点信息
   freshspots(res) {
@@ -291,7 +319,7 @@ Page({
       this.setData({
         spots: spotss
       })
-     // this.freshNextSpotTime()
+      // this.freshNextSpotTime()
     }
 
 
@@ -513,7 +541,7 @@ Page({
       //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       let temptestArr = req.spots
       if (beishu == 2) {
-       temptestArr = req.spots.map(item => {
+        temptestArr = req.spots.map(item => {
           return Object.assign({}, item, {
             // name: item.name,
             // idx: item.idx,
@@ -521,8 +549,8 @@ Page({
             y: item.y * beishu
           })
         })
-      } 
-     
+      }
+
       this.setData({
         spots: temptestArr,
         isChg: false,
@@ -616,8 +644,8 @@ Page({
       reqs.spots.splice(0, 1)
 
       let temptestArr = req.spots
-      if(beishu == 2) {
-         temptestArr = req.spots.map(item => {
+      if (beishu == 2) {
+        temptestArr = req.spots.map(item => {
           return Object.assign({}, item, {
             x: item.x * beishu,
             y: item.y * beishu
