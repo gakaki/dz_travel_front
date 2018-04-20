@@ -11,6 +11,7 @@ let inviteCode;  //邀请码
 let partnerEnter = false //判断小伙伴是否进入
 let score = 50 , reward = 50;    //上次旅行得分和奖励
 let initCity = sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value;
+let reconnection = false;
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 
@@ -44,6 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     console.log(options,'起飞界面options')
     if(options.type == TicketType.SINGLEPRESENT){
       onlySingle = true
@@ -194,6 +196,7 @@ Page({
   },
 
   fillCode(req) {
+    console.log(inviteCode,'inviteCode----------->start')
     req.inviteCode = inviteCode;
   },
 
@@ -219,7 +222,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    //监听网络状态
+    wx.onNetworkStatusChange(function (res) {
+      if (res.isConnected && reconnection) {
+        console.log('reconnection suc--------------------->start')
+        reconnection = false;
+        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+      }
+      else{
+        console.log('noNetwork---------------------->start')
+        reconnection = true
+      }
+    })
   },
 
   /**
@@ -247,6 +261,7 @@ Page({
   },
 
   parInfo(res, err) {
+    console.log('轮询')
     if (err) {
       console.log('http listen error, code:', err)
       switch (err) {
