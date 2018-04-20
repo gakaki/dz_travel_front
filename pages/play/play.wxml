@@ -11,7 +11,7 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk  bind:chufaEvt="touchEvt" evt="{{event}}" isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk  bind:chufaEvt="touchEvt" evt="{{event}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
@@ -41,7 +41,7 @@
     <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
-        <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
+        <view class="progressBar" style="width:{{taskPer}}%;"></view>
       </view>
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{isChg}}">
@@ -99,9 +99,9 @@
         </view>
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-          <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（0/6）</text>
-          <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
-          <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
+          <text class="gray-font mission-gray-font ml18">1.至少达到{{task.spot[1]}}个景点（{{task.spot[0]}}/{{task.spot[1]}}）</text>
+          <text class="gray-font mission-gray-font ml18">2.至少进行{{task.tour[1]}}次观光（{{task.tour[0]}}/{{task.tour[1]}}）</text>
+          <text class="gray-font mission-gray-font ml18">3.至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}）</text>
         </view>
       </task>
     </view>
@@ -113,13 +113,13 @@
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
           <view class="gray-font play-rule-con rule1 mission-gray-font ml48">
-          与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（3/6）
+          与旅友共同达到至少{{task.spot[1]}}个景点，每人只能选择3-5个景点路线（{{task.spot[0]}}/{{task.spot[1]}}）
         </view>
           <view class="gray-font play-rule-con rule2 mission-gray-font ml48">
-          自己至少进行2次观光（0/2），旅友至少进行2次观光（0/2）
+          自己至少进行{{task.tour[1]}}次观光（{{task.tour[0]}}/{{task.tour[1]}}），旅友至少进行{{task.parterTour[1]}}次观光（{{task.parterTour[0]}}/{{task.parterTour[1]}}）
         </view>
           <view class="gray-font play-rule-con rule3 mission-gray-font ml48">
-          自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）
+          自己至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}），旅友至少进行{{task.parterPhoto[1]}}次拍照留念（{{task.parterPhoto[0]}}/{{task.parterPhoto[1]}}）
         </view>
         </view>
       </task>
