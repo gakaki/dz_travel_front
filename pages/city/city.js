@@ -138,7 +138,7 @@ Page({
 
   international() {
     wx.showToast({
-      title: '暂未开放',
+      title: '国际航班暂未开放，敬请期待',
       icon: 'none'
     })
   },

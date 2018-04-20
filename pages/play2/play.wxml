@@ -71,23 +71,23 @@
         <view class="travelStart font fontWhite font32" catch:tap="sendPath">开始游玩</view>
     </view>
 
-    <!--<directions helpId="2" resHeight="980" wx:if="{{showIntro}}" title="玩法介绍" bind:confirm='hidePlayIntro'></directions>-->
+    <!--玩法介绍-->
+    <directions helpId="2" resHeight="980" wx:if="{{showPlayIntro}}" title="玩法介绍" bind:confirm='hidePop'></directions>
 
     <!--弹出层-->
     <view id="play-pops" wx:if="{{showPop}}">
         <view id="play-pop-bg" bind:tap="hidePop"></view>
-        <!--玩法介绍-->
-        <pop-play-intro wx:if="{{showPlayIntro}}" class="play-pop" bind:hide="hidePop"></pop-play-intro>
+
         <!--普通事件-->
-        <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-normal>
+        <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-normal>
         <!--答题事件-->
-        <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-quest>
+        <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-quest>
         <!--首次免费租赁-->
         <pop-free-rent wx:if="{{showFreeRent}}" class="play-pop" bind:hide="hidePop"></pop-free-rent>
         <!--获得明信片-->
-        <pop-got-post wx:if="{{showGotPost}}" class="play-pop" bind:hide="hidePop"></pop-got-post>
+        <pop-got-post wx:if="{{showGotPost}}" class="play-pop" bind:hide="hidePop" picture="{{postPicture}}" spotName="{{postSpotName}}"></pop-got-post>
         <!--任务信息-->
-        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop"></pop-mission-info>
+        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop" selfTask="{{selfTask}}" friendTask="{{friendTask}}"></pop-mission-info>
     </view>
 </view>
 <guide wx:if="{{!hasPlay}}" bindplayed='finishGuide'></guide>

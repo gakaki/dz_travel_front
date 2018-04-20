@@ -108,20 +108,20 @@ weather.sights {
 #play-pops, #play-pop-bg, .controll-layer {
     width: 100vw;
     height: 100vh;
+    top: 0;
+    left: 0;
     position: fixed;
 }
 
 #play-pop-bg {
-    top: 0;
-    left: 0;
     background: rgba(0, 0, 0, .5);
 }
 
 .play-pop {
-    position: fixed;
-    left: 50vw;
-    top: 50vh;
-    transform: translate(-50% -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
 }
 
 .zoomBtn {
@@ -288,16 +288,3 @@ weather.sights {
     margin-bottom: 5rpx;
 }
 
-.ten {
-    width: 88rpx;
-    height: 36rpx;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 30rpx;
-    position: absolute;
-    right: 20rpx;
-    bottom: 20rpx;
-    font-size: 24rpx;
-    line-height: 36rpx;
-    color: #fff;
-    text-align: center;
-}

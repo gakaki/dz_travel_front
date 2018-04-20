@@ -64,6 +64,7 @@
   color: #278cff;
   background: url('https://gengxin.odao.com/update/h5/travel/travelLog/mark.png');
   background-size: cover;
+  z-index: 11;
 }
 
 

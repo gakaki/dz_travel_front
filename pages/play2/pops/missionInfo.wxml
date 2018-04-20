@@ -1,22 +1,20 @@
 <!--pages/play2/pops/missionInfo.wxml-->
-<view>
+<view class="mission-con">
 
-    <view class="imgBox" slot="imgBox">
-        <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
-    </view>
+    <image class="pic-box" src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
     <!--单人模式-->
-    <view class="contentBox" wx:if="single">
-        <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-        <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（0/6）</text>
-        <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
-        <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
+    <view class="content-box" wx:if="{{single}}">
+        <text class="head-font">点亮城市地图需要完成以下3个任务</text>
+        <text class="gray-font">1.至少达到6个景点（{{selfSpot}}）</text>
+        <text class="gray-font">2.至少进行2次观光（{{selfTour}}）</text>
+        <text class="gray-font">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
     </view>
     <!--双人模式-->
-    <view class="contentBox" wx:else>
-        <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-        <text class="gray-font play-rule-con rule1 mission-gray-font ml48">与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（3/6）</text>
-        <text class="gray-font play-rule-con rule2 mission-gray-font ml48">自己至少进行2次观光（0/2），旅友至少进行2次观光（0/2）</text>
-        <text class="gray-font play-rule-con rule3 mission-gray-font ml48">自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）</text>
+    <view class="content-box" wx:else>
+        <text class="head-font">点亮城市地图需要完成以下3个任务</text>
+        <text class="gray-font">1.与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（{{selfSpot}}）</text>
+        <text class="gray-font">2.自己至少进行2次观光（{{selfTour}}），旅友至少进行2次观光（{{friendTour}}）</text>
+        <text class="gray-font">3.自己至少进行2次拍照留念（{{selfPhoto}}），旅友至少进行2次拍照留念（{{friendPhoto}}）</text>
     </view>
 
 </view>
