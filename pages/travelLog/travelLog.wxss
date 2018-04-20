@@ -78,8 +78,8 @@
 }
 .log-content {
   display: inline-block;
-  text-indent: 83rpx;
-  font: bold 28rpx/138rpx 'Microsoft YaHei';
+  padding: 50rpx 83rpx 0;
+  font: bold 28rpx/38rpx 'Microsoft YaHei';
 }
 .time {
   position: absolute;

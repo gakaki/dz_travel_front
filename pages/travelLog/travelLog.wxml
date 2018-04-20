@@ -23,7 +23,7 @@
         <view class='mark-circle'></view>
         <view class='log-content'>
           <text>前往</text>
-          <text class='detail' wx:for='{{oneday.spots}}' wx:for-item="select" wx:key='{{index}}'>{{select.spots}}<text wx:if='{{index != oneday.spots.length-1}}'>、</text></text>
+          <text class='detail' wx:for='{{oneday.spots}}' wx:for-item="select" wx:key='{{index}}'>{{select.spots}}<text wx:if='{{index != oneday.spots.length-1 && index}}'>、</text></text>
         </view>
         <view class='time'>{{tools.formatTime(oneday.time)}}</view>
         <view class='timeLine'></view> 
