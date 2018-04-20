@@ -642,7 +642,7 @@ Page({
     reqs.fetch().then(req => {
 
 
-      reqs.spots.splice(0, 1)
+      // reqs.spots.splice(0, 1)
 
       let temptestArr = req.spots
       if (beishu == 2) {
