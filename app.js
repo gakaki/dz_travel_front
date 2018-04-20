@@ -46,7 +46,8 @@ App({
     gold: null,
     cid:null,
     cityName:null,
-    isFirst: false
+    isFirst: false,
+    picBase:"https://gengxin.odao.com/update/h5/travel/"
   },
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;

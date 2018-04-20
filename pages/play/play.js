@@ -19,6 +19,7 @@ let beishu = 1//缩放系数
 let music = null
 let spotsTracked = 0//走过的景点数量
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
+const loopInterval = 10000 //轮询时间间隔 10秒
 Page({
 
   /**
@@ -105,7 +106,9 @@ Page({
       y: 587,
       time: 4000,
       passedStatus: false
-    }]
+    }],
+    eventPic: app.globalData + "/jingdian/anhui/anqing/cs/1.jpg", //随机事件那个框
+    rewardText: ""
   },
   onUnload() {
     Http.unlisten(PlayLoop, this.freshspots, this)
@@ -148,7 +151,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        // Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       }
 
       let arrs = this.data.spots.slice()
@@ -231,12 +234,25 @@ Page({
     // this.scaleXy(2)
   },
 
+  getEventPicURL(reqQuestPictureURL){
+    let url = app.globalData.picBase + reqQuestPictureURL;
+    if(reqQuestPictureURL && reqQuestPictureURL.match(/\//)){ //有斜杠说明是正确的url 
+        
+    }else{
+      //不然就是6.jpg这种了
+      url   = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
+    }
+    return url;
+  },
+
   //触发事件
   touchEvt() {
     let req = new EventShow()
     req.fetch().then(req => {
       this.setData({
-        onePopInfo: req.quest.describe
+        onePopInfo: req.quest.describe,
+        eventPic: this.getEventPicURL(req.quest.picture),
+        rewardText : req.quest.rewards
       })
       if (req.quest.type == 1) {
         this.setData({
@@ -513,7 +529,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {

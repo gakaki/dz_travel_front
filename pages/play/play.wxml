@@ -72,10 +72,11 @@
     <view class=" pop-bg" wx:if="{{isPop}}" catchtap="hideisPop">
       <view class="pop-con">
         <view class="pic-box">
-          <image class="point-pic" src=""></image>
+          <image class="point-pic" src="{{eventPic}}"></image>
           <view class="ten font">1/10</view>
         </view>
         <text class="evt font">{{onePopInfo}}</text>
+        <text class="evt font evtAward">{{rewardText}}</text>
         <view class="next-evt font">下一事件</view>
       </view>
     </view>
