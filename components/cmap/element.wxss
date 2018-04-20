@@ -15,7 +15,7 @@
 }
 
 .player-shadow{
-  transform: translate(-80%,-150%); 
+  transform: translate(-60%,-150%); 
 }
 
 .ele-player {

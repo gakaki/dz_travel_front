@@ -19,6 +19,9 @@
   transform: translateY(-64rpx);
   box-shadow: 0 0 2rpx 4rpx rgba(0,0,0,.1)
 }
+.smallCon {
+  height: 300rpx;
+}
 
 .tip{
   height: 380rpx;
@@ -128,3 +131,7 @@
   padding: 0 20rpx;
   text-align: center;
 } 
+.hide {
+  height: 0;
+  overflow: hidden;
+}

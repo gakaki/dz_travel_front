@@ -11,6 +11,7 @@ Page({
   data: {
     viewpoint: true,
     specialty: false,
+    none:false
   },
 
   /**
@@ -71,9 +72,15 @@ Page({
           allInit: res.postcardInfo
         })
       } else {
+        if (!res.postcardInfo[0].postcardsDetail.length) {
+          this.setData({
+            none: true
+          })
+        }
         this.setData({
           LMInit: res.postcardInfo
         })
+        console.log(this.data.LMInit)
       }
       
     })

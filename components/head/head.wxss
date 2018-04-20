@@ -1,0 +1,18 @@
+@import "/app.wxss";
+.head-box {
+  width: 46rpx;
+  height:63rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/play/frame.png") 0 0 no-repeat;
+  background-size: cover;
+  position: absolute;
+  z-index: 15;
+}
+.img {
+  width: 38rpx;
+  height:38rpx;
+  background-color: gold;
+  position: absolute;
+  left: 4rpx;
+  top: 4rpx;
+  border-radius: 50%
+}

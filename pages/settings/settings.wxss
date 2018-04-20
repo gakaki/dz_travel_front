@@ -30,6 +30,7 @@
   font: 34rpx "Microsoft YaHei";
   color: #878689;
   text-align: right;
+  text-indent: 5rpx;
 }
 
 .info-1{

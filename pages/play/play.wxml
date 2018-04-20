@@ -1,5 +1,6 @@
 <guide wx:if="{{!hasPlay}}" bindplayed='played'></guide>
 <view class="con ofs" wx:if="{{hasPlay}}">
+<headbox wx:if="{{false}}"></headbox>
   <cfm outer-class="fc" bindtoclose="hidePop" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLine}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <view style="width:{{scrollWidth}};height:{{scrollHeight}};" scroll-y scroll-x class=" bgscroll">
 
@@ -10,17 +11,17 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk hidden="{{isChg}}" bind:chufaEvt="touchEvt" evt="{{event}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk  bind:chufaEvt="touchEvt" evt="{{event}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
     <image src="{{'https://gengxin.odao.com/update/h5/travel/play/start.png'}}" style="left:{{startPoint.x}}rpx;top:{{startPoint.y}}rpx" class="testImg start"></image>
 
-    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex">
-      <text class='icon-num' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.index>=0?item.index+1:''}}</text>
+    <view wx:for="{{spots}}" wx:key="{{index}}" class="flex img-box {{'icon-'+item.building[0]}}" style="left:{{item.x}}rpx;top:{{item.y}}rpx">
+      <text class='icon-num' >{{item.index>=0?item.index+1:''}}</text>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
-        data-id='{{item.id}}' bindtap='drawDashedLine' style="left:{{item.x}}rpx;top:{{item.y}}rpx" class="testImg {{'icon-'+item.building[0]}}"></image>
-      <text class='icon-name' style="left:{{item.x}}rpx;top:{{item.y}}rpx">{{item.name}}</text>
+        data-id='{{item.id}}' data-name="{{item.name}}" bindtap='drawDashedLine'  class="testImg {{'icon-'+item.building[0]}}" ></image>
+      <text class='icon-name' >{{item.name}}</text>
     </view>
     <image hidden='{{true}}' wx:for="{{spots}}" wx:key="{{index}}" src="{{'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}">
     </image>
@@ -40,7 +41,7 @@
     <view class="mission f-c-fs" bindtap='showTask' hidden="{{isChg}}">
       <text class="fontWhite missionText font font26">任务</text>
       <view class="progressBox">
-        <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
+        <view class="progressBar" style="width:{{taskPer}}%;"></view>
       </view>
     </view>
     <view class="changeLine " bindtap='xiugaiLine' hidden="{{isChg}}">
@@ -59,8 +60,8 @@
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
       
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">{{isStart}}开始游玩{{isChg}} </view>
-      <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{isStart}}{{lineDown?'游玩结束':'游玩中'}}{{isChg}}</view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
+      <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{lineDown?'游玩结束':'游玩中'}}</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->
       <!-- 虚拟地图警告 -->
@@ -77,8 +78,10 @@
       </view>
     </view>
 
-
-    <directions helpId="2" resHeight="980" wx:if="{{isShowIntro}}" title="玩法介绍" bind:confirm='hideDesc'></directions>
+<view wx:if="{{isShowIntro}}" class="pop-bg">
+<directions helpId="2" resHeight="980"  title="玩法介绍" bind:confirm='hideDesc'></directions>
+</view>
+    
 
     <view class="pop-bg" wx:if="{{isFirstIn}}" catchtap="hideFirstIn">
       <view class="play-pop play-first-in f-c-fs" catchtap="notDo">
@@ -96,9 +99,9 @@
         </view>
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
-          <text class="gray-font mission-gray-font ml18">1.至少达到6个景点（0/6）</text>
-          <text class="gray-font mission-gray-font ml18">2.至少进行2次观光（0/2）</text>
-          <text class="gray-font mission-gray-font ml18">3.至少进行2次拍照留念（0/2）</text>
+          <text class="gray-font mission-gray-font ml18">1.至少达到{{task.spot[1]}}个景点（{{task.spot[0]}}/{{task.spot[1]}}）</text>
+          <text class="gray-font mission-gray-font ml18">2.至少进行{{task.tour[1]}}次观光（{{task.tour[0]}}/{{task.tour[1]}}）</text>
+          <text class="gray-font mission-gray-font ml18">3.至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}）</text>
         </view>
       </task>
     </view>
@@ -110,13 +113,13 @@
         <view class="contentBox" slot="contentBox">
           <text class="head-font mission-head-font ml14">点亮城市地图需要完成以下3个任务</text>
           <view class="gray-font play-rule-con rule1 mission-gray-font ml48">
-          与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（3/6）
+          与旅友共同达到至少{{task.spot[1]}}个景点，每人只能选择3-5个景点路线（{{task.spot[0]}}/{{task.spot[1]}}）
         </view>
           <view class="gray-font play-rule-con rule2 mission-gray-font ml48">
-          自己至少进行2次观光（0/2），旅友至少进行2次观光（0/2）
+          自己至少进行{{task.tour[1]}}次观光（{{task.tour[0]}}/{{task.tour[1]}}），旅友至少进行{{task.parterTour[1]}}次观光（{{task.parterTour[0]}}/{{task.parterTour[1]}}）
         </view>
           <view class="gray-font play-rule-con rule3 mission-gray-font ml48">
-          自己至少进行2次拍照留念（0/2），旅友至少进行2次拍照留念（0/2）
+          自己至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}），旅友至少进行{{task.parterPhoto[1]}}次拍照留念（{{task.parterPhoto[0]}}/{{task.parterPhoto[1]}}）
         </view>
         </view>
       </task>

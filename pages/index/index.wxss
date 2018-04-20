@@ -23,10 +23,17 @@
   height: 120rpx;
   border-radius: 50%;
   margin-right: 20rpx;
+  border: 2rpx solid #e4e4e4;
 }
 
 .person-info{
   align-items: flex-start;
+}
+
+.name{
+  max-width: 290rpx;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .name text {
@@ -210,10 +217,6 @@
   margin: 30rpx 0 19rpx;
 }
 
-.name {
-  font-weight: 900;
-}
-
 .welcome {
   font-size: 44rpx;
 }
@@ -368,4 +371,20 @@
 .use-ticket{
   background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
   background-size: cover;
+}
+
+.chun{
+  color: #6ad700;
+}
+
+.xia{
+  color: #fc6161;
+}
+
+.qiu{
+  color: #ff9c00;
+}
+
+.dong{
+  color: #9ba3cd;
 }

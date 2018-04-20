@@ -16,7 +16,9 @@ Page({
   starCount: 1,
   postArr: [],
   jdArr:[],
-  index:1
+  index1:1,
+  index2:1,
+  v:1
   },
 
   /**
@@ -43,10 +45,18 @@ Page({
     })
    
   },
+  onShow(){
+    console.log(this.data.v)
+    this.pullList(this.data.v)
+  },
   pullList(v) {
     let req = new PostList()
     req.cityId = cid
-    req.page = this.data.index
+    if(v == 1) {
+      req.page = this.data.index1
+    } else{
+      req.page = this.data.index2
+    }
     req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
@@ -67,27 +77,43 @@ Page({
           jdArr: arr
         })
       }
-      
-     
+      if (v == 1) {
+        this.data.index1 = this.data.index1 + 1
+      } else {
+        this.data.index2 = this.data.index2 + 1
+      }
     })
   },
   toDetail(e) {
     wx.navigateTo({
       url: '../raiders/raiders?cityId=' + e.currentTarget.dataset.cityId + '&postId=' + e.currentTarget.dataset.postId + '&type=' + e.currentTarget.dataset.type + '&name=' + e.currentTarget.dataset.name
     })
+    if(this.data.v == 1) {
+      this.setData({
+        index1: 1,
+        postArr:[]
+      })
+    } else {
+      this.setData({
+        index2: 1,
+        jdArr: []
+      })
+    }
   },
   chgTab(e) {
     if(e.currentTarget.dataset.id == 1) {
       this.setData({
         viewpoint: true,
         specialty: false,
-        index:1
+        index1:1,
+        v:1
       })
     } else {
       this.setData({
         viewpoint: false,
         specialty: true,
-        index:1
+        index2: 1,
+        v:2
       })
     }
     if(!this.data.specialty) {

@@ -1,19 +1,19 @@
 <!--pages/city/city.wxml-->
 <view class="wrap">
   <search id="search" wx:if="{{focus}}" bind:back="_back" bind:selected="_selected"></search>
-  <view class="search" wx:else="{{focus}}">
+  <view class="search" wx:else="{{focus}}" bindtap='focus'>
     <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
-    <input class="search-city" value='{{inputText}}' placeholder='输入城市名' placeholder-class="font tip" bindfocus='focus'></input>
+    <text class="search-city font tip">输入城市名</text>
   </view>
-  <view class="tab f-r-sb {{focus ? '' : 'top'}}">
+  <view class="tab f-r-sb {{focus ? '' : 'top'}}" wx:if="{{!focus}}">
     <view class="{{isDomestic ? 'choose' : ''}} flight">
       <text class="font">国内城市</text>
     </view>
-    <view class="{{isDomestic ? '' : 'choose'}} flight">
+    <view class="{{isDomestic ? '' : 'choose'}} flight" bindtap='international'>
       <text class='font'>国际城市</text>
     </view>
   </view>
-  <scroll-view scroll-y class="choose-city" bindscrolltolower="getProvince" lower-threshold="150">
+  <scroll-view scroll-y class="choose-city" bindscrolltolower="getProvince" lower-threshold="150" wx:if="{{!focus}}">
     <view class="zhixiashi">
       <text class="city {{'北京'==isChoose ? 'city-choose' : ''}}" data-ind="北京" data-id='1' bindtap='choose'>北京</text>
       <text class="city {{'天津'==isChoose ? 'city-choose' : ''}}" data-ind="天津" data-id='2' bindtap='choose'>天津</text>
@@ -35,8 +35,8 @@
       </view>
     </view>
   </scroll-view>
-  <view class="cut-off"></view>
-  <view class="bottom f-r-sb">
+  <view class="cut-off" wx:if="{{!focus}}"></view>
+  <view class="bottom f-r-sb" wx:if="{{!focus}}">
     <view class="btn" bindtap='toRandom'>
       购买随机机票
     </view>

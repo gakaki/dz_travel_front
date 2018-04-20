@@ -7,17 +7,19 @@ weather.sights {
 .fc {
   font: bold 34rpx/40rpx 'Microsoft YaHei';
   letter-spacing: 6rpx;
-  color: #b8b8b8
+  color: #b8b8b8;
 }
 
 .fontWhite {
   font: normal 30rpx 'Microsoft YaHei';
   color: #fff;
 }
+
 .zi {
   font: normal 26rpx 'Microsoft YaHei';
   color: #fff;
 }
+
 .font34 {
   font-size: 34rpx;
   line-height: 34rpx;
@@ -81,9 +83,11 @@ weather.sights {
   top: 20rpx;
   left: 10rpx;
   text-align: center;
+  z-index: 15;
 }
+
 .cancle-double {
-  background-color: #FD6259;
+  background-color: #fd6259;
   font: normal 24rpx 'Microsoft YaHei';
   color: #fff;
   width: 178rpx;
@@ -93,6 +97,7 @@ weather.sights {
   left: 10rpx;
   border-radius: 30rpx;
 }
+
 .weather {
   width: 46rpx;
   height: 46rpx;
@@ -101,6 +106,7 @@ weather.sights {
   right: 110rpx;
   top: 22rpx;
   border-radius: 3px;
+  z-index: 15;
 }
 
 .tip {
@@ -111,6 +117,7 @@ weather.sights {
   right: 20rpx;
   height: 54rpx;
   width: 54rpx;
+  z-index: 15;
 }
 
 /* 屏幕边缘按钮样式 */
@@ -123,6 +130,7 @@ weather.sights {
   right: 0;
   height: 124rpx;
   width: 169rpx;
+  z-index: 15;
 }
 
 .missionText {
@@ -158,7 +166,7 @@ weather.sights {
   right: 0;
   height: 124rpx;
   width: 169rpx;
-  z-index: 100
+  z-index: 15;
 }
 
 .changeLineText {
@@ -172,9 +180,11 @@ weather.sights {
   top: 27px;
   right: 18px;
 }
+
 .md {
-  top: 36rpx
+  top: 36rpx;
 }
+
 /* 旅行按钮样式 */
 
 .btnBoxWrap {
@@ -188,7 +198,8 @@ weather.sights {
   position: fixed;
   left: 50%;
   bottom: 240rpx;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
+  z-index: 15;
 }
 
 .zoomBtn .add {
@@ -217,31 +228,35 @@ weather.sights {
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
   background-size: cover;
-
+  z-index: 15;
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
 }
-.travelStart,.start-icon {
-   position: fixed;
+
+.travelStart, .start-icon {
+  position: fixed;
   bottom: 30rpx;
   left: 50%;
-  right:0;
+  right: 0;
   transform: translateX(-50%);
   width: 268rpx;
   height: 115rpx;
   font-size: 28rpx;
+  z-index: 15;
 }
+
 .travelStart {
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelStart.png") 0 0 no-repeat;
   background-size: cover;
   margin-top: 20rpx;
   line-height: 88rpx;
 }
+
 .start-icon {
-   background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
-   background-size: cover;
-  line-height: 85rpx
+  background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
+  background-size: cover;
+  line-height: 85rpx;
 }
 
 .tarvelProps {
@@ -255,7 +270,7 @@ weather.sights {
   font-size: 24rpx;
   line-height: 74rpx;
   margin-top: 25rpx;
-
+  z-index: 15;
 }
 
 .warningBox {
@@ -274,7 +289,7 @@ weather.sights {
   margin: 0 auto;
   margin-top: 100rpx;
   overflow: hidden;
-  position: relative
+  position: relative;
 }
 
 .pic-box {
@@ -561,7 +576,7 @@ weather.sights {
   display: block;
   font-size: 32rpx;
   line-height: 32rpx;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .gray-font {
@@ -585,7 +600,7 @@ weather.sights {
 
 .play-rule-con {
   position: relative;
-  margin-right: 10rpx
+  margin-right: 10rpx;
 }
 
 .play-rule-con::before {
@@ -608,7 +623,7 @@ weather.sights {
   left: -24rpx;
 }
 
- .rule1::before {
+.rule1::before {
   content: '1.';
 }
 
@@ -618,7 +633,7 @@ weather.sights {
 
 .rule3::before {
   content: '3.';
-} 
+}
 
 .draw-line {
   height: 0;
@@ -630,14 +645,14 @@ weather.sights {
 
 .dash-line {
   border-width: 10rpx;
-  border-style:dotted  none none none;
-  border-color: rgba(0,0,0,0.5);
+  border-style: dotted none none none;
+  border-color: rgba(0, 0, 0, 0.5);
 }
 
 .shi-line {
   border-width: 10rpx;
-  border-style:solid none none none;
-  border-color: rgba(0,0,0,0.8);
+  border-style: solid none none none;
+  border-color: rgba(0, 0, 0, 0.8);
 }
 
 .testImg {
@@ -645,22 +660,36 @@ weather.sights {
   /* height: 54rpx;
   width: 54rpx; */
   z-index: 0;
+  left: 0;
+  top: 0;
+}
+
+.img-box {
+  position: absolute;
   transform: translate(-50%, -50%);
 }
+
 .icon-name {
   position: absolute;
-  transform: translate(-50%, 120%);
+  left: 50%;
+  bottom: -30rpx;
+  transform: translateX(-50%);
   font: bold 24rpx 'Microsoft YaHei';
   color: #000;
+  white-space:nowrap;
 }
+
 .icon-num {
   position: absolute;
-  transform: translate(-50%, -200%);
+  left: 50%;
+  top: -40rpx;
+  transform: translateX(-50%);
   font: bold 34rpx 'Microsoft YaHei';
   color: #fff;
-  text-shadow:#2E8CFF 2rpx 0 0,#2E8CFF 0 2rpx 0,#2E8CFF -2rpx 0 0,#2E8CFF 0 -2rpx 0;
-  z-index: 9
+  text-shadow: #2e8cff 2rpx 0 0, #2e8cff 0 2rpx 0, #2e8cff -2rpx 0 0, #2e8cff 0 -2rpx 0;
+  z-index: 9;
 }
+
 .shi-line-box {
   overflow: hidden;
 }
@@ -668,132 +697,175 @@ weather.sights {
 .start {
   height: 93rpx;
   width: 80rpx;
+  transform: translate(-50%,-50%)
 }
+
 .icon-1a {
   width: 123rpx;
   height: 98rpx;
 }
+
 .icon-2a {
- width: 105rpx;
+  width: 105rpx;
   height: 60rpx;
 }
+
 .icon-3a {
- width: 117rpx;
+  width: 117rpx;
   height: 77rpx;
 }
+
 .icon-4a {
- width: 78rpx;
+  width: 78rpx;
   height: 106rpx;
 }
+
 .icon-5a {
- width: 92rpx;
+  width: 92rpx;
   height: 115rpx;
 }
+
 .icon-6a {
- width: 90rpx;
+  width: 90rpx;
   height: 97rpx;
 }
+
 .icon-7a {
- width: 91rpx;
+  width: 91rpx;
   height: 132rpx;
 }
+
 .icon-8a {
- width: 90rpx;
+  width: 90rpx;
   height: 110rpx;
 }
+
 .icon-9a {
- width: 92rpx;
+  width: 92rpx;
   height: 85rpx;
 }
+
 .icon-10a {
- width: 96rpx;
+  width: 96rpx;
   height: 126rpx;
 }
+
 .icon-11a {
- width: 91rpx;
+  width: 91rpx;
   height: 90rpx;
 }
+
 .icon-12a {
- width: 106rpx;
+  width: 106rpx;
   height: 106rpx;
 }
+
 .icon-13a {
- width: 105rpx;
+  width: 105rpx;
   height: 111rpx;
 }
+
 .icon-14a {
- width: 93rpx;
+  width: 93rpx;
   height: 172rpx;
 }
+
 .icon-15a {
- width: 105rpx;
+  width: 105rpx;
   height: 108rpx;
 }
+
 .icon-16a {
- width: 81rpx;
+  width: 81rpx;
   height: 126rpx;
 }
+
 .icon-17a {
- width: 105rpx;
+  width: 105rpx;
   height: 161rpx;
 }
+
 .icon-18a {
- width: 104rpx;
+  width: 104rpx;
   height: 108rpx;
 }
+
 .icon-19a {
- width: 99rpx;
+  width: 99rpx;
   height: 95rpx;
 }
+
 .icon-20a {
- width: 104rpx;
+  width: 104rpx;
   height: 100rpx;
 }
+
 .icon-21a {
- width: 52rpx;
+  width: 52rpx;
   height: 143rpx;
 }
+
 .icon-22a {
- width: 92rpx;
+  width: 92rpx;
   height: 139rpx;
 }
+
 .icon-23a {
- width: 91rpx;
+  width: 91rpx;
   height: 127rpx;
 }
+
 .icon-24a {
- width: 104rpx;
+  width: 104rpx;
   height: 80rpx;
 }
+
 .icon-25a {
- width: 108rpx;
+  width: 108rpx;
   height: 124rpx;
 }
+
 .icon-26a {
- width: 39rpx;
+  width: 39rpx;
   height: 142rpx;
 }
+
 .icon-27a {
- width: 72rpx;
+  width: 72rpx;
   height: 136rpx;
 }
+
 .icon-28a {
- width: 104rpx;
+  width: 104rpx;
   height: 63rpx;
 }
+
 .icon-29a {
- width: 76rpx;
+  width: 76rpx;
   height: 109rpx;
 }
+
 .icon-30a {
- width: 91rpx;
+  width: 91rpx;
   height: 130rpx;
 }
+
 .icon-31a {
- width: 104rpx;
+  width: 104rpx;
   height: 96rpx;
 }
+
 .icon-32a {
- width: 104rpx;
+  width: 104rpx;
   height: 148rpx;
+}
+
+.icon-33a {
+  width: 46rpx;
+  height: 155rpx;
+}
+
+.icon-34a {
+  width: 157rpx;
+  height: 142rpx;
 }

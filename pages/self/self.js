@@ -37,6 +37,15 @@ Page({
   },
   onShow:function(){
     this.updateInfo()
+    this.setData({
+      isFirst: app.globalData.isFirst
+    })
+  },
+  toFly(e) {
+    if (app.preventMoreTap(e)) return;
+    wx.navigateTo({
+      url: '../city/city?location=' + '',
+    })
   },
   updateInfo(){
     let m = new PlayerInfo();

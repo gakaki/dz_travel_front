@@ -15,23 +15,24 @@
         <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{tools.allImg(img.url)}}"></image>
       </view>      
     </view>
-
-    <view class="xc-pro" wx:if='{{specialty}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
-      <view class="pro-top f-r-sb">
-        <text class="pro">{{item.city}}</text>
-        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
-      </view>
-      <view wx:for='{{item.postcardsDetail}}' wx:if='{{img.id}}'  wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
-        <view class="img-box-flex">
-          <image class="img-sm" src="{{tools.allImg(img.url)}}"></image>
-          <view class="content">
-            <text class="pro1">{{img.lastestLiveMessage.userInfo.nickName}}</text>
-            <text class="message ellipsis fs">{{img.lastestLiveMessage.message}}</text>
-          </view>  
-          <view class="per1">{{img.lastestLiveMessage.time}}</view>
-        </view> 
-        <view class="bl" wx:if='{{item.postcardsDetail.length-1 != index}}'></view>
-      </view>      
-    </view> 
+    <block wx:if='{{specialty}}'>
+      <view class="xc-pro" wx:if='{{item.postcardsDetail.length}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
+        <view class="pro-top f-r-sb">
+          <text class="pro">{{item.city}}</text>
+        </view>
+        <view wx:for='{{item.postcardsDetail}}' wx:if='{{img.id}}'  wx:for-item='img' wx:key='{{index}}' bindtap='toMsgPost'  data-id='{{img.id}}' data-postid='{{img.postid}}'>
+          <view class="img-box-flex">
+            <image class="img-sm" src="{{tools.allImg(img.url)}}"></image>
+            <view class="content">
+              <text class="pro1">{{img.lastestLiveMessage.userInfo.nickName}}</text>
+              <text class="message ellipsis fs">{{img.lastestLiveMessage.message}}</text>
+            </view>  
+            <view class="per1">{{img.lastestLiveMessage.time}}</view>
+          </view> 
+          <view class="bl" wx:if='{{item.postcardsDetail.length-1 != index}}'></view>
+        </view>   
+      </view> 
+       <none wx:if="{{none}}" title='暂无留言明信片' tip='明信片可分享给好友进行通信哦~' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>   
+    </block>  
   </scroll-view>
 </view>

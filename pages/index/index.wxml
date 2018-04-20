@@ -7,12 +7,12 @@
       </view>
       <view class="person-info f-c">
         <view class="name">
-          <text class="font">{{nickName}}</text>
+           <text class="font">{{nickName}}</text>
         </view>
-        <view class="gold-info flex">
+        <view class="gold-info flex" bindtap='toShop'>
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
           <text class="font">{{gold}}</text>
-          <image class="add" bindtap='toShop' src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
+          <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
         </view>
       </view>
     </view>
@@ -22,7 +22,7 @@
         <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">
-        <text class="today">{{season}}</text>
+        <text class="today {{season=='春' ? 'chun' : season=='夏' ? 'xia' : season=='秋' ? 'qiu' : season=='冬' ? 'dong' : ''}}">{{season}}</text>
         <image class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
       </view>
     </view>

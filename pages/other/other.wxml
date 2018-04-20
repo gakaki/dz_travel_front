@@ -1,7 +1,7 @@
 <!--pages/other/other.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{init.avatarUrl}}' nickname='{{init.nickName}}' showGoldAndIntegral='{{false}}'></avatar>
+      <avatar wx:if='{{init.nickName}}' src='{{init.avatarUrl}}' nickname='{{init.nickName}}' showGoldAndIntegral='{{false}}'></avatar>
        <view class='des'>
         <view class='des-content'> 
           他的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{init.overmatch}}%</text>的驴友

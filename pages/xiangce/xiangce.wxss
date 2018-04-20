@@ -47,7 +47,7 @@
    width: 120rpx;
    border-radius: 16rpx;
    background-color: tan;
-   margin: 20rpx 20rpx 0 0;
+   margin: 20rpx 9rpx 0;
 }
 .msg-item {
   width: 100%
@@ -92,4 +92,21 @@ margin: 0 0 0 20rpx;
   height: 2rpx;
    width: 680rpx;
    background-color: #f2f2f2;
+}
+.no-postcard {
+  text-align: center;
+}
+.icon {
+  margin: 250rpx auto 63rpx;
+  width: 280rpx;
+  height: 246rpx;
+}
+.content-t {
+  font: bold 34rpx/1  'Microsoft YaHei';
+  color: #878689;
+}
+.content-c {
+  margin: 24rpx 0 132rpx;
+  font: bold 24rpx/1  'Microsoft YaHei';
+  color: #b0afb3;
 }

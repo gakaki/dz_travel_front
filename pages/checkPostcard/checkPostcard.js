@@ -45,12 +45,14 @@ Page({
       m.fetch().then(res=>{
         console.log(res)
         this.data.postid = res.postid;
+        this.setData({
+          url: res.mainUrl,
+          pattern: res.pattern
+        })
         //如果有留言,就将留言当成文本展示
         if (res.lastestMessage.length) {  
           this.setData({
-            allMessage: res.lastestMessage,
-            url:res.mainUrl,
-            pattern: res.pattern
+            allMessage: res.lastestMessage
           })
           this.nowInfo(this.data.index)
         } 
@@ -197,6 +199,8 @@ Page({
         that.showMask(that, '', '分享成功')
       }
     }
+    if (this.data.id) { toShareLink.id = this.data.id}
+    if (this.data.postid) { toShareLink.postid = this.data.postid }
     return shareToIndex(this, {type:4}, toShareLink)
   }
 })

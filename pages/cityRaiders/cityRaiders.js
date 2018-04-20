@@ -148,6 +148,13 @@ console.log('arr1',arr1)
     })
   },
   tocR() {
+    if (!cityId) {
+      wx.showToast({
+        title: '请先选择城市',
+        icon:'none'
+      })
+      return
+    }
     wx.navigateTo({
       url: '../pointRaiders/pointRaiders?city=' + city+ '&cid='+cityId   //还要把城市id传过去
     })

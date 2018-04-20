@@ -16,6 +16,8 @@ let linePointArr//路线中的点
 let startTime = 0
 let city = ''
 let beishu = 1//缩放系数
+let music = null
+let spotsTracked = 0//走过的景点数量
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -23,6 +25,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    display: 'people',
+    isDouble: false,
+    partnerSex: 1,
     onePopInfo: {}, //类型为1的弹窗
     playing: false,//是否开始游玩
     event: false,//是否有事件
@@ -37,7 +42,8 @@ Page({
     },
     spots: [],
     isStart: 1,//游玩状态  1：开始游玩，2：游玩中，3：游玩结束
-    taskPer: 0,//任务完成进度
+    taskPer: 0,//任务完成进度,
+    task: {},
     season: 'SPRING',
     licheng: 0,
     weather: '',
@@ -71,8 +77,6 @@ Page({
     passLines: [],
     finalpassLines: [],
     currentPoint: 0,
-    poepleLocation: {},
-    poepleLocationNum: 0,
     locations: [{
       id: 0,
       type: 'start',
@@ -108,44 +112,37 @@ Page({
     arr = []
     dian = []
     pointIds = []
+    this.setData({
+      showWalk: false
+    })
     Http.unlisten(PlayLoop, this.freshspots, this)
   },
+
   onHide: function () {
     arr = []
     dian = []
     Http.unlisten(PlayLoop, this.freshspots, this)
+    this.setData({
+      showWalk: false
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.setData({
-      gender: app.globalData.userInfo.gender
-    })
-
-    let m = new CheckGuide();
-    m.fetch().then(res => {
-      this.setData({
-        hasPlay: res.hasPlay
-      })
-    })
-
-    //获取路线的最新状态
-    // let spots = this.data.spots.slice()
-    // let lineArr = spots.filter(o => {
-    //   return o.tracked == true
-    // })
+  initData(cid) {
     let req = new TourIndexInfo()
-    req.cid = options.cid
+    req.cid = cid
     req.fetch().then(req => {
       this.setData({
         weather: sheet.Weather.Get(req.weather).icon,
-        licheng: app.globalData.userInfo.mileage,
+        task: req.task,
+        licheng: req.mileage,
         // licheng: 0,
         season: app.globalData.season,
         spots: req.spots,
         startPoint: req.startPos
       })
+      this.freshTask()
       startTime = req.startTime
       let playState = this.data.spots.every(o => {
         return o.index == -1
@@ -156,8 +153,18 @@ Page({
         // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
+      let arrs = this.data.spots.slice()
+      arrs.sort((x, y) => {
+        return x.index - y.index
+      })
+      let count = 0
+      for (let i = 0; i < arrs.length; i++) {
+        if (arrs[i].index != -1) count++
+      }
+      arrs = arrs.slice(-count)//路线中的点
 
-      let lineDown = this.data.spots.every(o => {
+
+      let lineDown = arrs.every(o => {
         return o.tracked == true
       })
       let state = 1
@@ -175,6 +182,7 @@ Page({
         lineDown: lineDown,
         playing: !playState
       })
+      console.log('initData', this.data.lineDown)
       if (!playState) { //游玩过
         //this.startplay()
         let arrs = this.data.spots.slice()
@@ -191,15 +199,40 @@ Page({
         })
         this.lineState(arrs)
       }
+    })
+  },
+  onShow: function () {
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    this.initData(cid)
+  },
+  onLoad: function (options) {
 
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+    this.setData({
+      gender: app.globalData.userInfo.gender
+    })
+
+    let m = new CheckGuide();
+    m.fetch().then(res => {
+      this.setData({
+        hasPlay: res.hasPlay
+      })
     })
     cid = options.cid
+    //this.initData(cid)
     city = sheet.City.Get(options.cid).city
     wx.setNavigationBarTitle({
       title: city + '游玩'
     })
     // this.scaleXy(2)
   },
+
   //触发事件
   touchEvt() {
     let req = new EventShow()
@@ -207,7 +240,7 @@ Page({
       this.setData({
         onePopInfo: req.quest.describe
       })
-      if(req.quest.type == 1) {
+      if (req.quest.type == 1) {
         this.setData({
           isPop: true
         })
@@ -232,30 +265,38 @@ Page({
     // }
     //更新景点状态
 
-    // if (res.spotsTracked > 0) {
-    //   let spotss = this.data.spots.map(o => {
-    //     if (o.index < req.spotsTracked) {
-    //       o.tracked = true
-    //     }
-    //     return o
-    //   })
-    //   this.setData({
-    //     spots: spotss
-    //   })
-    // }
+    if (res.spotsTracked > 0) {
+      if (spotsTracked < res.spotsTracked) {
+        music.play()
+        spotsTracked = res.spotsTracked
+      }
+      let spotss = this.data.spots.map(o => {
+        if (o.index < req.spotsTracked) {
+          o.tracked = true
+        }
+        return o
+      })
+      this.setData({
+        spots: spotss
+      })
+    }
 
 
 
 
     //刷新景点数组
-    // if (res.freshSpots) {
-    //   let req = new FreshSpots()
-    //   req.fetch().then(req => {
-    //     this.setData({
-    //       spots: req.spotss
-    //     })
-    //   })
-    // }
+    if (res.freshSpots) {
+      let req = new FreshSpots()
+      req.fetch().then(req => {
+        this.setData({
+          spots: req.spotss,
+          display: req.display,
+          task: req.task
+        })
+        this.freshTask()
+      })
+    }
+
     //刷新事件
     if (res.newEvent) {
       this.setData({
@@ -269,7 +310,19 @@ Page({
       isMissionOpen: true
     })
   },
-
+  //刷新任务
+  freshTask() {
+    let num = 0
+    let allNum = 0
+    for (let o in this.data.task) {
+      num = num + this.data.task[o][0]
+      allNum = allNum + this.data.task[o][1]
+    }
+    let rel = num/allNum
+    this.setData({
+      taskPer: rel
+    })
+  },
   //缩放点和线
   scaleXy(v) {
     beishu = v
@@ -384,9 +437,10 @@ Page({
     })
     if (this.data.walkPoint.length - 1 == obj.idx) {
       this.setData({
-         isStart: 3,
+        isStart: 3,
         lineDown: true
       })
+      console.log('chgWid', this.data.lineDown)
     }
     //spots[obj.idx - 1].tracked = true
     this.setData({
@@ -438,7 +492,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-     // if(!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
@@ -464,6 +518,7 @@ Page({
     this.setData({
       lineDown: false
     })
+    console.log('start', this.data.lineDown)
     if (this.data.dashedLine) {
       let spots = this.data.spots
       spots.sort((x, y) => {
@@ -509,13 +564,13 @@ Page({
   },
   //添加或修改路线
   xiugaiLine() {
-     if (!this.data.playing || this.data.lineDown) {
-        this.setData({
-          isChg: true,
-          isStart: 1
-        })
-        return
-      }
+    if (!this.data.playing || this.data.lineDown) {
+      this.setData({
+        isChg: true,
+        isStart: 1
+      })
+      return
+    }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLine: true,
@@ -530,7 +585,7 @@ Page({
         isChg: true,
         isStart: 1
       })
-     
+
     }
 
   },
@@ -544,8 +599,18 @@ Page({
       // pointIds = []
       // startTime = req.spots[0].startime
       reqs.spots.splice(0, 1)
+
+      let temptestArr = req.spots.map(item => {
+        return Object.assign({}, item, {
+          // name: item.name,
+          // idx: item.idx,
+          x: item.x * beishu,
+          y: item.y * beishu
+        })
+      })
+
       this.setData({
-        spots: req.spots,
+        spots: temptestArr,
         isChg: true,
         isStart: 1,
         chgLine: false,
@@ -562,7 +627,7 @@ Page({
       })
       pointIds = pointIds.slice(0, num)
       app.globalData.gold = req.goldNum
-       this.start()
+      this.start()
     })
     return
 
@@ -635,11 +700,12 @@ Page({
     let lastPoint, curPoint
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
-    wx.navigateTo({
-      url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid
-    })
-    return
+      wx.navigateTo({
+        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid + '&name=' + dSet.name
+      })
+      return
     }
+    if (this.data.isStart == 2) return
     if (!this.data.isChg) {
       wx.showToast({
         title: '请先点击添加路线，才能规划路线',
@@ -781,7 +847,7 @@ Page({
   },
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + cid
+      url: '../props/props?cid=' + cid + '&city=' + city
     })
   },
   showisPop() {
@@ -839,23 +905,12 @@ Page({
    */
   onReady: function () {
     this.play = this.selectComponent("#play");
-    this.setData({
-      poepleLocation: this.data.locations[0]
-    })
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    var animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'ease',
-    })
-    this.animation = animation
-  },
-
   played() {
     let m = new FinishGuide();
     m.play = true

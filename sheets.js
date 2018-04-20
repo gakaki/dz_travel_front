@@ -21,13 +21,28 @@ class City {
     get postcard(){ return this.cfg.postcard; }
 
     // 坐标
-    get coordinate(){ return this.cfg.coordinate; }
+    get cityxy(){ return this.cfg.cityxy; }
 
     // 背景图片
     get picture(){ return this.cfg.picture; }
 
+    // 起点坐标
+    get coordinate(){ return this.cfg.coordinate; }
+
 
     static Get(id){ return id in _data.city ? new City(_data.city[id]) : null; }
+}
+
+class Postcard {
+    constructor(d) {
+    this.cfg = d;
+    }
+
+    // 明信片价格
+    get price(){ return this.cfg.price; }
+
+
+    static Get(id){ return id in _data.postcard ? new Postcard(_data.postcard[id]) : null; }
 }
 
 class Parameter {
@@ -390,6 +405,7 @@ class Error {
 
 
 exports.citys = Object.values(_data.city);
+exports.postcards = Object.values(_data.postcard);
 exports.parameters = Object.values(_data.parameter);
 exports.logins = Object.values(_data.login);
 exports.shares = Object.values(_data.share);
@@ -408,6 +424,7 @@ exports.errors = Object.values(_data.error);
 
 
 exports.City = City;
+exports.Postcard = Postcard;
 exports.Parameter = Parameter;
 exports.Login = Login;
 exports.Share = Share;

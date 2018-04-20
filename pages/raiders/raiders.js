@@ -107,6 +107,15 @@ Page({
     this.setData({
       isShowPop: !this.data.isShowPop
     })
+    if (types == 1) {
+      this.setData({
+        placeholder:'旅行中有哪些小故事发生，分享给大家吧'
+      })
+    } else if (types == 2) {
+      this.setData({
+        placeholder: '快来评价一下这个特产吧'
+      })
+    }
   },
 
   freshList(num) {

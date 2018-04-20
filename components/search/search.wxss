@@ -30,6 +30,7 @@
   top: 0;
   left: 60rpx;
   font-size: 30rpx;
+  text-indent: 5rpx;
   color: #8d8d8d;
 }
 
@@ -37,6 +38,7 @@
   font-size: 30rpx;
   color: #ccc;
   font-weight: 700;
+  text-indent: 5rpx;
 }
 
 .back{
