@@ -1,10 +1,11 @@
 <!--components/avatar/avatar.wxml-->
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="user">
   <view class='user-avatar'>
     <image class='avatar-icon' src='{{src}}' style="width:{{avatarWid}}rpx;height:{{avatarHeg}}rpx"></image>
   </view>
   <view class="user-info">
-    <view class='nickname'>{{nickname}}</view>
+    <view class='nickname'>{{tools.filterNickname(nickname)}}</view>
     <view class='gold-wrap' wx:if='{{showGoldAndIntegral}}'>
       <gold class='gold-box' goldNum='{{goldNum}}' wx:if='{{hasGoldIcon}}'></gold>
       <view class='integral' wx:if='{{hasIntegral}}'>积分: {{integral}}</view>

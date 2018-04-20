@@ -25,9 +25,9 @@ function rewardsStr(rewards) {
     const REWARDS_TYPE_SPE = 4;
     const REWARDS_TYPE_POST = 5;
 
-    let resultStr = '';
+    var resultStr = '';
     rewards.forEach( function(r){
-        let str = r.v > 0 ? '获得' : '耗费';
+        var str = r.v > 0 ? '获得' : '耗费';
         r.v = r.v > 0 ? r.v : -r.v;
         switch (r.k) {
             case REWARDS_TYPE_GOLD:

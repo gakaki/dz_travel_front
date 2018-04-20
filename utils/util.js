@@ -30,6 +30,60 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+//替换源字符串中的partens为fills里的值，
+// partens可以传字符串、数组、或正则表达式
+// fills如果包含多个参数，则分两种处理方式：
+// 第一种：当partens为正则表达式或字符串时
+// 每次匹配到parten时从fills里依次并循环取值；
+// eg: tplStr('affaafff','a', 1,2) 输出=> '1ff21fff'
+//
+//
+// 第二种：当partens为数组时，每次匹配到数组里的元素后，取该元素在数组中的索引，使用fills里同索引位置的值进行替换
+// eg: tplStr('affabfff',['a','b'], 1,2) 输出=> '1ff12fff'
+function tplStr (source, partens, ...fills) {
+
+    //如果是html格式，则顺便替换一下\n为<br/>
+    let regHtml = /\<.[^<>]*\>/
+    if (regHtml.test(source)) {
+        source = source.replace('/\\n/g', '<br/>')
+    }
+
+    if (!fills.length) {
+        return source
+    }
+
+    let parten;
+    let forArr = false;
+    if (typeof partens == 'string') {
+        parten = new RegExp(partens, 'g')
+    }
+    else if (partens.constructor == Array) {
+        //当作数组处理
+        parten = new RegExp('(' + partens.join('|') + ')', 'g');
+        forArr = true;
+    }
+    else {
+        //认为传进来的是正则表达式
+        parten = partens
+    }
+
+    let idx = 0
+    let maxIdx = fills.length - 1
+    return source.replace(parten, function (str, id) {
+        console.log(str, id)
+        if (forArr) {
+            idx = partens.indexOf(str)
+            return fills[idx]
+        }
+        else {
+            if (idx > maxIdx) {
+                idx = 0
+            }
+            return fills[idx++]
+        }
+    })
+}
+
 
 function care (obj, key, cb) {
   if (obj.__pKeys && obj.__pKeys.has(key)) {
@@ -420,5 +474,6 @@ module.exports = {
   formatNum,
   shareToIndex,
   redGold,
-  addGold
+  addGold,
+  tplStr
 }
