@@ -16,6 +16,7 @@
         <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
             <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
             <text class="play-spot-txt">{{item.name}}</text>
+            <text class="play-spot-tm">{{item.arriveTime}}</text>
         </view>
         <!--小人.自己-->
         <view wx:if="{{roleMe}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole"

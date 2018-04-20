@@ -163,7 +163,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        Http.listen(PlayLoop, this.onPlayLoop, this, 60000);
+        // Http.listen(PlayLoop, this.onPlayLoop, this, 60000);
+        Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
     },
 
     /**
@@ -188,6 +189,10 @@ Page({
     },
     //轮询
     onPlayLoop(res) {
+        if (res.code) {
+            //如果有错误码，底层会终止轮询
+            console.log('Playloop stopped, error code>>', res.code);
+        }
         if (res.freshSpots) {
             //景点列表需要刷新
             this.freshSpots();
@@ -220,6 +225,7 @@ Page({
     //更新景点状态列表
     updateSpots(spots) {
 
+        let date = new Date();
         if (this.data.spots.length) {
             let olds = this.data.spots;
             olds.sort((a,b) => a.id - b.id);
@@ -228,16 +234,18 @@ Page({
             //check if all same
             let allSame = true;
 
-            for (let i = 0; i < spots.length; i++) {
-                if (i < olds.length) {
+            for (let i = 0; i < olds.length; i++) {
+                if (i < spots.length) {
                     let o = olds[i];
                     let n = spots[i];
                     let tracked = n.tracked;
                     let arriveStamp = n.arriveStamp;
+                    date.setTime(arriveStamp);
+                    let arriveTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
                     allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
                     //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-                    Object.assign(n, o, {tracked, arriveStamp})
+                    Object.assign(n, o, {tracked, arriveStamp, arriveTime})
                 }
                 else {
                     //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -250,6 +258,8 @@ Page({
                 //全部一样的话，不必更新渲染
                 return;
             }
+
+            spots = olds;
         }
         else {
             //第一次设置spots
@@ -257,6 +267,9 @@ Page({
                 let building = s.building;
                 s.img1 = `${resRoot}build/${building[0]}.png`;
                 s.img2 = `${resRoot}build/${building[1]}.png`;
+                let arriveStamp = s.arriveStamp;
+                date.setTime(arriveStamp);
+                s.arriveTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
                 let size = spotSize[building[0]];
                 if (size) {
                     s.wd = size.wd;
@@ -288,6 +301,7 @@ Page({
         let spots = this.data.planedSpots.concat();
 
         let startPoint = this.data.startPoint;
+        startPoint.tracked = this.data.started;
         spots.unshift(startPoint);//将起点加入
 
         let lines = [];
@@ -344,6 +358,9 @@ Page({
 
     //修改路线
     chgLine() {
+        //暂停轮询
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
+
         this.setData({
             started: false,//设为非游玩状态
             planing: true, //设为编辑路线状态
@@ -408,6 +425,9 @@ Page({
 
     //提交路径到服务器
     sendPath() {
+        //恢复轮询
+        Http.listen(PlayLoop, this.onPlayLoop, this);
+
         this.setData({planing: false});
 
         let req = new SetRouter();

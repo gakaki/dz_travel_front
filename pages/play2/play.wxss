@@ -105,12 +105,26 @@ weather.sights {
     font-size: 20rpx;
     font-weight: bold;
 }
-#play-pops, #play-pop-bg, .controll-layer {
+
+.play-spot-tm {
+    position: absolute;
+    top: -60rpx;
+    left: 50%;
+    font: 20rpx gray;
+    transform: translate(-50%, 100%);
+}
+#play-pops, #play-pop-bg {
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
     position: fixed;
+}
+
+.controll-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 #play-pop-bg {
