@@ -111,7 +111,9 @@ Page({
             this.tip('房间已满');
             break;
           default:
-            this.tip('未知错误');
+            if (!app.globalData.noNetwork) {
+              this.tip('未知错误');
+            }
         }
       })
     }
@@ -206,7 +208,9 @@ Page({
           this.tip('已在房间内, 无法邀请别人');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     })
   },
@@ -265,7 +269,9 @@ Page({
           this.tip('房间已满');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     }
     else{
@@ -413,7 +419,9 @@ Page({
           Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
       preventFastClick = false;
     })

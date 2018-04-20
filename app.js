@@ -2,6 +2,7 @@
 import { start } from './utils/rest.js';
 App({
   onLaunch: function () {
+    let that = this
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
@@ -12,6 +13,7 @@ App({
       success: function(res) {
         console.log(res.networkType)
         if(res.networkType=='none'){
+          that.globalData.noNetwork = true
           wx.showLoading({
             title: '请检查网络状态',
           })
@@ -22,10 +24,12 @@ App({
     //监听网络状态
     wx.onNetworkStatusChange(function(res){
       if (res.isConnected){
+        that.globalData.noNetwork = false
         wx.hideLoading()
         start()
       }
       else{
+        that.globalData.noNetwork = true
         wx.showLoading({
           title: '请检查网络状态',
         })
@@ -73,7 +77,8 @@ App({
     cid:null,
     cityName:null,
     isFirst: false,
-    picBase:"https://gengxin.odao.com/update/h5/travel/"
+    picBase:"https://gengxin.odao.com/update/h5/travel/",
+    noNetwork:false
   },
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;
