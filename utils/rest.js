@@ -1,10 +1,10 @@
 const apis = require('../api.js');
 const APPNAME = 'travel';
 
-const srv = "https://tt.ddz2018.com/";
-const wss = "wss://tt.ddz2018.com/travel";
-// const srv = "https://local.ddz2018.com/";
-// const wss = "wss://local.ddz2018.com/travel";
+// const srv = "https://tt.ddz2018.com/";
+// const wss = "wss://tt.ddz2018.com/travel";
+const srv = "https://local.ddz2018.com/";
+const wss = "wss://local.ddz2018.com/travel";
 
 
 const showErr = msg => {
@@ -25,7 +25,7 @@ const start = (suc, shareUid) => {
     //测试websocket,实际上应该在业务层写ws相关逻辑
     // testWs();
   }).catch(()=> {
-    // suc(false);
+    // suc(false);  
     console.log('init false')
   })
 }

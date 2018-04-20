@@ -20,7 +20,7 @@ Component({
       'https://gengxin.odao.com/update/h5/travel/newbieGuide/6.png',
     ],
     index:0,
-    mask:true
+    mask:false
   },
 
   /**
