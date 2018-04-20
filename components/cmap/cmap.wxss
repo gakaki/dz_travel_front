@@ -16,4 +16,5 @@
   width: 77rpx;
   height: 63rpx;
   transform-origin: 50% 50%;
+  transform: translate(-50%,-50%);
 }

@@ -229,7 +229,9 @@ Page({
           this.tip('用户不存在');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork){
+            this.tip('未知错误');
+          }
       }
     })
 
@@ -284,7 +286,9 @@ Page({
           this.tip('用户不存在');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     })
   },
