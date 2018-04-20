@@ -135,6 +135,10 @@ class Parameter {
 
     static get SCENICSPOTAGAIN() { return 39 };
 
+    static get SHORTESTTIME() { return 40 };
+
+    static get LONGESTTIME() { return 41 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
