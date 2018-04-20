@@ -19,6 +19,7 @@ let beishu = 1//缩放系数
 let music = null
 let spotsTracked = 0//走过的景点数量
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
+const loopInterval = 10000 //轮询时间间隔 10秒
 Page({
 
   /**
@@ -153,7 +154,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        // Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       }
 
       let arrs = this.data.spots.slice()
@@ -529,7 +530,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
