@@ -186,6 +186,7 @@ Page({
       app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
       if(req.location){
+        console.log(req.location)
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
@@ -223,7 +224,7 @@ Page({
         })
       }
       
-    }).catch(() => {
+    }).catch((req) => {
       switch (req) {
         case Code.USER_NOT_FOUND:
           this.tip('用户不存在');
