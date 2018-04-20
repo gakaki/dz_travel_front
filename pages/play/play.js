@@ -112,11 +112,15 @@ Page({
   },
   onUnload() {
     Http.unlisten(PlayLoop, this.freshspots, this)
+    beishu = 1
+    arr = []
+    dian = []
+    this.setData({
+      showWalk: false
+    })
   },
 
   onHide: function () {
-    arr = []
-    dian = []
     beishu = 1
     arr = []
     dian = []
