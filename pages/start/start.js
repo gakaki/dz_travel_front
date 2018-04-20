@@ -222,15 +222,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let that = this;
     //监听网络状态
     wx.onNetworkStatusChange(function (res) {
-      if (res.isConnected && reconnection) {
-        console.log('reconnection suc--------------------->start')
+      if (res.isConnected && reconnection && that.data.isDouble) {
         reconnection = false;
-        Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+        Http.listen(PartnerInfo, that.parInfo, that, 1000, that.fillCode);
       }
       else{
-        console.log('noNetwork---------------------->start')
         reconnection = true
       }
     })
