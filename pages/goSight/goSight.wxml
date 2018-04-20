@@ -31,8 +31,7 @@
           <text class="event "> {{item.desc}}</text>
           <text class="event " wx:for="{{item.reward}}" wx:for-item="ite" wx:for-index="idx" wx:key="{{idx}}"> {{ite}}</text>
         </view>
-
-        <view class="t-line " hidden="{{events.length-1 == index}}"></view>
+        <view class="t-line mtb" hidden="{{events.length-1 == index && index!= 0}}"></view>
       </view>
 
     </view>
