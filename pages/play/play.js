@@ -108,19 +108,16 @@ Page({
     }]
   },
   onUnload() {
-    beishu = 1
-    arr = []
-    dian = []
-    pointIds = []
-    this.setData({
-      showWalk: false
-    })
     Http.unlisten(PlayLoop, this.freshspots, this)
   },
 
   onHide: function () {
     arr = []
     dian = []
+    beishu = 1
+    arr = []
+    dian = []
+    pointIds = []
     Http.unlisten(PlayLoop, this.freshspots, this)
     this.setData({
       showWalk: false
@@ -252,13 +249,15 @@ Page({
   freshNextSpotTime() {
     let spots = this.data.spots.map(o => {
       if (typeof o.countdown != 'undefined') {
+
         if (o.countdown / 60 < 1) {
-          o.countdown = o.countdown + '分'
+          o.daojishi = o.countdown + '分'
+          if (o.countdown == 0) o.daojishi = ''
         }
         else {
           let hour = o.countdown / 60
           let minute = o.countdown % 60
-          o.countdown = hour + '小时' + minute + '分'
+          o.daojishi = hour + '小时' + minute + '分'
         }
       }
       return o

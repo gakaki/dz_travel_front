@@ -653,7 +653,7 @@ weather.sights {
 .shi-line {
   border-width: 10rpx;
   border-style: solid none none none;
-  border-color: rgba(0, 0, 0, 0.8);
+  border-color: #000;
 }
 
 .testImg {
@@ -896,4 +896,7 @@ weather.sights {
 .icon-34a {
   width: 157rpx;
   height: 142rpx;
+}
+.cb {
+  color: #2689ff
 }
