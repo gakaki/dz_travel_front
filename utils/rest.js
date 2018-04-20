@@ -15,6 +15,7 @@ const showErr = msg => {
 
 //启动（会默认走一遍登录流程）
 const start = (suc, shareUid) => {
+  console.log(shareUid)
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
 
     //console.log(res,'start')

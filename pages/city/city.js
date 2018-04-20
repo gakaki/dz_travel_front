@@ -6,6 +6,7 @@ import { TicketType } from '../../api.js';
 let cid;//选中的城市id
 let location;//用户现在所在城市
 let province = [] , pages = 1 , endPage = true;
+let preventTapClick = false;  //阻止用户在购买随机机票和确定之间快速切换点击导致进入下一个页面显示错误
 Page({
 
   /**
@@ -44,10 +45,12 @@ Page({
     province = []; 
     pages = 1; 
     endPage = true;
+    preventTapClick = false;
   },
 
   toStart(e) {
     if (app.preventMoreTap(e)) return;
+    preventTapClick = true;
     if(this.data.isChoose){
       
       this.toFly(cid, this.data.isChoose, TicketType.SINGLEBUY)
@@ -57,14 +60,17 @@ Page({
         title: '请选择目的地',
         icon:'none'
       })
+      preventTapClick = false
     }
   },
 
   toRandom(e) {
     if (app.preventMoreTap(e)) return;
-    wx.redirectTo({
-      url: '../start/start?random=true&type=' + TicketType.RANDOMBUY,
-    })
+    if (!preventTapClick){
+      wx.redirectTo({
+        url: '../start/start?random=true&type=' + TicketType.RANDOMBUY,
+      })
+    }
   },
 
   choose(e) {
@@ -88,6 +94,7 @@ Page({
         title: '已在当前城市，请重新选择',
         icon: 'none'
       })
+      preventTapClick = false
     }
     else{
       wx.redirectTo({
