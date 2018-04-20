@@ -24,11 +24,11 @@
         <view class="rank-info f-r-sb">
           <image class="famous-icon" wx:if='{{rankType==3}}' src="https://gengxin.odao.com/update/h5/travel/rank/score-small.png"></image>
           <text wx:else>本周</text>
-          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}{{percent ? '%' : ''}}</text>
+          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}</text>
         </view>
         <view class="xian" wx:if="{{!noReward}}"></view>
         <view class="gold f-r-sb" wx:if="{{!noReward}}">
-          <text>历史{{item.achievement}}{{percent ? '%' : ''}}</text>
+          <text>历史{{item.achievement}}</text>
         </view>
       </view>
     </view>
@@ -44,7 +44,7 @@
         <view class="ranking-info f-r-sb" wx:if="{{rankSubtype==1}}">
           <image class="famousing-icon" wx:if='{{rankType==3}}' src="https://gengxin.odao.com/update/h5/travel/rank/score.png"></image>
           <text wx:else>本周</text>
-          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}{{percent ? '%' : ''}}</text>
+          <text>{{rankType==3 ? item.achievement : item.weekAchievement}}</text>
         </view>
         <view class="ranking-info f-r-sb" wx:else>
           <image class="famousing-icon" wx:if='{{rankType==1}}' src="https://gengxin.odao.com/update/h5/travel/rank/famous.png"></image>

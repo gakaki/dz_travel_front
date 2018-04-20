@@ -26,7 +26,6 @@ App({
       if (res.isConnected){
         that.globalData.noNetwork = false
         wx.hideLoading()
-        start()
       }
       else{
         that.globalData.noNetwork = true

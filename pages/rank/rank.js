@@ -26,7 +26,6 @@ Page({
     title: '达人排行榜规则',
     id:5,
     noReward:false,
-    percent: true,
     isFriend:false,
     isFirst: false
   },
@@ -91,7 +90,6 @@ Page({
       rankSubtype,
       toView: 'rank0',
       noReward: false,
-      percent: true,
       isFriend: false
     })
   },
@@ -228,7 +226,6 @@ Page({
       toView: 'rank0',
       id: '5',
       noReward: false,
-      percent: true,
       isFriend: false,
       title: '达人排行榜规则'
     })
@@ -245,7 +242,6 @@ Page({
       toView: 'rank0',
       id: '4',
       noReward: false,
-      percent: false,
       isFriend: false,
       title: '足迹排行榜规则'
     })
@@ -262,7 +258,6 @@ Page({
       toView: 'rank0',
       id: '3',
       noReward: true,
-      percent: false,
       isFriend: false,
       title: '积分排行榜规则'
     })
