@@ -28,27 +28,45 @@
   </view>
   <scroll-view scroll-y class='list-wrap'>
     <view class='one-list f-r-sb'>
-      <text>累计获得城市积分</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/1.png'></image>
+        <text>累计获得城市积分</text>
+      </view>
       <text>{{init.otherUserInfo.totalIntegral}}</text>
     </view>
     <view class='one-list f-r-sb'>
-      <text>里程数</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/2.png'></image>
+        <text>里程数</text>
+      </view>
       <text>{{init.otherUserInfo.mileage}}</text>
     </view>
     <view class='one-list f-r-sb'>
-      <text>收集明信片数量</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/3.png'></image>
+        <text>收集不同明信片数量</text>
+      </view>
       <text>{{init.otherUserInfo.postcard}}</text>
     </view>
     <view class='one-list f-r-sb'>
-      <text>发表评论数量</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/4.png'></image>
+        <text>发表评论数量</text>
+      </view>
       <text>{{init.otherUserInfo.comment}}</text>
     </view>
     <view class='one-list f-r-sb'>
-      <text>获得点赞数量</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/5.png'></image>
+        <text>获得点赞数量</text>
+      </view>
       <text>{{init.otherUserInfo.likeNum}}</text>
     </view>
     <view class='one-list one-last f-r-sb'>
-      <text>获得特产数量</text>
+      <view>
+        <image class='small-img' src='https://gengxin.odao.com/update/h5/travel/self/6.png'></image>
+        <text>累计获得特产数量</text>
+      </view>
       <text>{{init.otherUserInfo.specialty}}</text>
     </view>
   </scroll-view>
