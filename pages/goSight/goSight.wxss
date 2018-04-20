@@ -102,7 +102,7 @@ margin-right: 30rpx;
 .event {
   font:  bold 24rpx 'Microsoft YaHei';
   color: #939295;
-  width: 670rpx;
+  
 }
 .reward {
   color: #278cff
