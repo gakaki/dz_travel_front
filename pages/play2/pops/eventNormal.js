@@ -40,6 +40,7 @@ Component({
    */
   methods: {
       toNext() {
+          // if(this.data.quest.rewards.find(kv => kv.k == ))
         this.triggerEvent('next');
       }
   },

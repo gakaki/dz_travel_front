@@ -84,12 +84,12 @@ Page({
         postPicture: '',//获取的明信片图片路径
         postSpotName: '',//获取的明信片所在景点名
         quest: null,//{id:130010, type:3, picture:'6.jpg', describe: '上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？',rewards:[{k:2,v:5}], answers:['不知道','不晓得','不清楚','随便了']}, //null, //当前要显示的事件
-        showPop: true,//是否显示弹出
+        showPop: false,//是否显示弹出
         showPlayIntro: false, //是否显示玩法提示pop
         showEventNormal: false, //是否显示普通事件pop
         showEventQuest: false, //是否显示问题事件pop
         showFreeRent: false, //是否显示免费租赁pop
-        showGotPost: true, //是否显示获得明信片pop
+        showGotPost: false, //是否显示获得明信片pop
         showMissionInfo: false, //是否显示任务信息pop
     },
 
