@@ -1,36 +1,40 @@
 <view class="con ">
   <scroll-view id="sv" scroll-y class="f-c-fs" scroll-with-animation="{{true}}" scroll-into-view="{{toView}}">
-  <image class="photo" src="https://gengxin.odao.com/update/h5/travel/{{pic}}"> </image>
-  <view class="info f-c-sb">
-    <view class="f-r-sb i-top">
-      <text class="font gps">{{spotName}}</text>
-      <view class="flex ">
-        <text class="date font">{{date}}</text>
-        <text class="jijie {{season=='春' ? 'chun' : season=='夏' ? 'xia' : season=='秋' ? 'qiu' : season=='冬' ? 'dong' : ''}}">{{season}}</text>
-        <image src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png" class="w-icon"></image>
-      </view>
+    <image class="photo" src="https://gengxin.odao.com/update/h5/travel/{{pic}}"> </image>
+    <view class="info f-c-sb">
+      <view class="f-r-sb i-top">
+        <text class="font gps">{{spotName}}</text>
+        <view class="flex ">
+          <text class="date font">{{date}}</text>
+          <text class="jijie {{season=='春' ? 'chun' : season=='夏' ? 'xia' : season=='秋' ? 'qiu' : season=='冬' ? 'dong' : ''}}">{{season}}</text>
+          <image src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png" class="w-icon"></image>
+        </view>
 
-    </view>
-    <view class="i-bot f-r-sb">
-      <view class="g-box f-r-fs">
-        <mygold goldNum="{{goldNum}}"></mygold>
       </view>
-      <image bindtap='checkMore' src="https://gengxin.odao.com/update/h5/travel/play/arrow.png" class="arrow {{toTop?'to-top':''}}"></image>
+      <view class="i-bot f-r-sb">
+        <view class="g-box f-r-fs">
+          <mygold goldNum="{{goldNum}}"></mygold>
+        </view>
+        <image bindtap='checkMore' src="https://gengxin.odao.com/update/h5/travel/play/arrow.png" class="arrow {{toTop?'to-top':''}}"></image>
+      </view>
     </view>
-  </view>
-  <view class="t-line"></view>
-  <view id="info-desc" class="font">{{testStr}}</view>
-  <view class="w-line cu"></view>
+    <view class="t-line"></view>
+    <view id="info-desc" class="font">{{testStr}}</view>
+    <view class="w-line cu"></view>
 
     <view class="f-c-fs ">
       <text class="font chu">触发事件</text>
       <text wx:if="{{events.length == 0}}" class="font get gt">观光有几率获得积分、明信片、特产奖励</text>
       <text wx:if="{{events.length == 0}}" class="font get ">观光一次消耗{{ggGold}}金币</text>
-      <view wx:for="{{events}}" wx:key="{{index}}" class="f-c" id="id{{index}}">
-      <text class="event " wx:if="{{events.length > 0}}" > {{item}}</text>
-      <view class="t-line " hidden="{{events.length-1 == index}}"></view>
+      <view wx:for="{{events}}" wx:key="{{index}}" wx:if="{{events.length > 0}}" class="f-c" id="id{{index}}">
+        <view class="evt-item">
+          <text class="event "> {{item.desc}}</text>
+          <text class="event " wx:for="{{item.reward}}" wx:for-item="ite" wx:for-index="idx" wx:key="{{idx}}"> {{ite}}</text>
+        </view>
+
+        <view class="t-line " hidden="{{events.length-1 == index}}"></view>
       </view>
-      
+
     </view>
   </scroll-view>
 

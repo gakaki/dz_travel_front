@@ -142,6 +142,7 @@ Page({
         spots: req.spots,
         startPoint: req.startPos
       })
+      this.freshNextSpotTime()
       this.freshTask()
       startTime = req.startTime
       let playState = this.data.spots.every(o => {
@@ -247,6 +248,25 @@ Page({
       }
     })
   },
+  //刷新到达下一个景点的剩余分钟数
+  freshNextSpotTime() {
+    let spots = this.data.spots.map(o => {
+      if (typeof o.countdown != 'undefined') {
+        if (o.countdown / 60 < 1) {
+          o.countdown = o.countdown + '分'
+        }
+        else {
+          let hour = o.countdown / 60
+          let minute = o.countdown % 60
+          o.countdown = hour + '小时' + minute + '分'
+        }
+      }
+      return o
+    })
+    this.setData({
+      spots: spots
+    })
+  },
   //刷新景点信息
   freshspots(res) {
     //点亮景点
@@ -279,6 +299,7 @@ Page({
       this.setData({
         spots: spotss
       })
+     // this.freshNextSpotTime()
     }
 
 
@@ -318,10 +339,11 @@ Page({
       num = num + this.data.task[o][0]
       allNum = allNum + this.data.task[o][1]
     }
-    let rel = num/allNum
+    let rel = num / allNum
     this.setData({
-      taskPer: rel
+      taskPer: rel * 100
     })
+    console.log('taskPer', rel)
   },
   //缩放点和线
   scaleXy(v) {
@@ -708,7 +730,7 @@ Page({
     if (this.data.isStart == 2) return
     if (!this.data.isChg) {
       wx.showToast({
-        title: '请先点击添加路线，才能规划路线',
+        title: '请先点击“规划路线”进行路线添加',
         icon: 'none',
         mask: true
       })
