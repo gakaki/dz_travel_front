@@ -98,12 +98,6 @@ margin-right: 30rpx;
   right:0;
   bottom: 140rpx;
 }
-
-.event {
-  font:  bold 24rpx 'Microsoft YaHei';
-  color: #939295;
-  
-}
 .reward {
   color: #278cff
 }
@@ -186,5 +180,7 @@ margin-right: 30rpx;
   color: #9ba3cd;
 }
 .evt-item {
-  width: 670rpx
+  width: 670rpx;
+  font:  bold 24rpx 'Microsoft YaHei';
+  color: #939295;
 }
