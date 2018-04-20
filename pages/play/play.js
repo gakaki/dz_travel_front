@@ -121,7 +121,8 @@ Page({
         season: app.globalData.season,
         spots: req.spots,
         display: req.display,
-        startPoint: req.startPos
+        startPoint: req.startPos,
+        isDouble: req.partener != null
       })
       this.freshNextSpotTime()
       this.freshTask()
@@ -626,9 +627,9 @@ Page({
     } else {
       this.setData({
         chgLine: true,
-        cfmStr: '确定',
-        isChg: true,
-        isStart: 1
+        cfmStr: '确定'
+        // isChg: true,
+        // isStart: 1
       })
 
     }
@@ -641,7 +642,7 @@ Page({
     reqs.fetch().then(req => {
 
 
-      reqs.spots.splice(0, 1)
+      // reqs.spots.splice(0, 1)
 
       let temptestArr = req.spots
       if (beishu == 2) {
