@@ -408,6 +408,10 @@ Page({
             delta:1
           })
           break;
+        case Code.FRIEND_WAIT:
+          this.tip('好友已退出');
+          Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+          break;
         default:
           this.tip('未知错误');
       }
@@ -489,7 +493,6 @@ Page({
   },
 
   double(e) {
-    if (app.preventMoreTap(e)) return;
     if(!this.data.isDouble){
       this.setData({
         isDouble: true
