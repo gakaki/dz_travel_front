@@ -648,15 +648,16 @@ weather.sights {
 }
 
 .dash-line {
-  border-width: 10rpx;
+  border-width: 8rpx;
   border-style: dotted none none none;
   border-color: rgba(0, 0, 0, 0.5);
 }
 
 .shi-line {
-  border-width: 10rpx;
+  border-width: 8rpx;
   border-style: solid none none none;
   border-color: #000;
+  border-radius: 4rpx;
 }
 
 .testImg {
@@ -670,7 +671,7 @@ weather.sights {
 
 .img-box {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
 }
 
 .icon-name {
