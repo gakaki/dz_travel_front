@@ -2,14 +2,15 @@
 .air-line {
   border-style: solid;
   
-  border-radius: 50%/ 100% 100% 0 0;
+  border-radius: 50%/ 100% 100% 0 0;   
   border-color: #2281ff;
   border-width: 6rpx 6rpx 0;
-  transform-origin: 0 50%;
+  transform-origin: 0 100%;  
 }
 .arc-btm { 
-  border-radius: 50% / 0 0 100% 100%;
+  border-radius: 50% / 0 0 100% 100%;   
   border-width: 0 6rpx 6rpx 6rpx;
+  transform-origin: 0 0; 
 }
 .air-plane{
   width: 77rpx;

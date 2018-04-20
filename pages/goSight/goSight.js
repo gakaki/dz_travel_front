@@ -8,6 +8,7 @@ let pointId = ''
 let cid = ''
 let oldStr = ''
 let toUrl = ''//点击弹窗去哪个页面
+let spotName = ''
 Page({
 
   /**
@@ -41,10 +42,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+ 
   onLoad: function (options) {
     pointId = options.pointId
     cid = options.cid
-
+    spotName = options.name
+  },
+  onShow() {
     let req = new ReqEnterspot()
     req.spotId = pointId
     req.cid = cid
@@ -52,7 +56,7 @@ Page({
       console.log('req', req)
       console.log(this.data.season)
       oldStr = req.spot.description
-  
+
       this.setData({
         goldNum: req.goldNum,
         freePhoto: req.spot.freePhoto,
@@ -61,7 +65,7 @@ Page({
         season: app.globalData.season,
         weather: sheet.Weather.Get(req.spot.weather).icon,
         pic: req.spot.picture,
-        spotName: options.name,
+        spotName: spotName,
         testStr: req.spot.description,
         // evtArr: req.questList,
         date: ymd('cn')
@@ -163,8 +167,8 @@ Page({
     req.fetch().then(req => {
       this.setData({
         isGetPost: true,
-         freePhoto: this.data.freePhoto-1,
-        url:req.picture
+        freePhoto: req.freePhoto,
+        url: req.postcard.cfg.picture
        // url: "jingdian/shanxi/xian/jd/2.jpg"
       })
     },code=>{

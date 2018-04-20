@@ -1,1 +1,44 @@
 /* pages/play2/pops/freeRent.wxss */
+.rent-con {
+    width: 612rpx;
+    height: 500rpx;
+    border-radius: 40rpx;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 10rpx 0rpx #000;
+    text-align: center;
+}
+
+
+.gray-font {
+    color: gray;
+    font-size: 36rpx;
+    display: block;
+    text-align: center;
+    width: 90%;
+    margin: 10rpx auto;
+}
+.first-line {
+    margin-top: 100rpx;
+}
+
+.line {
+    width: 570rpx;
+    height: 4rpx;
+    display: inline-block;
+    background-color: #f2f2f2;
+    margin-top: 50rpx;
+}
+
+.cfm-btn {
+    width: 300rpx;
+    height: 80rpx;
+    color: #ffffff;
+    font-size: 36rpx;
+    line-height: 78rpx;
+    background-color: #278cff;
+    border-radius: 40rpx;
+    box-shadow: 0 10rpx 20rpx #b0d3eb;
+    display: inline-block;
+    margin-top: 50rpx;
+}

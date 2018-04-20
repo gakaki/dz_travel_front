@@ -165,3 +165,21 @@ margin-right: 30rpx;
 .to-top {
   transform: rotate(180deg)
 }
+.chun{
+  color: #6ad700;
+}
+
+.xia{
+  color: #fc6161;
+}
+
+.qiu{
+  color: #ff9c00;
+}
+
+.dong{
+  color: #9ba3cd;
+}
+.evt-item {
+  align-self: flex-start
+}

@@ -174,7 +174,13 @@ Page({
       console.log(req, '首页数据')
       locationCid = req.location
       let season = Season[req.season]
-      let weather = sheet.Weather.Get(req.weather).icon
+      let weather
+      if(Number(req.weather)){
+        weather = sheet.Weather.Get(req.weather).icon
+      }
+      else{
+        weather = sheet.Weather.Get(1).icon
+      }
       app.globalData.season = season
       app.globalData.weather = weather
       app.globalData.gold = req.gold

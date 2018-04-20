@@ -14,9 +14,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     let m = new MyPostcards();
     if(options.uid) {
-      m.palyerUid = options.uid;
+      wx.setNavigationBarTitle({
+        title: "TA的明信片"
+      })
+
+      m.playerUid = options.uid;
       this.setData({
         uid: options.uid
       })

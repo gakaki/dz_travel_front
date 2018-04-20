@@ -46,6 +46,7 @@ const spotSize = {
     '30a': {wd: 91, ht: 130},
     '31a': {wd: 104, ht: 96},
     '32a': {wd: 104, ht: 148},
+    '33a': {wd: 104, ht: 148},
 }
 Page({
 
@@ -57,6 +58,7 @@ Page({
         scale: 1, // 当前缩放倍率
         double: false,//是否放大了
         cid: 0, //城市id
+        cityName: '',
         mapBg: '', //背景图url
         mapWidth: 750,
         mapHeight: 1340,
@@ -69,18 +71,25 @@ Page({
         lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
         roleFriend :null,//组队好友{x,y, img, rotation, walk:Boolean}
+        selfTask: null, //自己任务进度
+        friendTask: null, //组队好友任务进度
         planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
         spotsTracked: 0, //有几个景点到达了
         spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: resRoot + 'evts.png', // 事件气泡图标
-        unreadEventCnt: 0, //未读事件数
-        quest: null, //当前要显示的事件
-        showPop: true,//是否显示弹出
-        showPlayIntro: true, //是否显示玩法提示pop
+        unreadEventCnt: 1, //未读事件数
+        curEvtIdx: 1,//当前事件序号
+        totalEvt: 1,//事件总数
+        postPicture: '',//获取的明信片图片路径
+        postSpotName: '',//获取的明信片所在景点名
+        quest: null,//{id:130010, type:3, picture:'6.jpg', describe: '上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？',rewards:[{k:2,v:5}], answers:['不知道','不晓得','不清楚','随便了']}, //null, //当前要显示的事件
+        showPop: false,//是否显示弹出
+        showPlayIntro: false, //是否显示玩法提示pop
         showEventNormal: false, //是否显示普通事件pop
         showEventQuest: false, //是否显示问题事件pop
         showFreeRent: false, //是否显示免费租赁pop
+        showGotPost: false, //是否显示获得明信片pop
         showMissionInfo: false, //是否显示任务信息pop
     },
 
@@ -88,15 +97,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.data.cid = options.cid;
+        let city = City.Get(options.cid);
+        let cityName = city.city;
+
         let m = new CheckGuide();
         m.fetch().then(res => {
             this.setData({
-                hasPlay: res.hasPlay
+                hasPlay: res.hasPlay,
+                cityName
             })
-        });
 
-        this.data.cid = options.cid;
-        let city = City.Get(options.cid);
+        });
 
         //拉取初始信息、景点列表、路线状态等
         let req = new TourIndexInfo();
@@ -415,6 +427,11 @@ Page({
         }
     },
 
+    toNextEvent() {
+        this.hidePop();
+        this.fetchEvent();
+    },
+
     //请求一次事件信息
     fetchEvent() {
         let req = new EventShow();
@@ -461,7 +478,7 @@ Page({
     },
 
     popPlayIntro() {
-        this.setData({showPop: true, showPlayIntro: true});
+        this.setData({showPlayIntro: true});
     },
 
     popEventNormal() {
@@ -474,6 +491,10 @@ Page({
 
     popFreeRent() {
         this.setData({showPop: true, showFreeRent: true});
+    },
+
+    popGotPost() {
+        this.setData({showPop: true, showGotPost: true});
     },
 
     popMissionInfo() {

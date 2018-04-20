@@ -4,7 +4,12 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+      picture: {
+        type: String
+      },
+      spotName: {
+        type: String
+      }
   },
 
   /**
@@ -18,6 +23,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+      hidePost() {
+        this.triggerEvent('next')
+      }
   }
 })
