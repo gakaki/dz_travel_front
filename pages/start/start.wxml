@@ -102,7 +102,7 @@
         <text wx:else>(邀请好友双人旅行消耗{{flyInfo.doubleCost}}金币,好友无需购买机票)</text>
       </view>
     </view>
-    <view class="partner f-r-sb" wx:if="{{isDouble && !isRandom}}">
+    <view class="partner f-r-sb" wx:if="{{isDouble}}">
       <text class="waiting" wx:if="{{isWaiting}}">等待好友接受双人组队邀请······</text>
       <avatar class="friend" avatarWid="72" avatarHeg="72" nickname="{{partnerName}}" src="{{avatarSrc}}" showGoldAndIntegral="{{false}}" wx:else></avatar> 
     </view> 
@@ -122,4 +122,5 @@
   <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="{{tipContent}}" outer-class="content" bind:confirm="_confirm"></tip>
   <tip wx:if="{{needItem}}" isBuy="{{false}}" cfmStr="前往充值" content="金币不足，可前往充值" outer-class="content" bind:confirm="_toShop" bind:toclose="_close"></tip>
   <directions wx:if="{{showHelp}}" resHeight="940" helpId="1" title="玩法介绍" showNum="{{false}}" bind:confirm="_helpCfr"></directions>
+  <view class="mask" wx:if="{{showHelp}}"></view>
 </view>

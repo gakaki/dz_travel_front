@@ -183,6 +183,8 @@ class Code{
     
     static NO_CFG_ROW = 11002;
     
+    static USER_CANCEL_TEAM = 11003;
+    
 }
 class RentItem{
     
@@ -972,6 +974,9 @@ class Quest {
         //prop type: string
         this.rewardCommet = null;
     
+        //prop type: string
+        this.rewards = null;
+    
         
         
         
@@ -1331,6 +1336,7 @@ class TourIndexInfo extends Base {
         this._cid = null;
         this._inviteCode = null;
         this._weather = null;
+        this._mileage = null;
         this._spots = null;
         this._task = null;
         this._startPos = null;
@@ -1340,7 +1346,7 @@ class TourIndexInfo extends Base {
         this._partener = null;
         this.requireFileds = ["cid","inviteCode"];
         this.reqFields = ["cid","inviteCode"];
-        this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
+        this.resFields = ["weather","mileage","spots","task","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1351,6 +1357,9 @@ class TourIndexInfo extends Base {
     //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
+    //server output, type: number
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
     //server output, type: Spot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
@@ -1378,10 +1387,28 @@ class CancelParten extends Base {
         super();
         this.action = 'tour.cancelparten';
     
-        this.requireFileds = [];
-        this.reqFields = [];
+        this._inviteCode = null;
+        this.requireFileds = ["inviteCode"];
+        this.reqFields = ["inviteCode"];
         this.resFields = [];
     }
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
+}
+class CancelPartenLoop extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.cancelpartenloop';
+    
+        this._inviteCode = null;
+        this.requireFileds = ["inviteCode"];
+        this.reqFields = ["inviteCode"];
+        this.resFields = [];
+    }
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
 }
 class LookTicket extends Base {
     constructor() {
@@ -2958,6 +2985,7 @@ exports.Shop = Shop;
 exports.FinishGuide = FinishGuide;
 exports.TourIndexInfo = TourIndexInfo;
 exports.CancelParten = CancelParten;
+exports.CancelPartenLoop = CancelPartenLoop;
 exports.LookTicket = LookTicket;
 exports.Photography = Photography;
 exports.SignInfo = SignInfo;

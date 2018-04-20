@@ -26,7 +26,7 @@ const start = (suc, shareUid) => {
     //测试websocket,实际上应该在业务层写ws相关逻辑
     // testWs();
   }).catch(()=> {
-    // suc(false);
+    // suc(false);  
     console.log('init false')
   })
 }
