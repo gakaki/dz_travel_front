@@ -122,7 +122,7 @@ Page({
         this.setData({
           xg: true
         })
-        maxNum = this.data.restNum
+        maxNum = this.data.restNum ? this.data.restNum : 1
       }
     }
     let item = this.data.speArr[dSet.idx];
