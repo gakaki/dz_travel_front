@@ -131,6 +131,9 @@ Page({
       wx.navigateTo({
         url:'../settings/settings?settings=true'
       })
+      this.setData({
+        exchange:false
+      })
     }
     
     
