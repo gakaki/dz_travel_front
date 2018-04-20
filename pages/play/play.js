@@ -25,6 +25,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    display: 'people',
     isDouble: false,
     partnerSex: 1,
     onePopInfo: {}, //类型为1的弹窗
@@ -41,7 +42,8 @@ Page({
     },
     spots: [],
     isStart: 1,//游玩状态  1：开始游玩，2：游玩中，3：游玩结束
-    taskPer: 0,//任务完成进度
+    taskPer: 0,//任务完成进度,
+    task: {},
     season: 'SPRING',
     licheng: 0,
     weather: '',
@@ -133,12 +135,14 @@ Page({
     req.fetch().then(req => {
       this.setData({
         weather: sheet.Weather.Get(req.weather).icon,
-        licheng: app.globalData.userInfo.mileage,
+        task: req.task,
+        licheng: req.mileage,
         // licheng: 0,
         season: app.globalData.season,
         spots: req.spots,
         startPoint: req.startPos
       })
+      this.freshTask()
       startTime = req.startTime
       let playState = this.data.spots.every(o => {
         return o.index == -1
@@ -146,7 +150,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-       // Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, 10000)
       }
 
       let arrs = this.data.spots.slice()
@@ -281,14 +285,18 @@ Page({
 
 
     //刷新景点数组
-    // if (res.freshSpots) {
-    //   let req = new FreshSpots()
-    //   req.fetch().then(req => {
-    //     this.setData({
-    //       spots: req.spotss
-    //     })
-    //   })
-    // }
+    if (res.freshSpots) {
+      let req = new FreshSpots()
+      req.fetch().then(req => {
+        this.setData({
+          spots: req.spotss,
+          display: req.display,
+          task: req.task
+        })
+        this.freshTask()
+      })
+    }
+
     //刷新事件
     if (res.newEvent) {
       this.setData({
@@ -302,7 +310,19 @@ Page({
       isMissionOpen: true
     })
   },
-
+  //刷新任务
+  freshTask() {
+    let num = 0
+    let allNum = 0
+    for (let o in this.data.task) {
+      num = num + this.data.task[o][0]
+      allNum = allNum + this.data.task[o][1]
+    }
+    let rel = num/allNum
+    this.setData({
+      taskPer: rel
+    })
+  },
   //缩放点和线
   scaleXy(v) {
     beishu = v
@@ -420,7 +440,7 @@ Page({
         isStart: 3,
         lineDown: true
       })
-      console.log('chgWid',this.data.lineDown)
+      console.log('chgWid', this.data.lineDown)
     }
     //spots[obj.idx - 1].tracked = true
     this.setData({
@@ -472,7 +492,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-    //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
+      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
 
       let temptestArr = req.spots.map(item => {
         return Object.assign({}, item, {
@@ -681,7 +701,7 @@ Page({
     //如果该景点走过了，点击跳转至观光
     if (dSet.track) {
       wx.navigateTo({
-        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid+ '&name='+dSet.name
+        url: '../goSight/goSight?pointId=' + dSet.id + '&cid=' + cid + '&name=' + dSet.name
       })
       return
     }

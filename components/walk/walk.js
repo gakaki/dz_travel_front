@@ -20,8 +20,8 @@ Component({
       value: false
     },
     display: {
-      type: String,
-      value: 'people'
+      type: Number,
+      value: 0
     },
     sex: {
       type: Number,
@@ -193,26 +193,26 @@ Component({
           animationData: animation.export()
         })
         setTimeout(()=>{
-          if (this.properties.display == 'people') {
+          if (this.properties.display == 0) {
             animation.top(obj.tY - 81 + 'rpx').left(obj.tX - 19 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })
           } 
           
-          if (this.properties.display == 'haohua') {
+          if (this.properties.display == 1) {
             animation.top(obj.tY - 69 + 'rpx').left(obj.tX - 75 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })
           }
-          if (this.properties.display == 'shangwu') {
+          if (this.properties.display == 2) {
             animation.top(obj.tY - 92 + 'rpx').left(obj.tX - 59 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })
           }
-          if (this.properties.display == 'jingji') {
+          if (this.properties.display == 3) {
             animation.top(obj.tY - 63 + 'rpx').left(obj.tX - 55 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
