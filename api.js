@@ -183,6 +183,8 @@ class Code{
     
     static NO_CFG_ROW = 11002;
     
+    static USER_CANCEL_TEAM = 11003;
+    
 }
 class RentItem{
     
@@ -1378,10 +1380,28 @@ class CancelParten extends Base {
         super();
         this.action = 'tour.cancelparten';
     
-        this.requireFileds = [];
-        this.reqFields = [];
+        this._inviteCode = null;
+        this.requireFileds = ["inviteCode"];
+        this.reqFields = ["inviteCode"];
         this.resFields = [];
     }
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
+}
+class CancelPartenLoop extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.cancelpartenloop';
+    
+        this._inviteCode = null;
+        this.requireFileds = ["inviteCode"];
+        this.reqFields = ["inviteCode"];
+        this.resFields = [];
+    }
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
 }
 class LookTicket extends Base {
     constructor() {
@@ -2508,6 +2528,9 @@ class Spot extends RouterSpot {
         //prop type: string[]
         this.building = null;
     
+        //prop type: string//还有多久到下一个景点
+        this.countdown = null;
+    
         
         
         
@@ -2955,6 +2978,7 @@ exports.Shop = Shop;
 exports.FinishGuide = FinishGuide;
 exports.TourIndexInfo = TourIndexInfo;
 exports.CancelParten = CancelParten;
+exports.CancelPartenLoop = CancelPartenLoop;
 exports.LookTicket = LookTicket;
 exports.Photography = Photography;
 exports.SignInfo = SignInfo;

@@ -10,19 +10,19 @@
 </view> 
 
 <!-- 豪华车 -->
-<view class='haohua-box' wx:if="{{show && display == 'haohua'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-55}}rpx;left:{{x-60}}rpx;">
+<view class='haohua-box' wx:if="{{show && display == 'haohua'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-69}}rpx;left:{{x-75}}rpx;">
 
   <image class="haohua" src="https://gengxin.odao.com/update/h5/travel/play/haohua.png"></image>
   <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
 </view>
 <!-- 商务车 -->
-<view class='sw-box' wx:if="{{show && display == 'shangwu'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-73}}rpx;left:{{x-47}}rpx;">
+<view class='sw-box' wx:if="{{show && display == 'shangwu'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-92}}rpx;left:{{x-59}}rpx;">
 
   <image class="shangwu" src="https://gengxin.odao.com/update/h5/travel/play/shangwu.png"></image>
   <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>
 </view>
 <!-- 经济车 -->
-<view class='jj-box' wx:if="{{show && display == 'jingji'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-43}}rpx;left:{{x-38}}rpx;">
+<view class='jj-box' wx:if="{{show && display == 'jingji'}}" animation="{{animationData}}" style="transform: rotateY({{deg}}deg);top:{{y-63}}rpx;left:{{x-55}}rpx;">
 
   <image class="jingji" src="https://gengxin.odao.com/update/h5/travel/play/jingji.png"></image>
   <image hidden="{{false}}" catchtap='touchEvt' class="pop" src="https://gengxin.odao.com/update/h5/travel/play/evts.png"></image>

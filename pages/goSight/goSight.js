@@ -14,6 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    toView: '',
     cfmStr: '',
     content: '',
     goldNum: 0,
@@ -51,6 +52,7 @@ Page({
       console.log('req', req)
       console.log(this.data.season)
       oldStr = req.spot.description
+  
       this.setData({
         goldNum: req.goldNum,
         freePhoto: req.spot.freePhoto,
@@ -110,14 +112,16 @@ Page({
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
+
       let events = this.data.events
       events.push(req.event)
       this.setData({
         events: events,
-        goldNum: req.goldNum
-        // freeSight: freeSight
+        goldNum: req.goldNum,
+        toView: 'id'+(events.length-1),
+         freeSight: req.freeSight
       })
-      console.log(this.data.events)
+      console.log(this.data.toView)
     })
 
     this.setData({

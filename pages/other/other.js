@@ -18,9 +18,8 @@ Page({
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
-    if (options.uid) {
       let m = new PlayerInfo();
-      m.uid = options.uid
+      if (options.uid) { m.playerUid = options.uid}
       m.fetch().then(res => {
         console.log(res.info)
         this.setData({
@@ -29,23 +28,22 @@ Page({
           integral: res.info.items[Item.POINT]
         })
       })
-    }
   },
   toOtherPage(e){
     let v = e.currentTarget.dataset.id;
     if(v == 1) {
       wx.navigateTo({
-        url: '../footprint/footprint?' + this.data.userInfo.uid,
+        url: '../footprint/footprint?uid=' + this.data.init.uid,
       })
     }
     else if (v == 2) {
       wx.navigateTo({
-        url: '../postcard/postcard?' + this.data.userInfo.uid,
+        url: '../postcard/postcard?uid=' + this.data.init.uid,
       })
     }
     else {
       wx.navigateTo({
-        url: '../travelLog/travelLog?' + this.data.userInfo.uid,
+        url: '../travelLog/travelLog?uid=' + this.data.init.uid,
       })
     }
    },

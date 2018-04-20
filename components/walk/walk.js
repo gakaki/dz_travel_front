@@ -201,19 +201,19 @@ Component({
           } 
           
           if (this.properties.display == 'haohua') {
-            animation.top(obj.tY - 55 + 'rpx').left(obj.tX - 60 + 'rpx').step({
+            animation.top(obj.tY - 69 + 'rpx').left(obj.tX - 75 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })
           }
           if (this.properties.display == 'shangwu') {
-            animation.top(obj.tY - 73 + 'rpx').left(obj.tX - 47 + 'rpx').step({
+            animation.top(obj.tY - 92 + 'rpx').left(obj.tX - 59 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })
           }
           if (this.properties.display == 'jingji') {
-            animation.top(obj.tY - 43 + 'rpx').left(obj.tX - 38 + 'rpx').step({
+            animation.top(obj.tY - 63 + 'rpx').left(obj.tX - 55 + 'rpx').step({
               duration: obj.time - 40,
               timingFunction: 'linear'
             })

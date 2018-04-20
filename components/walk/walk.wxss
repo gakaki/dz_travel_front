@@ -50,15 +50,8 @@
 }
 
 .haohua {
-  width: 120rpx;
-  height: 55rpx;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.shangwu {
-  width: 94rpx;
-  height: 73rpx;
+  width: 150rpx;
+  height: 69rpx;
   position: absolute;
   top: 0;
   left: 0;
@@ -66,33 +59,33 @@
 
 .haohua-box {
   z-index: 14;
-  width: 120rpx;
-  height: 55rpx;
+  width: 150rpx;
+  height: 69rpx;
   position: absolute;
 }
 .shangwu {
-  width: 94rpx;
-  height: 73rpx;
+  width: 118rpx;
+  height: 92rpx;
   position: absolute;
   top: 0;
   left: 0;
 }
 .sw-box {
   z-index: 14;
-  width: 94rpx;
-  height: 73rpx;
+  width: 118rpx;
+  height: 92rpx;
   position: absolute;
 }
 .jingji {
-  width: 77rpx;
-  height: 43rpx;
+  width: 109rpx;
+  height: 63rpx;
   position: absolute;
   top: 0;
   left: 0;
 }
 .haohua-box {
   z-index: 14;
-  width: 77rpx;
-  height: 43rpx;
+  width: 109rpx;
+  height: 63rpx;
   position: absolute;
 }

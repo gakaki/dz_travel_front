@@ -16,6 +16,8 @@ let linePointArr//路线中的点
 let startTime = 0
 let city = ''
 let beishu = 1//缩放系数
+let music = null
+let spotsTracked = 0//走过的景点数量
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 Page({
 
@@ -204,6 +206,10 @@ Page({
     this.initData(cid)
   },
   onLoad: function (options) {
+
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
     this.setData({
       gender: app.globalData.userInfo.gender
     })
@@ -255,17 +261,21 @@ Page({
     // }
     //更新景点状态
 
-    // if (res.spotsTracked > 0) {
-    //   let spotss = this.data.spots.map(o => {
-    //     if (o.index < req.spotsTracked) {
-    //       o.tracked = true
-    //     }
-    //     return o
-    //   })
-    //   this.setData({
-    //     spots: spotss
-    //   })
-    // }
+    if (res.spotsTracked > 0) {
+      if (spotsTracked < res.spotsTracked) {
+        music.play()
+        spotsTracked = res.spotsTracked
+      }
+      let spotss = this.data.spots.map(o => {
+        if (o.index < req.spotsTracked) {
+          o.tracked = true
+        }
+        return o
+      })
+      this.setData({
+        spots: spotss
+      })
+    }
 
 
 
@@ -569,8 +579,18 @@ Page({
       // pointIds = []
       // startTime = req.spots[0].startime
       reqs.spots.splice(0, 1)
+
+      let temptestArr = req.spots.map(item => {
+        return Object.assign({}, item, {
+          // name: item.name,
+          // idx: item.idx,
+          x: item.x * beishu,
+          y: item.y * beishu
+        })
+      })
+
       this.setData({
-        spots: req.spots,
+        spots: temptestArr,
         isChg: true,
         isStart: 1,
         chgLine: false,
