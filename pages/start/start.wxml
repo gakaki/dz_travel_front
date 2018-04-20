@@ -122,4 +122,5 @@
   <tip wx:if="{{isArrive}}" isBuy="{{false}}" single="{{true}}" cfmStr="确定" content="{{tipContent}}" outer-class="content" bind:confirm="_confirm"></tip>
   <tip wx:if="{{needItem}}" isBuy="{{false}}" cfmStr="前往充值" content="金币不足，可前往充值" outer-class="content" bind:confirm="_toShop" bind:toclose="_close"></tip>
   <directions wx:if="{{showHelp}}" resHeight="940" helpId="1" title="玩法介绍" showNum="{{false}}" bind:confirm="_helpCfr"></directions>
+  <view class="mask" wx:if="{{showHelp}}"></view>
 </view>

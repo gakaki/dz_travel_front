@@ -10,7 +10,7 @@
 
   
     <!-- 航线 -->
-    <view wx:for='{{lines}}' wx:key='{{index}}' class='air-line {{item.arcBtm ? "arc-btm" : ""}}' style='position:absolute; left:{{item.from.x * scale}}rpx; top:{{item.from.y * scale}}rpx;transform: rotate({{item.rotation}}deg); height:{{item.ht * scale}}rpx; width:{{item.dist * scale}}rpx;'></view>
+    <view wx:for='{{lines}}' wx:key='{{index}}' class='air-line {{item.arcBtm ? "arc-btm" : ""}}' style='position:absolute; left:{{item.from.x * scale}}rpx; top:{{(item.arcBtm ? item.from.y+item.lightHt+3 : item.from.y-item.ht-item.lightHt-3) * scale}}rpx;transform: rotate({{item.rotation}}deg); height:{{item.ht * scale}}rpx; width:{{item.dist * scale}}rpx;'></view>
 
     <!-- 飞机 -->
     <image wx:for='{{planes}}' wx:key='{{index}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{item.x * scale}}rpx; top:{{item.y * scale}}rpx; transform:translate(-50%, -50%) rotate({{item.rotation}}deg);"></image>

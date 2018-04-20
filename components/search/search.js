@@ -92,6 +92,7 @@ Component({
       else {
         this.setData({
           matchCity: [],
+          searchChar: value,
           cityId: []
         })
       }

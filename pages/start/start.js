@@ -182,7 +182,12 @@ Page({
     flyInfo.holiday = req.holiday;
     flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
     flyInfo.season = Season[req.season];
-    flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+    if (Number(req.weather)) {
+      flyInfo.weather = sheet.Weather.Get(req.weather).icon
+    }
+    else {
+      flyInfo.weather = sheet.Weather.Get(1).icon
+    }
     return flyInfo;
   },
 

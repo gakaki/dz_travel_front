@@ -1,1 +1,38 @@
 /* pages/play2/pops/missionInfo.wxss */
+.mission-con {
+    width: 520rpx;
+    border-radius: 30rpx;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 10rpx 0rpx #000;
+    text-align: center;
+    padding: 20rpx;
+}
+
+.pic-box {
+    width: 520rpx;
+    height: 280rpx;
+}
+.content-box {
+    margin: 43rpx auto;
+    text-align: center;
+}
+
+.head-font, .gray-font {
+    font-size: 30rpx;
+    display: block;
+    text-align: center;
+    width: 76%;
+    margin: 10rpx auto;
+}
+
+.head-font {
+    width: 90%;
+    font-weight: bold;
+}
+
+.gray-font {
+    color: gray;
+    text-align: left;
+    margin-left: 80rpx;
+}

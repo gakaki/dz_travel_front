@@ -180,3 +180,6 @@ margin-right: 30rpx;
 .dong{
   color: #9ba3cd;
 }
+.evt-item {
+  align-self: flex-start
+}

@@ -1,7 +1,7 @@
 // pages/play2/pops/eventQuest.js
 import {AnswerQuest} from '../../../api.js';
 const app = getApp();
-
+const resRoot = 'https://gengxin.odao.com/update/h5/travel/';
 Component({
   /**
    * 组件的属性列表
@@ -40,7 +40,7 @@ Component({
    */
   methods: {
       toNext() {
-          this.trigger('next');
+          this.triggerEvent('next');
       },
       choose(e) {
         let str = e.currentTarget.dataset.str;

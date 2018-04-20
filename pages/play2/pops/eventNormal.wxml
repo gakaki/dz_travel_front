@@ -1,8 +1,10 @@
 <!--pages/play2/pops/eventNormal.wxml-->
 <wxs src="../../../filter/tools.wxs" module="tools"></wxs>
+<view class="evt-con">
 <view class="pic-box">
     <image class="point-pic" src="{{picture}}"></image>
-    <view class="ten font">{{current}}/{{total}}</view>
+    <text class="ten font">{{current}}/{{total}}</text>
 </view>
-<text class="evt font">{{content}}...{{tools.rewardStr(rewards)}}</text>
+<text class="evt font">{{ content }}...{{tools.rewardStr(rewards)}}</text>
 <view class="next-evt font" catch:tap="toNext">下一事件</view>
+</view>
