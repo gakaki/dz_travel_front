@@ -6,9 +6,9 @@
         <image class='setting-icon' src='https://gengxin.odao.com/update/h5/travel/self/setting.png'></image>
       </navigator>
        <view class='des'>
-        <view class='des-content'> 
+        <!-- <view class='des-content'> 
           我的足迹已经遍布<text class='des-spec'>{{init.totalArrive}}</text>个城市已超越了<text class='des-spec'>{{init.overmatch}}%</text>的驴友
-        </view>
+        </view> -->
       </view> 
   </view>
 
