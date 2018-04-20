@@ -6,7 +6,7 @@
       <text class="font gps">{{spotName}}</text>
       <view class="flex ">
         <text class="date font">{{date}}</text>
-        <text class="jijie jijie">{{season}}</text>
+        <text class="jijie {{season=='春' ? 'chun' : season=='夏' ? 'xia' : season=='秋' ? 'qiu' : season=='冬' ? 'dong' : ''}}">{{season}}</text>
         <image src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png" class="w-icon"></image>
       </view>
 
