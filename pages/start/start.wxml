@@ -102,7 +102,7 @@
         <text wx:else>(邀请好友双人旅行消耗{{flyInfo.doubleCost}}金币,好友无需购买机票)</text>
       </view>
     </view>
-    <view class="partner f-r-sb" wx:if="{{isDouble}}">
+    <view class="partner f-r-sb" wx:if="{{isDouble && !isRandom}}">
       <text class="waiting" wx:if="{{isWaiting}}">等待好友接受双人组队邀请······</text>
       <avatar class="friend" avatarWid="72" avatarHeg="72" nickname="{{partnerName}}" src="{{avatarSrc}}" showGoldAndIntegral="{{false}}" wx:else></avatar> 
     </view> 
