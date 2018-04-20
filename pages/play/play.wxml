@@ -19,7 +19,7 @@
 
     <view wx:for="{{spots}}" wx:key="{{index}}" class="flex img-box {{'icon-'+item.building[0]}}" style="left:{{item.x}}rpx;top:{{item.y}}rpx">
       <text class='icon-num'>{{item.index>=0?item.index+1:''}}</text>
-      <view class='daojishi flex' wx:if="{{item.daojishi}}">{{item.daojishi}}后到达
+      <view class='daojishi flex' wx:if="{{item.daojishi>=0}}">{{item.daojishi}}后到达
       </view>
       <image src="{{item.tracked == false ? 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[0]+'.png': 'https://gengxin.odao.com/update/h5/travel/play/build/'+item.building[1]+'.png'}}" data-idx='{{item.index}}' data-track='{{item.tracked}}'
         data-id='{{item.id}}' data-name="{{item.name}}" bindtap='drawDashedLine' class="testImg {{'icon-'+item.building[0]}}"></image>

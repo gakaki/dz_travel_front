@@ -26,6 +26,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasPlay:true,
     display: 0,
     isDouble: false,
     partnerSex: 1,
@@ -243,13 +244,13 @@ Page({
       if (typeof o.countdown != 'undefined') {
 
         if (o.countdown / 60 < 1) {
-          o.daojishi = o.countdown + '分'
+          o.daojishi = o.countdown + '分钟'
           if (o.countdown == 0) o.daojishi = ''
         }
         else {
-          let hour = o.countdown / 60
+          let hour = parseInt(o.countdown / 60)
           let minute = o.countdown % 60
-          o.daojishi = hour + '小时' + minute + '分'
+          o.daojishi = hour + '小时' + minute + '分钟'
         }
       }
       return o

@@ -100,10 +100,15 @@ margin-right: 30rpx;
 }
 
 .event {
-  font:  bold 24rpx/38rpx 'Microsoft YaHei';
+  font:  bold 24rpx 'Microsoft YaHei';
   color: #939295;
-  margin: 10rpx 0;
   width: 670rpx;
+}
+.reward {
+  color: #278cff
+}
+.mtb {
+  margin: 5rpx 0;
 }
 #postal {
   top: 91rpx;
@@ -181,5 +186,5 @@ margin-right: 30rpx;
   color: #9ba3cd;
 }
 .evt-item {
-  align-self: flex-start
+  width: 670rpx
 }

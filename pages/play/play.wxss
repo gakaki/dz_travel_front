@@ -704,7 +704,7 @@ weather.sights {
   left: 50%;
   top: -80rpx;
   transform: translateX(-50%);
-  font: bold 24rpx 'Microsoft YaHei';
+  font: bold 22rpx 'Microsoft YaHei';
   color: #fff;
   white-space: nowrap;
   z-index: 9;

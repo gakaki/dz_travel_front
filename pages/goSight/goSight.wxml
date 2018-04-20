@@ -29,10 +29,9 @@
       <view wx:for="{{events}}" wx:key="{{index}}" wx:if="{{events.length > 0}}" class="f-c" id="id{{index}}">
         <view class="evt-item">
           <text class="event "> {{item.desc}}</text>
-          <text class="event " wx:for="{{item.reward}}" wx:for-item="ite" wx:for-index="idx" wx:key="{{idx}}"> {{ite}}</text>
+          <text class="event reward" wx:for="{{item.reward}}" wx:for-item="ite" wx:for-index="idx" wx:key="{{idx}}"> {{ite}}</text>
         </view>
-
-        <view class="t-line " hidden="{{events.length-1 == index}}"></view>
+        <view class="t-line mtb" hidden="{{events.length-1 == index && index!= 0}}"></view>
       </view>
 
     </view>
