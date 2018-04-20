@@ -50,23 +50,27 @@ Page({
 
   toStart(e) {
     if (app.preventMoreTap(e)) return;
-    preventTapClick = true;
-    if(this.data.isChoose){
-      
-      this.toFly(cid, this.data.isChoose, TicketType.SINGLEBUY)
+    if (!preventTapClick){
+      preventTapClick = true;
+      if (this.data.isChoose) {
+
+        this.toFly(cid, this.data.isChoose, TicketType.SINGLEBUY)
+      }
+      else {
+        wx.showToast({
+          title: '请选择目的地',
+          icon: 'none'
+        })
+        preventTapClick = false
+      }
     }
-    else{
-      wx.showToast({
-        title: '请选择目的地',
-        icon:'none'
-      })
-      preventTapClick = false
-    }
+    
   },
 
   toRandom(e) {
     if (app.preventMoreTap(e)) return;
     if (!preventTapClick){
+      preventTapClick = true
       wx.redirectTo({
         url: '../start/start?random=true&type=' + TicketType.RANDOMBUY,
       })
