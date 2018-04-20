@@ -26,7 +26,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    display: 'people',
+    display: 0,
     isDouble: false,
     partnerSex: 1,
     onePopInfo: {}, //类型为1的弹窗
@@ -78,35 +78,6 @@ Page({
     passLines: [],
     finalpassLines: [],
     currentPoint: 0,
-    locations: [{
-      id: 0,
-      type: 'start',
-      x: 23,
-      y: 56,
-      time: 1000,
-      passedStatus: false
-    }, {
-      id: 1,
-      type: 'jd',
-      x: 154,
-      y: 165,
-      time: 2000,
-      passedStatus: false
-    }, {
-      id: 2,
-      type: 'jd',
-      x: 354,
-      y: 765,
-      time: 3000,
-      passedStatus: false
-    }, {
-      id: 3,
-      type: 'end',
-      x: 450,
-      y: 587,
-      time: 4000,
-      passedStatus: false
-    }],
     eventPic: app.globalData + "/jingdian/anhui/anqing/cs/1.jpg", //随机事件那个框
     rewardText: ""
   },
@@ -144,6 +115,7 @@ Page({
         // licheng: 0,
         season: app.globalData.season,
         spots: req.spots,
+        display: req.display,
         startPoint: req.startPos
       })
       this.freshNextSpotTime()
@@ -421,6 +393,7 @@ Page({
       this.setData({
         shixianArr: obj
       })
+      console.log(this.data.shixianArr)
     }
     if (this.data.playing) {
       this.setData({
@@ -465,6 +438,8 @@ Page({
       return
     }
   },
+
+  //要改为轮询控制
   chgWid(e) {
 
     let obj = e.detail
@@ -491,6 +466,7 @@ Page({
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx)
     })
+    console.log(this.data.shixianArr)
     if (obj.idx == this.data.walkPoint.length) return
     let xuxianObj = this.data.walkPoint[obj.idx]
     let shixian = { x: this.data.walkPoint[obj.idx - 1].x, y: this.data.walkPoint[obj.idx - 1].y, wid: 0, jiaodu: xuxianObj.jiaodu }
@@ -534,15 +510,18 @@ Page({
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
       //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
-
-      let temptestArr = req.spots.map(item => {
-        return Object.assign({}, item, {
-          // name: item.name,
-          // idx: item.idx,
-          x: item.x * beishu,
-          y: item.y * beishu
+      let temptestArr = req.spots
+      if (beishu == 2) {
+       temptestArr = req.spots.map(item => {
+          return Object.assign({}, item, {
+            // name: item.name,
+            // idx: item.idx,
+            x: item.x * beishu,
+            y: item.y * beishu
+          })
         })
-      })
+      } 
+     
       this.setData({
         spots: temptestArr,
         isChg: false,
@@ -571,10 +550,6 @@ Page({
       for (let i = 0; i < this.data.dashedLine.length; i++) {
         pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
       }
-      // pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: -1, time: linePointArr[i].arriveStamp - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
-      // for (let i = 0; i < this.data.dashedLine.length; i++) {
-      //   pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i , jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
-      // }
       this.setData({
         walkPoint: []
       })
@@ -634,22 +609,20 @@ Page({
   chgLines() {
 
     let reqs = new ModifyRouter()
-    // req.cid = cid
-    // req.line = pointIds
     reqs.fetch().then(req => {
-      // pointIds = []
-      // startTime = req.spots[0].startime
+
+
       reqs.spots.splice(0, 1)
 
-      let temptestArr = req.spots.map(item => {
-        return Object.assign({}, item, {
-          // name: item.name,
-          // idx: item.idx,
-          x: item.x * beishu,
-          y: item.y * beishu
+      let temptestArr = req.spots
+      if(beishu == 2) {
+         temptestArr = req.spots.map(item => {
+          return Object.assign({}, item, {
+            x: item.x * beishu,
+            y: item.y * beishu
+          })
         })
-      })
-
+      }
       this.setData({
         spots: temptestArr,
         isChg: true,
@@ -849,6 +822,7 @@ Page({
       this.setData({
         shixianArr: this.data.dashedLine.slice(0, num)
       })
+      console.log(this.data.shixianArr)
       this.start()
     }
   },

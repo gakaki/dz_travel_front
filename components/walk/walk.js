@@ -48,6 +48,7 @@ Component({
 
   },
   ready() {
+    console.log('this.properties.display',this.properties.display)
     if (!this.properties.isDouble) {
       timer = setInterval(() => {
 
