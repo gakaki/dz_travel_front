@@ -29,8 +29,8 @@ Component({
       value: '购买'
     },
     xg:{
-      type:Boolean,
-      value:false
+      type:Number,
+      value:-1
     },
     // goldNum: {
     //   type: Number,
@@ -43,6 +43,10 @@ Component({
     gold: {
       type: Number,
       value: 10
+    },
+    overxg:{  //显示限购提示还是背包已满
+      type:Boolean,
+      value:false
     }
   },
 
@@ -89,8 +93,9 @@ Component({
           t = this.data.goldNum
         } else {
           t = this.properties.maxNum
+          let title = this.data.overxg? '超出限购数量':'背包已满'
           wx.showToast({
-            title: '最大数量超出限制',
+            title: title,
             icon: 'none',
             duration: 1000,
           })
