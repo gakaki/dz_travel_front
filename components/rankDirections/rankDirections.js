@@ -24,7 +24,16 @@ Component({
     },
     replaceC:{
       type:String,
-      value:''
+      value:'',
+      observer:function(newVal) {
+        let help = this.data.con
+        help = help.map(v => {
+          return v.replace('s%', this.data.replaceC)
+        })
+        this.setData({
+          con: help
+        })
+      }
     }
   },
 
@@ -37,12 +46,7 @@ Component({
 
   attached() {
     let help = sheet.Help.Get(this.properties.helpId).help.split("\\n")
-    console.log(help)
-    if (this.data.replaceC) {
-      help = help.map(v => {
-        return v.replace('s%', this.data.replaceC)
-      })
-    }
+    
     this.setData({
       con: help
     })

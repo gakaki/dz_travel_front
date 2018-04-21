@@ -1,5 +1,5 @@
 // pages/integral/integral.js
-import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail} from '../../api.js';
+import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail, ExchangeDeadline} from '../../api.js';
 import { shareToIndex } from '../../utils/util.js';
 Page({
 
@@ -15,8 +15,8 @@ Page({
     page:1,
     exchangeDetail:[],
     audioC:null,
-    isShowIntro: false
-
+    isShowIntro: false,
+    replaceC:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -157,13 +157,22 @@ Page({
     this.setData({
       isShowIntro: true
     })
+    this.getEndtime()
   },
   hideDesc() {
     this.setData({
       isShowIntro: false
     })
   },
-
+  getEndtime(){
+    let m = new ExchangeDeadline();
+    m.fetch().then(m=>{
+      this.setData({
+        replaceC: m.endtime
+      })
+      console.log(this.data.replaceC)
+    })
+  },
   /**
    * 用户点击右上角分享
    */

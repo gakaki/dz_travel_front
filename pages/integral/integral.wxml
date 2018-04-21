@@ -61,5 +61,5 @@
   </view> 
 </view>
 <view wx:if="{{isShowIntro}}" class="pop-bg">
-  <directions helpId="6" resHeight="680" replaceC='2018-12-30' title="兑换规则" bind:confirm='hideDesc'></directions>
+  <directions helpId="6" resHeight="680" replaceC='{{replaceC}}' title="兑换规则" bind:confirm='hideDesc'></directions>
 </view>
