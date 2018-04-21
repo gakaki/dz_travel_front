@@ -5,12 +5,13 @@
     <view class='audio audio-women' bindtap='toPlay'></view>
     <view class='show'>
       <view class='show-wenzi'>
-        <text class='jifen text-color1'>积分：</text>
+        <text class='jifen text-color1'>积分:</text>
         <text class='jinfenshu text-color'>{{integral}}</text>
       </view>
       <view class='show-wenzi wenzi-b'>
-        <text class='jifenbang text-color1'>积分榜排名：{{rank?'':'未上榜'}}</text>
-        <text class='paiming text-color'>{{rank?rank:''}}</text>
+        <text class='jifenbang text-color1'>积分榜排名:{{rank?'':'未上榜'}}</text>
+        <text class='paiming text-color' wx:if='{{rank}}'>{{rank}}</text>
+        <image class='tip'  bindtap='showDesc' src='https://gengxin.odao.com/update/h5/travel/integral/tip.png'></image>
       </view>
     </view>
     <view class='pd'>本期积分兑换</view>
@@ -58,4 +59,7 @@
       </view>
     </view>
   </view> 
+</view>
+<view wx:if="{{isShowIntro}}" class="pop-bg">
+  <directions helpId="6" resHeight="680" replaceC='2018-12-30' title="兑换规则" bind:confirm='hideDesc'></directions>
 </view>

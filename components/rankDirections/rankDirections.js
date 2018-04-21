@@ -21,6 +21,10 @@ Component({
     showNum:{
       type:Boolean,
       value: true
+    },
+    replaceC:{
+      type:String,
+      value:''
     }
   },
 
@@ -33,6 +37,12 @@ Component({
 
   attached() {
     let help = sheet.Help.Get(this.properties.helpId).help.split("\\n")
+    console.log(help)
+    if (this.data.replaceC) {
+      help = help.map(v => {
+        return v.replace('s%', this.data.replaceC)
+      })
+    }
     this.setData({
       con: help
     })
