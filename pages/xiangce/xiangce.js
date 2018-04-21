@@ -72,9 +72,13 @@ Page({
           allInit: res.postcardInfo
         })
       } else {
-        if (!res.postcardInfo[0].postcardsDetail.length) {
+        if (!res.postcardInfo.length) {
           this.setData({
             none: true
+          })
+        } else {
+          this.setData({
+            none: false
           })
         }
         this.setData({
