@@ -43,10 +43,35 @@ Page({
       return;
     }
     let req = new ModifyRealInfo();
-    req.name = value.name ? value.name : this.data.name;
-    req.birthday = value.birthday ? value.birthday : this.data.birthday;
-    req.phone = value.phone ? value.phone : this.data.phone;
-    req.address = value.address ? value.address : this.data.address;
+    if (value.name) {
+      req.name = value.name
+    } else {
+      if (this.data.name != '请输入真实姓名') {
+        req.name = this.data.name;
+      } 
+    }
+    if (value.birthday) {
+      req.birthday = value.birthday
+    } else {
+      if (this.data.birthday != '请输入生日') {
+        req.birthday = this.data.birthday;
+      }
+    }
+    if (value.phone) {
+      req.phone = value.phone
+    } else {
+      if (this.data.phone != '请输入手机号') {
+        req.phone = this.data.phone;
+      }
+    }
+    if (value.address) {
+      req.address = value.address
+    } else {
+      if (this.data.address != '请输入地址') {
+        req.address = this.data.address;
+      }
+    }
+    
     req.fetch().then(()=>{
       console.log(req)
       this.getInfo(req,()=>{

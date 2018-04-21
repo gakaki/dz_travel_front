@@ -183,6 +183,8 @@ class Code{
     
     static NO_CFG_ROW = 11002;
     
+    static USER_CANCEL_TEAM = 11003;
+    
 }
 class RentItem{
     
@@ -972,6 +974,9 @@ class Quest {
         //prop type: string
         this.rewardCommet = null;
     
+        //prop type: string
+        this.rewards = null;
+    
         
         
         
@@ -1007,6 +1012,21 @@ class EnterSpot {
         
     }
 }
+class Event {
+    constructor() {
+    
+    
+        //prop type: string
+        this.desc = null;
+    
+        //prop type: array//消耗与收益
+        this.reward = null;
+    
+        
+        
+        
+    }
+}
 class Speciality {
     constructor() {
     
@@ -1028,21 +1048,6 @@ class Speciality {
     
         //prop type: nunber//限购数量
         this.limitNum = null;
-    
-        
-        
-        
-    }
-}
-class Event {
-    constructor() {
-    
-    
-        //prop type: 
-        this.cityname = null;
-    
-        //prop type: 
-        this.cityper = null;
     
         
         
@@ -1331,6 +1336,7 @@ class TourIndexInfo extends Base {
         this._cid = null;
         this._inviteCode = null;
         this._weather = null;
+        this._mileage = null;
         this._spots = null;
         this._task = null;
         this._startPos = null;
@@ -1340,7 +1346,7 @@ class TourIndexInfo extends Base {
         this._partener = null;
         this.requireFileds = ["cid","inviteCode"];
         this.reqFields = ["cid","inviteCode"];
-        this.resFields = ["weather","spots","task","startPos","others","display","startTime","partener"];
+        this.resFields = ["weather","mileage","spots","task","startPos","others","display","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1351,6 +1357,9 @@ class TourIndexInfo extends Base {
     //server output, type: number
     get weather() {return this._weather}
     set weather(v) {this._weather = v}
+    //server output, type: number
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
     //server output, type: Spot[]
     get spots() {return this._spots}
     set spots(v) {this._spots = v}
@@ -1378,10 +1387,14 @@ class CancelParten extends Base {
         super();
         this.action = 'tour.cancelparten';
     
-        this.requireFileds = [];
-        this.reqFields = [];
+        this._inviteCode = null;
+        this.requireFileds = ["inviteCode"];
+        this.reqFields = ["inviteCode"];
         this.resFields = [];
     }
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
 }
 class LookTicket extends Base {
     constructor() {
@@ -1478,12 +1491,50 @@ class ReqEnterspot extends Base {
     //server output, type: EnterSpot
     get spot() {return this._spot}
     set spot(v) {this._spot = v}
-    //server output, type: string[]
+    //server output, type: Event[]
     get events() {return this._events}
     set events(v) {this._events = v}
     //server output, type: number//剩余金币数
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
+}
+class TravelFootprint extends Base {
+    constructor() {
+        super();
+        this.action = 'player.travelfootprint';
+    
+        this._playerUid = null;
+        this._userInfo = null;
+        this._items = null;
+        this._reachrovince = null;
+        this._totalArrive = null;
+        this._totalArrivePercent = null;
+        this._travelPercent = null;
+        this.requireFileds = [];
+        this.reqFields = ["playerUid"];
+        this.resFields = ["userInfo","items","reachrovince","totalArrive","totalArrivePercent","travelPercent"];
+    }
+    //client input, optional, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
+    //server output, type: UserBriefInfo
+    get userInfo() {return this._userInfo}
+    set userInfo(v) {this._userInfo = v}
+    //server output, type: KV[]
+    get items() {return this._items}
+    set items(v) {this._items = v}
+    //server output, type: number
+    get reachrovince() {return this._reachrovince}
+    set reachrovince(v) {this._reachrovince = v}
+    //server output, type: number
+    get totalArrive() {return this._totalArrive}
+    set totalArrive(v) {this._totalArrive = v}
+    //server output, type: number
+    get totalArrivePercent() {return this._totalArrivePercent}
+    set totalArrivePercent(v) {this._totalArrivePercent = v}
+    //server output, type: number
+    get travelPercent() {return this._travelPercent}
+    set travelPercent(v) {this._travelPercent = v}
 }
 class SpotTour extends Base {
     constructor() {
@@ -1505,7 +1556,7 @@ class SpotTour extends Base {
     //client input, require, type: number
     get spotId() {return this._spotId}
     set spotId(v) {this._spotId = v}
-    //server output, type: string//产生的新事件
+    //server output, type: Event//产生的新事件
     get event() {return this._event}
     set event(v) {this._event = v}
     //server output, type: number
@@ -1635,24 +1686,6 @@ class RentedProp extends Base {
     get rentItems() {return this._rentItems}
     set rentItems(v) {this._rentItems = v}
 }
-class BuyPostcardList extends Base {
-    constructor() {
-        super();
-        this.action = 'tour.buypostcardlist';
-    
-        this._cid = null;
-        this._ptList = null;
-        this.requireFileds = ["cid"];
-        this.reqFields = ["cid"];
-        this.resFields = ["ptList"];
-    }
-    //client input, require, type: number
-    get cid() {return this._cid}
-    set cid(v) {this._cid = v}
-    //server output, type: Postcard[]
-    get ptList() {return this._ptList}
-    set ptList(v) {this._ptList = v}
-}
 class Minapppay extends Base {
     constructor() {
         super();
@@ -1674,6 +1707,24 @@ class Minapppay extends Base {
     //server output, type: Payload
     get payload() {return this._payload}
     set payload(v) {this._payload = v}
+}
+class BuyPostcard extends Base {
+    constructor() {
+        super();
+        this.action = 'tour.buypostcard';
+    
+        this._ptid = null;
+        this._goldNum = null;
+        this.requireFileds = ["ptid"];
+        this.reqFields = ["ptid"];
+        this.resFields = ["goldNum"];
+    }
+    //client input, require, type: number
+    get ptid() {return this._ptid}
+    set ptid(v) {this._ptid = v}
+    //server output, type: number
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class SetRouter extends Base {
     constructor() {
@@ -1751,9 +1802,10 @@ class PlayLoop extends Base {
         this._spotsTracked = null;
         this._spotsAllTraced = null;
         this._spotsPlaned = null;
+        this._doubleState = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["newEvent","freshSpots","spotsTracked","spotsAllTraced","spotsPlaned"];
+        this.resFields = ["newEvent","freshSpots","spotsTracked","spotsAllTraced","spotsPlaned","doubleState"];
     }
     //server output, type: boolean
     get newEvent() {return this._newEvent}
@@ -1770,6 +1822,9 @@ class PlayLoop extends Base {
     //server output, type: boolean//路线是否已经规划完成，双人模式下，被邀请方规划路线完成后，通过此标记通知邀请方
     get spotsPlaned() {return this._spotsPlaned}
     set spotsPlaned(v) {this._spotsPlaned = v}
+    //server output, type: boolean//双人模式下对方是否取消了双人旅行
+    get doubleState() {return this._doubleState}
+    set doubleState(v) {this._doubleState = v}
 }
 class FlyInfo extends Base {
     constructor() {
@@ -1967,43 +2022,27 @@ class PartnerInfo extends Base {
     get reward() {return this._reward}
     set reward(v) {this._reward = v}
 }
-class TravelFootprint extends Base {
+class TraveledPlaces extends Base {
     constructor() {
         super();
-        this.action = 'player.travelfootprint';
+        this.action = 'player.traveledplaces';
     
         this._playerUid = null;
-        this._userInfo = null;
-        this._items = null;
-        this._reachrovince = null;
-        this._totalArrive = null;
-        this._totalArrivePercent = null;
-        this._travelPercent = null;
+        this._provinces = null;
+        this._citys = null;
         this.requireFileds = [];
         this.reqFields = ["playerUid"];
-        this.resFields = ["userInfo","items","reachrovince","totalArrive","totalArrivePercent","travelPercent"];
+        this.resFields = ["provinces","citys"];
     }
-    //client input, optional, type: string
+    //client input, optional, type: string//用户uid，不传则是自己的
     get playerUid() {return this._playerUid}
     set playerUid(v) {this._playerUid = v}
-    //server output, type: UserBriefInfo
-    get userInfo() {return this._userInfo}
-    set userInfo(v) {this._userInfo = v}
-    //server output, type: KV[]
-    get items() {return this._items}
-    set items(v) {this._items = v}
-    //server output, type: number
-    get reachrovince() {return this._reachrovince}
-    set reachrovince(v) {this._reachrovince = v}
-    //server output, type: number
-    get totalArrive() {return this._totalArrive}
-    set totalArrive(v) {this._totalArrive = v}
-    //server output, type: number
-    get totalArrivePercent() {return this._totalArrivePercent}
-    set totalArrivePercent(v) {this._totalArrivePercent = v}
-    //server output, type: number
-    get travelPercent() {return this._travelPercent}
-    set travelPercent(v) {this._travelPercent = v}
+    //server output, type: string[]//点亮的省名数组,如[‘江苏’]
+    get provinces() {return this._provinces}
+    set provinces(v) {this._provinces = v}
+    //server output, type: string[]//点亮的城市名数组，如[‘苏州’]
+    get citys() {return this._citys}
+    set citys(v) {this._citys = v}
 }
 class MySpe extends Speciality {
     constructor() {
@@ -2074,28 +2113,6 @@ class Spe extends Base {
     get count() {return this._count}
     set count(v) {this._count = v}
 }
-class TraveledPlaces extends Base {
-    constructor() {
-        super();
-        this.action = 'player.traveledplaces';
-    
-        this._playerUid = null;
-        this._provinces = null;
-        this._citys = null;
-        this.requireFileds = [];
-        this.reqFields = ["playerUid"];
-        this.resFields = ["provinces","citys"];
-    }
-    //client input, optional, type: string//用户uid，不传则是自己的
-    get playerUid() {return this._playerUid}
-    set playerUid(v) {this._playerUid = v}
-    //server output, type: string[]//点亮的省名数组,如[‘江苏’]
-    get provinces() {return this._provinces}
-    set provinces(v) {this._provinces = v}
-    //server output, type: string[]//点亮的城市名数组，如[‘苏州’]
-    get citys() {return this._citys}
-    set citys(v) {this._citys = v}
-}
 class GetUserLocation extends Base {
     constructor() {
         super();
@@ -2117,6 +2134,28 @@ class GetUserLocation extends Base {
     //server output, type: string
     get address() {return this._address}
     set address(v) {this._address = v}
+}
+class ExchangeShop extends Base {
+    constructor() {
+        super();
+        this.action = 'integralShop.exchangeshop';
+    
+        this._id = null;
+        this._tel = null;
+        this._addr = null;
+        this.requireFileds = ["id","tel","addr"];
+        this.reqFields = ["id","tel","addr"];
+        this.resFields = [];
+    }
+    //client input, require, type: string
+    get id() {return this._id}
+    set id(v) {this._id = v}
+    //client input, require, type: string
+    get tel() {return this._tel}
+    set tel(v) {this._tel = v}
+    //client input, require, type: string
+    get addr() {return this._addr}
+    set addr(v) {this._addr = v}
 }
 class ShareInfo extends Base {
     constructor() {
@@ -2508,7 +2547,7 @@ class Spot extends RouterSpot {
         //prop type: string[]
         this.building = null;
     
-        //prop type: string//还有多久到下一个景点
+        //prop type: number//还有多久到下一个景点
         this.countdown = null;
     
         
@@ -2800,45 +2839,23 @@ class ExchangeDetail extends Base {
     get exchangeDetail() {return this._exchangeDetail}
     set exchangeDetail(v) {this._exchangeDetail = v}
 }
-class ExchangeShop extends Base {
+class BuyPostcardList extends Base {
     constructor() {
         super();
-        this.action = 'integralShop.exchangeshop';
+        this.action = 'tour.buypostcardlist';
     
-        this._id = null;
-        this._tel = null;
-        this._addr = null;
-        this.requireFileds = ["id","tel","addr"];
-        this.reqFields = ["id","tel","addr"];
-        this.resFields = [];
-    }
-    //client input, require, type: string
-    get id() {return this._id}
-    set id(v) {this._id = v}
-    //client input, require, type: string
-    get tel() {return this._tel}
-    set tel(v) {this._tel = v}
-    //client input, require, type: string
-    get addr() {return this._addr}
-    set addr(v) {this._addr = v}
-}
-class BuyPostcard extends Base {
-    constructor() {
-        super();
-        this.action = 'tour.buypostcard';
-    
-        this._ptid = null;
-        this._goldNum = null;
-        this.requireFileds = ["ptid"];
-        this.reqFields = ["ptid"];
-        this.resFields = ["goldNum"];
+        this._cid = null;
+        this._ptList = null;
+        this.requireFileds = ["cid"];
+        this.reqFields = ["cid"];
+        this.resFields = ["ptList"];
     }
     //client input, require, type: number
-    get ptid() {return this._ptid}
-    set ptid(v) {this._ptid = v}
-    //server output, type: number
-    get goldNum() {return this._goldNum}
-    set goldNum(v) {this._goldNum = v}
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //server output, type: Postcard[]
+    get ptList() {return this._ptList}
+    set ptList(v) {this._ptList = v}
 }
 class SellSpe extends Spe {
     constructor() {
@@ -2941,8 +2958,8 @@ exports.oneSpot = oneSpot;
 exports.Postcard = Postcard;
 exports.Quest = Quest;
 exports.EnterSpot = EnterSpot;
-exports.Speciality = Speciality;
 exports.Event = Event;
+exports.Speciality = Speciality;
 exports.Sight = Sight;
 exports.RankItem = RankItem;
 exports.SelfRank = SelfRank;
@@ -2963,6 +2980,7 @@ exports.Photography = Photography;
 exports.SignInfo = SignInfo;
 exports.ToSign = ToSign;
 exports.ReqEnterspot = ReqEnterspot;
+exports.TravelFootprint = TravelFootprint;
 exports.SpotTour = SpotTour;
 exports.AnswerQuest = AnswerQuest;
 exports.EventShow = EventShow;
@@ -2970,8 +2988,8 @@ exports.ShowQuestReport = ShowQuestReport;
 exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
-exports.BuyPostcardList = BuyPostcardList;
 exports.Minapppay = Minapppay;
+exports.BuyPostcard = BuyPostcard;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
 exports.FreshSpots = FreshSpots;
@@ -2982,13 +3000,13 @@ exports.CreateCode = CreateCode;
 exports.CheckCode = CheckCode;
 exports.DeleteCode = DeleteCode;
 exports.PartnerInfo = PartnerInfo;
-exports.TravelFootprint = TravelFootprint;
+exports.TraveledPlaces = TraveledPlaces;
 exports.MySpe = MySpe;
 exports.CitySpes = CitySpes;
 exports.MySpes = MySpes;
 exports.Spe = Spe;
-exports.TraveledPlaces = TraveledPlaces;
 exports.GetUserLocation = GetUserLocation;
+exports.ExchangeShop = ExchangeShop;
 exports.ShareInfo = ShareInfo;
 exports.ViewpointInfo = ViewpointInfo;
 exports.Photograph = Photograph;
@@ -3018,8 +3036,7 @@ exports.ModifyRealInfo = ModifyRealInfo;
 exports.CheckGuide = CheckGuide;
 exports.IntegralShop = IntegralShop;
 exports.ExchangeDetail = ExchangeDetail;
-exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcard = BuyPostcard;
+exports.BuyPostcardList = BuyPostcardList;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;

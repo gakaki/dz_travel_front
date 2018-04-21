@@ -18,14 +18,18 @@ let city = ''
 let beishu = 1//缩放系数
 let music = null
 let spotsTracked = 0//走过的景点数量
+let djsTimer = null//到达下一个景点的时间定时器
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
+const loopInterval = 10000 //轮询时间间隔 10秒
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    display: 'people',
+    daojishi: '',//到达下一个景点的时间
+    hasPlay: true,
+    display: 0,
     isDouble: false,
     partnerSex: 1,
     onePopInfo: {}, //类型为1的弹窗
@@ -77,50 +81,27 @@ Page({
     passLines: [],
     finalpassLines: [],
     currentPoint: 0,
-    locations: [{
-      id: 0,
-      type: 'start',
-      x: 23,
-      y: 56,
-      time: 1000,
-      passedStatus: false
-    }, {
-      id: 1,
-      type: 'jd',
-      x: 154,
-      y: 165,
-      time: 2000,
-      passedStatus: false
-    }, {
-      id: 2,
-      type: 'jd',
-      x: 354,
-      y: 765,
-      time: 3000,
-      passedStatus: false
-    }, {
-      id: 3,
-      type: 'end',
-      x: 450,
-      y: 587,
-      time: 4000,
-      passedStatus: false
-    }]
+    eventPic: app.globalData + "/jingdian/anhui/anqing/cs/1.jpg", //随机事件那个框
+    rewardText: "",
+    eventRecivedCurrent:1
   },
   onUnload() {
+    if (djsTimer) clearInterval(djsTimer)
+    Http.unlisten(PlayLoop, this.freshspots, this)
+    beishu = 1
+    arr = []
+    dian = []
+    this.setData({
+      showWalk: false
+    })
+  },
+
+  onHide: function () {
+    if (djsTimer) clearInterval(djsTimer)
     beishu = 1
     arr = []
     dian = []
     pointIds = []
-    this.setData({
-      showWalk: false
-    })
-    Http.unlisten(PlayLoop, this.freshspots, this)
-  },
-
-  onHide: function () {
-    arr = []
-    dian = []
     Http.unlisten(PlayLoop, this.freshspots, this)
     this.setData({
       showWalk: false
@@ -140,8 +121,11 @@ Page({
         // licheng: 0,
         season: app.globalData.season,
         spots: req.spots,
-        startPoint: req.startPos
+        display: req.display,
+        startPoint: req.startPos,
+        isDouble: req.partener != null
       })
+      this.freshNextSpotTime()
       this.freshTask()
       startTime = req.startTime
       let playState = this.data.spots.every(o => {
@@ -150,7 +134,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        // Http.listen(PlayLoop, this.freshspots, this, 10000)
+        // Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       }
 
       let arrs = this.data.spots.slice()
@@ -233,12 +217,25 @@ Page({
     // this.scaleXy(2)
   },
 
+  getEventPicURL(reqQuestPictureURL) {
+    let url = app.globalData.picBase + reqQuestPictureURL;
+    if (reqQuestPictureURL && reqQuestPictureURL.match(/\//)) { //有斜杠说明是正确的url 
+
+    } else {
+      //不然就是6.jpg这种了
+      url = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
+    }
+    return url;
+  },
+
   //触发事件
   touchEvt() {
     let req = new EventShow()
     req.fetch().then(req => {
       this.setData({
-        onePopInfo: req.quest.describe
+        onePopInfo: req.quest.describe,
+        eventPic: this.getEventPicURL(req.quest.picture),
+        rewardText: req.quest.rewards
       })
       if (req.quest.type == 1) {
         this.setData({
@@ -246,6 +243,51 @@ Page({
         })
       }
     })
+  },
+  daojishiFuc(time) {
+    let timeStr = ''
+    if (time / 60 < 1) {
+      timeStr = time + '分钟'
+      if (time == 0) timeStr = ''
+    }
+    else {
+      let hour = parseInt(time / 60)
+      let minute = time % 60
+      timeStr = hour + '小时' + minute + '分钟'
+    }
+    this.setData({
+      daojishi: timeStr
+    })
+  },
+  //刷新到达下一个景点的剩余分钟数
+  freshNextSpotTime() {
+    let spots = this.data.spots.map(o => {
+      if (typeof o.countdown != 'undefined') {
+
+        if (o.countdown / 60 < 1) {
+          o.daojishi = o.countdown + '分钟'
+          if (o.countdown == 0) o.daojishi = ''
+        }
+        else {
+          let hour = parseInt(o.countdown / 60)
+          let minute = o.countdown % 60
+          o.daojishi = hour + '小时' + minute + '分钟'
+        }
+      }
+      return o
+    })
+    this.setData({
+      spots: spots
+    })
+
+    let time = 20//到达下一个景点要多少分钟
+    // this.daojishiFuc(time)
+    
+    //计时器
+    // djsTimer = setInterval(() => {
+    //   time = time -1
+    //   this.daojishiFuc(time)
+    // }, 60000)
   },
   //刷新景点信息
   freshspots(res) {
@@ -271,7 +313,7 @@ Page({
         spotsTracked = res.spotsTracked
       }
       let spotss = this.data.spots.map(o => {
-        if (o.index < req.spotsTracked) {
+        if (o.index < res.spotsTracked) {
           o.tracked = true
         }
         return o
@@ -279,6 +321,7 @@ Page({
       this.setData({
         spots: spotss
       })
+      // this.freshNextSpotTime()
     }
 
 
@@ -318,10 +361,11 @@ Page({
       num = num + this.data.task[o][0]
       allNum = allNum + this.data.task[o][1]
     }
-    let rel = num/allNum
+    let rel = num / allNum
     this.setData({
-      taskPer: rel
+      taskPer: rel * 100
     })
+    console.log('taskPer', rel)
   },
   //缩放点和线
   scaleXy(v) {
@@ -380,6 +424,7 @@ Page({
       this.setData({
         shixianArr: obj
       })
+      console.log(this.data.shixianArr)
     }
     if (this.data.playing) {
       this.setData({
@@ -424,6 +469,8 @@ Page({
       return
     }
   },
+
+  //要改为轮询控制
   chgWid(e) {
 
     let obj = e.detail
@@ -450,6 +497,7 @@ Page({
     this.setData({
       shixianArr: this.data.dashedLine.slice(0, obj.idx)
     })
+    console.log(this.data.shixianArr)
     if (obj.idx == this.data.walkPoint.length) return
     let xuxianObj = this.data.walkPoint[obj.idx]
     let shixian = { x: this.data.walkPoint[obj.idx - 1].x, y: this.data.walkPoint[obj.idx - 1].y, wid: 0, jiaodu: xuxianObj.jiaodu }
@@ -492,16 +540,19 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, 10000)
-
-      let temptestArr = req.spots.map(item => {
-        return Object.assign({}, item, {
-          // name: item.name,
-          // idx: item.idx,
-          x: item.x * beishu,
-          y: item.y * beishu
+      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
+      let temptestArr = req.spots
+      if (beishu == 2) {
+        temptestArr = req.spots.map(item => {
+          return Object.assign({}, item, {
+            // name: item.name,
+            // idx: item.idx,
+            x: item.x * beishu,
+            y: item.y * beishu
+          })
         })
-      })
+      }
+
       this.setData({
         spots: temptestArr,
         isChg: false,
@@ -530,10 +581,6 @@ Page({
       for (let i = 0; i < this.data.dashedLine.length; i++) {
         pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
       }
-      // pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: -1, time: linePointArr[i].arriveStamp - 60000, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
-      // for (let i = 0; i < this.data.dashedLine.length; i++) {
-      //   pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i , jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
-      // }
       this.setData({
         walkPoint: []
       })
@@ -581,9 +628,9 @@ Page({
     } else {
       this.setData({
         chgLine: true,
-        cfmStr: '确定',
-        isChg: true,
-        isStart: 1
+        cfmStr: '确定'
+        // isChg: true,
+        // isStart: 1
       })
 
     }
@@ -593,22 +640,20 @@ Page({
   chgLines() {
 
     let reqs = new ModifyRouter()
-    // req.cid = cid
-    // req.line = pointIds
     reqs.fetch().then(req => {
-      // pointIds = []
-      // startTime = req.spots[0].startime
-      reqs.spots.splice(0, 1)
 
-      let temptestArr = req.spots.map(item => {
-        return Object.assign({}, item, {
-          // name: item.name,
-          // idx: item.idx,
-          x: item.x * beishu,
-          y: item.y * beishu
+
+      // reqs.spots.splice(0, 1)
+
+      let temptestArr = req.spots
+      if (beishu == 2) {
+        temptestArr = req.spots.map(item => {
+          return Object.assign({}, item, {
+            x: item.x * beishu,
+            y: item.y * beishu
+          })
         })
-      })
-
+      }
       this.setData({
         spots: temptestArr,
         isChg: true,
@@ -708,7 +753,7 @@ Page({
     if (this.data.isStart == 2) return
     if (!this.data.isChg) {
       wx.showToast({
-        title: '请先点击添加路线，才能规划路线',
+        title: '请先点击“规划路线”进行路线添加',
         icon: 'none',
         mask: true
       })
@@ -808,6 +853,7 @@ Page({
       this.setData({
         shixianArr: this.data.dashedLine.slice(0, num)
       })
+      console.log(this.data.shixianArr)
       this.start()
     }
   },

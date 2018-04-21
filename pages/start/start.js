@@ -11,6 +11,7 @@ let inviteCode;  //邀请码
 let partnerEnter = false //判断小伙伴是否进入
 let score = 50 , reward = 50;    //上次旅行得分和奖励
 let initCity = sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value;
+let reconnection = false;
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 
@@ -44,6 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
     console.log(options,'起飞界面options')
     if(options.type == TicketType.SINGLEPRESENT){
       onlySingle = true
@@ -111,7 +113,9 @@ Page({
             this.tip('房间已满');
             break;
           default:
-            this.tip('未知错误');
+            if (!app.globalData.noNetwork) {
+              this.tip('未知错误');
+            }
         }
       })
     }
@@ -182,11 +186,17 @@ Page({
     flyInfo.holiday = req.holiday;
     flyInfo.location = req.location ? sheet.City.Get(req.location).city : '';
     flyInfo.season = Season[req.season];
-    flyInfo.weather = sheet.Weather.Get(req.weather).icon;
+    if (Number(req.weather)) {
+      flyInfo.weather = sheet.Weather.Get(req.weather).icon
+    }
+    else {
+      flyInfo.weather = sheet.Weather.Get(1).icon
+    }
     return flyInfo;
   },
 
   fillCode(req) {
+    console.log(inviteCode,'inviteCode----------->start')
     req.inviteCode = inviteCode;
   },
 
@@ -201,7 +211,9 @@ Page({
           this.tip('已在房间内, 无法邀请别人');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     })
   },
@@ -210,7 +222,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let that = this;
+    //监听网络状态
+    wx.onNetworkStatusChange(function (res) {
+      if (res.isConnected && reconnection && that.data.isDouble) {
+        reconnection = false;
+        Http.listen(PartnerInfo, that.parInfo, that, 1000, that.fillCode);
+      }
+      else{
+        reconnection = true
+      }
+    })
   },
 
   /**
@@ -238,6 +260,7 @@ Page({
   },
 
   parInfo(res, err) {
+    console.log('轮询')
     if (err) {
       console.log('http listen error, code:', err)
       switch (err) {
@@ -260,7 +283,9 @@ Page({
           this.tip('房间已满');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     }
     else{
@@ -403,8 +428,14 @@ Page({
             delta:1
           })
           break;
+        case Code.FRIEND_WAIT:
+          this.tip('好友已退出');
+          Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
+          break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
       preventFastClick = false;
     })
@@ -484,7 +515,6 @@ Page({
   },
 
   double(e) {
-    if (app.preventMoreTap(e)) return;
     if(!this.data.isDouble){
       this.setData({
         isDouble: true

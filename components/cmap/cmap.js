@@ -4,6 +4,8 @@ import { Base, TraveledPlaces } from '../../api.js'
 
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
+const lightHt = 4;
+const lightWd = 4;
 //大地图左上角点的经纬度
 //const geoTopLeft = { j: 73.6, w: 53.5 }//{ j: 80.6, w: 55.8 };
 //大地图右下角点的经纬度
@@ -66,8 +68,8 @@ const xyCitys = citys.map(c => {
   let xy = jwToxy(c.cityxy[0], c.cityxy[1]);
   o.x = xy.x;
   o.y = xy.y;
-  o.imgWd = 4;//根据美术资源尺寸
-  o.imgHt = 4;
+  o.imgWd = lightWd;//根据美术资源尺寸
+  o.imgHt = lightHt;
   o.img = '../../assets/province/light.png';
   return o;
 })
@@ -316,6 +318,7 @@ Component({
         o.ht = ht;
         o.dist = dist;
         o.rotation = rotation;
+        o.lightHt = lightHt;
       
 
         

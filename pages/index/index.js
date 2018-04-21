@@ -174,12 +174,19 @@ Page({
       console.log(req, '首页数据')
       locationCid = req.location
       let season = Season[req.season]
-      let weather = sheet.Weather.Get(req.weather).icon
+      let weather
+      if(Number(req.weather)){
+        weather = sheet.Weather.Get(req.weather).icon
+      }
+      else{
+        weather = sheet.Weather.Get(1).icon
+      }
       app.globalData.season = season
       app.globalData.weather = weather
       app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
       if(req.location){
+        console.log(req.location)
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
@@ -217,13 +224,15 @@ Page({
         })
       }
       
-    }).catch(() => {
+    }).catch((req) => {
       switch (req) {
         case Code.USER_NOT_FOUND:
           this.tip('用户不存在');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork){
+            this.tip('未知错误');
+          }
       }
     })
 
@@ -278,7 +287,9 @@ Page({
           this.tip('用户不存在');
           break;
         default:
-          this.tip('未知错误');
+          if (!app.globalData.noNetwork) {
+            this.tip('未知错误');
+          }
       }
     })
   },

@@ -154,6 +154,7 @@ weather.sights {
   background-color: #dbff13;
   border-radius: 30rpx;
   position: absolute;
+  max-width: 105rpx;
   top: 1rpx;
   left: 1rpx;
 }
@@ -327,7 +328,10 @@ weather.sights {
   line-height: 44rpx;
   margin-top: 10rpx;
 }
-
+.evtAward {
+  color: gray;
+  font-size: 38rpx;
+}
 .next-evt {
   width: 406rpx;
   height: 121rpx;
@@ -644,15 +648,16 @@ weather.sights {
 }
 
 .dash-line {
-  border-width: 10rpx;
+  border-width: 8rpx;
   border-style: dotted none none none;
   border-color: rgba(0, 0, 0, 0.5);
 }
 
 .shi-line {
-  border-width: 10rpx;
+  border-width: 8rpx;
   border-style: solid none none none;
-  border-color: rgba(0, 0, 0, 0.8);
+  border-color: #000;
+  border-radius: 4rpx;
 }
 
 .testImg {
@@ -666,7 +671,7 @@ weather.sights {
 
 .img-box {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
 }
 
 .icon-name {
@@ -676,7 +681,7 @@ weather.sights {
   transform: translateX(-50%);
   font: bold 24rpx 'Microsoft YaHei';
   color: #000;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .icon-num {
@@ -690,6 +695,33 @@ weather.sights {
   z-index: 9;
 }
 
+.daojishi {
+  width: 200rpx;
+  height: 46rpx;
+  border-radius: 10rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 50%;
+  top: -80rpx;
+  transform: translateX(-50%);
+  font: bold 22rpx 'Microsoft YaHei';
+  color: #fff;
+  white-space: nowrap;
+  z-index: 9;
+}
+
+.daojishi::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 0;
+  border-left: 0;
+  margin: 0 0 -6px -3px;
+}
+
 .shi-line-box {
   overflow: hidden;
 }
@@ -697,7 +729,7 @@ weather.sights {
 .start {
   height: 93rpx;
   width: 80rpx;
-  transform: translate(-50%,-50%)
+  transform: translate(-50%, -50%);
 }
 
 .icon-1a {
@@ -868,4 +900,7 @@ weather.sights {
 .icon-34a {
   width: 157rpx;
   height: 142rpx;
+}
+.cb {
+  color: #2689ff
 }

@@ -1,11 +1,40 @@
 //app.js
-
+import { start } from './utils/rest.js';
 App({
   onLaunch: function () {
+    let that = this
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
+
+    //获取登录时的网络状态
+    wx.getNetworkType({
+      success: function(res) {
+        console.log(res.networkType)
+        if(res.networkType=='none'){
+          that.globalData.noNetwork = true
+          wx.showLoading({
+            title: '请检查网络状态',
+          })
+        }
+      },
+    })
+
+    //监听网络状态
+    wx.onNetworkStatusChange(function(res){
+      if (res.isConnected){
+        that.globalData.noNetwork = false
+        wx.hideLoading()
+      }
+      else{
+        that.globalData.noNetwork = true
+        wx.showLoading({
+          title: '请检查网络状态',
+        })
+      }
+      
+    })
 
     // 登录
     wx.login({
@@ -46,7 +75,9 @@ App({
     gold: null,
     cid:null,
     cityName:null,
-    isFirst: false
+    isFirst: false,
+    picBase:"https://gengxin.odao.com/update/h5/travel/",
+    noNetwork:false
   },
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;

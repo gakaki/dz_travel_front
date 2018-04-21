@@ -160,3 +160,9 @@
   left: 0;
   z-index: 10;
 }
+.small-img {
+  width: 32rpx;
+  height: 31rpx;
+  vertical-align: middle;
+  margin-right: 17rpx;
+}
