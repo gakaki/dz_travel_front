@@ -1,7 +1,7 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
+import { shareSuc, shareTitle, Timeline, shareToIndex,secToTimeStr } from '../../utils/util.js';
 import {City, Weather} from '../../sheets.js';
-import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http } from '../../api.js';
+import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop,Http , ModifyRouter} from '../../api.js';
 const scaleMax = 2;
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
@@ -9,6 +9,7 @@ const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
 const app = getApp();
 const GENDER_MALE = 1;
+const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
@@ -46,7 +47,8 @@ const spotSize = {
     '30a': {wd: 91, ht: 130},
     '31a': {wd: 104, ht: 96},
     '32a': {wd: 104, ht: 148},
-    '33a': {wd: 104, ht: 148},
+    '33a': {wd: 46, ht: 155},
+    '34a': {wd: 157, ht: 142},
 }
 Page({
 
@@ -71,11 +73,11 @@ Page({
         lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
         roleFriend :null,//组队好友{x,y, img, rotation, walk:Boolean}
-        selfTask: null, //自己任务进度
-        friendTask: null, //组队好友任务进度
+        partener:null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
+        task: null, //任务进度
         planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
-        spotsTracked: 0, //有几个景点到达了
+        spotsTracked: 0, //有几个景点到达了,客户端维护
         spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: resRoot + 'evts.png', // 事件气泡图标
         unreadEventCnt: 1, //未读事件数
@@ -83,6 +85,7 @@ Page({
         totalEvt: 1,//事件总数
         postPicture: '',//获取的明信片图片路径
         postSpotName: '',//获取的明信片所在景点名
+        taskPer:0,//任务进度百分比
         quest: null,//{id:130010, type:3, picture:'6.jpg', describe: '上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？上图是s%的哪个特产？',rewards:[{k:2,v:5}], answers:['不知道','不晓得','不清楚','随便了']}, //null, //当前要显示的事件
         showPop: false,//是否显示弹出
         showPlayIntro: false, //是否显示玩法提示pop
@@ -119,23 +122,13 @@ Page({
             let selfInfo = app.globalData.userInfo;
             let startPoint = Object.assign({index: -1, img: startImg, arriveStamp: req.startTime}, req.startPos);
             //小人儿
-            let roleBg = resRoot;
-            let roleCls = '';
-            let walkCls = ''
-            let wd = 36;
-            let ht = 81;
-            if (selfInfo.gender == GENDER_MALE) {
-                roleBg += 'nan.png';
-                roleCls = 'play-role-nan';
-                walkCls = 'walk-nan';
+            let roleMe = {x: startPoint.x, y: startPoint.y};
+            this.genRoleCls(roleMe, selfInfo.gender);
+            let roleFriend = null;//组队好友
+            if (req.partener) {
+                roleFriend = {x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET}
+                this.genRoleCls(roleFriend, req.partener.gender);
             }
-            else {
-                roleBg += 'nv.png';
-                roleCls = 'play-role-nv';
-                walkCls = 'walk-nv';
-                wd = 34;
-            }
-            let roleMe = {x: startPoint.x, y: startPoint.y, img: roleBg,clipNum:6, wd, ht, roleCls, _walkCls:walkCls, walkCls, scale: 1};
 
             this.setData({
                 weatherImg: Weather.Get(req.weather).icon,
@@ -143,10 +136,16 @@ Page({
                 season: app.globalData.season,
                 startPoint,
                 roleMe,
+                roleFriend,
+                task: req.task,
+                partener: req.partener,
                 mapBg: `${resRoot}bg/${city.picture}-1.jpg`
             });
 
             this.updateSpots(req.spots);
+            this.onShow();
+            
+            this.freshTask();
 
         });
 
@@ -163,7 +162,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        Http.listen(PlayLoop, this.onPlayLoop, this, 60000);
+        if (this.data.partener || this.data.started) {
+            Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
+        }
     },
 
     /**
@@ -186,21 +187,51 @@ Page({
     onShareAppMessage: function () {
 
     },
+    //根据性别，设置初始的人物cls
+    genRoleCls(obj, gender) {
+        obj.img = resRoot; //如果租的有车，则换成车
+        obj.roleCls = '';
+        obj.walkCls = ''
+        obj.wd = 36;
+        obj.ht = 81;
+        obj.clipNum = 6;//动画帧数
+        obj.scale = 1;
+        if (gender == GENDER_MALE) {
+            obj.img += 'nan.png';
+            obj.roleCls = 'play-role-nan';
+            obj._walkCls = 'walk-nan';
+        }
+        else {
+            obj.img += 'nv.png';
+            obj.roleCls = 'play-role-nv';
+            obj._walkCls = 'walk-nv';
+            obj.wd = 34;
+        }
+    },
+
     //轮询
     onPlayLoop(res) {
+        let lineUpdated = false;
+        if (res.code) {
+            //如果有错误码，底层会终止轮询
+            console.log('Playloop stopped, error code>>', res.code);
+        }
         if (res.freshSpots) {
             //景点列表需要刷新
+            lineUpdated = true;
             this.freshSpots();
         }
         else if (res.spotsTracked != this.data.spotsTracked) {
             //景点到达数有变化
             this.data.spotsTracked = res.spotsTracked;
+            lineUpdated = true;
             this.freshSpots();
         }
 
         if (res.spotsAllTraced) {
             //所有景点都走过了,前端表现是？
             this.data.spotsAllTraced = true;
+            //后端会清掉景点的tracked状态
         }
         if (res.newEvent) {
             //显示事件气泡
@@ -208,18 +239,45 @@ Page({
             unreadEventCnt++;
             this.setData({ unreadEventCnt });
         }
+
+        if (!lineUpdated) {
+            this.updateLines()
+        }
+
     },
+
+    //刷新任务
+    freshTask() {
+        let num = 0
+        let allNum = 0
+        for (let o in this.data.task) {
+            num = num + this.data.task[o][0]
+            allNum = allNum + this.data.task[o][1]
+        }
+        let rel = num / allNum
+        this.setData({
+            taskPer: rel * 100
+        })
+        console.log('taskPer', rel)
+    },
+    
     //刷新景点状态列表
     freshSpots() {
         let req = new FreshSpots();
         req.fetch().then(() => {
+            this.setData({task: req.task})
             this.updateSpots(req.spots);
+
         })
+        
+        //更新任务进度
+        this.freshTask();
     },
 
     //更新景点状态列表
-    updateSpots(spots) {
+    updateSpots(spots, updateLine = true) {
 
+        let now = Base.servertime;
         if (this.data.spots.length) {
             let olds = this.data.spots;
             olds.sort((a,b) => a.id - b.id);
@@ -228,8 +286,8 @@ Page({
             //check if all same
             let allSame = true;
 
-            for (let i = 0; i < spots.length; i++) {
-                if (i < olds.length) {
+            for (let i = 0; i < olds.length; i++) {
+                if (i < spots.length) {
                     let o = olds[i];
                     let n = spots[i];
                     let tracked = n.tracked;
@@ -250,6 +308,8 @@ Page({
                 //全部一样的话，不必更新渲染
                 return;
             }
+
+            spots = olds;
         }
         else {
             //第一次设置spots
@@ -257,6 +317,7 @@ Page({
                 let building = s.building;
                 s.img1 = `${resRoot}build/${building[0]}.png`;
                 s.img2 = `${resRoot}build/${building[1]}.png`;
+
                 let size = spotSize[building[0]];
                 if (size) {
                     s.wd = size.wd;
@@ -269,6 +330,19 @@ Page({
             return o.index > -1;
         }).sort((a,b) => {return a.index - b.index});
 
+        //即将到达的点，显示预计到达时间
+        let timeShowed = false;
+        for (let i = 0; i < planedSpots.length; i++) {
+            let s = planedSpots[i];
+            if (!s.tracked) {
+                timeShowed = true;
+                s.arriveTime = secToTimeStr((s.arriveStamp - now) / 1000) + '后到达'
+            }
+            else {
+                s.arriveTime = '';
+            }
+        }
+
         this.data.planedSpots = planedSpots;
         let started = planedSpots.length > 0;
         this.setData({
@@ -277,7 +351,7 @@ Page({
             hasPath: started
         });
         
-        this.updateLines();
+        updateLine && this.updateLines();
     },
     
     //更新路线
@@ -288,6 +362,7 @@ Page({
         let spots = this.data.planedSpots.concat();
 
         let startPoint = this.data.startPoint;
+        startPoint.tracked = this.data.started;
         spots.unshift(startPoint);//将起点加入
 
         let lines = [];
@@ -306,7 +381,8 @@ Page({
             let wd = wd = Math.hypot(dy, dx);
             let angle = Math.atan2(dy, dx);
             let rotation = angle * 180 / Math.PI;
-            let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation};
+            let tracked = nxt.tracked;
+            let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked};
 
             if (cur.tracked) {
                 roleTrackedSpot = cur;
@@ -344,12 +420,20 @@ Page({
 
     //修改路线
     chgLine() {
-        this.setData({
-            started: false,//设为非游玩状态
-            planing: true, //设为编辑路线状态
-            planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
-        });
-        this.updateLines(true);
+        //暂停轮询
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
+
+        let req = new ModifyRouter();
+        req.fetch().then(()=> {
+            app.globalData.gold = req.goldNum;
+
+            this.updateSpots(req.spots, false);
+            this.setData({
+                started: false,//设为非游玩状态
+                planing: true, //设为编辑路线状态
+                planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
+            })
+        })
     },
 
     //点击景点
@@ -364,6 +448,13 @@ Page({
                 //已经到达了，点击后进入观光
                 this.toTour(sid);
             }
+            else {
+                wx.showToast({
+                    title: '请先点击“规划路线”进行路线添加',
+                    icon: 'none',
+                    mask: true
+                })
+            }
         }
         else if (this.data.planing){
             //规划路线
@@ -375,7 +466,10 @@ Page({
             }
             else {
                 //已经在路线中了
-                wx.showToast({title: '此景点已选过！'});
+                wx.showToast({
+                    title: '路线规划不可前往相同景点',
+                    icon: 'none',
+                    mask: true});
             }
         }
     },
@@ -408,6 +502,18 @@ Page({
 
     //提交路径到服务器
     sendPath() {
+        if (!this.data.planedSpots) {
+            wx.showToast(
+                {
+                title: '请先规划路线',
+                icon: 'none',
+                mask: true})
+            return;
+        }
+
+        //恢复轮询
+        Http.listen(PlayLoop, this.onPlayLoop, this);
+
         this.setData({planing: false});
 
         let req = new SetRouter();
@@ -478,7 +584,7 @@ Page({
     },
 
     popPlayIntro() {
-        this.setData({showPlayIntro: true});
+        this.setData({showPop: true, showPlayIntro: true});
     },
 
     popEventNormal() {

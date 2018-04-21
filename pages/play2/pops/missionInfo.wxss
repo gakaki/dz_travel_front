@@ -14,25 +14,33 @@
     height: 280rpx;
 }
 .content-box {
-    margin: 43rpx auto;
+    margin: 20rpx auto;
     text-align: center;
 }
 
 .head-font, .gray-font {
-    font-size: 30rpx;
+    font-size: 28rpx;
     display: block;
-    text-align: center;
-    width: 76%;
-    margin: 10rpx auto;
+    text-align: justify;
+    width: 100%;
 }
 
 .head-font {
-    width: 90%;
+    text-align: center;
+    margin: 50rpx auto 20rpx;
+    font-size: 32rpx;
     font-weight: bold;
 }
 
 .gray-font {
     color: gray;
     text-align: left;
-    margin-left: 80rpx;
+    margin: 10rpx 10rpx 0 50rpx;
+    width: 86%;
+    text-indent: -1em;
 }
+.full-font {
+    color: #2689ff;
+}
+
+
