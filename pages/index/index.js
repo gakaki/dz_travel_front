@@ -54,7 +54,6 @@ Page({
     //需要判断是否在游玩
     wx.navigateTo({
       url: '../play/play?cid=' + locationCid
-      // url: '../cityRaiders/cityRaiders'
     })
   },
   //options主要为了处理分享出去进来的跳转设置
