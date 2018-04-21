@@ -32,7 +32,8 @@ Page({
     maimai: '购买',
     maxNum: 0,
     xg: -1,
-    overxg:false
+    overxg:false,
+    forceBuy:false
   },
 
   /**
@@ -155,18 +156,26 @@ Page({
       picUrl: picUrl
     })
   },
-  toBuy() {
+  toBuy(e,forceBuy) {
+    console.log('forceBuy', forceBuy)
     this.hideCar()
     if (!this.checkGold()) { return }
     if(type == 0) {
       let m = new RentProp();
       m.rentId = this.data.propId;
+      if (forceBuy) {
+        m.forceBuy = forceBuy
+      }
       m.fetch().then(() => {
         this.checkRentStatus();
         let v = this.data.rentProp[this.data.propId - 1].price;
         redGold(v)
         this.setData({
           myGold: app.globalData.gold
+        })
+      }).catch(()=>{
+        this.setData({
+          forceBuy:true
         })
       })
     } else if(type == 3) {
@@ -197,7 +206,8 @@ Page({
   },
   hideCar() {
     this.setData({
-      popCar: false
+      popCar: false,
+      forceBuy: false
     })
   },
   hideBuyNum() {
@@ -315,6 +325,12 @@ Page({
       this.setData({
         speArr: req.ptList
       })
+    })
+  },
+  forceBuy(e){
+    this.toBuy(e,1);
+    this.setData({
+      forceBuy:false
     })
   },
 
