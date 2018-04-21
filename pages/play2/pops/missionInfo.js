@@ -4,12 +4,14 @@ Component({
      * 组件的属性列表
      */
     properties: {
-        selfTask: {
-            type: Object//api.TourTask
+        task: {
+            type: Object//api.TourTask//{spot, tour, photo, parterTour, parterPhoto}
         },
-        friendTask: {
-            type: Object//api.TourTask
+        single: {
+            type: Boolean,
+            value: true
         }
+
     },
 
     /**
@@ -21,7 +23,13 @@ Component({
         selfTour: '',
         selfPhoto: '',
         friendTour: '',
-        friendPhoto: ''
+        friendPhoto: '',
+
+        selfSpotFull: false,
+        selfTourFull: false,
+        selfPhotoFull: false,
+        friendTourFull: false,
+        friendPhotoFull: false,
     },
 
     /**
@@ -29,12 +37,33 @@ Component({
      */
     methods: {},
     attached() {
-        let single = !this.data.friendTask;
-        let selfSpot = this.data.selfTask.spot[0] + '/' + this.data.selfTask.spot[1];
-        let selfTour = this.data.selfTask.tour[0] + '/' + this.data.selfTask.tour[1];
-        let selfPhoto = this.data.selfTask.photo[0] + '/' + this.data.selfTask.photo[1];
-        let friendTour = this.data.friendTask.tour[0] + '/' + this.data.friendTask.tour[1];
-        let friendPhoto = this.data.friendTask.photo[0] + '/' + this.data.friendTask.photo[1];
-        this.setData({single, selfSpot, selfTour, selfPhoto, friendTour, friendPhoto});
+        // this.data.task.parterTour = [3,3]
+        // this.data.task.parterPhoto = [3,3]//test
+        let single = this.data.single;
+        let selfSpot = this.data.task.spot[0] + '/' + this.data.task.spot[1];
+        let selfTour = this.data.task.tour[0] + '/' + this.data.task.tour[1];
+        let selfPhoto = this.data.task.photo[0] + '/' + this.data.task.photo[1];
+        let friendTour = this.data.task.parterTour[0] + '/' + this.data.task.parterTour[1];
+
+        let friendPhoto = this.data.task.parterPhoto[0] + '/' + this.data.task.parterPhoto[1];
+        let selfSpotFull = this.data.task.spot[0] == this.data.task.spot[1];
+        let selfTourFull = this.data.task.tour[0] == this.data.task.tour[1];
+        let selfPhotoFull = this.data.task.photo[0] == this.data.task.photo[1];
+        let friendTourFull = this.data.task.parterTour[0] == this.data.task.parterTour[1];
+        let friendPhotoFull = this.data.task.parterPhoto[0] == this.data.task.parterPhoto[1];
+
+        this.setData({
+            single,
+            selfSpot,
+            selfTour,
+            selfPhoto,
+            friendTour,
+            friendPhoto,
+            selfSpotFull,
+            selfTourFull,
+            selfPhotoFull,
+            friendTourFull,
+            friendPhotoFull,
+        });
     }
 })

@@ -6,6 +6,7 @@ const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
 let tktType , cid , terminal , tid , locationCid;
+let inviteOpt;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -34,7 +35,8 @@ Page({
     uid:'',
     presentTkt:[],
     chooseInd: 0,
-    showTicket:false
+    showTicket:false,
+    showInvite:false
   },
 
   /**
@@ -53,7 +55,7 @@ Page({
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
     wx.navigateTo({
-      url: '../play/play?cid=' + locationCid
+      url: '../play2/play?cid=' + locationCid
     })
   },
   //options主要为了处理分享出去进来的跳转设置
@@ -90,28 +92,7 @@ Page({
   shareTo(options) {
     if(!options.shareUid){return}
     if(options.start){
-      console.log(options,'start options')
-      let check = new CheckCode();
-      check.inviteCode = options.inviteCode;
-      check.fetch().then(req=>{
-        wx.navigateTo({
-          url: '../start/start?share=true&inviteCode=' + options.inviteCode + '&cid=' + options.cid + '&terminal=' + options.terminal,
-        })
-      }).catch(req=>{
-        switch (req) {
-          case Code.ROOM_EXPIRED:
-            this.tip('邀请码已过期');
-            break;
-          case Code.ROOM_USER_EXISTS:
-            this.tip('已在房间内');
-            break;
-          case Code.ROOM_FULLED:
-            this.tip('房间已满');
-            break;
-          default:
-            this.tip('未知错误');
-        }
-      })
+      this.checkCode(options,false)
     } else if (options.travelLog) {
       wx.navigateTo({
         url: '../travelLog/travelLog?uid='+options.shareUid
@@ -136,6 +117,40 @@ Page({
         url: url
       })
     }
+  },
+
+  checkCode(options,agree) {
+    console.log(options, 'start options')
+    let check = new CheckCode();
+    check.inviteCode = options.inviteCode;
+    if(agree){
+      check.agree = 1;
+    }
+    check.fetch().then(req => {
+      wx.navigateTo({
+        url: '../start/start?share=true&inviteCode=' + options.inviteCode + '&cid=' + options.cid + '&terminal=' + options.terminal,
+      })
+    }).catch(req => {
+      switch (req) {
+        case Code.ROOM_EXPIRED:
+          this.tip('邀请码已过期');
+          break;
+        case Code.ROOM_USER_EXISTS:
+          this.tip('已在房间内');
+          break;
+        case Code.ROOM_FULLED:
+          this.tip('房间已满');
+          break;
+        case Code.ISTRAVELLING:
+          inviteOpt = options
+          this.setData({
+            showInvite:true
+          })
+          break;
+        default:
+          this.tip('未知错误');
+      }
+    })
   }, 
 
   tip(tip) {
@@ -373,6 +388,19 @@ Page({
   _sign() {
     let userInfo = app.globalData.userInfo;
     this.getIndexInfo(userInfo)
+  },
+
+  _agreeInvite() {
+    this.setData({
+      showInvite: false
+    })
+    this.checkCode(inviteOpt,true)
+  },
+
+  _hideInvite() {
+    this.setData({
+      showInvite:false
+    })
   },
   /**
    * 用户点击右上角分享

@@ -388,3 +388,8 @@
 .dong{
   color: #9ba3cd;
 }
+
+.content{
+  font:bold 36rpx/50rpx 'Microsoft YaHei';
+  color: #b8b8b8;
+}
