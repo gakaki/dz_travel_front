@@ -132,7 +132,8 @@ Page({
         url:'../settings/settings?settings=true'
       })
       this.setData({
-        exchange:false
+        exchange:false,
+        cfmStr: '确定'
       })
     }
     

@@ -114,19 +114,19 @@ Page({
       })
     } else if (options.travelLog) {
       wx.navigateTo({
-        url: '../travelLog/travelLog?shareUid='+options.shareUid
+        url: '../travelLog/travelLog?uid='+options.shareUid
       })
     } else if (options.footprint) {
       wx.navigateTo({
-        url: '../footprint/footprint?shareUid=' + options.shareUid
+        url: '../footprint/footprint?uid=' + options.shareUid
       })
     } else if (options.other) {
       wx.navigateTo({
-        url: '../other/other?shareUid=' + options.shareUid
+        url: '../other/other?uid=' + options.shareUid
       })
     } else if (options.rank) {
       wx.navigateTo({
-        url: '../rank/rank?shareUid=' + options.shareUid
+        url: '../rank/rank?uid=' + options.shareUid
       })
     } else if (options.checkPostcard) {
       let url = '../checkPostcard/checkPostcard?shareUid=' + options.shareUid
