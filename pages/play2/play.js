@@ -143,6 +143,7 @@ Page({
             });
 
             this.updateSpots(req.spots);
+            this.onShow();
             
             this.freshTask();
 
@@ -380,7 +381,7 @@ Page({
             let wd = wd = Math.hypot(dy, dx);
             let angle = Math.atan2(dy, dx);
             let rotation = angle * 180 / Math.PI;
-            let tracked = cur.tracked;
+            let tracked = nxt.tracked;
             let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked};
 
             if (cur.tracked) {
