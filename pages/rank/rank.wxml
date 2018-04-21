@@ -91,7 +91,7 @@
   <view class="f-c no-rank" wx:if="{{!topThree.length && !isFriend}}">
     <image class="no-rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/no-rank.png"></image>
     <view class="tip-con">暂无排名</view>
-    <view class="up-time">排行榜每周日23:30更新</view>
+    <view class="up-time">排行榜每日23:30更新</view>
   </view>
 
   <view class="tips f-c" wx:if="{{isFirst}}">

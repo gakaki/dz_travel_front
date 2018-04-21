@@ -31,7 +31,7 @@ Page({
       if (this.data.uid) {
         m.playerUid = this.data.uid;
       }
-      // m.length = 3
+      m.length = 3
       m.page = this.data.index;
       m.fetch().then(req => {
         let logs = this.data.init.concat(req.allLogs);

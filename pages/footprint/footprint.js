@@ -27,12 +27,15 @@ Page({
       uid = options.uid
       this.setData({
         mySelf: false,
-        content: '开启的我旅行'
+        content: '开启我的旅行'
+      })
+      wx.setNavigationBarTitle({
+        title:'炫耀足迹'
       })
     } else {
       uid = userInfo.uid
     }
-    console.log(options.uid)
+    console.log('optionsssssssssssssss', options.uid)
     let m = new TravelFootprint();
     m.playerUid = uid;
     m.fetch().then(res => {
