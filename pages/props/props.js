@@ -115,12 +115,12 @@ Page({
     } else {
       if (this.data.restNum > dSet.xg) {
         this.setData({
-          xg: false
+          xg: true
         })
         maxNum = dSet.xg
       } else {
         this.setData({
-          xg: true
+          xg: false
         })
         maxNum = this.data.restNum ? this.data.restNum : 1
       }

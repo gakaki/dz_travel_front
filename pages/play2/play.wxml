@@ -16,6 +16,7 @@
         <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
             <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
             <text class="play-spot-txt">{{item.name}}</text>
+            <text class="play-spot-tm" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
         </view>
         <!--小人.自己-->
         <view wx:if="{{roleMe}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole"
@@ -45,12 +46,12 @@
         <view class="mission f-c-fs" bindtap='popMissionInfo'>
             <text class="fontWhite missionText font font26">任务</text>
             <view class="progressBox">
-                <view class="progressBar" style="width:{{taskPer}}rpx;"></view>
+                <view class="progressBar" style="width:{{taskPer}}%;"></view>
             </view>
         </view>
         <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
-            <text class="fontWhite changeLineText font font26">修改路线</text>
-            <text class="fontWhite changeLineMoney font font26">$100</text>
+            <text class="fontWhite changeLineText font font26" >修改路线</text>
+            <text class="fontWhite changeLineMoney font font26" wx:if="{{started}}">$100</text>
         </view>
         <!-- 按钮组 -->
         <view class="btnBoxWrap f-c-fs">
@@ -58,8 +59,9 @@
             <!-- 三个按钮 -->
             <view class="btnBox f-r-sa">
                 <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" catch:tap="chgLine">规划路线</view>
-                <view class="travelStart font fontWhite  font32" wx:else>正在游玩</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTraced}}">游玩结束</view>
                 <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
             </view>
             <!-- 虚拟地图警告 -->
@@ -87,7 +89,7 @@
         <!--获得明信片-->
         <pop-got-post wx:if="{{showGotPost}}" class="play-pop" bind:hide="hidePop" picture="{{postPicture}}" spotName="{{postSpotName}}"></pop-got-post>
         <!--任务信息-->
-        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop" selfTask="{{selfTask}}" friendTask="{{friendTask}}"></pop-mission-info>
+        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop" single="{{!partener}}" task="{{task}}"></pop-mission-info>
     </view>
 </view>
 <guide wx:if="{{!hasPlay}}" bindplayed='finishGuide'></guide>

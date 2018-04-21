@@ -81,12 +81,27 @@ Page({
     })
   },
   judge(v) {
+    if (!v.detail.str.trim()) {
+      wx.showToast({
+        title: '评论内容不能为空',
+        icon: 'none'
+      })
+      return
+    }
+    if (!v.detail.star) {
+      wx.showToast({
+        title: '打个分吧',
+        icon: 'none'
+      })
+      return
+    }
     let that = this
     console.log(v)
     this.setData({
       tipPop: true,
       isShowPop: !this.data.isShowPop
     })
+    
     let req = new CommentPost()
     req.type = types
     req.postId = postId
@@ -97,7 +112,7 @@ Page({
       console.log(req)
       //把我刚才的评论插到第一条
       let tArr = that.data.comments
-      tArr.unshift(req.comments)
+      tArr.push(req.comments)
        that.setData({
          comments: tArr
       })
@@ -127,7 +142,6 @@ Page({
     req.type = types
 
     req.fetch().then(() => {
-      console.log(req)
       this.setData({
         content:req.content,
         img:req.img
