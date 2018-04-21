@@ -80,7 +80,7 @@ Page({
         spotsTracked: 0, //有几个景点到达了,客户端维护
         spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: resRoot + 'evts.png', // 事件气泡图标
-        unreadEventCnt: 1, //未读事件数
+        unreadEventCnt: 0, //未读事件数
         curEvtIdx: 1,//当前事件序号
         totalEvt: 1,//事件总数
         postPicture: '',//获取的明信片图片路径
@@ -144,7 +144,6 @@ Page({
 
             this.updateSpots(req.spots);
             this.onShow();
-            
             this.freshTask();
 
         });
@@ -163,7 +162,7 @@ Page({
      */
     onShow: function () {
         if (this.data.partener || this.data.started) {
-          //  Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
+            Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
         }
     },
 
@@ -251,14 +250,16 @@ Page({
         let num = 0
         let allNum = 0
         for (let o in this.data.task) {
+          if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {}
+          else {
             num = num + this.data.task[o][0]
             allNum = allNum + this.data.task[o][1]
+          }
         }
         let rel = num / allNum
         this.setData({
             taskPer: rel * 100
         })
-        console.log('taskPer', rel)
     },
     
     //刷新景点状态列表
@@ -307,6 +308,7 @@ Page({
 
             if (allSame) {
                 //全部一样的话，不必更新渲染
+                updateLine && this.updateLines();
                 return;
             }
 
@@ -441,17 +443,17 @@ Page({
     chgLine() {
         //暂停轮询
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
-
+        
         let req = new ModifyRouter();
         req.fetch().then(()=> {
             app.globalData.gold = req.goldNum;
-
             this.updateSpots(req.spots, false);
             this.setData({
                 started: false,//设为非游玩状态
                 planing: true, //设为编辑路线状态
                 planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
             })
+            console.log(this.data.planing)
         })
     },
 
@@ -539,7 +541,7 @@ Page({
         }
 
         //恢复轮询
-      //  Http.listen(PlayLoop, this.onPlayLoop, this);
+        Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
 
         this.setData({planing: false});
 

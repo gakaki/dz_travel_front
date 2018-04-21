@@ -107,14 +107,39 @@ weather.sights {
 }
 
 .play-spot-tm {
-    position: absolute;
+    /* position: absolute;
     top: -60rpx;
     left: 50%;
     font: 20rpx white;
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(0,0,0,0.5);
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 0%); */
+
+width: 200rpx;
+  height: 46rpx;
+  border-radius: 10rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 50%;
+  top: -60rpx;
+  transform: translateX(-50%);
+  font: bold 22rpx 'Microsoft YaHei';
+  color: #fff;
+  white-space: nowrap;
+  z-index: 9;
+
+}
+.play-spot-tm::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 0;
+  border-left: 0;
+  margin: 0 0 -6px -3px;
 }
 #play-pops, #play-pop-bg {
     width: 100vw;
