@@ -5,9 +5,9 @@
     <!--单人模式-->
     <view class="content-box" wx:if="{{single}}">
         <text class="head-font">点亮城市地图需要完成以下3个任务</text>
-        <text class="gray-font {{selfSpotFull ? 'full-font' : '' }}">1.至少达到6个景点（{{selfSpot}}）</text>
-        <text class="gray-font {{selfTourFull ? 'full-font' : '' }}">2.至少进行2次观光（{{selfTour}}）</text>
-        <text class="gray-font {{selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
+        <text class="gray-font {{ selfSpotFull ? 'full-font' : '' }}">1.至少达到6个景点（{{selfSpot}}）</text>
+        <text class="gray-font {{ selfTourFull ? 'full-font' : '' }}">2.至少进行2次观光（{{selfTour}}）</text>
+        <text class="gray-font {{ selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
     </view>
     <!--双人模式-->
     <view class="content-box" wx:else>
