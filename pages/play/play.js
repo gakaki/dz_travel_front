@@ -1,7 +1,7 @@
 // pages/play/play.js
 const app = getApp();
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base, Http, PlayLoop, FreshSpots, SetRouter, EventShow, ModifyRouter } from '../../api.js';
+import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base, Http, PlayLoop, FreshSpots, SetRouter, EventShow, ModifyRouter, AnswerQuest } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
 let arr = []
@@ -27,6 +27,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    question: {},
     per:0,//一段路中走的百分比,
     daojishi: '',//到达下一个景点的时间
     hasPlay: true,
@@ -66,7 +67,6 @@ Page({
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
-    canPhoto: false,
     isDialogQuestion: false,
     isCongratulations: false,
     isMissionOpen: false,
@@ -918,6 +918,20 @@ Page({
       isDialogQuestion: false
     })
   },
+  doAnswer(e) {
+    this.setData({
+      isDialogQuestion: false
+    })
+    console.log(e)
+    let req = new AnswerQuest()
+    req.id = e.detail.id
+    req.answer = e.detail.answer
+    // req.fetch().then(req => {
+      this.setData({
+        isCongratulations: true
+      // })
+    })
+  },
   hideisPop() {
     this.setData({
       isPop: false
@@ -949,11 +963,16 @@ Page({
       isFirstIn: false
     })
   },
-  hidePost() {
+  nextEvent() {
     this.setData({
-      isGetPost: false,
-      canPhoto: true
+      isCongratulations: false,
+      isGetPost: false
     })
+    let req = new EventShow()
+    req.cid = cid
+    // req.fetch().then(req => {
+   //展示下一事件
+      // })
   },
   notDo() {
     return
