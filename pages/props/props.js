@@ -31,7 +31,8 @@ Page({
     mySpe: [],
     maimai: '购买',
     maxNum: 0,
-    xg: -1
+    xg: -1,
+    overxg:false
   },
 
   /**
@@ -110,19 +111,19 @@ Page({
     if(dSet.xg == -1) {
       maxNum = this.data.restNum ? this.data.restNum:1
       this.setData({
-        xg:false
+        overxg: false
       })
     } else {
       if (this.data.restNum > dSet.xg) {
-        this.setData({
-          xg: false
-        })
         maxNum = dSet.xg
-      } else {
         this.setData({
-          xg: true
+          overxg:true
         })
+      } else {
         maxNum = this.data.restNum ? this.data.restNum : 1
+        this.setData({
+          overxg: false
+        })
       }
     }
     let item = this.data.speArr[dSet.idx];
@@ -134,7 +135,8 @@ Page({
       propName: item.name,
       propDesc: item.desc,
       goldNum: item.price,
-      picUrl: picUrl
+      picUrl: picUrl,
+      xg: dSet.xg
     })
   },
   sell(e) {

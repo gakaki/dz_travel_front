@@ -21,6 +21,11 @@ let spotsTracked = 0//走过的景点数量
 let djsTimer = null//到达下一个景点的时间定时器
 const chgGold = sheet.Parameter.Get(sheet.Parameter.CHANGELINE).value
 const loopInterval = 10000 //轮询时间间隔 10秒
+const EventTypeKeys =  {        //非景点随机事件触发类型
+  COMMON:             1,       // 1、普通事件
+  QA_NEED_RESULT:     2,       // 2、剧情类答题事件（无需显示是否答对）
+  QA_NO_NEED_RESULT:  3,       // 3、知识类答题事件（需要显示是否答对）
+};
 Page({
 
   /**
@@ -84,7 +89,9 @@ Page({
     currentPoint: 0,
     eventPic: app.globalData + "/jingdian/anhui/anqing/cs/1.jpg", //随机事件那个框
     rewardText: "",
-    eventRecivedCurrent:1
+    eventRecivedCurrent:1,
+    eventquestion:"",
+    eventanswers:[],
   },
   onUnload() {
     if (djsTimer) clearInterval(djsTimer)
@@ -136,7 +143,7 @@ Page({
 
       if (!playState) {
         //游玩状态下开启轮询
-        // Http.listen(PlayLoop, this.freshspots, this, loopInterval)
+        Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       }
 
       let arrs = this.data.spots.slice()
@@ -239,11 +246,27 @@ Page({
         eventPic: this.getEventPicURL(req.quest.picture),
         rewardText: req.quest.rewards
       })
-      if (req.quest.type == 1) {
+      let type = req.quest.type;
+      if ( type == EventTypeKeys.COMMON ) {
         this.setData({
-          isPop: true
+          isPop: true 
         })
       }
+
+      if ( type == EventTypeKeys.QA_NO_NEED_RESULT ) { //回答正确与否无所谓 直接给奖励
+        this.setData({
+          isDialogQuestion: true,
+           eventquestion: req.quest.question,
+           eventanswers: req.quest.answers,
+        })
+      }
+
+      if ( type == EventTypeKeys.QA_NEED_RESULT ) {  //回答正确与否 ok才给奖励
+        this.setData({
+          isDialogQuestion: true
+        })
+      }
+
     })
   },
   daojishiFuc(time) {
@@ -263,26 +286,54 @@ Page({
   },
   //刷新到达下一个景点的剩余分钟数
   freshNextSpotTime() {
-    let spots = this.data.spots.map(o => {
-      if (typeof o.countdown != 'undefined') {
+    // let spots = this.data.spots.map(o => {
+    //   if (typeof o.countdown != 'undefined') {
 
-        if (o.countdown / 60 < 1) {
-          o.daojishi = o.countdown + '分钟'
-          if (o.countdown == 0) o.daojishi = ''
-        }
-        else {
-          let hour = parseInt(o.countdown / 60)
-          let minute = o.countdown % 60
-          o.daojishi = hour + '小时' + minute + '分钟'
-        }
-      }
-      return o
+    //     if (o.countdown / 60 < 1) {
+    //       o.daojishi = o.countdown + '分钟'
+    //       if (o.countdown == 0) o.daojishi = ''
+    //     }
+    //     else {
+    //       let hour = parseInt(o.countdown / 60)
+    //       let minute = o.countdown % 60
+    //       o.daojishi = hour + '小时' + minute + '分钟'
+    //     }
+    //   }
+    //   return o
+    // })
+
+    let arrs = this.data.spots.slice()
+    arrs.sort((x, y) => {
+      return x.index - y.index
     })
+    let count = 0
+    for (let i = 0; i < arrs.length; i++) {
+      if (arrs[i].index != -1) count++
+    }
+    arrs = arrs.slice(-count)//路线中的点
+    let curPoint = arrs.find(o=>{
+      return o.tracked == false
+    })
+
+    let min = Math.ceil((curPoint.arriveStamp - Base.servertime) / 60000)
+    let time = 0
+      if (min / 60 < 1) {
+        o.daojishi = o.countdown + '分钟'
+        if (o.countdown == 0) o.daojishi = ''
+      }
+      else {
+        let hour = parseInt(o.countdown / 60)
+        let minute = o.countdown % 60
+        o.daojishi = hour + '小时' + minute + '分钟'
+      }
+
+
+
     this.setData({
       spots: spots
     })
 
-    let time = 20//到达下一个景点要多少分钟
+    // let time = 20//到达下一个景点要多少分钟
     // this.daojishiFuc(time)
     
     //计时器
@@ -430,7 +481,7 @@ Page({
     }
     if (this.data.playing) {
       this.setData({
-        showWalk: false
+        showWalk: true
       })
       setTimeout(() => {
         that.start()
@@ -534,7 +585,7 @@ Page({
     }
     // if (this.data.isStart && !this.data.isChg) return
     this.setData({
-      showWalk: false
+      showWalk: true
     })
     let req = new SetRouter()
     req.cid = cid
@@ -542,7 +593,7 @@ Page({
     req.fetch().then(req => {
       // startTime = req.spots[0].startime
       // req.spots.splice(0, 1)
-      //  if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
+       if (!this.data.playing) Http.listen(PlayLoop, this.freshspots, this, loopInterval)
       let temptestArr = req.spots
       if (beishu == 2) {
         temptestArr = req.spots.map(item => {

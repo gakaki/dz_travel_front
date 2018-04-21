@@ -2,6 +2,7 @@
   "disableScroll": true,
   "usingComponents": {
     "sign": "../../components/sign/sign",
-    "cmap": "../../components/cmap/cmap"
+    "cmap": "../../components/cmap/cmap",
+    "tip": "../../components/buy/buy"
   }
 }

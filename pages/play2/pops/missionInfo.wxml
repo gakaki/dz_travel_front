@@ -1,26 +1,43 @@
 <!--pages/play2/pops/missionInfo.wxml-->
 <view class="mission-con">
 
-    <image class="pic-box" src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
-    <!--单人模式-->
-    <view class="content-box" wx:if="{{single}}">
-        <text class="head-font">点亮城市地图需要完成以下3个任务</text>
-        <text class="gray-font {{ selfSpotFull ? 'full-font' : '' }}">1.至少达到6个景点（{{selfSpot}}）</text>
-        <text class="gray-font {{ selfTourFull ? 'full-font' : '' }}">2.至少进行2次观光（{{selfTour}}）</text>
-        <text class="gray-font {{ selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
+  <image class="pic-box" src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
+  <!--单人模式-->
+  <view class="content-box" wx:if="{{single}}">
+    <text class="head-font">点亮城市地图需要完成以下3个任务</text>
+    <view class="gray-font">
+      <text class=" {{selfSpotFull ? 'full-font' : '' }}">1.至少达到6个景点（{{selfSpot}}）</text>
+      <image hidden="{{!selfSpotFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
-    <!--双人模式-->
-    <view class="content-box" wx:else>
-        <text class="head-font">点亮城市地图需要完成以下3个任务</text>
-        <text class="gray-font {{selfSpotFull ? 'full-font' : '' }}">1.与旅友共同达到至少6个景点，每人只能选择3-5个景点路线（{{selfSpot}}）</text>
-        <view class="gray-font">2.
-            <text class="{{selfTourFull ? 'full-font' : '' }}">自己至少进行2次观光（{{selfTour}}）</text>,
-            <text class="{{friendTourFull ? 'full-font' : '' }}">旅友至少进行2次观光（{{friendTour}}）</text>
-        </view>
-        <view class="gray-font">3.
-            <text class="{{selfPhotoFull ? 'full-font' : '' }}">自己至少进行2次拍照留念（{{selfPhoto}}）</text>,
-            <text class="{{friendPhotoFull ? 'full-font' : '' }}">旅友至少进行2次拍照留念（{{friendPhoto}}）</text>
-        </view>
+    <view class="gray-font">
+      <text class=" {{selfTourFull ? 'full-font' : '' }}">2.至少进行2次观光（{{selfTour}}）</text>
+      <image hidden="{{!selfTourFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
+
+    <view class="gray-font">
+      <text class="gray-font {{selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
+      <image hidden="{{!selfPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+    </view>
+
+  </view>
+  <!--双人模式-->
+  <view class="content-box" wx:else>
+    <text class="head-font">点亮城市地图需要完成以下3个任务</text>
+    <view class="gray-font">
+      <text class=" {{selfSpotFull ? 'full-font' : ''}}">1.与旅友共同达到至少6个景点,路线需由被邀请方规划（{{selfSpot}}）</text>
+       <image hidden="{{!selfPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+    </view>
+
+    <view class="gray-font">
+      <text class=" {{selfTourFull && friendTourFull ? 'full-font' : ''}}">2.至少进行2次观光（{{selfTour}}）,旅友至少进行2次观光（{{friendTour}}）</text>
+       <image hidden="{{!selfTourFull && !friendTourFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+    </view>
+
+    <view class="gray-font">
+      <text class=" {{selfPhotoFull && friendPhotoFull ? 'full-font' : ''}}">3.至少进行2次拍照留念（{{selfPhoto}}）,旅友至少进行2次拍照留念（{{friendPhoto}}）</text>
+       <image hidden="{{!selfPhotoFull && !friendPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+    </view>
+
+  </view>
 
 </view>

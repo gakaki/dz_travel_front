@@ -163,7 +163,7 @@ Page({
      */
     onShow: function () {
         if (this.data.partener || this.data.started) {
-            Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
+          //  Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
         }
     },
 
@@ -539,7 +539,7 @@ Page({
         }
 
         //恢复轮询
-        Http.listen(PlayLoop, this.onPlayLoop, this);
+      //  Http.listen(PlayLoop, this.onPlayLoop, this);
 
         this.setData({planing: false});
 

@@ -36,7 +36,10 @@
         <text class="two-mid-top-str font fs">{{item.name}}</text>
         <text class="two-mid-bot-str font fs">{{item.desc}}</text>
       </view>
-      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
+      <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{item.limitNum == 0}}'>
+        <view class='gold-num font font-c'>已售空</view> 
+      </view>
+      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" wx:else data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.price}}</text>
       </view>
@@ -73,6 +76,6 @@
   </view>
 
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" picUrl='{{picUrl}}' bindtoclose="hideCar" bind:confirm="toBuy"></buy>
-  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount" picUrl='{{picUrl}}'></buynum>
+  <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount" picUrl='{{picUrl}}' overxg='{{overxg}}'></buynum>
   <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往充值"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往充值" isBuy="{{false}}"></buy>
 </view>
