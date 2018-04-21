@@ -387,39 +387,6 @@ function shareTitle(type,par) {
   return title
 }
 
-//_that 当前页面的this
-//type 分享的类型  对象表里的type ,默认为1
-//page 跳转到哪个页面
-//par 分享标题里的自定义参数替换值
-// function shareToIndex(_that, type, page, par,inviteCode,cid,suc) {
-//     let nowPath;
-//   if (app.globalData.userInfo.uid) {
-//     if(page) {
-//       if (inviteCode && cid) {
-//         nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' + inviteCode + '&cid=' + cid + '&terminal=' + par;
-//       } else {
-//         nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true';
-//       } 
-     
-//     } else {
-//       nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid    
-//     }
-//   } else {
-//     nowPath = '/pages/index/index';
-//   }  
-//   console.log(nowPath)
-//   return {
-//     title: shareTitle(type, par),
-//     path: nowPath,
-//     imageUrl:'https://gengxin.odao.com/update/h5/travel/share/' + type + '.png',
-//     success: function () {
-//       let m = new ShareInfo();
-//       m.fetch()
-//       suc()
-//     }
-//   }
-// }
-
 //innerObj内部需要用到的变量
 //toShare分享链接上需要附带的变量
 function shareToIndex(that,innerObj,toShareLink) {
@@ -428,14 +395,13 @@ function shareToIndex(that,innerObj,toShareLink) {
   var toShareLink = toShareLink ? toShareLink: {}
   let nowPath = '/pages/index/index';
   let uid = app.globalData.userInfo.uid
-
-  if (uid) { 
-    nowPath += '?shareUid=' + uid
-    for (let k in toShareLink ) {
-      nowPath += '&' + k + '=' + toShareLink[k]
-    }
+  if (!uid) { 
+    uid = wx.getStorageSync('uid')
+  } 
+  nowPath += '?shareUid=' + uid
+  for (let k in toShareLink) {
+    nowPath += '&' + k + '=' + toShareLink[k]
   }
-  console.log(nowPath)
   let url = innerObj.type
   if (url == 4 || url == 6) { url = 1 }
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'

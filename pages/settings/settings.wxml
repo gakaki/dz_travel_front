@@ -20,7 +20,7 @@
     <view class="line-1"></view>
     <view class="address">
       <text class="address-left info-left">地址：</text>
-      <textarea class="address-right info-right" fixed name='address' placeholder='{{address}}' placeholder-class='info-1'></textarea>
+      <textarea class="address-right info-right" maxlength='45' fixed name='address' placeholder='{{address}}' placeholder-class='info-1'></textarea>
     </view>
     <view class="line-2"></view>
     <view class="desc">

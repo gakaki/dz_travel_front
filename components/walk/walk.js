@@ -19,6 +19,10 @@ Component({
       type: Boolean,
       value: false
     },
+    per: {
+      type:Number,
+      value: 0
+    },
     display: {
       type: Number,
       value: 0
@@ -102,7 +106,11 @@ Component({
       st = Base.servertime
       walkInfoObj = this.properties.walkInfoArr.find((v) => {
         return v.time > st
+        // return v.tracked == false
       })
+
+
+      
         if (!walkInfoObj) {
           walkInfoObj = this.properties.walkInfoArr[this.properties.walkInfoArr.length-1]
         }
@@ -137,10 +145,15 @@ Component({
       }
       let lastObj = this.properties.walkInfoArr[walkInfoObj.idx - 1]
       //一段路走过的百分比hideIntro
-      let per = (st - lastObj.time) / (walkInfoObj.time - lastObj.time)
+      let per = 0
+      if (this.properties.per == 0) {
+        per = (st - lastObj.time) / (walkInfoObj.time - lastObj.time)
+      }
+      else {  per = 0}
+      let pers = (st - lastObj.time) / (walkInfoObj.time - lastObj.time)
       curPoint.x = parseInt(lastObj.x + (walkInfoObj.x - lastObj.x) * per)
       curPoint.y = parseInt(lastObj.y + (walkInfoObj.y - lastObj.y) * per)
-      restTime = parseInt((walkInfoObj.time - lastObj.time) * (1 - per))
+      restTime = parseInt((walkInfoObj.time - lastObj.time) * (1 - pers))
       let obj = { x: curPoint.x, y: curPoint.y, tX: walkInfoObj.x, tY: walkInfoObj.y, time: restTime }
 
 
