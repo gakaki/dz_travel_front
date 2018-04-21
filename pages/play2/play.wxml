@@ -89,7 +89,7 @@
         <!--获得明信片-->
         <pop-got-post wx:if="{{showGotPost}}" class="play-pop" bind:hide="hidePop" picture="{{postPicture}}" spotName="{{postSpotName}}"></pop-got-post>
         <!--任务信息-->
-        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop" single="{{!partener}}" task="{{task}}"></pop-mission-info>
+        <pop-mission-info wx:if="{{showMissionInfo}}" class="play-pop" bind:hide="hidePop" single="{{partener}}" task="{{task}}"></pop-mission-info>
     </view>
 </view>
 <guide wx:if="{{!hasPlay}}" bindplayed='finishGuide'></guide>
