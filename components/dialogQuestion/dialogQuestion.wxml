@@ -1,7 +1,11 @@
 <view class="pop-bg">
   <view class="f-c-fs dialog_question" catchtap='btn_next_question_tap'>
 
-    <image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="pic-box"></image>
+<view class="pic-box">
+<image src="https://gengxin.odao.com/update/h5/travel/play/check.png" class="point-pic"></image>
+<view class="ten font">1/10</view>
+</view>
+    
 
     <!-- <view class="font_gray_big">恭喜答对</view> -->
     <!-- <view class="font_black">奖励{{coin}}金币,{{credit}}积分</view> -->

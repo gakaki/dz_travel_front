@@ -54,7 +54,9 @@ Component({
             icon: "none",
             duration: 1000
           })
+          this.triggerEvent("sign")
         })
+        
       }
       
     }

@@ -396,14 +396,13 @@ function shareToIndex(that,innerObj,toShareLink) {
   var toShareLink = toShareLink ? toShareLink: {}
   let nowPath = '/pages/index/index';
   let uid = app.globalData.userInfo.uid
-
-  if (uid) { 
-    nowPath += '?shareUid=' + uid
-    for (let k in toShareLink ) {
-      nowPath += '&' + k + '=' + toShareLink[k]
-    }
+  if (!uid) { 
+    uid = wx.getStorageSync('uid')
+  } 
+  nowPath += '?shareUid=' + uid
+  for (let k in toShareLink) {
+    nowPath += '&' + k + '=' + toShareLink[k]
   }
-  console.log(nowPath)
   let url = innerObj.type
   if (url == 4 || url == 6) { url = 1 }
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'

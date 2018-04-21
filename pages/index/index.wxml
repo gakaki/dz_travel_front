@@ -97,5 +97,5 @@
   </view>
   <view class="mask" wx:if="{{isFirst || showTicket}}"></view>
 </view>
-<sign theDay='{{theDay}}' hasSign='{{hasSign}}' ></sign> 
+<sign theDay='{{theDay}}' hasSign='{{hasSign}}' bind:sign="_sign"></sign> 
 

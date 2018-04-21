@@ -11,7 +11,7 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk bind:chufaEvt="touchEvt" evt="{{event}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk bind:chufaEvt="touchEvt" evt="{{event}}" per="{{per}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
@@ -62,8 +62,9 @@
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
 
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
+      
       <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{lineDown?'游玩结束':'游玩中'}}</view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->
       <!-- 虚拟地图警告 -->
@@ -77,7 +78,7 @@
         </view>
         <text class="evt font">{{onePopInfo}}</text>
         <text class="evt font evtAward">{{rewardText}}</text>
-        <view class="next-evt font">下一事件</view>
+        <view class="next-evt font" catchtap="touchEvt">下一事件</view>
       </view>
     </view>
 
@@ -133,12 +134,11 @@
       <task class="play-pop play-congratulations f-c-fs">
         <view class="imgBox" slot="imgBox">
           <image src="https://gengxin.odao.com/update/h5/travel/play/mission.png"></image>
-          <view class="ten font">1/10</view>
         </view>
         <view class="contentBox" slot="contentBox">
           <text class="head-font congratulations-head-font ml14">恭喜答对</text>
           <text class="gray-font congratulations-gray-font ml18">奖励500金币，5积分</text>
-          <view class="btn-big-blue cfm-btn" catchtap="hideFirstIn">下一事件</view>
+          <view class="btn-big-blue cfm-btn" catchtap="nextEvent">下一事件</view>
         </view>
       </task>
     </view>
@@ -150,10 +150,10 @@
         <text class="post-name">获得索菲亚教堂明信片一张</text>
         <text class="post-desc">明信片可用作收藏，分享给好友</text>
         <text class="post-desc">获得一张不同的明信片可增加100积分</text>
-        <view class="btn-icon btn-big-blue" catchtap="hidePost">确 定</view>
+        <view class="btn-icon btn-big-blue" catchtap="nextEvent">下一事件</view>
       </view>
     </view>
     <!-- 问答 组件 -->
-    <dialogQuestion wx:if="{{isDialogQuestion}}" catchtap="hideDialogQuestion"></dialogQuestion>
+    <dialogQuestion wx:if="{{isDialogQuestion}}" catch:right="doAnswer" question="{{question}}" catchtap="hideDialogQuestion" ></dialogQuestion>
   </scroll-view>
 </view>

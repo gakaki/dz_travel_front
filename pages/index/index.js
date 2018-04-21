@@ -54,7 +54,6 @@ Page({
     //需要判断是否在游玩
     wx.navigateTo({
       url: '../play2/play?cid=' + locationCid
-      // url: '../cityRaiders/cityRaiders'
     })
   },
   //options主要为了处理分享出去进来的跳转设置
@@ -66,15 +65,20 @@ Page({
       let m = new SignInfo()
       m.fetch().then(res => {
         console.log(res, '签到数据')
-        this.setData({
-          theDay: res.theDay,
-          hasSign: res.hasSign,
-          uid:userInfo.uid
-        })
+        
+        if(res.hasSign){
+          this.getIndexInfo(userInfo)
+        }
+        else{
+          this.setData({
+            theDay: res.theDay,
+            hasSign: res.hasSign,
+            uid: userInfo.uid
+          })
+        }
+
+        options && this.shareTo(options)
       })
-    
-      this.getIndexInfo(userInfo) 
-      this.shareTo(options)
       
     }
     else {
@@ -110,19 +114,19 @@ Page({
       })
     } else if (options.travelLog) {
       wx.navigateTo({
-        url: '../travelLog/travelLog?shareUid='+options.shareUid
+        url: '../travelLog/travelLog?uid='+options.shareUid
       })
     } else if (options.footprint) {
       wx.navigateTo({
-        url: '../footprint/footprint?shareUid=' + options.shareUid
+        url: '../footprint/footprint?uid=' + options.shareUid
       })
     } else if (options.other) {
       wx.navigateTo({
-        url: '../other/other?shareUid=' + options.shareUid
+        url: '../other/other?uid=' + options.shareUid
       })
     } else if (options.rank) {
       wx.navigateTo({
-        url: '../rank/rank?shareUid=' + options.shareUid
+        url: '../rank/rank?uid=' + options.shareUid
       })
     } else if (options.checkPostcard) {
       let url = '../checkPostcard/checkPostcard?shareUid=' + options.shareUid
@@ -147,7 +151,7 @@ Page({
     //因为当用户切换tabbar上的页面和返回到此页面时不会进入onload，故需在此处进行api调用已更新数据
     if(!enterOnload){
       console.log('没有进入onload')
-      this.getIndexInfo(app.globalData.userInfo)
+      this.gotUserInfo()
     }
   },
 
@@ -362,6 +366,13 @@ Page({
     wx.navigateTo({
       url: '../recharge/recharge',
     })
+  },
+
+
+  //监听组件事件
+  _sign() {
+    let userInfo = app.globalData.userInfo;
+    this.getIndexInfo(userInfo)
   },
   /**
    * 用户点击右上角分享
