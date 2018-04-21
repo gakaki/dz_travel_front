@@ -28,8 +28,8 @@
       <text wx:if="{{events.length == 0}}" class="font get ">观光一次消耗{{ggGold}}金币</text>
       <view wx:for="{{events}}" wx:key="{{index}}" wx:if="{{events.length > 0}}" class="f-c" id="id{{index}}">
         <view class="evt-item">
-          <text class="event "> {{item.desc}}</text>
-          <text class="event reward" wx:for="{{item.reward}}" wx:for-item="ite" wx:for-index="idx" wx:key="{{idx}}"> {{ite}}</text>
+          {{item.desc}}
+          <text class="event reward">{{item.reward}}</text> 
         </view>
         <view class="t-line mtb" hidden="{{events.length-1 == index && index!= 0}}"></view>
       </view>
