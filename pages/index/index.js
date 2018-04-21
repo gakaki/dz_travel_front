@@ -66,15 +66,20 @@ Page({
       let m = new SignInfo()
       m.fetch().then(res => {
         console.log(res, '签到数据')
-        this.setData({
-          theDay: res.theDay,
-          hasSign: res.hasSign,
-          uid:userInfo.uid
-        })
+        
+        if(res.hasSign){
+          this.getIndexInfo(userInfo)
+        }
+        else{
+          this.setData({
+            theDay: res.theDay,
+            hasSign: res.hasSign,
+            uid: userInfo.uid
+          })
+        }
+
+        options && this.shareTo(options)
       })
-    
-      this.getIndexInfo(userInfo) 
-      this.shareTo(options)
       
     }
     else {
@@ -147,7 +152,7 @@ Page({
     //因为当用户切换tabbar上的页面和返回到此页面时不会进入onload，故需在此处进行api调用已更新数据
     if(!enterOnload){
       console.log('没有进入onload')
-      this.getIndexInfo(app.globalData.userInfo)
+      this.gotUserInfo()
     }
   },
 
@@ -362,6 +367,13 @@ Page({
     wx.navigateTo({
       url: '../recharge/recharge',
     })
+  },
+
+
+  //监听组件事件
+  _sign() {
+    let userInfo = app.globalData.userInfo;
+    this.getIndexInfo(userInfo)
   },
   /**
    * 用户点击右上角分享
