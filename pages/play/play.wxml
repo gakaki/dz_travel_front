@@ -154,6 +154,6 @@
       </view>
     </view>
     <!-- 问答 组件 -->
-    <dialogQuestion wx:if="{{isDialogQuestion}}" catch:right="doAnswer" question="{{question}}" catchtap="hideDialogQuestion" ></dialogQuestion>
+    <dialogQuestion wx:if="{{isDialogQuestion}}" catch:right="doAnswer" question="{{eventquestion}}" answers="{{eventanswers}}" catchtap="hideDialogQuestion" ></dialogQuestion>
   </scroll-view>
 </view>

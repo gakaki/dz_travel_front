@@ -24,21 +24,22 @@ Page({
     }
     this.getData()
   },
-  getData(options){
+  getData(){
     if (this.data.hasInfo) {
       let length = 20;
       let m = new TravelLog(); 
       if (this.data.uid) {
         m.playerUid = this.data.uid;
       }
-      m.length = 3
       m.page = this.data.index;
       m.fetch().then(req => {
-        let logs = this.data.init.concat(req.allLogs);
+        let logs = req.allLogs.concat(this.data.init);
+        // let logs = this.data.init.concat(req.allLogs);
         this.setData({
           init: logs,
-          myIdx: 'myIdx' + (logs.length - 1)
+          myIdx: 'myIdx' + (req.allLogs.length - 1)
         })
+        console.log(this.data.myIdx)
         this.data.index = this.data.index + 1;
         if (logs.length < length) {
           this.data.hasInfo = false
