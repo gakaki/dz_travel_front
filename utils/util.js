@@ -387,38 +387,6 @@ function shareTitle(type,par) {
   return title
 }
 
-//_that 当前页面的this
-//type 分享的类型  对象表里的type ,默认为1
-//page 跳转到哪个页面
-//par 分享标题里的自定义参数替换值
-// function shareToIndex(_that, type, page, par,inviteCode,cid,suc) {
-//     let nowPath;
-//   if (app.globalData.userInfo.uid) {
-//     if(page) {
-//       if (inviteCode && cid) {
-//         nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true' + '&inviteCode=' + inviteCode + '&cid=' + cid + '&terminal=' + par;
-//       } else {
-//         nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid + '&' + page + '=true';
-//       } 
-     
-//     } else {
-//       nowPath = '/pages/index/index?shareUid=' + app.globalData.userInfo.uid    
-//     }
-//   } else {
-//     nowPath = '/pages/index/index';
-//   }  
-//   console.log(nowPath)
-//   return {
-//     title: shareTitle(type, par),
-//     path: nowPath,
-//     imageUrl:'https://gengxin.odao.com/update/h5/travel/share/' + type + '.png',
-//     success: function () {
-//       let m = new ShareInfo();
-//       m.fetch()
-//       suc()
-//     }
-//   }
-// }
 
 //innerObj内部需要用到的变量
 //toShare分享链接上需要附带的变量
@@ -452,6 +420,31 @@ function shareToIndex(that,innerObj,toShareLink) {
   }
 }
 
+//秒转换成 天.小时.分钟'
+function secToTimeStr (sec, prefix = '') {
+    let str = ''
+    if (sec == 0) {
+        return prefix + str
+    }
+    else if (sec < 60) {
+        str = sec + '秒'
+    }
+    else if (sec < 3600) {
+        str = Math.floor(sec / 60) + '分钟'
+    }
+    else if (sec < 86400) {
+        let h = Math.floor(sec / 3600)
+        let m = sec % 3600
+        str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
+    }
+    else {
+        let d = Math.floor(sec / 86400)
+        let left = sec % 86400
+        str = d + '天' + secToTimeStr(left)
+    }
+
+    return prefix + str
+}
 
 
 
@@ -473,6 +466,7 @@ module.exports = {
   getUserInfo,
   formatNum,
   shareToIndex,
+  secToTimeStr,
   redGold,
   addGold,
   tplStr
