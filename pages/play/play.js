@@ -83,7 +83,8 @@ Page({
     finalpassLines: [],
     currentPoint: 0,
     eventPic: app.globalData + "/jingdian/anhui/anqing/cs/1.jpg", //随机事件那个框
-    rewardText: ""
+    rewardText: "",
+    eventRecivedCurrent:1
   },
   onUnload() {
     if (djsTimer) clearInterval(djsTimer)
@@ -314,7 +315,7 @@ Page({
         spotsTracked = res.spotsTracked
       }
       let spotss = this.data.spots.map(o => {
-        if (o.index < req.spotsTracked) {
+        if (o.index < res.spotsTracked) {
           o.tracked = true
         }
         return o
