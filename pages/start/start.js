@@ -104,7 +104,7 @@ Page({
         else{
           Http.listen(PartnerInfo, this.parInfo, this, 1000, this.fillCode);
         }
-      }).catch(req=>{
+      }).catch((req)=>{
         switch (req) {
           case Code.ROOM_EXPIRED:
             this.tip('邀请码错误');
@@ -202,7 +202,7 @@ Page({
 
   createCode() {
     let create = new CreateCode()
-    create.fetch().then(req => {
+    create.fetch().then((req) => {
       console.log(req, '生成邀请码')
       inviteCode = req.inviteCode
     }).catch(req => {
