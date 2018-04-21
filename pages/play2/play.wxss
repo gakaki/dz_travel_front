@@ -14,7 +14,7 @@
 }
 
 .dashed-line {
-    border-style: dashed;
+    border-style: dotted;
 }
 .play-role-nan {
     width: 36rpx;
@@ -105,12 +105,29 @@ weather.sights {
     font-size: 20rpx;
     font-weight: bold;
 }
-#play-pops, #play-pop-bg, .controll-layer {
+
+.play-spot-tm {
+    position: absolute;
+    top: -60rpx;
+    left: 50%;
+    font: 20rpx white;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+    transform: translate(-50%, 100%);
+}
+#play-pops, #play-pop-bg {
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
     position: fixed;
+}
+
+.controll-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 #play-pop-bg {
@@ -260,6 +277,7 @@ weather.sights {
     margin-top: 20rpx;
     line-height: 88rpx;
 }
+
 .start-icon {
     background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
     background-size: cover;

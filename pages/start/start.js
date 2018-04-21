@@ -569,7 +569,7 @@ Page({
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
-      url: '../play/play?cid=' + cid,
+      url: '../play2/play?cid=' + cid,
     })
   },
 

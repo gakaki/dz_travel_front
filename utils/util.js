@@ -387,6 +387,7 @@ function shareTitle(type,par) {
   return title
 }
 
+
 //innerObj内部需要用到的变量
 //toShare分享链接上需要附带的变量
 function shareToIndex(that,innerObj,toShareLink) {
@@ -418,6 +419,31 @@ function shareToIndex(that,innerObj,toShareLink) {
   }
 }
 
+//秒转换成 天.小时.分钟'
+function secToTimeStr (sec, prefix = '') {
+    let str = ''
+    if (sec == 0) {
+        return prefix + str
+    }
+    else if (sec < 60) {
+        str = sec + '秒'
+    }
+    else if (sec < 3600) {
+        str = Math.floor(sec / 60) + '分钟'
+    }
+    else if (sec < 86400) {
+        let h = Math.floor(sec / 3600)
+        let m = sec % 3600
+        str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
+    }
+    else {
+        let d = Math.floor(sec / 86400)
+        let left = sec % 86400
+        str = d + '天' + secToTimeStr(left)
+    }
+
+    return prefix + str
+}
 
 
 
@@ -439,6 +465,7 @@ module.exports = {
   getUserInfo,
   formatNum,
   shareToIndex,
+  secToTimeStr,
   redGold,
   addGold,
   tplStr
