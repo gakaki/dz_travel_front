@@ -38,14 +38,15 @@ Page({
     flyInfo:{weather:'sun'},      //页面相关信息,默认给weather：sun，避免渲染层报错
     showHelp:false,
     invitee:false,
-    needItem:false
+    needItem:false,
+    enterOnshow:false
    },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
     console.log(options,'起飞界面options')
     if(options.type == TicketType.SINGLEPRESENT){
       onlySingle = true
@@ -222,10 +223,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.data.enterOnshow = true
     let that = this;
     //监听网络状态
     wx.onNetworkStatusChange(function (res) {
-      if (res.isConnected && reconnection && that.data.isDouble) {
+      if (res.isConnected && reconnection && that.data.isDouble && that.data.enterOnshow) {
         reconnection = false;
         Http.listen(PartnerInfo, that.parInfo, that, 1000, that.fillCode);
       }
@@ -241,6 +243,8 @@ Page({
   onHide: function () {
     clearInterval(time)
     console.log("onHide")
+    this.data.enterOnshow = false
+    // Http.unlisten(PartnerInfo, this.parInfo, this);
   },
 
   /**
@@ -252,6 +256,7 @@ Page({
     onlyDouble = false;
     onlySingle = false;
     preventFastClick = false;
+    this.data.enterOnshow = false;
     inviteCode = '';
     clearInterval(time);
     clearTimeout(timer);
