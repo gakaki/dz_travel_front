@@ -12,7 +12,8 @@ Page({
   data: {
     mapConWd: 750,
     mapConHt: 800,
-    content:'炫耀足迹'
+    content:'炫耀足迹',
+    mySelf:true
   },
 
   /**
