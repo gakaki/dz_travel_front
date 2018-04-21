@@ -5,7 +5,7 @@ let app = getApp()
 //dateType输出时间格式类型
 //1. 2018/03/09 
 //2. 2月1日 
-const formatTime = (date,dateType) => {
+const formatTime = (date, dateType) => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -15,7 +15,7 @@ const formatTime = (date,dateType) => {
 
   if (dateType == 1) {
     return [year, month, day].map(formatNumber).join('/')
-  } 
+  }
   else if (dateType == 2) {
     return month + '月' + day + '日'
   }
@@ -40,52 +40,52 @@ const formatNumber = n => {
 //
 // 第二种：当partens为数组时，每次匹配到数组里的元素后，取该元素在数组中的索引，使用fills里同索引位置的值进行替换
 // eg: tplStr('affabfff',['a','b'], 1,2) 输出=> '1ff12fff'
-function tplStr (source, partens, ...fills) {
+function tplStr(source, partens, ...fills) {
 
-    //如果是html格式，则顺便替换一下\n为<br/>
-    let regHtml = /\<.[^<>]*\>/
-    if (regHtml.test(source)) {
-        source = source.replace('/\\n/g', '<br/>')
-    }
+  //如果是html格式，则顺便替换一下\n为<br/>
+  let regHtml = /\<.[^<>]*\>/
+  if (regHtml.test(source)) {
+    source = source.replace('/\\n/g', '<br/>')
+  }
 
-    if (!fills.length) {
-        return source
-    }
+  if (!fills.length) {
+    return source
+  }
 
-    let parten;
-    let forArr = false;
-    if (typeof partens == 'string') {
-        parten = new RegExp(partens, 'g')
-    }
-    else if (partens.constructor == Array) {
-        //当作数组处理
-        parten = new RegExp('(' + partens.join('|') + ')', 'g');
-        forArr = true;
+  let parten;
+  let forArr = false;
+  if (typeof partens == 'string') {
+    parten = new RegExp(partens, 'g')
+  }
+  else if (partens.constructor == Array) {
+    //当作数组处理
+    parten = new RegExp('(' + partens.join('|') + ')', 'g');
+    forArr = true;
+  }
+  else {
+    //认为传进来的是正则表达式
+    parten = partens
+  }
+
+  let idx = 0
+  let maxIdx = fills.length - 1
+  return source.replace(parten, function (str, id) {
+    console.log(str, id)
+    if (forArr) {
+      idx = partens.indexOf(str)
+      return fills[idx]
     }
     else {
-        //认为传进来的是正则表达式
-        parten = partens
+      if (idx > maxIdx) {
+        idx = 0
+      }
+      return fills[idx++]
     }
-
-    let idx = 0
-    let maxIdx = fills.length - 1
-    return source.replace(parten, function (str, id) {
-        console.log(str, id)
-        if (forArr) {
-            idx = partens.indexOf(str)
-            return fills[idx]
-        }
-        else {
-            if (idx > maxIdx) {
-                idx = 0
-            }
-            return fills[idx++]
-        }
-    })
+  })
 }
 
 
-function care (obj, key, cb) {
+function care(obj, key, cb) {
   if (obj.__pKeys && obj.__pKeys.has(key)) {
     obj.__pKeys.get(key).add(cb);
   }
@@ -101,20 +101,20 @@ function care (obj, key, cb) {
     d.ctx = d.ctx || obj;
 
     // let oget,oset;
-    d._funGet = ()=>{
+    d._funGet = () => {
       if (d._oget) {
         return d._oget();
       }
-      else{
+      else {
         return d.value;
       }
     };
 
-    d._funSet = (v)=>{
+    d._funSet = (v) => {
       if (d._oset) {
         d._oset(v);
       }
-      else{
+      else {
         d.value = v;
       }
       d.ctx.__pKeys.get(key).forEach(c => {
@@ -137,16 +137,16 @@ function care (obj, key, cb) {
     else {
       //need define
       d = {
-        get:d._funGet,
-        set:d._funSet,
-        ctx:obj
+        get: d._funGet,
+        set: d._funSet,
+        ctx: obj
       };
       Object.defineProperty(obj, key, d);
     }
-    
+
   }
 
-  
+
 }
 
 //向下取整并保留两位小数；
@@ -164,7 +164,7 @@ function fixedNum(num) {
 }
 
 class Timeline {
-  constructor(delay, cb, ctx, autoStart = false){
+  constructor(delay, cb, ctx, autoStart = false) {
     this.delay = delay;
     this.cb = cb;
     this.ctx = ctx;
@@ -174,12 +174,12 @@ class Timeline {
     this.finished = false;
 
     autoStart && this.start();
-    
+
   }
 
   get root() {
     let _root = this;
-    while(_root.preve) {
+    while (_root.preve) {
       _root = _root.preve;
     }
     return _root;
@@ -187,7 +187,7 @@ class Timeline {
 
   get last() {
     let _last = this;
-    while(_last.next) {
+    while (_last.next) {
       _last = _last.next;
     }
     return _last;
@@ -196,7 +196,7 @@ class Timeline {
   start() {
     let startNode = this;
 
-    while(startNode.preve && !startNode.preve.started) {
+    while (startNode.preve && !startNode.preve.started) {
       startNode = startNode.preve;
     }
 
@@ -204,7 +204,7 @@ class Timeline {
       startNode.start();
     }
     else {
-      this.tmr = setTimeout(()=>{this.finishCall()}, this.delay);
+      this.tmr = setTimeout(() => { this.finishCall() }, this.delay);
       this.started = true;
     }
 
@@ -216,7 +216,7 @@ class Timeline {
       clearTimeout(this.tmr);
       this.tmr = null;
     }
-    if (!this.finished && callFinishCb ) {
+    if (!this.finished && callFinishCb) {
       this.ctx ? this.cb.call(this.ctx) : this.cb();
     }
 
@@ -290,23 +290,23 @@ function getRankFrame(season) {
   }
 }
 function getPersonFrame(rank) {
-    if (parseInt(rank) <= 6) {
-      return ''
-    } else return sheet.Stage.Get(parseInt(rank)).frame
+  if (parseInt(rank) <= 6) {
+    return ''
+  } else return sheet.Stage.Get(parseInt(rank)).frame
 }
-function spliceStr(v,n) {
-if(v.length >= n) {
-  let arr = v.split('')
-  arr.length = n-1
-  arr.push('...')
-  v = arr.join('')
-}
+function spliceStr(v, n) {
+  if (v.length >= n) {
+    let arr = v.split('')
+    arr.length = n - 1
+    arr.push('...')
+    v = arr.join('')
+  }
   return v
 }
 
 //获取用户信息
-function getUserInfo(app,_that) {
-  console.log(app,_that)
+function getUserInfo(app, _that) {
+  console.log(app, _that)
   if (app.globalData.userInfo) {
     console.log(1)
     _that.setData({
@@ -317,7 +317,7 @@ function getUserInfo(app,_that) {
   } else if (_that.data.canIUse) {
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
-    
+
     app.userInfoReadyCallback = res => {
       console.log(res)
       _that.setData({
@@ -345,7 +345,7 @@ const NUM_W = 9999
 const NUM_TEN_K = 9999999 //
 const NUM_HUN_M = 100000000//亿
 //limit  是否增加万级别的中文  true是万字转换
-export function formatNum(num, limit) {
+function formatNum(num, limit) {
   if (limit && num > NUM_W && num <= NUM_TEN_K) {
     let str = num / (NUM_W + 1)
     let arr = (str + '').split('.')
@@ -376,13 +376,13 @@ export function formatNum(num, limit) {
   }
 }
 
-function shareTitle(type,par) {
-  let titles = shares.filter(v=>{
+function shareTitle(type, par) {
+  let titles = shares.filter(v => {
     return v.type == type
   })
   let title = titles[parseInt(Math.random() * titles.length)].title;
-  if(par) {
-    title = title.replace('%s',par)
+  if (par) {
+    title = title.replace('%s', par)
   }
   return title
 }
@@ -390,15 +390,15 @@ function shareTitle(type,par) {
 
 //innerObj内部需要用到的变量
 //toShare分享链接上需要附带的变量
-function shareToIndex(that,innerObj,toShareLink) {
-  var innerObj = innerObj ? innerObj:{}
+function shareToIndex(that, innerObj, toShareLink) {
+  var innerObj = innerObj ? innerObj : {}
   if (!innerObj.type) innerObj.type = 1
-  var toShareLink = toShareLink ? toShareLink: {}
+  var toShareLink = toShareLink ? toShareLink : {}
   let nowPath = '/pages/index/index';
   let uid = app.globalData.userInfo.uid
-  if (!uid) { 
+  if (!uid) {
     uid = wx.getStorageSync('uid')
-  } 
+  }
   nowPath += '?shareUid=' + uid
   for (let k in toShareLink) {
     nowPath += '&' + k + '=' + toShareLink[k]
@@ -420,29 +420,30 @@ function shareToIndex(that,innerObj,toShareLink) {
 }
 
 //秒转换成 天.小时.分钟'
-function secToTimeStr (sec, prefix = '') {
-    let str = ''
-    if (sec == 0) {
-        return prefix + str
-    }
-    else if (sec < 60) {
-        str = sec + '秒'
-    }
-    else if (sec < 3600) {
-        str = Math.floor(sec / 60) + '分钟'
-    }
-    else if (sec < 86400) {
-        let h = Math.floor(sec / 3600)
-        let m = sec % 3600
-        str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
-    }
-    else {
-        let d = Math.floor(sec / 86400)
-        let left = sec % 86400
-        str = d + '天' + secToTimeStr(left)
-    }
-
+function secToTimeStr(sec, prefix = '') {
+  sec = sec >> 0;
+  let str = ''
+  if (sec == 0) {
     return prefix + str
+  }
+  else if (sec < 60) {
+    str = sec + '秒'
+  }
+  else if (sec < 3600) {
+    str = Math.floor(sec / 60) + '分钟'
+  }
+  else if (sec < 86400) {
+    let h = Math.floor(sec / 3600)
+    let m = sec % 3600
+    str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
+  }
+  else {
+    let d = Math.floor(sec / 86400)
+    let left = sec % 86400
+    str = d + '天' + secToTimeStr(left)
+  }
+
+  return prefix + str
 }
 
 

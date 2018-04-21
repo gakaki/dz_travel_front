@@ -42,5 +42,10 @@
 .full-font {
     color: #2689ff;
 }
+.hook {
+  width: 49rpx;
+  height: 36rpx;
+  flex-shrink: 0;
+}
 
 

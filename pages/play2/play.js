@@ -163,7 +163,7 @@ Page({
      */
     onShow: function () {
         if (this.data.partener || this.data.started) {
-            Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
+          //  Http.listen(PlayLoop, this.onPlayLoop, this, 1000);
         }
     },
 
@@ -295,7 +295,8 @@ Page({
 
                     allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
                     //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-                    Object.assign(n, o, {tracked, arriveStamp})
+                    Object.assign(n, o, {tracked, arriveStamp});
+                    olds[i] = n;
                 }
                 else {
                     //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -334,7 +335,7 @@ Page({
         let timeShowed = false;
         for (let i = 0; i < planedSpots.length; i++) {
             let s = planedSpots[i];
-            if (!s.tracked) {
+            if (s.arriveStamp && !s.tracked && !timeShowed) {
                 timeShowed = true;
                 s.arriveTime = secToTimeStr((s.arriveStamp - now) / 1000) + '后到达'
             }
@@ -362,7 +363,9 @@ Page({
         let spots = this.data.planedSpots.concat();
 
         let startPoint = this.data.startPoint;
-        startPoint.tracked = this.data.started;
+        startPoint.tracked = true;
+        let trackedNum = 1;
+
         spots.unshift(startPoint);//将起点加入
 
         let lines = [];
@@ -383,12 +386,16 @@ Page({
             let rotation = angle * 180 / Math.PI;
             let tracked = nxt.tracked;
             let p = {id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked};
+            if (tracked) {
+                trackedNum++;
+            }
 
             if (cur.tracked) {
                 roleTrackedSpot = cur;
                 roleTrackingSpot = nxt;
                 roleTrackingLineLength = wd;
                 roleTrackingAngle = angle;
+
             }
 
             lines.push(p);
@@ -398,12 +405,24 @@ Page({
         //update role pos
         let roleMe = this.data.roleMe;
         if (len > 0) {
+
+            if (this.data.planing) {
+                //如果正在规划路线，则保持人物原点不动
+                this.setData({lines});
+                return;
+            }
             let now = Base.servertime;
             let dtBefore = now - roleTrackedSpot.arriveStamp;
             let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
             let distBefore = roleTrackingLineLength * dtBefore / dtAll;
+            distBefore = Math.min(distBefore, roleTrackingLineLength);
+            distBefore = Math.max(0, distBefore);
             if (this.data.started) {
                 roleMe.walkCls = roleMe._walkCls
+            }
+            if (trackedNum == spots.length) {
+                //规划的路线已经走完
+                roleMe.walkCls = '';
             }
             roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
             roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -472,6 +491,14 @@ Page({
                     mask: true});
             }
         }
+        else {
+            //即没在游玩中，又没在规划路线状态，那应该是刚进入这个城市
+            wx.showToast({
+                title: '请先点击“规划路线”进行路线添加',
+                icon: 'none',
+                mask: true
+            })
+        }
     },
 
     touchMap() {
@@ -512,7 +539,7 @@ Page({
         }
 
         //恢复轮询
-        Http.listen(PlayLoop, this.onPlayLoop, this);
+      //  Http.listen(PlayLoop, this.onPlayLoop, this);
 
         this.setData({planing: false});
 

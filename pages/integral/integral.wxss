@@ -209,4 +209,9 @@
   background-size: cover;
   line-height: 80rpx;
 }
-  
+.tip {
+  padding-left: 28rpx;
+  width: 26rpx;
+  height: 26rpx;
+
+}  

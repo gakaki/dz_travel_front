@@ -14,7 +14,8 @@ Page({
     cfmStr:'确定',
     page:1,
     exchangeDetail:[],
-    audioC:null
+    audioC:null,
+    isShowIntro: false
 
   },
   /**
@@ -151,6 +152,16 @@ Page({
     }
     audio.autoplay = true
     audio.loop = false
+  },
+  showDesc() {
+    this.setData({
+      isShowIntro: true
+    })
+  },
+  hideDesc() {
+    this.setData({
+      isShowIntro: false
+    })
   },
 
   /**
