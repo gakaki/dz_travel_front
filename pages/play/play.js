@@ -1,7 +1,7 @@
 // pages/play/play.js
 const app = getApp();
 import { shareSuc, shareTitle, Timeline, shareToIndex } from '../../utils/util.js';
-import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base, Http, PlayLoop, FreshSpots, SetRouter, EventShow, ModifyRouter } from '../../api.js';
+import { TourIndexInfo, Season, FinishGuide, CheckGuide, Base, Http, PlayLoop, FreshSpots, SetRouter, EventShow, ModifyRouter, AnswerQuest } from '../../api.js';
 const sheet = require('../../sheets.js');
 let startPoint//起点
 let arr = []
@@ -27,6 +27,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    question: {},
+    per:0,//一段路中走的百分比,
     daojishi: '',//到达下一个景点的时间
     hasPlay: true,
     display: 0,
@@ -65,7 +67,6 @@ Page({
     isPop: false,
     isFirstIn: false,
     isGetPost: false,
-    canPhoto: false,
     isDialogQuestion: false,
     isCongratulations: false,
     isMissionOpen: false,
@@ -89,6 +90,7 @@ Page({
     if (djsTimer) clearInterval(djsTimer)
     Http.unlisten(PlayLoop, this.freshspots, this)
     beishu = 1
+    pointIds = []
     arr = []
     dian = []
     this.setData({
@@ -566,9 +568,6 @@ Page({
   start() {
     let pointArr = []
     dian = []
-    this.setData({
-      lineDown: false
-    })
     console.log('start', this.data.lineDown)
     if (this.data.dashedLine) {
       let spots = this.data.spots
@@ -577,17 +576,28 @@ Page({
       })
       linePointArr = spots.slice(-this.data.dashedLine.length)//选中的点
 
-      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y, idx: 0, time: startTime, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
+      pointArr[0] = { x: this.data.startPoint.x, y: this.data.startPoint.y,tracked: true, idx: 0, time: startTime, jiaodu: this.data.dashedLine[0].jiaodu, wid: this.data.dashedLine[0].wid }
       for (let i = 0; i < this.data.dashedLine.length; i++) {
-        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp }
+        pointArr[i + 1] = { x: this.data.dashedLine[i].x, y: this.data.dashedLine[i].y, idx: i + 1, jiaodu: this.data.dashedLine[i].jiaodu, wid: this.data.dashedLine[i].wid, time: linePointArr[i].arriveStamp, tracked: linePointArr[i].tracked}
       }
       this.setData({
         walkPoint: []
       })
+      if(this.data.lineDown) {
+        this.setData({
+          per: 1
+        })
+      }else {
+        this.setData({
+          per: 0
+        })
+      }
+      console.log(555)
       setTimeout(() => {
         this.setData({
           walkPoint: pointArr,
-          showWalk: true
+          showWalk: true,
+          lineDown: false
         })
       }, 30)
 
@@ -643,7 +653,7 @@ Page({
     reqs.fetch().then(req => {
 
 
-      // reqs.spots.splice(0, 1)
+      //  reqs.spots.splice(0, 1)
 
       let temptestArr = req.spots
       if (beishu == 2) {
@@ -671,6 +681,7 @@ Page({
         dashedLine: dashs
       })
       pointIds = pointIds.slice(0, num)
+
       app.globalData.gold = req.goldNum
       this.start()
     })
@@ -785,6 +796,7 @@ Page({
     //   })
     //    //if (aa == curDian) return
     pointIds.push(dSet.id)
+    console.log(pointIds)
     if (this.data.dashedLine.length == 0) {
       lastPoint = this.data.startPoint
     }
@@ -906,6 +918,20 @@ Page({
       isDialogQuestion: false
     })
   },
+  doAnswer(e) {
+    this.setData({
+      isDialogQuestion: false
+    })
+    console.log(e)
+    let req = new AnswerQuest()
+    req.id = e.detail.id
+    req.answer = e.detail.answer
+    // req.fetch().then(req => {
+      this.setData({
+        isCongratulations: true
+      // })
+    })
+  },
   hideisPop() {
     this.setData({
       isPop: false
@@ -937,11 +963,16 @@ Page({
       isFirstIn: false
     })
   },
-  hidePost() {
+  nextEvent() {
     this.setData({
-      isGetPost: false,
-      canPhoto: true
+      isCongratulations: false,
+      isGetPost: false
     })
+    let req = new EventShow()
+    req.cid = cid
+    // req.fetch().then(req => {
+   //展示下一事件
+      // })
   },
   notDo() {
     return

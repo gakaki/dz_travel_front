@@ -14,7 +14,10 @@ Component({
       type: Number,
       value: 0
     },
-
+    question: {
+      type: Object,
+      value: {}
+    },
     animated: {
       type: Boolean,
       value: true
@@ -62,7 +65,7 @@ Component({
         c: false,
         d: false,
       })
-      this.triggerEvent("right")
+      this.triggerEvent("right", { id: '1', answaer: 'aaa' })
     },
     tabTwo() {
       this.setData({
@@ -71,7 +74,7 @@ Component({
         c: false,
         d: false,
       })
-      this.triggerEvent("right")
+      this.triggerEvent("right", { id: '1', answaer: 'aaa' })
     },
     tabThree() {
       this.setData({
@@ -80,7 +83,7 @@ Component({
         c: true,
         d: false,
       })
-      this.triggerEvent("right")
+      this.triggerEvent("right", { id: '1', answaer: 'aaa' })
     },
     tabFour() {
       this.setData({
@@ -89,11 +92,9 @@ Component({
         c: false,
         d: true,
       })
-      this.triggerEvent("right")
+      this.triggerEvent("right",{id:'1',answaer:'aaa'})
     },
-    hide() {
-      this.triggerEvent("hidetip")
-    },
+
     hideModal: function (e) {
       if (e) {
         let type = e.currentTarget.dataset.type;
