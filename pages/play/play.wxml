@@ -11,7 +11,7 @@
     <view class="shi-line draw-line" wx:for='{{shixianArr}}' wx:key="{{index}}" style="{{item.style}}"></view>
 
     <view wx:if='{{showWalk}}'>
-      <walk bind:chufaEvt="touchEvt" evt="{{event}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
+      <walk bind:chufaEvt="touchEvt" evt="{{event}}" per="{{per}}" display='{{display}}' isDouble="{{isDouble}}" partnerSex="{{partnerSex}}" walkInfoArr="{{walkPoint}}" bind:lineWidth='chgWid' sex="{{gender}}"></walk>
     </view>
 
 
@@ -62,8 +62,9 @@
       <!-- <view class="btnBox f-r-sa">  -->
       <view class="travelTips font fontWhite font28" catchtap="toPr" hidden="{{isChg}}">旅行攻略</view>
 
-      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
+      
       <view class="start-icon font fontWhite  font32 " hidden="{{isStart == 1}}">{{lineDown?'游玩结束':'游玩中'}}</view>
+      <view class="travelStart font fontWhite  font32 " catchtap="startplay" hidden="{{ !isChg && isStart != 1 }}">开始游玩</view>
       <view class="tarvelProps font fontWhite font28" catchtap="toProps" hidden="{{isChg}}">旅行道具</view>
       <!-- </view>  -->
       <!-- 虚拟地图警告 -->
