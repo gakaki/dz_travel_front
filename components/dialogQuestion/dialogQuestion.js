@@ -5,7 +5,14 @@ Component({
   },
 
   properties: {
-
+    answers:{
+      type: Array,
+      value: []
+    },
+    answer:{
+      type: String,
+      value: ""
+    },
     coin: {
       type: Number,
       value: 0
