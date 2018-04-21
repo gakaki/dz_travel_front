@@ -263,26 +263,54 @@ Page({
   },
   //刷新到达下一个景点的剩余分钟数
   freshNextSpotTime() {
-    let spots = this.data.spots.map(o => {
-      if (typeof o.countdown != 'undefined') {
+    // let spots = this.data.spots.map(o => {
+    //   if (typeof o.countdown != 'undefined') {
 
-        if (o.countdown / 60 < 1) {
-          o.daojishi = o.countdown + '分钟'
-          if (o.countdown == 0) o.daojishi = ''
-        }
-        else {
-          let hour = parseInt(o.countdown / 60)
-          let minute = o.countdown % 60
-          o.daojishi = hour + '小时' + minute + '分钟'
-        }
-      }
-      return o
+    //     if (o.countdown / 60 < 1) {
+    //       o.daojishi = o.countdown + '分钟'
+    //       if (o.countdown == 0) o.daojishi = ''
+    //     }
+    //     else {
+    //       let hour = parseInt(o.countdown / 60)
+    //       let minute = o.countdown % 60
+    //       o.daojishi = hour + '小时' + minute + '分钟'
+    //     }
+    //   }
+    //   return o
+    // })
+
+    let arrs = this.data.spots.slice()
+    arrs.sort((x, y) => {
+      return x.index - y.index
     })
+    let count = 0
+    for (let i = 0; i < arrs.length; i++) {
+      if (arrs[i].index != -1) count++
+    }
+    arrs = arrs.slice(-count)//路线中的点
+    let curPoint = arrs.find(o=>{
+      return o.tracked == false
+    })
+
+    let min = Math.ceil((curPoint.arriveStamp - Base.servertime) / 60000)
+    let time = 0
+      if (min / 60 < 1) {
+        o.daojishi = o.countdown + '分钟'
+        if (o.countdown == 0) o.daojishi = ''
+      }
+      else {
+        let hour = parseInt(o.countdown / 60)
+        let minute = o.countdown % 60
+        o.daojishi = hour + '小时' + minute + '分钟'
+      }
+
+
+
     this.setData({
       spots: spots
     })
 
-    let time = 20//到达下一个景点要多少分钟
+    // let time = 20//到达下一个景点要多少分钟
     // this.daojishiFuc(time)
     
     //计时器

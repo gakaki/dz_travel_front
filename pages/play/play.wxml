@@ -124,7 +124,7 @@
             <text class="{{task.parterTour[0]>=task.parterTour[1] ?'cb': ''}}">旅友至少进行{{task.parterTour[1]}}次观光（{{task.parterTour[0]}}/{{task.parterTour[1]}}）</text>
           </view>
           <view class="gray-font play-rule-con rule3 mission-gray-font ml48">
-            <text class="{{task.photo[0] >= task.photo[1] ? 'cb':''}}">自己至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}），</text>
+            <text class="{{task.photo[0] <= task.photo[1] ? 'cb':''}}">自己至少进行{{task.photo[1]}}次拍照留念（{{task.photo[0]}}/{{task.photo[1]}}），</text>
             <text class="{{task.parterPhoto[0] >= task.parterPhoto[1] ? 'cb':''}}">旅友至少进行{{task.parterPhoto[1]}}次拍照留念（{{task.parterPhoto[0]}}/{{task.parterPhoto[1]}}）</text>
           </view>
         </view>
