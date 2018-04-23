@@ -4,6 +4,7 @@ import { City, Weather } from '../../sheets.js';
 import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
 const scaleMax = 2;
 let tapStamp;
+let display;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -13,6 +14,7 @@ const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
+const LoopTime = 2000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -73,7 +75,6 @@ Page({
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
     roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
-    roleCar: null,//买了车之后
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
@@ -120,10 +121,9 @@ Page({
     req.cid = options.cid;
 
     req.fetch().then(() => {
-
+      display = req.display
       let selfInfo = app.globalData.userInfo;
       let startPoint = Object.assign({ index: -1, img: startImg, arriveStamp: req.startTime }, req.startPos);
-      if (req.display == 0) {
         //小人儿
         let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
         this.genRoleCls(roleMe, selfInfo.gender);
@@ -138,13 +138,6 @@ Page({
         this.setData({
           roleMe
         })
-      } else {
-        let roleCar = { x: startPoint.x, y: startPoint.y, display: req.display };
-        this.genRoleCls(roleCar);
-        this.setData({
-          roleCar
-        })
-      }
 
 
       this.setData({
@@ -177,8 +170,10 @@ Page({
    */
   onShow: function () {
     if (this.data.partener || this.data.started) {
-      Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
+      Http.listen(PlayLoop, this.onPlayLoop, this, LoopTime);
+     
     }
+    this.freshSpots();
   },
 
   /**
@@ -255,7 +250,10 @@ Page({
     }
 
     //update role pos
-    let roleMe = this.data.roleMe;
+     let roleMe = this.data.roleMe;
+     if (this.data.roleCar) {
+        roleMe = this.data.roleCar
+     } 
     if (len > 0) {
 
       if (this.data.planing) {
@@ -283,6 +281,9 @@ Page({
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
 
       this.setData({ lines, roleMe });
+      if (this.data.roleCar) {
+        this.setData({ lines, roleCar: roleMe });
+      } else this.setData({ lines, roleMe });
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -315,7 +316,7 @@ Page({
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
-      obj.wd = 36;
+      obj.wd = 34;
       obj.ht = 81;
       obj.clipNum = 6;//动画帧数
       obj.scale = 1;
@@ -328,9 +329,10 @@ Page({
         obj.img += 'nan.png';
         obj.roleCls = 'play-role-nan';
         obj._walkCls = 'walk-nan';
-        obj.wd = 34;
+        obj.wd = 36;
       }
     } else {
+      this.data.roleFriend = null
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
@@ -413,14 +415,44 @@ Page({
       taskPer: rel * 100
     })
   },
-
+  updateIcon(obj) {
+    obj.img = resRoot; //如果租的有车，则换成车
+    if (obj.display == 1) {
+      obj.wd = 150;
+      obj.ht = 69;
+      obj.img += 'haohua.png';
+      obj.roleCls = 'play-role-haohua';
+      obj._walkCls = '';
+    } else if (obj.display == 2) {
+      obj.wd = 118;
+      obj.ht = 92;
+      obj.img += 'shangwu.png';
+      obj.roleCls = 'play-role-shangwu';
+      obj._walkCls = '';
+    } else if (obj.display == 3) {
+      obj.wd = 109;
+      obj.ht = 63;
+      obj.img += 'jingji.png';
+      obj.roleCls = 'play-role-jingji';
+      obj._walkCls = '';
+    }
+  },
   //刷新景点状态列表
   freshSpots() {
     let req = new FreshSpots();
+    
     req.fetch().then(() => {
       this.setData({ task: req.task })
-      this.updateSpots(req.spots);
-
+      this.updateSpots(req.spots, display);
+      if (req.display != 0 && display != req.display) {
+        let roleMe = this.data.roleMe
+        roleMe.display = req.display
+        this.updateIcon(roleMe)
+        this.setData({
+          roleMe
+        })
+      }
+      display = req.display
     })
 
     //更新任务进度
@@ -428,7 +460,10 @@ Page({
   },
 
   //更新景点状态列表
-  updateSpots(spots, updateLine = true) {
+  updateSpots(spots, show, updateLine = true) {
+
+    // //更新人物图标变化
+
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -522,7 +557,7 @@ Page({
     }
 
     //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
+    Http.listen(PlayLoop, this.onPlayLoop, this, LoopTime);
 
     this.setData({ planing: false });
 
