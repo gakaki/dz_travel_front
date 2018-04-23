@@ -36,14 +36,14 @@ Page({
     presentTkt:[],
     chooseInd: 0,
     showTicket:false,
-    showInvite:false
+    showInvite:false,
+    launch:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo(options);
@@ -171,6 +171,9 @@ Page({
       console.log('没有进入onload')
       this.gotUserInfo()
     }
+    this.setData({
+      launch: false
+    })
   },
 
   /**
