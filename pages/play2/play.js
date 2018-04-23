@@ -58,6 +58,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    weatherImg: '',
     startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
@@ -146,7 +147,7 @@ Page({
 
       this.setData({
         weatherImg: Weather.Get(req.weather).icon,
-        licheng: selfInfo.mileage,
+        licheng: req.mileage,
         season: app.globalData.season,
         startPoint,
         task: req.task,
