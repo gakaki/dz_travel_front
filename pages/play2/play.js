@@ -310,7 +310,7 @@ Page({
     let req = new FreshSpots();
     req.fetch().then(() => {
       this.setData({ task: req.task })
-      this.updateSpots(req.spots);
+      this.updateSpots(req.spots,diasplay);
 
     })
 
@@ -319,7 +319,7 @@ Page({
   },
 
   //更新景点状态列表
-  updateSpots(spots, updateLine = true) {
+  updateSpots(spots, diasplay, updateLine = true) {
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -517,7 +517,8 @@ Page({
     if (this.data.started) {
       if (spot.tracked) {
         //已经到达了，点击后进入观光
-        this.toTour(sid);
+        let name = e.currentTarget.dataset.name
+        this.toTour(sid,name);
       }
       else {
         wx.showToast({
@@ -701,9 +702,9 @@ Page({
     })
   },
   //到观光页面
-  toTour(sid) {
+  toTour(sid,name) {
     wx.navigateTo({
-      url: '../goSight/goSight?pointId=' + sid
+      url: '../goSight/goSight?pointId=' + sid + '&cid=' + this.data.cid + '&name=' + name
     })
   },
 

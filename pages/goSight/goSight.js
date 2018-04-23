@@ -44,6 +44,7 @@ Page({
    */
  
   onLoad: function (options) {
+    console.log(options)
     pointId = options.pointId
     cid = options.cid
     spotName = options.name
