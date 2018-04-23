@@ -1,7 +1,7 @@
 <!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
 <wxs src="../../../filter/tools.wxs" module="tools"></wxs>
-<view class="f-c-fs dialog_question" >
+<view class="f-c-fs dialog_question" wx:if="{{!showResult}}">
 
     <image src="{{picture}}" class="pic-box"></image>
 
@@ -15,9 +15,8 @@
 
 </view>
 
-
 <!--选择之后-->
-<view class="dialog-result" wx:if="{{showResult}}">
+<view class="dialog-result" wx:else>
     <view class="pic-box" >
         <image src="{{picture}}"></image>
         <view class="ten font">{{current}}/{{total}}</view>

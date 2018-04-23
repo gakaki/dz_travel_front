@@ -1,7 +1,6 @@
 // pages/play2/pops/eventNormal.js
 import {tplStr} from '../../../utils/util.js';
-const resRoot = 'https://gengxin.odao.com/update/h5/travel/';
-const app = getApp();
+const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/eventimg/';
 Component({
   /**
    * 组件的属性列表
@@ -49,9 +48,8 @@ Component({
     attached() {
     let quest = this.properties.quest;
       if (quest) {
-        let rewards = quest.rewards;
-        let pic   = app.getEventPicURL(quest.picture);
-        this.setData({picture: pic, content: tplStr(quest.describe, '%s', this.data.cityName), rewards});
+        let rewards = quest.rewards || '';
+        this.setData({picture: resRoot + quest.picture, content: tplStr(quest.describe, '%s', this.data.cityName), rewards});
       }
     }
 })
