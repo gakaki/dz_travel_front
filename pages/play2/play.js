@@ -4,6 +4,7 @@ import { City, Weather } from '../../sheets.js';
 import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
 const scaleMax = 2;
 let tapStamp;
+let display;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -13,6 +14,7 @@ const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
+const LOOP_INTERVAL = 1000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -56,6 +58,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
     double: false,//是否放大了
@@ -71,12 +74,12 @@ Page({
     spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
     planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-    roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
+    roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
-    roleCar: null,//买了车之后
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
+    planed:false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规则的景点是事都到达了
@@ -102,6 +105,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
@@ -120,10 +124,10 @@ Page({
     req.cid = options.cid;
 
     req.fetch().then(() => {
-
+      display = req.display
+      if (display != 0) app.globalData.hasCar = true
       let selfInfo = app.globalData.userInfo;
       let startPoint = Object.assign({ index: -1, img: startImg, arriveStamp: req.startTime }, req.startPos);
-      if (req.display == 0) {
         //小人儿
         let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
         this.genRoleCls(roleMe, selfInfo.gender);
@@ -138,13 +142,6 @@ Page({
         this.setData({
           roleMe
         })
-      } else {
-        let roleCar = { x: startPoint.x, y: startPoint.y, display: req.display };
-        this.genRoleCls(roleCar);
-        this.setData({
-          roleCar
-        })
-      }
 
 
       this.setData({
@@ -177,8 +174,11 @@ Page({
    */
   onShow: function () {
     if (this.data.partener || this.data.started) {
-      Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+     
     }
+    // if (this.data.started)
+    if (app.globalData.hasCar) this.freshSpots();
   },
 
   /**
@@ -254,8 +254,12 @@ Page({
 
     }
 
+    let planedFinished = this.data.planedFinished;
     //update role pos
-    let roleMe = this.data.roleMe;
+     let roleMe = this.data.roleMe;
+     if (this.data.roleCar) {
+        roleMe = this.data.roleCar
+     } 
     if (len > 0) {
 
       if (this.data.planing) {
@@ -264,8 +268,9 @@ Page({
         return;
       }
       let now = Base.servertime;
-      let dtBefore = now - roleTrackedSpot.arriveStamp;
-      let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
+      let beforeStamp = roleTrackedSpot.tracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
+      let dtBefore = now - beforeStamp;
+      let dtAll = roleTrackingSpot.arriveStamp - beforeStamp;
       let distBefore = roleTrackingLineLength * dtBefore / dtAll;
       distBefore = Math.min(distBefore, roleTrackingLineLength);
       distBefore = Math.max(0, distBefore);
@@ -273,16 +278,21 @@ Page({
         roleMe.walkCls = roleMe._walkCls
       }
       if (trackedNum == spots.length) {
-        this.data.planedFinished = true;
+        planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
+
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
       const halfPI = Math.PI / 2;
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
 
-      this.setData({ lines, roleMe });
+      this.setData({ lines, roleMe, planedFinished });
+      if (this.data.roleCar) {
+        this.setData({ lines, roleCar: roleMe ,planedFinished});
+      } else this.setData({ lines, roleMe ,planedFinished});
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -302,6 +312,7 @@ Page({
       this.setData({
         started: false,//设为非游玩状态
         planing: true, //设为编辑路线状态
+        planed: false,//是否完成了规划
         planedFinished: false,//
         planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
       })
@@ -315,7 +326,7 @@ Page({
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
-      obj.wd = 36;
+      obj.wd = 34;
       obj.ht = 81;
       obj.clipNum = 6;//动画帧数
       obj.scale = 1;
@@ -328,9 +339,10 @@ Page({
         obj.img += 'nan.png';
         obj.roleCls = 'play-role-nan';
         obj._walkCls = 'walk-nan';
-        obj.wd = 34;
+        obj.wd = 36;
       }
     } else {
+      
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
@@ -413,14 +425,45 @@ Page({
       taskPer: rel * 100
     })
   },
-
+  updateIcon(obj) {
+    obj.img = resRoot; //如果租的有车，则换成车
+    if (obj.display == 1) {
+      obj.wd = 150;
+      obj.ht = 69;
+      obj.img += 'haohua.png';
+      obj.roleCls = 'play-role-haohua';
+      obj._walkCls = '';
+    } else if (obj.display == 2) {
+      obj.wd = 118;
+      obj.ht = 92;
+      obj.img += 'shangwu.png';
+      obj.roleCls = 'play-role-shangwu';
+      obj._walkCls = '';
+    } else if (obj.display == 3) {
+      obj.wd = 109;
+      obj.ht = 63;
+      obj.img += 'jingji.png';
+      obj.roleCls = 'play-role-jingji';
+      obj._walkCls = '';
+    }
+  },
   //刷新景点状态列表
   freshSpots() {
     let req = new FreshSpots();
+    
     req.fetch().then(() => {
       this.setData({ task: req.task })
-      this.updateSpots(req.spots);
-
+      this.updateSpots(req.spots, display);
+      if (req.display != 0 && display != req.display) {
+        this.data.roleFriend = null
+        let roleMe = this.data.roleMe
+        roleMe.display = req.display
+        this.updateIcon(roleMe)
+        this.setData({
+          roleMe
+        })
+      }
+      display = req.display
     })
 
     //更新任务进度
@@ -428,7 +471,7 @@ Page({
   },
 
   //更新景点状态列表
-  updateSpots(spots, updateLine = true) {
+  updateSpots(spots, show, updateLine = true) {
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -445,10 +488,11 @@ Page({
           let n = spots[i];
           let tracked = n.tracked;
           let arriveStamp = n.arriveStamp;
+          let startime = n.startime;
 
           allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(n, o, { tracked, arriveStamp });
+          Object.assign(n, o, { tracked, arriveStamp,startime });
           olds[i] = n;
         }
         else {
@@ -511,7 +555,7 @@ Page({
 
   //提交路径到服务器
   sendPath() {
-    if (!this.data.planedSpots.length) {
+    if (!this.data.planed) {
       wx.showToast(
         {
           title: '请先规划路线',
@@ -522,7 +566,7 @@ Page({
     }
 
     //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
+    Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     this.setData({ planing: false });
 
@@ -561,6 +605,7 @@ Page({
     else if (this.data.planing) {
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
+          this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
         //render

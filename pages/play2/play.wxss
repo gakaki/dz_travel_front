@@ -186,28 +186,6 @@ width: 200rpx;
     transform: translate(-50%, -52%);
 }
 
-.zoomBtn {
-    width: 270rpx;
-    position: fixed;
-    left: 50%;
-    bottom: 240rpx;
-    transform: translate(-50%,0);
-}
-
-.zoomBtn .add {
-    width: 105rpx;
-    height: 70rpx;
-    background: url("https://gengxin.odao.com/update/h5/travel/play/add.png") 0 0 no-repeat;
-    background-size: cover;
-}
-
-.zoomBtn .minus {
-    width: 105rpx;
-    height: 70rpx;
-    background: url("https://gengxin.odao.com/update/h5/travel/play/minus.png") 0 0 no-repeat;
-    background-size: cover;
-}
-
 .weather {
     width: 46rpx;
     height: 46rpx;
@@ -263,6 +241,18 @@ width: 200rpx;
     left: 1rpx;
 }
 
+.distance {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30rpx;
+    width: 178rpx;
+    height: 54rpx;
+    position: fixed;
+    top: 20rpx;
+    left: 10rpx;
+    text-align: center;
+    z-index: 15;
+}
+
 .changeLine {
     background: url("https://gengxin.odao.com/update/h5/travel/play/changeLine.png") 0 0 no-repeat;
     background-size: cover;
@@ -277,6 +267,10 @@ width: 200rpx;
     right: 10rpx;
     position: absolute;
     top: 26rpx;
+}
+
+.continueLineText {
+    top: 38rpx;
 }
 
 .changeLineMoney {

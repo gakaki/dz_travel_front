@@ -32,7 +32,8 @@ Component({
       answers: [],
       showResult: false,
       correct: false,
-      rewards: null
+      rewards: null,
+      isShowGX: false //是否显示恭喜答对
   },
 
   /**
@@ -55,8 +56,8 @@ Component({
 
           let correct = req.correct;
           let rewards = req.rewards;
-
-          this.setData({ rewards, correct, showResult: true});
+          let isShowGX = req.quest.type == 3 ? true : false;
+          this.setData({ rewards, correct, isShowGX, showResult: true});
         })
       },
       getEventPicURL(reqQuestPictureURL) {
