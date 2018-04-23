@@ -1,7 +1,7 @@
 /* pages/play2/pops/eventNormal.wxss */
 .evt-con {
     width: 612rpx;
-    height: 880rpx;
+    min-height: 880rpx;
     overflow: hidden;
     border-radius: 40rpx;
     background-color: #fff;
