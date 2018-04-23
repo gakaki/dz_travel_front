@@ -585,7 +585,9 @@ Page({
 
   //点击景点
   tapSpot(e) {
-    let sid = e.currentTarget.dataset.sid;
+      let dataset = e.currentTarget.dataset;
+    let sid = dataset.sid;
+    let idxInSpots = dataset.index;
     let spot = this.data.spots.find(s => s.id == sid);
     console.log('click spot', spot)
 
@@ -610,6 +612,11 @@ Page({
           this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
+
+
+        this.setData({
+            [`spots[${idxInSpots}]`]: spot
+        });
         //render
         this.updateLines();
       }

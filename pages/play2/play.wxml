@@ -11,10 +11,11 @@
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
     </view>
     <!--景点-->
-    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
+    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" data-index="{{index}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
       <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
+      <text class="play-spot-idx flex" wx:if="{{ planing && item.index > -1}}">{{item.index + 1}}</text>
     </view>
     <!--小人.自己-->
     <view wx:if="{{roleMe }}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
