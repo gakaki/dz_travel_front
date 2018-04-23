@@ -12,7 +12,9 @@
     border: 8rpx solid #666;
     border-width: 0 0 8rpx 0;
 }
-
+.solid-line {
+border-radius: 4rpx
+}
 .dashed-line {
     border-style: dotted;
 }
@@ -25,6 +27,24 @@
 .play-role-nv {
     width: 34rpx;
     height: 81rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+.play-role-haohua {
+  width: 150rpx;
+    height: 69rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+.play-role-shangwu {
+  width: 118rpx;
+    height: 92rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+.play-role-jingji {
+  width: 109rpx;
+  height: 63rpx;
     background-repeat: no-repeat;
     overflow: visible;
 }
