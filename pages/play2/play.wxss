@@ -12,7 +12,9 @@
     border: 8rpx solid #666;
     border-width: 0 0 8rpx 0;
 }
-
+.solid-line {
+border-radius: 4rpx
+}
 .dashed-line {
     border-style: dotted;
 }

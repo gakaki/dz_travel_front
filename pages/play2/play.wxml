@@ -11,7 +11,7 @@
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
     </view>
     <!--景点-->
-    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
+    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
       <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
@@ -24,6 +24,7 @@
     <view wx:if="{{roleFriend}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform:rotate({{roleFriend.rotation}}deg) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -30rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
+    <!--单人或组队都只有一个车-->
     <view wx:if="{{roleCar}}" class="{{roleCar.roleCls}} {{roleCar.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleCar.img}});background-size:auto 100%;position:absolute;left:{{roleCar.x * scale}}rpx;top:{{roleCar.y * scale}}rpx;width:{{roleCar.wd * scale}}rpx;height:{{roleCar.ht * scale}}rpx;transform:scaleX({{roleCar.scale}}) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -50rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
