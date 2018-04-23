@@ -56,7 +56,7 @@
                 <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
                 <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
                 <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
-                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTraced}}">游玩结束</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTracked || planedFinished}}">游玩结束</view>
                 <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
             </view>
             <!-- 虚拟地图警告 -->

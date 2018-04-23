@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToTimeStr } from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
 const scaleMax = 2;
@@ -83,7 +83,7 @@ Page({
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规则的景点是事都到达了
-    spotsAllTraced: false, //地图上的所有景点是否都走过了
+    spotsAllTracked: false, //地图上的所有景点是否都走过了
     eventTipImg: resRoot + 'evts.png', // 事件气泡图标
     unreadEventCnt: 0, //未读事件数
     curEvtIdx: 1,//当前事件序号
@@ -317,6 +317,7 @@ Page({
         planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
       })
       console.log(this.data.planing)
+        this.updateLines()
     })
   },
 
@@ -391,21 +392,18 @@ Page({
       this.freshSpots();
     }
 
-    if (res.spotsAllTraced) {
-      //所有景点都走过了,前端表现是？
-      this.data.spotsAllTraced = true;
-      //后端会清掉景点的tracked状态
-    }
     if (res.newEvent) {
       //显示事件气泡
       let unreadEventCnt = this.data.unreadEventCnt;
       unreadEventCnt++;
       this.setData({ unreadEventCnt });
     }
-
+      //所有景点都走过了,前端表现是？
+    this.setData({spotsAllTracked: res.spotsAllTracked})
     if (!lineUpdated) {
       this.updateLines()
     }
+
 
   },
 
@@ -492,8 +490,7 @@ Page({
 
           allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(n, o, { tracked, arriveStamp,startime });
-          olds[i] = n;
+          Object.assign(o, n, o, { tracked, arriveStamp,startime });
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -535,7 +532,7 @@ Page({
       let s = planedSpots[i];
       if (s.arriveStamp && !s.tracked && !timeShowed) {
         timeShowed = true;
-        s.arriveTime = secToTimeStr((s.arriveStamp - now) / 1000) + '后到达'
+        s.arriveTime = secToDHM((s.arriveStamp - now) / 1000) + '后到达'
       }
       else {
         s.arriveTime = '';
