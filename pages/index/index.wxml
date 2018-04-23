@@ -1,7 +1,7 @@
 <!--pages/index/index.wxml-->
 
-<launch wx:if='{{launch}}'></launch>
-<block>
+<launch class='launch' wx:if='{{launch}}'></launch> 
+<block wx:else>
   <view class='wrap'>
   <view class="info f-r-sb">
     <view class="person flex">

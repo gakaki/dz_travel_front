@@ -171,9 +171,11 @@ Page({
       console.log('没有进入onload')
       this.gotUserInfo()
     }
-    this.setData({
-      launch: false
-    })
+    setTimeout(()=>{
+      this.setData({
+        launch: false
+      })
+    },1000)
   },
 
   /**
