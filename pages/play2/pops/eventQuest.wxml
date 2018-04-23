@@ -23,7 +23,7 @@
         <view class="ten font">{{current}}/{{total}}</view>
     </view>
     <view class="content-box" >
-        <text class="head-font congratulations-head-font ml14" wx:if="{{correct}}">恭喜答对</text>
+        <text class="head-font congratulations-head-font ml14" wx:if="{{isShowGX && correct}}">恭喜答对</text>
         <text class="head-font congratulations-head-font ml14" wx:else >再接再厉</text>
         <text class="gray-font congratulations-gray-font ml18" wx:if="{{rewards}}">{{tools.rewardStr(rewards)}}</text>
         <view class="btn-big-blue cfm-btn" catch:tap="toNext">下一事件</view>
