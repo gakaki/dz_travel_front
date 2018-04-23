@@ -180,7 +180,9 @@ Page({
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
     enterOnload = false;
-    this.data.isFirst = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   /**
@@ -190,7 +192,9 @@ Page({
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
     enterOnload = false;
-    this.data.isFirst = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   getIndexInfo(userInfo) {

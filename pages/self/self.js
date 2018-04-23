@@ -25,7 +25,8 @@ Page({
       icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
       url: '../travelLog/travelLog'
     }],
-    init:null
+    init:null,
+    isFirst:false
   },
 
   /**
@@ -39,6 +40,16 @@ Page({
     this.updateInfo()
     this.setData({
       isFirst: app.globalData.isFirst
+    })
+  },
+  onHide() {
+    this.setData({
+      isFirst: false
+    })
+  },
+  onUnload() {
+    this.setData({
+      isFirst: false
     })
   },
   toFly(e) {

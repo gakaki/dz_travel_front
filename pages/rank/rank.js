@@ -90,7 +90,8 @@ Page({
       rankSubtype,
       toView: 'rank0',
       noReward: false,
-      isFriend: false
+      isFriend: false,
+      isFirst: false
     })
   },
 
@@ -105,6 +106,9 @@ Page({
       rankType,
       rankSubtype,
       toView: 'rank0',
+      noReward: false,
+      isFriend: false,
+      isFirst: false
     })
   },
 
