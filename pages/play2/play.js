@@ -79,6 +79,7 @@ Page({
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
+    planed:false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规则的景点是事都到达了
@@ -267,8 +268,9 @@ Page({
         return;
       }
       let now = Base.servertime;
-      let dtBefore = now - roleTrackedSpot.arriveStamp;
-      let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
+      let beforeStamp = roleTrackedSpot.tracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
+      let dtBefore = now - beforeStamp;
+      let dtAll = roleTrackingSpot.arriveStamp - beforeStamp;
       let distBefore = roleTrackingLineLength * dtBefore / dtAll;
       distBefore = Math.min(distBefore, roleTrackingLineLength);
       distBefore = Math.max(0, distBefore);
@@ -279,6 +281,8 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
+
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -308,6 +312,7 @@ Page({
       this.setData({
         started: false,//设为非游玩状态
         planing: true, //设为编辑路线状态
+        planed: false,//是否完成了规划
         planedFinished: false,//
         planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
       })
@@ -468,9 +473,6 @@ Page({
   //更新景点状态列表
   updateSpots(spots, show, updateLine = true) {
 
-    // //更新人物图标变化
-
-
     let now = Base.servertime;
     if (this.data.spots.length) {
       let olds = this.data.spots;
@@ -486,10 +488,11 @@ Page({
           let n = spots[i];
           let tracked = n.tracked;
           let arriveStamp = n.arriveStamp;
+          let startime = n.startime;
 
           allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(n, o, { tracked, arriveStamp });
+          Object.assign(n, o, { tracked, arriveStamp,startime });
           olds[i] = n;
         }
         else {
@@ -552,7 +555,7 @@ Page({
 
   //提交路径到服务器
   sendPath() {
-    if (!this.data.planedSpots.length) {
+    if (!this.data.planed) {
       wx.showToast(
         {
           title: '请先规划路线',
@@ -602,6 +605,7 @@ Page({
     else if (this.data.planing) {
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
+          this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
         //render
