@@ -151,7 +151,7 @@ Page({
           })
           break;
         default:
-          this.tip('未知错误');
+          this.tip('未知错误，checkCode');
       }
     })
   }, 
@@ -265,7 +265,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork){
-            this.tip('未知错误');
+            this.tip('未知错误，indexInfo');
           }
       }
     })
@@ -322,7 +322,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误，LookTicket');
           }
       }
     })
