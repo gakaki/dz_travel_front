@@ -1,11 +1,12 @@
 /* pages/play2/pops/eventQuest.wxss */
 .dialog_question, .dialog-result{
     width: 610rpx;
-    height: 1100rpx;
+    min-height: 1100rpx;
     background-color: #fff;
     border-radius: 20rpx;
     overflow: hidden;
     padding: 20rpx;
+    position: relative;
 }
 
 .div_question {
@@ -32,10 +33,6 @@
     box-sizing: border-box;
 }
 
-.question {
-    padding: 30rpx 0rpx;
-}
-
 .pic-box {
     width: 580rpx;
     height: 446rpx;
@@ -51,25 +48,6 @@
     margin: 0 auto;
 }
 
-.point-pic {
-    width: 100%;
-    height: 100%;
-}
-
-.font_gray_big {
-    font: bold 76rpx 'Microsoft YaHei';
-    line-height: 76rpx;
-    text-align: center;
-    margin: 20rpx 0;
-    color: gray;
-}
-
-.font_black {
-    font: bold 50rpx 'Microsoft YaHei';
-    line-height: 50rpx;
-    color: black;
-    text-align: center;
-}
 
 .content-box {
     text-align: center;
@@ -89,51 +67,27 @@
 
 }
 
-.head-font, .gray-font {
-    font-size: 28rpx;
+.congratulations-head-font, .congratulations-gray-font {
     display: block;
-    text-align: justify;
     width: 100%;
-}
-
-.head-font {
     text-align: center;
-    margin: 50rpx auto 20rpx;
-    font-size: 32rpx;
-    font-weight: bold;
-}
-
-.gray-font {
-    color: gray;
-    text-align: left;
-    margin: 10rpx 10rpx 0 50rpx;
-    width: 86%;
-    text-indent: -1em;
+    margin-top: 50rpx;
 }
 
 .congratulations-head-font {
     font-size: 62rpx;
     line-height: 62rpx;
-    margin-bottom: 62rpx;
 }
 .congratulations-gray-font {
     font-size: 40rpx;
     line-height: 40rpx;
-    margin-bottom: 175rpx;
-    text-align: center;
-}
-.ml14 {
-    margin-left: 14rpx;
-}
-.ml18 {
-    margin-left: 18rpx;
-    line-height: 40rpx;
+    color: gray;
 }
 
 .btn-big-blue {
     position: absolute;
     left: 50%;
-    bottom: 10rpx;
+    bottom: 100rpx;
     width: 406rpx;
     height: 121rpx;
     transform: translate(-50%);
