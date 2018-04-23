@@ -6,7 +6,7 @@ const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
 let tktType , cid , terminal , tid , locationCid;
-let inviteOpt;
+let inviteOpt , getLocationCid = false;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -54,9 +54,12 @@ Page({
   toPlay(e) {
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
-    wx.navigateTo({
-      url: '../play2/play?cid=' + locationCid
-    })
+    if(getLocationCid){
+      wx.navigateTo({
+        url: '../play2/play?cid=' + locationCid
+      })
+    }
+    
   },
   //options主要为了处理分享出去进来的跳转设置
   gotUserInfo(options) {
@@ -175,6 +178,7 @@ Page({
    */
   onHide: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
+    getLocationCid = false;
     enterOnload = false
   },
 
@@ -183,6 +187,7 @@ Page({
    */
   onUnload: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
+    getLocationCid = false;
     enterOnload = false
   },
 
@@ -209,6 +214,10 @@ Page({
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
+
+      //加的保护，防止用户点击城市游玩时还没有获取到当前cid
+      getLocationCid = true
+
       this.setData({
         isFirst: req.isFirst,
         season,
