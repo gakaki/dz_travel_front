@@ -5,7 +5,7 @@
     background-color: #fff;
     border-radius: 20rpx;
     overflow: hidden;
-    padding: 20rpx;
+    padding: 20rpx 15rpx;
     position: relative;
 }
 
