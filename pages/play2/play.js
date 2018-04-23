@@ -8,7 +8,7 @@ const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
 const app = getApp();
-const GENDER_MALE = 1;
+const GENDER_FEMALE = 2;
 const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
@@ -73,6 +73,7 @@ Page({
         lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
         roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
         roleFriend :null,//组队好友{x,y, img, rotation, walk:Boolean}
+        roleCar: null,//买了车之后
         partener:null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
         task: null, //任务进度
         planing: false,//是否处于规划路线状态
@@ -121,22 +122,35 @@ Page({
 
             let selfInfo = app.globalData.userInfo;
             let startPoint = Object.assign({index: -1, img: startImg, arriveStamp: req.startTime}, req.startPos);
+            if (req.display == 0) {
             //小人儿
-            let roleMe = {x: startPoint.x, y: startPoint.y};
+            let roleMe = {x: startPoint.x, y: startPoint.y,display:req.display};
             this.genRoleCls(roleMe, selfInfo.gender);
             let roleFriend = null;//组队好友
-            if (req.partener) {
-                roleFriend = {x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET}
+              if (req.partener) {
+                roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
                 this.genRoleCls(roleFriend, req.partener.gender);
+                this.setData({
+                  roleFriend
+                })
+              }
+              this.setData({
+                roleMe
+              })
+            } else {
+                let roleCar = { x: startPoint.x, y: startPoint.y, display: req.display };
+                this.genRoleCls(roleCar);
+                this.setData({
+                  roleCar
+                })
             }
+            
 
             this.setData({
                 weatherImg: Weather.Get(req.weather).icon,
                 licheng: selfInfo.mileage,
                 season: app.globalData.season,
                 startPoint,
-                roleMe,
-                roleFriend,
                 task: req.task,
                 partener: req.partener,
                 mapBg: `${resRoot}bg/${city.picture}-1.jpg`
@@ -188,6 +202,7 @@ Page({
     },
     //根据性别，设置初始的人物cls
     genRoleCls(obj, gender) {
+      if ( obj.display == 0) {
         obj.img = resRoot; //如果租的有车，则换成车
         obj.roleCls = '';
         obj.walkCls = ''
@@ -195,17 +210,45 @@ Page({
         obj.ht = 81;
         obj.clipNum = 6;//动画帧数
         obj.scale = 1;
-        if (gender == GENDER_MALE) {
-            obj.img += 'nan.png';
-            obj.roleCls = 'play-role-nan';
-            obj._walkCls = 'walk-nan';
+        if (gender == GENDER_FEMALE) {
+          obj.img += 'nv.png';
+          obj.roleCls = 'play-role-nv';
+          obj._walkCls = 'walk-nv';
         }
         else {
-            obj.img += 'nv.png';
-            obj.roleCls = 'play-role-nv';
-            obj._walkCls = 'walk-nv';
-            obj.wd = 34;
+          obj.img += 'nan.png';
+          obj.roleCls = 'play-role-nan';
+          obj._walkCls = 'walk-nan';
+          obj.wd = 34;
         }
+      }else {
+        obj.img = resRoot; //如果租的有车，则换成车
+        obj.roleCls = '';
+        obj.walkCls = ''
+        obj.clipNum = 6;//动画帧数
+        obj.scale = 1;
+        if (obj.display == 1) {
+          obj.wd = 150;
+          obj.ht = 69;
+          obj.img += 'haohua.png';
+            obj.roleCls = 'play-role-haohua';
+            obj._walkCls = 'walk-nv';
+        } else if (obj.display == 2) {
+          obj.wd = 118;
+          obj.ht = 92;
+          obj.img += 'shangwu.png';
+          obj.roleCls = 'play-role-shangwu';
+          obj._walkCls = 'walk-nv';
+        } else if (obj.display == 3) {
+          obj.wd = 109;
+          obj.ht = 63;
+          obj.img += 'jingji.png';
+          obj.roleCls = 'play-role-jingji';
+          obj._walkCls = 'walk-nv';
+        }
+
+      }
+        
     },
 
     //轮询

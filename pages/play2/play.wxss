@@ -28,6 +28,24 @@
     background-repeat: no-repeat;
     overflow: visible;
 }
+.play-role-haohua {
+  width: 150rpx;
+    height: 69rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+.play-role-shangwu {
+  width: 118rpx;
+    height: 92rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
+.play-role-jingji {
+  width: 109rpx;
+  height: 63rpx;
+    background-repeat: no-repeat;
+    overflow: visible;
+}
 @keyframes role-clip-nan {
     100% {
         /*background-position: -218rpx 0;*/
