@@ -179,7 +179,8 @@ Page({
   onHide: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
-    enterOnload = false
+    enterOnload = false;
+    this.data.isFirst = false;
   },
 
   /**
@@ -188,7 +189,8 @@ Page({
   onUnload: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
-    enterOnload = false
+    enterOnload = false;
+    this.data.isFirst = false;
   },
 
   getIndexInfo(userInfo) {
