@@ -45,7 +45,8 @@ Component({
       choose(e) {
         let str = e.currentTarget.dataset.str;
         let req = new AnswerQuest();
-        req.id = this.data.quest.id;
+
+        req.id = this.data.quest.dbId;
         req.answer = str;
 
         req.fetch().then(()=> {
