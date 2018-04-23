@@ -51,7 +51,7 @@
         </view>
         <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
             <text class="fontWhite changeLineText font font26" >修改路线</text>
-            <text class="fontWhite changeLineMoney font font26" wx:if="{{started}}">$100</text>
+            <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
         </view>
         <!-- 按钮组 -->
         <view class="btnBoxWrap f-c-fs">

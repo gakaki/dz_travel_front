@@ -78,6 +78,7 @@ Page({
         planing: false,//是否处于规划路线状态
         started: false, //是否已经开始（规划完路线就算开始了）
         spotsTracked: 0, //有几个景点到达了,客户端维护
+        planedFinished: false,//当前规则的景点是事都到达了
         spotsAllTraced: false, //地图上的所有景点是否都走过了
         eventTipImg: resRoot + 'evts.png', // 事件气泡图标
         unreadEventCnt: 0, //未读事件数
@@ -398,6 +399,10 @@ Page({
                 roleTrackingLineLength = wd;
                 roleTrackingAngle = angle;
 
+                if (!nxt.tracked) {
+                    nxt.tracking = true;
+                }
+
             }
 
             lines.push(p);
@@ -423,6 +428,7 @@ Page({
                 roleMe.walkCls = roleMe._walkCls
             }
             if (trackedNum == spots.length) {
+                this.data.planedFinished = true;
                 //规划的路线已经走完
                 roleMe.walkCls = '';
             }
@@ -451,6 +457,7 @@ Page({
             this.setData({
                 started: false,//设为非游玩状态
                 planing: true, //设为编辑路线状态
+                planedFinished: false,//
                 planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
             })
             console.log(this.data.planing)
@@ -531,7 +538,7 @@ Page({
 
     //提交路径到服务器
     sendPath() {
-        if (!this.data.planedSpots) {
+        if (!this.data.planedSpots.length) {
             wx.showToast(
                 {
                 title: '请先规划路线',
@@ -551,6 +558,7 @@ Page({
 
         req.fetch().then(()=> {
             app.globalData.gold = req.goldNum;
+            this.data.startPoint.arriveStamp = req.startTime;
             this.updateSpots(req.spots);
         })
     },
