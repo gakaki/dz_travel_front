@@ -69,6 +69,7 @@ App({
     console.log(options);
   },
   globalData: {
+    hasCar: false,
     userInfo: null,
     season: '',
     weather: '',

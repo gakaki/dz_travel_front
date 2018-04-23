@@ -58,7 +58,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startPoint: null,
+    startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
     double: false,//是否放大了
@@ -74,7 +74,7 @@ Page({
     spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
     planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
-    roleMe: null,//自己{x,y, img, rotation, walk:Boolean}
+    roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     task: null, //任务进度
@@ -104,6 +104,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
@@ -123,6 +124,7 @@ Page({
 
     req.fetch().then(() => {
       display = req.display
+      if (display != 0) app.globalData.hasCar = true
       let selfInfo = app.globalData.userInfo;
       let startPoint = Object.assign({ index: -1, img: startImg, arriveStamp: req.startTime }, req.startPos);
         //小人儿
@@ -174,7 +176,8 @@ Page({
       Http.listen(PlayLoop, this.onPlayLoop, this, LoopTime);
      
     }
-    this.freshSpots();
+    // if (this.data.started)
+    if (app.globalData.hasCar) this.freshSpots();
   },
 
   /**
