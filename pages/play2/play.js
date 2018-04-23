@@ -14,7 +14,7 @@ const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LoopTime = 6000
+const LOOP_INTERVAL = 1000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -173,7 +173,7 @@ Page({
    */
   onShow: function () {
     if (this.data.partener || this.data.started) {
-      Http.listen(PlayLoop, this.onPlayLoop, this, LoopTime);
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
      
     }
     // if (this.data.started)
@@ -253,6 +253,7 @@ Page({
 
     }
 
+    let planedFinished = this.data.planedFinished;
     //update role pos
      let roleMe = this.data.roleMe;
      if (this.data.roleCar) {
@@ -275,7 +276,7 @@ Page({
         roleMe.walkCls = roleMe._walkCls
       }
       if (trackedNum == spots.length) {
-        this.data.planedFinished = true;
+        planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
       }
@@ -284,10 +285,10 @@ Page({
       const halfPI = Math.PI / 2;
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
 
-      this.setData({ lines, roleMe });
+      this.setData({ lines, roleMe, planedFinished });
       if (this.data.roleCar) {
-        this.setData({ lines, roleCar: roleMe });
-      } else this.setData({ lines, roleMe });
+        this.setData({ lines, roleCar: roleMe ,planedFinished});
+      } else this.setData({ lines, roleMe ,planedFinished});
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -562,7 +563,7 @@ Page({
     }
 
     //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, LoopTime);
+    Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     this.setData({ planing: false });
 
