@@ -14,7 +14,7 @@ const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LoopTime = 2000
+const LoopTime = 6000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -58,6 +58,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    startPoint: null,
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
     double: false,//是否放大了
@@ -332,7 +333,7 @@ Page({
         obj.wd = 36;
       }
     } else {
-      this.data.roleFriend = null
+      
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
@@ -445,6 +446,7 @@ Page({
       this.setData({ task: req.task })
       this.updateSpots(req.spots, display);
       if (req.display != 0 && display != req.display) {
+        this.data.roleFriend = null
         let roleMe = this.data.roleMe
         roleMe.display = req.display
         this.updateIcon(roleMe)
