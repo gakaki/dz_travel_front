@@ -45,7 +45,8 @@ Component({
       choose(e) {
         let str = e.currentTarget.dataset.str;
         let req = new AnswerQuest();
-        req.id = this.data.quest.id;
+
+        req.id = this.data.quest.dbId;
         req.answer = str;
 
         req.fetch().then(()=> {
@@ -57,13 +58,26 @@ Component({
 
           this.setData({ rewards, correct, showResult: true});
         })
-      }
+      },
+      getEventPicURL(reqQuestPictureURL) {
+        if (!reqQuestPictureURL) return reqQuestPictureURL;
+        let url = app.globalData.picBase + reqQuestPictureURL;
+        if (reqQuestPictureURL && reqQuestPictureURL.match(/\//)) { //有斜杠说明是正确的url 
+    
+        } else {
+          //不然就是6.jpg这种了
+          url = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
+        }
+        return url;
+      },
   },
-
+ 
     attached() {
         let quest = this.properties.quest;
         if (quest) {
-            this.setData({picture: resRoot + quest.picture, content: quest.describe, answers: quest.answers});
+            let pic   = this.getEventPicURL(quest.picture);
+            console.log(pic);
+            this.setData({picture:pic, content: quest.describe, answers: quest.answers});
         }
     }
 })

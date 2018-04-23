@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, Timeline, shareToIndex, secToTimeStr } from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToTimeStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
 const scaleMax = 2;
@@ -79,6 +79,7 @@ Page({
     planing: false,//是否处于规划路线状态
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
+    planedFinished: false,//当前规则的景点是事都到达了
     spotsAllTraced: false, //地图上的所有景点是否都走过了
     eventTipImg: resRoot + 'evts.png', // 事件气泡图标
     unreadEventCnt: 0, //未读事件数
@@ -200,6 +201,114 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+
+  //更新路线
+  updateLines(force = false) {
+    if (!this.data.planedSpots.length && !force) {
+      return;
+    }
+    let spots = this.data.planedSpots.concat();
+
+    let startPoint = this.data.startPoint;
+    startPoint.tracked = true;
+    let trackedNum = 1;
+
+    spots.unshift(startPoint);//将起点加入
+
+    let lines = [];
+    let roleTrackedSpot = spots[0];
+    let roleTrackingSpot = spots[1];
+    let roleTrackingLineLength = 0;
+    let roleTrackingAngle = 0;
+
+    let len = spots.length - 1;
+    for (let i = 0; i < len; i++) {
+      let cur = spots[i];
+      let nxt = spots[i + 1];
+
+      let dy = nxt.y - cur.y;
+      let dx = nxt.x - cur.x;
+      let wd = wd = Math.hypot(dy, dx);
+      let angle = Math.atan2(dy, dx);
+      let rotation = angle * 180 / Math.PI;
+      let tracked = nxt.tracked;
+      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked };
+      if (tracked) {
+        trackedNum++;
+      }
+
+      if (cur.tracked) {
+        roleTrackedSpot = cur;
+        roleTrackingSpot = nxt;
+        roleTrackingLineLength = wd;
+        roleTrackingAngle = angle;
+
+        if (!nxt.tracked) {
+          nxt.tracking = true;
+        }
+
+      }
+
+      lines.push(p);
+
+    }
+
+    //update role pos
+    let roleMe = this.data.roleMe;
+    if (len > 0) {
+
+      if (this.data.planing) {
+        //如果正在规划路线，则保持人物原点不动
+        this.setData({ lines });
+        return;
+      }
+      let now = Base.servertime;
+      let dtBefore = now - roleTrackedSpot.arriveStamp;
+      let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
+      let distBefore = roleTrackingLineLength * dtBefore / dtAll;
+      distBefore = Math.min(distBefore, roleTrackingLineLength);
+      distBefore = Math.max(0, distBefore);
+      if (this.data.started) {
+        roleMe.walkCls = roleMe._walkCls
+      }
+      if (trackedNum == spots.length) {
+        this.data.planedFinished = true;
+        //规划的路线已经走完
+        roleMe.walkCls = '';
+      }
+      roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+      roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+      const halfPI = Math.PI / 2;
+      roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
+
+      this.setData({ lines, roleMe });
+    }
+    else {
+      this.setData({ lines: null, 'roleMe.walkCls': '' })
+    }
+
+  },
+
+  //修改路线
+  chgLine() {
+    //暂停轮询
+    Http.unlisten(PlayLoop, this.onPlayLoop, this);
+
+    let req = new ModifyRouter();
+    req.fetch().then(() => {
+      app.globalData.gold = req.goldNum;
+      this.updateSpots(req.spots, false);
+      this.setData({
+        started: false,//设为非游玩状态
+        planing: true, //设为编辑路线状态
+        planedFinished: false,//
+        planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
+      })
+      console.log(this.data.planing)
+    })
+  },
+
   //根据性别，设置初始的人物cls
   genRoleCls(obj, gender) {
     if (obj.display == 0) {
@@ -310,7 +419,7 @@ Page({
     let req = new FreshSpots();
     req.fetch().then(() => {
       this.setData({ task: req.task })
-      this.updateSpots(req.spots,diasplay);
+      this.updateSpots(req.spots);
 
     })
 
@@ -319,7 +428,7 @@ Page({
   },
 
   //更新景点状态列表
-  updateSpots(spots, diasplay, updateLine = true) {
+  updateSpots(spots, updateLine = true) {
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -400,110 +509,31 @@ Page({
     updateLine && this.updateLines();
   },
 
-  //更新路线
-  updateLines(force = false) {
-    if (!this.data.planedSpots.length && !force) {
+  //提交路径到服务器
+  sendPath() {
+    if (!this.data.planedSpots.length) {
+      wx.showToast(
+        {
+          title: '请先规划路线',
+          icon: 'none',
+          mask: true
+        })
       return;
     }
-    let spots = this.data.planedSpots.concat();
 
-    let startPoint = this.data.startPoint;
-    startPoint.tracked = true;
-    let trackedNum = 1;
+    //恢复轮询
+    Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
 
-    spots.unshift(startPoint);//将起点加入
+    this.setData({ planing: false });
 
-    let lines = [];
-    let roleTrackedSpot = spots[0];
-    let roleTrackingSpot = spots[1];
-    let roleTrackingLineLength = 0;
-    let roleTrackingAngle = 0;
+    let req = new SetRouter();
+    req.cid = this.data.cid;
+    req.line = this.data.planedSpots.map(s => s.id);
 
-    let len = spots.length - 1;
-    for (let i = 0; i < len; i++) {
-      let cur = spots[i];
-      let nxt = spots[i + 1];
-
-      let dy = nxt.y - cur.y;
-      let dx = nxt.x - cur.x;
-      let wd = wd = Math.hypot(dy, dx);
-      let angle = Math.atan2(dy, dx);
-      let rotation = angle * 180 / Math.PI;
-      let tracked = nxt.tracked;
-      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked };
-      if (tracked) {
-        trackedNum++;
-      }
-
-      if (cur.tracked) {
-        roleTrackedSpot = cur;
-        roleTrackingSpot = nxt;
-        roleTrackingLineLength = wd;
-        roleTrackingAngle = angle;
-
-      }
-
-      lines.push(p);
-
-    }
-
-    //update role pos
-    let roleMe = this.data.roleMe;
-    if (this.data.roleCar) {
-      roleMe = this.data.roleCar
-    }
-    if (len > 0) {
-
-      if (this.data.planing) {
-        //如果正在规划路线，则保持人物原点不动
-        this.setData({ lines });
-        return;
-      }
-      let now = Base.servertime;
-      let dtBefore = now - roleTrackedSpot.arriveStamp;
-      let dtAll = roleTrackingSpot.arriveStamp - roleTrackedSpot.arriveStamp;
-      let distBefore = roleTrackingLineLength * dtBefore / dtAll;
-      distBefore = Math.min(distBefore, roleTrackingLineLength);
-      distBefore = Math.max(0, distBefore);
-      if (this.data.started) {
-        roleMe.walkCls = roleMe._walkCls
-      }
-      if (trackedNum == spots.length) {
-        //规划的路线已经走完
-        roleMe.walkCls = '';
-      }
-      roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
-      roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
-      const halfPI = Math.PI / 2;
-      roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
-
-      if (this.data.roleCar) {
-        this.setData({
-          lines,
-          roleCar: roleMe })
-      }else {this.setData({ lines, roleMe })}
-    }
-    else {
-      this.setData({ lines: null, 'roleMe.walkCls': '' })
-    }
-
-  },
-
-  //修改路线
-  chgLine() {
-    //暂停轮询
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-
-    let req = new ModifyRouter();
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots, false);
-      this.setData({
-        started: false,//设为非游玩状态
-        planing: true, //设为编辑路线状态
-        planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
-      })
-      console.log(this.data.planing)
+      this.data.startPoint.arriveStamp = req.startTime;
+      this.updateSpots(req.spots);
     })
   },
 
@@ -518,7 +548,7 @@ Page({
       if (spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name
-        this.toTour(sid,name);
+        this.toTour(sid, name);
       }
       else {
         wx.showToast({
@@ -581,32 +611,7 @@ Page({
     })
   },
 
-  //提交路径到服务器
-  sendPath() {
-    if (!this.data.planedSpots) {
-      wx.showToast(
-        {
-          title: '请先规划路线',
-          icon: 'none',
-          mask: true
-        })
-      return;
-    }
 
-    //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, 10000);
-
-    this.setData({ planing: false });
-
-    let req = new SetRouter();
-    req.cid = this.data.cid;
-    req.line = this.data.planedSpots.map(s => s.id);
-
-    req.fetch().then(() => {
-      app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots);
-    })
-  },
 
   //点击小人
   tapRole() {
@@ -702,7 +707,7 @@ Page({
     })
   },
   //到观光页面
-  toTour(sid,name) {
+  toTour(sid, name) {
     wx.navigateTo({
       url: '../goSight/goSight?pointId=' + sid + '&cid=' + this.data.cid + '&name=' + name
     })

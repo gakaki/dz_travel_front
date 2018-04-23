@@ -37,37 +37,37 @@
       <view class="minus" catch:tap="zoomminus"></view>
     </view>
   </view>
-  <!--控件-非规划路线状态-->
-  <view id="play-control-playing" wx:if="{{!planing}}" class="controll-layer">
-    <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
-    <!-- 提示 -->
-    <view class="tip" bindtap='popPlayIntro'></view>
-    <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='popMissionInfo'>
-      <text class="fontWhite missionText font font26">任务</text>
-      <view class="progressBox">
-        <view class="progressBar" style="width:{{taskPer}}%;"></view>
-      </view>
-    </view>
-    <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
-      <text class="fontWhite changeLineText font font26">修改路线</text>
-      <text class="fontWhite changeLineMoney font font26" wx:if="{{started}}">$100</text>
-    </view>
-    <!-- 按钮组 -->
-    <view class="btnBoxWrap f-c-fs">
+    <!--控件-非规划路线状态-->
+    <view id="play-control-playing" wx:if="{{!planing}}" class="controll-layer">
+        <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
+        <!-- 提示 -->
+        <view class="tip" bindtap='popPlayIntro'></view>
+        <!-- 屏幕边缘按钮 -->
+        <view class="mission f-c-fs" bindtap='popMissionInfo'>
+            <text class="fontWhite missionText font font26">任务</text>
+            <view class="progressBox">
+                <view class="progressBar" style="width:{{taskPer}}%;"></view>
+            </view>
+        </view>
+        <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
+            <text class="fontWhite changeLineText font font26" >修改路线</text>
+            <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
+        </view>
+        <!-- 按钮组 -->
+        <view class="btnBoxWrap f-c-fs">
 
-      <!-- 三个按钮 -->
-      <view class="btnBox f-r-sa">
-        <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTraced}}">游玩结束</view>
-        <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
-      </view>
-      <!-- 虚拟地图警告 -->
-      <view class="warningBox"></view>
+            <!-- 三个按钮 -->
+            <view class="btnBox f-r-sa">
+                <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTraced}}">游玩结束</view>
+                <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
+            </view>
+            <!-- 虚拟地图警告 -->
+            <view class="warningBox"></view>
+        </view>
     </view>
-  </view>
   <!--控件-规划路线-->
   <view id="play-control-editing" wx:else class="controll-layer">
     <view class="travelStart font fontWhite font32" catch:tap="sendPath">开始游玩</view>
