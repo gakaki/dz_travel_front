@@ -54,7 +54,7 @@
     <view class="hc cir"></view>
     <view id="postal" class="hc f-c-fs">
       <image class="post-pic" src="https://gengxin.odao.com/update/h5/travel/{{url}}"></image>
-      <text class="post-name">获得索菲亚教堂明信片一张</text>
+      <text class="post-name">获得{{spotName}}明信片一张</text>
       <text class="post-desc">明信片可用作收藏，分享给好友</text>
       <text class="post-desc">获得一张不同的明信片可增加100积分</text>
       <view class="btn-icon btn-big-blue" bindtap='hidePost'>确定</view>
