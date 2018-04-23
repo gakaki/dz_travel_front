@@ -587,10 +587,10 @@ Page({
   tapSpot(e) {
       let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
-    let idxInSpots = dataset.index;
     let spot = this.data.spots.find(s => s.id == sid);
     console.log('click spot', spot)
 
+    let idxInSpots = this.data.spots.indexOf(spot);
     //游玩中
     if (this.data.started) {
       if (spot.tracked) {
@@ -610,6 +610,7 @@ Page({
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
           this.data.planed = true;
+          console.log(this.data.planedSpots.length)
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
 
