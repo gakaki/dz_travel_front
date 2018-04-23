@@ -5,6 +5,7 @@ import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, Fre
 const scaleMax = 2;
 let tapStamp;
 let display;
+let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -106,11 +107,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
-
+    citysName = cityName
+    console.log(cityName)
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
@@ -741,7 +745,7 @@ Page({
   //到攻略页面
   toPr() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?cid=' + this.data.cid
+      url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到道具和特产页面
