@@ -114,7 +114,6 @@ Page({
     let city = City.Get(options.cid);
     let cityName = city.city;
     citysName = cityName
-    console.log(cityName)
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
