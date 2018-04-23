@@ -3,6 +3,7 @@
   "usingComponents": {
     "sign": "../../components/sign/sign",
     "cmap": "../../components/cmap/cmap",
+    "launch": "../../components/launch/launch",
     "tip": "../../components/buy/buy"
   }
 }
