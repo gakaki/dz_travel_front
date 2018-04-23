@@ -115,7 +115,7 @@ Page({
             break;
           default:
             if (!app.globalData.noNetwork) {
-              this.tip('未知错误');
+              this.tip('未知错误，PartnerInfo');
             }
         }
       })
@@ -213,7 +213,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误，createCode');
           }
       }
     })
@@ -289,7 +289,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误,轮询parInfo');
           }
       }
     }
@@ -439,7 +439,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误,startGame');
           }
       }
       preventFastClick = false;

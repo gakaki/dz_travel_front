@@ -151,7 +151,7 @@ Page({
           })
           break;
         default:
-          this.tip('未知错误');
+          this.tip('未知错误，checkCode');
       }
     })
   }, 
@@ -179,7 +179,10 @@ Page({
   onHide: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
-    enterOnload = false
+    enterOnload = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   /**
@@ -188,7 +191,10 @@ Page({
   onUnload: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
     getLocationCid = false;
-    enterOnload = false
+    enterOnload = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   getIndexInfo(userInfo) {
@@ -259,7 +265,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork){
-            this.tip('未知错误');
+            this.tip('未知错误，indexInfo');
           }
       }
     })
@@ -316,7 +322,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误，LookTicket');
           }
       }
     })
