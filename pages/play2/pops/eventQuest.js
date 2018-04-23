@@ -56,28 +56,16 @@ Component({
 
           let correct = req.correct;
           let rewards = req.rewards;
-          let isShowGX = req.quest.type == 3 ? true : false;
+          let isShowGX = req.type == 3 ? true : false;
           this.setData({ rewards, correct, isShowGX, showResult: true});
         })
-      },
-      getEventPicURL(reqQuestPictureURL) {
-        if (!reqQuestPictureURL) return reqQuestPictureURL;
-        let url = app.globalData.picBase + reqQuestPictureURL;
-        if (reqQuestPictureURL && reqQuestPictureURL.match(/\//)) { //有斜杠说明是正确的url 
-    
-        } else {
-          //不然就是6.jpg这种了
-          url = app.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
-        }
-        return url;
-      },
+      }
   },
  
     attached() {
         let quest = this.properties.quest;
         if (quest) {
-            let pic   = this.getEventPicURL(quest.picture);
-            console.log(pic);
+            let pic   = app.getEventPicURL(quest.picture);
             this.setData({picture:pic, content: quest.describe, answers: quest.answers});
         }
     }
