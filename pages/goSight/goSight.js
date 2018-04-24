@@ -83,6 +83,11 @@ Page({
       countBuzu: false
     })
   },
+  onUnload() {
+    this.setData({
+      countBuzu: false
+    })
+  },
   hideDialogQuestion() {
     this.setData({
       isDialogQuestion: false
@@ -98,7 +103,7 @@ Page({
   hideCongratulations() {
     isCongratulations: false
   },
-  guanguang() {
+  guanguang(e) {
 
     if (this.data.freeSight== 0) {
       if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
@@ -117,6 +122,7 @@ Page({
       // })
       // return
     }
+    if (app.preventMoreTap(e)) return
     let req = new SpotTour()
     req.cid = cid
     req.spotId = pointId

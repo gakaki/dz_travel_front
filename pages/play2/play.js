@@ -73,8 +73,8 @@ Page({
     cid: 0, //城市id
     cityName: '',
     mapBg: '', //背景图url
-    mapWidth: 750,
-    mapHeight: 1340,
+    mapWidth: 1125,
+    mapHeight: 2010,
     season: '', //季节
     weather: '',//天气图标
     licheng: 0, //里程,

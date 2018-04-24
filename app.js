@@ -10,9 +10,9 @@ App({
 
     //获取登录时的网络状态
     wx.getNetworkType({
-      success: function(res) {
+      success: function (res) {
         console.log(res.networkType)
-        if(res.networkType=='none'){
+        if (res.networkType == 'none') {
           that.globalData.noNetwork = true
           wx.showLoading({
             title: '请检查网络状态',
@@ -22,25 +22,25 @@ App({
     })
 
     //监听网络状态
-    wx.onNetworkStatusChange(function(res){
-      if (res.isConnected){
+    wx.onNetworkStatusChange(function (res) {
+      if (res.isConnected) {
         that.globalData.noNetwork = false
         wx.hideLoading()
       }
-      else{
+      else {
         that.globalData.noNetwork = true
         wx.showLoading({
           title: '请检查网络状态',
         })
       }
-      
+
     })
 
     // 登录
     wx.login({
       success: res => {
         console.log(res)
-        
+
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
@@ -65,7 +65,7 @@ App({
       }
     })
   },
-  onShow: function(options) {
+  onShow: function (options) {
     console.log(options);
   },
   globalData: {
@@ -74,15 +74,15 @@ App({
     season: '',
     weather: '',
     gold: 0,
-    cid:null,
-    cityName:null,
+    cid: null,
+    cityName: null,
     isFirst: false,
-    picBase:"https://gengxin.odao.com/update/h5/travel/",
-    noNetwork:false,
+    picBase: "https://gengxin.odao.com/update/h5/travel/",
+    noNetwork: false,
 
 
-    debug:{
-       share:true
+    debug: {
+      share: true
     }
   },
   //事件里的随机图片配置路径
