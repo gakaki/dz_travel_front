@@ -37,16 +37,13 @@ Page({
       url: '../props/props',
     })
   },
-  toMyXc() {
-    let path = '';
-    if(this.data.uid) {
-      path = '../xiangce/xiangce?uid='+this.data.uid
-    } else {
-      path = '../xiangce/xiangce'
+  toMyXc(e) {
+    if(!this.data.uid) {
+      wx.navigateTo({
+        url: '../xiangce/xiangce?province=' + e.currentTarget.dataset.province,
+      })
     }
-    wx.navigateTo({
-      url: path,
-    })
+   
   },
 
   /**
