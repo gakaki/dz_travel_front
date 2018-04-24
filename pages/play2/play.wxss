@@ -288,7 +288,7 @@ transform: rotateY(0) translateY(-50%);
 }
 
 .progressBar {
-  height: 16rpx;
+  height: 18rpx;
   background-color: #dbff13;
   border-radius: 30rpx;
   position: absolute;
