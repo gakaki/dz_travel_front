@@ -365,7 +365,6 @@ Page({
         planedFinished: false,//
         planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
       })
-      console.log(this.data.planing)
       this.updateLines()
     })
   },
