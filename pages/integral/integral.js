@@ -1,5 +1,5 @@
 // pages/integral/integral.js
-import { IntegralShop, ExchangeShop, GetUserLocation, GetRealInfo, ExchangeDetail, ExchangeDeadline} from '../../api.js';
+import { IntegralShop, ExchangeDetail} from '../../api.js';
 import { shareToIndex } from '../../utils/util.js';
 Page({
 
@@ -11,7 +11,6 @@ Page({
     exchange:false,
     exchangeCon:'',
     confirmAdress:false,
-    cfmStr:'确定',
     page:1,
     exchangeDetail:[],
     audioC:null,
@@ -25,7 +24,8 @@ Page({
     this.getUserInfo()
   },
   onShow:function(){
-    this.data.audioC = wx.createInnerAudioContext()
+    this.data.audioC = wx.createInnerAudioContext();
+    this.getUserInfo()
   },
   onHide() {
     this.data.audioC && this.data.audioC.destroy();
@@ -62,83 +62,9 @@ Page({
       })
     })
   }, 
-  exchange(e) {
-    let data = e.currentTarget.dataset;
-    this.setData({
-      exchange:true,
-      exchangeCon:'确定消耗'+data.int+'积分兑换'+data.name,
-      id: data.id
-    })
-  },
+ 
 
-  confirmExc() {
-    this.setData({
-      confirmAdress:false
-    })
-    let m = new ExchangeShop();
-    m.id = this.data.id;
-    m.tel = this.data.userInfo.phoneNumber;
-    m.addr = this.data.userInfo.address;
-    m.fetch().then(res=>{
-      console.log(res)
-      wx.showToast({
-        title: '兑换成功',
-      })
-      setTimeout(()=>{
-        this.getUserInfo(true)
-      },100)
-    })
-  },
-
-  toSetting() {
-    wx.navigateTo({
-      url: '../settings/settings?settings=true',
-    })
-    this.setData({
-      confirmAdress: false
-    })
-  },
-
-  _cancel() {
-    this.setData({
-      exchange:false
-    })
-  },
-  _confirm() {
-    if (this.data.cfmStr == '确定') {
-      let m = new GetUserLocation();
-      m.fetch().then(res => {
-        console.log(res)
-        let m = new GetRealInfo();
-        m.fetch().then(res=>{
-          console.log(res)
-          this.setData({
-            exchange: false,
-            confirmAdress: true,
-            userInfo: res.realInfo
-          })
-        })
-        
-      }).catch(res => {
-        if (res == -174) {
-          this.setData({
-            exchangeCon: '您尚未设置个人信息',
-            cfmStr: '前往设置'
-          })
-        }
-      })
-    } else {
-      wx.navigateTo({
-        url:'../settings/settings?settings=true'
-      })
-      this.setData({
-        exchange:false,
-        cfmStr: '确定'
-      })
-    }
-    
-    
-  },
+  
   lower(){
     this.getExchangeDetail()
   },
@@ -156,20 +82,25 @@ Page({
     this.setData({
       isShowIntro: true
     })
-    this.getEndtime()
+    // this.getEndtime()
   },
   hideDesc() {
     this.setData({
       isShowIntro: false
     })
   },
-  getEndtime(){
-    let m = new ExchangeDeadline();
-    m.fetch().then(m=>{
-      this.setData({
-        replaceC: m.endtime
-      })
-      console.log(this.data.replaceC)
+  // getEndtime(){
+  //   let m = new ExchangeDeadline();
+  //   m.fetch().then(m=>{
+  //     this.setData({
+  //       replaceC: m.endtime
+  //     })
+  //   })
+  // },
+  toDetail(e){
+    let data = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../exchangeDetail/exchangeDetail?id=' + data.id + '&integral=' + this.data.integral,
     })
   },
   /**

@@ -342,8 +342,8 @@ Page({
             isWaiting: false,
             partnerName: res.nickName,
             avatarSrc: res.avatarUrl,
-            players: [{ location: locationCid, img: userInfo.avatarUrl },
-            { location: partnerCid, img: res.avatarUrl }
+            players: [{ location: partnerCid, img: res.avatarUrl },
+            { location: locationCid, img: userInfo.avatarUrl }
             ]
           })
         }

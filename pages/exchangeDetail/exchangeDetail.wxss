@@ -1,0 +1,132 @@
+/* pages/exchangeDetail/exchangeDetail.wxss */
+.exchange{
+  /* overflow:hidden;
+  white-space:nowrap; */
+  width: 703rpx;
+  /* height: 428rpx; */
+  background-color: #fff;
+  margin-top: -50rpx;
+  padding-top: 92rpx;
+  border-radius: 20rpx;
+}
+.img {
+  width: 100%;
+  height: 520rpx;
+}
+.title-wrap {
+  margin: 0 20rpx;
+  border-bottom: 2rpx solid #b0afb3;
+  padding: 0 20rpx;
+  font: bold 34rpx/90rpx "Microsoft YaHei";
+}
+.need-integral {
+  color: #fc6161;
+}
+
+.info-wrap {
+  width: 710rpx;
+  height: 500rpx;
+}
+.info{
+  width: 710rpx;
+  height: 92rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+  color: #b0afb3;
+  font:bold 28rpx "Microsoft YaHei";
+}
+
+.info text{
+  margin-left: -20rpx;
+}
+
+.content{
+  font: bold 30rpx "Microsoft YaHei";
+  color: #b8b8b8;
+}
+.xinxi-wrap{
+  position: relative;
+  z-index: 11;
+  width: 100vw;
+  height: 100wh;
+}
+
+.tanchuang{
+  width: 610rpx;
+  height: 380rpx;
+  position: fixed;
+  z-index: 11;
+  left: 50%;
+  top: 50%;
+  margin: -190rpx 0 0 -305rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  border-right:2rpx solid #f2f2f2;
+}
+
+.xinxi{
+  width: 530rpx;
+  height: 194rpx;
+  margin-top: 30rpx;
+  margin-left: 32rpx;
+  font: bold 30rpx "Microsoft YaHei";
+  color: #b8b8b8;
+}
+
+.anniu{
+  width: 550rpx;
+  height: 113rpx;
+  margin-top: 50rpx;
+  margin-left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: bold 30rpx "Microsoft YaHei";
+  color: #fff;
+  text-align: center;
+}
+
+.xiugai{
+  width: 254rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-blue.png") 0 0 no-repeat;
+  background-size: cover;
+  line-height: 80rpx;
+}
+
+.quren{
+  width: 254rpx;
+  height: 113rpx;
+  background: url("https://gengxin.odao.com/update/h5/travel/props/btn-red.png") 0 0 no-repeat;
+  background-size: cover;
+  line-height: 80rpx;
+}
+.tip {
+  padding-left: 28rpx;
+  width: 26rpx;
+  height: 26rpx;
+
+}  
+.btn-wrap {
+  position: fixed;
+  left: 0;
+  bottom: -25rpx; 
+  height: 150rpx;
+  width: 100%;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.cut-off{
+  width: 100%;
+  height: 9rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.desc {
+  color: #b0afb3;
+  padding: 0 40rpx;
+  height: 220rpx;
+  font: bold 24rpx/44rpx 'Microsoft Yahei';
+}

@@ -1,0 +1,34 @@
+<!--pages/exchangeDetail/exchangeDetail.wxml-->
+<view>
+  <image class='img' src='https://gengxin.odao.com/update/h5/travel/exchange/1.jpg'></image> 
+  <!-- <image class='img' src='https://gengxin.odao.com/update/h5/travel/exchange/{{pic}}'></image>  -->
+  <view class='title-wrap f-r-sb'>
+    <text class='title'>{{shop.name}}</text>
+    <text class='need-integral'>{{shop.integral}}积分</text>
+  </view>
+  <srcoll-view class='desc' scroll-y>{{shop.introduce}}</srcoll-view>
+  <view class='btn-wrap' wx:if='{{!uid}}'>
+    <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
+    <view class='btn-big-blue' bindtap='exchange'>{{integral < shop.integral ?'积分不足':shop.integral + '积分'}}</view>
+  </view>
+</view>
+<buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
+<view class='xinxi-wrap' wx:if="{{confirmAdress}}">
+  <view class='mask'></view>
+    <view class="tanchuang">
+    <view class="xinxi f-c-fs">
+      <text class="fs">请核对快递信息</text>
+      <text class="fs">收件人：{{userInfo.name}}</text>
+      <text class="fs">手机号：{{userInfo.phoneNumber}}</text>
+      <text class="fs">收货地址：{{userInfo.address}}</text>
+    </view>
+    <view class="anniu ">
+      <view class="xiugai" bindtap='toSetting'>
+        <text>修改快递信息</text>
+      </view>
+      <view class="quren" bindtap='confirmExc'>
+        <text>确认</text>
+      </view>
+    </view>
+  </view>
+</view> 
