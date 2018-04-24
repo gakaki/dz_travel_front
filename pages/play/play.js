@@ -6,6 +6,7 @@ const scaleMax = 2;
 const scaleMin = 0.7;
 let tapStamp;
 let display;
+let music;
 let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
@@ -114,6 +115,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+ 
     this.huadong()
     app.globalData.hasCar = false
     this.data.cid = options.cid;
@@ -395,6 +401,11 @@ Page({
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
+      if (req.spotsAllTracked == 1) {
+        this.setData({
+          lines: []
+        })
+      }
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
@@ -471,7 +482,8 @@ Page({
       lineUpdated = true;
       this.freshSpots();
     }
-    else if (res.spotsTracked != this.data.spotsTracked) {
+     if (res.spotsTracked != this.data.spotsTracked) {
+      music.play()
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
       lineUpdated = true;
@@ -675,7 +687,6 @@ Page({
     let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
-    console.log('click spot', spot)
 
     //游玩中
     if (this.data.started) {
