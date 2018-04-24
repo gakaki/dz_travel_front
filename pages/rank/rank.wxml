@@ -13,7 +13,7 @@
     <view class="rank-item {{rankSubtype==1 ? '' : 'rank-choose'}}" bindtap='rankFriend'>好友排行榜</view>
   </view>
   <view class="top-three flex {{topThree.length==2 ? 'flex-left' : ''}}" wx:if="{{rankSubtype==1 && topThree.length}}">
-    <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
+    <image class="help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image> 
     <view class="{{index==0 ? 'first' : '' || index==1 ? 'second' : '' || index==2 ? 'third' : ''}}" wx:for="{{topThree}}" wx:key="{{index}}">
       <view class="mark">{{item.rank}}</view>
       <image class="avatar" src="{{item.userInfo.avatarUrl}}" bindtap='toOther' data-uid="{{item.userInfo.uid}}"></image>
@@ -89,6 +89,7 @@
   </view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
   <view class="f-c no-rank" wx:if="{{!topThree.length && !isFriend}}">
+    <image class="help no-rank-help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <image class="no-rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/no-rank.png"></image>
     <view class="tip-con">暂无排名</view>
     <view class="up-time">排行榜每日23:30更新</view>
