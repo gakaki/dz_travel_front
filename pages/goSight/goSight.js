@@ -96,8 +96,8 @@ Page({
   guanguang() {
 
     if (this.data.freeSight== 0) {
-
-      if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
+      console.log(app.globalData.gold)
+      if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
         this.setData({
           content: '金币不足,可前往充值',
           cfmStr: '前往充值',

@@ -345,3 +345,14 @@ width: 200rpx;
     margin-bottom: 5rpx;
 }
 
+.play-spot-idx {
+    position: absolute;
+    left: 50%;
+    top: -40rpx;
+    transform: translateX(-50%);
+    font: bold 34rpx 'Microsoft YaHei';
+    color: #fff;
+    text-shadow: #2e8cff 2rpx 0 0, #2e8cff 0 2rpx 0, #2e8cff -2rpx 0 0, #2e8cff 0 -2rpx 0;
+    z-index: 9;
+}
+

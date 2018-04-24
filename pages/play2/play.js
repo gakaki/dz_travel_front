@@ -5,6 +5,7 @@ import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, Fre
 const scaleMax = 2;
 let tapStamp;
 let display;
+let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -58,6 +59,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    weatherImg: '',
     startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
@@ -105,11 +107,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
-
+    citysName = cityName
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
@@ -146,7 +150,7 @@ Page({
 
       this.setData({
         weatherImg: Weather.Get(req.weather).icon,
-        licheng: selfInfo.mileage,
+        licheng: req.mileage,
         season: app.globalData.season,
         startPoint,
         task: req.task,
@@ -199,7 +203,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return shareToIndex(this)
   },
 
 
@@ -306,6 +310,7 @@ Page({
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
 
     let req = new ModifyRouter();
+    req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
@@ -580,10 +585,12 @@ Page({
 
   //点击景点
   tapSpot(e) {
-    let sid = e.currentTarget.dataset.sid;
+      let dataset = e.currentTarget.dataset;
+    let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
     console.log('click spot', spot)
 
+    let idxInSpots = this.data.spots.indexOf(spot);
     //游玩中
     if (this.data.started) {
       if (spot.tracked) {
@@ -603,8 +610,14 @@ Page({
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
           this.data.planed = true;
+          console.log(this.data.planedSpots.length)
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
+
+
+        this.setData({
+            [`spots[${idxInSpots}]`]: spot
+        });
         //render
         this.updateLines();
       }
@@ -739,13 +752,13 @@ Page({
   //到攻略页面
   toPr() {
     wx.navigateTo({
-      url: '../pointRaiders/pointRaiders?cid=' + this.data.cid
+      url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到道具和特产页面
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + this.data.cid
+      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到观光页面
