@@ -758,7 +758,7 @@ Page({
   //到道具和特产页面
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + this.data.cid
+      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到观光页面
