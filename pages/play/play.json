@@ -1,11 +1,12 @@
 {
   "usingComponents": {
-    "task": "../../../components/task/task",
-    "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
-    "walk":"/components/walk/walk",
     "directions": "/components/rankDirections/rankDirections",
+    "pop-event-normal": "./pops/eventNormal",
+    "pop-event-quest": "./pops/eventQuest",
+    "pop-free-rent": "./pops/freeRent",
+    "pop-got-post": "./pops/gotPost",
+    "pop-mission-info": "./pops/missionInfo",
     "guide":"/components/newbieGuide/newbieGuide",
-    "cfm": "../../components/buy/buy",
-"headbox": "../../components/head/head"
+    "cfm": "../../components/buy/buy"
   }
 }

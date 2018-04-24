@@ -20,8 +20,7 @@
     "pages/xiangce/xiangce",
     "pages/message/message",
     "pages/self/self",
-    "pages/footprint/footprint",
-    "pages/play2/play"
+    "pages/footprint/footprint"
   ],
   "window": {
     "backgroundTextStyle": "light",
