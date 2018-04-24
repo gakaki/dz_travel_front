@@ -78,6 +78,11 @@ Page({
     })
     this.checkMore()
   },
+  onHide() {
+    this.setData({
+      countBuzu: false
+    })
+  },
   hideDialogQuestion() {
     this.setData({
       isDialogQuestion: false

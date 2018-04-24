@@ -57,7 +57,6 @@
   background-repeat: no-repeat;
   overflow: visible;
 }
-
 @keyframes role-clip-nan {
   100% {
     /*background-position: -218rpx 0;*/
