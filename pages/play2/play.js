@@ -59,6 +59,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    trans: 'zheng',
+    hua: 'hua-rgt',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -169,6 +171,12 @@ Page({
 
     });
 
+  },
+  huadong() {
+    this.setData({
+      hua: this.data.hua == 'hua-rgt' ? 'hua-lf' :'hua-rgt',
+      trans: this.data.trans == 'zheng' ? '' : 'zheng'
+    })
   },
   hidePops() {
     this.setData({
@@ -330,6 +338,10 @@ Page({
 
   //添加或修改路线
   xiugaiLine() {
+    if (this.data.planedFinished || !this.data.started) {
+      this.chgLine()
+      return
+    }
     if (this.data.planedFinished) {
       this.chgLine()
       return
