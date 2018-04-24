@@ -1,5 +1,6 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page">
+ <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <!--地图-->
   <scroll-view id="play-map" scroll-x="{{true}}" scroll-y="{{true}}" scroll-with-animation='{{true}}' bind:tap="touchMap">
     <!--背景地图-->
@@ -44,7 +45,7 @@
                 <view class="progressBar" style="width:{{taskPer}}%;"></view>
             </view>
         </view>
-        <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
+        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started}}">
             <text class="fontWhite changeLineText font font26" wx:if="{{!planedFinished}}">修改路线</text>
             <text class="fontWhite changeLineText continueLineText font font26" wx:else>规划路线</text>
             <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>

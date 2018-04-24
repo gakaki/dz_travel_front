@@ -59,6 +59,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cfmStr: '',
+    cfmDesc: '是否花费100金币修改路线',
+    chgLines: false,//是否正在修改路线
     weatherImg: '',
     startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
@@ -81,7 +84,7 @@ Page({
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
-    planed:false,//是否完成了规划
+    planed: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规则的景点是事都到达了
@@ -107,8 +110,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-    
+
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
@@ -132,20 +134,20 @@ Page({
       if (display != 0) app.globalData.hasCar = true
       let selfInfo = app.globalData.userInfo;
       let startPoint = Object.assign({ index: -1, img: startImg, arriveStamp: req.startTime }, req.startPos);
-        //小人儿
-        let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
-        this.genRoleCls(roleMe, selfInfo.gender);
-        let roleFriend = null;//组队好友
-        if (req.partener) {
-          roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
-          this.genRoleCls(roleFriend, req.partener.gender);
-          this.setData({
-            roleFriend
-          })
-        }
+      //小人儿
+      let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
+      this.genRoleCls(roleMe, selfInfo.gender);
+      let roleFriend = null;//组队好友
+      if (req.partener) {
+        roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
+        this.genRoleCls(roleFriend, req.partener.gender);
         this.setData({
-          roleMe
+          roleFriend
         })
+      }
+      this.setData({
+        roleMe
+      })
 
 
       this.setData({
@@ -165,7 +167,25 @@ Page({
     });
 
   },
-
+  hidePops() {
+    this.setData({
+      chgLines: false
+    })
+  },
+  toCfm() {
+    if (app.globalData.gold> 100) {
+      this.chgLine()
+      return
+    }
+    else {
+      wx.navigateTo({
+        url: '../recharge/recharge'
+      })
+      this.setData({
+        chgLines: false
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -179,7 +199,7 @@ Page({
   onShow: function () {
     if (this.data.partener || this.data.started) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-     
+
     }
     // if (this.data.started)
     if (app.globalData.hasCar) this.freshSpots();
@@ -203,7 +223,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this)
+
   },
 
 
@@ -260,10 +280,10 @@ Page({
 
     let planedFinished = this.data.planedFinished;
     //update role pos
-     let roleMe = this.data.roleMe;
-     if (this.data.roleCar) {
-        roleMe = this.data.roleCar
-     } 
+    let roleMe = this.data.roleMe;
+    if (this.data.roleCar) {
+      roleMe = this.data.roleCar
+    }
     if (len > 0) {
 
       if (this.data.planing) {
@@ -295,8 +315,8 @@ Page({
 
       this.setData({ lines, roleMe, planedFinished });
       if (this.data.roleCar) {
-        this.setData({ lines, roleCar: roleMe ,planedFinished});
-      } else this.setData({ lines, roleMe ,planedFinished});
+        this.setData({ lines, roleCar: roleMe, planedFinished });
+      } else this.setData({ lines, roleMe, planedFinished });
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -304,25 +324,48 @@ Page({
 
   },
 
+  //添加或修改路线
+  xiugaiLine() {
+    if (this.data.planedFinished) {
+      this.chgLine()
+      return
+    }
+    if (app.globalData.gold < 100) {
+      this.setData({
+        chgLines: true,
+        cfmStr: '前往充值',
+        cfmDesc: '金币不足,可前往充值'
+      })
+      return
+    } else {
+      this.setData({
+        chgLines: true,
+        cfmStr: '确定'
+      })
+
+    }
+
+  },
   //修改路线
   chgLine() {
     //暂停轮询
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
 
     let req = new ModifyRouter();
+    req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
       this.setData({
+        chgLines: false,
         started: false,//设为非游玩状态
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
         planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
       })
-      console.log(this.data.planing)
-        this.updateLines()
+      this.updateLines()
     })
   },
 
@@ -348,7 +391,7 @@ Page({
         obj.wd = 36;
       }
     } else {
-      
+
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = ''
@@ -403,8 +446,8 @@ Page({
       unreadEventCnt++;
       this.setData({ unreadEventCnt });
     }
-      //所有景点都走过了,前端表现是？
-    this.setData({spotsAllTracked: res.spotsAllTracked})
+    //所有景点都走过了,前端表现是？
+    this.setData({ spotsAllTracked: res.spotsAllTracked })
     if (!lineUpdated) {
       this.updateLines()
     }
@@ -453,7 +496,7 @@ Page({
   //刷新景点状态列表
   freshSpots() {
     let req = new FreshSpots();
-    
+
     req.fetch().then(() => {
       this.setData({ task: req.task })
       this.updateSpots(req.spots, display);
@@ -495,7 +538,7 @@ Page({
 
           allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(o, n, o, { tracked, arriveStamp,startime });
+          Object.assign(o, n, o, { tracked, arriveStamp, startime });
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -577,7 +620,6 @@ Page({
     req.line = this.data.planedSpots.map(s => s.id);
 
     req.fetch().then(() => {
-      app.globalData.gold = req.goldNum;
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
     })
@@ -585,7 +627,7 @@ Page({
 
   //点击景点
   tapSpot(e) {
-      let dataset = e.currentTarget.dataset;
+    let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
     console.log('click spot', spot)
@@ -609,14 +651,14 @@ Page({
     else if (this.data.planing) {
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
-          this.data.planed = true;
-          console.log(this.data.planedSpots.length)
+        this.data.planed = true;
+        console.log(this.data.planedSpots.length)
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
 
 
         this.setData({
-            [`spots[${idxInSpots}]`]: spot
+          [`spots[${idxInSpots}]`]: spot
         });
         //render
         this.updateLines();
@@ -758,7 +800,7 @@ Page({
   //到道具和特产页面
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
+      url: '../props/props?cid=' + this.data.cid
     })
   },
   //到观光页面
