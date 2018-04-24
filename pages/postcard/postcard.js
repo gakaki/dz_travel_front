@@ -17,7 +17,7 @@ Page({
     let m = new MyPostcards();
     if(options.uid) {
       wx.setNavigationBarTitle({
-        title: "TA的明信片"
+        title: "明信片"
       })
 
       m.playerUid = options.uid;
