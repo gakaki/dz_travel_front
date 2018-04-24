@@ -40,8 +40,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
-      toNext() {
-          this.triggerEvent('next');
+      toNext(e) {
+        console.log(e)
+        this.triggerEvent('next', { cur: e.currentTarget.dataset.current});
       },
       choose(e) {
         let str = e.currentTarget.dataset.str;

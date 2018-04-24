@@ -776,7 +776,13 @@ Page({
     }
   },
 
-  toNextEvent() {
+  toNextEvent(e) {
+
+console.log(e)
+    if (e.detail.cur == 1) {
+      this.hidePop();
+      return
+    }
     this.hidePop();
     this.fetchEvent();
   },

@@ -39,9 +39,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-      toNext() {
+      toNext(e) {
+        console.log(e)
           // if(this.data.quest.rewards.find(kv => kv.k == ))
-        this.triggerEvent('next');
+        this.triggerEvent('next', { cur: e.currentTarget.dataset.current});
       }
   },
 
