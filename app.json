@@ -21,7 +21,8 @@
     "pages/message/message",
     "pages/self/self",
     "pages/footprint/footprint",
-    "pages/play2/play"
+    "pages/play2/play",
+    "pages/exchangeDetail/exchangeDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

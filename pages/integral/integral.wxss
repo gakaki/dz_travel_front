@@ -68,18 +68,19 @@
 }
 
 .exchange{
-  overflow:hidden;
-  white-space:nowrap;
+  /* overflow:hidden;
+  white-space:nowrap; */
   width: 703rpx;
-  height: 428rpx;
+  /* height: 428rpx; */
   background-color: #fff;
   margin-top: -50rpx;
+  padding-top: 92rpx;
   border-radius: 20rpx;
 }
 
 .items{
   display: inline-block;
-  margin-top: 92rpx;
+  margin-bottom: 60rpx; 
   width: 233rpx;
   height: 301rpx;
   background-color: #fff;

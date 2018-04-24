@@ -17,18 +17,18 @@
     </view>
     <view class='pd'>本期积分兑换</view>
   </view>
-  <scroll-view scroll-x class='exchange bs'>
-    <view class="items {{index==shops.length-1 ? 'last-item' : ''}}" wx:for="{{shops}}" wx:key="{{index}}">
+  <view class='exchange bs'>
+    <view class="items {{index==shops.length-1 ? 'last-item' : ''}}" bindtap='toDetail' data-id='{{item.id}}' wx:for="{{shops}}" wx:key="{{index}}">
       <view>
         <image class='goods-tu' src="{{item.url}}"></image>
       </view>
       <view class="goods-zi">{{tools.filterNickname(item.name)}}</view>
       <view class="goods-fen">{{item.integral}}积分</view>
-      <view class="goods-anniu" bindtap='exchange' data-id='{{item.id}}' data-int="{{item.integral}}" data-name="{{item.name}}">
+      <view class="goods-anniu">
         <text>兑换</text>
       </view>
     </view>
-  </scroll-view >
+  </view >
   <view class='title'>
     <text>兑换详情</text>
   </view>
@@ -41,26 +41,8 @@
     </view>
   </scroll-view>
   <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
-  <view class='xinxi-wrap' wx:if="{{confirmAdress}}">
-    <view class='mask'></view>
-     <view class="tanchuang">
-      <view class="xinxi f-c-fs">
-        <text class="fs">请核对快递信息</text>
-        <text class="fs">收件人：{{userInfo.name}}</text>
-        <text class="fs">手机号：{{userInfo.phoneNumber}}</text>
-        <text class="fs">收货地址：{{userInfo.address}}</text>
-      </view>
-      <view class="anniu ">
-        <view class="xiugai" bindtap='toSetting'>
-          <text>修改快递信息</text>
-        </view>
-        <view class="quren" bindtap='confirmExc'>
-          <text>确认</text>
-        </view>
-      </view>
-    </view>
-  </view> 
+
 </view>
 <view wx:if="{{isShowIntro}}" class="pop-bg">
-  <directions helpId="6" resHeight="680" replaceC='{{replaceC}}' title="兑换规则" bind:confirm='hideDesc'></directions>
+  <directions helpId="6" resHeight="680" title="兑换规则" bind:confirm='hideDesc'></directions>
 </view>
