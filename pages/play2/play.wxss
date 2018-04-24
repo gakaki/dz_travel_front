@@ -80,10 +80,12 @@ weather.sights {
 .fontWhite {
     font: normal 30rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .zi {
     font: normal 26rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .font34 {
     font-size: 34rpx;
@@ -136,7 +138,8 @@ weather.sights {
     background-color: rgba(0,0,0,0.5);
     transform: translate(-50%, 0%); */
 
-width: 200rpx;
+/* width: 200rpx; */
+padding: 0 10rpx;
   height: 46rpx;
   border-radius: 10rpx;
   background-color: rgba(0, 0, 0, 0.5);

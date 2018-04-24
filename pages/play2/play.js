@@ -115,6 +115,9 @@ Page({
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
+    wx.setNavigationBarTitle({
+      title: cityName + '游玩'
+    })
     citysName = cityName
     let m = new CheckGuide();
     m.fetch().then(res => {
