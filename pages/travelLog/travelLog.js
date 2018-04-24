@@ -12,7 +12,7 @@ Page({
   data: {
     init:[],
     index:1,
-    uid:'',
+    uid:null,
     hasInfo:true
   },
   /**
@@ -20,8 +20,11 @@ Page({
    */
   onLoad: function (options) {
     if (options.uid) {
-      this.data.uid = options.uid;
+      this.setData({
+        uid:options.uid
+      })
     }
+    console.log(this.data.uid)
     this.getData()
   },
   getData(){
@@ -39,7 +42,6 @@ Page({
           init: logs,
           myIdx: 'myIdx' + (req.allLogs.length - 1)
         })
-        console.log(this.data.myIdx)
         this.data.index = this.data.index + 1;
         if (logs.length < length) {
           this.data.hasInfo = false

@@ -31,6 +31,9 @@
   width: 100vw;
   height: 1076rpx; 
 }
+.reach-city-big {
+ height: 1180rpx; 
+}
 .year {
   position: absolute;
   right: 20rpx;

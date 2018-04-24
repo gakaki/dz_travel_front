@@ -6,7 +6,7 @@
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
     <button class='share-icon share-btn' open-type='share'></button>
   </view>
-  <scroll-view class='reach-city' scroll-y='true' scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
+  <scroll-view class='reach-city {{uid?"reach-city-big ":""}}' scroll-y='true' scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
     <view class='start'>
       <view class='mark mark-start'>起</view>
     </view>
@@ -30,7 +30,7 @@
       </view> 
     </view> 
   </scroll-view> 
-  <view class='btn-wrap'>
+  <view class='btn-wrap' wx:if='{{!uid}}'>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
     <view class='btn-big-blue' bindtap='toCity'>城市攻略</view>
   </view>
