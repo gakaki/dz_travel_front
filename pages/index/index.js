@@ -70,7 +70,6 @@ Page({
       let m = new SignInfo()
       m.fetch().then(res => {
         console.log(res, '签到数据')
-        
         if(res.hasSign){
           this.getIndexInfo(userInfo)
         }
@@ -81,7 +80,6 @@ Page({
             uid: userInfo.uid
           })
         }
-
         options && this.shareTo(options)
       })
       
