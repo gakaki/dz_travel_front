@@ -79,6 +79,11 @@ App({
     isFirst: false,
     picBase:"https://gengxin.odao.com/update/h5/travel/",
     noNetwork:false,
+
+
+    debug:{
+       share:true
+    }
   },
   //事件里的随机图片配置路径
   getEventPicURL(reqQuestPictureURL) {

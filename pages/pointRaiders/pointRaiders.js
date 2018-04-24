@@ -1,6 +1,6 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
-const LIMIT = 5;
+const LIMIT = 3;
 import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let cid = ''
@@ -18,7 +18,8 @@ Page({
   jdArr:[],
   index1:1,
   index2:1,
-  v:1
+  v:1,
+  first:true
   },
 
   /**
@@ -41,13 +42,16 @@ Page({
     }
     
     wx.setNavigationBarTitle({
-      title: options.city+'攻略'
+      title: options.city+'攻略',
+      first:false
     })
    
   },
   onShow(){
-    console.log(this.data.v)
-    this.pullList(this.data.v)
+    if(!this.data.first) {
+      this.pullList(this.data.v)
+    }
+    
   },
   pullList(v) {
     let req = new PostList()
@@ -57,7 +61,7 @@ Page({
     } else{
       req.page = this.data.index2
     }
-    req.limit = LIMIT
+    // req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
       console.log(req)
@@ -88,17 +92,17 @@ Page({
     wx.navigateTo({
       url: '../raiders/raiders?cityId=' + e.currentTarget.dataset.cityId + '&postId=' + e.currentTarget.dataset.postId + '&type=' + e.currentTarget.dataset.type + '&name=' + e.currentTarget.dataset.name
     })
-    if(this.data.v == 1) {
-      this.setData({
-        index1: 1,
-        postArr:[]
-      })
-    } else {
-      this.setData({
-        index2: 1,
-        jdArr: []
-      })
-    }
+    // if(this.data.v == 1) {
+    //   this.setData({
+    //     index1: 1,
+    //     postArr:[]
+    //   })
+    // } else {
+    //   this.setData({
+    //     index2: 1,
+    //     jdArr: []
+    //   })
+    // }
   },
   chgTab(e) {
     if(e.currentTarget.dataset.id == 1) {
@@ -106,14 +110,18 @@ Page({
         viewpoint: true,
         specialty: false,
         index1:1,
-        v:1
+        v:1,
+        postArr: [],
+        jdArr: []
       })
     } else {
       this.setData({
         viewpoint: false,
         specialty: true,
         index2: 1,
-        v:2
+        v:2,
+        postArr: [],
+        jdArr: []
       })
     }
     if(!this.data.specialty) {
