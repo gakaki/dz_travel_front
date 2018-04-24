@@ -3,6 +3,7 @@ import { shareSuc, shareTitle, shareToIndex, secToDHM } from '../../utils/util.j
 import { City, Weather } from '../../sheets.js';
 import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
 const scaleMax = 2;
+const scaleMin = 0.7;
 let tapStamp;
 let display;
 let citysName;
@@ -355,6 +356,8 @@ Page({
     //暂停轮询
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
 
+    this.zoomOnPlaning();//缩放
+
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
@@ -622,6 +625,7 @@ Page({
 
     //恢复轮询
     Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+    this.zoomOnPlaned();
 
     this.setData({ planing: false });
 
@@ -692,6 +696,10 @@ Page({
 
   touchMap() {
     // check if triggered double tap
+      if (this.data.planing) {
+          //规划路线时，不支持点击缩放
+          return;
+      }
     let now = Date.now();
     if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
       this.doubleTap();
@@ -703,20 +711,21 @@ Page({
     let scale = double ? scaleMax : 1;
     this.setData({ double, scale });
   },
-  zoomplus() {
-    this.setData({
-      double: true,
-      scale: scaleMax
-    })
-  },
-  zoomminus() {
-    this.setData({
-      double: false,
-      scale: 1
-    })
-  },
-
-
+    //规划路线时，强制缩到最小
+    zoomOnPlaning(){
+      this.setData({
+          scale: scaleMin
+      });
+    },
+    //规划完成时，缩放回原先
+    zoomOnPlaned() {
+      let double = this.data.double;
+      let scale = double ? scaleMax : 1;
+      this.setData({
+          scale,
+          planing: false
+      })
+    },
 
   //点击小人
   tapRole() {
