@@ -40,6 +40,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('options',options)
     if (!options.cid) {
       cid = app.globalData.cid
       this.setData({
@@ -62,6 +63,12 @@ Page({
       myGold: app.globalData.gold
     })
   },
+  onShow(){
+    this.hidePop()
+    this.setData({
+      myGold: app.globalData.gold
+    })
+  },
   hidePop() {
     this.setData({
       goldBuzu: false
@@ -75,6 +82,7 @@ Page({
   rentCar(e) {
     let str
     let obj = sheet.Shop.Get(e.currentTarget.dataset.id);
+    console.log('obj==========>',obj)
     if(obj.type == 3) {
       str = '购买'
     } else {
@@ -162,11 +170,13 @@ Page({
     if (!this.checkGold()) { return }
     if(type == 0) {
       let m = new RentProp();
+      console.log('propIdddddd', this.data.propId)
       m.rentId = this.data.propId;
       if (forceBuy) {
         m.forceBuy = forceBuy
       }
       m.fetch().then(() => {
+        console.log('m=========>',m)
         this.checkRentStatus();
         let v = this.data.rentProp[this.data.propId - 1].price;
         redGold(v)

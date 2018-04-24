@@ -1,5 +1,5 @@
 const sheet = require('../../sheets.js')
-import { shareToIndex } from '../../utils/util.js';
+import { shareToIndex, addGold } from '../../utils/util.js';
 import { Minapppay } from '../../api.js';
 Page({
 
@@ -51,6 +51,7 @@ Page({
             duration: 2000,
             mask: true
           })
+          addGold(_that.data.obj.gold)
         },
         fail(res) {
           wx.showToast({
