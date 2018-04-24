@@ -246,7 +246,8 @@ width: 200rpx;
 .distance {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 30rpx;
-    width: 178rpx;
+    /* width: 178rpx; */
+    padding: 0 14rpx;
     height: 54rpx;
     position: fixed;
     top: 20rpx;
