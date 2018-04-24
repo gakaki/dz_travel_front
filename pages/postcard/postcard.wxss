@@ -48,11 +48,18 @@ margin: 0 15rpx 0 20rpx;
   height: 246rpx;
 }
 .content-t {
-  font: bold 34rpx/1  'Microsoft YaHei';
+  font: bold 34rpx/1 'Microsoft YaHei';
   color: #878689;
 }
 .content-c {
   margin: 24rpx 0 132rpx;
-  font: bold 24rpx/1  'Microsoft YaHei';
+  font: bold 24rpx/1 'Microsoft YaHei';
   color: #b0afb3;
+}
+.tip {
+  text-indent: 20rpx;
+  font: bold 24rpx/75rpx 'Microsoft YaHei';
+  color: #b0afb3;
+  background-color: #f5f4f9;
+  border-bottom: 8rpx solid #e9e8ec;
 }

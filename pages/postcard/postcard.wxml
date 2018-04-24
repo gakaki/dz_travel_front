@@ -1,5 +1,5 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-
+<view class='tip'>收集新的明信片可获得积分</view>
 <scroll-view wx:if='{{init.length}}' class="con" scroll-y>
   <view  wx:if='{{init.length}}' bindtap='toMyXc' data-province='{{item.province}}' class="post-item  bs f-r-fs" wx:for='{{init}}' wx:key="{{index}}">
     <image src="{{tools.allImg(item.url)}}" class="img"></image>
