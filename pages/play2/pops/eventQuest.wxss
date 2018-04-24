@@ -17,24 +17,6 @@
     line-height: 40rpx;
 }
 
-/* .div_answers {
-    width: 100%;
-
-}
-
-.div_answers .answer_options {
-    background-color: #EFEFEF;
-    border-radius: 80rpx;
-    text-indent: 40rpx;
-    text-align: left;
-    font-weight: 350;
-    font-size: 32rpx;
-    color: #959595;
-    padding: 24rpx 0;
-    margin: 0 10rpx 20rpx;
-    box-sizing: border-box;
-} */
-
 .div_answers {
     width: 580rpx;
   height: 420rpx;
@@ -62,15 +44,15 @@
 
 .pic-box {
     width: 580rpx;
-    height: 446rpx;
+    height: 464rpx;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
 }
 
 .pic {
-    width: 750rpx;
-    height: 600rpx;
+    width: 580rpx;
+    height: 464rpx;
     display: block;
     margin: 0 auto;
 }
