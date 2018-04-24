@@ -57,6 +57,7 @@
   background-repeat: no-repeat;
   overflow: visible;
 }
+
 @keyframes role-clip-nan {
   100% {
     /*background-position: -218rpx 0;*/
@@ -70,7 +71,6 @@
     background-position: right 0;
   }
 }
-
 
 .stand {
   background-position: 0 0;
@@ -139,6 +139,7 @@ weather.sights {
 }
 
 .play-spot-txt {
+  transform: translateY(-60%);
   display: block;
   font-size: 20rpx;
   font-weight: bold;
@@ -197,13 +198,6 @@ weather.sights {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.play-pop {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -52%);
-}
-
 .weather {
   width: 46rpx;
   height: 46rpx;
@@ -232,7 +226,7 @@ weather.sights {
   top: 50%;
   transform: translateY(-50%) rotateY(180deg);
   transform-origin: 50% 50%;
-   transition: transform 0.4s linear 0.3s 
+  transition: transform 0.4s linear 0.3s;
 }
 
 .rgt-btn {
@@ -243,17 +237,21 @@ weather.sights {
   right: 0;
   height: 209rpx;
   width: 209rpx;
-  transition: right  0.3s linear;
+  transition: right 0.3s linear;
 }
+
 .hua-rgt {
   right: 0;
 }
+
 .hua-lf {
   right: -150rpx;
 }
- .zheng {
-transform: rotateY(0) translateY(-50%);
+
+.zheng {
+  transform: rotateY(0) translateY(-50%);
 }
+
 .mission {
   /* background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
     background-size: cover;
@@ -262,7 +260,6 @@ transform: rotateY(0) translateY(-50%);
     right: 0;
     height: 124rpx;
     width: 169rpx; */
-
   position: absolute;
   top: 18rpx;
   right: 0;
@@ -292,7 +289,7 @@ transform: rotateY(0) translateY(-50%);
   background-color: #dbff13;
   border-radius: 30rpx;
   max-width: 106rpx;
-  margin-left: 1rpx
+  margin-left: 1rpx;
 }
 
 .distance {
@@ -328,9 +325,11 @@ transform: rotateY(0) translateY(-50%);
   position: absolute;
   top: 10rpx;
 }
+
 .continueLineText {
   top: 22rpx;
 }
+
 .changeLineMoney {
   position: absolute;
   top: 42rpx;
@@ -418,4 +417,52 @@ transform: rotateY(0) translateY(-50%);
   font: bold 34rpx/40rpx 'Microsoft YaHei';
   letter-spacing: 6rpx;
   color: #b8b8b8;
+}
+
+.play-first-in {
+padding-top:92rpx;
+text-align:center;
+color:#8d8d8d;
+width:610rpx;
+height:360rpx;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -65%);
+border-radius:40rpx;
+background-color:#fff;
+
+}
+
+.play-first-in .line {
+  width: 570rpx;
+  height: 4rpx;
+  text-align: center;
+  background-color: #f2f2f2;
+  margin-top: 40rpx;
+}
+
+.play-first-in .paly-gray-font {
+  margin-bottom: 24rpx;
+}
+
+.play-first-in .cfm-btn {
+  position: absolute;
+  bottom: 0rpx;
+  color: #fff;
+  width: 406rpx;
+  height: 121rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png') no-repeat center center;
+  background-size: 70% 90%;
+  line-height: 90rpx;
+  letter-spacing: 3rpx;
+  text-align: center;
+}
+
+.gray-font {
+  font-family: 'Microsoft YaHei';
+  display: block;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #8d8d8d;
 }

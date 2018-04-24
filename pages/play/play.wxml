@@ -1,6 +1,15 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page">
   <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
+  <view class="pop-bg" wx:if="{{present}}" >
+      <view class=" play-first-in f-c-fs bs">
+        <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
+        <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
+        <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
+        <view class="line"></view>
+        <view class="btn-big-blue cfm-btn" catchtap="hideSecondIn">确 定</view>
+      </view>
+    </view>
   <!--地图-->
   <scroll-view id="play-map" scroll-x="{{true}}" scroll-y="{{true}}" scroll-with-animation='{{true}}' bind:tap="touchMap">
     <!--背景地图-->
