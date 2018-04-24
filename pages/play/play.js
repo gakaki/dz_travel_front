@@ -6,6 +6,8 @@ const scaleMax = 2;
 const scaleMin = 0.7;
 let tapStamp;
 let display;
+let music;
+let reGoin = 0;
 let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
@@ -114,6 +116,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+ 
     this.huadong()
     app.globalData.hasCar = false
     this.data.cid = options.cid;
@@ -229,6 +236,7 @@ Page({
    */
   onHide: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
   },
 
   /**
@@ -236,6 +244,7 @@ Page({
    */
   onUnload: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
   },
 
   /**
@@ -377,12 +386,29 @@ Page({
 
     this.zoomOnPlaning();//缩放
 
+    if(!this.data.started) {
+      this.setData({
+        chgLines: false,
+        started: false,//设为非游玩状态
+        planing: true, //设为编辑路线状态
+        planed: false,//是否完成了规划
+        planedFinished: false,//
+        planedSpots: []
+      })
+      return
+    }
+
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
+      if (req.spotsAllTracked == 1) {
+        this.setData({
+          lines: []
+        })
+      }
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
@@ -459,7 +485,12 @@ Page({
       lineUpdated = true;
       this.freshSpots();
     }
-    else if (res.spotsTracked != this.data.spotsTracked) {
+    if (res.spotsTracked != this.data.spotsTracked) {
+      if (reGoin != 0) {
+        music.play()
+      }
+      else reGoin = 1
+      
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
       lineUpdated = true;
@@ -663,7 +694,6 @@ Page({
     let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
-    console.log('click spot', spot)
 
     //游玩中
     if (this.data.started) {
@@ -753,7 +783,13 @@ Page({
     }
   },
 
-  toNextEvent() {
+  toNextEvent(e) {
+
+console.log(e)
+    if (e.detail.cur == 1) {
+      this.hidePop();
+      return
+    }
     this.hidePop();
     this.fetchEvent();
   },
