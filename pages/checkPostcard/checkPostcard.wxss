@@ -108,10 +108,10 @@
 }
 .pre,.next {
 position: absolute;
-bottom: 10rpx;
+bottom: -10rpx;
 width: 100rpx;
-height: 40rpx;
-font: bold 20rpx/40rpx 'Microsoft YaHei';
+height: 80rpx;
+font: bold 20rpx/80rpx 'Microsoft YaHei';
 }
 .pre {
   left: 10rpx;

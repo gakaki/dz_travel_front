@@ -2,5 +2,5 @@
 <view class='map-ele {{isPlayer ? "player-shadow" : ""}}' bind:tap='onEleTap'>
   <image class='ele-img {{isPlayer ? "ele-player" : ""}}' src='{{img}}' ></image>
   <!-- <view wx:if='{{isPlayer}}' class='player-loc' ></view> -->
-  <text wx:if='{{txt}}' style='position:absolute; left:{{txtX}}rpx;top:{{txtY}}rpx;'>{{txt}}</text>
+  <text wx:if='{{txt}}' style='white-space: nowrap;position:absolute; left:{{txtX}}rpx;top:{{txtY}}rpx;'>{{txt}}</text>
 </view>
