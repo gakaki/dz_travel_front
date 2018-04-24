@@ -56,7 +56,7 @@ Page({
     //需要判断是否在游玩
     if(getLocationCid){
       wx.navigateTo({
-        url: '../play2/play?cid=' + locationCid
+        url: '../play/play?cid=' + locationCid
       })
     }
     

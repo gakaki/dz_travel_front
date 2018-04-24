@@ -1,23 +1,105 @@
+/* pages/play2/play.wxss */
+
+#play-page {
+  position: relative;
+}
+
+#play-map {
+  width: 100vw;
+  height: 100vh;
+}
+
+.play-line {
+  height: 0;
+  border: 8rpx solid #666;
+  border-width: 0 0 8rpx 0;
+}
+
+.solid-line {
+  border-radius: 4rpx;
+}
+
+.dashed-line {
+  border-style: dotted;
+}
+
+.play-role-nan {
+  width: 36rpx;
+  height: 81rpx;
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+
+.play-role-nv {
+  width: 34rpx;
+  height: 81rpx;
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+
+.play-role-haohua {
+  width: 150rpx;
+  height: 69rpx;
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+
+.play-role-shangwu {
+  width: 118rpx;
+  height: 92rpx;
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+
+.play-role-jingji {
+  width: 109rpx;
+  height: 63rpx;
+  background-repeat: no-repeat;
+  overflow: visible;
+}
+@keyframes role-clip-nan {
+  100% {
+    /*background-position: -218rpx 0;*/
+    background-position: right 0;
+  }
+}
+
+@keyframes role-clip-nv {
+  100% {
+    /*background-position: -196rpx 0;*/
+    background-position: right 0;
+  }
+}
+
+
+.stand {
+  background-position: 0 0;
+}
+
+.walk-nan {
+  animation: role-clip-nan 0.6s steps(5) infinite;
+}
+
+.walk-nv {
+  animation: role-clip-nv 0.6s steps(5) infinite;
+}
+
 weather.sights {
   width: 50rpx;
   height: 50rpx;
   position: absolute;
 }
 
-.fc {
-  font: bold 34rpx/40rpx 'Microsoft YaHei';
-  letter-spacing: 6rpx;
-  color: #b8b8b8;
-}
-
 .fontWhite {
   font: normal 30rpx 'Microsoft YaHei';
   color: #fff;
+  line-height: 54rpx;
 }
 
 .zi {
   font: normal 26rpx 'Microsoft YaHei';
   color: #fff;
+  line-height: 54rpx;
 }
 
 .font34 {
@@ -51,51 +133,75 @@ weather.sights {
   line-height: 26rpx;
 }
 
-.ofs {
-  overflow: scroll;
+.play-spots {
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
-.bgscroll {
-  /* width: 200vw;
-  height: 200vh; */
-  background: url("https://gengxin.odao.com/update/h5/travel/play/bg1.jpg") 0 0 no-repeat;
-  background-size: cover;
-  position: relative;
+.play-spot-txt {
+  display: block;
+  font-size: 20rpx;
+  font-weight: bold;
 }
 
-.bg {
+.play-spot-tm {
+  /* position: absolute;
+    top: -60rpx;
+    left: 50%;
+    font: 20rpx white;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+    transform: translate(-50%, 0%); *//* width: 200rpx; */
+  padding: 0 10rpx;
+  height: 46rpx;
+  border-radius: 10rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 50%;
+  top: -60rpx;
+  transform: translateX(-50%);
+  font: bold 22rpx 'Microsoft YaHei';
+  color: #fff;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.play-spot-tm::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 0;
+  border-left: 0;
+  margin: 0 0 -6px -3px;
+}
+
+#play-pops, #play-pop-bg {
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.controll-layer {
   position: fixed;
   top: 0;
   left: 0;
-  background: transparent;
 }
 
-/* 屏幕边缘提示 */
-
-.distance {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 30rpx;
-  width: 178rpx;
-  height: 54rpx;
-  position: fixed;
-  top: 20rpx;
-  left: 10rpx;
-  text-align: center;
-  z-index: 15;
+#play-pop-bg {
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.cancle-double {
-  background-color: #fd6259;
-  font: normal 24rpx 'Microsoft YaHei';
-  color: #fff;
-  width: 178rpx;
-  height: 50rpx;
-  position: fixed;
-  top: 90rpx;
-  left: 10rpx;
-  border-radius: 30rpx;
+.play-pop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
 }
 
 .weather {
@@ -106,7 +212,6 @@ weather.sights {
   right: 110rpx;
   top: 22rpx;
   border-radius: 3px;
-  z-index: 15;
 }
 
 .tip {
@@ -117,26 +222,58 @@ weather.sights {
   right: 20rpx;
   height: 54rpx;
   width: 54rpx;
-  z-index: 15;
 }
 
-/* 屏幕边缘按钮样式 */
+.pop-arrow {
+  height: 43rpx;
+  width: 23rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 50%;
+  transform: translateY(-50%) rotateY(180deg);
+  transform-origin: 50% 50%;
+   transition: transform 0.4s linear 0.3s 
+}
 
-.mission {
-  background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
+.rgt-btn {
+  background: url("https://gengxin.odao.com/update/h5/travel/play/rgt-btn.png") 0 0 no-repeat;
   background-size: cover;
   position: fixed;
-  bottom: 500rpx;
+  top: 698rpx;
   right: 0;
-  height: 124rpx;
-  width: 169rpx;
-  z-index: 15;
+  height: 209rpx;
+  width: 209rpx;
+  transition: right  0.3s linear;
+}
+.hua-rgt {
+  right: 0;
+}
+.hua-lf {
+  right: -150rpx;
+}
+ .zheng {
+transform: rotateY(0) translateY(-50%);
+}
+.mission {
+  /* background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: 500rpx;
+    right: 0;
+    height: 124rpx;
+    width: 169rpx; */
+
+  position: absolute;
+  top: 18rpx;
+  right: 0;
+  height: 82rpx;
+  width: 148rpx;
 }
 
 .missionText {
   right: 34rpx;
   position: absolute;
-  top: 28rpx;
+  top: 10rpx;
 }
 
 .progressBox {
@@ -145,45 +282,59 @@ weather.sights {
   height: 20rpx;
   border-radius: 30rpx;
   position: absolute;
-  top: 60rpx;
+  top: 48rpx;
   right: 10rpx;
+  overflow: hidden;
 }
 
 .progressBar {
   height: 16rpx;
   background-color: #dbff13;
   border-radius: 30rpx;
-  position: absolute;
-  max-width: 105rpx;
-  top: 1rpx;
-  left: 1rpx;
+  max-width: 106rpx;
+  margin-left: 1rpx
+}
+
+.distance {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 30rpx;
+  /* width: 178rpx; */
+  padding: 0 14rpx;
+  height: 54rpx;
+  position: fixed;
+  top: 20rpx;
+  left: 10rpx;
+  text-align: center;
+  z-index: 15;
 }
 
 .changeLine {
-  background: url("https://gengxin.odao.com/update/h5/travel/play/changeLine.png") 0 0 no-repeat;
-  background-size: cover;
-  position: fixed;
-  bottom: 390rpx;
+  /* background: url("https://gengxin.odao.com/update/h5/travel/play/changeLine.png") 0 0 no-repeat;
+    background-size: cover;
+    position: fixed;
+    bottom: 390rpx;
+    right: 0;
+    height: 124rpx;
+    width: 169rpx; */
+  position: absolute;
+  bottom: 18rpx;
   right: 0;
-  height: 124rpx;
-  width: 169rpx;
-  z-index: 15;
+  height: 82rpx;
+  width: 148rpx;
 }
 
 .changeLineText {
   right: 10rpx;
   position: absolute;
-  top: 26rpx;
+  top: 10rpx;
 }
-
+.continueLineText {
+  top: 22rpx;
+}
 .changeLineMoney {
   position: absolute;
-  top: 27px;
+  top: 42rpx;
   right: 18px;
-}
-
-.md {
-  top: 36rpx;
 }
 
 /* 旅行按钮样式 */
@@ -194,33 +345,6 @@ weather.sights {
   bottom: 0rpx;
 }
 
-.zoomBtn {
-  width: 270rpx;
-  position: fixed;
-  left: 50%;
-  bottom: 240rpx;
-  transform: translate(-50%, 0);
-  z-index: 15;
-}
-
-.zoomBtn .add {
-  width: 105rpx;
-  height: 70rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/add.png") 0 0 no-repeat;
-  background-size: cover;
-}
-
-.zoomBtn .minus {
-  width: 105rpx;
-  height: 70rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/minus.png") 0 0 no-repeat;
-  background-size: cover;
-}
-
-.btnBox {
-  width: 690rpx;
-}
-
 .travelTips {
   position: fixed;
   bottom: 36rpx;
@@ -229,9 +353,8 @@ weather.sights {
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
   background-size: cover;
-  z-index: 15;
   font-size: 24rpx;
-  line-height: 74rpx;
+  line-height: 78rpx;
   margin-top: 25rpx;
 }
 
@@ -244,7 +367,6 @@ weather.sights {
   width: 268rpx;
   height: 115rpx;
   font-size: 28rpx;
-  z-index: 15;
 }
 
 .travelStart {
@@ -257,7 +379,7 @@ weather.sights {
 .start-icon {
   background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
   background-size: cover;
-  line-height: 85rpx;
+  line-height: 88rpx;
 }
 
 .tarvelProps {
@@ -269,9 +391,8 @@ weather.sights {
   background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 24rpx;
-  line-height: 74rpx;
+  line-height: 78rpx;
   margin-top: 25rpx;
-  z-index: 15;
 }
 
 .warningBox {
@@ -282,395 +403,7 @@ weather.sights {
   margin-bottom: 5rpx;
 }
 
-.pop-con {
-  width: 610rpx;
-  height: 880rpx;
-  background-color: #fff;
-  border-radius: 40rpx;
-  margin: 0 auto;
-  margin-top: 100rpx;
-  overflow: hidden;
-  position: relative;
-}
-
-.pic-box {
-  width: 100%;
-  height: 595rpx;
-  background-color: yellowgreen;
-  position: relative;
-}
-
-.point-pic {
-  width: 100%;
-  height: 100%;
-}
-
-.evt {
-  margin: 0 auto;
-  display: block;
-  width: 90%;
-  text-align: center;
-  font-size: 30rpx;
-  line-height: 44rpx;
-  margin-top: 10rpx;
-}
-.evtAward {
-  color: gray;
-  font-size: 38rpx;
-}
-.next-evt {
-  width: 406rpx;
-  height: 121rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png") 0 0 no-repeat;
-  background-size: cover;
-  font-size: 28rpx;
-  line-height: 74rpx;
-  margin: 0 auto;
-  /* margin-top: 50rpx; */
-  position: absolute;
-  /* bottom: 10rpx; */
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  text-align: center;
-}
-
-.chg-line {
-  width: 163rpx;
-  height: 101rpx;
-  background: url("https://gengxin.odao.com/update/h5/travel/play/chg-route.png") 0 0 no-repeat;
-  background-size: cover;
-  position: absolute;
-  right: 0;
-  bottom: 360rpx;
-}
-
-#postal {
-  top: 135rpx;
-  width: 550rpx;
-  height: 850rpx;
-  background-color: #fff;
-  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
-  padding: 40rpx 30rpx 0 30rpx;
-}
-
-.hc {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.cir {
-  top: 145rpx;
-  z-index: 11;
-  width: 16rpx;
-  height: 16rpx;
-  border-radius: 50%;
-  background-color: #b9c3d0;
-  box-shadow: 0 0 2rpx 0 inset;
-}
-
-#line {
-  width: 12rpx;
-  height: 210rpx;
-  top: -60rpx;
-  z-index: 12;
-}
-
-.post-pic {
-  width: 550rpx;
-  height: 515rpx;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.post-name {
-  font: bold 36rpx 'Microsoft YaHei';
-  color: #000;
-  margin: 20rpx 0;
-}
-
-.post-desc {
-  font: normal 30rpx 'Microsoft YaHei';
-  color: #8d8d8d;
-  margin-bottom: 10rpx;
-  letter-spacing: 2rpx;
-}
-
-.btn-icon {
-  background-size: 443rpx 120rpx;
-  position: absolute;
-  bottom: 0;
-  font-size: 28rpx;
-  letter-spacing: 7rpx;
-}
-
-/* 基础pop样式 */
-
-.play-pop {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 40rpx;
-  width: 610rpx;
-  padding: 0 30rpx;
-  background-color: #fff;
-  box-shadow: 0 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.play-mission {
-  border-radius: 20rpx;
-  height: 590rpx;
-  width: 560rpx;
-  top: 220rpx;
-  padding: 20rpx 20rpx 0 20rpx;
-}
-
-.play-mission-double {
-  height: 710rpx;
-}
-
-.play-mission .imgBox {
-  width: 520rpx;
-  height: 280rpx;
-  margin: 0 auto 43rpx;
-}
-
-.play-mission .imgBox image {
-  height: 280rpx;
-  width: 100%;
-}
-
-.play-mission .contentBox .mission-head-font {
-  margin-bottom: 38rpx;
-}
-
-.play-mission .contentBox .mission-gray-font {
-  margin-bottom: 12rpx;
-  text-align: justify;
-}
-
-.play-mission .contentBox .ml14 {
-  margin-left: 14rpx;
-}
-
-.play-mission .contentBox .ml18 {
-  margin-left: 18rpx;
-  line-height: 40rpx;
-}
-
-.play-mission .contentBox .ml48 {
-  margin-left: 40rpx;
-  line-height: 40rpx;
-}
-
-.play-dialogQuestion {
-  width: 610rpx;
-  background-color: #fff;
-  border-radius: 20rpx;
-  margin: 0 auto;
-  overflow: hidden;
-  margin-top: 3%;
-  padding: 20rpx;
-}
-
-.play-congratulations {
-  border-radius: 20rpx;
-  width: 610rpx;
-  height: 1085rpx;
-  padding: 15rpx 15rpx 0 15rpx;
-  top: 20rpx;
-  text-align: center;
-}
-
-.play-congratulations .imgBox {
-  width: 580rpx;
-  height: 440rpx;
-  border-radius: 0;
-  margin-bottom: 50rpx;
-  position: relative;
-}
-
-.play-congratulations .imgBox image {
-  width: 100%;
-  height: 440rpx;
-}
-
-.play-congratulations .contentBox .congratulations-head-font {
-  font-size: 62rpx;
-  line-height: 62rpx;
-  margin-bottom: 62rpx;
-}
-
-.play-congratulations .contentBox .congratulations-gray-font {
-  font-size: 40rpx;
-  line-height: 40rpx;
-  margin-bottom: 175rpx;
-}
-
-.play-congratulations .contentBox .cfm-btn {
-  margin: 0 auto;
-  font-size: 28rpx;
-  font-weight: normal;
-}
-
-/* 介绍css */
-
-.play-desc {
-  top: 50rpx;
-  height: 980rpx;
-}
-
-.play-desc .cfm-btn {
-  position: absolute;
-  bottom: 0;
-}
-
-/* 首次进入css */
-
-.play-first-in {
-  top: 300rpx;
-  height: 440rpx;
-  padding-top: 92rpx;
-  text-align: center;
-  color: #8d8d8d;
-}
-
-.play-first-in .line {
-  width: 570rpx;
-  height: 4rpx;
-  text-align: center;
-  background-color: #f2f2f2;
-  margin-top: 40rpx;
-}
-
-.play-first-in .paly-gray-font {
-  margin-bottom: 24rpx;
-}
-
-.play-first-in .cfm-btn {
-  position: absolute;
-  bottom: 0rpx;
-  color: #fff;
-  width: 406rpx;
-  height: 121rpx;
-  background: url('https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png') no-repeat center center;
-  background-size: 70% 90%;
-  line-height: 90rpx;
-  letter-spacing: 3rpx;
-  text-align: center;
-}
-
-.head-font {
-  font-family: 'Microsoft YaHei';
-  display: block;
-  font-size: 32rpx;
-  line-height: 32rpx;
-  font-weight: bold;
-}
-
-.gray-font {
-  font-family: 'Microsoft YaHei';
-  display: block;
-  font-size: 28rpx;
-  line-height: 28rpx;
-  color: #8d8d8d;
-}
-
-#title {
-  font: bold 36rpx 'Microsoft YaHei';
-  letter-spacing: 2rpx;
-  margin-top: 41rpx;
-}
-
-.rule {
-  font: bold 30rpx 'Microsoft YaHei';
-  letter-spacing: 2rpx;
-}
-
-.play-rule-con {
-  position: relative;
-  margin-right: 10rpx;
-}
-
-.play-rule-con::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -24rpx;
-}
-
-.rule-con {
-  width: 500rpx;
-  font: bold 24rpx/35rpx 'Microsoft YaHei';
-  position: relative;
-}
-
-.rule-con::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -24rpx;
-}
-
-.rule1::before {
-  content: '1.';
-}
-
-.rule2::before {
-  content: '2.';
-}
-
-.rule3::before {
-  content: '3.';
-}
-
-.draw-line {
-  height: 0;
-  transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  -webkit-transform-origin: 0 0;
-  position: absolute;
-}
-
-.dash-line {
-  border-width: 8rpx;
-  border-style: dotted none none none;
-  border-color: rgba(0, 0, 0, 0.5);
-}
-
-.shi-line {
-  border-width: 8rpx;
-  border-style: solid none none none;
-  border-color: #000;
-  border-radius: 4rpx;
-}
-
-.testImg {
-  position: absolute;
-  /* height: 54rpx;
-  width: 54rpx; */
-  z-index: 0;
-  left: 0;
-  top: 0;
-}
-
-.img-box {
-  position: absolute;
-  transform: translate(-50%, -100%);
-}
-
-.icon-name {
-  position: absolute;
-  left: 50%;
-  bottom: -30rpx;
-  transform: translateX(-50%);
-  font: bold 24rpx 'Microsoft YaHei';
-  color: #000;
-  white-space: nowrap;
-}
-
-.icon-num {
+.play-spot-idx {
   position: absolute;
   left: 50%;
   top: -40rpx;
@@ -681,212 +414,8 @@ weather.sights {
   z-index: 9;
 }
 
-.daojishi {
-  width: 200rpx;
-  height: 46rpx;
-  border-radius: 10rpx;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  left: 50%;
-  top: -80rpx;
-  transform: translateX(-50%);
-  font: bold 22rpx 'Microsoft YaHei';
-  color: #fff;
-  white-space: nowrap;
-  z-index: 9;
-}
-
-.daojishi::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  border: 6px solid transparent;
-  border-top-color: rgba(0, 0, 0, 0.5);
-  border-bottom: 0;
-  border-left: 0;
-  margin: 0 0 -6px -3px;
-}
-
-.shi-line-box {
-  overflow: hidden;
-}
-
-.start {
-  height: 93rpx;
-  width: 80rpx;
-  transform: translate(-50%, -50%);
-}
-
-.icon-1a {
-  width: 123rpx;
-  height: 98rpx;
-}
-
-.icon-2a {
-  width: 105rpx;
-  height: 60rpx;
-}
-
-.icon-3a {
-  width: 117rpx;
-  height: 77rpx;
-}
-
-.icon-4a {
-  width: 78rpx;
-  height: 106rpx;
-}
-
-.icon-5a {
-  width: 92rpx;
-  height: 115rpx;
-}
-
-.icon-6a {
-  width: 90rpx;
-  height: 97rpx;
-}
-
-.icon-7a {
-  width: 91rpx;
-  height: 132rpx;
-}
-
-.icon-8a {
-  width: 90rpx;
-  height: 110rpx;
-}
-
-.icon-9a {
-  width: 92rpx;
-  height: 85rpx;
-}
-
-.icon-10a {
-  width: 96rpx;
-  height: 126rpx;
-}
-
-.icon-11a {
-  width: 91rpx;
-  height: 90rpx;
-}
-
-.icon-12a {
-  width: 106rpx;
-  height: 106rpx;
-}
-
-.icon-13a {
-  width: 105rpx;
-  height: 111rpx;
-}
-
-.icon-14a {
-  width: 93rpx;
-  height: 172rpx;
-}
-
-.icon-15a {
-  width: 105rpx;
-  height: 108rpx;
-}
-
-.icon-16a {
-  width: 81rpx;
-  height: 126rpx;
-}
-
-.icon-17a {
-  width: 105rpx;
-  height: 161rpx;
-}
-
-.icon-18a {
-  width: 104rpx;
-  height: 108rpx;
-}
-
-.icon-19a {
-  width: 99rpx;
-  height: 95rpx;
-}
-
-.icon-20a {
-  width: 104rpx;
-  height: 100rpx;
-}
-
-.icon-21a {
-  width: 52rpx;
-  height: 143rpx;
-}
-
-.icon-22a {
-  width: 92rpx;
-  height: 139rpx;
-}
-
-.icon-23a {
-  width: 91rpx;
-  height: 127rpx;
-}
-
-.icon-24a {
-  width: 104rpx;
-  height: 80rpx;
-}
-
-.icon-25a {
-  width: 108rpx;
-  height: 124rpx;
-}
-
-.icon-26a {
-  width: 39rpx;
-  height: 142rpx;
-}
-
-.icon-27a {
-  width: 72rpx;
-  height: 136rpx;
-}
-
-.icon-28a {
-  width: 104rpx;
-  height: 63rpx;
-}
-
-.icon-29a {
-  width: 76rpx;
-  height: 109rpx;
-}
-
-.icon-30a {
-  width: 91rpx;
-  height: 130rpx;
-}
-
-.icon-31a {
-  width: 104rpx;
-  height: 96rpx;
-}
-
-.icon-32a {
-  width: 104rpx;
-  height: 148rpx;
-}
-
-.icon-33a {
-  width: 46rpx;
-  height: 155rpx;
-}
-
-.icon-34a {
-  width: 157rpx;
-  height: 142rpx;
-}
-.cb {
-  color: #2689ff
+.fc {
+  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  letter-spacing: 6rpx;
+  color: #b8b8b8;
 }
