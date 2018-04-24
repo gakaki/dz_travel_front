@@ -342,8 +342,8 @@ Page({
             isWaiting: false,
             partnerName: res.nickName,
             avatarSrc: res.avatarUrl,
-            players: [{ location: locationCid, img: userInfo.avatarUrl },
-            { location: partnerCid, img: res.avatarUrl }
+            players: [{ location: partnerCid, img: res.avatarUrl },
+            { location: locationCid, img: userInfo.avatarUrl }
             ]
           })
         }
@@ -592,7 +592,7 @@ Page({
   //带下划线的为监听组件内的事件
   _confirm() {
     wx.redirectTo({
-      url: '../play2/play?cid=' + cid,
+      url: '../play/play?cid=' + cid,
     })
   },
 
