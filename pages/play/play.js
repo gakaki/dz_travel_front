@@ -60,6 +60,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    present: false,//第二次進入的城市送車 
     trans: 'zheng',
     hua: 'hua-rgt',
     cfmStr: '',
@@ -113,7 +114,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.huadong()
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
@@ -162,6 +163,7 @@ Page({
         season: app.globalData.season,
         startPoint,
         task: req.task,
+        present: req.present || false,
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
@@ -172,6 +174,11 @@ Page({
 
     });
 
+  },
+  hideSecondIn() {
+    this.setData({
+      present: false
+    })
   },
   huadong() {
     this.setData({
