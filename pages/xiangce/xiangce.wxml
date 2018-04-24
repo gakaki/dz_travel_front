@@ -27,7 +27,7 @@
           <view class="img-box-flex">
             <image class="img-sm" src="{{tools.allImg(img.url)}}"></image>
             <view class="content">
-              <text class="pro1">{{img.lastestLiveMessage.userInfo.nickName}}</text>
+              <text class="pro1">{{tools.filterNickname(img.lastestLiveMessage.userInfo.nickName)}}</text>
               <text class="message ellipsis fs">{{img.lastestLiveMessage.message}}</text>
             </view>  
             <view class="per1">{{img.lastestLiveMessage.time}}</view>
