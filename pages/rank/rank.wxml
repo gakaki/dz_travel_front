@@ -112,5 +112,5 @@
     </view>
   </view>
   <view class="mask" wx:if="{{isFirst || showHelp}}"></view>
-  <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="840" helpId="{{id}}" title="{{title}}"></directions>
+  <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="880" helpId="{{id}}" title="{{title}}"></directions>
 </view>
