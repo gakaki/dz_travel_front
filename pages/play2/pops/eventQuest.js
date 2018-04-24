@@ -51,7 +51,9 @@ Component({
 
         req.fetch().then(()=> {
           //update userinfo
-          app.globalData.userInfo = req.userInfo;
+            if (req.userInfo) {
+                app.globalData.userInfo = req.userInfo;
+            }
 
           let correct = req.correct;
           let rewards = req.rewards;
