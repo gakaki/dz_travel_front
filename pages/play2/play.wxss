@@ -230,6 +230,7 @@ width: 200rpx;
     position: absolute;
     top: 60rpx;
     right: 10rpx;
+    overflow: hidden
 }
 
 .progressBar {
@@ -237,7 +238,7 @@ width: 200rpx;
     background-color: #dbff13;
     border-radius: 30rpx;
     position: absolute;
-    max-width: 105rpx;
+     max-width: 105rpx; 
     top: 1rpx;
     left: 1rpx;
 }
@@ -245,7 +246,8 @@ width: 200rpx;
 .distance {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 30rpx;
-    width: 178rpx;
+    /* width: 178rpx; */
+    padding: 0 14rpx;
     height: 54rpx;
     position: fixed;
     top: 20rpx;
@@ -298,7 +300,7 @@ width: 200rpx;
     background-size: cover;
 
     font-size: 24rpx;
-    line-height: 74rpx;
+    line-height: 78rpx;
     margin-top: 25rpx;
 }
 .travelStart,.start-icon {
@@ -321,7 +323,7 @@ width: 200rpx;
 .start-icon {
     background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
     background-size: cover;
-    line-height: 85rpx
+    line-height: 88rpx
 }
 
 .tarvelProps {
@@ -333,7 +335,7 @@ width: 200rpx;
     background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
     background-size: cover;
     font-size: 24rpx;
-    line-height: 74rpx;
+    line-height: 78rpx;
     margin-top: 25rpx;
 
 }
