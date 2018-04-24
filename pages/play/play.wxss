@@ -288,8 +288,8 @@ weather.sights {
   height: 16rpx;
   background-color: #dbff13;
   border-radius: 30rpx;
-  max-width: 106rpx;
-  margin-left: 1rpx;
+  max-width: 104rpx;
+  margin-left: 2rpx;
 }
 
 .distance {
