@@ -407,6 +407,9 @@ function shareToIndex(that, innerObj, toShareLink) {
   if (url == 4 || url == 6) { url = 1 }
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'
 
+  if (app.globalData.debug.share){
+      console.log( "share path is ",nowPath );
+  }
   return {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
     path: nowPath,
@@ -446,6 +449,31 @@ function secToTimeStr(sec, prefix = '') {
   return prefix + str
 }
 
+//秒转换成天.时.分钟, 不足一分钟的显示1分钟
+function secToDHM(sec) {
+  sec = sec >> 0;
+  let str = ''
+  if (sec <= 60) {
+    str = '1分钟'
+  }
+  else if (sec < 3600) {
+    str = Math.floor(sec / 60) + '分钟'
+  }
+  else if (sec < 86400) {
+    let h = Math.floor(sec / 3600)
+    let m = sec % 3600
+    str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
+  }
+  else {
+    let d = Math.floor(sec / 86400)
+    let left = sec % 86400
+    str = d + '天' + secToTimeStr(left)
+  }
+
+  return str
+}
+
+
 
 
 function redGold(v) {
@@ -467,6 +495,7 @@ module.exports = {
   formatNum,
   shareToIndex,
   secToTimeStr,
+    secToDHM,
   redGold,
   addGold,
   tplStr

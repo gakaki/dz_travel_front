@@ -1,7 +1,6 @@
 // pages/play2/pops/eventQuest.js
 import {AnswerQuest} from '../../../api.js';
 const app = getApp();
-const resRoot = 'https://gengxin.odao.com/update/h5/travel/';
 Component({
   /**
    * 组件的属性列表
@@ -32,7 +31,8 @@ Component({
       answers: [],
       showResult: false,
       correct: false,
-      rewards: null
+      rewards: null,
+      isShowGX: false //是否显示恭喜答对
   },
 
   /**
@@ -45,25 +45,29 @@ Component({
       choose(e) {
         let str = e.currentTarget.dataset.str;
         let req = new AnswerQuest();
-        req.id = this.data.quest.id;
+
+        req.id = this.data.quest.dbId;
         req.answer = str;
 
         req.fetch().then(()=> {
           //update userinfo
-          app.globalData.userInfo = req.userInfo;
+            if (req.userInfo) {
+                app.globalData.userInfo = req.userInfo;
+            }
 
           let correct = req.correct;
           let rewards = req.rewards;
-
-          this.setData({ rewards, correct, showResult: true});
+          let isShowGX = req.type == 3 ? true : false;
+          this.setData({ rewards, correct, isShowGX, showResult: true});
         })
       }
   },
-
+ 
     attached() {
         let quest = this.properties.quest;
         if (quest) {
-            this.setData({picture: resRoot + quest.picture, content: quest.describe, answers: quest.answers});
+            let pic   = app.getEventPicURL(quest.picture);
+            this.setData({picture:pic, content: quest.describe, answers: quest.answers});
         }
     }
 })

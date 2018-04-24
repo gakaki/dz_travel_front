@@ -1,17 +1,25 @@
 /* pages/play2/pops/eventNormal.wxss */
 .evt-con {
     width: 612rpx;
-    height: 880rpx;
+    min-height: 880rpx;
     overflow: hidden;
     border-radius: 40rpx;
     background-color: #fff;
     box-shadow: 0 0 10rpx 0rpx #000;
+    position: relative;
 }
+
 .pic-box {
     width: 100%;
     height: 595rpx;
     background-color: yellowgreen;
     position: relative;
+}
+.point-pic {
+    width: 750rpx;
+    height: 600rpx;
+    display: block;
+    margin: 0 auto;
 }
 .ten {
     position: absolute;
@@ -37,14 +45,16 @@
 }
 
 .next-evt {
-    width: 328rpx;
-    height: 112rpx;
-    background: url("https://gengxin.odao.com/update/h5/travel/play/btn-blue.png") 0 0 no-repeat;
+    position: absolute;
+    left: 50%;
+    bottom: 10rpx;
+    width: 406rpx;
+    height: 121rpx;
+    transform: translate(-50%);
+    background: url("https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png") 0 0 no-repeat;
     background-size: cover;
     font-size: 28rpx;
-    line-height: 110rpx;
-    margin: 0 auto;
-    margin-top: 50rpx;
+    line-height: 94rpx;
     color: #fff;
     text-align: center;
 }

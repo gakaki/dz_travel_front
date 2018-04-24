@@ -15,7 +15,7 @@
     </view>
 
     <view class="gray-font">
-      <text class="gray-font {{selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
+      <text class=" {{selfPhotoFull ? 'full-font' : '' }}">3.至少进行2次拍照留念（{{selfPhoto}}）</text>
       <image hidden="{{!selfPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
 

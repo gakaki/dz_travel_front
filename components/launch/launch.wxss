@@ -1,0 +1,37 @@
+/* components/launch/launch.wxss */
+.con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  margin-top: 184rpx;
+  font: italic bold 60rpx/140rpx 'Microsoft Yahei';
+}
+.desc {
+  font: italic 30rpx/1 'Microsoft Yahei';
+}
+.logo-wrap {
+  margin-top: 78rpx;
+  width: 550rpx;
+  height: 327rpx;
+}
+.logo {
+  width: 550rpx;
+  height: 327rpx;
+}
+.footer {
+  position: fixed;
+  bottom: 30rpx;
+  left:50%;
+  width: 620rpx;
+  transform: translateX(-50%);
+  text-align: center;
+  font: 22rpx/1 'Microsoft Yahei';
+}
+.care {
+  font-weight: bold;
+}
+.care-a {
+  padding-top: 13rpx;
+}

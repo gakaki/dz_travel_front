@@ -1,6 +1,6 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
-const LIMIT = 5;
+const LIMIT = 3;
 import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let cid = ''
@@ -18,14 +18,14 @@ Page({
   jdArr:[],
   index1:1,
   index2:1,
-  v:1
+  v:1,
+  first:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     if (typeof options.cid != 'undefined') {
       cid = options.cid
       this.pullList(PostType.JINGDIAN)
@@ -43,11 +43,20 @@ Page({
     wx.setNavigationBarTitle({
       title: options.city+'攻略'
     })
+    
    
   },
   onShow(){
-    console.log(this.data.v)
-    this.pullList(this.data.v)
+    console.log(111)
+
+    if(!this.data.first) {
+      this.pullList(this.data.v)
+
+    }
+    this.setData({
+      first: false
+    })
+    
   },
   pullList(v) {
     let req = new PostList()
@@ -57,7 +66,7 @@ Page({
     } else{
       req.page = this.data.index2
     }
-    req.limit = LIMIT
+    // req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
       console.log(req)
@@ -106,14 +115,18 @@ Page({
         viewpoint: true,
         specialty: false,
         index1:1,
-        v:1
+        v:1,
+        postArr: [],
+        jdArr: []
       })
     } else {
       this.setData({
         viewpoint: false,
         specialty: true,
         index2: 1,
-        v:2
+        v:2,
+        postArr: [],
+        jdArr: []
       })
     }
     if(!this.data.specialty) {

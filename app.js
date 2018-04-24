@@ -69,15 +69,33 @@ App({
     console.log(options);
   },
   globalData: {
+    hasCar: false,
     userInfo: null,
     season: '',
     weather: '',
-    gold: null,
+    gold: 0,
     cid:null,
     cityName:null,
     isFirst: false,
     picBase:"https://gengxin.odao.com/update/h5/travel/",
-    noNetwork:false
+    noNetwork:false,
+
+
+    debug:{
+       share:true
+    }
+  },
+  //事件里的随机图片配置路径
+  getEventPicURL(reqQuestPictureURL) {
+    if (!reqQuestPictureURL) return reqQuestPictureURL;
+    let url = this.globalData.picBase + reqQuestPictureURL;
+    if (reqQuestPictureURL && reqQuestPictureURL.match(/\//)) { //有斜杠说明是正确的url 
+
+    } else {
+      //不然就是6.jpg这种了
+      url = this.globalData.picBase + "play/eventimg/" + reqQuestPictureURL;
+    }
+    return url;
   },
   preventMoreTap: function (e) {
     let globaTime = this.globalData.globalLastTapTime;

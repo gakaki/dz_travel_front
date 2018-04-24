@@ -44,6 +44,7 @@ Page({
    */
  
   onLoad: function (options) {
+    console.log(options)
     pointId = options.pointId
     cid = options.cid
     spotName = options.name
@@ -95,8 +96,7 @@ Page({
   guanguang() {
 
     if (this.data.freeSight== 0) {
-
-      if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value) {
+      if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
         this.setData({
           content: '金币不足,可前往充值',
           cfmStr: '前往充值',
@@ -126,6 +126,16 @@ Page({
          freeSight: req.freeSight
       })
       console.log(this.data.toView)
+    },()=>{
+      // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
+        if(req.code == -171) {
+        this.setData({
+          content: '金币不足,可前往充值',
+          cfmStr: '前往充值',
+          countBuzu: true
+        })
+        toUrl = '../recharge/recharge'
+      }
     })
 
     this.setData({

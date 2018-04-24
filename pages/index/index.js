@@ -6,7 +6,7 @@ const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
 let tktType , cid , terminal , tid , locationCid;
-let inviteOpt;
+let inviteOpt , getLocationCid = false;
 let enterOnload = true //判断是否进入onload生命周期函数中
 Page({
 
@@ -36,14 +36,14 @@ Page({
     presentTkt:[],
     chooseInd: 0,
     showTicket:false,
-    showInvite:false
+    showInvite:false,
+    launch:true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo(options);
@@ -54,9 +54,12 @@ Page({
   toPlay(e) {
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
-    wx.navigateTo({
-      url: '../play2/play?cid=' + locationCid
-    })
+    if(getLocationCid){
+      wx.navigateTo({
+        url: '../play2/play?cid=' + locationCid
+      })
+    }
+    
   },
   //options主要为了处理分享出去进来的跳转设置
   gotUserInfo(options) {
@@ -148,7 +151,7 @@ Page({
           })
           break;
         default:
-          this.tip('未知错误');
+          this.tip('未知错误，checkCode');
       }
     })
   }, 
@@ -168,6 +171,11 @@ Page({
       console.log('没有进入onload')
       this.gotUserInfo()
     }
+    setTimeout(()=>{
+      this.setData({
+        launch: false
+      })
+    },1000)
   },
 
   /**
@@ -175,7 +183,11 @@ Page({
    */
   onHide: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
-    enterOnload = false
+    getLocationCid = false;
+    enterOnload = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   /**
@@ -183,7 +195,11 @@ Page({
    */
   onUnload: function () {
     Http.unlisten(CheckMsgCnt, this.loopMsg, this);
-    enterOnload = false
+    getLocationCid = false;
+    enterOnload = false;
+    this.setData({
+      isFirst: false
+    })
   },
 
   getIndexInfo(userInfo) {
@@ -209,6 +225,10 @@ Page({
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
+
+      //加的保护，防止用户点击城市游玩时还没有获取到当前cid
+      getLocationCid = true
+
       this.setData({
         isFirst: req.isFirst,
         season,
@@ -250,7 +270,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork){
-            this.tip('未知错误');
+            this.tip('未知错误，indexInfo');
           }
       }
     })
@@ -307,7 +327,7 @@ Page({
           break;
         default:
           if (!app.globalData.noNetwork) {
-            this.tip('未知错误');
+            this.tip('未知错误，LookTicket');
           }
       }
     })
@@ -410,10 +430,9 @@ Page({
   },
 
   test(e) {
-    console.log(sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value)
-    if(app.preventMoreTap(e)) return;
+    // if(app.preventMoreTap(e)) return;
 
-    console.log(2222222)
+    console.log(2222222,e)
     // wx.showShareMenu({
     //   success(){
     //     console.log(12121212)

@@ -1,9 +1,9 @@
 <!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
-<wxs src="../../../filter/tools.wxs" module="tools"></wxs>
-<view class="f-c-fs dialog_question" >
-
-    <image src="{{picture}}" class="pic-box"></image>
+<view class="dialog_question" wx:if="{{!showResult}}">
+    <view class="pic-box">
+        <image src="{{picture}}" class="pic"></image>
+    </view>
 
     <view class="div_question">
         {{content}}
@@ -15,17 +15,17 @@
 
 </view>
 
-
 <!--选择之后-->
-<view class="dialog-result" wx:if="{{showResult}}">
+<view class="dialog-result" wx:else>
     <view class="pic-box" >
-        <image src="{{picture}}"></image>
-        <view class="ten font">{{current}}/{{total}}</view>
+        <image src="{{picture}}" class="pic" ></image>
+        <view class="ten">{{current}}/{{total}}</view>
     </view>
     <view class="content-box" >
-        <text class="head-font congratulations-head-font ml14" wx:if="{{correct}}">恭喜答对</text>
-        <text class="head-font congratulations-head-font ml14" wx:else >再接再厉</text>
-        <text class="gray-font congratulations-gray-font ml18" wx:if="{{rewards}}">{{tools.rewardStr(rewards)}}</text>
-        <view class="btn-big-blue cfm-btn" catch:tap="toNext">下一事件</view>
+        <text class="congratulations-head-font" wx:if="{{!isShowGX}}"> </text>
+        <text class="congratulations-head-font" wx:elif="{{correct}}">恭喜答对</text>
+        <text class="congratulations-head-font" wx:else >再接再厉</text>
+        <text class="congratulations-gray-font" wx:if="{{rewards}}">{{rewards}}</text>
+        <view class="btn-big-blue" catch:tap="toNext">下一事件</view>
     </view>
 </view>

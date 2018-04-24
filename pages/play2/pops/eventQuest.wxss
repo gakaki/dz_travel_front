@@ -1,10 +1,12 @@
 /* pages/play2/pops/eventQuest.wxss */
 .dialog_question, .dialog-result{
     width: 610rpx;
+    min-height: 1100rpx;
     background-color: #fff;
     border-radius: 20rpx;
     overflow: hidden;
-    padding: 20rpx;
+    padding: 20rpx 15rpx;
+    position: relative;
 }
 
 .div_question {
@@ -31,42 +33,21 @@
     box-sizing: border-box;
 }
 
-.question {
-    padding: 30rpx 0rpx;
-}
-
 .pic-box {
-    width: 100%;
-    height: 435rpx;
-    background-color: #e86a25;
+    width: 580rpx;
+    height: 446rpx;
+    margin: 0 auto;
+    overflow: hidden;
     position: relative;
 }
 
-.point-pic {
-    width: 100%;
-    height: 100%;
+.pic {
+    width: 750rpx;
+    height: 600rpx;
+    display: block;
+    margin: 0 auto;
 }
 
-.font_gray_big {
-    font: bold 76rpx 'Microsoft YaHei';
-    line-height: 76rpx;
-    text-align: center;
-    margin: 20rpx 0;
-    color: gray;
-}
-
-.font_black {
-    font: bold 50rpx 'Microsoft YaHei';
-    line-height: 50rpx;
-    color: black;
-    text-align: center;
-}
-.hook {
-    width: 49rpx;
-    height: 36rpx;
-    margin-right: 50rpx;
-    flex-shrink: 0;
-}
 
 .content-box {
     text-align: center;
@@ -84,4 +65,36 @@
     font-size: 30rpx;
     padding: 3rpx 10rpx;
 
+}
+
+.congratulations-head-font, .congratulations-gray-font {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 50rpx;
+}
+
+.congratulations-head-font {
+    font-size: 62rpx;
+    line-height: 62rpx;
+}
+.congratulations-gray-font {
+    font-size: 40rpx;
+    line-height: 40rpx;
+    color: gray;
+}
+
+.btn-big-blue {
+    position: absolute;
+    left: 50%;
+    bottom: 100rpx;
+    width: 406rpx;
+    height: 121rpx;
+    transform: translate(-50%);
+    background: url("https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png") 0 0 no-repeat;
+    background-size: cover;
+    font-size: 28rpx;
+    line-height: 94rpx;
+    color: #fff;
+    text-align: center;
 }

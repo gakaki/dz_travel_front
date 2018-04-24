@@ -331,6 +331,7 @@
 
 .no-rank{
   margin-top: 150rpx;
+  position: relative;
 }
 
 .no-rank-icon{
@@ -436,4 +437,8 @@
   top: 0;
   left: 0;
   z-index: 10;
+}
+
+.no-rank-help{
+  top: -140rpx;
 }

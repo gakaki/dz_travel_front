@@ -12,7 +12,9 @@
     border: 8rpx solid #666;
     border-width: 0 0 8rpx 0;
 }
-
+.solid-line {
+border-radius: 4rpx
+}
 .dashed-line {
     border-style: dotted;
 }
@@ -78,10 +80,12 @@ weather.sights {
 .fontWhite {
     font: normal 30rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .zi {
     font: normal 26rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .font34 {
     font-size: 34rpx;
@@ -134,7 +138,8 @@ weather.sights {
     background-color: rgba(0,0,0,0.5);
     transform: translate(-50%, 0%); */
 
-width: 200rpx;
+/* width: 200rpx; */
+padding: 0 10rpx;
   height: 46rpx;
   border-radius: 10rpx;
   background-color: rgba(0, 0, 0, 0.5);
@@ -184,28 +189,6 @@ width: 200rpx;
     transform: translate(-50%, -52%);
 }
 
-.zoomBtn {
-    width: 270rpx;
-    position: fixed;
-    left: 50%;
-    bottom: 240rpx;
-    transform: translate(-50%,0);
-}
-
-.zoomBtn .add {
-    width: 105rpx;
-    height: 70rpx;
-    background: url("https://gengxin.odao.com/update/h5/travel/play/add.png") 0 0 no-repeat;
-    background-size: cover;
-}
-
-.zoomBtn .minus {
-    width: 105rpx;
-    height: 70rpx;
-    background: url("https://gengxin.odao.com/update/h5/travel/play/minus.png") 0 0 no-repeat;
-    background-size: cover;
-}
-
 .weather {
     width: 46rpx;
     height: 46rpx;
@@ -250,6 +233,7 @@ width: 200rpx;
     position: absolute;
     top: 60rpx;
     right: 10rpx;
+    overflow: hidden
 }
 
 .progressBar {
@@ -257,8 +241,22 @@ width: 200rpx;
     background-color: #dbff13;
     border-radius: 30rpx;
     position: absolute;
+     max-width: 105rpx; 
     top: 1rpx;
     left: 1rpx;
+}
+
+.distance {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30rpx;
+    /* width: 178rpx; */
+    padding: 0 14rpx;
+    height: 54rpx;
+    position: fixed;
+    top: 20rpx;
+    left: 10rpx;
+    text-align: center;
+    z-index: 15;
 }
 
 .changeLine {
@@ -301,7 +299,7 @@ width: 200rpx;
     background-size: cover;
 
     font-size: 24rpx;
-    line-height: 74rpx;
+    line-height: 78rpx;
     margin-top: 25rpx;
 }
 .travelStart,.start-icon {
@@ -324,7 +322,7 @@ width: 200rpx;
 .start-icon {
     background: url("https://gengxin.odao.com/update/h5/travel/play/start-gray.png") 0 0 no-repeat;
     background-size: cover;
-    line-height: 85rpx
+    line-height: 88rpx
 }
 
 .tarvelProps {
@@ -336,7 +334,7 @@ width: 200rpx;
     background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
     background-size: cover;
     font-size: 24rpx;
-    line-height: 74rpx;
+    line-height: 78rpx;
     margin-top: 25rpx;
 
 }
@@ -349,3 +347,18 @@ width: 200rpx;
     margin-bottom: 5rpx;
 }
 
+.play-spot-idx {
+    position: absolute;
+    left: 50%;
+    top: -40rpx;
+    transform: translateX(-50%);
+    font: bold 34rpx 'Microsoft YaHei';
+    color: #fff;
+    text-shadow: #2e8cff 2rpx 0 0, #2e8cff 0 2rpx 0, #2e8cff -2rpx 0 0, #2e8cff 0 -2rpx 0;
+    z-index: 9;
+}
+.fc {
+  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  letter-spacing: 6rpx;
+  color: #b8b8b8;
+}

@@ -173,6 +173,7 @@ Page({
         this.setData({
           myGold: app.globalData.gold
         })
+        app.globalData.hasCar = true
       }).catch(()=>{
         this.setData({
           forceBuy:true

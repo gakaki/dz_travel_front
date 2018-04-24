@@ -1,5 +1,6 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page">
+ <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <!--地图-->
   <scroll-view id="play-map" scroll-x="{{true}}" scroll-y="{{true}}" scroll-with-animation='{{true}}' bind:tap="touchMap">
     <!--背景地图-->
@@ -11,62 +12,57 @@
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
     </view>
     <!--景点-->
-    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
+    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
       <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
+      <text class="play-spot-idx flex" wx:if="{{ planing && item.index > -1}}">{{item.index + 1}}</text>
     </view>
     <!--小人.自己-->
-    <view wx:if="{{roleMe}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
+    <view wx:if="{{roleMe }}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -50rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
     <!--小人.组队好友-->
     <view wx:if="{{roleFriend}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform:rotate({{roleFriend.rotation}}deg) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -30rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
-    <view wx:if="{{roleCar}}" class="{{roleCar.roleCls}} {{roleCar.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleCar.img}});background-size:auto 100%;position:absolute;left:{{roleCar.x * scale}}rpx;top:{{roleCar.y * scale}}rpx;width:{{roleCar.wd * scale}}rpx;height:{{roleCar.ht * scale}}rpx;transform:scaleX({{roleCar.scale}}) translate(-50%, -90%);">
-      <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -50rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
-    </view>
-  </scroll-view>
-  <!--控件-固定-->
-  <view id="play-control-normal" class="controll-layer">
-    <!-- 缩放按钮  -->
-    <view class="zoomBtn f-r-sa">
-      <view class="add" catch:tap="zoomplus"></view>
-      <view class="minus" catch:tap="zoomminus"></view>
-    </view>
-  </view>
-  <!--控件-非规划路线状态-->
-  <view id="play-control-playing" wx:if="{{!planing}}" class="controll-layer">
-    <image wx:if="{{weather.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weather}}.png"></image>
-    <!-- 提示 -->
-    <view class="tip" bindtap='popPlayIntro'></view>
-    <!-- 屏幕边缘按钮 -->
-    <view class="mission f-c-fs" bindtap='popMissionInfo'>
-      <text class="fontWhite missionText font font26">任务</text>
-      <view class="progressBox">
-        <view class="progressBar" style="width:{{taskPer}}%;"></view>
-      </view>
-    </view>
-    <view class="changeLine f-c-fs" bindtap='chgLine' wx:if="{{started}}">
-      <text class="fontWhite changeLineText font font26">修改路线</text>
-      <text class="fontWhite changeLineMoney font font26" wx:if="{{started}}">$100</text>
-    </view>
-    <!-- 按钮组 -->
-    <view class="btnBoxWrap f-c-fs">
 
-      <!-- 三个按钮 -->
-      <view class="btnBox f-r-sa">
-        <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTraced}}">游玩结束</view>
-        <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
-      </view>
-      <!-- 虚拟地图警告 -->
-      <view class="warningBox"></view>
+  </scroll-view>
+    <!--控件-非规划路线状态-->
+    <view id="play-control-playing" wx:if="{{!planing}}" class="controll-layer">
+        <view class="distance">
+            <text class="zi">里程:</text>
+            <text class="fontWhite">{{licheng}}</text>
+            <text class="zi">km</text>
+        </view>
+        <image wx:if="{{weatherImg.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weatherImg}}.png"></image>
+        <!-- 提示 -->
+        <view class="tip" bindtap='popPlayIntro'></view>
+        <!-- 屏幕边缘按钮 -->
+        <view class="mission f-c-fs" bindtap='popMissionInfo'>
+            <text class="fontWhite missionText font font26">任务</text>
+            <view class="progressBox">
+                <view class="progressBar" style="width:{{taskPer}}%;"></view>
+            </view>
+        </view>
+        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started && !planedFinished}}">
+            <text class="fontWhite changeLineText font font26" >修改路线</text>
+            <text class="fontWhite changeLineMoney font font26" >$100</text>
+        </view>
+        <!-- 按钮组 -->
+        <view class="btnBoxWrap f-c-fs">
+
+            <!-- 三个按钮 -->
+            <view class="btnBox f-r-sa">
+                <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started || planedFinished}}" bindtap="chgLine">规划路线</view>
+                <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
+                <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
+            </view>
+            <!-- 虚拟地图警告 -->
+            <view class="warningBox"></view>
+        </view>
     </view>
-  </view>
   <!--控件-规划路线-->
   <view id="play-control-editing" wx:else class="controll-layer">
     <view class="travelStart font fontWhite font32" catch:tap="sendPath">开始游玩</view>

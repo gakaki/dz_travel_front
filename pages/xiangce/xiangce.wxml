@@ -6,15 +6,18 @@
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab' data-id='1'>留言明信片</view>
   </view>
   <scroll-view scroll-y class='all-postcard'>
+    <block>
     <view class="xc-pro" wx:if='{{viewpoint}}' wx:for='{{allInit}}' wx:key='{{index}}'>
-      <view class="pro-top f-r-sb">
-        <text class="pro">{{item.city}}</text>
-        <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
+        <view class="pro-top f-r-sb">
+          <text class="pro">{{item.city}}</text>
+          <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
+        </view>
+        <view class="img-box" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}'>
+          <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{tools.allImg(img.url)}}"></image>
+        </view>      
       </view>
-      <view class="img-box" wx:for='{{item.postcardsDetail}}' wx:for-item='img' wx:key='{{index}}'>
-        <image class="img" bindtap='toMsgPost' data-id='{{img.id}}' data-postid='{{img.postid}}' src="{{tools.allImg(img.url)}}"></image>
-      </view>      
-    </view>
+      <none wx:if='{{viewpoint && !allInit.length}}' title='暂无明信片' tip='明信片可分享给好友进行通信哦~' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>
+    </block>
     <block wx:if='{{specialty}}'>
       <view class="xc-pro" wx:if='{{item.postcardsDetail.length}}' wx:for='{{LMInit}}' wx:key='{{index}}'>
         <view class="pro-top f-r-sb">
@@ -32,7 +35,7 @@
           <view class="bl" wx:if='{{item.postcardsDetail.length-1 != index}}'></view>
         </view>   
       </view> 
-       <none wx:if="{{none}}" title='暂无留言明信片' tip='明信片可分享给好友进行通信哦~' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>   
+      <none wx:if="{{none}}" title='暂无留言明信片' tip='明信片可分享给好友进行通信哦~' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>   
     </block>  
   </scroll-view>
 </view>
