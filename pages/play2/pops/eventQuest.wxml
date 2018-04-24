@@ -22,7 +22,7 @@
         <view class="ten">{{current}}/{{total}}</view>
     </view>
     <view class="content-box" >
-        <text class="congratulations-head-font" wx:if="{{!isShowGX}}"> </text>
+        <text class="congratulations-head-font" wx:if="{{!isShowGX}}">{{choice}}</text>
         <text class="congratulations-head-font" wx:elif="{{correct}}">恭喜答对</text>
         <text class="congratulations-head-font" wx:else >再接再厉</text>
         <text class="congratulations-gray-font" wx:if="{{rewards}}">{{rewards}}</text>
