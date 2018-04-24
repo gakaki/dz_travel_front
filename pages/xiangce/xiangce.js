@@ -34,12 +34,12 @@ Page({
     
   },
   toMsgPost(e) {
-    if(!this.data.uid) {
-      let v = e.currentTarget.dataset;
-      wx.navigateTo({
-        url: '../checkPostcard/checkPostcard?id=' + v.id + '&postid=' + v.postid,
-      })
-    } 
+    if(this.data.uid) {return}
+    let v = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../checkPostcard/checkPostcard?id=' + v.id + '&postid=' + v.postid
+    })
+   
   },
   chgTab(e) {
     let v = e.currentTarget.dataset.id;
