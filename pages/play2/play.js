@@ -115,6 +115,9 @@ Page({
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
     let cityName = city.city;
+    wx.setNavigationBarTitle({
+      title: cityName + '游玩'
+    })
     citysName = cityName
     let m = new CheckGuide();
     m.fetch().then(res => {
@@ -307,6 +310,7 @@ Page({
         roleMe.walkCls = '';
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        this.freshSpots
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -549,6 +553,8 @@ Page({
 
       if (allSame) {
         //全部一样的话，不必更新渲染
+          //按y值排序，以景深排序
+        olds.sort( (a,b)=> a.y - b.y);
         updateLine && this.updateLines();
         return;
       }
@@ -569,6 +575,9 @@ Page({
         }
       })
     }
+    //按y值排序，以景深排序
+    spots.sort( (a,b)=> a.y - b.y);
+
     this.data.spots = spots;
     let planedSpots = spots.filter(o => {
       return o.index > -1;
@@ -632,7 +641,6 @@ Page({
     let spot = this.data.spots.find(s => s.id == sid);
     console.log('click spot', spot)
 
-    let idxInSpots = this.data.spots.indexOf(spot);
     //游玩中
     if (this.data.started) {
       if (spot.tracked) {
@@ -652,11 +660,10 @@ Page({
       //规划路线
       if (this.data.planedSpots.indexOf(spot) == -1) {
         this.data.planed = true;
-        console.log(this.data.planedSpots.length)
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
 
-
+        let idxInSpots = this.data.spots.indexOf(spot);
         this.setData({
           [`spots[${idxInSpots}]`]: spot
         });
@@ -800,7 +807,7 @@ Page({
   //到道具和特产页面
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + this.data.cid
+      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到观光页面

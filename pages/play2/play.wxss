@@ -80,10 +80,12 @@ weather.sights {
 .fontWhite {
     font: normal 30rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .zi {
     font: normal 26rpx 'Microsoft YaHei';
     color: #fff;
+    line-height: 54rpx;
 }
 .font34 {
     font-size: 34rpx;
@@ -136,7 +138,8 @@ weather.sights {
     background-color: rgba(0,0,0,0.5);
     transform: translate(-50%, 0%); */
 
-width: 200rpx;
+/* width: 200rpx; */
+padding: 0 10rpx;
   height: 46rpx;
   border-radius: 10rpx;
   background-color: rgba(0, 0, 0, 0.5);
@@ -147,7 +150,7 @@ width: 200rpx;
   font: bold 22rpx 'Microsoft YaHei';
   color: #fff;
   white-space: nowrap;
-  z-index: 9;
+  z-index: 10;
 
 }
 .play-spot-tm::after {
@@ -270,10 +273,6 @@ width: 200rpx;
     right: 10rpx;
     position: absolute;
     top: 26rpx;
-}
-
-.continueLineText {
-    top: 38rpx;
 }
 
 .changeLineMoney {
