@@ -12,7 +12,7 @@
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
     </view>
     <!--景点-->
-    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" data-index="{{index}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
+    <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
       <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
@@ -45,10 +45,9 @@
                 <view class="progressBar" style="width:{{taskPer}}%;"></view>
             </view>
         </view>
-        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started}}">
-            <text class="fontWhite changeLineText font font26" wx:if="{{!planedFinished}}">修改路线</text>
-            <text class="fontWhite changeLineText continueLineText font font26" wx:else>规划路线</text>
-            <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
+        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started && !planedFinished}}">
+            <text class="fontWhite changeLineText font font26" >修改路线</text>
+            <text class="fontWhite changeLineMoney font font26" >$100</text>
         </view>
         <!-- 按钮组 -->
         <view class="btnBoxWrap f-c-fs">
@@ -56,9 +55,8 @@
             <!-- 三个按钮 -->
             <view class="btnBox f-r-sa">
                 <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started || planedFinished}}" bindtap="chgLine">规划路线</view>
                 <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
-                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTracked || planedFinished}}">游玩结束</view>
                 <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
             </view>
             <!-- 虚拟地图警告 -->

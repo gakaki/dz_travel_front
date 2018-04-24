@@ -23,6 +23,9 @@
 .footer {
   position: fixed;
   bottom: 30rpx;
+  left:50%;
+  width: 620rpx;
+  transform: translateX(-50%);
   text-align: center;
   font: 22rpx/1 'Microsoft Yahei';
 }
