@@ -310,6 +310,7 @@ Page({
         roleMe.walkCls = '';
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        this.freshSpots
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
