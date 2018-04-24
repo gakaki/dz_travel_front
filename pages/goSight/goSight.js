@@ -127,6 +127,15 @@ Page({
          freeSight: req.freeSight
       })
       console.log(this.data.toView)
+    },()=>{
+      // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
+      //   this.setData({
+      //     content: '金币不足,可前往充值',
+      //     cfmStr: '前往充值',
+      //     countBuzu: true
+      //   })
+      //   toUrl = '../recharge/recharge'
+      // }
     })
 
     this.setData({

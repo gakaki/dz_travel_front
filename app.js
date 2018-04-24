@@ -73,7 +73,7 @@ App({
     userInfo: null,
     season: '',
     weather: '',
-    gold: null,
+    gold: 0,
     cid:null,
     cityName:null,
     isFirst: false,
