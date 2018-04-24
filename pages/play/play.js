@@ -482,7 +482,7 @@ Page({
       lineUpdated = true;
       this.freshSpots();
     }
-    else if (res.spotsTracked != this.data.spotsTracked) {
+     if (res.spotsTracked != this.data.spotsTracked) {
       music.play()
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
@@ -687,7 +687,6 @@ Page({
     let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
-    console.log('click spot', spot)
 
     //游玩中
     if (this.data.started) {
