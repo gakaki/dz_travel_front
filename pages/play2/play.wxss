@@ -237,6 +237,7 @@ width: 200rpx;
     background-color: #dbff13;
     border-radius: 30rpx;
     position: absolute;
+    max-width: 105rpx;
     top: 1rpx;
     left: 1rpx;
 }
@@ -355,4 +356,8 @@ width: 200rpx;
     text-shadow: #2e8cff 2rpx 0 0, #2e8cff 0 2rpx 0, #2e8cff -2rpx 0 0, #2e8cff 0 -2rpx 0;
     z-index: 9;
 }
-
+.fc {
+  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  letter-spacing: 6rpx;
+  color: #b8b8b8;
+}
