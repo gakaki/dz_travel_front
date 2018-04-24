@@ -1,4 +1,5 @@
 /* pages/play2/pops/eventQuest.wxss */
+@import "/app.wxss";
 .dialog_question, .dialog-result{
     width: 610rpx;
     min-height: 1100rpx;
@@ -16,8 +17,9 @@
     line-height: 40rpx;
 }
 
-.div_answers {
+/* .div_answers {
     width: 100%;
+
 }
 
 .div_answers .answer_options {
@@ -31,7 +33,32 @@
     padding: 24rpx 0;
     margin: 0 10rpx 20rpx;
     box-sizing: border-box;
+} */
+
+.div_answers {
+    width: 580rpx;
+  height: 420rpx;
+    margin: 0 auto;
+    margin-top: 50rpx;
 }
+
+.div_answers .answer_options {
+  width: 100%;
+    background-color: #EFEFEF;
+    border-radius: 80rpx;
+    text-indent: 40rpx;
+    text-align: left;
+    font-weight: 350;
+    font-size: 32rpx;
+    color: #959595;
+    padding: 24rpx 0;
+    /* margin: 0 10rpx 20rpx; */
+    box-sizing: border-box;
+}
+.mb {
+  margin-bottom: 150rpx
+}
+  
 
 .pic-box {
     width: 580rpx;

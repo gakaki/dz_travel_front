@@ -310,6 +310,7 @@ Page({
         roleMe.walkCls = '';
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        this.freshSpots
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -513,10 +514,11 @@ Page({
         })
       }
       display = req.display
+      //更新任务进度
+      this.freshTask();
     })
 
-    //更新任务进度
-    this.freshTask();
+   
   },
 
   //更新景点状态列表
@@ -806,7 +808,7 @@ Page({
   //到道具和特产页面
   toProps() {
     wx.navigateTo({
-      url: '../props/props?cid=' + this.data.cid
+      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到观光页面

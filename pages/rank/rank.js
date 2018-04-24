@@ -127,7 +127,17 @@ Page({
     req.rankSubtype = rankSubtype;
     req.page = page;
     req.fetch().then(() => { 
-      ranks = ranks.concat(req.ranks);
+      ranks = ranks.concat(req.ranks).map(o=>{
+        let nickName;
+        if(o.userInfo.nickName.length>8){
+          nickName = o.userInfo.nickName.substr(0, 8)
+        }
+        else{
+          nickName = o.userInfo.nickName
+        }
+        o.userInfo.nickName = nickName;
+        return o;
+      });
       console.log(ranks,page,'排行榜数据',req.selfRank)
       //全国榜单需要把前三名分开
       if (rankSubtype == RankSubtype.COUNTRY){
