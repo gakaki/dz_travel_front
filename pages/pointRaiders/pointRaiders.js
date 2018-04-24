@@ -1,6 +1,6 @@
 import { spliceStr } from '../../utils/util.js'
 import { PostList, PostType, CommentPost } from '../../api.js';
-const LIMIT = 5;
+const LIMIT = 10;
 import { shareToIndex } from '../../utils/util.js';
 const sheet = require('../../sheets.js');
 let cid = ''
@@ -18,7 +18,8 @@ Page({
   jdArr:[],
   index1:1,
   index2:1,
-  v:1
+  v:1,
+  first:true
   },
 
   /**
@@ -41,13 +42,16 @@ Page({
     }
     
     wx.setNavigationBarTitle({
-      title: options.city+'攻略'
+      title: options.city+'攻略',
+      first:false
     })
    
   },
   onShow(){
-    console.log(this.data.v)
-    this.pullList(this.data.v)
+    if(!this.data.first) {
+      this.pullList(this.data.v)
+    }
+    
   },
   pullList(v) {
     let req = new PostList()
@@ -57,7 +61,7 @@ Page({
     } else{
       req.page = this.data.index2
     }
-    req.limit = LIMIT
+    // req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
       console.log(req)
