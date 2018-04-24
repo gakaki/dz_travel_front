@@ -139,6 +139,8 @@ class Parameter {
 
     static get LONGESTTIME() { return 41 };
 
+    static get EVENTMAX() { return 42 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
