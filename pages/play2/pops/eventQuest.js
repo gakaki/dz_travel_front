@@ -32,6 +32,7 @@ Component({
       showResult: false,
       correct: false,
       rewards: null,
+      choice: '',
       isShowGX: false //是否显示恭喜答对
   },
 
@@ -48,7 +49,7 @@ Component({
 
         req.id = this.data.quest.dbId;
         req.answer = str;
-
+        let choice = str;
         req.fetch().then(()=> {
           //update userinfo
             if (req.userInfo) {
@@ -58,7 +59,7 @@ Component({
           let correct = req.correct;
           let rewards = req.rewards;
           let isShowGX = req.type == 3 ? true : false;
-          this.setData({ rewards, correct, isShowGX, showResult: true});
+          this.setData({ rewards, correct, isShowGX, showResult: true, choice});
         })
       }
   },
