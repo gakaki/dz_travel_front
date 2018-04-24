@@ -377,6 +377,18 @@ Page({
 
     this.zoomOnPlaning();//缩放
 
+    if(!this.data.started) {
+      this.setData({
+        chgLines: false,
+        started: false,//设为非游玩状态
+        planing: true, //设为编辑路线状态
+        planed: false,//是否完成了规划
+        planedFinished: false,//
+        planedSpots: []
+      })
+      return
+    }
+
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
