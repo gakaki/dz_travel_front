@@ -58,10 +58,18 @@ function filterNickname(name) {
   return name
 }
 
+function changeArr(str){
+  console.log(str)
+  let arr = str.split("\\n")
+  console.log(arr)
+  return arr
+}
+
 module.exports = {
     formatTime: formatTime,
     allImg: allImg,
     postcardBg: postcardBg,
     rewardsStr: rewardsStr,
-    filterNickname: filterNickname
+    filterNickname: filterNickname,
+    changeArr: changeArr
 }
