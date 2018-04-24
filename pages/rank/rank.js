@@ -283,7 +283,7 @@ Page({
     //此处需要传uid，
     console.log(e.currentTarget.dataset.uid, wx.getStorageSync('uid'), '是不是自己啊啊啊啊啊啊啊啊啊啊啊啊啊啊 啊')
     let uid = e.currentTarget.dataset.uid
-    if (uid = wx.getStorageSync('uid')){
+    if (uid == wx.getStorageSync('uid')){
       wx.switchTab({
         url: '../self/self',
       })
