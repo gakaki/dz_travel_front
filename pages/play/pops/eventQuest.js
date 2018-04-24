@@ -41,7 +41,6 @@ Component({
    */
   methods: {
       toNext(e) {
-        console.log(e)
         this.triggerEvent('next', { cur: e.currentTarget.dataset.current});
       },
       choose(e) {

@@ -7,6 +7,7 @@ const scaleMin = 0.7;
 let tapStamp;
 let display;
 let music;
+let reGoin = 0;
 let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
@@ -235,6 +236,7 @@ Page({
    */
   onHide: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
   },
 
   /**
@@ -242,6 +244,7 @@ Page({
    */
   onUnload: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
   },
 
   /**
@@ -482,8 +485,12 @@ Page({
       lineUpdated = true;
       this.freshSpots();
     }
-     if (res.spotsTracked != this.data.spotsTracked) {
-      music.play()
+    if (res.spotsTracked != this.data.spotsTracked) {
+      if (reGoin != 0) {
+        music.play()
+      }
+      else reGoin = 1
+      
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
       lineUpdated = true;
