@@ -2,7 +2,7 @@ const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 import { spliceStr } from '../../utils/util.js'
 import { ymd } from '../../utils/rest.js'
-import { Photography, Season, ReqEnterspot, SpotTour } from '../../api.js'
+import { Photography, Season, ReqEnterspot, SpotTour, Code } from '../../api.js'
 const sheet = require('../../sheets.js');
 let pointId = ''
 let cid = ''
@@ -28,7 +28,7 @@ Page({
     url: '',
     date: '',
     season: '',
-    weather: 'sun',
+    weather: '',
     testStr: '',
     countBuzu: false,
     isGetPost: false,
@@ -128,7 +128,7 @@ Page({
       console.log(this.data.toView)
     },()=>{
       // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
-        if(req.code == -171) {
+      if (req.code == Code.NEED_MONEY) {
         this.setData({
           content: '金币不足,可前往充值',
           cfmStr: '前往充值',
@@ -162,15 +162,6 @@ Page({
 
   },
   getPost() {
-    if (this.data.freePhoto == 0) {
-      this.setData({
-        content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
-        cfmStr: '前往旅行装备',
-        countBuzu: true
-      })
-      toUrl = '../props/props'
-      return
-    }
     let req = new Photography();
     req.cid = cid;
     req.spotId = pointId
@@ -183,20 +174,21 @@ Page({
       })
     },code=>{
       //拍了一次之后
-      if (code == -137) {
-        wx.showToast({
-          title: '每个景点只能拍照一次',
-          icon: 'none',
-          mask: true
-        })
-      }
-      if (code == -131) {
+      if (code == Code.NEED_ITEMS) {
         this.setData({
           content: '本地游玩免费拍照次数（' + sheet.Parameter.Get(sheet.Parameter.PHOTOGRAGH).value + '次)已使用完毕\n前往旅行装备处租用单反相机获得拍照次数',
           cfmStr: '前往旅行装备',
           countBuzu: true
         })
         toUrl = '../props/props'
+      }
+      if (code == Code.EXCEED_COUNT) {
+        wx.showToast({
+          title: '每个景点只能拍照一次',
+          icon: 'none',
+          mask: true
+        })
+        return
       }
     })
   },
