@@ -8,7 +8,7 @@
         <text class="pro">{{item.province}}</text>
         <text class="per">{{item.collectPostcardNum}}/{{item.allPostcardNum}}</text>
       </view>
-      <view class="more">查看相册</view>
+      <view wx:if='{{!uid}}' class="more">查看相册</view>
     </view>
   </view>
 </scroll-view>

@@ -30,7 +30,7 @@
       </view> 
     </view> 
   </scroll-view> 
-  <view class='btn-wrap'>
+  <view class='btn-wrap' wx:if='{{!uid}}'>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
     <view class='btn-big-blue' bindtap='toCity'>城市攻略</view>
   </view>
