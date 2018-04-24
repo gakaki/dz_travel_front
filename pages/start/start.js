@@ -12,6 +12,7 @@ let partnerEnter = false //判断小伙伴是否进入
 let score = 50 , reward = 50;    //上次旅行得分和奖励
 let initCity = sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value;
 let reconnection = false;
+let enterOnload = false , flyType;
 const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 
@@ -46,7 +47,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    enterOnload = true
+    flyType = options.type
     console.log(options,'起飞界面options')
     if(options.type == TicketType.SINGLEPRESENT){
       onlySingle = true
@@ -235,6 +237,17 @@ Page({
         reconnection = true
       }
     })
+    if (!enterOnload){
+      let info = new FlyInfo();
+      info.type = flyType;
+      info.fetch().then((req) => {
+        console.log(req, '起飞界面数据------->onShow')
+        let flyInfo = this.setFlyInfo(req);
+        this.setData({
+          flyInfo,
+        })
+      })
+    }
   },
 
   /**
@@ -244,6 +257,10 @@ Page({
     clearInterval(time)
     console.log("onHide")
     this.data.enterOnshow = false
+    enterOnload = false
+    this.setData({
+      needItem: false
+    })
     // Http.unlisten(PartnerInfo, this.parInfo, this);
   },
 
@@ -255,6 +272,7 @@ Page({
     startFly = true;
     onlyDouble = false;
     onlySingle = false;
+    enterOnload = false;
     preventFastClick = false;
     this.data.enterOnshow = false;
     inviteCode = '';

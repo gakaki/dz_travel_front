@@ -46,7 +46,7 @@
     </view>
   </scroll-view>
 
-  <view id="three-list" class="f-c-fs sc" wx:if="{{tabThree}}">
+  <scroll-view id="three-list" scroll-y class="f-c-fs sc" wx:if="{{tabThree}}">
     <view class="one-item f-r-fs " wx:for="{{mySpe}}" wx:key='{{index}}'>
       <image class="one-pic" wx:if="{{item.img}}" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
@@ -58,11 +58,11 @@
         <text class='gold-num font'>{{item.sellPrice}}</text>
       </view>
     </view>
-  </view>
+  </scroll-view>
   <none wx:if='{{tabThree && !mySpe.length}}' title='背包中无特产可售卖' tip='可前往购买特产处进行购买'src='https://gengxin.odao.com/update/h5/travel/props/icon.png'></none>
   
 
-  <view id="four-list" scroll-y class="f-c-fs sc" wx:if="{{tabFour}}">
+  <view id="four-list" class="f-c-fs sc" wx:if="{{tabFour}}">
     <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
       <image class="one-pic"  wx:if="{{item.picture}}" src="{{tools.allImg(item.picture)}}"></image>
       <view class="f-c two-mid">

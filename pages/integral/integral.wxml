@@ -1,4 +1,5 @@
 <!--pages/integral/integral.wxml-->
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class='integral f-c'>
   <view class='back'>
     <view class='audio audio-men' bindtap='toPlay' data-men='{{true}}'></view>
@@ -21,7 +22,7 @@
       <view>
         <image class='goods-tu' src="{{item.url}}"></image>
       </view>
-      <view class="goods-zi">{{item.name}}</view>
+      <view class="goods-zi">{{tools.filterNickname(item.name)}}</view>
       <view class="goods-fen">{{item.integral}}积分</view>
       <view class="goods-anniu" bindtap='exchange' data-id='{{item.id}}' data-int="{{item.integral}}" data-name="{{item.name}}">
         <text>兑换</text>
@@ -35,7 +36,7 @@
     <view  class="info" wx:for="{{exchangeDetail}}" wx:key="{{index}}">
       <view class='f-r-fs'>
         <avatar avatarWid="72" avatarHeg="72" src="{{item.avatarUrl}}" showGoldAndIntegral='{{false}}'></avatar>
-        <text>{{item.nickName}}兑换了{{item.shopName}}</text>
+        <text>{{tools.filterNickname(item.nickName)}}兑换了{{item.shopName}}</text>
       </view>
     </view>
   </scroll-view>
