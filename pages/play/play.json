@@ -1,4 +1,5 @@
 {
+  "disableScroll": true,
   "usingComponents": {
     "directions": "/components/rankDirections/rankDirections",
     "pop-event-normal": "./pops/eventNormal",
