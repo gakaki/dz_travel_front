@@ -230,7 +230,7 @@ weather.sights {
   position: absolute;
   left: 30rpx;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotateY(180deg);
   transform-origin: 50% 50%;
    transition: transform 0.4s linear 0.3s 
 }
@@ -252,7 +252,7 @@ weather.sights {
   right: -150rpx;
 }
  .zheng {
-transform: rotateY(180deg) translateY(-50%)
+transform: rotateY(0) translateY(-50%);
 }
 .mission {
   /* background: url("https://gengxin.odao.com/update/h5/travel/play/missionBtn.png") 0 0 no-repeat;
@@ -288,7 +288,7 @@ transform: rotateY(180deg) translateY(-50%)
 }
 
 .progressBar {
-  height: 16rpx;
+  height: 18rpx;
   background-color: #dbff13;
   border-radius: 30rpx;
   position: absolute;
