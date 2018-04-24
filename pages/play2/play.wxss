@@ -272,10 +272,6 @@ width: 200rpx;
     top: 26rpx;
 }
 
-.continueLineText {
-    top: 38rpx;
-}
-
 .changeLineMoney {
     position: absolute;
     top: 27px;

@@ -549,6 +549,8 @@ Page({
 
       if (allSame) {
         //全部一样的话，不必更新渲染
+          //按y值排序，以景深排序
+        olds.sort( (a,b)=> a.y - b.y);
         updateLine && this.updateLines();
         return;
       }

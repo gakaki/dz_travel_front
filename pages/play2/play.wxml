@@ -45,10 +45,9 @@
                 <view class="progressBar" style="width:{{taskPer}}%;"></view>
             </view>
         </view>
-        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started}}">
-            <text class="fontWhite changeLineText font font26" wx:if="{{!planedFinished}}">修改路线</text>
-            <text class="fontWhite changeLineText continueLineText font font26" wx:else>规划路线</text>
-            <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
+        <view class="changeLine f-c-fs" bindtap='xiugaiLine' wx:if="{{started && !planedFinished}}">
+            <text class="fontWhite changeLineText font font26" >修改路线</text>
+            <text class="fontWhite changeLineMoney font font26" >$100</text>
         </view>
         <!-- 按钮组 -->
         <view class="btnBoxWrap f-c-fs">
@@ -56,9 +55,8 @@
             <!-- 三个按钮 -->
             <view class="btnBox f-r-sa">
                 <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-                <view class="travelStart font fontWhite  font32" wx:if="{{!started}}" bindtap="chgLine">规划路线</view>
+                <view class="travelStart font fontWhite  font32" wx:if="{{!started || planedFinished}}" bindtap="chgLine">规划路线</view>
                 <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
-                <view class="travelStart start-icon font fontWhite  font32" wx:if="{{spotsAllTracked || planedFinished}}">游玩结束</view>
                 <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
             </view>
             <!-- 虚拟地图警告 -->
