@@ -26,7 +26,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     if (typeof options.cid != 'undefined') {
       cid = options.cid
       this.pullList(PostType.JINGDIAN)
@@ -42,15 +41,21 @@ Page({
     }
     
     wx.setNavigationBarTitle({
-      title: options.city+'攻略',
-      first:false
+      title: options.city+'攻略'
     })
+    
    
   },
   onShow(){
+    console.log(111)
+
     if(!this.data.first) {
       this.pullList(this.data.v)
+
     }
+    this.setData({
+      first: false
+    })
     
   },
   pullList(v) {
@@ -92,17 +97,17 @@ Page({
     wx.navigateTo({
       url: '../raiders/raiders?cityId=' + e.currentTarget.dataset.cityId + '&postId=' + e.currentTarget.dataset.postId + '&type=' + e.currentTarget.dataset.type + '&name=' + e.currentTarget.dataset.name
     })
-    // if(this.data.v == 1) {
-    //   this.setData({
-    //     index1: 1,
-    //     postArr:[]
-    //   })
-    // } else {
-    //   this.setData({
-    //     index2: 1,
-    //     jdArr: []
-    //   })
-    // }
+    if(this.data.v == 1) {
+      this.setData({
+        index1: 1,
+        postArr:[]
+      })
+    } else {
+      this.setData({
+        index2: 1,
+        jdArr: []
+      })
+    }
   },
   chgTab(e) {
     if(e.currentTarget.dataset.id == 1) {
