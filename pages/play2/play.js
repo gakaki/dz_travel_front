@@ -366,7 +366,7 @@ Page({
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
-        planedSpots: this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点
+        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
       this.updateLines()
     })
