@@ -58,7 +58,7 @@
 <image src="https://gengxin.odao.com/update/h5/travel/play/pop-arrow.png" catchtap='huadong' class="pop-arrow {{trans}}" ></image>
 <view class="mission f-c-fs" bindtap='popMissionInfo'>
       <text class="fontWhite missionText font font26">任务</text>
-      <view class="progressBox">
+      <view class="progressBox f-r-fs">
         <view class="progressBar" style="width:{{taskPer}}%;"></view>
       </view>
     </view>
