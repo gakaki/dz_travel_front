@@ -139,7 +139,6 @@
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 208rpx;
 }
 
 .info{
@@ -198,7 +197,6 @@
 
 .name{
   display: block;
-  max-width: 208rpx;
   white-space: nowrap;
   overflow: hidden;
   font: bold 26rpx 'Microsoft Yahei';
