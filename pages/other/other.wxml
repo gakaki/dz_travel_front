@@ -16,7 +16,7 @@
     </view>
     <view class='main-wrap f-c' bindtap='toOtherPage' data-id='2'>
       <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/postcard.png'></image>
-      <text class='main-content'>他的明信片</text> 
+      <text class='main-content'>明信片</text> 
     </view>
     <view class='main-wrap one-last f-c'  bindtap='toOtherPage' data-id='3'>
       <image class='main-icon' src='https://gengxin.odao.com/update/h5/travel/self/log.png'></image>
