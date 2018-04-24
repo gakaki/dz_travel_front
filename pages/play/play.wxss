@@ -466,3 +466,11 @@ background-color:#fff;
   line-height: 28rpx;
   color: #8d8d8d;
 }
+
+ .play-pop{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 100; 
+} 
