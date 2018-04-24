@@ -230,6 +230,7 @@ width: 200rpx;
     position: absolute;
     top: 60rpx;
     right: 10rpx;
+    overflow: hidden
 }
 
 .progressBar {
@@ -237,7 +238,7 @@ width: 200rpx;
     background-color: #dbff13;
     border-radius: 30rpx;
     position: absolute;
-    max-width: 105rpx;
+     max-width: 105rpx; 
     top: 1rpx;
     left: 1rpx;
 }
