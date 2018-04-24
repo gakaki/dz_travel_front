@@ -430,10 +430,9 @@ Page({
   },
 
   test(e) {
-    console.log(sheet.Parameter.Get(sheet.Parameter.FIRSTCITY).value)
-    if(app.preventMoreTap(e)) return;
+    // if(app.preventMoreTap(e)) return;
 
-    console.log(2222222)
+    console.log(2222222,e)
     // wx.showShareMenu({
     //   success(){
     //     console.log(12121212)

@@ -352,6 +352,7 @@ Page({
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
 
     let req = new ModifyRouter();
+    req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
