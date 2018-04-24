@@ -69,7 +69,7 @@ Page({
     startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
     scale: 1, // 当前缩放倍率
-    double: false,//是否放大了
+    minimal: false,//是否缩小了
     cid: 0, //城市id
     cityName: '',
     mapBg: '', //背景图url
@@ -707,7 +707,7 @@ Page({
   },
 
   touchMap() {
-    // check if triggered double tap
+    // check if triggered minimal tap
       if (this.data.planing) {
           //规划路线时，不支持点击缩放
           return;
@@ -719,9 +719,9 @@ Page({
     tapStamp = now;
   },
   doubleTap() {
-    let double = !this.data.double;
-    let scale = double ? scaleMax : 1;
-    this.setData({ double, scale });
+    let minimal = !this.data.minimal;
+    let scale = minimal ? scaleMin : 1;
+    this.setData({ minimal, scale });
   },
     //规划路线时，强制缩到最小
     zoomOnPlaning(){
@@ -731,8 +731,8 @@ Page({
     },
     //规划完成时，缩放回原先
     zoomOnPlaned() {
-      let double = this.data.double;
-      let scale = double ? scaleMax : 1;
+      let minimal = this.data.minimal;
+      let scale = minimal ? scaleMin : 1;
       this.setData({
           scale,
           planing: false
