@@ -283,9 +283,17 @@ Page({
     //此处需要传uid，
     console.log(e)
     let uid = e.currentTarget.dataset.uid
-    wx.navigateTo({
-      url: '../other/other?uid='+uid,
-    })
+    if (uid = wx.getStorageSync('uid')){
+      wx.switchTab({
+        url: '../self/self',
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '../other/other?uid=' + uid,
+      })
+    }
+    
   },
 
   showHelp() {
