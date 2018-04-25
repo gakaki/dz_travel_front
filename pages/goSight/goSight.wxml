@@ -19,7 +19,7 @@
       </view>
     </view>
     <view class="t-line"></view>
-    <view id="info-desc" class="font">{{testStr}}</view>
+    <view id="info-desc"  bindtap='checkMore' class="font">{{testStr}}</view>
     <view class="w-line cu"></view>
 
     <view class="f-c-fs ">
