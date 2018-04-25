@@ -20,11 +20,14 @@
 }
 .list {
  margin: 0 auto;
- margin-top: 20rpx;
+ margin-bottom: 20rpx;
   background-color: #fff;
    width: 710rpx;
   border-radius: 20rpx;
   box-shadow: 0 4rpx 10rpx 2rpx rgba(0,0,0,.1)
+}
+.nomb {
+  margin-bottom: 0;
 }
 .sv {
   position: fixed;
@@ -32,6 +35,7 @@
   top: 92rpx;
   bottom: 0;
   right: 0;
+  padding-top: 20rpx;
 }
 .spe-list {
    height: 160rpx;

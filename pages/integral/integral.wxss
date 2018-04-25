@@ -1,7 +1,7 @@
 .integral{
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #f5f4f9;
-  overflow: hidden;
 }
 
 .back{
@@ -73,6 +73,7 @@
   width: 703rpx;
   /* height: 428rpx; */
   background-color: #fff;
+  margin: 0 auto;
   margin-top: -50rpx;
   padding-top: 92rpx;
   border-radius: 20rpx;
@@ -117,7 +118,7 @@
   width: 120rpx;
   height: 36rpx;
   border-radius: 30rpx;
-  background-color: blue;
+  background-color: #278CFF;
   font: bold 20rpx "Microsoft YaHei";
   color: #fff;
   text-align: center;
@@ -132,7 +133,9 @@
 .title{
   font:bold 36rpx/1 "Microsoft YaHei";
   color: #000;
-  margin-top: 54rpx;
+  margin: 0 auto;
+    margin-top: 54rpx;
+    width: 200rpx;
 }
 
 .info-wrap {

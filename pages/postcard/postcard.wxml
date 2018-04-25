@@ -1,7 +1,8 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+<view class="con">
 <view class='tip'>收集新的明信片可获得积分</view>
-<scroll-view wx:if='{{init.length}}' class="con" scroll-y>
-  <view  wx:if='{{init.length}}' bindtap='toMyXc' data-province='{{item.province}}' class="post-item  bs f-r-fs" wx:for='{{init}}' wx:key="{{index}}">
+<scroll-view wx:if='{{init.length}}' class="cons" scroll-y>
+  <view  wx:if='{{init.length}}' bindtap='toMyXc' wx:for='{{init}}' data-province='{{item.province}}' class="post-item  bs f-r-fs {{index == init.length-1 ? 'nomb': ''}}"  wx:key="{{index}}">
     <image src="{{tools.allImg(item.url)}}" class="img"></image>
     <view class="post-rgt f-c-sb">
       <view class="rgt-top f-r-sb">
@@ -16,5 +17,7 @@
   <none wx:if='{{!uid}}' title='暂无明信片' tip='可前往旅行道具处购买明信片' btnInfo='前往购买' bindtap='toShop' all='{{true}}' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>
   <none wx:else title='暂无明信片' all='{{true}}' src='https://gengxin.odao.com/update/h5/travel/postcard/icon.png'></none>
 </view>
+</view>
+
 
 

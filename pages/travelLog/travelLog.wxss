@@ -29,7 +29,12 @@
 .reach-city {
   box-sizing: border-box;
   width: 100vw;
-  height: 1076rpx; 
+  /* height: 1076rpx;  */
+  position: fixed;
+  top: 0;
+  bottom: 120rpx;
+  left: 0;
+  right: 0;
 }
 .reach-city-big {
  height: 1180rpx; 

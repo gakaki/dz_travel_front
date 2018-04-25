@@ -1,6 +1,6 @@
 <!--pages/integral/integral.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-<view class='integral f-c'>
+<scroll-view class='integral f-c-fs ' scroll-y bindscrolltolower='lower'>
   <view class='back'>
     <view class='audio audio-men' bindtap='toPlay' data-men='{{true}}'></view>
     <view class='audio audio-women' bindtap='toPlay'></view>
@@ -30,20 +30,20 @@
       </view>
     </view>
   </view >
-  <view class='title'>
+  <view class='title' wx:if="{{exchangeDetail.length>0}}">
     <text>兑换详情</text>
   </view>
-  <scroll-view scroll-y bindscrolltolower='lower' class='info-wrap'>
+   <!-- <scroll-view scroll-y bindscrolltolower='lower' class='info-wrap'>  -->
     <view  class="info" wx:for="{{exchangeDetail}}" wx:key="{{index}}">
       <view class='f-r-fs'>
         <avatar avatarWid="72" avatarHeg="72" src="{{item.avatarUrl}}" showGoldAndIntegral='{{false}}'></avatar>
         <text>{{tools.filterNickname(item.nickName)}}兑换了{{item.shopName}}</text>
       </view>
     </view>
-  </scroll-view>
+   <!-- </scroll-view>  -->
   <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
 
-</view>
+</scroll-view>
 <view wx:if="{{isShowIntro}}" class="pop-bg">
   <directions helpId="6" resHeight="680" title="兑换规则" bind:confirm='hideDesc'></directions>
 </view>

@@ -66,7 +66,7 @@ Page({
 
   
   lower(){
-    this.getExchangeDetail()
+    if (this.data.exchangeDetail.length>0)  this.getExchangeDetail()
   },
   toPlay(e){
     let audio = this.data.audioC
