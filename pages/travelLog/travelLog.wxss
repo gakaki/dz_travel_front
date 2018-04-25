@@ -45,8 +45,9 @@
 }
 .one-city {
   position: relative;
-  height: 138rpx;
-  font: bold 28rpx/138rpx 'Microsoft YaHei';
+  /* height: 138rpx; */
+  padding: 50rpx 0;
+  font: bold 28rpx/38rpx 'Microsoft YaHei';
 }
 .ariplane {
   position: absolute;
@@ -76,12 +77,18 @@
   left: 46rpx;
   top: -69rpx;
   width: 2rpx;
-  height: 138rpx;
+  /* height: 138rpx; */
+  height: 100%;
   background: #dcdbe0; 
+}
+.last-timeline {
+  height: 138rpx;
 }
 .log-content {
   display: inline-block;
-  padding: 50rpx 83rpx 0;
+  /* padding: 50rpx 83rpx 0; */
+  /* font: bold 28rpx/38rpx 'Microsoft YaHei'; */
+  padding: 0 83rpx;
   font: bold 28rpx/38rpx 'Microsoft YaHei';
 }
 .time {

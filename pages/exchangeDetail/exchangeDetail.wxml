@@ -7,7 +7,6 @@
     <text class='title'>{{shop.name}}</text>
     <text class='need-integral'>{{shop.integral}}积分</text>
   </view>
-  <!-- <srcoll-view class='desc' scroll-y>{{shop.introduce}}</srcoll-view> -->
   <srcoll-view class='desc' scroll-y>
     <view class='intro' wx:for='{{intro}}' wx:key='{{index}}'>
       <view wx:for='{{item}}' wx:key='{{index}}' class='{{index==0?"des-title":""}}'>{{item}}</view>
