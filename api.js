@@ -879,6 +879,9 @@ class RouterSpot {
         //prop type: boolean
         this.tracked = null;
     
+        //prop type: boolean
+        this.roundTracked = null;
+    
         //prop type: number
         this.index = null;
     
@@ -1189,7 +1192,10 @@ class OneBriefMessage {
         this.userInfo = null;
     
         //prop type: string
-        this.message = null;
+        this.message1 = null;
+    
+        //prop type: string
+        this.message2 = null;
     
         
         
@@ -1346,11 +1352,12 @@ class TourIndexInfo extends Base {
         this._startPos = null;
         this._others = null;
         this._display = null;
+        this._present = null;
         this._startTime = null;
         this._partener = null;
         this.requireFileds = ["cid","inviteCode"];
         this.reqFields = ["cid","inviteCode"];
-        this.resFields = ["weather","mileage","spots","task","startPos","others","display","startTime","partener"];
+        this.resFields = ["weather","mileage","spots","task","startPos","others","display","present","startTime","partener"];
     }
     //client input, require, type: number
     get cid() {return this._cid}
@@ -1379,6 +1386,9 @@ class TourIndexInfo extends Base {
     //server output, type: 
     get display() {return this._display}
     set display(v) {this._display = v}
+    //server output, type: 
+    get present() {return this._present}
+    set present(v) {this._present = v}
     //server output, type: 
     get startTime() {return this._startTime}
     set startTime(v) {this._startTime = v}
@@ -1802,9 +1812,10 @@ class FreshSpots extends Base {
         this._spots = null;
         this._display = null;
         this._task = null;
+        this._mileage = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["spots","display","task"];
+        this.resFields = ["spots","display","task","mileage"];
     }
     //server output, type: RouterSpot[]
     get spots() {return this._spots}
@@ -1815,6 +1826,9 @@ class FreshSpots extends Base {
     //server output, type: TourTask
     get task() {return this._task}
     set task(v) {this._task = v}
+    //server output, type: 
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
 }
 class PlayLoop extends Base {
     constructor() {
@@ -2511,17 +2525,21 @@ class SendPostcard extends Base {
         this.action = 'postcard.sendpostcard';
     
         this._id = null;
-        this._message = null;
-        this.requireFileds = ["id","message"];
-        this.reqFields = ["id","message"];
+        this._message1 = null;
+        this._message2 = null;
+        this.requireFileds = ["id"];
+        this.reqFields = ["id","message1","message2"];
         this.resFields = [];
     }
     //client input, require, type: number
     get id() {return this._id}
     set id(v) {this._id = v}
-    //client input, require, type: string
-    get message() {return this._message}
-    set message(v) {this._message = v}
+    //client input, optional, type: string
+    get message1() {return this._message1}
+    set message1(v) {this._message1 = v}
+    //client input, optional, type: string
+    get message2() {return this._message2}
+    set message2(v) {this._message2 = v}
 }
 class PlayerInfo extends Base {
     constructor() {
@@ -2860,17 +2878,17 @@ class ExchangeShop extends Base {
         this._id = null;
         this._tel = null;
         this._addr = null;
-        this.requireFileds = ["id","tel","addr"];
+        this.requireFileds = ["id"];
         this.reqFields = ["id","tel","addr"];
         this.resFields = [];
     }
     //client input, require, type: string
     get id() {return this._id}
     set id(v) {this._id = v}
-    //client input, require, type: string
+    //client input, optional, type: string
     get tel() {return this._tel}
     set tel(v) {this._tel = v}
-    //client input, require, type: string
+    //client input, optional, type: string
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
 }
