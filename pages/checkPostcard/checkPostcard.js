@@ -21,7 +21,8 @@ Page({
     index:0,
     time:'',
     message:'',
-    pattern:1
+    pattern:1,
+    // focus:false
     
   },
 
@@ -126,7 +127,7 @@ Page({
         this.showMask(this, '', '请先写信再分享至好友')
         return
       } 
-      if (this.data.btnInfo != '留言' ) {
+      if (this.data.btnInfo == '发送明信片' ) {
         this.sendPost('发送成功')
       }    
     }
@@ -144,7 +145,7 @@ Page({
     if (e.detail.cursor == 54) {
       this.setData({
         secTa: false,
-  
+        // focus: true
       })
     }
   },
@@ -195,12 +196,16 @@ Page({
   onShareAppMessage: function () {
     let toShareLink = {
       checkPostcard:true,
-      suc:function(that){
-        that.showMask(that, '', '分享成功')
+      
+    }
+    let innerObj= {
+      type: 4,
+      suc: function (that) {
+        that.sendPost('分享成功')
       }
     }
     if (this.data.id) { toShareLink.id = this.data.id}
     if (this.data.postid) { toShareLink.postid = this.data.postid }
-    return shareToIndex(this, {type:4}, toShareLink)
+    return shareToIndex(this, innerObj, toShareLink)
   }
 })
