@@ -21,10 +21,10 @@
           </view>
         </view>
       </view>
-      <view class="item-bot font">
+      <view class="item-bot">
         {{item.content}}
       </view>
-      <text class="date font">{{item.time}}</text>
+      <text class="date">{{item.time}}</text>
       <view class="t-line"></view>
     </view> 
  
