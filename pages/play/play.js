@@ -828,7 +828,12 @@ Page({
       this.data.quest = quest;
       let curEvtIdx = req.current;
       let totalEvt = req.total;
-
+      if (!req.quest) {
+        this.setData({
+          unreadEventCnt: 0
+        })
+        return
+      }
       switch (quest.type) {
         case EVENT_TYPE_NORMAL:
           this.setData({
@@ -849,6 +854,10 @@ Page({
             totalEvt
           });
           break;
+          default: 
+          this.setData({
+            unreadEventCnt: 0
+          })
       }
     })
   },
