@@ -8,7 +8,7 @@ let tapStamp;
 let secondPoint;
 let display;
 let music;
-let reGoin = 0;
+let reGoin = 0; //重新进入页面
 let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
@@ -349,7 +349,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
         roleMe.walkCls = '';
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        this.freshSpots
+        this.freshAllTrackedStat();
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -365,6 +365,13 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
     }
 
+  },
+  //调用一次loop
+  freshAllTrackedStat() {
+    let req = new PlayLoop();
+    req.fetch().then(() => {
+      this.data.spotsAllTracked = req.spotsAllTracked;
+    });
   },
 
   //添加或修改路线
@@ -418,16 +425,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
-      if (this.data.spotsAllTracked == true && this.data.spotsTracked ==  this.data.spots.length) {
-        this.setData({
-          lines: [],
-          planedSpots: []
-        })
-        let planedSpots = this.data.planedSpots.push(secondPoint)
-        this.setData({
-          planedSpots: planedSpots
-        })
-      }
+     
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
@@ -436,7 +434,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
         planedFinished: false,//
         planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
-      this.updateLines()
+      this.updateLines(true)
     })
   },
 
