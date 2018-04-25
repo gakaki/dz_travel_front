@@ -6,11 +6,11 @@
     <image class='share-icon' src='https://gengxin.odao.com/update/h5/travel/travelLog/share.png'></image>
     <button class='share-icon share-btn' open-type='share'></button>
   </view>
-  <scroll-view class='reach-city {{uid?"reach-city-big ":""}}' scroll-y='true' scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
+  <scroll-view class='reach-city {{uid?"reach-city-big ":""}}' scroll-y scroll-into-view="{{myIdx}}" bindscrolltoupper='upper'>
     <view class='start'>
       <view class='mark mark-start'>起</view>
     </view>
-    <view wx:for='{{init}}' wx:key='{{index}}' wx:for-item='city' wx:for-index="idx" id='myIdx{{index}}'>
+    <view wx:for='{{init}}' wx:key='{{index}}' wx:for-item='city' wx:for-index="idx" id='myIdx{{idx}}'>
       <view class='one-city' wx:if='{{city.city}}'>
         <view class='year'>{{city.year}}</view> 
         <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>

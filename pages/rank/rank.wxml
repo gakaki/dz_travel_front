@@ -71,7 +71,7 @@
           <text wx:else>本周</text>
           <text>{{rankType==3 ? selfRank.achievement : selfRank.weekAchievement}}{{percent ? '%' : ''}}</text>
         </view>
-        <view wx:if="{{rankType!=3}}">
+        <view wx:if="{{rankType!=3}}" class="self-history">
           <text>历史{{selfRank.achievement}}{{percent ? '%' : ''}}</text>
         </view>
       </view>
