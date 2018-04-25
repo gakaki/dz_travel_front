@@ -425,10 +425,10 @@ Page({
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     // let roundSpotsAllTracked = this.data.spotsTracked == this.data.spots.length - 1;//减1是因为后端到达最后节点时会重置为0
-    let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
+    // let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots, false);
+      this.updateSpots(req.spots);
 
       this.setData({
         chgLines: false,
@@ -437,9 +437,9 @@ Page({
         planed: false,//是否完成了规划
         planedFinished: false,//
         // planedSpots: req.spotsAllTracked && req.planedAllTracked && roundSpotsAllTracked ? [] : planedSpots//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
-        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : planedSpots//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
-      this.updateLines(true)
+      // this.updateLines(true)
     })
   },
 
@@ -578,17 +578,18 @@ Page({
     let req = new FreshSpots();
 
     req.fetch().then(() => {
-      let idx = 0
-      req.spots.forEach(o => {
-        if (o.index > idx) idx++
-      })
-      if (idx == this.data.spots.length - 1) {
-        secondPoint = req.spots.find(o => {
-          o.index == idx
-        })
-      }
+      //
+      // let idx = 0
+      // req.spots.forEach(o => {
+      //   if (o.index > idx) idx++
+      // })
+      // if (idx == this.data.spots.length - 1) {
+      //   secondPoint = req.spots.find(o => {
+      //     o.index == idx
+      //   })
+      // }
       this.setData({ task: req.task })
-      this.updateSpots(req.spots, display);
+      this.updateSpots(req.spots);
       if (req.display != 0 && display != req.display) {
         this.data.roleFriend = null
         let roleMe = this.data.roleMe
@@ -609,7 +610,7 @@ Page({
   },
 
   //更新景点状态列表
-  updateSpots(spots, show, updateLine = true) {
+  updateSpots(spots, updateLine = true) {
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -626,9 +627,10 @@ Page({
           let roundTracked = n.roundTracked;
           let arriveStamp = n.arriveStamp;
           let startime = n.startime;
+          let index = n.index;
 
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked });
+          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked, index});
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
