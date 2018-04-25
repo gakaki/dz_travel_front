@@ -28,6 +28,10 @@ Component({
       type: Number,
           value: false
       },
+    double: {
+      type: Number,
+      value: false
+    },
     txtX: {
       type: Number,
       value: 0
