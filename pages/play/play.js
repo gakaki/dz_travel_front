@@ -83,7 +83,7 @@ Page({
     weather: '',//天气图标
     licheng: 0, //里程,
     hasPath: false, //是否已经规划了路线
-    spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
+    spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,roundTracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,roundTracked=true表示此轮中此点已经到过，tracking=true表示快要到了
     planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
@@ -165,7 +165,7 @@ Page({
 
       let num = 0
       req.spots.forEach(o => {
-        if (o.tracked) num++
+        if (o.roundTracked) num++
       })
       this.setData({
         spotsTracked: num,
@@ -278,6 +278,7 @@ Page({
 
     let startPoint = this.data.startPoint;
     startPoint.tracked = true;
+    startPoint.roundTracked = true;
     let trackedNum = 1;
 
     spots.unshift(startPoint);//将起点加入
@@ -298,19 +299,19 @@ Page({
       let wd = wd = Math.hypot(dy, dx);
       let angle = Math.atan2(dy, dx);
       let rotation = angle * 180 / Math.PI;
-      let tracked = nxt.tracked;
-      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked };
-      if (nxt.tracked) {
+      let roundTracked = nxt.roundTracked;
+      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, roundTracked };
+      if (nxt.roundTracked) {
         trackedNum++;
       }
 
-      if (cur.tracked) {
+      if (cur.roundTracked) {
         roleTrackedSpot = cur;
         roleTrackingSpot = nxt;
         roleTrackingLineLength = wd;
         roleTrackingAngle = angle;
 
-        if (!nxt.tracked) {
+        if (!nxt.roundTracked) {
           nxt.tracking = true;
         }
 
@@ -334,7 +335,7 @@ Page({
         return;
       }
       let now = Base.servertime;
-      let beforeStamp = roleTrackedSpot.tracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
+      let beforeStamp = roleTrackedSpot.roundTracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
       let dtBefore = now - beforeStamp;
       let dtAll = roleTrackingSpot.arriveStamp - beforeStamp;
       let distBefore = roleTrackingLineLength * dtBefore / dtAll;
@@ -432,7 +433,7 @@ Page({
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
-        planedSpots: req.spotsAllTracked && req.planedAllTracked && this.data.spotsTracked == this.data.spots.length ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedSpots: req.spotsAllTracked && req.planedAllTracked && this.data.spotsTracked == this.data.spots.length ? [] : this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
       this.updateLines(true)
     })
@@ -591,8 +592,10 @@ Page({
         let roleMe = this.data.roleMe
         roleMe.display = req.display
         this.updateIcon(roleMe)
+        let licheng = req.mileage;
         this.setData({
-          roleMe
+          roleMe,
+          licheng
         })
       }
       display = req.display
@@ -620,12 +623,13 @@ Page({
           let o = olds[i];
           let n = spots[i];
           let tracked = n.tracked;
+          let roundTracked = n.roundTracked;
           let arriveStamp = n.arriveStamp;
           let startime = n.startime;
 
-          allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
+          allSame = allSame && o.tracked == tracked && o.roundTracked == roundTracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(o, n, o, { tracked, arriveStamp, startime });
+          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked });
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -670,7 +674,7 @@ Page({
     let timeShowed = false;
     for (let i = 0; i < planedSpots.length; i++) {
       let s = planedSpots[i];
-      if (s.arriveStamp && !s.tracked && !timeShowed) {
+      if (s.arriveStamp && !s.roundTracked && !timeShowed) {
         timeShowed = true;
         s.arriveTime = secToDHM((s.arriveStamp - now) / 1000) + '后到达'
       }
@@ -827,6 +831,7 @@ Page({
   fetchEvent() {
     let req = new EventShow();
     req.cid = this.data.cid;
+    req.toastErr = false;
 
     req.fetch().then(() => {
       let unreadEventCnt = req.total - req.current;
