@@ -460,11 +460,11 @@ weather.sights {
 }
 
 .gray-font {
-  font-family: 'Microsoft YaHei';
   display: block;
-  font-size: 28rpx;
+  font: bold 28rpx 'Microsoft YaHei';
   line-height: 28rpx;
   color: #8d8d8d;
+  letter-spacing: 3rpx;
 }
 
 .play-pop {

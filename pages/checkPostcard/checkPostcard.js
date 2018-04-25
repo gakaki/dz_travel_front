@@ -20,8 +20,11 @@ Page({
     allMessage:[], //玩家所有留言信息
     index:0,
     time:'',
-    message:'',
+    message1:'',
+    message2:'',
     pattern:1,
+    secTa:true,
+    firstShare:false,
     // focus:false
     
   },
@@ -56,7 +59,11 @@ Page({
             allMessage: res.lastestMessage
           })
           this.nowInfo(this.data.index)
-        } 
+        } else {
+          this.setData({
+            firstShare: true
+          })
+        }
       })
     }
   },
@@ -68,43 +75,44 @@ Page({
       btnInfo: '留言',
       write: false,
       time: allMessage[i].time,
-      message:''
+      mes1: allMessage[i].message1,
+      mes2:''
     })
-    this.spiltMessage(allMessage[i].message);  //展示的消息
-  },
-  spiltMessage(mes){
-    let mes1='';
-    let mes2='';
-    if (mes.length > 54) {
-      mes1 = mes.substring(0, 54);
-      mes2 = mes.substring(54)
-    } else {
-      mes1 = mes
+    if (allMessage[i].message2) {
+      this.setData({
+        mes2: allMessage[i].message2
+      })
     }
-    this.setData({
-      mes1,
-      mes2
-    })
   },
   sendPost(tip){
     let m = new SendPostcard();
     m.id = this.data.id;
-    m.message = this.data.message;
+    m.message1 = this.data.message1;
+    m.message2 = this.data.message2;
     m.fetch().then(res => {
       console.log(res)
       this.setData({
-        index:0
+        index:0,
+        message1:'',
+        message2:''
       })
       this.showMask(this, '', tip)
       this.getData()
     })
   },
   formSubmit(e) {
-    let str = e.detail.value.ta1 + e.detail.value.ta2;
       //更新message数据,将message发送给后端
-    this.setData({
-      message:str
-    })      
+    if (e.detail.value && e.detail.value.ta1) {
+      this.setData({
+        message1: e.detail.value.ta1.trim(),
+        message2:''
+      }) 
+    }
+    if (e.detail.value && e.detail.value.ta2) {
+      this.setData({
+        message2: e.detail.value.ta2.trim()
+      })
+    }        
     let lastestMessage = {};
     if (!this.data.allMessage[0] || !this.data.allMessage[0].hasUp) {
       lastestMessage.hasUp = true;
@@ -120,10 +128,9 @@ Page({
         time:'',
         lastestMessage: lastestMessage
       })
-      console.log(this.data.lastestMessage)
     } else {  //按钮在分享或者发送明信片时
       //如果玩家没有留言就开始点击分享明信片,提示玩家
-      if (!str.trim().length) {
+      if (!this.data.message1.trim().length && !this.data.message2.trim().length ) {
         this.showMask(this, '', '请先写信再分享至好友')
         return
       } 
@@ -139,22 +146,21 @@ Page({
     if (this.data.btnInfo == '分享明信片') {
       //判断点击按钮时是否出现微信分享
       this.setData({
-        message: v.trim()
+        message1: v.trim()
       })
     }
-    if (e.detail.cursor == 54) {
+    if (e.detail.value.trim().length) {
       this.setData({
-        secTa: false,
-        // focus: true
+        secTa: false
       })
     }
   },
   bindInputSec(e) {
-    if (e.detail.cursor == 0) {
-      this.setData({
-        secTa: true
-      })
-    }
+    // if (e.detail.cursor == 0) {
+    //   this.setData({
+    //     secTa: true
+    //   })
+    // }
   },
   toUp() {
     this.data.index = this.data.index + 1;
@@ -201,6 +207,9 @@ Page({
     let innerObj= {
       type: 4,
       suc: function (that) {
+        that.setData({
+          firstShare:false
+        })
         that.sendPost('分享成功')
       }
     }
