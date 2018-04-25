@@ -588,7 +588,7 @@ Page({
         })
       }
       this.setData({ task: req.task })
-      this.updateSpots(req.spots, display);
+      this.updateSpots(req.spots);
       if (req.display != 0 && display != req.display) {
         this.data.roleFriend = null
         let roleMe = this.data.roleMe
