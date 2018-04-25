@@ -222,7 +222,8 @@ weather.sights {
   height: 43rpx;
   width: 23rpx;
   position: absolute;
-  left: 30rpx;
+  padding: 20rpx 10rpx;
+  left: 21rpx;
   top: 50%;
   transform: translateY(-50%) rotateY(180deg);
   transform-origin: 50% 50%;
@@ -420,18 +421,17 @@ weather.sights {
 }
 
 .play-first-in {
-padding-top:92rpx;
-text-align:center;
-color:#8d8d8d;
-width:610rpx;
-height:360rpx;
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%, -65%);
-border-radius:40rpx;
-background-color:#fff;
-
+  padding-top: 92rpx;
+  text-align: center;
+  color: #8d8d8d;
+  width: 610rpx;
+  height: 360rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  border-radius: 40rpx;
+  background-color: #fff;
 }
 
 .play-first-in .line {
@@ -467,10 +467,10 @@ background-color:#fff;
   color: #8d8d8d;
 }
 
- .play-pop{
+.play-pop {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 100; 
-} 
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
