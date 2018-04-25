@@ -414,7 +414,8 @@ function shareToIndex(that, innerObj, toShareLink) {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
     path: nowPath,
     imageUrl: imageUrl,
-    success: function (that) {
+    success: function () {
+      console.log(innerObj.suc)
       let m = new ShareInfo();
       m.fetch()
       innerObj.suc && innerObj.suc(that)
