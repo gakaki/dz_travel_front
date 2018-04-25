@@ -8,7 +8,10 @@
   color: #278cff;
 } 
 .btn-wrap {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: 90rpx;
+  transform: translateX(-50%)
 }
 .btn {
   opacity: 0;
