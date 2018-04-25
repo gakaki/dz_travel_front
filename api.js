@@ -1366,6 +1366,9 @@ class Shop {
         //prop type: string
         this.integral = null;
     
+        //prop type: string
+        this.exchangeCode = null;
+    
         
         
         
@@ -1901,17 +1904,21 @@ class PlayLoop extends Base {
         this.init();
     
         this._newEvent = null;
+        this._latestEvent = null;
         this._freshSpots = null;
         this._spotsTracked = null;
         this._spotsAllTracked = null;
         this._doubleState = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["newEvent","freshSpots","spotsTracked","spotsAllTracked","doubleState"];
+        this.resFields = ["newEvent","latestEvent","freshSpots","spotsTracked","spotsAllTracked","doubleState"];
     }
     //server output, type: boolean
     get newEvent() {return this._newEvent}
     set newEvent(v) {this._newEvent = v}
+    //server output, type: Quest
+    get latestEvent() {return this._latestEvent}
+    set latestEvent(v) {this._latestEvent = v}
     //server output, type: boolean
     get freshSpots() {return this._freshSpots}
     set freshSpots(v) {this._freshSpots = v}
@@ -2986,9 +2993,10 @@ class ExchangeShop extends Base {
         this._id = null;
         this._tel = null;
         this._addr = null;
+        this._exchangeCode = null;
         this.requireFileds = ["id"];
         this.reqFields = ["id","tel","addr"];
-        this.resFields = [];
+        this.resFields = ["exchangeCode"];
     }
     //client input, require, type: string
     get id() {return this._id}
@@ -2999,6 +3007,9 @@ class ExchangeShop extends Base {
     //client input, optional, type: string
     get addr() {return this._addr}
     set addr(v) {this._addr = v}
+    //server output, type: string
+    get exchangeCode() {return this._exchangeCode}
+    set exchangeCode(v) {this._exchangeCode = v}
 }
 class BuyPostcard extends Base {
     constructor() {
