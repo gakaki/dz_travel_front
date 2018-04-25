@@ -424,11 +424,10 @@ Page({
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
-    // let roundSpotsAllTracked = this.data.spotsTracked == this.data.spots.length - 1;//减1是因为后端到达最后节点时会重置为0
-    // let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
+    let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots);
+      this.updateSpots(req.spots, false);
 
       this.setData({
         chgLines: false,
@@ -436,10 +435,9 @@ Page({
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
-        // planedSpots: req.spotsAllTracked && req.planedAllTracked && roundSpotsAllTracked ? [] : planedSpots//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
-        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : planedSpots//this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
-      // this.updateLines(true)
+      this.updateLines(true)
     })
   },
 
