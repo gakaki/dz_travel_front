@@ -1,20 +1,24 @@
 <!--pages/exchangeDetail/exchangeDetail.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view wx:if='{{shop}}'>
-   <image class='img' src='https://gengxin.odao.com/update/h5/travel/exchange/1.jpg'></image>  
-   <!-- <image class='img' src='https://gengxin.odao.com/update/h5/travel/exchange/{{pic}}'></image>   -->
+    <image class='img' wx:if='{{shop.pic}}' src='https://gengxin.odao.com/update/h5/travel/exchange/{{shop.pic}}'></image>  
+    <image class='img' wx:else src='https://gengxin.odao.com/update/h5/travel/exchange/1.jpg'></image>   
   <view class='title-wrap f-r-sb'>
     <text class='title'>{{shop.name}}</text>
     <text class='need-integral'>{{shop.integral}}积分</text>
   </view>
-  <srcoll-view class='desc' scroll-y>
+  <scroll-view scroll-y class='desc'>
     <view class='intro' wx:for='{{intro}}' wx:key='{{index}}'>
       <view wx:for='{{item}}' wx:key='{{index}}' class='{{index==0?"des-title":""}}'>{{item}}</view>
-    </view>
-  </srcoll-view>
+    </view> 
+  </scroll-view>
   <view class='btn-wrap' wx:if='{{!uid}}'>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
-    <view class='{{integral < shop.integral ?"btn-big-grey":"btn-big-blue"}}' bindtap='exchange'>{{integral < shop.integral ?'积分不足':shop.integral + '积分'}}</view>
+    <view wx:if='{{!shop.exchangeCode}}' class='{{integral < shop.integral ?"btn-big-grey":"btn-big-blue"}}' bindtap='exchange'>{{integral < shop.integral ?'积分不足':'立即兑换'}}</view> 
+    <view wx:else class='code'>
+      <text  class='exchange-code' bindtap='exchange'>兑换码:{{shop.exchangeCode}}</text>
+      <text class='copy' bindtap='toCopy'>复制</text>
+    </view>
   </view>
 </view>
 <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
