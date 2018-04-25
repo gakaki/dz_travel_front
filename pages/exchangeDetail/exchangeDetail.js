@@ -41,6 +41,20 @@ Page({
       
     })
   },
+  toCopy(){
+    wx.setClipboardData({
+      data: this.data.shop.exchangeCode,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            })
+          }
+        })
+      }
+    })
+  },
   _cancel() {
     this.setData({
       exchange: false
@@ -68,7 +82,11 @@ Page({
             })
           }
         })
-      } else {
+      }
+      else if (this.data.cfmStr == '兑换'){
+
+      }
+       else {
         wx.navigateTo({
           url: '../settings/settings?settings=true'
         })
@@ -111,9 +129,17 @@ Page({
     }
     m.fetch().then(res => {
       console.log(res)
-      wx.showToast({
-        title: '兑换成功',
-      })
+      if(res.exchangeCode) {
+        this.setData({
+          exchangeCon: res.exchangeCode,
+          cfmStr: '复制兑换码'
+        })
+      } else {
+        wx.showToast({
+          title: '兑换成功',
+        })
+      }
+     
     })
   },
 
