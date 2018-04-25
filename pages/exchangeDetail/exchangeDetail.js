@@ -27,6 +27,12 @@ Page({
       let arr = res.shops[options.index].introduce.map(v=>{
         return v.split("\\n")
       })
+      arr = arr.map(v=>{
+        v = v.filter(item=>{
+          return item.trim().length!=0
+        })
+        return v
+      })
       this.setData({
         integral: options.integral,
         shop: res.shops[options.index],

@@ -10,14 +10,14 @@
     <view class='start'>
       <view class='mark mark-start'>起</view>
     </view>
-    <view wx:for='{{init}}' wx:key='{{index}}' wx:for-item='city' id='myIdx{{index}}'>
+    <view wx:for='{{init}}' wx:key='{{index}}' wx:for-item='city' wx:for-index="idx" id='myIdx{{index}}'>
       <view class='one-city' wx:if='{{city.city}}'>
         <view class='year'>{{city.year}}</view> 
         <image class='ariplane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png'></image>
         <view class='mark-circle'></view>
         <view class='log-content'>到达{{city.city}}</view>
         <view class='time'>{{tools.formatTime(city.time)}}</view>
-        <view class='timeLine'></view>
+        <view class='timeLine'></view> 
       </view>
       <view class='one-city' wx:if='{{oneday.spots.length}}' wx:for='{{city.scenicSpots}}' wx:key='{{index}}' wx:for-item='oneday'>
         <view class='mark-circle'></view>
@@ -26,7 +26,7 @@
           <text class='detail' wx:for='{{oneday.spots}}' wx:for-item="select" wx:key='{{index}}'>{{select}}<text wx:if='{{index != oneday.spots.length-1}}'>、</text></text>
         </view>
         <view class='time'>{{tools.formatTime(oneday.time)}}</view>
-        <view class='timeLine'></view> 
+        <view class='timeLine {{idx == init.length-1?"last-timeline":""}}'></view>  
       </view> 
     </view> 
   </scroll-view> 
