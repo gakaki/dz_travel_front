@@ -300,7 +300,7 @@ Page({
       let rotation = angle * 180 / Math.PI;
       let tracked = nxt.tracked;
       let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked };
-      if (tracked) {
+      if (nxt.tracked) {
         trackedNum++;
       }
 
@@ -432,7 +432,7 @@ Page({
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
-        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedSpots: req.spotsAllTracked && req.planedAllTracked && this.data.spotsTracked == this.data.spots.length ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
       })
       this.updateLines(true)
     })
@@ -509,10 +509,10 @@ Page({
       else reGoin = 1
 
       //景点到达数有变化
-      // this.data.spotsTracked = res.spotsTracked;
-      this.setData({
-        spotsTracked: res.spotsTracked
-      })
+      this.data.spotsTracked = res.spotsTracked;
+      // this.setData({
+      //   spotsTracked: res.spotsTracked
+      // })
       lineUpdated = true;
       this.freshSpots();
     }
