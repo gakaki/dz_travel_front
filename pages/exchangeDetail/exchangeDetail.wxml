@@ -2,7 +2,6 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view wx:if='{{shop}}'>
     <image class='img' wx:if='{{shop.pic}}' src='https://gengxin.odao.com/update/h5/travel/exchange/{{shop.pic}}'></image>  
-    <image class='img' wx:else src='https://gengxin.odao.com/update/h5/travel/exchange/1.jpg'></image>   
   <view class='title-wrap f-r-sb'>
     <text class='title'>{{shop.name}}</text>
     <text class='need-integral'>{{shop.integral}}积分</text>
