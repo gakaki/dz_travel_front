@@ -30,6 +30,7 @@ Component({
       this.setData({
         strLen: e.detail.value.length
       })
+      this.triggerEvent('strLen',{len: e.detail.value.trim().length})
     },
     formSubmit(e) {
       console.log(e.detail.value.ta)

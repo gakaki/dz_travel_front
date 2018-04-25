@@ -11,8 +11,7 @@ Page({
     birthday:'请输入生日',
     phone:'请输入手机号',
     address:'请输入地址',
-    changeColor: false,
-    isFirst: false
+    changeColor: false
   },
 
   /**
@@ -35,43 +34,25 @@ Page({
     
     let value = e.detail.value
     //判断电话号码是否符合
-    if (value.phone.length != 11 && value.phone && this.data.phone.length != 11){
+    if (value.phone.length != 11 && value.phone){
       wx.showToast({
         title: '请输入正确的电话号码',
         icon: 'none'
       })
       return;
     }
+    if (!value.name || !value.birthday || !value.phone || !value.address || value.birthday == '请输入生日'){
+      wx.showToast({
+        title: '信息未填写完全',
+        icon: 'none'
+      })
+      return;
+    }
     let req = new ModifyRealInfo();
-    if (value.name) {
-      req.name = value.name
-    } else {
-      if (this.data.name != '请输入真实姓名') {
-        req.name = this.data.name;
-      } 
-    }
-    if (value.birthday) {
-      req.birthday = value.birthday
-    } else {
-      if (this.data.birthday != '请输入生日') {
-        req.birthday = this.data.birthday;
-      }
-    }
-    if (value.phone) {
-      req.phone = value.phone
-    } else {
-      if (this.data.phone != '请输入手机号') {
-        req.phone = this.data.phone;
-      }
-    }
-    if (value.address) {
-      req.address = value.address
-    } else {
-      if (this.data.address != '请输入地址') {
-        req.address = this.data.address;
-      }
-    }
-    
+    req.name = value.name;
+    req.birthday = value.birthday;
+    req.phone = value.phone;
+    req.address = value.address;
     req.fetch().then(()=>{
       console.log(req)
       this.getInfo(req,()=>{
@@ -104,10 +85,11 @@ Page({
       //当用户所有信息都有的时候显示用户信息
       if (info.name && info.birthday && info.phoneNumber && info.address) {
         this.setData({
-          name: info.name,
+          vname: info.name,
           birthday: info.birthday,
-          phone: info.phoneNumber,
-          address: info.address
+          vphone: info.phoneNumber,
+          vaddress: info.address,
+          changeColor: true
         })
         suc && suc()
       }
