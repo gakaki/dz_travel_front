@@ -6,7 +6,7 @@
     <view class="tab-item font {{specialty?'act':''}}" bindtap='chgTab'>特产</view>
   </view>
   <scroll-view class="sv" scroll-y bindscrolltolower='lower' scroll-with-animation='{{true}}'>
-   <view wx:if="{{viewpoint}}" wx:for="{{postArr}}" wx:key="{{index}}"  class="list point-list f-c-fs"  bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>
+   <view wx:if="{{viewpoint}}" wx:for="{{postArr}}" wx:key="{{index}}"  class="list point-list f-c-fs {{index == postArr.length-1 ? 'nomb' :''}}"  bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>
     <view class="point-top fs f-r-fs">
       <image wx:if='{{item.img}}' src="{{tools.allImg(item.img)}}" class="spe-pic point-pic"></image>
       <view class="f-c-fs point-top-rgt">
@@ -27,7 +27,7 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{specialty}}"  wx:for="{{jdArr}}" wx:key="{{index}}" class="list spe-list f-r-fs" bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>
+  <view wx:if="{{specialty}}"  wx:for="{{jdArr}}" wx:key="{{index}}" class="list spe-list f-r-fs {{index == jdArr.length-1 ? 'nomb' :''}}" bindtap='toDetail' data-city-id='{{item.cityId}}' data-name='{{item.name}}' data-type='{{item.type}}' data-post-id='{{item.postId}}'>
     <image wx:if="{{item.img}}" src="{{tools.allImg(item.img)}}" class="spe-pic "></image>
     <view class="spe-item-sec f-c-sb">
       <text class="spe-name fs font">{{item.name}}</text>
