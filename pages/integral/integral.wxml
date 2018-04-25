@@ -18,14 +18,15 @@
     <view class='pd'>本期积分兑换</view>
   </view>
   <view class='exchange bs'>
-    <view class="items {{index==shops.length-1 ? 'last-item' : ''}}" bindtap='toDetail' data-id='{{item.id}}' wx:for="{{shops}}" wx:key="{{index}}">
+    <view class="items {{index==shops.length-1 ? 'last-item' : ''}}" bindtap='toDetail' data-index='{{index}}' wx:for="{{shops}}" wx:key="{{index}}">
       <view>
-        <image class='goods-tu' src="{{item.url}}"></image>
+         <image class='goods-tu' src="https://gengxin.odao.com/update/h5/travel/exchange/1.jpg"></image> 
+         <!-- <image class='goods-tu' src="https://gengxin.odao.com/update/h5/travel/exchange/{{item.pic}}"></image>  -->
       </view>
       <view class="goods-zi">{{tools.filterNickname(item.name)}}</view>
       <view class="goods-fen">{{item.integral}}积分</view>
-      <view class="goods-anniu">
-        <text>兑换</text>
+      <view class='goods-anniu {{item.remaining >0?"":"sell-out" }}'>
+        <text>{{item.remaining >0?"兑换":"已兑完" }}</text>
       </view>
     </view>
   </view >

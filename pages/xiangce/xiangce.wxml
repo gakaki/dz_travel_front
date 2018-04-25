@@ -1,5 +1,4 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-
 <view class='con'>
   <view class="tab flex" wx:if='{{!uid}}'>
     <view class="tab-item font {{viewpoint?'act':''}}" bindtap='chgTab'>全部明信片</view>

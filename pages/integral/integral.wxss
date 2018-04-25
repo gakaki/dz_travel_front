@@ -123,7 +123,9 @@
   text-align: center;
   margin: 15rpx auto 0;
 }
-
+.sell-out {
+  background-color: #9a9a9a;
+}
 .goods-anniu text{
   line-height: 36rpx;
 }
