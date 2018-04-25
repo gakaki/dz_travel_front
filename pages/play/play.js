@@ -5,6 +5,7 @@ import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, Fre
 const scaleMax = 2;
 const scaleMin = 0.7;
 let tapStamp;
+let secondPoint;
 let display;
 let music;
 let reGoin = 0;
@@ -116,7 +117,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+console.log(111)
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
@@ -163,8 +164,12 @@ Page({
         roleMe
       })
 
-
+      let num = 0
+      req.spots.forEach(o => {
+        if (o.tracked) num++
+      })
       this.setData({
+        spotsTracked: num,
         weatherImg: Weather.Get(req.weather).icon,
         licheng: req.mileage,
         season: app.globalData.season,
@@ -174,7 +179,7 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
-
+      
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
@@ -192,6 +197,15 @@ Page({
       hua: this.data.hua == 'hua-rgt' ? 'hua-lf' :'hua-rgt',
       trans: this.data.trans == 'zheng' ? '' : 'zheng'
     })
+  },
+  hideHuadong() {
+if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
+  this.setData({
+    hua: 'hua-lf',
+    trans:  ''
+  })
+  console.log(this.data.hua, this.data.trans)
+}
   },
   hidePops() {
     this.setData({
@@ -404,9 +418,14 @@ Page({
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
-      if (req.spotsAllTracked == 1) {
+      if (this.data.spotsAllTracked == true && this.data.spotsTracked ==  this.data.spots.length) {
         this.setData({
-          lines: []
+          lines: [],
+          planedSpots: []
+        })
+        let planedSpots = this.data.planedSpots.push(secondPoint)
+        this.setData({
+          planedSpots: planedSpots
         })
       }
       this.setData({
@@ -492,7 +511,10 @@ Page({
       else reGoin = 1
       
       //景点到达数有变化
-      this.data.spotsTracked = res.spotsTracked;
+      // this.data.spotsTracked = res.spotsTracked;
+      this.setData({
+        spotsTracked: res.spotsTracked
+      })
       lineUpdated = true;
       this.freshSpots();
     }
@@ -555,6 +577,15 @@ Page({
     let req = new FreshSpots();
 
     req.fetch().then(() => {
+      let idx = 0
+      req.spots.forEach(o=>{
+        if(o.index > idx) idx++
+      })
+      if(idx == this.data.spots.length-1) {
+        secondPoint = req.spots.find(o=>{
+          o.index == idx
+        })
+      }
       this.setData({ task: req.task })
       this.updateSpots(req.spots, display);
       if (req.display != 0 && display != req.display) {
