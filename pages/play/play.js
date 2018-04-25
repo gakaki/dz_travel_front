@@ -117,11 +117,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-console.log(111)
+    console.log(111)
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
- 
+
     this.huadong()
     app.globalData.hasCar = false
     this.data.cid = options.cid;
@@ -179,7 +179,7 @@ console.log(111)
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
-      
+
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
@@ -194,18 +194,18 @@ console.log(111)
   },
   huadong() {
     this.setData({
-      hua: this.data.hua == 'hua-rgt' ? 'hua-lf' :'hua-rgt',
+      hua: this.data.hua == 'hua-rgt' ? 'hua-lf' : 'hua-rgt',
       trans: this.data.trans == 'zheng' ? '' : 'zheng'
     })
   },
   hideHuadong() {
-if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
-  this.setData({
-    hua: 'hua-lf',
-    trans:  ''
-  })
-  console.log(this.data.hua, this.data.trans)
-}
+    if (this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
+      this.setData({
+        hua: 'hua-lf',
+        trans: ''
+      })
+      console.log(this.data.hua, this.data.trans)
+    }
   },
   hidePops() {
     this.setData({
@@ -213,7 +213,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
     })
   },
   toCfm() {
-    if (app.globalData.gold> 100) {
+    if (app.globalData.gold > 100) {
       this.chgLine()
       return
     }
@@ -251,6 +251,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
   onHide: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     reGoin = 0
+    this.hideHuadong()
   },
 
   /**
@@ -407,7 +408,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
 
     this.zoomOnPlaning();//缩放
 
-    if(!this.data.started) {
+    if (!this.data.started) {
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
@@ -425,7 +426,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.updateSpots(req.spots, false);
-     
+
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
@@ -507,7 +508,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
         music.play()
       }
       else reGoin = 1
-      
+
       //景点到达数有变化
       // this.data.spotsTracked = res.spotsTracked;
       this.setData({
@@ -576,11 +577,11 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
 
     req.fetch().then(() => {
       let idx = 0
-      req.spots.forEach(o=>{
-        if(o.index > idx) idx++
+      req.spots.forEach(o => {
+        if (o.index > idx) idx++
       })
-      if(idx == this.data.spots.length-1) {
-        secondPoint = req.spots.find(o=>{
+      if (idx == this.data.spots.length - 1) {
+        secondPoint = req.spots.find(o => {
           o.index == idx
         })
       }
@@ -600,7 +601,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
       this.freshTask();
     })
 
-   
+
   },
 
   //更新景点状态列表
@@ -636,8 +637,8 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
 
       if (allSame) {
         //全部一样的话，不必更新渲染
-          //按y值排序，以景深排序
-        olds.sort( (a,b)=> a.y - b.y);
+        //按y值排序，以景深排序
+        olds.sort((a, b) => a.y - b.y);
         updateLine && this.updateLines();
         return;
       }
@@ -659,7 +660,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
       })
     }
     //按y值排序，以景深排序
-    spots.sort( (a,b)=> a.y - b.y);
+    spots.sort((a, b) => a.y - b.y);
 
     this.data.spots = spots;
     let planedSpots = spots.filter(o => {
@@ -774,10 +775,10 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
 
   touchMap() {
     // check if triggered minimal tap
-      if (this.data.planing) {
-          //规划路线时，不支持点击缩放
-          return;
-      }
+    if (this.data.planing) {
+      //规划路线时，不支持点击缩放
+      return;
+    }
     let now = Date.now();
     if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
       this.doubleTap();
@@ -789,21 +790,21 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
     let scale = minimal ? scaleMin : 1;
     this.setData({ minimal, scale });
   },
-    //规划路线时，强制缩到最小
-    zoomOnPlaning(){
-      this.setData({
-          scale: scaleMin
-      });
-    },
-    //规划完成时，缩放回原先
-    zoomOnPlaned() {
-      let minimal = this.data.minimal;
-      let scale = minimal ? scaleMin : 1;
-      this.setData({
-          scale,
-          planing: false
-      })
-    },
+  //规划路线时，强制缩到最小
+  zoomOnPlaning() {
+    this.setData({
+      scale: scaleMin
+    });
+  },
+  //规划完成时，缩放回原先
+  zoomOnPlaned() {
+    let minimal = this.data.minimal;
+    let scale = minimal ? scaleMin : 1;
+    this.setData({
+      scale,
+      planing: false
+    })
+  },
 
   //点击小人
   tapRole() {
@@ -814,7 +815,7 @@ if(this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
 
   toNextEvent(e) {
 
-console.log(e)
+    console.log(e)
     if (e.detail.cur == 1) {
       this.hidePop();
       return
@@ -840,7 +841,7 @@ console.log(e)
           this.setData({
             showPop: true,
             showEventNormal: true,
-              unreadEventCnt,
+            unreadEventCnt,
             curEvtIdx,
             totalEvt
           });
@@ -850,7 +851,7 @@ console.log(e)
           this.setData({
             showPop: true,
             showEventQuest: true,
-              unreadEventCnt,
+            unreadEventCnt,
             curEvtIdx,
             totalEvt
           });
