@@ -64,8 +64,8 @@ Page({
    */
   data: {
     present: false,//第二次進入的城市送車 
-    trans: 'zheng',
-    hua: 'hua-rgt',
+    trans: '',
+    hua: 'hua-lf',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -122,7 +122,6 @@ Page({
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
 
-    this.huadong()
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
