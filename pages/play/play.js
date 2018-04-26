@@ -423,7 +423,6 @@ Page({
         }
         else reGoin = 1
         this.data.spotsTracked = req.spotsTracked;
-        console.log(this.data.spotsTracked)
       }
     });
   },
@@ -595,7 +594,6 @@ Page({
 
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
-      console.log(this.data.spotsTracked)
       lineUpdate = true;
     }
 
