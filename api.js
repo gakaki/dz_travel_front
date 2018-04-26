@@ -1450,14 +1450,10 @@ class CancelParten extends Base {
         this.action = 'tour.cancelparten';
         this.init();
     
-        this._inviteCode = null;
-        this.requireFileds = ["inviteCode"];
-        this.reqFields = ["inviteCode"];
+        this.requireFileds = [];
+        this.reqFields = [];
         this.resFields = [];
     }
-    //client input, require, type: string
-    get inviteCode() {return this._inviteCode}
-    set inviteCode(v) {this._inviteCode = v}
 }
 class LookTicket extends Base {
     constructor() {
