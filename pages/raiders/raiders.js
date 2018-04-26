@@ -17,7 +17,7 @@ Page({
   data: {
     starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
     isShowPop: false,
-    starWid: 140,
+    starWid: 114,
     starCount: 5,
     comments: [],  //评论列表
     tipPop: false,
