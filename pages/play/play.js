@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToDHM } from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
   TourIndexInfo,
@@ -11,8 +11,7 @@ import {
   FreshSpots,
   PlayLoop,
   Http,
-  ModifyRouter,
-    CancelParten
+  ModifyRouter
 } from '../../api.js';
 
 const scaleMax = 2;
@@ -28,7 +27,7 @@ const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
 const app = getApp();
 const GENDER_FEMALE = 2;
-const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
+const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
@@ -67,9 +66,9 @@ const spotSize = {
   '30a': { wd: 91, ht: 130 },
   '31a': { wd: 104, ht: 96 },
   '32a': { wd: 104, ht: 148 },
-  '33a': { wd: 30, ht: 117 },
+  '33a': { wd: 36, ht: 141 },
   '34a': { wd: 157, ht: 142 },
-  '35a': { wd: 100, ht: 126 },
+  '35a': { wd: 128, ht: 120 },
   '36a': { wd: 100, ht: 182 }
 }
 Page({
@@ -104,7 +103,6 @@ Page({
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
-    showCancelDouble: false,//是否显示“取消双人旅行”,只有邀请方在等待对方规划路线时才显示
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
     planed: false,//是否完成了规划
@@ -133,7 +131,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(111)
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
@@ -168,11 +165,10 @@ Page({
       let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
       this.genRoleCls(roleMe, selfInfo.gender);
       let roleFriend = null;//组队好友
-      if (req.partener) {
+      if (req.partener && !display) {
         roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
         this.genRoleCls(roleFriend, req.partener.gender);
       }
-
 
       this.setData({
         roleMe,
@@ -383,7 +379,7 @@ Page({
         //规划的路线已经走完
         roleMe.walkCls = '';
         if (roleFriend) {
-            roleFriend.walkCls = '';
+          roleFriend.walkCls = '';
         }
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
@@ -397,8 +393,10 @@ Page({
 
       if (roleFriend) {
         //组队中
-          roleFriend.x = roleMe.x + ROLE_OFFSET;
-          roleFriend.y = roleMe.y + ROLE_OFFSET;
+          distBefore -= ROLE_OFFSET;
+          roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+          roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+          roleFriend.scale = roleMe.scale;
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
@@ -419,12 +417,12 @@ Page({
       if (req.spotsTracked == this.data.spotsTracked) {
         reGoin = 1//防止进页面就播放音效
       }
-      console.log(req.spotsTracked, this.data.spotsTracked)
       if (req.spotsTracked != this.data.spotsTracked) {
-        if (reGoin != 0) {
+        if (reGoin != 0 && req.spotsTracked != 0) {
           music.play()
         }
         else reGoin = 1
+        this.data.spotsTracked = res.spotsTracked;
       }
     });
   },
@@ -474,7 +472,7 @@ Page({
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
         if (!this.data.partener.isInviter) {
-          wx.toast({
+          wx.showToast({
             title: '请等待被邀请者规划路线',
             icon: 'none',
             mask: true
@@ -589,13 +587,14 @@ Page({
       reGoin = 1//防止进页面就播放音效
     }
     if (res.spotsTracked != this.data.spotsTracked) {
-      if (reGoin != 0 && res.spotsTracked!= 0) {
+      if (reGoin != 0 && res.spotsTracked != 0) {
         music.play()
       }
-       else reGoin = 1
+      else reGoin = 1
 
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
+      console.log(this.data.spotsTracked)
       lineUpdate = true;
     }
 
@@ -607,7 +606,7 @@ Page({
     }
     if (res.doubleState === false && this.data.partener) {
       //如果之前是双人，现在变成了单人，则清一下队员
-        this.data.partener = null;
+      this.data.partener = null;
     }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
@@ -637,7 +636,22 @@ Page({
     this.setData({
       taskPer: rel * 100
     })
-    
+    if (rel == 1) {
+      try {
+        var value = wx.getStorageSync('taskDone')//每个城市任务完成后记录一下
+        if (value) {
+          if (value == this.data.cid) return
+        }
+      } catch (e) {
+      }
+      this.setData({
+        taskdonePop: true
+      })
+      try {
+        wx.setStorageSync('taskDone', this.data.cid)
+      } catch (e) {
+      }
+    }
   },
   updateIcon(obj) {
     obj.img = resRoot; //如果租的有车，则换成车
@@ -767,26 +781,13 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
     this.setData({
       spots,
       started,
-      showCancelDouble
     });
 
     updateLine && this.updateLines();
   },
-  //取消双人
-    cancleDouble() {
-    let req = new CancelParten();
-    req.fetch().then(() => {
-      this.setData({
-          partener: null,
-          roleFriend: null,
-          showCancelDouble: false
-      })
-    })
-    },
 
   //提交路径到服务器
   sendPath() {
@@ -999,12 +1000,6 @@ Page({
   },
 
   popMissionInfo() {
-    // if (this.data.taskPer == 100) {
-    //   this.setData({
-    //     taskdonePop: true
-    //   })
-    //   return
-    // }
     this.setData({ showPop: true, showMissionInfo: true });
   },
 
