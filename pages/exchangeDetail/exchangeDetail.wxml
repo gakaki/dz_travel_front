@@ -9,7 +9,7 @@
   <srcoll-view class='desc' scroll-y>{{shop.introduce}}</srcoll-view>
   <view class='btn-wrap' wx:if='{{!uid}}'>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
-    <view class='btn-big-blue' bindtap='exchange'>{{integral < shop.integral ?'积分不足':shop.integral + '积分'}}</view>
+    <view class='{{integral < shop.integral ?"btn-big-grey":"btn-big-blue"}}' bindtap='exchange'>{{integral < shop.integral ?'积分不足':shop.integral + '积分'}}</view>
   </view>
 </view>
 <buy wx:if="{{exchange}}" cfmStr="确定" content="{{exchangeCon}}" outer-class="content" isBuy="{{false}}" bind:toclose="_cancel" bind:confirm="_confirm" cfmStr='{{cfmStr}}'></buy>
