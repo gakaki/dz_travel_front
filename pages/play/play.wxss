@@ -143,6 +143,8 @@ weather.sights {
   display: block;
   font-size: 20rpx;
   font-weight: bold;
+  width: 8em;
+  /*white-space: nowrap;*/
 }
 
 .play-spot-tm {

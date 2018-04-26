@@ -393,8 +393,10 @@ Page({
 
       if (roleFriend) {
         //组队中
-        roleFriend.x = roleMe.x + ROLE_OFFSET;
-        roleFriend.y = roleMe.y + ROLE_OFFSET;
+          distBefore -= ROLE_OFFSET;
+          roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+          roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+          roleFriend.scale = roleMe.scale;
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
@@ -469,7 +471,7 @@ Page({
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
         if (!this.data.partener.isInviter) {
-          wx.toast({
+          wx.showToast({
             title: '请等待被邀请者规划路线',
             icon: 'none',
             mask: true
