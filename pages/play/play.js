@@ -165,7 +165,7 @@ Page({
       let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
       this.genRoleCls(roleMe, selfInfo.gender);
       let roleFriend = null;//组队好友
-      if (req.partener) {
+      if (req.partener && !display) {
         roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
         this.genRoleCls(roleFriend, req.partener.gender);
       }
