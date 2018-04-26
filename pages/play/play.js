@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToDHM } from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
   TourIndexInfo,
@@ -66,9 +66,9 @@ const spotSize = {
   '30a': { wd: 91, ht: 130 },
   '31a': { wd: 104, ht: 96 },
   '32a': { wd: 104, ht: 148 },
-  '33a': { wd: 30, ht: 117 },
+  '33a': { wd: 36, ht: 141 },
   '34a': { wd: 157, ht: 142 },
-  '35a': { wd: 100, ht: 126 },
+  '35a': { wd: 128, ht: 120 },
   '36a': { wd: 100, ht: 182 }
 }
 Page({
@@ -131,7 +131,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(111)
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
@@ -637,12 +636,11 @@ Page({
     })
     if (rel == 1) {
       try {
-        var value = wx.getStorageSync('taskDone')
+        var value = wx.getStorageSync('taskDone')//每个城市任务完成后记录一下
         if (value) {
           if (value == this.data.cid) return
         }
       } catch (e) {
-       
       }
       this.setData({
         taskdonePop: true
