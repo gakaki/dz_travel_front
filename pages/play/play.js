@@ -166,12 +166,11 @@ Page({
       if (req.partener) {
         roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
         this.genRoleCls(roleFriend, req.partener.gender);
-        this.setData({
-          roleFriend
-        })
       }
+
       this.setData({
-        roleMe
+        roleMe,
+        roleFriend
       })
 
       let num = 0
@@ -337,8 +336,10 @@ Page({
     let planedFinished = this.data.planedFinished;
     //update role pos
     let roleMe = this.data.roleMe;
+    let roleFriend = this.data.partener ? this.data.roleFriend : null;
     if (this.data.roleCar) {
       roleMe = this.data.roleCar
+      roleFriend = null;
     }
     if (len > 0) {
 
@@ -355,12 +356,19 @@ Page({
       distBefore = Math.min(distBefore, roleTrackingLineLength);
       distBefore = Math.max(0, distBefore);
       if (this.data.started) {
-        roleMe.walkCls = roleMe._walkCls
+        roleMe.walkCls = roleMe._walkCls;
+
+        if (roleFriend) {
+          roleFriend.walkCls = roleFriend._walkCls;
+        }
       }
       if (trackedNum == spots.length) {
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
+        if (roleFriend) {
+            roleFriend.walkCls = '';
+        }
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
         this.freshAllTrackedStat();
@@ -370,7 +378,14 @@ Page({
       const halfPI = Math.PI / 2;
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
 
-      this.setData({ lines, roleMe, planedFinished });
+
+      if (roleFriend) {
+        //组队中
+          roleFriend.x = roleMe.x + ROLE_OFFSET;
+          roleFriend.y = roleMe.y + ROLE_OFFSET;
+      }
+
+      this.setData({ lines, roleMe, roleFriend, planedFinished });
       if (this.data.roleCar) {
         this.setData({ lines, roleCar: roleMe, planedFinished });
       } else this.setData({ lines, roleMe, planedFinished });
@@ -432,7 +447,7 @@ Page({
       //首次规划路线
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
-        if (this.data.partener.isInviter) {
+        if (!this.data.partener.isInviter) {
           wx.toast({
             title: '请等待被邀请者规划路线',
             icon: 'none',
@@ -561,6 +576,10 @@ Page({
       let unreadEventCnt = this.data.unreadEventCnt;
       unreadEventCnt++;
       this.setData({ unreadEventCnt });
+    }
+    if (res.doubleState === false && this.data.partener) {
+      //如果之前是双人，现在变成了单人，则清一下队员
+        this.data.partener = null;
     }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
