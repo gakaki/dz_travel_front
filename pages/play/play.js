@@ -394,8 +394,10 @@ Page({
 
       if (roleFriend) {
         //组队中
-        roleFriend.x = roleMe.x + ROLE_OFFSET;
-        roleFriend.y = roleMe.y + ROLE_OFFSET;
+          distBefore -= ROLE_OFFSET;
+          roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+          roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+          roleFriend.scale = roleMe.scale;
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
