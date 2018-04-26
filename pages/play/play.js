@@ -11,7 +11,8 @@ import {
   FreshSpots,
   PlayLoop,
   Http,
-  ModifyRouter
+  ModifyRouter,
+    CancelParten
 } from '../../api.js';
 
 const scaleMax = 2;
@@ -103,6 +104,7 @@ Page({
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
+    showCancelDouble: false,//是否显示“取消双人旅行”,只有邀请方在等待对方规划路线时才显示
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
     planed: false,//是否完成了规划
@@ -170,6 +172,7 @@ Page({
         roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
         this.genRoleCls(roleFriend, req.partener.gender);
       }
+
 
       this.setData({
         roleMe,
@@ -764,13 +767,26 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
+    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
     this.setData({
       spots,
       started,
+      showCancelDouble
     });
 
     updateLine && this.updateLines();
   },
+  //取消双人
+    cancleDouble() {
+    let req = new CancelParten();
+    req.fetch().then(() => {
+      this.setData({
+          partener: null,
+          roleFriend: null,
+          showCancelDouble: false
+      })
+    })
+    },
 
   //提交路径到服务器
   sendPath() {
