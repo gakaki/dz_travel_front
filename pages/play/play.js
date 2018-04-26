@@ -418,10 +418,11 @@ Page({
         reGoin = 1//防止进页面就播放音效
       }
       if (req.spotsTracked != this.data.spotsTracked) {
-        if (reGoin != 0) {
+        if (reGoin != 0 && req.spotsTracked != 0) {
           music.play()
         }
         else reGoin = 1
+        this.data.spotsTracked = res.spotsTracked;
       }
     });
   },
@@ -593,6 +594,7 @@ Page({
 
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
+      console.log(this.data.spotsTracked)
       lineUpdate = true;
     }
 
