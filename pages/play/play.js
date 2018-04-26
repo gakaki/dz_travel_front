@@ -27,7 +27,7 @@ const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
 const app = getApp();
 const GENDER_FEMALE = 2;
-const ROLE_OFFSET = 10;//双人旅行时，小人位置差值
+const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
@@ -165,7 +165,7 @@ Page({
       let roleMe = { x: startPoint.x, y: startPoint.y, display: req.display };
       this.genRoleCls(roleMe, selfInfo.gender);
       let roleFriend = null;//组队好友
-      if (req.partener) {
+      if (req.partener && !display) {
         roleFriend = { x: startPoint.x + ROLE_OFFSET, y: startPoint.y + ROLE_OFFSET, display: req.display }
         this.genRoleCls(roleFriend, req.partener.gender);
       }
