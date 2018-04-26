@@ -181,7 +181,7 @@ Page({
 
   setFlyInfo(req) {
     let flyInfo = {};
-    if(req.cost){
+    if(req.cost || req.cost==0){
       flyInfo.cost = req.cost;
       flyInfo.doubleCost = req.doubleCost;
     }
