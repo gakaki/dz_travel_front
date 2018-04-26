@@ -21,13 +21,24 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "path",
+					"pathName": "pages/index/index",
+					"query": "shareUid=ov5W35XwjECAWGq0UK3omMfu9nak&start=true&terminal=上海&inviteCode=697d8480-4913-11e8-9e69-0393ab00b8e3&cid=3"
+				}
+			]
 		}
 	}
 }
