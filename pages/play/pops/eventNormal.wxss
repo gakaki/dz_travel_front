@@ -39,7 +39,7 @@
     margin: 0 auto;
     display: block;
     width: 90%;
-    text-align: center;
+    /* text-align: center; */
     font-size: 30rpx;
     line-height: 44rpx;
     margin-top: 10rpx;

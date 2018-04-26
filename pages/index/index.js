@@ -314,7 +314,6 @@ Page({
         })
       }
       else{
-        console.log(this.data.location)
         wx.navigateTo({
           url: '../city/city?location=' + this.data.location,
         })
