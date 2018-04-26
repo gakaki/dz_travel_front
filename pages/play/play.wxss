@@ -480,3 +480,14 @@ weather.sights {
   transform: translate(-50%, -50%);
   z-index: 100;
 }
+.cancle-double {
+  background-color: #fd6259;
+  font: normal 24rpx 'Microsoft YaHei';
+  color: #fff;
+  width: 178rpx;
+  height: 50rpx;
+  position: fixed;
+  top: 90rpx;
+  left: 10rpx;
+  border-radius: 30rpx;
+}

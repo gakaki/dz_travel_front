@@ -44,6 +44,7 @@
       <text class="fontWhite">{{licheng}}</text>
       <text class="zi">km</text>
     </view>
+    <view class="cancle-double flex" hidden="{{!partener}}" catchtap='cancleDouble'>取消双人旅行</view>
     <image wx:if="{{weatherImg.length>0}}" class="weather" src="https://gengxin.odao.com/update/h5/travel/weather/{{weatherImg}}.png"></image>
     <!-- 提示 -->
     <view class="tip" bindtap='popPlayIntro'></view>
