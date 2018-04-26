@@ -470,7 +470,7 @@ Page({
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
         if (!this.data.partener.isInviter) {
-          wx.toast({
+          wx.showToast({
             title: '请等待被邀请者规划路线',
             icon: 'none',
             mask: true
