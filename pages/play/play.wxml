@@ -33,7 +33,6 @@
     </view>
     <!--小人.组队好友-->
     <view wx:if="{{roleFriend && !planing}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform:rotate({{roleFriend.rotation}}deg) translate(-50%, -90%);">
-      <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -30rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
 
   </scroll-view>
