@@ -380,7 +380,7 @@ Page({
         //规划的路线已经走完
         roleMe.walkCls = '';
         if (roleFriend) {
-            roleFriend.walkCls = '';
+          roleFriend.walkCls = '';
         }
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
@@ -394,8 +394,8 @@ Page({
 
       if (roleFriend) {
         //组队中
-          roleFriend.x = roleMe.x + ROLE_OFFSET;
-          roleFriend.y = roleMe.y + ROLE_OFFSET;
+        roleFriend.x = roleMe.x + ROLE_OFFSET;
+        roleFriend.y = roleMe.y + ROLE_OFFSET;
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
@@ -416,7 +416,6 @@ Page({
       if (req.spotsTracked == this.data.spotsTracked) {
         reGoin = 1//防止进页面就播放音效
       }
-      console.log(req.spotsTracked, this.data.spotsTracked)
       if (req.spotsTracked != this.data.spotsTracked) {
         if (reGoin != 0) {
           music.play()
@@ -585,12 +584,11 @@ Page({
     if (res.spotsTracked == this.data.spotsTracked) {
       reGoin = 1//防止进页面就播放音效
     }
-    console.log(res.spotsTracked, this.data.spotsTracked)
     if (res.spotsTracked != this.data.spotsTracked) {
-      if (reGoin != 0) {
+      if (reGoin != 0 && res.spotsTracked != 0) {
         music.play()
       }
-       else reGoin = 1
+      else reGoin = 1
 
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
@@ -605,7 +603,7 @@ Page({
     }
     if (res.doubleState === false && this.data.partener) {
       //如果之前是双人，现在变成了单人，则清一下队员
-        this.data.partener = null;
+      this.data.partener = null;
     }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
@@ -635,7 +633,23 @@ Page({
     this.setData({
       taskPer: rel * 100
     })
-    
+    if (rel == 1) {
+      try {
+        var value = wx.getStorageSync('taskDone')
+        if (value) {
+          if (value == this.data.cid) return
+        }
+      } catch (e) {
+       
+      }
+      this.setData({
+        taskdonePop: true
+      })
+      try {
+        wx.setStorageSync('taskDone', this.data.cid)
+      } catch (e) {
+      }
+    }
   },
   updateIcon(obj) {
     obj.img = resRoot; //如果租的有车，则换成车
@@ -984,12 +998,6 @@ Page({
   },
 
   popMissionInfo() {
-    // if (this.data.taskPer == 100) {
-    //   this.setData({
-    //     taskdonePop: true
-    //   })
-    //   return
-    // }
     this.setData({ showPop: true, showMissionInfo: true });
   },
 

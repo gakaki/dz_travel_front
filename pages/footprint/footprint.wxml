@@ -9,7 +9,7 @@
   <view class='des-content' style='margin:0 70rpx 35rpx'>
     已点亮<text class='des-spec'>{{reachrovince}}</text>个省份，<text class='des-spec'>{{totalArrive}}</text>个城市，足迹已遍布全中国<text class='des-spec'>{{totalArrivePercent}}%</text>的城市，旅游完成度达到<text class='des-spec'>{{travelPercent}}</text>
   </view> 
-   <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' uid='{{userInfo.uid}}' log='{{true}}'></cmap> 
+   <cmap id='map' conWd='{{mapConWd}}' conHt='{{mapConHt}}' uid='{{uid}}' log='{{true}}'></cmap> 
    <view wx:if='{{!mySelf}}' class='.btn-big-blue' bindtap='toIndex'>{{content}}</view>
    <view wx:else class='btn-wrap'>
      <view class='.btn-big-blue'>{{content}}</view>
