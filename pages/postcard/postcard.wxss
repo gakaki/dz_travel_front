@@ -1,10 +1,22 @@
+.cons {
+  /* height: 1100rpx; */
+  position: fixed;
+  top: 83rpx;
+  left: 0;
+  bottom: 0;
+  right:0;
+padding-top: 20rpx;
+}
 .post-item {
   height: 160rpx;
   margin: 0 auto;
-  margin-top: 20rpx;
+  margin-bottom: 20rpx;
   background-color: #fff;
    width: 710rpx;
   border-radius: 20rpx;
+}
+.nomb {
+  margin-bottom: 0;
 }
 .img {
    height: 130rpx;

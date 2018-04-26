@@ -26,7 +26,6 @@ Page({
       })
     }
     m.fetch().then(res=>{
-      console.log(res)
        this.setData({
          init: res.postcardInfo
       })

@@ -22,19 +22,17 @@
             <text class="ta">{{mes2}}</text>
           </block>
           <block wx:else=''>
-            <textarea name='ta1' disabled='{{!secTa}}' maxlength='54' bindinput="bindInput" class="ta" placeholder='在此处写信后分享明信片至好友'></textarea>
-            <textarea name='ta2' bindinput="bindInputSec" maxlength='54' disabled='{{secTa}}' class="ta"></textarea>
+            <textarea name='ta1' maxlength='54' bindinput="bindInput" class="ta" placeholder='在此处写信后分享明信片至好友'></textarea>
+            <textarea name='ta2' maxlength='46' disabled='{{secTa}}' class="ta"></textarea>
           </block>
         </view>
-
-
         <text class="pre" wx:if='{{lastestMessage.hasUp}}' bindtap='toUp'>上一页</text>
         <text class="next"  wx:if='{{lastestMessage.hasNext}}'  bindtap='toDown'>下一页</text>
       </view>
 
     </view>
     <view class="btn-big-blue btn">{{btnInfo}}
-       <button formType="submit" wx:if='{{message}}' open-type='share' class="subBtn">Submit</button> 
+       <button formType="submit" wx:if='{{message1 || message2}}' open-type='share' class="subBtn">Submit</button> 
        <button formType="submit" wx:else='' class="subBtn">Submit</button>   
     </view>
    </form> 

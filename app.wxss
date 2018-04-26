@@ -166,7 +166,7 @@
   font: 32rpx/90rpx 'Microsoft YaHei';
 }
 .btn-big-grey {
-  margin: 0 auto;
+  margin: 0 auto 25rpx;
   color: #fff;
   width: 446rpx;
   height: 127rpx;

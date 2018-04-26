@@ -5,7 +5,10 @@ import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, Fre
 const scaleMax = 2;
 const scaleMin = 0.7;
 let tapStamp;
+let secondPoint;
 let display;
+let music;
+let reGoin = 0; //重新进入页面
 let citysName;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
@@ -61,8 +64,8 @@ Page({
    */
   data: {
     present: false,//第二次進入的城市送車 
-    trans: 'zheng',
-    hua: 'hua-rgt',
+    trans: '',
+    hua: 'hua-lf',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -79,8 +82,7 @@ Page({
     season: '', //季节
     weather: '',//天气图标
     licheng: 0, //里程,
-    hasPath: false, //是否已经规划了路线
-    spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,tracking=true表示快要到了
+    spots: [], //景点列表[{id,cid,name,building,index,x,y,tracked,roundTracked,tracking}]//index>0表示此点在路径中的位置，tracked=true时表示此点已经到过了,roundTracked=true表示此轮中此点已经到过，tracking=true表示快要到了
     planedSpots: [], //规划到路线中的景点[{id,cid,name,building,index,x,y,tracked}]
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
@@ -114,7 +116,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.huadong()
+    console.log(111)
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
@@ -156,8 +162,12 @@ Page({
         roleMe
       })
 
-
+      let num = 0
+      req.spots.forEach(o => {
+        if (o.roundTracked) num++
+      })
       this.setData({
+        spotsTracked: num,
         weatherImg: Weather.Get(req.weather).icon,
         licheng: req.mileage,
         season: app.globalData.season,
@@ -182,9 +192,18 @@ Page({
   },
   huadong() {
     this.setData({
-      hua: this.data.hua == 'hua-rgt' ? 'hua-lf' :'hua-rgt',
+      hua: this.data.hua == 'hua-rgt' ? 'hua-lf' : 'hua-rgt',
       trans: this.data.trans == 'zheng' ? '' : 'zheng'
     })
+  },
+  hideHuadong() {
+    if (this.data.hua == 'hua-rgt' && this.data.trans == 'zheng') {
+      this.setData({
+        hua: 'hua-lf',
+        trans: ''
+      })
+      console.log(this.data.hua, this.data.trans)
+    }
   },
   hidePops() {
     this.setData({
@@ -192,7 +211,7 @@ Page({
     })
   },
   toCfm() {
-    if (app.globalData.gold> 100) {
+    if (app.globalData.gold > 100) {
       this.chgLine()
       return
     }
@@ -229,6 +248,8 @@ Page({
    */
   onHide: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
+    this.hideHuadong()
   },
 
   /**
@@ -236,6 +257,7 @@ Page({
    */
   onUnload: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0
   },
 
   /**
@@ -255,6 +277,8 @@ Page({
 
     let startPoint = this.data.startPoint;
     startPoint.tracked = true;
+    startPoint.tracking = false;
+    startPoint.roundTracked = true;
     let trackedNum = 1;
 
     spots.unshift(startPoint);//将起点加入
@@ -275,19 +299,20 @@ Page({
       let wd = wd = Math.hypot(dy, dx);
       let angle = Math.atan2(dy, dx);
       let rotation = angle * 180 / Math.PI;
-      let tracked = nxt.tracked;
-      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, tracked };
-      if (tracked) {
+      let roundTracked = nxt.roundTracked;
+      let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, roundTracked };
+      if (nxt.roundTracked) {
         trackedNum++;
       }
 
-      if (cur.tracked) {
+      nxt.tracking = false;
+      if (cur.roundTracked) {
         roleTrackedSpot = cur;
         roleTrackingSpot = nxt;
         roleTrackingLineLength = wd;
         roleTrackingAngle = angle;
 
-        if (!nxt.tracked) {
+        if (!nxt.roundTracked) {
           nxt.tracking = true;
         }
 
@@ -311,7 +336,7 @@ Page({
         return;
       }
       let now = Base.servertime;
-      let beforeStamp = roleTrackedSpot.tracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
+      let beforeStamp = roleTrackedSpot.roundTracked && roleTrackedSpot.startime ? roleTrackedSpot.startime : roleTrackedSpot.arriveStamp;
       let dtBefore = now - beforeStamp;
       let dtAll = roleTrackingSpot.arriveStamp - beforeStamp;
       let distBefore = roleTrackingLineLength * dtBefore / dtAll;
@@ -326,7 +351,7 @@ Page({
         roleMe.walkCls = '';
 
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        this.freshSpots
+        this.freshAllTrackedStat();
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -342,6 +367,13 @@ Page({
       this.setData({ lines: null, 'roleMe.walkCls': '' })
     }
 
+  },
+  //调用一次loop
+  freshAllTrackedStat() {
+    let req = new PlayLoop();
+    req.fetch().then(() => {
+      this.data.spotsAllTracked = req.spotsAllTracked;
+    });
   },
 
   //添加或修改路线
@@ -377,21 +409,35 @@ Page({
 
     this.zoomOnPlaning();//缩放
 
-    let req = new ModifyRouter();
-    req.planedAllTracked = this.data.planedFinished ? 1 : 0;
-    req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
-    req.fetch().then(() => {
-      app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots, false);
+    if (!this.data.started) {
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
         planedFinished: false,//
-        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : this.data.planedSpots.filter(s => s.tracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedSpots: []
       })
-      this.updateLines()
+      return
+    }
+
+    let req = new ModifyRouter();
+    req.planedAllTracked = this.data.planedFinished ? 1 : 0;
+    req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
+    let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
+    req.fetch().then(() => {
+      app.globalData.gold = req.goldNum;
+      this.updateSpots(req.spots, false);
+
+      this.setData({
+        chgLines: false,
+        started: false,//设为非游玩状态
+        planing: true, //设为编辑路线状态
+        planed: false,//是否完成了规划
+        planedFinished: false,//
+        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : planedSpots//this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+      })
+      this.updateLines(true)
     })
   },
 
@@ -449,21 +495,24 @@ Page({
 
   //轮询
   onPlayLoop(res) {
-    let lineUpdated = false;
+    let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
       console.log('Playloop stopped, error code>>', res.code);
     }
     if (res.freshSpots) {
       //景点列表需要刷新
-      lineUpdated = true;
-      this.freshSpots();
+      lineUpdate = true;
     }
-    else if (res.spotsTracked != this.data.spotsTracked) {
+    if (res.spotsTracked != this.data.spotsTracked) {
+      if (reGoin != 0) {
+        music.play()
+      }
+      else reGoin = 1
+
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
-      lineUpdated = true;
-      this.freshSpots();
+      lineUpdate = true;
     }
 
     if (res.newEvent) {
@@ -474,7 +523,10 @@ Page({
     }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
-    if (!lineUpdated) {
+    if (lineUpdate) {
+      this.freshSpots();
+    }
+    else {
       this.updateLines()
     }
 
@@ -524,15 +576,27 @@ Page({
     let req = new FreshSpots();
 
     req.fetch().then(() => {
+      //
+      // let idx = 0
+      // req.spots.forEach(o => {
+      //   if (o.index > idx) idx++
+      // })
+      // if (idx == this.data.spots.length - 1) {
+      //   secondPoint = req.spots.find(o => {
+      //     o.index == idx
+      //   })
+      // }
       this.setData({ task: req.task })
-      this.updateSpots(req.spots, display);
+      this.updateSpots(req.spots);
       if (req.display != 0 && display != req.display) {
         this.data.roleFriend = null
         let roleMe = this.data.roleMe
         roleMe.display = req.display
         this.updateIcon(roleMe)
+        let licheng = req.mileage;
         this.setData({
-          roleMe
+          roleMe,
+          licheng
         })
       }
       display = req.display
@@ -540,11 +604,11 @@ Page({
       this.freshTask();
     })
 
-   
+
   },
 
   //更新景点状态列表
-  updateSpots(spots, show, updateLine = true) {
+  updateSpots(spots, updateLine = true) {
 
     let now = Base.servertime;
     if (this.data.spots.length) {
@@ -552,35 +616,26 @@ Page({
       olds.sort((a, b) => a.id - b.id);
       spots.sort((a, b) => a.id - b.id);
 
-      //check if all same
-      let allSame = true;
 
       for (let i = 0; i < olds.length; i++) {
         if (i < spots.length) {
           let o = olds[i];
           let n = spots[i];
           let tracked = n.tracked;
+          let roundTracked = n.roundTracked;
           let arriveStamp = n.arriveStamp;
           let startime = n.startime;
+          let index = n.index;
 
-          allSame = allSame && o.tracked == tracked && o.arriveStamp == arriveStamp;
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(o, n, o, { tracked, arriveStamp, startime });
+          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked, index});
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
-          allSame = false;
           break;
         }
       }
 
-      if (allSame) {
-        //全部一样的话，不必更新渲染
-          //按y值排序，以景深排序
-        olds.sort( (a,b)=> a.y - b.y);
-        updateLine && this.updateLines();
-        return;
-      }
 
       spots = olds;
     }
@@ -599,9 +654,8 @@ Page({
       })
     }
     //按y值排序，以景深排序
-    spots.sort( (a,b)=> a.y - b.y);
+    spots.sort((a, b) => a.y - b.y);
 
-    this.data.spots = spots;
     let planedSpots = spots.filter(o => {
       return o.index > -1;
     }).sort((a, b) => { return a.index - b.index });
@@ -610,7 +664,7 @@ Page({
     let timeShowed = false;
     for (let i = 0; i < planedSpots.length; i++) {
       let s = planedSpots[i];
-      if (s.arriveStamp && !s.tracked && !timeShowed) {
+      if (s.arriveStamp && !s.roundTracked && !timeShowed) {
         timeShowed = true;
         s.arriveTime = secToDHM((s.arriveStamp - now) / 1000) + '后到达'
       }
@@ -624,7 +678,6 @@ Page({
     this.setData({
       spots,
       started,
-      hasPath: started
     });
 
     updateLine && this.updateLines();
@@ -663,7 +716,6 @@ Page({
     let dataset = e.currentTarget.dataset;
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
-    console.log('click spot', spot)
 
     //游玩中
     if (this.data.started) {
@@ -715,10 +767,10 @@ Page({
 
   touchMap() {
     // check if triggered minimal tap
-      if (this.data.planing) {
-          //规划路线时，不支持点击缩放
-          return;
-      }
+    if (this.data.planing) {
+      //规划路线时，不支持点击缩放
+      return;
+    }
     let now = Date.now();
     if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
       this.doubleTap();
@@ -730,21 +782,21 @@ Page({
     let scale = minimal ? scaleMin : 1;
     this.setData({ minimal, scale });
   },
-    //规划路线时，强制缩到最小
-    zoomOnPlaning(){
-      this.setData({
-          scale: scaleMin
-      });
-    },
-    //规划完成时，缩放回原先
-    zoomOnPlaned() {
-      let minimal = this.data.minimal;
-      let scale = minimal ? scaleMin : 1;
-      this.setData({
-          scale,
-          planing: false
-      })
-    },
+  //规划路线时，强制缩到最小
+  zoomOnPlaning() {
+    this.setData({
+      scale: scaleMin
+    });
+  },
+  //规划完成时，缩放回原先
+  zoomOnPlaned() {
+    let minimal = this.data.minimal;
+    let scale = minimal ? scaleMin : 1;
+    this.setData({
+      scale,
+      planing: false
+    })
+  },
 
   //点击小人
   tapRole() {
@@ -753,7 +805,13 @@ Page({
     }
   },
 
-  toNextEvent() {
+  toNextEvent(e) {
+
+    console.log(e)
+    if (e.detail.cur == 1) {
+      this.hidePop();
+      return
+    }
     this.hidePop();
     this.fetchEvent();
   },
@@ -762,6 +820,7 @@ Page({
   fetchEvent() {
     let req = new EventShow();
     req.cid = this.data.cid;
+    req.toastErr = false;
 
     req.fetch().then(() => {
       let unreadEventCnt = req.total - req.current;
@@ -769,13 +828,18 @@ Page({
       this.data.quest = quest;
       let curEvtIdx = req.current;
       let totalEvt = req.total;
-
+      if (!req.quest) {
+        this.setData({
+          unreadEventCnt: 0
+        })
+        return
+      }
       switch (quest.type) {
         case EVENT_TYPE_NORMAL:
           this.setData({
             showPop: true,
             showEventNormal: true,
-              unreadEventCnt,
+            unreadEventCnt,
             curEvtIdx,
             totalEvt
           });
@@ -785,11 +849,15 @@ Page({
           this.setData({
             showPop: true,
             showEventQuest: true,
-              unreadEventCnt,
+            unreadEventCnt,
             curEvtIdx,
             totalEvt
           });
           break;
+          default: 
+          this.setData({
+            unreadEventCnt: 0
+          })
       }
     })
   },

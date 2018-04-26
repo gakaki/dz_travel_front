@@ -7,7 +7,7 @@
       <image class="star  {{mg}}" src="{{starDft}}"></image>
       <image class="star {{mg}}" src="{{starDft}}"></image>
     </view>
-    <view class="act-star-box" style="width:{{starNum*20}}%">
+    <view class="act-star-box" style="width:{{starNum*19}}%">
       <image class="star {{mg}}" src="{{starAct}}"></image>
       <image class="star {{mg}}" src="{{starAct}}"></image>
       <image class="star {{mg}}" src="{{starAct}}"></image>

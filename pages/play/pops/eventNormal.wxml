@@ -6,5 +6,5 @@
     <text class="ten font">{{current}}/{{total}}</text>
 </view>
 <text class="evt font">{{ content }}...{{tools.rewardStr(rewards)}}</text>
-<view class="next-evt font" catch:tap="toNext">下一事件</view>
+<view class="next-evt font" data-current="{{current}}"  catch:tap="toNext">{{current>1 ? '下一事件': '确定'}}</view>
 </view>

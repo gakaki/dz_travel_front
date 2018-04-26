@@ -66,7 +66,7 @@ Page({
 
   
   lower(){
-    this.getExchangeDetail()
+    if (this.data.exchangeDetail.length>0)  this.getExchangeDetail()
   },
   toPlay(e){
     let audio = this.data.audioC
@@ -99,9 +99,12 @@ Page({
   // },
   toDetail(e){
     let data = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: '../exchangeDetail/exchangeDetail?id=' + data.id + '&integral=' + this.data.integral,
-    })
+    if (this.data.shops[data.index].remaining > 0) {
+      wx.navigateTo({
+        url: '../exchangeDetail/exchangeDetail?index=' + data.index + '&integral=' + this.data.integral,
+      })
+    }
+    
   },
   /**
    * 用户点击右上角分享

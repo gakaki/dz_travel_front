@@ -1,7 +1,6 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, redGold, addGold } from '../../utils/util.js';
 import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp, BuyPostcard, BuyPostcardList } from '../../api.js'
-let type = 0;
 let propId
 let cid = ''
 const app = getApp();
@@ -33,13 +32,15 @@ Page({
     maxNum: 0,
     xg: -1,
     overxg:false,
-    forceBuy:false
+    forceBuy:false,
+    tabType:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('options',options)
     if (!options.cid) {
       cid = app.globalData.cid
       this.setData({
@@ -62,6 +63,12 @@ Page({
       myGold: app.globalData.gold
     })
   },
+  onShow(){
+    this.hidePop()
+    this.setData({
+      myGold: app.globalData.gold
+    })
+  },
   hidePop() {
     this.setData({
       goldBuzu: false
@@ -75,6 +82,7 @@ Page({
   rentCar(e) {
     let str
     let obj = sheet.Shop.Get(e.currentTarget.dataset.id);
+    console.log('obj==========>',obj)
     if(obj.type == 3) {
       str = '购买'
     } else {
@@ -160,13 +168,15 @@ Page({
     console.log('forceBuy', forceBuy)
     this.hideCar()
     if (!this.checkGold()) { return }
-    if(type == 0) {
+    if (this.data.tabType == 0) {
       let m = new RentProp();
+      console.log('propIdddddd', this.data.propId)
       m.rentId = this.data.propId;
       if (forceBuy) {
         m.forceBuy = forceBuy
       }
       m.fetch().then(() => {
+        console.log('m=========>',m)
         this.checkRentStatus();
         let v = this.data.rentProp[this.data.propId - 1].price;
         redGold(v)
@@ -179,7 +189,7 @@ Page({
           forceBuy:true
         })
       })
-    } else if(type == 3) {
+    } else if (this.data.tabType == 3) {
        let m = new BuyPostcard();
        m.ptid = this.data.propId;
         m.fetch().then(res=>{
@@ -233,7 +243,7 @@ Page({
   },
   buyCount(e) {
     this.hideBuyNum()
-    switch (type) {
+    switch (this.data.tabType) {
       case 1:
         if (!this.checkGold(e.detail.num)) { return }
         //购买特产
@@ -265,21 +275,21 @@ Page({
     }
   },
   clkOne() {
-    type = 0
     this.setData({
       tabOne: true,
       tabTwo: false,
       tabThree: false,
       tabFour: false,
+      tabType: 0
     })
   },
   clkTwo() {
-    type = 1
     this.setData({
       tabOne: false,
       tabTwo: true,
       tabThree: false,
       tabFour: false,
+      tabType:1
       // maimai: '购买'
     })
 
@@ -294,13 +304,13 @@ Page({
 
   },
   clkThree() {
-    type = 2
     this.setData({
       tabOne: false,
       tabTwo: false,
       tabThree: true,
       tabFour: false,
-      maimai: '售卖'
+      maimai: '售卖',
+      tabType:2
     })
     let req = new MySpes();
     req.fetch().then((res) => {
@@ -311,13 +321,13 @@ Page({
 
   },
   clkFour() {
-    type = 3
     this.setData({
       tabOne: false,
       tabTwo: false,
       tabThree: false,
       tabFour: true,
-      maimai: '售卖'
+      maimai: '售卖',
+      tabType:3
     })
 
     let req = new BuyPostcardList();

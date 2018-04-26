@@ -8,21 +8,51 @@ Page({
   data: {
     cfmStr: '确定',
     exchange:false,
-    confirmAdress:false
+    confirmAdress:false,
+    shop:null,
+    introduce: [`兑换详情
+    这是一个可爱的照相机各种简介，
+    等等等等`,
+    `注意事项
+    这是一个可爱的照相机各种简介，等等等等`]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
+    console.log(options)
     let m = new IntegralShop();
     m.fetch().then(res => {
+      let arr = res.shops[options.index].introduce.map(v=>{
+        return v.split("\\n")
+      })
+      arr = arr.map(v=>{
+        v = v.filter(item=>{
+          return item.trim().length!=0
+        })
+        return v
+      })
       this.setData({
         integral: options.integral,
-        shop: res.shops[options.id]
+        shop: res.shops[options.index],
+        intro:arr
       })
-      console.log(res)
+      
+    })
+  },
+  toCopy(){
+    wx.setClipboardData({
+      data: this.data.shop.exchangeCode,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            })
+          }
+        })
+      }
     })
   },
   _cancel() {
@@ -31,37 +61,44 @@ Page({
     })
   },
   _confirm() {
-    if (this.data.cfmStr == '确定') {
-      let m = new GetUserLocation();
-      m.fetch().then(res => {
-        console.log(res)
-        let m = new GetRealInfo();
+    if (this.data.shop.type == 1) {
+      if (this.data.cfmStr == '确定') {
+        let m = new GetUserLocation();
         m.fetch().then(res => {
-          this.setData({
-            exchange: false,
-            confirmAdress: true,
-            userInfo: res.realInfo
+          let m = new GetRealInfo();
+          m.fetch().then(res => {
+            this.setData({
+              exchange: false,
+              confirmAdress: true,
+              userInfo: res.realInfo
+            })
           })
-        })
-        console.log(this.data.userInfo)
 
-      }).catch(res => {
-        if (res == -174) {
-          this.setData({
-            exchangeCon: '您尚未设置个人信息',
-            cfmStr: '前往设置'
-          })
-        }
-      })
+        }).catch(res => {
+          if (res == -174) {
+            this.setData({
+              exchangeCon: '您尚未设置个人信息',
+              cfmStr: '前往设置'
+            })
+          }
+        })
+      }
+      else if (this.data.cfmStr == '兑换'){
+
+      }
+       else {
+        wx.navigateTo({
+          url: '../settings/settings?settings=true'
+        })
+        this.setData({
+          exchange: false,
+          cfmStr: '确定'
+        })
+      }
     } else {
-      wx.navigateTo({
-        url: '../settings/settings?settings=true'
-      })
-      this.setData({
-        exchange: false,
-        cfmStr: '确定'
-      })
+      this.confirmExc()
     }
+    
   },
   toSetting() {
     wx.navigateTo({
@@ -81,20 +118,28 @@ Page({
   },
   confirmExc() {
     this.setData({
-      confirmAdress: false
+      confirmAdress: false,
+      exchange: false
     })
     let m = new ExchangeShop();
     m.id = this.data.id;
-    m.tel = this.data.userInfo.phoneNumber;
-    m.addr = this.data.userInfo.address;
+    if(this.data.shop.type == 1) {
+      m.tel = this.data.userInfo.phoneNumber;
+      m.addr = this.data.userInfo.address;
+    }
     m.fetch().then(res => {
       console.log(res)
-      wx.showToast({
-        title: '兑换成功',
-      })
-      setTimeout(() => {
-        // this.getUserInfo(true)
-      }, 100)
+      if(res.exchangeCode) {
+        this.setData({
+          exchangeCon: res.exchangeCode,
+          cfmStr: '复制兑换码'
+        })
+      } else {
+        wx.showToast({
+          title: '兑换成功',
+        })
+      }
+     
     })
   },
 

@@ -15,7 +15,7 @@
     <!-- 飞机 -->
     <image wx:for='{{planes}}' wx:key='{{index}}' class='air-plane' src='https://gengxin.odao.com/update/h5/travel/travelLog/airplane.png' style="position:absolute; left:{{item.x * scale}}rpx; top:{{item.y * scale}}rpx; transform:translate(-50%, -50%) rotate({{item.rotation}}deg);"></image>
 
-    <element wx:for='{{player}}' wx:key='{{index}}' isPlayer='{{true}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
+    <element wx:for='{{player}}' wx:key='{{index}}' isPlayer='{{true}}' double='{{double}}' wx:key='{{index}}' style='position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx; height:{{item.imgHt * scale}}rpx; width:{{item.imgWd * scale}}rpx' imgWd='{{item.imgWd}}' imgHt='{{item.imgHt}}'
       img='{{item.img}}' txt='{{item.hideName ? "" : item.name}}' txtX='{{item.txtX * scale}}' txtY='{{item.txtY * scale}}'></element>
 
 

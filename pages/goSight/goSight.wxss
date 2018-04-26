@@ -18,6 +18,7 @@
 }
 
 .arrow {
+  margin: 15rpx 0 15rpx 20rpx;
   width: 33rpx;
   height: 18rpx;
 }

@@ -30,7 +30,7 @@
   </view>
 
   <scroll-view id="two-list" scroll-y class="f-c-fs sc" wx:if="{{tabTwo}}">
-    <view class="one-item f-r-fs "  wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
+    <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>
       <image class="one-pic" wx:if="{{item.img}}" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
