@@ -538,11 +538,11 @@ Page({
   },
 
   double(e) {
-    wx.showToast({
-      title: '暂未开放，敬请期待',
-      icon: 'none',
-    })
-    return;
+    // wx.showToast({
+    //   title: '暂未开放，敬请期待',
+    //   icon: 'none',
+    // })
+    // return;
 
     if(!this.data.isDouble){
       this.setData({
