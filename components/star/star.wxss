@@ -45,7 +45,7 @@ overflow: hidden;
 }
 .sm {
   width: 20rpx;
-  padding: 0 3rpx;
+  padding: 0 4rpx;
 }
 .mid {
   width: 32rpx;
