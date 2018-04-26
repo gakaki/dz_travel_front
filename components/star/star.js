@@ -28,30 +28,34 @@ Component({
     starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-act.png'
   },
   attached: function () {
-    if (this.properties.wid == 130) {
+    if (this.properties.wid == 114) {
       this.setData({
         mg: 'sm',
         starH: 'sm-h',
-        starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
-        starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-act.png'
+        // starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
+        // starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-act.png'
+        starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-all-dft-sm.png',
+        starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-all-act-sm.png'
       })
     }
-    if (this.properties.wid == 240) {
+    if (this.properties.wid == 192) {
       this.setData({
         mg: 'mid',
         starH: 'mid-h',
-        starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-mid-dft.png',
-        starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-mid-act.png'
+        // starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-mid-dft.png',
+        // starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-mid-act.png'
+        starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-all-dft-mid.png',
+        starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-all-act-mid.png'
       })
     }
-    if (this.properties.wid == 390) {
-      this.setData({
-        mg: 'big',
-        starH: 'big-h',
-        starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-dft.png',
-        starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-act.png'
-      })
-    }
+    // if (this.properties.wid == 390) {
+    //   this.setData({
+    //     mg: 'big',
+    //     starH: 'big-h',
+    //     starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-dft.png',
+    //     starAct: 'https://gengxin.odao.com/update/h5/travel/raiders/star-big-act.png'
+    //   })
+    // }
   },
   /**
    * 组件的方法列表

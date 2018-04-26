@@ -12,7 +12,7 @@ Page({
   data: {
   viewpoint: true,
   specialty: false,
-  starWid: 240,
+  starWid: 192,
   starCount: 1,
   postArr: [],
   jdArr:[],

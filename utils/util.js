@@ -408,7 +408,7 @@ function shareToIndex(that, innerObj, toShareLink) {
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'
 
   if (app.globalData.debug.share){
-      console.log( "share path is ",nowPath );
+      console.log( "share path is ",nowPath.replace('/pages/index/index?',"") );
   }
   return {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
