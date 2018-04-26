@@ -1,5 +1,5 @@
 // pages/exchangeDetail/exchangeDetail.js
-import { IntegralShop, GetUserLocation, GetRealInfo, ExchangeShop } from '../../api.js';
+import { ShopDetail, GetUserLocation, GetRealInfo, ExchangeShop } from '../../api.js';
 Page({
 
   /**
@@ -10,11 +10,7 @@ Page({
     exchange:false,
     confirmAdress:false,
     shop:null,
-    introduce: [`兑换详情
-    这是一个可爱的照相机各种简介，
-    等等等等`,
-    `注意事项
-    这是一个可爱的照相机各种简介，等等等等`]
+    exchangeCode:null
   },
 
   /**
@@ -22,9 +18,11 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-    let m = new IntegralShop();
+    let m = new ShopDetail();
+    m.id = options.id
     m.fetch().then(res => {
-      let arr = res.shops[options.index].introduce.map(v=>{
+      console.log(res)
+      let arr = res.shop.introduce.map(v=>{
         return v.split("\\n")
       })
       arr = arr.map(v=>{
@@ -35,7 +33,8 @@ Page({
       })
       this.setData({
         integral: options.integral,
-        shop: res.shops[options.index],
+        shop: res.shop,
+        exchangeCode: res.shop.exchangeCode ? res.shop.exchangeCode:"",
         intro:arr
       })
       
@@ -43,7 +42,7 @@ Page({
   },
   toCopy(){
     wx.setClipboardData({
-      data: this.data.shop.exchangeCode,
+      data: this.data.exchangeCode,
       success: function (res) {
         wx.getClipboardData({
           success: function (res) {
@@ -96,7 +95,14 @@ Page({
         })
       }
     } else {
-      this.confirmExc()
+      if (this.data.cfmStr== '复制兑换码') {
+        this.toCopy()
+        this.setData({
+          exchange:false
+        })
+      } else {
+        this.confirmExc()
+      }
     }
     
   },
@@ -129,11 +135,19 @@ Page({
     }
     m.fetch().then(res => {
       console.log(res)
-      if(res.exchangeCode) {
-        this.setData({
-          exchangeCon: res.exchangeCode,
-          cfmStr: '复制兑换码'
-        })
+      if (res.exchangeCode ) {
+        if (res.exchangeCode == 1) {
+          this.setData({
+            exchangeCode: res.exchangeCode ? res.exchangeCode : "",
+          })
+        } else {
+          this.setData({
+            exchange: true,
+            exchangeCon: res.exchangeCode,
+            exchangeCode: res.exchangeCode ? res.exchangeCode : "",
+            cfmStr: '复制兑换码'
+          })
+        }
       } else {
         wx.showToast({
           title: '兑换成功',

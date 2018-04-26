@@ -82,26 +82,17 @@ Page({
     this.setData({
       isShowIntro: true
     })
-    // this.getEndtime()
   },
   hideDesc() {
     this.setData({
       isShowIntro: false
     })
   },
-  // getEndtime(){
-  //   let m = new ExchangeDeadline();
-  //   m.fetch().then(m=>{
-  //     this.setData({
-  //       replaceC: m.endtime
-  //     })
-  //   })
-  // },
   toDetail(e){
     let data = e.currentTarget.dataset;
-    if (this.data.shops[data.index].remaining > 0) {
+    if (data.remaining>0) {
       wx.navigateTo({
-        url: '../exchangeDetail/exchangeDetail?index=' + data.index + '&integral=' + this.data.integral,
+        url: '../exchangeDetail/exchangeDetail?id=' + data.id + '&integral=' + this.data.integral
       })
     }
     
