@@ -17,6 +17,10 @@ Component({
       type: String,
       value: '购买'
     },
+    cancelStr: {
+      type: String,
+      value: '取消'
+    },
     picUrl: {
       type: String,
       value: 'https://gengxin.odao.com/update/h5/travel/props/gold.png'

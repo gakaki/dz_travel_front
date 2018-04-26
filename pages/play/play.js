@@ -54,8 +54,10 @@ const spotSize = {
   '30a': { wd: 91, ht: 130 },
   '31a': { wd: 104, ht: 96 },
   '32a': { wd: 104, ht: 148 },
-  '33a': { wd: 46, ht: 155 },
+  '33a': { wd: 30, ht: 117 },
   '34a': { wd: 157, ht: 142 },
+  '35a': { wd: 100, ht: 126 },
+  '36a': { wd: 100, ht: 182 }
 }
 Page({
 
@@ -69,6 +71,7 @@ Page({
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
+    taskdonePop: false,//任务是否完成
     weatherImg: '',
     startPoint: {},
     hasPlay: true,//是否玩过，玩过的不显示新手引导
@@ -210,6 +213,11 @@ Page({
       chgLines: false
     })
   },
+  hidePopss() {
+    this.setData({
+      taskdonePop: false
+    })
+  },
   toCfm() {
     if (app.globalData.gold > 100) {
       this.chgLine()
@@ -223,6 +231,11 @@ Page({
         chgLines: false
       })
     }
+  },
+  toCfms() {
+    wx.navigateTo({
+      url: '../city/city?location=' + this.data.cityName,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -373,6 +386,16 @@ Page({
     let req = new PlayLoop();
     req.fetch().then(() => {
       this.data.spotsAllTracked = req.spotsAllTracked;
+      if (req.spotsTracked == this.data.spotsTracked) {
+        reGoin = 1//防止进页面就播放音效
+      }
+      console.log(req.spotsTracked, this.data.spotsTracked)
+      if (req.spotsTracked != this.data.spotsTracked) {
+        if (reGoin != 0) {
+          music.play()
+        }
+        else reGoin = 1
+      }
     });
   },
 
@@ -492,7 +515,6 @@ Page({
     }
 
   },
-
   //轮询
   onPlayLoop(res) {
     let lineUpdate = false;
@@ -504,11 +526,15 @@ Page({
       //景点列表需要刷新
       lineUpdate = true;
     }
+    if (res.spotsTracked == this.data.spotsTracked) {
+      reGoin = 1//防止进页面就播放音效
+    }
+    console.log(res.spotsTracked, this.data.spotsTracked)
     if (res.spotsTracked != this.data.spotsTracked) {
       if (reGoin != 0) {
         music.play()
       }
-      else reGoin = 1
+       else reGoin = 1
 
       //景点到达数有变化
       this.data.spotsTracked = res.spotsTracked;
@@ -548,6 +574,7 @@ Page({
     this.setData({
       taskPer: rel * 100
     })
+    
   },
   updateIcon(obj) {
     obj.img = resRoot; //如果租的有车，则换成车
@@ -726,7 +753,7 @@ Page({
       }
       else {
         wx.showToast({
-          title: '请先点击“规划路线”进行路线添加',
+          title: '未到达此景点无法观光',
           icon: 'none',
           mask: true
         })
@@ -894,6 +921,12 @@ Page({
   },
 
   popMissionInfo() {
+    // if (this.data.taskPer == 100) {
+    //   this.setData({
+    //     taskdonePop: true
+    //   })
+    //   return
+    // }
     this.setData({ showPop: true, showMissionInfo: true });
   },
 
