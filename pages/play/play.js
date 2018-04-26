@@ -1,7 +1,19 @@
 // pages/play2/play.js
 import { shareSuc, shareTitle, shareToIndex, secToDHM } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
-import { TourIndexInfo, Base, EventShow, FinishGuide, CheckGuide, SetRouter, FreshSpots, PlayLoop, Http, ModifyRouter } from '../../api.js';
+import {
+  TourIndexInfo,
+  Base,
+  EventShow,
+  FinishGuide,
+  CheckGuide,
+  SetRouter,
+  FreshSpots,
+  PlayLoop,
+  Http,
+  ModifyRouter
+} from '../../api.js';
+
 const scaleMax = 2;
 const scaleMin = 0.7;
 let tapStamp;
@@ -63,7 +75,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    present: false,//第二次進入的城市送車 
+    present: false,//第二次進入的城市送車
     trans: '',
     hua: 'hua-lf',
     cfmStr: '',
@@ -402,24 +414,53 @@ Page({
     }
 
   },
+  //首次规划路线
+  firstPlanSpots() {
+    this.setData({
+      chgLines: false,
+      started: false,//设为非游玩状态
+      planing: true, //设为编辑路线状态
+      planed: false,//是否完成了规划
+      planedFinished: false,//
+      planedSpots: []
+    })
+  },
   //修改路线
   chgLine() {
-    //暂停轮询
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-
-    this.zoomOnPlaning();//缩放
 
     if (!this.data.started) {
-      this.setData({
-        chgLines: false,
-        started: false,//设为非游玩状态
-        planing: true, //设为编辑路线状态
-        planed: false,//是否完成了规划
-        planedFinished: false,//
-        planedSpots: []
-      })
-      return
+      //首次规划路线
+      if (this.data.partener) {
+        //双人模式下，只允许被邀请者规划
+        if (this.data.partener.isInviter) {
+          wx.toast({
+            title: '请等待被邀请者规划路线',
+            icon: 'none',
+            mask: true
+          });
+          return;
+        }
+        //我是被邀请者，可以规则路线
+        this.firstPlanSpots();
+      }
+      else {
+        //单人模式
+        this.firstPlanSpots();
+      }
+      //暂停轮询
+      Http.unlisten(PlayLoop, this.onPlayLoop, this);
+      this.zoomOnPlaning();//缩放
+
+      return;
     }
+
+    //修改或续接路线--------------
+
+    //暂停轮询
+    Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    //缩放
+    this.zoomOnPlaning();
+
 
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
@@ -538,7 +579,8 @@ Page({
     let num = 0
     let allNum = 0
     for (let o in this.data.task) {
-      if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) { }
+      if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
+      }
       else {
         num = num + this.data.task[o][0]
         allNum = allNum + this.data.task[o][1]
@@ -628,7 +670,7 @@ Page({
           let index = n.index;
 
           //将旧数据中的x,y等信息合并到新数据中,而保留新数据的tracked, arrivedStamp
-          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked, index});
+          Object.assign(o, n, o, { tracked, arriveStamp, startime, roundTracked, index });
         }
         else {
           //新的景点列表，数量比 旧的多，理论上不会出现这种情况
@@ -658,7 +700,9 @@ Page({
 
     let planedSpots = spots.filter(o => {
       return o.index > -1;
-    }).sort((a, b) => { return a.index - b.index });
+    }).sort((a, b) => {
+      return a.index - b.index
+    });
 
     //即将到达的点，显示预计到达时间
     let timeShowed = false;
@@ -854,7 +898,7 @@ Page({
             totalEvt
           });
           break;
-          default: 
+        default:
           this.setData({
             unreadEventCnt: 0
           })
