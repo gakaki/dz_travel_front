@@ -15,14 +15,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    firstTime: false,//第一次花费金币进行观光
     toView: '',
     cfmStr: '',
     content: '',
     goldNum: 0,
     ggGold: sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value,
     events: [],
-    isCongratulations: false,
-    isDialogQuestion: false,
+    // isCongratulations: false,
+    // isDialogQuestion: false,
     spotName: '',
     pic: '',
     url: '',
@@ -88,21 +89,21 @@ Page({
       countBuzu: false
     })
   },
-  hideDialogQuestion() {
-    this.setData({
-      isDialogQuestion: false
-    })
-  },
-  jiangli() {
-    this.setData({
-      isCongratulations: true,
-      isDialogQuestion: false
-    })
-  },
+  // hideDialogQuestion() {
+  //   this.setData({
+  //     isDialogQuestion: false
+  //   })
+  // },
+  // jiangli() {
+  //   this.setData({
+  //     isCongratulations: true,
+  //     isDialogQuestion: false
+  //   })
+  // },
 
-  hideCongratulations() {
-    isCongratulations: false
-  },
+  // hideCongratulations() {
+  //   isCongratulations: false
+  // },
   guanguang(e) {
 
     if (this.data.freeSight== 0) {
@@ -115,6 +116,25 @@ Page({
         toUrl = '../recharge/recharge'
         return
       }
+      try {
+        var value = wx.getStorageSync('ggTip')//第一次消耗金币给与提示
+        if (value) {
+        }else {
+          this.setData({
+            content: '是否花费' + this.data.ggGold + '金币进行观光',
+            cfmStr: '确定',
+            firstTime: true,
+            countBuzu: true
+          })
+          try {
+            wx.setStorageSync('ggTip',true)
+            return
+          } catch (e) {
+          }
+        }
+      } catch (e) {
+      }
+     
       // this.setData({
       //   content: '本地游玩免费观光次数（' + sheet.Parameter.Get(sheet.Parameter.TOURNUMBER).value + '次)已使用完毕\n是否花费' + this.data.ggGold + '金币进行观光',
       //   cfmStr: '确定',
@@ -149,9 +169,9 @@ Page({
       }
     })
 
-    this.setData({
-      isDialogQuestion: true
-    })
+    // this.setData({
+    //   isDialogQuestion: true
+    // })
   },
   spliceStr() {
     let str = spliceStr(this.data.testStr, 46)
@@ -210,9 +230,40 @@ Page({
   },
   toBuy() {
     this.hidePop()
-    wx.navigateTo({
-      url: toUrl
-    })
+    if(this.data.firstTime) {
+
+      let req = new SpotTour()
+      req.cid = cid
+      req.spotId = pointId
+      req.fetch().then(req => {
+
+        let events = this.data.events
+        events.push(req.event)
+        this.setData({
+          events: events,
+          goldNum: req.goldNum,
+          toView: 'id' + (events.length - 1),
+          freeSight: req.freeSight
+        })
+        console.log(this.data.toView)
+      }, () => {
+        // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
+        if (req.code == Code.NEED_MONEY) {
+          this.setData({
+            content: '金币不足,可前往充值',
+            cfmStr: '前往充值',
+            countBuzu: true
+          })
+          toUrl = '../recharge/recharge'
+        }
+      })
+
+    }else {
+      wx.navigateTo({
+        url: toUrl
+      })
+    }
+   
   },
   hidePop() {
     this.setData({
