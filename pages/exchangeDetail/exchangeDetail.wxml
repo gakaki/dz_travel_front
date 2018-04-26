@@ -13,9 +13,10 @@
   </scroll-view>
   <view class='btn-wrap' wx:if='{{!uid}}'>
     <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
-    <view wx:if='{{!shop.exchangeCode}}' class='{{integral < shop.integral ?"btn-big-grey":"btn-big-blue"}}' bindtap='exchange'>{{integral < shop.integral ?'积分不足':'立即兑换'}}</view> 
+    <view wx:if='{{!exchangeCode}}' class='{{integral < shop.integral ?"btn-big-grey":"btn-big-blue"}}' bindtap='exchange'>{{integral < shop.integral ?'积分不足':'立即兑换'}}</view> 
+    <view wx:elif='{{exchangeCode==1}}' class='btn-big-grey'>已兑换</view> 
     <view wx:else class='code'>
-      <text  class='exchange-code' bindtap='exchange'>兑换码:{{shop.exchangeCode}}</text>
+      <text  class='exchange-code' bindtap='exchange' wx:if='{{exchangeCode}}'>兑换码:{{exchangeCode}}</text>
       <text class='copy' bindtap='toCopy'>复制</text>
     </view>
   </view>
