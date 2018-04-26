@@ -224,7 +224,6 @@ weather.sights {
    left: 10rpx;
   top: 50%;
   transform: translateY(-50%);
-  /* background-color: gold */
 }
 .pop-arrow {
   height: 43rpx;
@@ -422,7 +421,7 @@ weather.sights {
 }
 
 .fc {
-  font: bold 34rpx/40rpx 'Microsoft YaHei';
+  font: bold 32rpx/40rpx 'Microsoft YaHei';
   letter-spacing: 6rpx;
   color: #b8b8b8;
 }
