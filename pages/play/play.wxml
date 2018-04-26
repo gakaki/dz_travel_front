@@ -1,38 +1,38 @@
 <!--pages/play2/play.wxml-->
-<view id="play-page">
+<view id="play-page" catchtap='hideHuadong'>
   <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
-  <view class="pop-bg" wx:if="{{present}}" >
-      <view class=" play-first-in f-c-fs bs">
-        <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
-        <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
-        <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
-        <view class="line"></view>
-        <view class="btn-big-blue cfm-btn" catchtap="hideSecondIn">确 定</view>
-      </view>
+  <view class="pop-bg" wx:if="{{present}}">
+    <view class=" play-first-in f-c-fs bs">
+      <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
+      <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
+      <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
+      <view class="line"></view>
+      <view class="btn-big-blue cfm-btn" catchtap="hideSecondIn">确 定</view>
     </view>
+  </view>
   <!--地图-->
   <scroll-view id="play-map" scroll-x="{{true}}" scroll-y="{{true}}" scroll-with-animation='{{true}}' bind:tap="touchMap">
     <!--背景地图-->
     <image src='{{mapBg}}' style='position:absolute;top:0;left:0; height:{{ mapHeight * scale }}rpx; width:{{ mapWidth * scale }}rpx'></image>
     <!--路径-->
-    <view class="play-line {{item.tracked ? 'solid-line': 'dashed-line'}}" wx:for="{{ lines }}" wx:key="{{index}}" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;width:{{item.wd * scale}}rpx;transform-origin: 0 0; transform:translateY(-4rpx) rotate({{item.rotation}}deg)"></view>
+    <view class="play-line {{item.roundTracked ? 'solid-line': 'dashed-line'}}" wx:for="{{ lines }}" wx:key="{{index}}" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;width:{{item.wd * scale}}rpx;transform-origin: 0 0; transform:translateY(-4rpx) rotate({{item.rotation}}deg)"></view>
     <!--起点-->
     <view class="play-start" style="position:absolute;left:{{startPoint.x * scale}}rpx;top:{{startPoint.y * scale}}rpx; transform: translate(-50%, -96%)">
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
     </view>
     <!--景点-->
     <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
-      <image class="play-spot-img" src="{{item.tracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
+      <image class="play-spot-img" src="{{item.tracked || item.roundTracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
       <text class="play-spot-idx flex" wx:if="{{ planing && item.index > -1}}">{{item.index + 1}}</text>
     </view>
     <!--小人.自己-->
-    <view wx:if="{{roleMe }}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
+    <view wx:if="{{roleMe && !planing}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
     <!--小人.组队好友-->
-    <view wx:if="{{roleFriend}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform:rotate({{roleFriend.rotation}}deg) translate(-50%, -90%);">
+    <view wx:if="{{roleFriend && !planing}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform:rotate({{roleFriend.rotation}}deg) translate(-50%, -90%);">
       <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: -20rpx;top: -30rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
 
@@ -63,20 +63,23 @@
     </view> -->
 
 
-<view class="rgt-btn {{hua}}">
-<image src="https://gengxin.odao.com/update/h5/travel/play/pop-arrow.png" catchtap='huadong' class="pop-arrow {{trans}}" ></image>
-<view class="mission f-c-fs" bindtap='popMissionInfo'>
-      <text class="fontWhite missionText font font26">任务</text>
-      <view class="progressBox f-r-fs">
-        <view class="progressBar" style="width:{{taskPer}}%;"></view>
+    <view class="rgt-btn {{hua}}">
+      <view class="arrow-box" catchtap='huadong'>
+        <image src="https://gengxin.odao.com/update/h5/travel/play/pop-arrow.png"  class="pop-arrow {{trans}}"></image>
+      </view>
+
+      <view class="mission f-c-fs" bindtap='popMissionInfo'>
+        <text class="fontWhite missionText font font26">任务</text>
+        <view class="progressBox f-r-fs">
+          <view class="progressBar" style="width:{{taskPer}}%;"></view>
+        </view>
+      </view>
+      <view class="changeLine f-c-fs" bindtap='xiugaiLine'>
+        <text class="fontWhite changeLineText font font26" wx:if="{{started && !planedFinished}}">修改路线</text>
+        <text class="fontWhite changeLineText continueLineText font font26" wx:else>规划路线</text>
+        <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
       </view>
     </view>
-    <view class="changeLine f-c-fs" bindtap='xiugaiLine'>
-      <text class="fontWhite changeLineText font font26" wx:if="{{started && !planedFinished}}">修改路线</text>
-      <text class="fontWhite changeLineText continueLineText font font26" wx:else>规划路线</text>
-      <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
-    </view>
-</view>
 
     <!-- 按钮组 -->
     <view class="btnBoxWrap f-c-fs">

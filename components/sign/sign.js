@@ -35,8 +35,8 @@ Component({
   methods: {
     toSign(){
       console.log(this.data.hasSign, this.data)
-      if (this.data.isFirst) {
-        this.data.isFirst = false;
+      // if (this.data.isFirst) {
+      //   this.data.isFirst = false;
         let m = new ToSign();
         m.theDay = this.data.theDay
         m.fetch().then(res=>{
@@ -57,7 +57,7 @@ Component({
           this.triggerEvent("sign")
         })
         
-      }
+      // }
       
     }
   }

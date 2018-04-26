@@ -21,10 +21,10 @@
           </view>
         </view>
       </view>
-      <view class="item-bot font">
+      <view class="item-bot">
         {{item.content}}
       </view>
-      <text class="date font">{{item.time}}</text>
+      <text class="date">{{item.time}}</text>
       <view class="t-line"></view>
     </view> 
  
@@ -33,6 +33,6 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
-  <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop" placeholder='{{placeholder}}'></comment>
+  <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop" placeholder='{{placeholder}}' bind:strLen="_strLen"></comment>
   <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='发表评论成功'></tip>
 </view>

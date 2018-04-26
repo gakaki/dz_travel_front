@@ -1,57 +1,22 @@
-.star-box {
-  position: relative  
-}
-.big-h {
-  height: 58rpx;
-  margin-left: -9rpx;
-}
 .mid-h {
   height: 30rpx;
-   margin-left: -8rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/star-all-dft-mid.png') no-repeat;
+  background-size: 192rpx 30rpx;
 }
 .sm-h {
   height: 18rpx;
-   margin-left: -3rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/star-all-dft-sm.png') no-repeat;
+  background-size: 114rpx 18rpx;
 }
-.to-center {
-   height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-}
-.dft-star-box, .act-star-box {
-  height: 100%;
-   position: absolute;
-  left: 0;
-  top: 0;
-}
-.dft-star-box {
-  width: 100%;
-}
-.act-star-box,.dft-star-box {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: nowrap;
-overflow: hidden;
-}
-.star {
-  
-  height: 100%;
-  flex-shrink: 0
-}
+
 .sm {
-  width: 20rpx;
-  padding: 0 3rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/star-all-act-sm.png') no-repeat;
+  background-size: 114rpx 18rpx;
 }
 .mid {
-  width: 32rpx;
-  padding: 0 8rpx;
+  background: url('https://gengxin.odao.com/update/h5/travel/raiders/star-all-act-mid.png') no-repeat;
+  background-size: 192rpx 30rpx;
 }
-.big {
-  width: 60rpx;
-  padding: 0 9rpx;
+.con-star {
+  height:100%;
 }

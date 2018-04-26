@@ -1,7 +1,8 @@
 /* pages/play2/pops/eventNormal.wxss */
 .evt-con {
     width: 612rpx;
-    min-height: 880rpx;
+    /* min-height: 880rpx; */
+    min-height: 910rpx;
     overflow: hidden;
     border-radius: 40rpx;
     background-color: #fff;
@@ -47,7 +48,8 @@
 .next-evt {
     position: absolute;
     left: 50%;
-    bottom: 10rpx;
+    /* bottom: 10rpx; */
+    bottom: 5rpx;
     width: 406rpx;
     height: 121rpx;
     transform: translate(-50%);

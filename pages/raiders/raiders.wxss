@@ -88,7 +88,7 @@
   width: 89%;
   margin: 0 40rpx 60rpx 40rpx;
   color: #b0afb3;
-  font-size: 24rpx;
+  font: normal 24rpx 'Microsoft YaHei';
 }
 
 .date {
@@ -96,7 +96,7 @@
   right: 40rpx;
   bottom: 30rpx;
   color: #b0afb3;
-  font-size: 20rpx;
+  font: normal 20rpx 'Microsoft YaHei';
 }
 .btn-icon {
   margin-top: 30rpx;

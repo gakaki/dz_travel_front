@@ -60,7 +60,12 @@
   line-height: 84rpx;
 }
 .list-wrap {
-  height: 630rpx;
+  position: fixed;
+  top: 465rpx;
+  bottom: 0;
+  left:0;
+  right: 0;
+  background-color: yellowgreen;
   background: #fff;
 }
 .one-list {

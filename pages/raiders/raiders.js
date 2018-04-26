@@ -17,13 +17,14 @@ Page({
   data: {
     starDft: 'https://gengxin.odao.com/update/h5/travel/raiders/star-dft.png',
     isShowPop: false,
-    starWid: 130,
+    starWid: 114,
     starCount: 5,
     comments: [],  //评论列表
     tipPop: false,
     commentId: 1,
     content: '',
-    img: ''
+    img: '',
+    commentLen : 0,
   },
   
   /**
@@ -81,7 +82,8 @@ Page({
     })
   },
   judge(v) {
-    if (!v.detail.str.trim()) {
+    console.log(v)
+    if (!this.data.commentLen) {
       wx.showToast({
         title: '评论内容不能为空',
         icon: 'none'
@@ -131,6 +133,11 @@ Page({
         placeholder: '快来评价一下这个特产吧'
       })
     }
+  },
+
+  _strLen(e) {
+    console.log(e.detail.len)
+    this.data.commentLen = e.detail.len
   },
 
   freshList(num) {
