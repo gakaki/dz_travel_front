@@ -27,7 +27,8 @@ Page({
       uid = options.uid
       this.setData({
         mySelf: false,
-        content: '开启我的旅行'
+        content: '开启我的旅行',
+        uid:options.uid
       })
       wx.setNavigationBarTitle({
         title:'炫耀足迹'

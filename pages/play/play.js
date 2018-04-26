@@ -588,9 +588,8 @@ Page({
     if (res.spotsTracked == this.data.spotsTracked) {
       reGoin = 1//防止进页面就播放音效
     }
-    console.log(res.spotsTracked, this.data.spotsTracked)
     if (res.spotsTracked != this.data.spotsTracked) {
-      if (reGoin != 0) {
+      if (reGoin != 0 && res.spotsTracked!= 0) {
         music.play()
       }
        else reGoin = 1
