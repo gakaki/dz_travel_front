@@ -11,7 +11,8 @@ import {
   FreshSpots,
   PlayLoop,
   Http,
-  ModifyRouter
+  ModifyRouter,
+  CancelParten
 } from '../../api.js';
 
 const scaleMax = 2;
@@ -103,6 +104,7 @@ Page({
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
+    showCancelDouble: false,//是否显示‘取消双人旅行’，只有在邀请方等待对方规划路线时才显示
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
     planed: false,//是否完成了规划
@@ -382,9 +384,11 @@ Page({
         if (roleFriend) {
           roleFriend.walkCls = '';
         }
-
-        Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        this.freshAllTrackedStat();
+        else {
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          this.freshAllTrackedStat();
+        }
+        
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -649,65 +653,40 @@ Page({
       })
       try {
         wx.setStorageSync('taskDone', this.data.cid)
+        return
       } catch (e) {
       }
     }
   },
-  updateIcon(obj) {
-    obj.img = resRoot; //如果租的有车，则换成车
-    if (obj.display == 1) {
-      obj.wd = 150;
-      obj.ht = 69;
-      obj.img += 'haohua.png';
-      obj.roleCls = 'play-role-haohua';
-      obj._walkCls = '';
-    } else if (obj.display == 2) {
-      obj.wd = 118;
-      obj.ht = 92;
-      obj.img += 'shangwu.png';
-      obj.roleCls = 'play-role-shangwu';
-      obj._walkCls = '';
-    } else if (obj.display == 3) {
-      obj.wd = 109;
-      obj.ht = 63;
-      obj.img += 'jingji.png';
-      obj.roleCls = 'play-role-jingji';
-      obj._walkCls = '';
-    }
-  },
+
   //刷新景点状态列表
   freshSpots() {
     let req = new FreshSpots();
-
     req.fetch().then(() => {
-      //
-      // let idx = 0
-      // req.spots.forEach(o => {
-      //   if (o.index > idx) idx++
-      // })
-      // if (idx == this.data.spots.length - 1) {
-      //   secondPoint = req.spots.find(o => {
-      //     o.index == idx
-      //   })
-      // }
-      this.setData({ task: req.task })
-      this.updateSpots(req.spots);
-      if (req.display != 0 && display != req.display) {
-        this.data.roleFriend = null
-        let roleMe = this.data.roleMe
-        roleMe.display = req.display
-        this.updateIcon(roleMe)
-        let licheng = req.mileage;
-        this.setData({
-          roleMe,
-          licheng
-        })
-      }
-      display = req.display
-      //更新任务进度
-      this.freshTask();
-    })
 
+      //更新人物图标
+      if (req.display != display) {
+          display = this.data.roleMe.display  = req.display;
+          this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+      }
+      
+      //更新里程
+      let licheng = req.mileage;
+      this.setData({ licheng })
+
+      //更新景点进度
+      this.updateSpots(req.spots);
+
+      //更新任务进度
+      this.data.task = req.task;
+      if (req.task != this.data.task) {
+        this.setData({
+          task: req.task
+        })
+        this.freshTask();
+      }
+      
+    })
 
   },
 
@@ -781,14 +760,31 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
+    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
+    let startPoint = this.data.startPoint;
+    if (started && !startPoint.arriveStamp && this.data.partener) {
+      //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
+      startPoint.arriveStamp = Base.servertime - LOOP_INTERVAL;
+    }
     this.setData({
       spots,
       started,
+      showCancelDouble
     });
 
     updateLine && this.updateLines();
   },
 
+  cancleDouble() {
+      let req = new CancelParten();
+      req.fetch().then(()=> {
+          this.setData({
+              showCancelDouble: false,
+              partener: null,
+              roleFriend: null
+          })
+      })
+  },
   //提交路径到服务器
   sendPath() {
     if (!this.data.planed) {
@@ -1000,7 +996,15 @@ Page({
   },
 
   popMissionInfo() {
-    this.setData({ showPop: true, showMissionInfo: true });
+
+    let req = new FreshSpots();
+    req.fetch().then(() => {
+      this.setData({ task: req.task })
+      //更新任务进度
+      this.freshTask();
+      this.setData({ showPop: true, showMissionInfo: true });
+    })
+    
   },
 
   //到攻略页面
