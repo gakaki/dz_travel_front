@@ -133,7 +133,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.cid,'------play cid------')
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
@@ -218,7 +217,6 @@ Page({
         hua: 'hua-lf',
         trans: ''
       })
-      console.log(this.data.hua, this.data.trans)
     }
   },
   hidePops() {
@@ -384,7 +382,7 @@ Page({
           roleFriend = null;
         }
         else {
-          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          // Http.unlisten(PlayLoop, this.onPlayLoop, this);
           this.freshAllTrackedStat();
         }
         
@@ -468,12 +466,8 @@ Page({
   },
   //修改路线
   chgLine() {
-      if (this.data.planing) {
-          return;
-      }
 
     if (!this.data.started) {
-
       //首次规划路线
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
@@ -485,7 +479,7 @@ Page({
           });
           return;
         }
-        //我是被邀请者，可以规划路线
+        //我是被邀请者，可以规则路线
         this.firstPlanSpots();
       }
       else {
@@ -583,7 +577,6 @@ Page({
     let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
-      console.log('Playloop stopped, error code>>', res.code);
     }
     if (res.freshSpots) {
       //景点列表需要刷新
@@ -804,16 +797,19 @@ Page({
       return;
     }
 
+    //恢复轮询
+    Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+    this.zoomOnPlaned();
+
+    this.setData({ planing: false });
+
     let req = new SetRouter();
     req.cid = this.data.cid;
     req.line = this.data.planedSpots.map(s => s.id);
 
     req.fetch().then(() => {
       this.data.startPoint.arriveStamp = req.startTime;
-        this.updateSpots(req.spots);
-        //恢复轮询
-        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-        this.zoomOnPlaned();
+      this.updateSpots(req.spots);
     })
   },
 
@@ -912,8 +908,6 @@ Page({
   },
 
   toNextEvent(e) {
-
-    console.log(e)
     if (e.detail.cur == 1) {
       this.hidePop();
       return

@@ -41,7 +41,6 @@ Page({
     let m = new CityListPer()
     m.fetch().then(res => {
       arr = res.data.slice()
-      console.log(arr, '城市完成度列表')
       let cityArr = []
       arr.forEach(item => {
         item.citys.forEach(v => {
@@ -76,7 +75,6 @@ Page({
       this.setData({
         myAbc: arr1
       })
-console.log('arr1',arr1)
     })
 
 
@@ -126,7 +124,6 @@ console.log('arr1',arr1)
     this.setData({
       checkId: e.currentTarget.dataset.cityId
     })
-    console.log(this.data.checkId)
     city = e.currentTarget.dataset.city
     cityId = e.currentTarget.dataset.cityId
   },
@@ -163,9 +160,6 @@ console.log('arr1',arr1)
   /**
    * 生命周期函数--监听页面显示
    */
-  testZuobiao(e) {
-    console.log(e)
-  },
 
   /**
    * 用户点击右上角分享
