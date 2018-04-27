@@ -25,17 +25,17 @@
     <text class="head-font">点亮城市地图需要完成以下3个任务</text>
     <view class="gray-font">
       <text class=" {{selfSpotFull ? 'full-font' : ''}}">1.与旅友共同达到至少6个景点,路线需由被邀请方规划（{{selfSpot}}）</text>
-       <image hidden="{{!selfPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+       <image wx:if="{{selfSpotFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
 
     <view class="gray-font">
       <text class=" {{selfTourFull && friendTourFull ? 'full-font' : ''}}">2.至少进行2次观光（{{selfTour}}）,旅友至少进行2次观光（{{friendTour}}）</text>
-       <image hidden="{{!selfTourFull && !friendTourFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+       <image wx:if="{{selfTourFull && friendTourFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
 
     <view class="gray-font">
       <text class=" {{selfPhotoFull && friendPhotoFull ? 'full-font' : ''}}">3.至少进行2次拍照留念（{{selfPhoto}}）,旅友至少进行2次拍照留念（{{friendPhoto}}）</text>
-       <image hidden="{{!selfPhotoFull && !friendPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
+       <image wx:if="{{selfPhotoFull && friendPhotoFull}}" class="hook" src="https://gengxin.odao.com/update/h5/travel/raiders/hook.png"></image>
     </view>
 
   </view>
