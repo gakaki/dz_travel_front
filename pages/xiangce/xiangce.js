@@ -66,7 +66,6 @@ Page({
       m.playerUid = this.data.uid
     }
     m.fetch().then(res => {
-      console.log(res)
       if(lm == 0) {
         this.setData({
           allInit: res.postcardInfo
@@ -84,7 +83,6 @@ Page({
         this.setData({
           LMInit: res.postcardInfo
         })
-        console.log(this.data.LMInit)
       }
       
     })

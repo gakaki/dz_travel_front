@@ -141,7 +141,6 @@ Component({
         clearInterval(tm);
         this.setData({tm:null})
         this.triggerEvent('mcStopped',{})
-        console.log(`${this.data.resPrefix} movieclip stoped`)
       }
     }
   }

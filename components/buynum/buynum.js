@@ -85,7 +85,6 @@ Component({
     },
     pGold() {
       let t = 0;
-      console.log(this.properties.maxNum)
       if (this.properties.maxNum == -1) {
         t = this.data.goldNum+1
       } else {

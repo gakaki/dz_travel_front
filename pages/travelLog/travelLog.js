@@ -24,7 +24,6 @@ Page({
         uid:options.uid
       })
     }
-    console.log(this.data.uid)
     this.getData()
   },
   getData(){
@@ -38,12 +37,10 @@ Page({
       m.fetch().then(req => {
         let logs = req.allLogs.concat(this.data.init);
         // let logs = this.data.init.concat(req.allLogs);
-        console.log(req.allLogs.length - 1)
         this.setData({
           init: logs,
           myIdx: 'myIdx' + (req.allLogs.length - 1)
         })
-        console.log(this.data.myIdx)
         this.data.index = this.data.index + 1;
         if (logs.length < length) {
           this.data.hasInfo = false

@@ -33,7 +33,6 @@ Component({
       this.triggerEvent('strLen',{len: e.detail.value.trim().length})
     },
     formSubmit(e) {
-      console.log(e.detail.value.ta)
       //let str = e.detail.value.ta
       
       this.triggerEvent('doComm', { str: e.detail.value.ta,star:this.data.score })
@@ -42,7 +41,6 @@ Component({
       this.triggerEvent('toclose')
     },
     doComment(e) {
-      console.log(e.currentTarget.dataset.idx)
      
       let arr = []
       arr.length = e.currentTarget.dataset.idx

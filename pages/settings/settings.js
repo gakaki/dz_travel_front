@@ -23,14 +23,12 @@ Page({
     }
     let req = new GetRealInfo();
     req.fetch().then(()=>{
-      console.log(req,'setting数据')
       this.getInfo(req)
     })
   },
 
   //提交的表单数据（用户收货信息）
   formSubmit(e) {
-    console.log(e.detail.value)
     
     let value = e.detail.value
     //判断电话号码是否符合
@@ -54,7 +52,6 @@ Page({
     req.phone = value.phone;
     req.address = value.address;
     req.fetch().then(()=>{
-      console.log(req)
       this.getInfo(req,()=>{
         wx.showToast({
           title: '已保存',
@@ -97,7 +94,6 @@ Page({
   },
 
   chooseDate(e) {
-    console.log(e.detail.value)
     if(e.detail.value != this.data.birthday){
       this.setData({
         birthday: e.detail.value,

@@ -47,7 +47,6 @@ Page({
     enterOnload = true;
     start(ok=> {
       ok && this.gotUserInfo(options);
-      console.log(options,'index')
     }, options.shareUid)
 
   },
@@ -68,7 +67,6 @@ Page({
     if (userInfo){
       let m = new SignInfo()
       m.fetch().then(res => {
-        console.log(res, '签到数据')
         if(res.hasSign){
           this.getIndexInfo(userInfo)
         }
@@ -120,7 +118,6 @@ Page({
   },
 
   checkCode(options,agree) {
-    console.log(options, 'start options')
     let check = new CheckCode();
     check.inviteCode = options.inviteCode;
     if(agree){
@@ -165,7 +162,6 @@ Page({
   onShow: function () {
     //因为当用户切换tabbar上的页面和返回到此页面时不会进入onload，故需在此处进行api调用已更新数据
     if(!enterOnload){
-      console.log('没有进入onload')
       this.gotUserInfo()
     }
     setTimeout(()=>{
@@ -203,7 +199,6 @@ Page({
     //请求主页数据
     let req = new IndexInfo();
     req.fetch().then(req => {
-      console.log(req, '首页数据')
       locationCid = req.location
       let season = Season[req.season]
       let weather
@@ -218,7 +213,6 @@ Page({
       app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
       if(req.location){
-        console.log(req.location)
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
@@ -276,7 +270,6 @@ Page({
   },
 
   loopMsg(res) {
-    console.log(res,'httpLoop查询消息')
     this.setData({
       message: res.unreadMsgCnt
     });
@@ -292,12 +285,10 @@ Page({
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
-      console.log(req.ticket,'机票')
       if(req.ticket.length){
         let presentTkt = []
         req.ticket.forEach((item,index)=>{
           let obj = {};
-          console.log(item)
           obj.province = sheet.City.Get(item.cid).province;
           obj.city = sheet.City.Get(item.cid).city;
           obj.tkt = item.type==1 ? '单人机票' : '双人机票';
@@ -342,7 +333,6 @@ Page({
 
   useTkt(e) {
     if (app.preventMoreTap(e)) return;
-    console.log(cid)
     if(this.data.location == terminal){
       wx.showToast({
         title: '已在当前城市，请重新选择',
@@ -376,7 +366,6 @@ Page({
 
   //如果有赠送的机票，初始化需要传递的信息
   initTer(data) {
-    console.log(data)
     if (data.type == 1) {
       tktType = TicketType.SINGLEPRESENT
     }
@@ -428,11 +417,8 @@ Page({
 
   test(e) {
     // if(app.preventMoreTap(e)) return;
-
-    console.log(2222222,e)
     // wx.showShareMenu({
     //   success(){
-    //     console.log(12121212)
     //   }
     // })
     // Http.unlisten(CheckMsgCnt, this.loopMsg, this);

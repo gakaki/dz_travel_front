@@ -113,7 +113,6 @@ Component({
     },
 
     showModal: function () {
-      console.log("showmodal")
     }
 
 

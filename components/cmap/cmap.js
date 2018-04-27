@@ -197,10 +197,8 @@ Component({
       let double = !this.data.double;
       let scale = double ? this.data.scaleRate : 1;
       this.setData({ double, scale });
-      console.log(double, 'double')
     },
     tapEle(e) {
-      console.log('tap element')
     },
     updatePlayer() {
       if(!this.data.log) return
@@ -237,7 +235,6 @@ Component({
 
     showLocation() {
       let location = this.data.players;
-      console.log(location,'showLocation')
       if (!location){
         return; 
       }
@@ -253,7 +250,6 @@ Component({
         l.imgHt = 30;
         return l;
       })
-      console.log(player, 'cmap player')
       this.setData({player})
     },
 

@@ -79,7 +79,6 @@ Page({
 
   choose(e) {
     // if (app.preventMoreTap(e)) return;
-    console.log(e.currentTarget.dataset)
     cid = e.currentTarget.dataset.id
     this.setData({
       isChoose: e.currentTarget.dataset.ind
@@ -115,21 +114,17 @@ Page({
     let start = (page-1)*limit
     let end = page*limit
     for (let i = start; i < end; i++) {
-      // console.log(i, 'testI', sheet.Find.Get(i + 1) , page ,'page')
       let item = sheet.Find.Get(i + 1);
       if (item && item.province != item.city) {
-        // console.log(item, true, i)
         let obj = {}
         obj.init = item.pword;
         obj.name = item.province;
         obj.cities = item.city;
         obj.cityid = item.cityid;
         province.push(obj);
-        // console.log(province,'push province')
       }
       else if(item == null){
         if(endPage){
-          // console.log('setData')
           this.setData({
             province,
           })
@@ -140,7 +135,6 @@ Page({
         return;
       }
     }
-    // console.log(province)
     pages++
     this.setData({
       province,
@@ -162,7 +156,6 @@ Page({
   },
 
   _selected(e) {
-    console.log(e.detail)
     this.toFly(e.detail.id, e.detail.select, TicketType.SINGLEBUY)
   },
 

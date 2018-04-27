@@ -18,7 +18,6 @@ const showErr = msg => {
 
 //启动（会默认走一遍登录流程）
 const start = (suc, shareUid) => {
-  console.log(shareUid)
   apis.Base.Start(APPNAME ,srv, shareUid).then(res => {
 
     //console.log(res,'start')
@@ -30,7 +29,6 @@ const start = (suc, shareUid) => {
     // testWs();
   }).catch(()=> {
     // suc(false);  
-    console.log('init false')
   })
 }
 
@@ -68,7 +66,6 @@ function testWs() {
 
     //receive
     wsListen(apis.SysMessage, res=>{
-      console.log('ws received:',res.content)
     })
     wsSend(test);
   })
@@ -78,7 +75,6 @@ function testWs() {
 
 function getMd() {
   let date1 = new Date().toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
-  console.log(date1)
 }
 function ymd(v) {
   let date = new Date(apis.Base.servertime);

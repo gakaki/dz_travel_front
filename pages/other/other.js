@@ -21,7 +21,6 @@ Page({
       let m = new PlayerInfo();
       if (options.uid) { m.playerUid = options.uid}
       m.fetch().then(res => {
-        console.log(res.info)
         this.setData({
           init: res.info,
           gold: res.info.items[Item.GOLD],

@@ -20,7 +20,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '充值商城'
     })
-    console.log(this.data.goldInfo)
   },
   hide() {
     this.setData({
@@ -35,7 +34,6 @@ Page({
     m.goodsId = this.data.obj.id
     m.payCount = this.data.obj.pay
     m.fetch().then(res => {
-      console.log(res)
       wx.requestPayment({
         timeStamp: res.payload.timeStamp,
         nonceStr: res.payload.nonceStr,

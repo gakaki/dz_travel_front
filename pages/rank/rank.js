@@ -50,7 +50,6 @@ Page({
     //   }
     //   rankingFriend[i] = obj;
     // }
-    // console.log(topThree, rankingCountry)
     // this.setData({
     //   topThree,
     //   rankingCountry,
@@ -114,14 +113,13 @@ Page({
 
   //重置调api的信息
   resetInfo() {
-    console.log('reset')
     page = 1;
     ranks = [];
     topThree = [];
   },
 
   getRankInfo() {
-    console.log(page, 'page', this.data.noReward)
+    
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
@@ -138,7 +136,6 @@ Page({
         o.userInfo.nickName = nickName;
         return o;
       });
-      console.log(ranks,page,'排行榜数据',req.selfRank)
       //全国榜单需要把前三名分开
       if (rankSubtype == RankSubtype.COUNTRY){
         if(page == 1){
@@ -281,7 +278,6 @@ Page({
 
   toOther(e) {
     //此处需要传uid，
-    console.log(e.currentTarget.dataset.uid, wx.getStorageSync('uid'), '是不是自己啊啊啊啊啊啊啊啊啊啊啊啊啊啊 啊')
     let uid = e.currentTarget.dataset.uid
     if (uid == wx.getStorageSync('uid')){
       wx.switchTab({

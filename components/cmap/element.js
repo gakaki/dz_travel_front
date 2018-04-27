@@ -90,7 +90,6 @@ Component({
   methods: {
 
     onEleTap(e) {
-      console.log(this.img, 'element tap')
     },
 
     startMove() {
@@ -110,7 +109,6 @@ Component({
           let x = this.data.x + stepX;
           let y = this.data.y + stepY;
           this.setData({x,y});
-          console.log('moving', x, y);
         }
         else {
           this.clearMvHdl();

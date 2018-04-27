@@ -42,7 +42,6 @@ Component({
   },
 
   detached() {
-    console.log('detached')
     allCity = [];
     cityId = [];
   },
@@ -52,7 +51,6 @@ Component({
    */
   methods: {
     search(e) {
-      console.log(e.detail.value)
       let value = e.detail.value
       //输入框中没有value值时不匹配
       if (value) {
@@ -66,7 +64,6 @@ Component({
         let id = []
         for (let i = 0; i < allCity.length; i++) {
           if (reg.test(allCity[i])) {
-            console.log(i, 'cityIndex')
             let ind = allCity[i].indexOf(value)
             let split = allCity[i].split(value)
 

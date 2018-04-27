@@ -34,7 +34,6 @@ Component({
    */
   methods: {
     toSign(){
-      console.log(this.data.hasSign, this.data)
       // if (this.data.isFirst) {
       //   this.data.isFirst = false;
         let m = new ToSign();

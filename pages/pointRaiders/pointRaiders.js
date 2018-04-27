@@ -47,8 +47,6 @@ Page({
    
   },
   onShow(){
-    console.log(111)
-
     if(!this.data.first) {
       this.pullList(this.data.v)
 
@@ -69,7 +67,6 @@ Page({
     // req.limit = LIMIT
     req.type = v
     req.fetch().then(req => {
-      console.log(req)
       let arr = []
       if (v == PostType.JINGDIAN) {
          arr = req.posts.map(o => {

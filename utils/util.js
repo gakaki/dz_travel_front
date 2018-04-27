@@ -70,7 +70,6 @@ function tplStr(source, partens, ...fills) {
   let idx = 0
   let maxIdx = fills.length - 1
   return source.replace(parten, function (str, id) {
-    console.log(str, id)
     if (forArr) {
       idx = partens.indexOf(str)
       return fills[idx]
@@ -279,7 +278,6 @@ function getRankFrame(season) {
     idx++
   }
   if (idx == 1) {
-    console.log(season[idx].rank)
     return ''
   }
   if (idx > 1) {
@@ -306,20 +304,16 @@ function spliceStr(v, n) {
 
 //获取用户信息
 function getUserInfo(app, _that) {
-  console.log(app, _that)
   if (app.globalData.userInfo) {
-    console.log(1)
     _that.setData({
       userInfo: app.globalData.userInfo,
       hasUserInfo: true
     })
-    console.log(app.globalData.userInfo)
   } else if (_that.data.canIUse) {
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
 
     app.userInfoReadyCallback = res => {
-      console.log(res)
       _that.setData({
         userInfo: res.userInfo,
         hasUserInfo: true
@@ -328,7 +322,6 @@ function getUserInfo(app, _that) {
 
   } else {
     // 在没有 open-type=getUserInfo 版本的兼容处理
-    console.log(3)
     wx.getUserInfo({
       success: res => {
         app.globalData.userInfo = res.userInfo
@@ -408,14 +401,12 @@ function shareToIndex(that, innerObj, toShareLink) {
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'
 
   if (app.globalData.debug.share){
-      console.log( "share path is ",nowPath.replace('/pages/index/index?',"") );
   }
   return {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
     path: nowPath,
     imageUrl: imageUrl,
     success: function () {
-      console.log(innerObj.suc)
       let m = new ShareInfo();
       m.fetch()
       innerObj.suc && innerObj.suc(that)

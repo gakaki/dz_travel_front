@@ -40,10 +40,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options',options)
     let m = new PlayerInfo();
     m.fetch().then(res => {
-      console.log(res.info)
       app.globalData.gold = res.info.items[sheet.Item.GOLD];
       this.setData({
         myGold: res.info.items[sheet.Item.GOLD],
@@ -66,7 +64,6 @@ Page({
       title: '旅行道具'
     })
     let arr = sheet.shops
-    console.log('用户进props', app.globalData.gold)
     this.setData({
       rentProp: arr,
       // myGold: app.globalData.gold
@@ -173,18 +170,15 @@ Page({
     })
   },
   toBuy(e,forceBuy) {
-    console.log('forceBuy', forceBuy)
     this.hideCar()
     if (!this.checkGold()) { return }
     if (this.data.tabType == 0) {
       let m = new RentProp();
-      console.log('propIdddddd', this.data.propId)
       m.rentId = this.data.propId;
       if (forceBuy) {
         m.forceBuy = forceBuy
       }
       m.fetch().then(() => {
-        console.log('m=========>',m)
         this.checkRentStatus();
         let v = this.data.rentProp[this.data.propId - 1].price;
         redGold(v)

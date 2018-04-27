@@ -31,7 +31,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     postId = options.postId
     cityId = options.cityId
     types = options.type
@@ -48,7 +47,6 @@ Page({
     this.freshList(++num)
   },
   dianzan(e) {
-    console.log(e.currentTarget.dataset)
     let obj = e.currentTarget.dataset
     let req = new ThumbComment();
     req.commentId = obj.id;
@@ -82,7 +80,6 @@ Page({
     })
   },
   judge(v) {
-    console.log(v)
     if (!this.data.commentLen) {
       wx.showToast({
         title: '评论内容不能为空',
@@ -98,7 +95,6 @@ Page({
       return
     }
     let that = this
-    console.log(v)
     this.setData({
       tipPop: true,
       isShowPop: !this.data.isShowPop
@@ -111,7 +107,6 @@ Page({
     req.content = v.detail.str
     req.score = parseInt(v.detail.star)
     req.fetch().then(() => {
-      console.log(req)
       //把我刚才的评论插到第一条
       let tArr = that.data.comments
       tArr.push(req.comments)
@@ -136,7 +131,6 @@ Page({
   },
 
   _strLen(e) {
-    console.log(e.detail.len)
     this.data.commentLen = e.detail.len
   },
 

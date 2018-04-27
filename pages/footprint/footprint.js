@@ -36,11 +36,9 @@ Page({
     } else {
       uid = userInfo.uid
     }
-    console.log('optionsssssssssssssss', options.uid)
     let m = new TravelFootprint();
     m.playerUid = uid;
     m.fetch().then(res => {
-      console.log(res)
       this.setData({
         user: res.userInfo,
         reachrovince: res.reachrovince,

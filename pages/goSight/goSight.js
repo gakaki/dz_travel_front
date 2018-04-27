@@ -45,7 +45,6 @@ Page({
    */
  
   onLoad: function (options) {
-    console.log(options)
     pointId = options.pointId
     cid = options.cid
     spotName = options.name
@@ -55,8 +54,6 @@ Page({
     req.spotId = pointId
     req.cid = cid
     req.fetch().then(req => {
-      console.log('req', req)
-      console.log(this.data.season)
       oldStr = req.spot.description
 
       this.setData({
@@ -156,7 +153,6 @@ Page({
         toView: 'id'+(events.length-1),
          freeSight: req.freeSight
       })
-      console.log(this.data.toView)
     },()=>{
       // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
       if (req.code == Code.NEED_MONEY) {
@@ -245,7 +241,6 @@ Page({
           toView: 'id' + (events.length - 1),
           freeSight: req.freeSight
         })
-        console.log(this.data.toView)
       }, () => {
         // if (app.globalData.gold < sheet.Parameter.Get(sheet.Parameter.TOURCONSUME).value) {
         if (req.code == Code.NEED_MONEY) {

@@ -49,7 +49,6 @@ Page({
   onLoad: function (options) {
     enterOnload = true
     flyType = options.type
-    console.log(options,'起飞界面options')
     if(options.type == TicketType.SINGLEPRESENT){
       onlySingle = true
       tid = options.tid
@@ -138,7 +137,6 @@ Page({
           cid = options.cid
         }
 
-        console.log(req, '起飞界面数据', onlySingle)
         let flyInfo = this.setFlyInfo(req);
         this.setData({
           flyInfo,
@@ -199,14 +197,12 @@ Page({
   },
 
   fillCode(req) {
-    console.log(inviteCode,'inviteCode----------->start')
     req.inviteCode = inviteCode;
   },
 
   createCode() {
     let create = new CreateCode()
     create.fetch().then((req) => {
-      console.log(req, '生成邀请码')
       inviteCode = req.inviteCode
     }).catch(req => {
       switch (req) {
@@ -241,7 +237,6 @@ Page({
       let info = new FlyInfo();
       info.type = flyType;
       info.fetch().then((req) => {
-        console.log(req, '起飞界面数据------->onShow')
         let flyInfo = this.setFlyInfo(req);
         this.setData({
           flyInfo,
@@ -255,7 +250,6 @@ Page({
    */
   onHide: function () {
     clearInterval(time)
-    console.log("onHide")
     this.data.enterOnshow = false
     enterOnload = false
     this.setData({
@@ -279,13 +273,10 @@ Page({
     clearInterval(time);
     clearTimeout(timer);
     Http.unlisten(PartnerInfo, this.parInfo, this);
-    console.log("start------------->onUnload")
   },
 
   parInfo(res, err) {
-    console.log('轮询')
     if (err) {
-      console.log('http listen error, code:', err)
       switch (err) {
         case Code.ROOM_EXPIRED:
           
@@ -320,8 +311,6 @@ Page({
           }
           app.globalData.cid = cid
           app.globalData.cityName = sheet.City.Get(cid).city
-          
-          console.log(locationCid, cid, '起飞城市id')
           startFly = false;
           let airlines = [
             { from: locationCid, to: cid },
@@ -337,7 +326,6 @@ Page({
         if (res.nickName && res.avatarUrl && !partnerEnter) {
           partnerEnter = true
           partnerCid = res.parLocation ? res.parLocation : initCity;
-          console.log(partnerCid, locationCid, res.parLocation, '小伙伴cid，自己cid，返回小伙伴cid')
           this.setData({
             isWaiting: false,
             partnerName: res.nickName,
@@ -348,7 +336,6 @@ Page({
           })
         }
         else if (!res.nickName && !res.avatarUrl && partnerEnter) {
-          console.log('小伙伴退出了-------------')
           partnerEnter = false
           this.setData({
             isWaiting: true,
@@ -363,7 +350,6 @@ Page({
   },
 
   startTour() {
-    // console.log(cid, this.data.flyInfo.cost,'startTour cost')
     if(this.data.invitee){
       wx.showToast({
         title: '只有邀请人可以开始旅行',
@@ -495,7 +481,6 @@ Page({
         this.planeFly([{from:locationCid, to:cid}])
       }
       else{
-        console.log(partnerCid, locationCid, '小伙伴cid，自己cid')
         let airlines = [
           { from: locationCid, to: cid },
           { from: partnerCid, to: cid}
@@ -513,7 +498,6 @@ Page({
 
   onArrived() {
     Http.unlisten(PartnerInfo, this.parInfo, this);
-    console.log('plane arrived')
     if(this.data.flyInfo.location){
       this.setData({
         isArrive: true,
@@ -579,9 +563,7 @@ Page({
     let det = new DeleteCode()
     det.inviteCode = inviteCode
     det.fetch().then(req => {
-      console.log(req, '删除邀请码')
       if(reCreate){
-        console.log('enter createCode')
         this.createCode()
       }
     }).catch(req => {

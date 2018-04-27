@@ -47,7 +47,6 @@ Page({
       let m = new DetailPostcard();
       m.id = this.data.id;
       m.fetch().then(res=>{
-        console.log(res)
         this.data.postid = res.postid;
         this.setData({
           url: res.mainUrl,
@@ -90,7 +89,6 @@ Page({
     m.message1 = this.data.message1;
     m.message2 = this.data.message2;
     m.fetch().then(res => {
-      console.log(res)
       this.setData({
         index:0,
         message1:'',

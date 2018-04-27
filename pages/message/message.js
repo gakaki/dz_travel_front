@@ -27,7 +27,6 @@ Page({
     let clear = new ClearMsg()
     clear.mid = message[0].mid
     clear.fetch().then((req)=>{
-      console.log(req)
     }).catch((req)=>{
       switch (req) {
         case Code.USER_NOT_FOUND:
@@ -55,10 +54,8 @@ Page({
     let messages = new GetMessage()
     messages.page = page
     messages.fetch().then((req) => {
-      console.log(req, '消息列表')
       page++
       message = message.concat(req.messages)
-      console.log(message)
       this.setData({
         message,
       })

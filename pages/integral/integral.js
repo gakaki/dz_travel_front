@@ -41,7 +41,6 @@ Page({
         rank: res.rank,
         shops: res.shops
       })
-      console.log(res)
     })
     this.getExchangeDetail(true)
   },

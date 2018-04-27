@@ -17,11 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     let m = new ShopDetail();
     m.id = options.id
     m.fetch().then(res => {
-      console.log(res)
       let arr = res.shop.introduce.map(v=>{
         return v.split("\\n")
       })
@@ -134,7 +132,6 @@ Page({
       m.addr = this.data.userInfo.address;
     }
     m.fetch().then(res => {
-      console.log(res)
       if (res.exchangeCode ) {
         if (res.exchangeCode == 1) {
           this.setData({
