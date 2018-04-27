@@ -247,7 +247,7 @@ Page({
     }
   },
   toCfms() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../city/city?location=' + this.data.cityName,
     })
   },
@@ -382,7 +382,7 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if (roleFriend || this.data.roleCar) {
+        if (this.data.partener) {
           roleFriend.walkCls = '';
         }
         else {
@@ -668,7 +668,12 @@ Page({
       //更新人物图标
       if (req.display != display && req.display != 0) {
           display = req.display;
+          let roleMe = this.data.roleMe
+          roleMe.display = display
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+          this.setData({
+            roleMe: roleMe
+          })
       }
       
       //更新里程

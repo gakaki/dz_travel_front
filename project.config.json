@@ -30,13 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
 					"name": "path",
 					"pathName": "pages/index/index",
-					"query": "shareUid=ov5W35W2g36wL8DPE9iCR7JlNoUU&start=true&terminal=平凉&inviteCode=8e3b7e20-49d7-11e8-b29a-55935d5852a0&cid=275"
+					"query": "shareUid=ov5W35W2g36wL8DPE9iCR7JlNoUU&start=true&terminal=天津&inviteCode=d3ad8fc0-49dc-11e8-a8bd-219705123cb3&cid=2"
 				}
 			]
 		}
