@@ -669,7 +669,11 @@ Page({
           display = this.data.roleMe.display  = req.display;
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
       }
-
+      let startPoint = this.data.startPoint;
+      if (!startPoint.arriveStamp && this.partener) {
+          //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
+          startPoint.arriveStamp = Base.servertime - LOOP_INTERVAL;
+      }
       //更新里程
       let licheng = req.mileage;
       this.setData({ licheng })
