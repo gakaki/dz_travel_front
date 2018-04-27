@@ -35,7 +35,7 @@
     </view>
     <!--小人.自己-->
     <view wx:if="{{roleMe && !planing}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
-      <image class="role-event-img" wx:if="{{unreadEventCnt > 0}}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
+      <image class="role-event-img" wx:if="{{ newEvent }}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
     </view>
 
 
@@ -113,7 +113,7 @@
     <view id="play-pop-bg" bind:tap="hidePop"></view>
 
     <!--普通事件-->
-    <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-normal>
+    <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-normal>
     <!--答题事件-->
     <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-quest>
     <!--首次免费租赁-->
