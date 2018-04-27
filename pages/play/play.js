@@ -384,7 +384,7 @@ Page({
           roleFriend = null;
         }
         else {
-          // Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
           this.freshAllTrackedStat();
         }
         
@@ -468,8 +468,12 @@ Page({
   },
   //修改路线
   chgLine() {
+      if (this.data.planing) {
+          return;
+      }
 
     if (!this.data.started) {
+
       //首次规划路线
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
@@ -800,19 +804,16 @@ Page({
       return;
     }
 
-    //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-    this.zoomOnPlaned();
-
-
     let req = new SetRouter();
     req.cid = this.data.cid;
     req.line = this.data.planedSpots.map(s => s.id);
 
     req.fetch().then(() => {
       this.data.startPoint.arriveStamp = req.startTime;
-        this.setData({ planing: false });
         this.updateSpots(req.spots);
+        //恢复轮询
+        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+        this.zoomOnPlaned();
     })
   },
 
