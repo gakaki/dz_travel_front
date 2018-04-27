@@ -246,7 +246,7 @@ Page({
     }
   },
   toCfms() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../city/city?location=' + this.data.cityName,
     })
   },
@@ -352,8 +352,8 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
-    if (this.data.roleCar) {
-      roleMe = this.data.roleCar
+    if (this.data.roleMe.display!=0) {
+      //  roleMe = this.data.roleCar
       roleFriend = null;
     }
     if (len > 0) {
@@ -381,7 +381,7 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if (roleFriend) {
+        if (this.data.partener) {
           roleFriend.walkCls = '';
         }
         else {
@@ -405,9 +405,10 @@ Page({
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
-      if (this.data.roleCar) {
-        this.setData({ lines, roleCar: roleMe, planedFinished });
-      } else this.setData({ lines, roleMe, planedFinished });
+      // if (this.data.roleCar) {
+      //   this.setData({ lines, roleCar: roleMe, planedFinished });
+      // } else
+       this.setData({ lines, roleMe, planedFinished });
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -665,9 +666,14 @@ Page({
     req.fetch().then(() => {
 
       //更新人物图标
-      if (req.display != display) {
-          display = this.data.roleMe.display  = req.display;
+      if (req.display != display && req.display != 0) {
+          display = req.display;
+          let roleMe = this.data.roleMe
+          roleMe.display = display
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+          this.setData({
+            roleMe: roleMe
+          })
       }
       
       //更新里程
@@ -678,12 +684,13 @@ Page({
       this.updateSpots(req.spots);
 
       //更新任务进度
-      this.data.task = req.task;
+      
       if (req.task != this.data.task) {
         this.setData({
           task: req.task
         })
         this.freshTask();
+        this.data.task = req.task;
       }
       
     })
