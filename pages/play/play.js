@@ -384,9 +384,11 @@ Page({
         if (roleFriend) {
           roleFriend.walkCls = '';
         }
-
-        Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        this.freshAllTrackedStat();
+        else {
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          this.freshAllTrackedStat();
+        }
+        
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
