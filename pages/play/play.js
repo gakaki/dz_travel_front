@@ -665,8 +665,8 @@ Page({
     req.fetch().then(() => {
 
       //更新人物图标
-      if (req.display != display) {
-          display = this.data.roleMe.display  = req.display;
+      if (req.display != display && display != 0) {
+          display = req.display;
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
       }
       
