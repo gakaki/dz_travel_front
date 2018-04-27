@@ -23,7 +23,15 @@ Component({
     src:{
       type:String,
       value:null
-    }
+    },
+    iconMarginTop:{
+      type: String,
+      value:'0'
+    },
+    titleMarginTop: {
+      type: String,
+      value: '0'
+    },
 
   },
 

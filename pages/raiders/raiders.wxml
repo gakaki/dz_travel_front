@@ -1,13 +1,19 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="con">
 <scroll-view class="con-box" scroll-y bindscrolltolower='addPage'>
-<view class="spot-photo">
-  <image class="photo" wx:if="{{img}}" src="https://gengxin.odao.com/update/h5/travel/{{img}}"> </image>
-</view>
-
+  <view class="spot-photo">
+    <image class="photo" wx:if="{{img}}" src="https://gengxin.odao.com/update/h5/travel/{{img}}"> </image>
+  </view>
   <view wx:if='{{content}}' class="desc-bg font">
     {{content}}
   </view>
+  <view class='none' wx:if='{{!content && !comments.length}}'>
+    <none title='暂无评论' tip='快来发起第一条评论吧' src='https://gengxin.odao.com/update/h5/travel/raiders/icon.png' iconMarginTop='60rpx auto 62rpx'></none>
+  </view>
+  <view class='none-small' wx:if='{{content && !comments.length}}'>
+    <none title='暂无评论' tip='快来发起第一条评论吧' titleMarginTop='90rpx'></none>
+  </view>
+  
     <view class="item f-c" wx:for="{{comments}}" wx:key="{{index}}">
       <view class="item-top f-r-fs">
         <image class="head" src="{{item.user.avatarUrl}}"></image>
