@@ -131,6 +131,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.cid,'------play cid------')
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
