@@ -32,7 +32,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 10000
+const LOOP_INTERVAL = 1000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -384,6 +384,7 @@ Page({
           roleFriend = null;
         }
         else {
+          roleFriend.walkCls = '';
           if(!this.data.partener) {
            Http.unlisten(PlayLoop, this.onPlayLoop, this);
           }

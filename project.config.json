@@ -34,13 +34,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "path",
 					"pathName": "pages/index/index",
-					"query": "shareUid=ov5W35W2g36wL8DPE9iCR7JlNoUU&start=true&terminal=唐山&inviteCode=b95285a0-4a12-11e8-b961-87052e34ceb3&cid=6"
+					"query": "shareUid=ov5W35fZQbMq-5Np6fI1hcn_hfg8&start=true&terminal=莆田&inviteCode=92259f10-4a23-11e8-8e06-25577518deba&cid=108"
 				}
 			]
 		}
