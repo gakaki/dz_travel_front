@@ -649,6 +649,7 @@ Page({
       })
       try {
         wx.setStorageSync('taskDone', this.data.cid)
+        return
       } catch (e) {
       }
     }
@@ -678,18 +679,7 @@ Page({
   //刷新景点状态列表
   freshSpots() {
     let req = new FreshSpots();
-
-    req.fetch().then(() => {
-      //
-      // let idx = 0
-      // req.spots.forEach(o => {
-      //   if (o.index > idx) idx++
-      // })
-      // if (idx == this.data.spots.length - 1) {
-      //   secondPoint = req.spots.find(o => {
-      //     o.index == idx
-      //   })
-      // }
+    req.fetch().then(() => {   
       this.setData({ task: req.task })
       this.updateSpots(req.spots);
       if (req.display != 0 && display != req.display) {
@@ -707,8 +697,6 @@ Page({
       //更新任务进度
       this.freshTask();
     })
-
-
   },
 
   //更新景点状态列表
@@ -1000,7 +988,14 @@ Page({
   },
 
   popMissionInfo() {
-    this.setData({ showPop: true, showMissionInfo: true });
+    let req = new FreshSpots();
+    req.fetch().then(() => {
+      this.setData({ task: req.task })
+      //更新任务进度
+      this.freshTask();
+      this.setData({ showPop: true, showMissionInfo: true });
+    })
+    
   },
 
   //到攻略页面
