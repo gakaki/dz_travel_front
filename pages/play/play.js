@@ -752,7 +752,7 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !started && this.data.partener && this.data.partener.isInviter;
+    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
     this.setData({
       spots,
       started,
