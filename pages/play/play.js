@@ -378,7 +378,7 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if (this.data.partener) {
+        if (this.data.partener && this.data.roleMe.display!=0) {
           roleFriend = null;
         }
         else {
