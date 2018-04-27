@@ -1,6 +1,6 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, redGold, addGold } from '../../utils/util.js';
-import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp, BuyPostcard, BuyPostcardList } from '../../api.js'
+import { CitySpes, MySpes, Spe, BuySpe, SellSpe, RentProp, RentedProp, BuyPostcard, BuyPostcardList, PlayerInfo } from '../../api.js'
 let propId
 let cid = ''
 const app = getApp();
@@ -41,6 +41,14 @@ Page({
    */
   onLoad: function (options) {
     console.log('options',options)
+    let m = new PlayerInfo();
+    m.fetch().then(res => {
+      console.log(res.info)
+      app.globalData.gold = res.info.items[sheet.Item.GOLD];
+      this.setData({
+        myGold: res.info.items[sheet.Item.GOLD],
+      })
+    })
     if (!options.cid) {
       cid = app.globalData.cid
       this.setData({
@@ -58,9 +66,10 @@ Page({
       title: '旅行道具'
     })
     let arr = sheet.shops
+    console.log('用户进props', app.globalData.gold)
     this.setData({
       rentProp: arr,
-      myGold: app.globalData.gold
+      // myGold: app.globalData.gold
     })
   },
   onShow(){
@@ -82,7 +91,6 @@ Page({
   rentCar(e) {
     let str
     let obj = sheet.Shop.Get(e.currentTarget.dataset.id);
-    console.log('obj==========>',obj)
     if(obj.type == 3) {
       str = '购买'
     } else {
