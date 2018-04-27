@@ -203,8 +203,6 @@ Component({
       console.log('tap element')
     },
     updatePlayer() {
-      if (!this.data.uid)
-        return;
       if(!this.data.log) return
       let req = new TraveledPlaces();
       req.playerUid = this.data.uid;
