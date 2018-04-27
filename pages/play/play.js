@@ -481,7 +481,7 @@ Page({
           });
           return;
         }
-        //我是被邀请者，可以规则路线
+        //我是被邀请者，可以规划路线
         this.firstPlanSpots();
       }
       else {
@@ -804,7 +804,6 @@ Page({
     Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
     this.zoomOnPlaned();
 
-    this.setData({ planing: false });
 
     let req = new SetRouter();
     req.cid = this.data.cid;
@@ -812,7 +811,8 @@ Page({
 
     req.fetch().then(() => {
       this.data.startPoint.arriveStamp = req.startTime;
-      this.updateSpots(req.spots);
+        this.setData({ planing: false });
+        this.updateSpots(req.spots);
     })
   },
 
