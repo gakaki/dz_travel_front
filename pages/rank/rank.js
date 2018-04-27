@@ -194,7 +194,8 @@ Page({
     })
   },
 
-  rankCountry() {
+  rankCountry(e) {
+    if (app.preventMoreTap(e)) return;
     rankSubtype = RankSubtype.COUNTRY;
     if (rankType == RankType.SCORE){
       this.setData({
@@ -216,7 +217,8 @@ Page({
     this.getRankInfo();
   },
 
-  rankFriend() {
+  rankFriend(e) {
+    if (app.preventMoreTap(e)) return;
     rankSubtype = RankSubtype.FRIEND;
     this.setData({
       rankSubtype,
@@ -228,7 +230,8 @@ Page({
     this.getRankInfo();
   },
 
-  lookFamous() {
+  lookFamous(e) {
+    if (app.preventMoreTap(e)) return;
     rankType = RankType.THUMBS;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -244,7 +247,8 @@ Page({
     this.getRankInfo();
   },
 
-  lookFoot() {
+  lookFoot(e) {
+    if (app.preventMoreTap(e)) return;
     rankType = RankType.FOOT;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -260,7 +264,8 @@ Page({
     this.getRankInfo();
   },
 
-  lookScore() {
+  lookScore(e) {
+    if (app.preventMoreTap(e)) return;
     rankType = RankType.SCORE;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -277,6 +282,7 @@ Page({
   },
 
   toOther(e) {
+    if (app.preventMoreTap(e)) return;
     //此处需要传uid，
     let uid = e.currentTarget.dataset.uid
     if (uid == wx.getStorageSync('uid')){
