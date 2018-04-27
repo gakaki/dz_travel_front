@@ -353,7 +353,6 @@ Page({
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
     if (this.data.roleMe.display!=0) {
-      //  roleMe = this.data.roleCar
       roleFriend = null;
     }
     if (len > 0) {
@@ -382,10 +381,10 @@ Page({
         //规划的路线已经走完
         roleMe.walkCls = '';
         if (this.data.partener) {
-          roleFriend.walkCls = '';
+          roleFriend = null;
         }
         else {
-          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          // Http.unlisten(PlayLoop, this.onPlayLoop, this);
           this.freshAllTrackedStat();
         }
         
@@ -405,9 +404,6 @@ Page({
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
-      // if (this.data.roleCar) {
-      //   this.setData({ lines, roleCar: roleMe, planedFinished });
-      // } else
        this.setData({ lines, roleMe, planedFinished });
     }
     else {
