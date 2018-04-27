@@ -679,7 +679,13 @@ Page({
 
       //更新任务进度
       this.data.task = req.task;
-      this.freshTask();
+      if (req.task != this.data.task) {
+        this.setData({
+          task: req.task
+        })
+        this.freshTask();
+      }
+      
     })
 
   },
