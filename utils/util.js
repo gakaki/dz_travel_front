@@ -402,6 +402,8 @@ function shareToIndex(that, innerObj, toShareLink) {
 
   if (app.globalData.debug.share){
   }
+
+  console.log(nowPath);
   return {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
     path: nowPath,
