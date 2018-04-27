@@ -669,11 +669,7 @@ Page({
           display = this.data.roleMe.display  = req.display;
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
       }
-      let startPoint = this.data.startPoint;
-      if (!startPoint.arriveStamp && this.partener) {
-          //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
-          startPoint.arriveStamp = Base.servertime - LOOP_INTERVAL;
-      }
+      
       //更新里程
       let licheng = req.mileage;
       this.setData({ licheng })
@@ -765,6 +761,11 @@ Page({
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
     let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
+    let startPoint = this.data.startPoint;
+    if (started && !startPoint.arriveStamp && this.data.partener) {
+      //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
+      startPoint.arriveStamp = Base.servertime - LOOP_INTERVAL;
+    }
     this.setData({
       spots,
       started,
