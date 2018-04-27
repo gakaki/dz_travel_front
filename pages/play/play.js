@@ -32,7 +32,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 10000
+const LOOP_INTERVAL = 1000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -352,7 +352,7 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
-    if (this.data.roleMe.display!=0) {
+    if ( this.data.roleMe.display!=0) {
       roleFriend = null;
     }
     if (len > 0) {
@@ -380,10 +380,11 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if (this.data.partener && this.data.roleMe.display!=0) {
+        if ( this.data.roleMe.display!=0) {
           roleFriend = null;
         }
         else {
+          roleFriend.walkCls = '';
           if(!this.data.partener) {
            Http.unlisten(PlayLoop, this.onPlayLoop, this);
           }
