@@ -23,7 +23,9 @@
     </view>
     <!--景点-->
     <view class="play-spots" wx:for="{{ spots }}" wx:key="{{index}}" data-name="{{item.name}}" data-sid="{{item.id}}" catch:tap="tapSpot" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;">
-      <image class="play-spot-img" src="{{item.tracked || item.roundTracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
+      <!-- <image class="play-spot-img" src="{{item.tracked || item.roundTracked ? item.img2 : item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image> -->
+      <image   src="{{item.img1}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
+      <image class="play-spot-img" hidden="{{!item.tracked && !item.roundTracked}}" src="{{item.img2}}" style="width:{{item.wd * scale}}rpx;height:{{item.ht * scale}}rpx"></image>
       <text class="play-spot-txt">{{item.name}}</text>
       <text class="play-spot-tm flex" wx:if="{{item.arriveTime}}">{{item.arriveTime}}</text>
       <text class="play-spot-idx flex" wx:if="{{ planing && item.index > -1}}">{{item.index + 1}}</text>
@@ -67,7 +69,7 @@
 
     <view class="rgt-btn {{hua}}">
       <view class="arrow-box" catchtap='huadong'>
-        <image src="https://gengxin.odao.com/update/h5/travel/play/pop-arrow.png"  class="pop-arrow {{trans}}"></image>
+        <image src="https://gengxin.odao.com/update/h5/travel/play/pop-arrow.png" class="pop-arrow {{trans}}"></image>
       </view>
 
       <view class="mission f-c-fs" bindtap='popMissionInfo'>
@@ -91,7 +93,7 @@
         <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
         <view class="travelStart font fontWhite  font32" wx:if="{{!showCancelDouble && !started || planedFinished}}" bindtap="chgLine">规划路线</view>
         <view class="travelStart start-icon font fontWhite  font32" wx:elif="{{showCancelDouble}}" bindtap="chgLine">等待对方规划路线</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>  
+        <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
         <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
       </view>
       <!-- 虚拟地图警告 -->
@@ -108,7 +110,7 @@
 
   <!--弹出层-->
   <view id="play-pops" wx:if="{{showPop}}">
-    <view id="play-pop-bg" bind:tap="hidePop"></view> 
+    <view id="play-pop-bg" bind:tap="hidePop"></view>
 
     <!--普通事件-->
     <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-normal>

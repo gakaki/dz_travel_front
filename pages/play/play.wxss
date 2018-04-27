@@ -137,7 +137,12 @@ weather.sights {
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
+.play-spot-img {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
 .play-spot-txt {
   transform: translateY(-60%);
   display: block;
