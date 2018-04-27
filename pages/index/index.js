@@ -66,9 +66,6 @@ Page({
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     if (userInfo){
-      console.log(userInfo,'userInfo')
-      app.globalData.gold = userInfo.items[sheet.Item.GOLD]
-      console.log('用户登录完', app.globalData.gold)
       let m = new SignInfo()
       m.fetch().then(res => {
         console.log(res, '签到数据')
@@ -218,7 +215,7 @@ Page({
       }
       app.globalData.season = season
       app.globalData.weather = weather
-      // app.globalData.gold = req.gold
+      app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
       if(req.location){
         console.log(req.location)
