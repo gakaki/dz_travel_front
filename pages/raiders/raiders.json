@@ -3,6 +3,7 @@
   "usingComponents": {
     "comment": "../../components/comment/comment",
     "star": "../../components/star/star",
-    "tip": "/components/tip/tip"
+    "tip": "/components/tip/tip",
+    "none": "/components/none/none"
   }
 }

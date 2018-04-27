@@ -382,7 +382,7 @@ Page({
           roleFriend = null;
         }
         else {
-          // Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
           this.freshAllTrackedStat();
         }
         
@@ -466,7 +466,9 @@ Page({
   },
   //修改路线
   chgLine() {
-
+    if (this.data.planing) {
+        return;
+    }
     if (!this.data.started) {
       //首次规划路线
       if (this.data.partener) {
@@ -797,11 +799,6 @@ Page({
       return;
     }
 
-    //恢复轮询
-    Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-    this.zoomOnPlaned();
-
-    this.setData({ planing: false });
 
     let req = new SetRouter();
     req.cid = this.data.cid;
@@ -810,6 +807,9 @@ Page({
     req.fetch().then(() => {
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
+      //恢复轮询
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+      this.zoomOnPlaned();
     })
   },
 

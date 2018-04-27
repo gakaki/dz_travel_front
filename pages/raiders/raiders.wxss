@@ -24,7 +24,12 @@
   bottom: 130rpx;
   overflow: hidden;
 }  
-
+.none {
+  height: 530rpx;
+}
+.none-small {
+  height: 280rpx;
+}
 .item {
   width: 100%;
   position: relative;

@@ -1,8 +1,8 @@
 <!--components/none/none.wxml-->
 <view class="con f-c-fs {{all?'':'wrap'}} ">
-  <image class='icon' wx:if="{{src}}" src='{{src}}'></image> 
+  <image class='icon' wx:if="{{src}}" src='{{src}}' style='margin:{{iconMarginTop?iconMarginTop:" 250rpx auto 63rpx"}}'></image> 
   <view class='f-c-sb'>
-    <view class='content-t' wx:if="{{title}}">{{title}}</view>
+    <view class='content-t' wx:if="{{title}}" style='margin-top:{{titleMarginTop}}'>{{title}}</view>
     <view class='content-c' wx:if='{{tip}}'>{{tip}}</view>
   </view>
   <view class='btn-big-blue' wx:if='{{btnInfo}}' bindtap='toShop'>{{btnInfo}}</view>
