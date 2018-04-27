@@ -968,7 +968,7 @@ Page({
   },
 
   hidePop(e) {
-    if (e && e.target.id == 'play-pop-bg' && e.target.type=='tap') {
+    if (e && e.target.id == 'play-pop-bg' && e.type=='tap') {
       if (this.data.showEventNormal || this.data.showEventQuest) {
         return;//事件的弹框点击蒙层不隐藏弹框
       }
