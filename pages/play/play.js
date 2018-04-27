@@ -382,7 +382,7 @@ Page({
           roleFriend = null;
         }
         else {
-          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          // Http.unlisten(PlayLoop, this.onPlayLoop, this);
           this.freshAllTrackedStat();
         }
         
