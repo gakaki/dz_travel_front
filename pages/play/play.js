@@ -350,7 +350,7 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
-    if (this.data.roleMe.display!=0) {
+    if ( this.data.roleMe.display!=0) {
       roleFriend = null;
     }
     if (len > 0) {
@@ -378,7 +378,7 @@ Page({
         planedFinished = true;
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if (this.data.partener && this.data.roleMe.display!=0) {
+        if ( this.data.roleMe.display!=0) {
           roleFriend = null;
         }
         else {
