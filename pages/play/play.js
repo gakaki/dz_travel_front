@@ -103,7 +103,6 @@ Page({
     lines: [],//线[{x, y, wd, rotation}],存的是虚线的起始点、长度、旋转
     roleMe: {},//自己{x,y, img, rotation, walk:Boolean}
     roleFriend: null,//组队好友{x,y, img, rotation, walk:Boolean}
-    roleCar: null,
     partener: null,//组队好友信息{nickName//名字,gender//性别,img//头像,isInviter//是否是邀请者}
     showCancelDouble: false,//是否显示‘取消双人旅行’，只有在邀请方等待对方规划路线时才显示
     task: null, //任务进度
@@ -353,8 +352,8 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
-    if (this.data.roleCar) {
-      roleMe = this.data.roleCar
+    if (this.data.roleMe.display!=0) {
+      //  roleMe = this.data.roleCar
       roleFriend = null;
     }
     if (len > 0) {
@@ -406,9 +405,10 @@ Page({
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
-      if (this.data.roleCar) {
-        this.setData({ lines, roleCar: roleMe, planedFinished });
-      } else this.setData({ lines, roleMe, planedFinished });
+      // if (this.data.roleCar) {
+      //   this.setData({ lines, roleCar: roleMe, planedFinished });
+      // } else
+       this.setData({ lines, roleMe, planedFinished });
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
