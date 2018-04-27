@@ -10,7 +10,8 @@ Page({
     exchange:false,
     confirmAdress:false,
     shop:null,
-    exchangeCode:null
+    exchangeCode:null,
+    exchangeOver:false
   },
 
   /**
@@ -151,6 +152,13 @@ Page({
         })
       }
      
+    }).catch((res)=>{
+      console.log(res)
+      if(res == -148) {
+        this.setData({
+          exchangeOver: true
+        })
+      }     
     })
   },
 
