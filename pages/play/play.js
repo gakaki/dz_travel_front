@@ -678,12 +678,13 @@ Page({
       this.updateSpots(req.spots);
 
       //更新任务进度
-      this.data.task = req.task;
+      
       if (req.task != this.data.task) {
         this.setData({
           task: req.task
         })
         this.freshTask();
+        this.data.task = req.task;
       }
       
     })
