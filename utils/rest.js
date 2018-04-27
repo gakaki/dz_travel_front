@@ -6,8 +6,10 @@ const APPNAME = 'travel';
 // const wss = "wss://tt.ddz2018.com/travel";
 // const srv = "https://local.ddz2018.com/";
 // const wss = "wss://local.ddz2018.com/travel";
-const srv = "https://localhost/";
-const wss = "wss://localhost/travel";
+// const srv = "https://localhost/";
+// const wss = "wss://localhost/travel";
+const srv = "https://travel.ddz2018.com/";
+const wss = "wss://travel.ddz2018.com/travel";
 // const srv = "https://192.168.1.100/";
 // const wss = "wss://192.168.1.100/travel";
 
