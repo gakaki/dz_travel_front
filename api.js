@@ -115,6 +115,8 @@ class Code{
     
     static ISCHANGING = -147;
     
+    static EXCHANGE_OVER = -148;
+    
     static UNKNOWN = -1000;
     
     static EXCEPTION = -999;
@@ -546,6 +548,9 @@ class Base {
     }
    fetch() {
         return new Promise((resolve, reject) => {
+            if(this.action != 'user.login' && !Base.LOGINED){
+                Base.UserLogin(resolve)
+            }
             wx.request({
                 url: Base.SRV,
                 data: this.reqData,
@@ -1372,7 +1377,7 @@ class Shop {
         //prop type: string
         this.exchangeCode = null;
     
-        //prop type: boolean
+        //prop type: number
         this.remaining = null;
     
         

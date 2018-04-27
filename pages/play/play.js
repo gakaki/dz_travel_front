@@ -32,7 +32,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 1000
+const LOOP_INTERVAL = 10000
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -116,6 +116,7 @@ Page({
     unreadEventCnt: 0, //未读事件数
     curEvtIdx: 1,//当前事件序号
     totalEvt: 1,//事件总数
+    hasNextEvt:false, //是否有下一个事件不然显示为确定
     postPicture: '',//获取的明信片图片路径
     postSpotName: '',//获取的明信片所在景点名
     taskPer: 0,//任务进度百分比
@@ -127,6 +128,7 @@ Page({
     showFreeRent: false, //是否显示免费租赁pop
     showGotPost: false, //是否显示获得明信片pop
     showMissionInfo: false, //是否显示任务信息pop
+    newEvent:false, //是否有新事件
   },
 
   /**
@@ -587,7 +589,7 @@ Page({
       lineUpdate = true;
     }
     if (res.spotsTracked == this.data.spotsTracked) {
-      reGoin = 1//防止进页面就播放音效
+      reGoin = 1//https://local.ddz2018.com/?sid=089e159f711d062c32f1db9f1635df21&uid=ov5W35XwjECAWGq0UK3omMfu9nak&cid=190&appName=travel&action=tour.eventshow防止进页面就播放音效
     }
     if (res.spotsTracked != this.data.spotsTracked) {
       if (reGoin != 0 && (this.data.spotsTracked != 0 || res.spotsTracked != 0)) {
@@ -600,11 +602,15 @@ Page({
       lineUpdate = true;
     }
 
+    console.log("是否有新事件",res.newEvent);
+
     if (res.newEvent) {
       //显示事件气泡
       let unreadEventCnt = this.data.unreadEventCnt;
       unreadEventCnt++;
-      this.setData({ unreadEventCnt });
+      this.setData({ newEvent : true,unreadEventCnt  });
+    }else{
+      this.setData({ newEvent : false,unreadEventCnt : 0});
     }
     if (res.doubleState === false && this.data.partener) {
       //如果之前是双人，现在变成了单人，则清一下队员
@@ -904,7 +910,8 @@ Page({
 
   //点击小人
   tapRole() {
-    if (this.data.unreadEventCnt) {
+   
+    if (this.data.newEvent) {
       this.fetchEvent();
     }
   },
@@ -930,9 +937,14 @@ Page({
       this.data.quest = quest;
       let curEvtIdx = req.current;
       let totalEvt = req.total;
+
+      console.log("是否有下一个事件",req.hasNext);
+
       if (!req.quest) {
         this.setData({
-          unreadEventCnt: 0
+          unreadEventCnt: 0,
+          hasNextEvt : false,
+          newEvent: false
         })
         return
       }
@@ -943,7 +955,8 @@ Page({
             showEventNormal: true,
             unreadEventCnt,
             curEvtIdx,
-            totalEvt
+            totalEvt,
+            hasNextEvt: req.hasNext
           });
           break;
         case EVENT_TYPE_STORY:
@@ -953,12 +966,15 @@ Page({
             showEventQuest: true,
             unreadEventCnt,
             curEvtIdx,
-            totalEvt
+            totalEvt,
+            hasNextEvt: req.hasNext
           });
           break;
         default:
           this.setData({
-            unreadEventCnt: 0
+            unreadEventCnt: 0,
+            hasNextEvt: req.hasNext ,
+            newEvent : false
           })
       }
     })

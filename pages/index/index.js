@@ -44,11 +44,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     enterOnload = true;
-    start(ok=> {
-      ok && this.gotUserInfo(options);
+    wx.getNetworkType({
+      success:function(res){
+        console.log(2,res)
+        if(res.networkType =='none') {
+          wx.onNetworkStatusChange(res => {
+            if (res.isConnected) {
+              that.pageInfo(options, that)
+            }
+          })
+        } else {
+          that.pageInfo(options, that)
+        }
+      }
+    })
+  },
+  pageInfo(options,that){
+    start(ok => {
+      ok && that.gotUserInfo(options);
     }, options.shareUid)
-
+    setTimeout(() => {
+      that.setData({
+        launch: false
+      })
+    }, 1000)
   },
   toPlay(e) {
     if (app.preventMoreTap(e)) return;
@@ -164,11 +185,7 @@ Page({
     if(!enterOnload){
       this.gotUserInfo()
     }
-    setTimeout(()=>{
-      this.setData({
-        launch: false
-      })
-    },1000)
+   
   },
 
   /**
