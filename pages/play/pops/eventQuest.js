@@ -15,6 +15,10 @@ Component({
           type: Number,
           value: 1
       },
+      hasNext: {
+          type: Boolean,
+          value: false
+      },
       //总共几个
       total: {
           type: Number,

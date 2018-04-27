@@ -115,7 +115,7 @@
     <!--普通事件-->
     <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-normal>
     <!--答题事件-->
-    <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent"></pop-event-quest>
+    <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-quest>
     <!--首次免费租赁-->
     <pop-free-rent wx:if="{{showFreeRent}}" class="play-pop" bind:hide="hidePop"></pop-free-rent>
     <!--获得明信片-->

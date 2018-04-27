@@ -1,4 +1,4 @@
-<!--pages/play2/pops/eventQuest.wxml-->
+`<!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
 <view class="dialog_question" wx:if="{{!showResult}}">
     <view class="pic-box">
@@ -26,6 +26,6 @@
         <text class="congratulations-head-font" wx:elif="{{correct}}">恭喜答对</text>
         <text class="congratulations-head-font" wx:else >再接再厉</text>
         <text class="congratulations-gray-font" wx:if="{{rewards}}">{{rewards}}</text>
-        <view class="btn-big-blue" data-current="{{current}}" catch:tap="toNext">{{current>1 ? '下一事件': '确定'}}</view>
+        <view class="btn-big-blue" data-current="{{current}}" catch:tap="toNext">{{ hasNext ? '下一事件': '确定'}}</view>
     </view>
 </view>
