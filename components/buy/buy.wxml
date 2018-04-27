@@ -19,7 +19,7 @@
     </view>
     <view class="car-line"></view>
     <view class="bot-btn {{single ? 'flex' : 'f-r-sb'}}">
-      <view class="cancel font" catchtap='toHide' hidden="{{single}}">{{cancelStr}}</view>
+      <view class="cancel font {{cancelStr.length>3?'sls':''}}" catchtap='toHide' hidden="{{single}}">{{cancelStr}}</view>
       <view class="confirm font {{cfmStr.length>3?'sls':''}}" catchtap='toCfm'>{{cfmStr}}</view>
     </view>
   </view>

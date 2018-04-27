@@ -118,8 +118,8 @@
 
 .sls {
   width: 242rpx;
-  letter-spacing: 1rpx;
-  padding-left: 3rpx;
+  letter-spacing: 3rpx;
+  padding-left: 0;
 }
 
 .pic-desc {
