@@ -453,7 +453,7 @@ if(o.tracked) num++
     })
     if(num == this.data.spots.length-1) {
       wx.showToast({
-        title: 'warning',
+        title: '已经要走完了，再耐心等待一下吧',
         icon: 'none',
         mask: true
       });
