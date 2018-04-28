@@ -8,7 +8,7 @@
       <text class="gray-font paly-gray-font">租用道具仅限本城使用</text>
       <text class="gray-font paly-gray-font">离开城市需要重新租用</text>
       <view class="line"></view>
-      <view class="btn-big-blue cfm-btn" catchtap="hideSecondIn">确 定</view>
+      <view class=" cfm-btn" catchtap="hideSecondIn">确 定</view>
     </view>
   </view>
   <!--地图-->
