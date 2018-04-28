@@ -444,6 +444,18 @@ Page({
       this.chgLine()
       return
     }
+    let num = 0//到达的景点
+    this.data.spots.forEach(o=>{
+if(o.tracked) num++
+    })
+    if(num == this.data.spots.length-1) {
+      wx.showToast({
+        title: 'warning',
+        icon: 'none',
+        mask: true
+      });
+      return
+    }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLines: true,
