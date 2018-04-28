@@ -129,6 +129,7 @@ Page({
     showGotPost: false, //是否显示获得明信片pop
     showMissionInfo: false, //是否显示任务信息pop
     newEvent:false, //是否有新事件
+    changeRouteing:false, //是否正在修改路线，可能是自己，也可能是双人模式下对方在修改
   },
 
   /**
@@ -474,6 +475,14 @@ Page({
     if (this.data.planing) {
         return;
     }
+    if (this.data.changeRouteing && this.data.partener) {
+        wx.showToast({
+            title: '对方正在修改路线',
+            icon: 'none',
+            mask: true
+        })
+        return;
+    }
     if (!this.data.started) {
       //首次规划路线
       if (this.data.partener) {
@@ -617,6 +626,10 @@ Page({
       //如果之前是双人，现在变成了单人，则清一下队员
       this.data.partener = null;
     }
+    //是否正在修改路线
+      if (res.changeRouteing != this.data.changeRouteing) {
+        this.setData({changeRouteing: res.changeRouteing})
+      }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
     if (lineUpdate) {
@@ -675,8 +688,10 @@ Page({
           let roleMe = this.data.roleMe
           roleMe.display = display
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+
           this.setData({
-            roleMe: roleMe
+            roleMe: roleMe,
+              roleFriend: null//有车了，就不显示队友，只显示一辆车
           })
       }
       
