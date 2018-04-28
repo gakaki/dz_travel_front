@@ -265,12 +265,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.partener || this.data.started) {
+    if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    // if (this.data.started)
-    if (app.globalData.hasCar) this.freshSpots();
+    if ( app.globalData.hasCar) this.updateLines();
   },
 
   /**
@@ -446,6 +445,18 @@ Page({
     }
     if (this.data.planedFinished) {
       this.chgLine()
+      return
+    }
+    let num = 0//到达的景点
+    this.data.spots.forEach(o=>{
+if(o.tracked) num++
+    })
+    if(num == this.data.spots.length-1) {
+      wx.showToast({
+        title: 'warning',
+        icon: 'none',
+        mask: true
+      });
       return
     }
     if (app.globalData.gold < 100) {
@@ -849,7 +860,7 @@ Page({
     let spot = this.data.spots.find(s => s.id == sid);
 
     //游玩中
-    if (this.data.started) {
+    if (this.data.started && !this.data.planing) {
       if (spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name
