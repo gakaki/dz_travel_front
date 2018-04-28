@@ -2,7 +2,7 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="user">
   <view class='user-avatar'>
-    <image class='avatar-icon' src='{{src}}' style="width:{{avatarWid}}rpx;height:{{avatarHeg}}rpx"></image>
+    <image class='avatar-icon' src='{{src || defaultImg}}' style="width:{{avatarWid}}rpx;height:{{avatarHeg}}rpx"></image>
   </view>
   <view class="user-info">
     <view class='nickname'>{{tools.filterNickname(nickname)}}</view>

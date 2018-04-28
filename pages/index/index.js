@@ -72,6 +72,12 @@ Page({
     }, 1000)
   },
   toPlay(e) {
+    if (app.globalData.noNetwork) {
+      wx.showToast({
+        title: '请检查网络状态',
+        icon: 'none'
+      })
+    }
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
     if(getLocationCid){
@@ -244,7 +250,7 @@ Page({
         gold: req.gold,
         playerCnt: req.playerCnt,
         nickName: userInfo.nickName,
-        avatar: userInfo.avatarUrl,
+        avatar: userInfo.avatarUrl ? userInfo.avatarUrl : app.globalData.defaultAvatar,
         location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn'),
         chooseInd: 0,
@@ -298,6 +304,12 @@ Page({
    * 点击事件
    */
   toFly(e) {
+    if (app.globalData.noNetwork) {
+      wx.showToast({
+        title: '请检查网络状态',
+        icon: 'none'
+      })
+    }
     if (app.preventMoreTap(e)) return;
     //查询用户是否有赠送的机票
     let req = new LookTicket()

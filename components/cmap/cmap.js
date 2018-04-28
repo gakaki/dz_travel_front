@@ -1,7 +1,7 @@
 // components/cmap/cmap.js
 import { City, citys } from '../../sheets.js'
 import { Base, TraveledPlaces } from '../../api.js'
-
+const app = getApp();
 let tapStamp;
 const DOUBLE_TAP_INTERVAL = 600;
 const lightHt = 4;
@@ -245,7 +245,7 @@ Component({
         locaXY = jwToxy(city.cityxy[0], city.cityxy[1]);
         l.x = locaXY.x;
         l.y = locaXY.y;
-        l.img = o.img;
+        l.img = o.img ? o.img : app.globalData.defaultAvatar;
         l.imgWd = 30;
         l.imgHt = 30;
         return l;
