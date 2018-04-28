@@ -112,7 +112,7 @@ Page({
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
-    eventTipImg: resRoot + 'evts.png', // 事件气泡图标
+    eventTipImg: resRoot + 'tanhao.png', // 事件气泡图标
     unreadEventCnt: 0, //未读事件数
     curEvtIdx: 1,//当前事件序号
     totalEvt: 1,//事件总数
@@ -129,6 +129,7 @@ Page({
     showGotPost: false, //是否显示获得明信片pop
     showMissionInfo: false, //是否显示任务信息pop
     newEvent:false, //是否有新事件
+    changeRouteing:false, //是否正在修改路线，可能是自己，也可能是双人模式下对方在修改
   },
 
   /**
@@ -179,12 +180,15 @@ Page({
         roleFriend
       })
 
-      let num = 0
+      let num = 0;
+      let spotsAllTracked = true;
       req.spots.forEach(o => {
         if (o.roundTracked) num++
+          spotsAllTracked = spotsAllTracked && o.tracked;
       })
       this.setData({
         spotsTracked: num,
+        spotsAllTracked,
         weatherImg: Weather.Get(req.weather).icon,
         licheng: req.mileage,
         season: app.globalData.season,
@@ -261,12 +265,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.partener || this.data.started) {
+    if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    // if (this.data.started)
-    if (app.globalData.hasCar) this.freshSpots();
+    if ( app.globalData.hasCar) this.updateLines();
   },
 
   /**
@@ -384,7 +387,9 @@ Page({
           roleFriend = null;
         }
         else {
-          roleFriend.walkCls = '';
+          if(this.data.partener) {
+            roleFriend.walkCls = '';
+          }
           if(!this.data.partener) {
            Http.unlisten(PlayLoop, this.onPlayLoop, this);
           }
@@ -442,6 +447,18 @@ Page({
       this.chgLine()
       return
     }
+    let num = 0//到达的景点
+    this.data.spots.forEach(o=>{
+if(o.tracked) num++
+    })
+    if(num == this.data.spots.length-1) {
+      wx.showToast({
+        title: 'warning',
+        icon: 'none',
+        mask: true
+      });
+      return
+    }
     if (app.globalData.gold < 100) {
       this.setData({
         chgLines: true,
@@ -472,6 +489,14 @@ Page({
   //修改路线
   chgLine() {
     if (this.data.planing) {
+        return;
+    }
+    if (this.data.changeRouteing && this.data.partener) {
+        wx.showToast({
+            title: '对方正在修改路线',
+            icon: 'none',
+            mask: true
+        })
         return;
     }
     if (!this.data.started) {
@@ -617,6 +642,10 @@ Page({
       //如果之前是双人，现在变成了单人，则清一下队员
       this.data.partener = null;
     }
+    //是否正在修改路线
+      if (res.changeRouteing != this.data.changeRouteing) {
+        this.setData({changeRouteing: res.changeRouteing})
+      }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
     if (lineUpdate) {
@@ -675,8 +704,10 @@ Page({
           let roleMe = this.data.roleMe
           roleMe.display = display
           this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+
           this.setData({
-            roleMe: roleMe
+            roleMe: roleMe,
+            roleFriend: null//有车了，就不显示队友，只显示一辆车
           })
       }
       
@@ -771,7 +802,7 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
+    let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && !this.data.partener.isInviter;
     let startPoint = this.data.startPoint;
     if (started && !startPoint.arriveStamp && this.data.partener) {
       //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
@@ -829,7 +860,7 @@ Page({
     let spot = this.data.spots.find(s => s.id == sid);
 
     //游玩中
-    if (this.data.started) {
+    if (this.data.started && !this.data.planing) {
       if (spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name

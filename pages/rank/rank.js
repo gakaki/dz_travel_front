@@ -5,6 +5,7 @@ const sheet = require('../../sheets.js');
 let app = getApp();
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
+let preventCrazyClick = false
 Page({
 
   /**
@@ -82,6 +83,7 @@ Page({
    */
   onHide: function () {
     this.resetInfo();
+    preventCrazyClick = false;
     rankType = RankType.THUMBS; 
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -99,6 +101,7 @@ Page({
    */
   onUnload: function () {
     this.resetInfo();
+    preventCrazyClick = false;
     rankType = RankType.THUMBS; 
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -119,12 +122,13 @@ Page({
   },
 
   getRankInfo() {
-    
+    console.log(page, 'page', this.data.rankingFriend, this.data.rankingCountry)
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
     req.page = page;
     req.fetch().then(() => { 
+      console.log(req.ranks,'ranks')
       ranks = ranks.concat(req.ranks).map(o=>{
         let nickName;
         if(o.userInfo.nickName.length>8){
@@ -167,6 +171,7 @@ Page({
       }
 
       page++;
+      preventCrazyClick = false;
     }).catch((req) => {
       switch (req) { 
         case Code.NOT_FOUND:
@@ -195,7 +200,8 @@ Page({
   },
 
   rankCountry(e) {
-    if (app.preventMoreTap(e)) return;
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     rankSubtype = RankSubtype.COUNTRY;
     if (rankType == RankType.SCORE){
       this.setData({
@@ -218,7 +224,8 @@ Page({
   },
 
   rankFriend(e) {
-    if (app.preventMoreTap(e)) return;
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     rankSubtype = RankSubtype.FRIEND;
     this.setData({
       rankSubtype,
@@ -231,7 +238,8 @@ Page({
   },
 
   lookFamous(e) {
-    if (app.preventMoreTap(e)) return;
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     rankType = RankType.THUMBS;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -241,14 +249,15 @@ Page({
       id: '5',
       noReward: false,
       isFriend: false,
-      title: '达人排行榜规则'
+      title: '达人排行榜规则',
     })
     this.resetInfo()
     this.getRankInfo();
   },
 
   lookFoot(e) {
-    if (app.preventMoreTap(e)) return;
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     rankType = RankType.FOOT;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -258,14 +267,15 @@ Page({
       id: '4',
       noReward: false,
       isFriend: false,
-      title: '足迹排行榜规则'
+      title: '足迹排行榜规则',
     })
     this.resetInfo()
     this.getRankInfo();
   },
 
   lookScore(e) {
-    if (app.preventMoreTap(e)) return;
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     rankType = RankType.SCORE;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
@@ -275,7 +285,7 @@ Page({
       id: '3',
       noReward: true,
       isFriend: false,
-      title: '积分排行榜规则'
+      title: '积分排行榜规则',
     })
     this.resetInfo()
     this.getRankInfo();
