@@ -42,6 +42,7 @@ margin: 0 20rpx 0 22rpx
   margin-top:22rpx;
   margin-bottom: 22rpx;
   font-size: 28rpx;
+  letter-spacing: 1rpx
 }
 .cu {
   height: 16rpx
@@ -181,7 +182,8 @@ margin-right: 30rpx;
 }
 .evt-item {
   width: 670rpx;
-  font:  bold 24rpx 'Microsoft YaHei';
+  font:  bold 26rpx 'Microsoft YaHei';
+  letter-spacing: 1rpx;
   color: #939295;
 }
 
