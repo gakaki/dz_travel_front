@@ -802,7 +802,7 @@ if(o.tracked) num++
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
+    let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && !this.data.partener.isInviter;
     let startPoint = this.data.startPoint;
     if (started && !startPoint.arriveStamp && this.data.partener) {
       //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
