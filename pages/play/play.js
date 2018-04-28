@@ -449,7 +449,7 @@ Page({
     }
     let num = 0//到达的景点
     this.data.spots.forEach(o=>{
-if(o.tracked) num++
+      if (o.roundTracked) num++
     })
     if(num == this.data.spots.length-1) {
       wx.showToast({
@@ -676,20 +676,26 @@ if(o.tracked) num++
     })
     if (rel == 1) {
       try {
-        var value = wx.getStorageSync('taskDone')//每个城市任务完成后记录一下
+        let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
         if (value) {
-          if (value == this.data.cid) return
+          return
+        }else {
+          try {
+            wx.setStorageSync('cid' + this.data.cid, this.data.cid)
+          } catch (e) {
+          }
         }
       } catch (e) {
       }
       this.setData({
         taskdonePop: true
       })
-      try {
-        wx.setStorageSync('taskDone', this.data.cid)
-        return
-      } catch (e) {
-      }
+      // try {
+      //   wx.setStorageSync('taskDoneCity', arr.push(this.data.cid))
+ 
+      //   return
+      // } catch (e) {
+      // }
     }
   },
 
