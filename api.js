@@ -812,6 +812,7 @@ class Http {
    static listen(apiCls, cb, ctx, interval=300, preFetch=null) {
         if (!this._listenings) {
             console.error('Http loop has not inited');
+            this.init();
             return;
         }
         let action=apiCls.name.toLowerCase();
@@ -1796,28 +1797,24 @@ class BuyPostcardList extends Base {
     get ptList() {return this._ptList}
     set ptList(v) {this._ptList = v}
 }
-class Minapppay extends Base {
+class BuyPostcard extends Base {
     constructor() {
         super();
-        this.action = 'weChat.minapppay';
+        this.action = 'tour.buypostcard';
         this.init();
     
-        this._goodsId = null;
-        this._payCount = null;
-        this._payload = null;
-        this.requireFileds = ["goodsId","payCount"];
-        this.reqFields = ["goodsId","payCount"];
-        this.resFields = ["payload"];
+        this._ptid = null;
+        this._goldNum = null;
+        this.requireFileds = ["ptid"];
+        this.reqFields = ["ptid"];
+        this.resFields = ["goldNum"];
     }
     //client input, require, type: number
-    get goodsId() {return this._goodsId}
-    set goodsId(v) {this._goodsId = v}
-    //client input, require, type: number
-    get payCount() {return this._payCount}
-    set payCount(v) {this._payCount = v}
-    //server output, type: Payload
-    get payload() {return this._payload}
-    set payload(v) {this._payload = v}
+    get ptid() {return this._ptid}
+    set ptid(v) {this._ptid = v}
+    //server output, type: number
+    get goldNum() {return this._goldNum}
+    set goldNum(v) {this._goldNum = v}
 }
 class SetRouter extends Base {
     constructor() {
@@ -1877,32 +1874,28 @@ class ModifyRouter extends Base {
     get goldNum() {return this._goldNum}
     set goldNum(v) {this._goldNum = v}
 }
-class FreshSpots extends Base {
+class Minapppay extends Base {
     constructor() {
         super();
-        this.action = 'tour.freshspots';
+        this.action = 'weChat.minapppay';
         this.init();
     
-        this._spots = null;
-        this._display = null;
-        this._task = null;
-        this._mileage = null;
-        this.requireFileds = [];
-        this.reqFields = [];
-        this.resFields = ["spots","display","task","mileage"];
+        this._goodsId = null;
+        this._payCount = null;
+        this._payload = null;
+        this.requireFileds = ["goodsId","payCount"];
+        this.reqFields = ["goodsId","payCount"];
+        this.resFields = ["payload"];
     }
-    //server output, type: RouterSpot[]
-    get spots() {return this._spots}
-    set spots(v) {this._spots = v}
-    //server output, type: 
-    get display() {return this._display}
-    set display(v) {this._display = v}
-    //server output, type: TourTask
-    get task() {return this._task}
-    set task(v) {this._task = v}
-    //server output, type: 
-    get mileage() {return this._mileage}
-    set mileage(v) {this._mileage = v}
+    //client input, require, type: number
+    get goodsId() {return this._goodsId}
+    set goodsId(v) {this._goodsId = v}
+    //client input, require, type: number
+    get payCount() {return this._payCount}
+    set payCount(v) {this._payCount = v}
+    //server output, type: Payload
+    get payload() {return this._payload}
+    set payload(v) {this._payload = v}
 }
 class PlayLoop extends Base {
     constructor() {
@@ -1942,6 +1935,201 @@ class PlayLoop extends Base {
     //server output, type: boolean//是否正在修改路线
     get changeRouteing() {return this._changeRouteing}
     set changeRouteing(v) {this._changeRouteing = v}
+}
+class TestStartGame extends Base {
+    constructor() {
+        super();
+        this.action = 'test.teststartgame';
+        this.init();
+    
+        this._type = null;
+        this._cid = null;
+        this._cost = null;
+        this._inviteCode = null;
+        this._tid = null;
+        this._score = null;
+        this._reward = null;
+        this.requireFileds = ["type","cid","cost"];
+        this.reqFields = ["type","cid","cost","inviteCode","tid"];
+        this.resFields = ["score","reward"];
+    }
+    //client input, require, type: TicketType
+    get type() {return this._type}
+    set type(v) {this._type = v}
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: number
+    get cost() {return this._cost}
+    set cost(v) {this._cost = v}
+    //client input, optional, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
+    //client input, optional, type: string
+    get tid() {return this._tid}
+    set tid(v) {this._tid = v}
+    //server output, type: number
+    get score() {return this._score}
+    set score(v) {this._score = v}
+    //server output, type: number
+    get reward() {return this._reward}
+    set reward(v) {this._reward = v}
+}
+class TestTourIndexInfo extends Base {
+    constructor() {
+        super();
+        this.action = 'test.testtourindexinfo';
+        this.init();
+    
+        this._cid = null;
+        this._inviteCode = null;
+        this._weather = null;
+        this._mileage = null;
+        this._spots = null;
+        this._task = null;
+        this._startPos = null;
+        this._others = null;
+        this._display = null;
+        this._present = null;
+        this._startTime = null;
+        this._partener = null;
+        this.requireFileds = ["cid","inviteCode"];
+        this.reqFields = ["cid","inviteCode"];
+        this.resFields = ["weather","mileage","spots","task","startPos","others","display","present","startTime","partener"];
+    }
+    //client input, require, type: number
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: string
+    get inviteCode() {return this._inviteCode}
+    set inviteCode(v) {this._inviteCode = v}
+    //server output, type: number
+    get weather() {return this._weather}
+    set weather(v) {this._weather = v}
+    //server output, type: number
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
+    //server output, type: Spot[]
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
+    //server output, type: object
+    get startPos() {return this._startPos}
+    set startPos(v) {this._startPos = v}
+    //server output, type: string[]
+    get others() {return this._others}
+    set others(v) {this._others = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
+    //server output, type: 
+    get present() {return this._present}
+    set present(v) {this._present = v}
+    //server output, type: 
+    get startTime() {return this._startTime}
+    set startTime(v) {this._startTime = v}
+    //server output, type: Partener//组队者信息,非组队模式下传空
+    get partener() {return this._partener}
+    set partener(v) {this._partener = v}
+}
+class TestSetRouter extends Base {
+    constructor() {
+        super();
+        this.action = 'test.testsetrouter';
+        this.init();
+    
+        this._cid = null;
+        this._line = null;
+        this._spots = null;
+        this._startTime = null;
+        this._display = null;
+        this.requireFileds = ["cid","line"];
+        this.reqFields = ["cid","line"];
+        this.resFields = ["spots","startTime","display"];
+    }
+    //client input, require, type: string
+    get cid() {return this._cid}
+    set cid(v) {this._cid = v}
+    //client input, require, type: array//景点id数组,每次传的都市完整的路线（包含已走过的）
+    get line() {return this._line}
+    set line(v) {this._line = v}
+    //server output, type: RouterSpot[]//不包括起点
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: 
+    get startTime() {return this._startTime}
+    set startTime(v) {this._startTime = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
+}
+class TestPlayLoop extends Base {
+    constructor() {
+        super();
+        this.action = 'test.testplayloop';
+        this.init();
+    
+        this._newEvent = null;
+        this._latestEvent = null;
+        this._freshSpots = null;
+        this._spotsTracked = null;
+        this._spotsAllTracked = null;
+        this._doubleState = null;
+        this._changeRouteing = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["newEvent","latestEvent","freshSpots","spotsTracked","spotsAllTracked","doubleState","changeRouteing"];
+    }
+    //server output, type: boolean
+    get newEvent() {return this._newEvent}
+    set newEvent(v) {this._newEvent = v}
+    //server output, type: Quest
+    get latestEvent() {return this._latestEvent}
+    set latestEvent(v) {this._latestEvent = v}
+    //server output, type: boolean
+    get freshSpots() {return this._freshSpots}
+    set freshSpots(v) {this._freshSpots = v}
+    //server output, type: number//有几个到达了
+    get spotsTracked() {return this._spotsTracked}
+    set spotsTracked(v) {this._spotsTracked = v}
+    //server output, type: boolean//是否已经把地图上所有的景点都走过了
+    get spotsAllTracked() {return this._spotsAllTracked}
+    set spotsAllTracked(v) {this._spotsAllTracked = v}
+    //server output, type: boolean//双人模式下对方是否取消了双人旅行
+    get doubleState() {return this._doubleState}
+    set doubleState(v) {this._doubleState = v}
+    //server output, type: boolean//是否正在修改路线
+    get changeRouteing() {return this._changeRouteing}
+    set changeRouteing(v) {this._changeRouteing = v}
+}
+class TestFreshSpots extends Base {
+    constructor() {
+        super();
+        this.action = 'test.testfreshspots';
+        this.init();
+    
+        this._spots = null;
+        this._display = null;
+        this._task = null;
+        this._mileage = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["spots","display","task","mileage"];
+    }
+    //server output, type: RouterSpot[]
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
+    //server output, type: 
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
 }
 class FlyInfo extends Base {
     constructor() {
@@ -3041,24 +3229,32 @@ class ExchangeShop extends Base {
     get exchangeCode() {return this._exchangeCode}
     set exchangeCode(v) {this._exchangeCode = v}
 }
-class BuyPostcard extends Base {
+class FreshSpots extends Base {
     constructor() {
         super();
-        this.action = 'tour.buypostcard';
+        this.action = 'tour.freshspots';
         this.init();
     
-        this._ptid = null;
-        this._goldNum = null;
-        this.requireFileds = ["ptid"];
-        this.reqFields = ["ptid"];
-        this.resFields = ["goldNum"];
+        this._spots = null;
+        this._display = null;
+        this._task = null;
+        this._mileage = null;
+        this.requireFileds = [];
+        this.reqFields = [];
+        this.resFields = ["spots","display","task","mileage"];
     }
-    //client input, require, type: number
-    get ptid() {return this._ptid}
-    set ptid(v) {this._ptid = v}
-    //server output, type: number
-    get goldNum() {return this._goldNum}
-    set goldNum(v) {this._goldNum = v}
+    //server output, type: RouterSpot[]
+    get spots() {return this._spots}
+    set spots(v) {this._spots = v}
+    //server output, type: 
+    get display() {return this._display}
+    set display(v) {this._display = v}
+    //server output, type: TourTask
+    get task() {return this._task}
+    set task(v) {this._task = v}
+    //server output, type: 
+    get mileage() {return this._mileage}
+    set mileage(v) {this._mileage = v}
 }
 class SellSpe extends Spe {
     constructor() {
@@ -3196,11 +3392,16 @@ exports.LeaveTour = LeaveTour;
 exports.RentProp = RentProp;
 exports.RentedProp = RentedProp;
 exports.BuyPostcardList = BuyPostcardList;
-exports.Minapppay = Minapppay;
+exports.BuyPostcard = BuyPostcard;
 exports.SetRouter = SetRouter;
 exports.ModifyRouter = ModifyRouter;
-exports.FreshSpots = FreshSpots;
+exports.Minapppay = Minapppay;
 exports.PlayLoop = PlayLoop;
+exports.TestStartGame = TestStartGame;
+exports.TestTourIndexInfo = TestTourIndexInfo;
+exports.TestSetRouter = TestSetRouter;
+exports.TestPlayLoop = TestPlayLoop;
+exports.TestFreshSpots = TestFreshSpots;
 exports.FlyInfo = FlyInfo;
 exports.StartGame = StartGame;
 exports.CreateCode = CreateCode;
@@ -3245,7 +3446,7 @@ exports.IntegralShop = IntegralShop;
 exports.ShopDetail = ShopDetail;
 exports.ExchangeDetail = ExchangeDetail;
 exports.ExchangeShop = ExchangeShop;
-exports.BuyPostcard = BuyPostcard;
+exports.FreshSpots = FreshSpots;
 exports.SellSpe = SellSpe;
 exports.BuySpe = BuySpe;
 exports.SysMessage = SysMessage;
