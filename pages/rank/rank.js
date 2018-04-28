@@ -137,6 +137,9 @@ Page({
         else{
           nickName = o.userInfo.nickName
         }
+        if (!o.userInfo.avatarUrl){
+          o.userInfo.avatarUrl = app.globalData.defaultAvatar
+        }
         o.userInfo.nickName = nickName;
         return o;
       });
