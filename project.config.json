@@ -34,17 +34,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
 					"name": "path",
 					"pathName": "pages/index/index",
-<<<<<<< HEAD
-					"query": "shareUid=ov5W35W2g36wL8DPE9iCR7JlNoUU&start=true&terminal=邯郸&inviteCode=e6dd14d0-4ab3-11e8-a87f-81f95a2cd62d&cid=8"
-=======
-					"query": "shareUid=ov5W35UoLgEtRCv9OVJTWFeR2yqU&start=true&terminal=邢台&inviteCode=2bbd46b0-4ab9-11e8-ac37-899a0e9ef369&cid=9"
->>>>>>> c7e7eeb4cd04aabdf2c6cdd03fb9f618df1bc619
+					"query": ""
 				}
 			]
 		}
