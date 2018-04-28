@@ -1,6 +1,9 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <view class="con">
-<view class='tip'>收集新的明信片可获得积分</view>
+<view class='tip'>
+  <view>收集新的明信片可获得积分</view>
+  <view>每张明信片仅支持分享给一个好友或一个微信群</view>
+</view>
 <scroll-view wx:if='{{init.length}}' class="cons" scroll-y>
   <view  wx:if='{{init.length}}' bindtap='toMyXc' wx:for='{{init}}' data-province='{{item.province}}' class="post-item  bs f-r-fs {{index == init.length-1 ? 'nomb': ''}}"  wx:key="{{index}}">
     <image src="{{tools.allImg(item.url)}}" class="img"></image>

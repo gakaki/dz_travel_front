@@ -70,7 +70,8 @@ margin: 0 15rpx 0 20rpx;
 }
 .tip {
   text-indent: 20rpx;
-  font: bold 24rpx/75rpx 'Microsoft YaHei';
+  font: bold 24rpx/37rpx 'Microsoft YaHei';
+  height: 75rpx;
   color: #b0afb3;
   background-color: #f5f4f9;
   border-bottom: 8rpx solid #e9e8ec;
