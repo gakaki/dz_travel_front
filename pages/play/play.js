@@ -180,12 +180,15 @@ Page({
         roleFriend
       })
 
-      let num = 0
+      let num = 0;
+      let spotsAllTracked = true;
       req.spots.forEach(o => {
         if (o.roundTracked) num++
+          spotsAllTracked = spotsAllTracked && o.tracked;
       })
       this.setData({
         spotsTracked: num,
+        spotsAllTracked,
         weatherImg: Weather.Get(req.weather).icon,
         licheng: req.mileage,
         season: app.globalData.season,
@@ -693,7 +696,7 @@ Page({
 
           this.setData({
             roleMe: roleMe,
-              roleFriend: null//有车了，就不显示队友，只显示一辆车
+            roleFriend: null//有车了，就不显示队友，只显示一辆车
           })
       }
       
