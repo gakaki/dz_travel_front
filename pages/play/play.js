@@ -180,12 +180,15 @@ Page({
         roleFriend
       })
 
-      let num = 0
+      let num = 0;
+      let spotsAllTracked = true;
       req.spots.forEach(o => {
         if (o.roundTracked) num++
+          spotsAllTracked = spotsAllTracked && o.tracked;
       })
       this.setData({
         spotsTracked: num,
+        spotsAllTracked,
         weatherImg: Weather.Get(req.weather).icon,
         licheng: req.mileage,
         season: app.globalData.season,
@@ -262,12 +265,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.partener || this.data.started) {
+    if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    // if (this.data.started)
-    if (app.globalData.hasCar) this.freshSpots();
+    if ( app.globalData.hasCar) this.updateLines();
   },
 
   /**
@@ -705,7 +707,7 @@ if(o.tracked) num++
 
           this.setData({
             roleMe: roleMe,
-              roleFriend: null//有车了，就不显示队友，只显示一辆车
+            roleFriend: null//有车了，就不显示队友，只显示一辆车
           })
       }
       
@@ -800,7 +802,7 @@ if(o.tracked) num++
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !started && this.data.partener && !this.data.partener.isInviter;
+    let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && !this.data.partener.isInviter;
     let startPoint = this.data.startPoint;
     if (started && !startPoint.arriveStamp && this.data.partener) {
       //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
@@ -858,7 +860,7 @@ if(o.tracked) num++
     let spot = this.data.spots.find(s => s.id == sid);
 
     //游玩中
-    if (this.data.started) {
+    if (this.data.started && !this.data.planing) {
       if (spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name
