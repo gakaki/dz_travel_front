@@ -499,7 +499,6 @@ line-height: 80rpx;
   left: 10rpx;
   border-radius: 30rpx;
 }
-
 .role-event-img{
   background: url('https://gengxin.odao.com/update/h5/travel/play/events.png') 0 0 no-repeat;
   background-size: cover;
