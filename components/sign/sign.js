@@ -39,7 +39,7 @@ Component({
         let m = new ToSign();
         m.theDay = this.data.theDay
         m.fetch().then(res=>{
-          let title = '恭喜获得' + this.data.init[this.data.theDay-1] + '金币'
+          let title = '金币+' + this.data.init[this.data.theDay-1]
           this.setData({
             theDay: this.data.theDay + 1
           })
@@ -50,8 +50,7 @@ Component({
           }, 1000)
           wx.showToast({
             title,
-            icon: "none",
-            duration: 1000
+            icon: "none"
           })
           this.triggerEvent("sign")
         })
