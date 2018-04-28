@@ -688,7 +688,6 @@ Page({
       this.setData({
         taskdonePop: true
       })
-      console.log(wx.getStorageSync('cid' + this.data.cid))
     }
   },
 
