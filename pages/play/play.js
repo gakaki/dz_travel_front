@@ -262,12 +262,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.partener || this.data.started) {
+    if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    // if (this.data.started)
-    if (app.globalData.hasCar) this.freshSpots();
+    if ( app.globalData.hasCar) this.updateLines();
   },
 
   /**
@@ -858,7 +857,7 @@ if(o.tracked) num++
     let spot = this.data.spots.find(s => s.id == sid);
 
     //游玩中
-    if (this.data.started) {
+    if (this.data.started && !this.data.planing) {
       if (spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name
