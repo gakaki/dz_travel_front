@@ -67,6 +67,7 @@
   right: 0;
   background-color: yellowgreen;
   background: #fff;
+  color:#737373;
 }
 .one-list {
   margin: 0 20rpx;
