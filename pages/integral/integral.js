@@ -15,7 +15,9 @@ Page({
     exchangeDetail:[],
     audioC:null,
     isShowIntro: false,
-    replaceC:''
+    replaceC:'',
+    pausedA:true,
+    pausedB: true
   },
   /**
    * 生命周期函数--监听页面加载
@@ -24,14 +26,20 @@ Page({
     this.getUserInfo()
   },
   onShow:function(){
-    this.data.audioC = wx.createInnerAudioContext();
+    this.data.audioA = wx.createInnerAudioContext();
+    this.data.audioB = wx.createInnerAudioContext();
+    this.data.audioA.src = 'https://gengxin.odao.com/update/h5/travel/integral/men.mp3'
+    this.data.audioB.src = 'https://gengxin.odao.com/update/h5/travel/integral/women.mp3'
+
     this.getUserInfo()
   },
   onHide() {
-    this.data.audioC && this.data.audioC.destroy();
+    this.data.audioA && this.data.audioA.destroy();
+    this.data.audioB && this.data.audioB.destroy();
   },
   onUnload(){
-    this.data.audioC && this.data.audioC.destroy();
+    this.data.audioA && this.data.audioA.destroy();
+    this.data.audioB && this.data.audioB.destroy();
   },
   getUserInfo(){
     let m = new IntegralShop();
@@ -61,21 +69,34 @@ Page({
       })
     })
   }, 
- 
-
-  
   lower(){
     if (this.data.exchangeDetail.length>0)  this.getExchangeDetail()
   },
-  toPlay(e){
-    let audio = this.data.audioC
-    if (e.currentTarget.dataset.men) {
-      audio.src = 'https://gengxin.odao.com/update/h5/travel/integral/men.mp3'
-    } else {
-      audio.src = 'https://gengxin.odao.com/update/h5/travel/integral/women.mp3'
+  toPlayA() {
+    if (this.data.audioB) {
+      this.data.audioB.stop();
+      this.data.pausedB = true
     }
-    audio.autoplay = true
-    audio.loop = false
+    if (this.data.pausedA) {
+      this.data.audioA.play()
+      this.data.pausedA = false
+    } else {
+      this.data.audioA.pause()
+      this.data.pausedA = true
+    }
+  },
+  toPlayB(e){
+    if (this.data.audioA) {
+      this.data.audioA.stop();
+      this.data.pausedA = true
+    }
+    if (this.data.pausedB) {
+      this.data.audioB.play()  
+      this.data.pausedB = false    
+    } else {
+      this.data.audioB.pause()
+      this.data.pausedB = true   
+    }
   },
   showDesc() {
     this.setData({
