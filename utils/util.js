@@ -410,7 +410,9 @@ function shareToIndex(that, innerObj, toShareLink) {
     imageUrl: imageUrl,
     success: function () {
       let m = new ShareInfo();
-      m.fetch()
+      m.fetch(res=>{
+        console.log(res)
+      })
       innerObj.suc && innerObj.suc(that)
     }
   }
@@ -472,9 +474,17 @@ function secToDHM(sec) {
 
 function redGold(v) {
   app.globalData.gold = app.globalData.gold - v
+  wx.showToast({
+    title:'金币-' + v,
+    icon:'none'
+  }) 
 }
 function addGold(v) {
   app.globalData.gold = app.globalData.gold + v
+  wx.showToast({
+    title: '金币+' + v,
+    icon: 'none'
+  }) 
 }
 
 module.exports = {

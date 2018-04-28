@@ -144,7 +144,12 @@ Page({
     req.cid = cid
     req.spotId = pointId
     req.fetch().then(req => {
-
+      if (this.data.freeSight == 0) {
+        wx.showToast({
+          title: '金币-' + this.data.ggGold,
+          icon: 'none'
+        })
+      }
       let events = this.data.events
       events.push(req.event)
       this.setData({
@@ -227,12 +232,14 @@ Page({
   toBuy() {
     this.hidePop()
     if(this.data.firstTime) {
-
       let req = new SpotTour()
       req.cid = cid
       req.spotId = pointId
       req.fetch().then(req => {
-
+        wx.showToast({
+          title: '金币-' + this.data.ggGold,
+          icon: 'none'
+        })
         let events = this.data.events
         events.push(req.event)
         this.setData({
