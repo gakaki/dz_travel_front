@@ -690,12 +690,7 @@ Page({
       this.setData({
         taskdonePop: true
       })
-      // try {
-      //   wx.setStorageSync('taskDoneCity', arr.push(this.data.cid))
- 
-      //   return
-      // } catch (e) {
-      // }
+      console.log(wx.getStorageSync('cid' + this.data.cid))
     }
   },
 
