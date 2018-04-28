@@ -384,7 +384,9 @@ Page({
           roleFriend = null;
         }
         else {
-          roleFriend.walkCls = '';
+          if(this.data.partener) {
+            roleFriend.walkCls = '';
+          }
           if(!this.data.partener) {
            Http.unlisten(PlayLoop, this.onPlayLoop, this);
           }
