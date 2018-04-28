@@ -2,8 +2,8 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <scroll-view class='integral f-c-fs ' scroll-y bindscrolltolower='lower'>
   <view class='back'>
-    <view class='audio audio-men' bindtap='toPlay' data-men='{{true}}'></view>
-    <view class='audio audio-women' bindtap='toPlay'></view>
+    <view class='audio audio-men' bindtap='toPlayA' data-men='{{true}}'></view>
+    <view class='audio audio-women' bindtap='toPlayB'></view>
     <view class='show'>
       <view class='show-wenzi'>
         <text class='jifen text-color1'>积分:</text>
