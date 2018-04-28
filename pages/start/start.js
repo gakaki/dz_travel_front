@@ -335,7 +335,7 @@ Page({
             ]
           })
         }
-        else if (!res.nickName && !res.avatarUrl && partnerEnter) {
+        else if (!res.nickName && partnerEnter) {
           partnerEnter = false
           this.setData({
             isWaiting: true,
