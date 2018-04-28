@@ -34,13 +34,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "path",
 					"pathName": "pages/index/index",
-					"query": ""
+					"query": "shareUid=ov5W35R-9V5h7f0gpZOJVNJuyabE&start=true&terminal=河源&inviteCode=7a2ce1c0-4ac3-11e8-8071-ab6f51dd555b&cid=197"
 				}
 			]
 		}

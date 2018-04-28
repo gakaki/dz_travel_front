@@ -815,7 +815,7 @@ Page({
       showCancelDouble
     });
 
-    updateLine && this.updateLines();
+    updateLine && this.updateLines(updateLine);
   },
 
   cancleDouble() {
