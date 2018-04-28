@@ -112,7 +112,7 @@ Page({
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
-    eventTipImg: resRoot + 'evts.png', // 事件气泡图标
+    eventTipImg: resRoot + 'tanhao.png', // 事件气泡图标
     unreadEventCnt: 0, //未读事件数
     curEvtIdx: 1,//当前事件序号
     totalEvt: 1,//事件总数
