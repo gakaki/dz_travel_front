@@ -1,7 +1,7 @@
 <!--pages/self/self.wxml-->
 <view class='self'>
   <view class='header'>
-      <avatar src='{{userInfo.avatarUrl}}' wx:if="{{userInfo.avatarUrl}}" nickname='{{userInfo.nickName}}' goldNum='{{gold}}' integral='{{integral}}'></avatar>
+      <avatar src='{{userInfo.avatarUrl}}' wx:if="{{userInfo.nickName}}" nickname='{{userInfo.nickName}}' goldNum='{{gold}}' integral='{{integral}}'></avatar>
       <navigator class='setting' url='/pages/settings/settings'>
         <image class='setting-icon' src='https://gengxin.odao.com/update/h5/travel/self/setting.png'></image>
       </navigator>
