@@ -75,7 +75,7 @@ App({
     isFirst: false,
     picBase: "https://gengxin.odao.com/update/h5/travel/",
     noNetwork: false,
-
+    defaultAvatar: "https://gengxin.odao.com/update/h5/travel/common/default.png",
 
     debug: {
       share: true

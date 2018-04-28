@@ -250,7 +250,7 @@ Page({
         gold: req.gold,
         playerCnt: req.playerCnt,
         nickName: userInfo.nickName,
-        avatar: userInfo.avatarUrl,
+        avatar: userInfo.avatarUrl ? userInfo.avatarUrl : app.globalData.defaultAvatar,
         location: req.location ? sheet.City.Get(req.location).city : '',
         date: ymd('cn'),
         chooseInd: 0,
