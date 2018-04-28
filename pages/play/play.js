@@ -536,18 +536,16 @@ Page({
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
-    let planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking);//backup
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      this.updateSpots(req.spots, false);
+      this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
         chgLines: false,
         started: false,//设为非游玩状态
         planing: true, //设为编辑路线状态
         planed: false,//是否完成了规划
-        planedFinished: false,//
-        planedSpots: req.spotsAllTracked && req.planedAllTracked ? [] : planedSpots//this.data.planedSpots.filter(s => s.roundTracked || s.tracking)//保留已经走过和即将到达的点(如果地图上的全走过了且规划的也走过了，则清空)
+        planedFinished: false,
       })
       this.updateLines(true)
     })
@@ -690,12 +688,7 @@ Page({
       this.setData({
         taskdonePop: true
       })
-      // try {
-      //   wx.setStorageSync('taskDoneCity', arr.push(this.data.cid))
- 
-      //   return
-      // } catch (e) {
-      // }
+      console.log(wx.getStorageSync('cid' + this.data.cid))
     }
   },
 
@@ -820,7 +813,7 @@ Page({
       showCancelDouble
     });
 
-    updateLine && this.updateLines();
+    updateLine && this.updateLines(updateLine);
   },
 
   cancleDouble() {
@@ -865,51 +858,50 @@ Page({
     let sid = dataset.sid;
     let spot = this.data.spots.find(s => s.id == sid);
 
-    //游玩中
-    if (this.data.started && !this.data.planing) {
-      if (spot.tracked) {
+
+    if (this.data.planing) {
+        //规划路线
+        if (this.data.planedSpots.indexOf(spot) == -1) {
+            this.data.planed = true;
+            spot.index = this.data.planedSpots.length;
+            this.data.planedSpots.push(spot);
+
+            let idxInSpots = this.data.spots.indexOf(spot);
+            this.setData({
+                [`spots[${idxInSpots}]`]: spot
+            });
+            //render
+            this.updateLines();
+        }
+        else {
+            //已经在路线中了
+            wx.showToast({
+                title: '路线规划不可前往相同景点',
+                icon: 'none',
+                mask: true
+            });
+        }
+    }
+    else if(spot.tracked) {
         //已经到达了，点击后进入观光
         let name = e.currentTarget.dataset.name
         this.toTour(sid, name);
-      }
-      else {
-        wx.showToast({
-          title: '未到达此景点无法观光',
-          icon: 'none',
-          mask: true
-        })
-      }
     }
-    else if (this.data.planing) {
-      //规划路线
-      if (this.data.planedSpots.indexOf(spot) == -1) {
-        this.data.planed = true;
-        spot.index = this.data.planedSpots.length;
-        this.data.planedSpots.push(spot);
-
-        let idxInSpots = this.data.spots.indexOf(spot);
-        this.setData({
-          [`spots[${idxInSpots}]`]: spot
-        });
-        //render
-        this.updateLines();
-      }
-      else {
-        //已经在路线中了
+    else if(this.data.planedSpots.length) {
         wx.showToast({
-          title: '路线规划不可前往相同景点',
-          icon: 'none',
-          mask: true
-        });
-      }
+            title: '未到达此景点无法观光',
+            icon: 'none',
+            mask: true
+        })
+
     }
     else {
-      //即没在游玩中，又没在规划路线状态，那应该是刚进入这个城市
-      wx.showToast({
-        title: '请先点击“规划路线”进行路线添加',
-        icon: 'none',
-        mask: true
-      })
+        //没有到过，也没有路线，那应该是刚进入这个城市
+        wx.showToast({
+            title: '请先点击“规划路线”进行路线添加',
+            icon: 'none',
+            mask: true
+        })
     }
   },
 
