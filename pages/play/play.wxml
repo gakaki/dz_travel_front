@@ -35,7 +35,13 @@
     </view>
     <!--小人.自己-->
     <view wx:if="{{roleMe && !planing}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
-      <image class="role-event-img" wx:if="{{ newEvent }}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image>
+      <!-- <image class="role-event-img" wx:if="{{ newEvent }}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image> -->
+      <view class="role-event-img flex" wx:if="{{ newEvent }}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-60 * scale}}rpx;width:{{59 * scale}}rpx;height: {{59 * scale}}rpx;">
+        <!-- <image class="animation" src="{{eventTipImg}}" style="width:{{10 * scale}}rpx;height: {{39 * scale}}rpx;margin-top:-5rpx;"></image> -->
+        <view class="dot animation0"></view>
+        <view class="dot animation1"></view>
+        <view class="dot animation2"></view>
+      </view>
     </view>
 
 
