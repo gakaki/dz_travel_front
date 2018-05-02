@@ -550,7 +550,7 @@ class Base {
     }
    fetch() {
         return new Promise((resolve, reject) => {
-            if(this.action != 'user.login' && !Base.LOGINED){
+            if(this.action != 'user.login' && !Base.LOGINED && this.action != 'weChat.auth'){
                 Base.UserLogin(resolve)
             }
             wx.request({
