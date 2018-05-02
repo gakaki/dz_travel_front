@@ -659,16 +659,16 @@ Page({
         // obj._carCls = 'play-role-haohua-';
         obj._walkCls = '';
       } else if (obj.display == 2) {
-        obj.wd = 118;
-        obj.ht = 92;
+        obj.wd = 150;
+        obj.ht = 150;
         obj.img += 'shangwu.png';
         obj.roleCls = 'play-role-shangwu';
         obj._carImg = resRoot + '/che/shangwu_';
         // obj._carCls = 'play-role-shangwu-';
         obj._walkCls = '';
       } else if (obj.display == 3) {
-        obj.wd = 109;
-        obj.ht = 63;
+        obj.wd = 150;
+        obj.ht = 150;
         obj.img += 'jingji.png';
         obj.roleCls = 'play-role-jingji';
         obj._carImg = resRoot + '/che/jingji_';
