@@ -46,6 +46,10 @@ Component({
       toNext(e) {
           // if(this.data.quest.rewards.find(kv => kv.k == ))
         this.triggerEvent('next', { cur: e.currentTarget.dataset.current});
+      },
+
+      close() {
+        this.triggerEvent('hide')
       }
   },
 

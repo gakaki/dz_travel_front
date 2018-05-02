@@ -1,6 +1,9 @@
 <!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
 <view class="dialog_question" wx:if="{{!showResult}}">
+    <view class="close flex" bindtap='close'>
+      <image class="icon-close" src="https://gengxin.odao.com/update/h5/travel/play/chacha.png"></image>
+    </view>
     <view class="pic-box">
         <image src="{{picture}}" class="pic"></image>
         <view class="ten">{{current}}/{{total}}</view>
@@ -18,6 +21,9 @@
 
 <!--选择之后-->
 <view class="dialog-result" wx:else>
+    <view class="close flex" bindtap='close'>
+      <image class="icon-close" src="https://gengxin.odao.com/update/h5/travel/play/chacha.png"></image>
+    </view>
     <view class="pic-box" >
         <image src="{{picture}}" class="pic" ></image>
     </view>

@@ -107,3 +107,17 @@
     color: #fff;
     text-align: center;
 }
+
+.close{
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.icon-close{
+  height: 27rpx;
+  width: 27rpx;
+}
