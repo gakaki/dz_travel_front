@@ -23,6 +23,7 @@ let display;
 let music;
 let reGoin = 0; //重新进入页面
 let citysName;
+let anmTimer;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -78,6 +79,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    anmIdx: 0,
+    flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png','flower_19.png','flower'],
     present: false,//第二次進入的城市送車
     trans: '',
     hua: 'hua-lf',
@@ -265,6 +268,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // anmTimer = setInterval(()=>{
+    //   this.setData({
+    //     anmIdx: this.data.anmIdx < this.data.flower.length - 3 ? this.data.anmIdx+1 :0
+    //   })
+    // },200)
+    if (this.data.showCancelDouble) {
+      wx.showToast({
+        title: '双人旅行需被邀请人规划路线',
+        icon: 'none'
+      })
+    }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
@@ -454,8 +468,7 @@ Page({
     if(num == this.data.spots.length-1) {
       wx.showToast({
         title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none',
-        mask: true
+        icon: 'none'
       });
       return
     }
@@ -494,8 +507,7 @@ Page({
     if (this.data.changeRouteing && this.data.partener) {
         wx.showToast({
             title: '对方正在修改路线',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
         return;
     }
@@ -506,8 +518,7 @@ Page({
         if (!this.data.partener.isInviter && !this.data.spotsAllTracked) {
           wx.showToast({
             title: '请等待被邀请者规划路线',
-            icon: 'none',
-            mask: true
+            icon: 'none'
           });
           return;
         }
@@ -831,8 +842,7 @@ Page({
       wx.showToast(
         {
           title: '请先规划路线',
-          icon: 'none',
-          mask: true
+          icon: 'none'
         })
       return;
     }
@@ -876,8 +886,7 @@ Page({
             //已经在路线中了
             wx.showToast({
                 title: '路线规划不可前往相同景点',
-                icon: 'none',
-                mask: true
+                icon: 'none'
             });
         }
     }
@@ -889,8 +898,7 @@ Page({
     else if(this.data.planedSpots.length) {
         wx.showToast({
             title: '未到达此景点无法观光',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
 
     }
@@ -898,8 +906,7 @@ Page({
         //没有到过，也没有路线，那应该是刚进入这个城市
         wx.showToast({
             title: '请先点击“规划路线”进行路线添加',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
     }
   },
