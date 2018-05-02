@@ -31,7 +31,7 @@
 .t-line {
   width: 710rpx;
   height: 2rpx;
-  background-color: #e9e8ec;
+  background-color: #dcdbe0;
 }
 
 .fs {

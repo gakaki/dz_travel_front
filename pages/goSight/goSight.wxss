@@ -182,9 +182,10 @@ margin-right: 30rpx;
 }
 .evt-item {
   width: 670rpx;
-  font:  bold 26rpx 'Microsoft YaHei';
+  font:  bold 28rpx 'Microsoft YaHei';
   letter-spacing: 1rpx;
   color: #939295;
+  margin: 22rpx 0;
 }
 
 .photo-outer{
