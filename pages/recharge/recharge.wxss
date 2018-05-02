@@ -22,8 +22,8 @@
   height: 155rpx;
 }
 .gold {
-width: 163rpx;
-  height: 115rpx;
+  width: 154rpx;
+  height: 128rpx;
 }
 .g-count {
   font: bold 34rpx  'Microsoft YaHei'

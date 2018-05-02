@@ -204,6 +204,7 @@ Page({
     }
     let innerObj= {
       type: 4,
+      imageUrl: this.data.url,
       suc: function (that) {
         that.setData({
           firstShare:false

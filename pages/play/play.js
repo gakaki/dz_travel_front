@@ -992,7 +992,7 @@ Page({
             unreadEventCnt,
             curEvtIdx,
             totalEvt,
-            hasNextEvt: req.hasNext
+            hasNextEvt: req.hasNext ? true : false
           });
           break;
         case EVENT_TYPE_STORY:
@@ -1003,13 +1003,13 @@ Page({
             unreadEventCnt,
             curEvtIdx,
             totalEvt,
-            hasNextEvt: req.hasNext
+            hasNextEvt: req.hasNext ? true : false
           });
           break;
         default:
           this.setData({
             unreadEventCnt: 0,
-            hasNextEvt: req.hasNext ,
+            hasNextEvt: req.hasNext ? true : false,
             newEvent : false
           })
       }

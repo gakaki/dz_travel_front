@@ -145,6 +145,8 @@ class Parameter {
 
     static get SENDCARID() { return 44 };
 
+    static get TOTALSCORE() { return 45 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 

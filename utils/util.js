@@ -399,11 +399,13 @@ function shareToIndex(that, innerObj, toShareLink) {
   let url = innerObj.type
   if (url == 4 || url == 6) { url = 1 }
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'
+  if (innerObj.imageUrl) {
+    imageUrl = 'https://gengxin.odao.com/update/h5/travel/' + innerObj.imageUrl
+  }
+  
 
   if (app.globalData.debug.share){
   }
-
-  console.log(nowPath);
   return {
     title: shareTitle(innerObj.type, innerObj.replaceContent),
     path: nowPath,
