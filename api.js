@@ -191,6 +191,8 @@ class Code{
     
     static USER_CANCEL_TEAM = 11003;
     
+    static DISABLE_SET_ROUTER = 11004;
+    
 }
 class RentItem{
     
@@ -706,6 +708,18 @@ class Base {
                     this._timestampD=Date.now()/1000  - req.timestamp;
                     wx.setStorageSync('sid', this.SID);
                     suc(req);
+                }).catch(()=>{
+                    wx.clearStorageSync('sid');
+                    wx.clearStorageSync('uid');
+                    Base.UID='';
+                    Base.SID='';
+                    wx.login({
+                        success: res => {
+                            console.log('login')
+                            this.AUTHED=false;
+                            this.UserAuth(res.code, suc);
+                        }
+                    })
                 });
             }
         });
@@ -1910,9 +1924,10 @@ class PlayLoop extends Base {
         this._spotsAllTracked = null;
         this._doubleState = null;
         this._changeRouteing = null;
+        this._debug = null;
         this.requireFileds = [];
         this.reqFields = [];
-        this.resFields = ["newEvent","latestEvent","freshSpots","spotsTracked","spotsAllTracked","doubleState","changeRouteing"];
+        this.resFields = ["newEvent","latestEvent","freshSpots","spotsTracked","spotsAllTracked","doubleState","changeRouteing","debug"];
     }
     //server output, type: boolean
     get newEvent() {return this._newEvent}
@@ -1935,6 +1950,9 @@ class PlayLoop extends Base {
     //server output, type: boolean//是否正在修改路线
     get changeRouteing() {return this._changeRouteing}
     set changeRouteing(v) {this._changeRouteing = v}
+    //server output, type: KV[]
+    get debug() {return this._debug}
+    set debug(v) {this._debug = v}
 }
 class TestStartGame extends Base {
     constructor() {
