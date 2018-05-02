@@ -15,10 +15,14 @@
   <view class="tips font fs" wx:if="{{tabFour}}">明信片可用于与好友通信</view>
   <view class="line"></view>
 
-  <view id="one-list" class="f-c-fs sc">
-    <view class="one-item f-r-fs " wx:if="{{tabOne && rentProp}}" wx:for="{{rentProp}}" wx:key="{{index}}">
+  <scroll-view id="one-list" scroll-y class="f-c-fs sc" wx:if="{{tabOne && rentProp}}">
+    <view class="one-item f-r-fs auto-height" wx:for="{{rentProp}}" wx:key="{{index}}">
       <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/props/{{item.image}}"></image>
-      <text class="one-i-str font">{{item.propsname}}</text>
+      <!-- <text class="one-i-str font">{{item.propsname}}</text> -->
+      <view class="f-c-sb two-mid">
+        <text class="two-mid-top-str font fs">{{item.propsname}}</text>
+        <text class="two-mid-bot-str font fs">{{item.rechargedescription}}</text>
+      </view>
       <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{daoju[index]}}'>
         <view class='gold-num font font-c'>{{index==rentProp.length-1?"已购买":"已租用"}}</view> 
       </view> 
@@ -27,7 +31,7 @@
         <text class='gold-num font'>{{item.price}}</text>
       </view> 
     </view>
-  </view>
+  </scroll-view>
 
   <scroll-view id="two-list" scroll-y class="f-c-fs sc" wx:if="{{tabTwo}}">
     <view class="one-item f-r-fs " wx:if="{{speArr}}" wx:for='{{speArr}}' wx:key='{{index}}'>

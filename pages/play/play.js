@@ -23,6 +23,7 @@ let display;
 let music;
 let reGoin = 0; //重新进入页面
 let citysName;
+let anmTimer;
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -87,6 +88,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    anmIdx: 0,
+    flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png','flower_19.png','flower'],
     present: false,//第二次進入的城市送車
     trans: '',
     hua: 'hua-lf',
@@ -274,11 +277,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // anmTimer = setInterval(()=>{
+    //   this.setData({
+    //     anmIdx: this.data.anmIdx < this.data.flower.length - 3 ? this.data.anmIdx+1 :0
+    //   })
+    // },200)
+    if (this.data.showCancelDouble) {
+      wx.showToast({
+        title: '双人旅行需被邀请人规划路线',
+        icon: 'none'
+      })
+    }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    if ( app.globalData.hasCar) this.updateLines();
+    if ( app.globalData.hasCar) this.updateLines(true);
   },
 
   /**
@@ -364,17 +378,17 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
-    let carCls = roleMe._carCls;//用于显示汽车的类
+    let carImg = roleMe._carImg;//用于显示汽车的类
     if ( this.data.roleMe.display!=0) {
       roleFriend = null;
 
       if (this.data.partener) {
           //双人
-          carCls += 's-';
+          carImg += 's_';
       }
       else {
           //单人
-          carCls += 'd-';
+          carImg += 'd_';
       }
     }
     if (len > 0) {
@@ -430,43 +444,51 @@ Page({
           roleFriend.scale = roleMe.scale;
       }
 
-      if (carCls) {
+      if (carImg) {
+          roleMe.scale = 1;
           //计算车的朝向，车资源是8方向的，按顺时针，12点方向编号0，每45度编号增1，资源编号0-7
           let carRotation = (roleTrackingAngle * 180 / Math.PI + 360) % 360;//将弧度修正到0-360角度内
-          if ( DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
-              carCls += '0'
+          if (planedFinished) {
+              let dir = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? '2' : '4'
+              carImg += dir;//景点完成后使用平视图
+          }
+          else if ( DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
+              carImg += '0'
           }
           else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
-              carCls += '1';
+              carImg += '1';
           }
           else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
-              carCls += '2';
+              carImg += '2';
           }
           else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
-              carCls += '3';
+              carImg += '3';
           }
           else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
-              carCls += '4';
+              carImg += '4';
           }
           else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
-              carCls += '5';
+              carImg += '5';
           }
           else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
-              carCls += '6';
+              carImg += '6';
           }
           else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
-              carCls += '7';
+              carImg += '7';
           }
 
-          roleMe.roleCls = carCls;
+          roleMe.img = carImg + '.png';
 
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
-       this.setData({ lines, roleMe, planedFinished });
     }
     else {
-      this.setData({ lines: null, 'roleMe.walkCls': '' })
+        roleMe.walkCls = '';
+        if (carImg) {
+            roleMe.img = carImg + '2.png';
+        }
+      this.setData({ lines: null, roleMe })
     }
 
   },
@@ -505,8 +527,7 @@ Page({
     if(num == this.data.spots.length-1) {
       wx.showToast({
         title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none',
-        mask: true
+        icon: 'none'
       });
       return
     }
@@ -545,8 +566,7 @@ Page({
     if (this.data.changeRouteing && this.data.partener) {
         wx.showToast({
             title: '对方正在修改路线',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
         return;
     }
@@ -557,8 +577,7 @@ Page({
         if (!this.data.partener.isInviter && !this.data.spotsAllTracked) {
           wx.showToast({
             title: '请等待被邀请者规划路线',
-            icon: 'none',
-            mask: true
+            icon: 'none'
           });
           return;
         }
@@ -608,7 +627,7 @@ Page({
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
       obj.walkCls = '';
-      obj._carCls = '';
+      obj._carImg = '';
       obj.wd = 34;
       obj.ht = 81;
       obj.clipNum = 6;//动画帧数
@@ -633,24 +652,27 @@ Page({
       obj.scale = 1;
       if (obj.display == 1) {
         obj.wd = 150;
-        obj.ht = 69;
+        obj.ht = 150;
         obj.img += 'haohua.png';
         obj.roleCls = 'play-role-haohua';
-        obj._carCls = 'play-role-haohua-';
+        obj._carImg = resRoot + '/che/haohua_';
+        // obj._carCls = 'play-role-haohua-';
         obj._walkCls = '';
       } else if (obj.display == 2) {
         obj.wd = 118;
         obj.ht = 92;
         obj.img += 'shangwu.png';
         obj.roleCls = 'play-role-shangwu';
-        obj._carCls = 'play-role-shangwu-';
+        obj._carImg = resRoot + '/che/shangwu_';
+        // obj._carCls = 'play-role-shangwu-';
         obj._walkCls = '';
       } else if (obj.display == 3) {
         obj.wd = 109;
         obj.ht = 63;
         obj.img += 'jingji.png';
         obj.roleCls = 'play-role-jingji';
-        obj._carCls = 'play-role-jingji-';
+        obj._carImg = resRoot + '/che/jingji_';
+        // obj._carCls = 'play-role-jingji-';
         obj._walkCls = '';
       }
 
@@ -886,8 +908,7 @@ Page({
       wx.showToast(
         {
           title: '请先规划路线',
-          icon: 'none',
-          mask: true
+          icon: 'none'
         })
       return;
     }
@@ -931,8 +952,7 @@ Page({
             //已经在路线中了
             wx.showToast({
                 title: '路线规划不可前往相同景点',
-                icon: 'none',
-                mask: true
+                icon: 'none'
             });
         }
     }
@@ -944,8 +964,7 @@ Page({
     else if(this.data.planedSpots.length) {
         wx.showToast({
             title: '未到达此景点无法观光',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
 
     }
@@ -953,8 +972,7 @@ Page({
         //没有到过，也没有路线，那应该是刚进入这个城市
         wx.showToast({
             title: '请先点击“规划路线”进行路线添加',
-            icon: 'none',
-            mask: true
+            icon: 'none'
         })
     }
   },

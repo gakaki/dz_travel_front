@@ -41,7 +41,7 @@
 
 .one-item {
   width: 710rpx;
-  height: 140rpx;
+  height: 140rpx; 
   border-bottom: 2rpx solid #e9e8ec;
 }
 
@@ -122,7 +122,7 @@
 }
 .sc {
   position: fixed;
-  top: 235rpx;
+  top: 243rpx;
   bottom: 0;
   left: 0;
   right: 0;
@@ -134,4 +134,7 @@
 }
 .postCard-name{
   margin-top: 0;
+}
+.auto-height{
+  height: auto;
 }

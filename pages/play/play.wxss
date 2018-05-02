@@ -23,51 +23,20 @@
   border-style: dotted;
 }
 
-.play-role-nan {
-  width: 36rpx;
-  height: 81rpx;
+.play-role {
   background-repeat: no-repeat;
   overflow: visible;
 }
 
-.play-role-nv {
-  width: 34rpx;
-  height: 81rpx;
-  background-repeat: no-repeat;
-  overflow: visible;
-}
-
-.play-role-haohua {
-  width: 150rpx;
-  height: 69rpx;
-  background-repeat: no-repeat;
-  overflow: visible;
-}
-
-.play-role-shangwu {
-  width: 118rpx;
-  height: 92rpx;
-  background-repeat: no-repeat;
-  overflow: visible;
-}
-
-.play-role-jingji {
-  width: 109rpx;
-  height: 63rpx;
-  background-repeat: no-repeat;
-  overflow: visible;
-}
 
 @keyframes role-clip-nan {
   100% {
-    /*background-position: -218rpx 0;*/
     background-position: right 0;
   }
 }
 
 @keyframes role-clip-nv {
   100% {
-    /*background-position: -196rpx 0;*/
     background-position: right 0;
   }
 }
@@ -535,4 +504,12 @@ line-height: 80rpx;
   100%{
     opacity: 1;
   }
+}
+.anm {
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  position: fixed;
+  left: 0;
+  top:0;
 }

@@ -1,4 +1,4 @@
-`<!--pages/play2/pops/eventQuest.wxml-->
+<!--pages/play2/pops/eventQuest.wxml-->
 <!--选项-->
 <view class="dialog_question" wx:if="{{!showResult}}">
     <view class="pic-box">
