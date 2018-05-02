@@ -31,10 +31,10 @@
       <text class="play-spot-idx flex" wx:if="{{ planing && item.index > -1}}">{{item.index + 1}}</text>
     </view>
     <!--小人.组队好友-->
-    <view wx:if="{{roleFriend && !planing}}" class="{{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleFriend.scale}}) translate(-50%, -90%);">
+    <view wx:if="{{roleFriend && !planing}}" class="play-role {{roleFriend.roleCls}} {{roleFriend.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleFriend.img}});background-size:auto 100%;position:absolute;left:{{roleFriend.x * scale}}rpx;top:{{roleFriend.y * scale}}rpx;width:{{roleFriend.wd * scale}}rpx;height:{{roleFriend.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleFriend.scale}}) translate(-50%, -90%);">
     </view>
     <!--小人.自己-->
-    <view wx:if="{{roleMe && !planing}}" class="{{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
+    <view wx:if="{{roleMe && !planing}}" class="play-role {{roleMe.roleCls}} {{roleMe.walkCls}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 95%;transform:scaleX({{roleMe.scale}}) translate(-50%, -90%);">
       <!-- <image class="role-event-img" wx:if="{{ newEvent }}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image> -->
       <view class="role-event-img flex" wx:if="{{ newEvent }}" style="position: absolute; left: {{-26 * scale}}rpx;top: {{-65 * scale}}rpx;width:{{59 * scale}}rpx;height: {{59 * scale}}rpx;">
         <!-- <image class="animation" src="{{eventTipImg}}" style="width:{{10 * scale}}rpx;height: {{39 * scale}}rpx;margin-top:-5rpx;"></image> -->

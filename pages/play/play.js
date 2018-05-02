@@ -32,7 +32,16 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 1000
+const LOOP_INTERVAL = 1000;
+
+const DIR_UP = {from: 247.5, to: 292.5};
+const DIR_UP_RIGHT = {from: 292.5, to: 337.5};
+const DIR_RIGHT = {from: 337.5, to: 22.5};
+const DIR_BOTTOM_RIGHT = {from: 22.5, to: 67.5};
+const DIR_BOTTOM = {from: 67.5, to: 112.5};
+const DIR_BOTTOM_LEFT = {from: 112.5, to: 157.5};
+const DIR_LEFT = {from: 157.5, to: 202.5};
+const DIR_UP_LEFT = {from: 202.5, to: 247.5};
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -355,8 +364,18 @@ Page({
     //update role pos
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
+    let carCls = roleMe._carCls;//用于显示汽车的类
     if ( this.data.roleMe.display!=0) {
       roleFriend = null;
+
+      if (this.data.partener) {
+          //双人
+          carCls += 's-';
+      }
+      else {
+          //单人
+          carCls += 'd-';
+      }
     }
     if (len > 0) {
 
@@ -409,6 +428,38 @@ Page({
           roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
           roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
           roleFriend.scale = roleMe.scale;
+      }
+
+      if (carCls) {
+          //计算车的朝向，车资源是8方向的，按顺时针，12点方向编号0，每45度编号增1，资源编号0-7
+          let carRotation = (roleTrackingAngle * 180 / Math.PI + 360) % 360;//将弧度修正到0-360角度内
+          if ( DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
+              carCls += '0'
+          }
+          else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
+              carCls += '1';
+          }
+          else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
+              carCls += '2';
+          }
+          else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
+              carCls += '3';
+          }
+          else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
+              carCls += '4';
+          }
+          else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
+              carCls += '5';
+          }
+          else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
+              carCls += '6';
+          }
+          else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
+              carCls += '7';
+          }
+
+          roleMe.roleCls = carCls;
+
       }
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
@@ -556,7 +607,8 @@ Page({
     if (obj.display == 0) {
       obj.img = resRoot; //如果租的有车，则换成车
       obj.roleCls = '';
-      obj.walkCls = ''
+      obj.walkCls = '';
+      obj._carCls = '';
       obj.wd = 34;
       obj.ht = 81;
       obj.clipNum = 6;//动画帧数
@@ -584,18 +636,21 @@ Page({
         obj.ht = 69;
         obj.img += 'haohua.png';
         obj.roleCls = 'play-role-haohua';
+        obj._carCls = 'play-role-haohua-';
         obj._walkCls = '';
       } else if (obj.display == 2) {
         obj.wd = 118;
         obj.ht = 92;
         obj.img += 'shangwu.png';
         obj.roleCls = 'play-role-shangwu';
+        obj._carCls = 'play-role-shangwu-';
         obj._walkCls = '';
       } else if (obj.display == 3) {
         obj.wd = 109;
         obj.ht = 63;
         obj.img += 'jingji.png';
         obj.roleCls = 'play-role-jingji';
+        obj._carCls = 'play-role-jingji-';
         obj._walkCls = '';
       }
 
