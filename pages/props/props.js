@@ -291,8 +291,8 @@ Page({
       tabTwo: true,
       tabThree: false,
       tabFour: false,
-      tabType:1
-      // maimai: '购买'
+      tabType:1,
+       maimai: '购买'
     })
 
     let req = new CitySpes();
@@ -328,7 +328,6 @@ Page({
       tabTwo: false,
       tabThree: false,
       tabFour: true,
-      maimai: '售卖',
       tabType:3
     })
 
