@@ -1,8 +1,8 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page" catchtap='hideHuadong'>
-<!-- <image src="https://gengxin.odao.com/update/h5/travel/play/animation/{{flower[flower.length-1]}}/{{flower[anmIdx]}}" class="anm"></image> -->
+   <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/animation/{{flower[flower.length-1]}}/{{flower[anmIdx]}}" class="anm"></image> -->
   <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
-  <cfm outer-class="fc" bindtoclose="hidePopss" content="已点亮城市,可飞往其他城市旅行" bind:confirm="toCfms" wx:if="{{taskdonePop}}" cancelStr="留在本城" cfmStr="起飞旅行" isBuy="{{false}}"></cfm>
+  <cfm outer-class="fc" bindtoclose="hidePopss" content="{{finishedTip}}" bind:confirm="toCfms" wx:if="{{taskdonePop}}" cancelStr="留在本地" cfmStr="起飞旅行" isBuy="{{false}}"></cfm>
   <view class="pop-bg" wx:if="{{present}}">
     <view class=" play-first-in f-c-fs bs">
       <text class="gray-font paly-gray-font">免费赠送一次豪华自驾车租用体验</text>
@@ -14,6 +14,7 @@
   </view>
   <!--地图-->
   <scroll-view id="play-map" scroll-x="{{true}}" scroll-y="{{true}}" scroll-with-animation='{{true}}' bind:tap="touchMap">
+ 
     <!--背景地图-->
     <image src='{{mapBg}}' style='position:absolute;top:0;left:0; height:{{ mapHeight * scale }}rpx; width:{{ mapWidth * scale }}rpx'></image>
     <!--路径-->

@@ -76,7 +76,7 @@ App({
     picBase: "https://gengxin.odao.com/update/h5/travel/",
     noNetwork: false,
     defaultAvatar: "https://gengxin.odao.com/update/h5/travel/common/default.png",
-
+    curPlanedFinishedNum: 0,//当前规划路线游玩结束中游玩的景点数
     debug: {
       share: true
     }

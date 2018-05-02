@@ -24,6 +24,8 @@ let music;
 let reGoin = 0; //重新进入页面
 let citysName;
 let anmTimer;
+let curPlanedFinished = true;//走完规划完的路线
+// let curPlanedFinishedNum = 0;//规划完的路线的数量
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -79,6 +81,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    finishedTip: '已点亮城市,可飞往下一城市旅行',
     anmIdx: 0,
     flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png','flower_19.png','flower'],
     present: false,//第二次進入的城市送車
@@ -270,7 +273,7 @@ Page({
   onShow: function () {
     // anmTimer = setInterval(()=>{
     //   this.setData({
-    //     anmIdx: this.data.anmIdx < this.data.flower.length - 3 ? this.data.anmIdx+1 :0
+    //     anmIdx: this.data.anmIdx < this.data.flower.length - 2 ? this.data.anmIdx+1 :0
     //   })
     // },200)
     if (this.data.showCancelDouble) {
@@ -293,6 +296,9 @@ Page({
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     reGoin = 0
     this.hideHuadong()
+    clearInterval(anmTimer)
+    // curPlanedFinishedNum = 0
+    curPlanedFinished = true
   },
 
   /**
@@ -301,6 +307,9 @@ Page({
   onUnload: function () {
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     reGoin = 0
+    clearInterval(anmTimer)
+    // curPlanedFinishedNum = 0
+    curPlanedFinished = true
   },
 
   /**
@@ -395,6 +404,11 @@ Page({
       }
       if (trackedNum == spots.length) {
         planedFinished = true;
+        if (app.globalData.curPlanedFinishedNum != trackedNum) {
+          app.globalData.curPlanedFinishedNum = trackedNum
+          curPlanedFinished = false
+        }
+        // if (curPlanedFinishedIdx == 1) curPlanedFinished = false
         //规划的路线已经走完
         roleMe.walkCls = '';
         if ( this.data.roleMe.display!=0) {
@@ -427,6 +441,7 @@ Page({
 
       this.setData({ lines, roleMe, roleFriend, planedFinished });
        this.setData({ lines, roleMe, planedFinished });
+
     }
     else {
       this.setData({ lines: null, 'roleMe.walkCls': '' })
@@ -684,21 +699,42 @@ Page({
       taskPer: rel * 100
     })
     if (rel == 1) {
-      try {
-        let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
-        if (value) {
-          return
-        }else {
-          try {
-            wx.setStorageSync('cid' + this.data.cid, this.data.cid)
-          } catch (e) {
-          }
-        }
-      } catch (e) {
+      // try {
+      //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
+      //   if (value) {
+      //     return
+      //   }else {
+      //     try {
+      //       wx.setStorageSync('cid' + this.data.cid, this.data.cid)
+      //     } catch (e) {
+      //     }
+      //   }
+      // } catch (e) {
+      // }
+      if (this.data.task['spot'][0] == 6 ) {
+        this.setData({
+          finishedTip: '已点亮城市，可前往下一城市旅行',
+          taskdonePop: true
+        })
+        curPlanedFinished = true
       }
-      this.setData({
-        taskdonePop: true
-      })
+      if (this.data.task['spot'][0] > 6 ) {
+        this.setData({
+          finishedTip: '规划路线已走完，可以飞往下一城市',
+          taskdonePop: true
+        })
+        curPlanedFinished = true
+      }
+      
+    }else {
+      if (this.data.task['spot'][0] < 6 && this.data.planedFinished && !curPlanedFinished) {
+        wx.showToast({
+          title: '规划路线已走完，还未完成任务，可添加路线',
+          icon: 'none'
+        })
+        curPlanedFinished = true
+      }
+     
     }
   },
 
