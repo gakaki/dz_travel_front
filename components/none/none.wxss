@@ -17,7 +17,7 @@
 }
 .content-t {
   font: bold 34rpx/1  'Microsoft YaHei';
-  color: #878689;
+  color: #000;
 }
 .content-c {
   margin: 24rpx 0 132rpx;
