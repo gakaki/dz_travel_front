@@ -129,6 +129,7 @@ Page({
     req.page = page;
     req.fetch().then(() => { 
       console.log(req.ranks,'ranks')
+      if(!req.ranks.length) return;
       ranks = ranks.concat(req.ranks).map(o=>{
         let nickName;
         if(o.userInfo.nickName.length>8){
