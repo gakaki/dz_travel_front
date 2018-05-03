@@ -323,14 +323,18 @@ Page({
       thissetData({
         invited: true
       })
+    }else {
+      this.setData({
+        invited: false
+      })
     }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
     if (app.globalData.hasCar) {
-      this.freshSpots()
-      // this.updateLines(true)
+       this.freshSpots()
+      this.updateLines(true)
     }
     let m = new CheckGuide();
     m.fetch().then(res => {
@@ -523,6 +527,7 @@ Page({
           carImg += '3';
         }
         else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
+          console.log(carRotation)
           carImg += '4';
         }
         else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
