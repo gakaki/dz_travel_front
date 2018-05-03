@@ -5,7 +5,7 @@ const sheet = require('../../sheets.js');
 let app = getApp();
 let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
-let preventCrazyClick = false
+let preventCrazyClick = false;
 Page({
 
   /**
@@ -26,6 +26,7 @@ Page({
     showHelp:false,
     title: '达人排行榜规则',
     id:5,
+    noRank:false,
     noReward:false,
     isFriend:false,
     isFirst: false
@@ -82,6 +83,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    console.log('hideeeeeee')
     this.resetInfo();
     preventCrazyClick = false;
     rankType = RankType.THUMBS; 
@@ -92,7 +94,8 @@ Page({
       toView: 'rank0',
       noReward: false,
       isFriend: false,
-      isFirst: false
+      isFirst: false,
+      noRank: false
     })
   },
 
@@ -100,6 +103,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log('unloadddddd')
     this.resetInfo();
     preventCrazyClick = false;
     rankType = RankType.THUMBS; 
@@ -110,7 +114,8 @@ Page({
       toView: 'rank0',
       noReward: false,
       isFriend: false,
-      isFirst: false
+      isFirst: false,
+      noRank: false
     })
   },
 
@@ -119,6 +124,11 @@ Page({
     page = 1;
     ranks = [];
     topThree = [];
+    this.setData({
+      topThree: [],
+      rankingCountry: [],
+      rankingFriend: [],
+    })
   },
 
   getRankInfo() {
@@ -129,7 +139,16 @@ Page({
     req.page = page;
     req.fetch().then(() => { 
       console.log(req.ranks,'ranks')
-      if(!req.ranks.length) return;
+      if (page == 1 && !req.ranks.length) {
+        this.setData({
+          noRank: true
+        })
+      }
+      if(!req.ranks.length){
+        preventCrazyClick = false;
+        return;
+      }
+      
       ranks = ranks.concat(req.ranks).map(o=>{
         let nickName;
         if(o.userInfo.nickName.length>8){
@@ -224,6 +243,12 @@ Page({
       })
     }
     this.resetInfo()
+    this.getRankInfo();
+  },
+
+  getNextPage() {
+    if (preventCrazyClick) return;
+    preventCrazyClick = true;
     this.getRankInfo();
   },
 

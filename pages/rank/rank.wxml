@@ -33,7 +33,7 @@
       </view>
     </view>
   </view>
-  <scroll-view scroll-y class="rank-other {{rankSubtype==1 ? '' : 'friend'}}" scroll-into-view="{{toView}}" bindscrolltolower="getRankInfo" lower-threshold="100">
+  <scroll-view scroll-y class="rank-other {{rankSubtype==1 ? '' : 'friend'}}" scroll-into-view="{{toView}}" bindscrolltolower="getNextPage" lower-threshold="100">
     <view id="rank{{index}}" class="person-info f-r-sb" wx:for="{{rankSubtype==1 ? rankingCountry : rankingFriend}}" wx:key="{{index}}">
       <view class="f-r-sb">
         <text class="ranking">{{item.rank}}</text>
@@ -88,7 +88,7 @@
     </view>
   </view>
   <image class="cut-off" src="https://gengxin.odao.com/update/h5/travel/index/separatrix.png"></image>
-  <view class="f-c no-rank" wx:if="{{!topThree.length && !isFriend}}">
+  <view class="f-c no-rank" wx:if="{{noRank && !isFriend}}">
     <image class="help no-rank-help" src="https://gengxin.odao.com/update/h5/travel/rank/tip.png" bindtap='showHelp'></image>
     <image class="no-rank-icon" src="https://gengxin.odao.com/update/h5/travel/rank/no-rank.png"></image>
     <view class="tip-con">暂无排名</view>
