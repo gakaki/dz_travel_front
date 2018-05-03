@@ -65,6 +65,9 @@ Component({
     notDo() {
       this.triggerEvent('notDo')
     },
+    hide() {
+      this.triggerEvent('hide')
+    },
     toCfm(e) {
       if (app.preventMoreTap(e)) return;
       this.triggerEvent('confirm')

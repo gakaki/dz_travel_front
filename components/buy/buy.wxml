@@ -1,4 +1,4 @@
-<view class="bg flex">
+<view class="bg flex" catchtap='hide'>
   <view class="con f-c-fs {{isBuy ? '' : 'tip'}} {{desc?'':'smallCon'}}" catchtap='notDo'>
     <view wx:if="{{isBuy}}" class="f-r-fs car-top">
       <image class="one-pic pop-car" src="{{picUrl}}"></image>

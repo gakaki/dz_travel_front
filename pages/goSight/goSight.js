@@ -50,9 +50,9 @@ Page({
     cid = options.cid
     spotName = options.name
 
-    // music = wx.createInnerAudioContext()
-    // music.autoplay = false
-    // music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/photograph.mp3'
   },
   onShow() {
     let req = new ReqEnterspot()
@@ -203,7 +203,7 @@ Page({
     req.cid = cid;
     req.spotId = pointId
     req.fetch().then(req => {
-      // music.play()
+      music.play()
       this.setData({
         isGetPost: true,
         freePhoto: req.freePhoto,
@@ -223,8 +223,7 @@ Page({
       if (code == Code.EXCEED_COUNT) {
         wx.showToast({
           title: '每个景点只能拍照一次',
-          icon: 'none',
-          mask: true
+          icon: 'none'
         })
         return
       }

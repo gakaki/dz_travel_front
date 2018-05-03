@@ -67,7 +67,18 @@
   border: 2rpx solid #fc6161;
   margin-right: 20rpx;
 }
-
+.xg-box {
+  position: relative
+}
+.xiangou {
+  position: absolute;
+  left: 50%;
+  bottom: -30rpx;
+  transform: translateX(-50%);
+  font: bold 22rpx 'Microsoft YaHei';
+  color: rgba(0,0,0,0.4);
+  white-space:nowrap;
+}
 .one-i-price-c {
   border-color: #278cff;
 }
