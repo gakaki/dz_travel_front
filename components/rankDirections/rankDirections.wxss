@@ -1,6 +1,9 @@
 @import '/app.wxss';
 .scroll{
-  height: 720rpx;
+  position: absolute;
+  top: 110rpx;
+  bottom: 160rpx;
+  width: 100%;
 }
 .wrap{
   width: 610rpx;
@@ -18,7 +21,7 @@
 }
 .title{
   width: 100%;
-  font: bold 36rpx 'Microsoft Yahei';
+  font: bold 38rpx 'Microsoft Yahei';
   color: #000;
   margin: 30rpx 0;
 }
@@ -32,7 +35,7 @@
 }
 
 .number , .direction{
-  font: bold 24rpx 'Microsoft Yahei';
+  font: bold 28rpx 'Microsoft Yahei';
 }
 
 .btn{
