@@ -345,7 +345,7 @@
 
 .up-time{
   font: bold 24rpx 'Microsoft Yahei';
-  color: #b0afb3;
+  color: rgba(0,0,0,0.6);
   margin-top: 20rpx;
 }
 
