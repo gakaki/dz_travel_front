@@ -3,13 +3,18 @@
   <view class="title flex {{helpId==2?'nomb': ''}}">
     <text>{{title}}</text>
   </view>
-  <text class="rule fs" wx:if="{{helpId==2}}">本地游玩规则：</text>
-  <view class="content" wx:for="{{con}}" wx:key="{{index}}">
-    <view class="number" wx:if="{{showNum}}">{{index+1}}.</view> 
-    <view class="direction">
-      <text>{{item}}</text>
+  <scroll-view class="scroll" scroll-y> 
+    <view class="content" wx:for="{{con}}" wx:key="{{index}}">
+      <view class="number" wx:if="{{showNum}}">{{index+1}}.</view> 
+      <view class="direction" wx:if="{{helpId==2}}">
+        <text wx:for="{{item}}" wx:key="{{index}}" style="color:{{item.color}}">{{item.txt}}</text>
+      </view>
+      <view class="direction" wx:else>
+        <text>{{item}}</text>
+      </view>
     </view>
-  </view>
+  </scroll-view> 
+  
   <view class="btn" bindtap='confirm'>
     确定
   </view>

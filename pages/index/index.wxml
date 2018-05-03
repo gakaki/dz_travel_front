@@ -1,6 +1,6 @@
 <!--pages/index/index.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-<launch class='launch' wx:if='{{launch}}'></launch> 
+<launch class='launch' wx:if='{{launch}}'></launch>  
 <block wx:else>
   <view class='wrap'>
   <view class="info f-r-sb">
