@@ -95,8 +95,8 @@ Page({
     anmIdx: 0,
     flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png', 'flower_19.png', 'flower'],
     present: false,//第二次進入的城市送車
-    trans: 'zheng',
-    hua: 'hua-rgt',
+    trans: '',
+    hua: 'hua-lf',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -571,6 +571,9 @@ Page({
 
   //添加或修改路线
   xiugaiLine() {
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     if (this.data.planedFinished || !this.data.started) {
       this.chgLine()
       return
@@ -1208,7 +1211,9 @@ Page({
   },
 
   popMissionInfo() {
-
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     let req = new FreshSpots();
     req.fetch().then(() => {
       this.setData({ task: req.task })

@@ -213,6 +213,7 @@ weather.sights {
   height: 209rpx;
   width: 209rpx;
   transition: right 0.3s linear;
+  z-index: 100
 }
 
 .hua-rgt {
@@ -240,7 +241,7 @@ weather.sights {
   right: 0;
   height: 82rpx;
   width: 148rpx;
-  z-index: 22
+  
 }
 
 .missionText {

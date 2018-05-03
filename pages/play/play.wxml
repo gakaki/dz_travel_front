@@ -96,7 +96,6 @@
         <text class="fontWhite changeLineMoney font font26" wx:if="{{started && !planedFinished}}">$100</text>
       </view>
     </view>
-<!-- <image wx:if="{{!hasPlay}}"  src="https://gengxin.odao.com/update/h5/travel/play/guide.png" class="guide"></image> -->
 <view class="pop-bg guide" wx:if="{{!hasPlay}}">
 <image  src="https://gengxin.odao.com/update/h5/travel/play/event-guide.png" class="event-guide"></image>
 <image  src="https://gengxin.odao.com/update/h5/travel/play/play-guide.png" class="play-guide"></image>
