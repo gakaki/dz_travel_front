@@ -1,7 +1,7 @@
 // pages/index/index.js
 import { shareToIndex, redGold, addGold } from '../../utils/util.js'
 import { start, ymd } from '../../utils/rest.js';
-import { SignInfo, Base, IndexInfo, Http, LookTicket, Season, TicketType, CheckMsgCnt, CheckCode, Code } from '../../api.js';
+import { SignInfo, Base, IndexInfo, Http, LookTicket, Season, TicketType, CheckMsgCnt, CheckCode, Code, SendMockId } from '../../api.js';
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
@@ -428,6 +428,15 @@ Page({
     })
   },
 
+  //推送相关
+  sendMockId(e) {
+    console.log(e,'formId')
+    let mock = new SendMockId();
+    mock.formId = e.detail.formId;
+    mock.fetch().then(()=>{
+      console.log('aaaaaa')
+    })
+  },
 
   //监听组件事件
   _sign() {

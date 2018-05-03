@@ -18,7 +18,7 @@
     <view class='pd'>本期积分兑换</view>
   </view>
   <view class='exchange bs'>
-    <view class="items {{index==shops.length-1 ? 'last-item' : ''}}" bindtap='toDetail' data-id='{{item.id}}' data-remaining='{{item.remaining}}' wx:for="{{shops}}" wx:key="{{index}}">
+    <view class="items {{(index+1)%3==0 ? 'last-item' : ''}}" bindtap='toDetail' data-id='{{item.id}}' data-remaining='{{item.remaining}}' wx:for="{{shops}}" wx:key="{{index}}">
       <view>
         <image class='goods-tu' wx:if='{{item.pic}}' src="https://gengxin.odao.com/update/h5/travel/exchange/{{item.pic}}"></image>            
       </view>
