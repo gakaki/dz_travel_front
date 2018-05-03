@@ -1,4 +1,5 @@
 /* pages/play2/pops/eventNormal.wxss */
+@import "/app.wxss";
 .evt-con {
     width: 612rpx;
     /* min-height: 880rpx; */
@@ -59,4 +60,18 @@
     line-height: 94rpx;
     color: #fff;
     text-align: center;
+}
+
+.close{
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  z-index: 10;
+}
+
+.icon-close{
+  height: 27rpx;
+  width: 27rpx;
 }

@@ -45,7 +45,30 @@ Component({
   },
 
   attached() {
-    let help = sheet.Help.Get(this.properties.helpId).help.split("\\n")
+    let help = sheet.Help.Get(this.properties.helpId).help.split("\\n");
+    if (this.properties.helpId==2){
+      let colorText = [];
+      help.forEach((o) => {
+        let item = [];
+        var content = o.split('|');
+        content.forEach(function (itm) {
+          let obj = {};
+          let info = itm.split(';#');
+          obj.txt = info[0]
+          if (info.length > 1) {
+            obj.color = '#' + info[1]
+          }
+          else {
+            obj.color = ''
+          }
+          if (obj.txt) {
+            item.push(obj)
+          }
+        })
+        colorText.push(item)
+      })
+      help = colorText;
+    }
     
     this.setData({
       con: help

@@ -1,6 +1,9 @@
 <!--pages/play2/pops/eventNormal.wxml-->
 <wxs src="../../../filter/tools.wxs" module="tools"></wxs>
 <view class="evt-con">
+<view class="close flex" bindtap='close'>
+  <image class="icon-close" src="https://gengxin.odao.com/update/h5/travel/play/chacha.png"></image>
+</view>
 <view class="pic-box">
     <image class="point-pic" src="{{picture}}"></image>
     <text class="ten font">{{current}}/{{total}}</text>

@@ -54,6 +54,7 @@ Page({
     let messages = new GetMessage()
     messages.page = page
     messages.fetch().then((req) => {
+      if(!req.messages.length) return;
       page++
       message = message.concat(req.messages)
       this.setData({

@@ -44,6 +44,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+  // let test = 'dsfasfds(aaa,#ccc)dsfdsfgd(dfgdfsgdfs,#f6f6f6)hjkljkljj'
+  // let reg = /\(.*?\)/
+  // let as = []
+  //  while(reg.test(test)){
+  //    let r = test.match(reg)[0]
+  //    as.push(r)
+  //    test = test.replace(r,"")
+  //  }
+  //  console.log(as)
+   
     let that = this;
     enterOnload = true;
     wx.getNetworkType({

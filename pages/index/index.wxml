@@ -1,6 +1,6 @@
 <!--pages/index/index.wxml-->
-
-<launch class='launch' wx:if='{{launch}}'></launch> 
+<wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+<launch class='launch' wx:if='{{launch}}'></launch>  
 <block wx:else>
   <view class='wrap'>
   <view class="info f-r-sb">
@@ -10,7 +10,7 @@
       </view>
       <view class="person-info f-c">
         <view class="name">
-           <text class="font">{{nickName}}</text>
+           <text class="font">{{tools.filterNickname(nickName)}}</text>
         </view>
         <view class="gold-info flex" bindtap='toShop'>
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
@@ -21,7 +21,7 @@
     </view>
     <view class="location">
       <view class='font'>
-        <text class="city" wx:if="{{location}}">{{location}}</text>
+        <text class="city" wx:if="{{location}}">{{location}}</text> 
         <text class="today">{{date}}</text>
       </view>
       <view class="font f-r-fe tianqi">

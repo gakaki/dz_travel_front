@@ -65,6 +65,9 @@ Component({
           let isShowGX = req.type == 3 ? true : false;
           this.setData({ rewards, correct, isShowGX, showResult: true, choice});
         })
+      },
+      close() {
+        this.triggerEvent('hide')
       }
   },
  

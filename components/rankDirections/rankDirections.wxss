@@ -1,5 +1,7 @@
 @import '/app.wxss';
-
+.scroll{
+  height: 720rpx;
+}
 .wrap{
   width: 610rpx;
   background-color: #fff;

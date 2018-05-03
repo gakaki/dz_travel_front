@@ -31,7 +31,6 @@
 }
 
 .name{
-  max-width: 290rpx;
   overflow: hidden;
   white-space: nowrap;
 }
