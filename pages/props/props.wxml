@@ -43,9 +43,10 @@
       <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{item.limitNum == 0}}'>
         <view class='gold-num font font-c'>已售空</view> 
       </view>
-      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" wx:else data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
+      <view class="one-i-price f-r-fs xg-box" data-prop-id="{{item.propId}}" wx:else data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.price}}</text>
+        <text class="xiangou" wx:if="{{item.limitNum>0}}">限购{{item.limitNum}}个</text>
       </view>
     </view>
   </scroll-view>
