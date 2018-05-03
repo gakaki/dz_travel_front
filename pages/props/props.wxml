@@ -10,12 +10,15 @@
   <view class="my-gold">
     <mygold goldNum="{{myGold}}"></mygold>
   </view>
-  <view class="tips font fs" wx:if="{{tabOne}}">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</view>
+  <view class="tips font f-c-fs fs" wx:if="{{tabOne}}">
+  <text class="fs">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</text>
+  <text class="fs">同类型道具租赁效果不叠加</text>
+  </view>
   <view class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随时间和市场变动</view>
   <view class="tips font fs" wx:if="{{tabFour}}">明信片可用于与好友通信</view>
   <view class="line"></view>
 
-  <scroll-view id="one-list" scroll-y class="f-c-fs sc" wx:if="{{tabOne && rentProp}}">
+  <scroll-view id="one-list" scroll-y class="f-c-fs sc first-sc" wx:if="{{tabOne && rentProp}}">
     <view class="one-item f-r-fs auto-height" wx:for="{{rentProp}}" wx:key="{{index}}">
       <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/props/{{item.image}}"></image>
       <!-- <text class="one-i-str font">{{item.propsname}}</text> -->
