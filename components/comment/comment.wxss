@@ -76,8 +76,8 @@
   width: 100%;
   text-align: center;
   margin-top: 45rpx;
-  font-size: 28rpx;
-  color: #b8b8b8;
+  font-size: 32rpx;
+  color: #000;
   font-family: 'Microsoft YaHei';
   font-weight: bold;
 }
@@ -100,7 +100,7 @@ margin: 0 auto;
   position: absolute;
   right: 30rpx;
   bottom: 11rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #278cff;
   font-family: 'Microsoft YaHei';
   font-weight: bold;
@@ -128,4 +128,8 @@ margin: 0 auto;
   top: 0;
   left: 0;
    opacity: 0 
+}
+.placeholder{
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
 }
