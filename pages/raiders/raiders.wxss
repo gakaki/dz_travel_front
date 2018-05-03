@@ -11,7 +11,7 @@
   max-height: 258rpx;
   padding: 30rpx 40rpx;
   background-color: #fff;
-  font-size: 28rpx;
+  font-size: 30rpx;
   line-height: 40rpx;
   color: #000;
 }
@@ -50,8 +50,8 @@
 }
 
 .nn {
-  font-size: 28rpx;
-  color: #000;
+  font-size: 26rpx;
+  color: rgba(0, 0, 0, 0.6);
   align-self: flex-start;
 }
 
@@ -90,15 +90,15 @@
 .item-bot {
   width: 89%;
   margin: 0 40rpx 60rpx 40rpx;
-  color: #b0afb3;
-  font: normal 24rpx 'Microsoft YaHei';
+  color: rgba(0, 0, 0, 0.8);
+  font: normal 30rpx 'Microsoft YaHei';
 }
 
 .date {
   position: absolute;
   right: 40rpx;
   bottom: 30rpx;
-  color: #b0afb3;
+  color: rgba(0, 0, 0, 0.8);
   font: normal 20rpx 'Microsoft YaHei';
 }
 .btn-icon {

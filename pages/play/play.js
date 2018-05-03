@@ -95,8 +95,8 @@ Page({
     anmIdx: 0,
     flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png', 'flower_19.png', 'flower'],
     present: false,//第二次進入的城市送車
-    trans: 'zheng',
-    hua: 'hua-rgt',
+    trans: '',
+    hua: 'hua-lf',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -323,15 +323,20 @@ Page({
       thissetData({
         invited: true
       })
+    }else {
+      this.setData({
+        invited: false
+      })
     }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    if (app.globalData.hasCar) {
-      this.freshSpots()
-      // this.updateLines(true)
-    }
+    // if (app.globalData.hasCar) {
+    this.freshAllTrackedStat();
+       this.freshSpots()
+      this.updateLines(true)
+    // }
     let m = new CheckGuide();
     m.fetch().then(res => {
       this.setData({
@@ -492,7 +497,7 @@ Page({
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
       const halfPI = Math.PI / 2;
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
-
+      roleMe.rotate = 0
 
       if (roleFriend) {
         //组队中
@@ -512,27 +517,51 @@ Page({
         }
         else if (DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
           carImg += '0'
+          if (carRotation < (DIR_UP.to-22.5)) {
+            roleMe.rotate = carRotation - (DIR_UP.to - 22.5)
+          } else roleMe.rotate = DIR_UP.to - carRotation
         }
         else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
           carImg += '1';
+          if (carRotation < (DIR_UP_RIGHT.to-22.5)) {
+            roleMe.rotate = carRotation - (DIR_UP_RIGHT.to - 22.5)
+          } else roleMe.rotate = DIR_UP_RIGHT.to - carRotation
         }
         else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
           carImg += '2';
+          if (carRotation < 360) {
+            roleMe.rotate = carRotation - 360
+          } else roleMe.rotate = DIR_RIGHT.to - carRotation
         }
         else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
           carImg += '3';
+          if (carRotation < (DIR_BOTTOM_RIGHT.to-22.5)) {
+            roleMe.rotate = carRotation - (DIR_BOTTOM_RIGHT.to - 22.5)
+          } else roleMe.rotate = DIR_BOTTOM_RIGHT.to - carRotation
         }
         else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
           carImg += '4';
+          if (carRotation < (DIR_BOTTOM.to-22.5)) {
+            roleMe.rotate = carRotation - (DIR_BOTTOM.to - 22.5)
+          } else roleMe.rotate = DIR_BOTTOM.to - carRotation
         }
         else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
           carImg += '5';
+          if (carRotation < (DIR_BOTTOM_LEFT.to-22.5)) {
+            roleMe.rotate = carRotation - (DIR_BOTTOM_LEFT.to - 22.5)
+          } else roleMe.rotate = DIR_BOTTOM_LEFT.to - carRotation
         }
         else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
           carImg += '6';
+          if (carRotation < (DIR_LEFT.to - 22.5)) {
+            roleMe.rotate = carRotation - (DIR_LEFT.to-22.5)
+          } else roleMe.rotate = DIR_LEFT.to - carRotation
         }
         else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
           carImg += '7';
+          if (carRotation < (DIR_UP_LEFT.to-25)) {
+            roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
+          } else roleMe.rotate = DIR_LEFT.to - carRotation
         }
 
         roleMe.img = carImg + '.png';
@@ -555,6 +584,15 @@ Page({
   freshAllTrackedStat() {
     let req = new PlayLoop();
     req.fetch().then(() => {
+      console.log("是否有新事件", req.newEvent);
+      if (req.newEvent) {
+        //显示事件气泡
+        let unreadEventCnt = this.data.unreadEventCnt;
+        unreadEventCnt++;
+        this.setData({ newEvent: true, unreadEventCnt });
+      } else {
+        this.setData({ newEvent: false, unreadEventCnt: 0 });
+      }
       this.data.spotsAllTracked = req.spotsAllTracked;
       if (req.spotsTracked == this.data.spotsTracked) {
         reGoin = 1//防止进页面就播放音效
@@ -571,6 +609,9 @@ Page({
 
   //添加或修改路线
   xiugaiLine() {
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     if (this.data.planedFinished || !this.data.started) {
       this.chgLine()
       return
@@ -825,14 +866,14 @@ Page({
       //   }
       // } catch (e) {
       // }
-      if (this.data.task['spot'][0] == 6) {
+      if (this.data.task['spot'][0] == 6 && !curPlanedFinished) {
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
         })
         curPlanedFinished = true
       }
-      if (this.data.task['spot'][0] > 6) {
+      if (this.data.task['spot'][0] > 6 && !curPlanedFinished) {
         this.setData({
           finishedTip: '规划路线已走完，可以飞往下一城市',
           taskdonePop: true
@@ -856,7 +897,6 @@ Page({
   freshSpots() {
     let req = new FreshSpots();
     req.fetch().then(() => {
-
       //更新人物图标
       if (req.display != display && req.display != 0) {
         display = req.display;
@@ -1209,7 +1249,9 @@ Page({
   },
 
   popMissionInfo() {
-
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     let req = new FreshSpots();
     req.fetch().then(() => {
       this.setData({ task: req.task })

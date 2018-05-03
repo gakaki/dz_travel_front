@@ -67,7 +67,18 @@
   border: 2rpx solid #fc6161;
   margin-right: 20rpx;
 }
-
+.xg-box {
+  position: relative
+}
+.xiangou {
+  position: absolute;
+  left: 50%;
+  bottom: -30rpx;
+  transform: translateX(-50%);
+  font: bold 22rpx 'Microsoft YaHei';
+  color: rgba(0,0,0,0.4);
+  white-space:nowrap;
+}
 .one-i-price-c {
   border-color: #278cff;
 }
@@ -78,11 +89,15 @@
   margin-left: 31rpx;
 }
 
+
 .gold-num {
   font-size: 28rpx;
   color: #fc6161;
   margin-left: 6rpx;
   letter-spacing: 3rpx;
+}
+.noml {
+  margin-left: 0
 }
 .font-c {
   flex: 1;
@@ -98,20 +113,20 @@
 
 .two-mid-top-str {
   margin-top: 20rpx;
-  color: #878689;
+  color: #000;
   font-size: 32rpx;
   letter-spacing: 2rpx;
 }
 
 .two-mid-bot-str {
-  color: #b0afb3;
+  color: rgba(0,0,0,0.6);
   margin-bottom: 16rpx;
-  font-size: 22rpx;
+  font-size: 24rpx;
   max-width: 300rpx;
   
 }
 .three-mid-bot-str{
-  font: normal 34rpx  'Microsoft YaHei';
+  font: normal 26rpx  'Microsoft YaHei';
   margin-bottom: 10rpx;
   color: #aaa
 }
@@ -126,6 +141,9 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+.first-sc {
+  top: 263rpx;
 }
 .fc {
   font: bold 32rpx/40rpx 'Microsoft YaHei';

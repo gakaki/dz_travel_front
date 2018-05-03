@@ -17,12 +17,12 @@
 }
 .content-t {
   font: bold 34rpx/1  'Microsoft YaHei';
-  color: #878689;
+  color: #000;
 }
 .content-c {
   margin: 24rpx 0 132rpx;
   font: bold 24rpx/1  'Microsoft YaHei';
-  color: #b0afb3;
+  color: rgba(0,0,0,0.6);
 }
 .btn-big-blue {
   margin: 0 auto;

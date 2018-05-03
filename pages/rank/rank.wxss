@@ -339,13 +339,13 @@
 
 .tip-con{
   font: bold 34rpx 'Microsoft Yahei';
-  color: #878689;
+  color: #000;
   margin-top: 60rpx;
 }
 
 .up-time{
   font: bold 24rpx 'Microsoft Yahei';
-  color: #b0afb3;
+  color: rgba(0,0,0,0.6);
   margin-top: 20rpx;
 }
 

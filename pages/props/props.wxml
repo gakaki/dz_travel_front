@@ -10,12 +10,15 @@
   <view class="my-gold">
     <mygold goldNum="{{myGold}}"></mygold>
   </view>
-  <view class="tips font fs" wx:if="{{tabOne}}">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</view>
+  <view class="tips font f-c-fs fs" wx:if="{{tabOne}}">
+  <text class="fs">旅行道具出租 ( 租用道具仅本次游玩本城期间有效 )</text>
+  <text class="fs">同类型道具租赁效果不叠加</text>
+  </view>
   <view class="tips font fs" wx:if="{{tabTwo || tabThree}}">特产售卖的价格会随时间和市场变动</view>
   <view class="tips font fs" wx:if="{{tabFour}}">明信片可用于与好友通信</view>
   <view class="line"></view>
 
-  <scroll-view id="one-list" scroll-y class="f-c-fs sc" wx:if="{{tabOne && rentProp}}">
+  <scroll-view id="one-list" scroll-y class="f-c-fs sc first-sc" wx:if="{{tabOne && rentProp}}">
     <view class="one-item f-r-fs auto-height" wx:for="{{rentProp}}" wx:key="{{index}}">
       <image class="one-pic" src="https://gengxin.odao.com/update/h5/travel/props/{{item.image}}"></image>
       <!-- <text class="one-i-str font">{{item.propsname}}</text> -->
@@ -43,9 +46,10 @@
       <view class="one-i-price f-r-fs one-i-price-c" wx:if='{{item.limitNum == 0}}'>
         <view class='gold-num font font-c'>已售空</view> 
       </view>
-      <view class="one-i-price f-r-fs" data-prop-id="{{item.propId}}" wx:else data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
+      <view class="one-i-price f-r-fs xg-box" data-prop-id="{{item.propId}}" wx:else data-idx="{{index}}" data-xg='{{item.limitNum}}' bindtap='buySpe'>
         <image class="gold-sm" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
         <text class='gold-num font'>{{item.price}}</text>
+        <text class="xiangou" wx:if="{{item.limitNum>0}}">限购{{item.limitNum}}个</text>
       </view>
     </view>
   </scroll-view>
@@ -55,6 +59,11 @@
       <image class="one-pic" wx:if="{{item.img}}" src="https://gengxin.odao.com/update/h5/travel/{{item.img}}"></image>
       <view class="f-c-sb two-mid">
         <text class="two-mid-top-str font fs">{{item.name}}</text>
+        <view class="f-r-fs fs">
+        <text class='gold-num font noml'>买入：</text>
+        <image class="gold-sm noml" src="https://gengxin.odao.com/update/h5/travel/props/gold-sm.png"></image>
+        <text class='gold-num font'>{{item.price}}</text>
+        </view>
         <text class="three-mid-bot-str fs">{{item.num}}个</text>
       </view>
       <view class="one-i-price f-r-fs" data-idx="{{index}}" bindtap='sell'>

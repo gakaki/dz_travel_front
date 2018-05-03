@@ -415,6 +415,33 @@ class Error {
     static Get(id){ return id in _data.error ? new Error(_data.error[id]) : null; }
 }
 
+class Notice {
+    constructor(d) {
+    this.cfg = d;
+    }
+
+    // 模板id
+    get Tid(){ return this.cfg.Tid; }
+
+    // 
+    get keyword1(){ return this.cfg.keyword1; }
+
+    // 
+    get keyword2(){ return this.cfg.keyword2; }
+
+    // 
+    get keyword3(){ return this.cfg.keyword3; }
+
+    // 
+    get keyword4(){ return this.cfg.keyword4; }
+
+    // 
+    get keyword5(){ return this.cfg.keyword5; }
+
+
+    static Get(id){ return id in _data.notice ? new Notice(_data.notice[id]) : null; }
+}
+
 
 exports.citys = Object.values(_data.city);
 exports.postcards = Object.values(_data.postcard);
@@ -433,6 +460,7 @@ exports.helps = Object.values(_data.help);
 exports.chatsyss = Object.values(_data.chatsys);
 exports.newusers = Object.values(_data.newuser);
 exports.errors = Object.values(_data.error);
+exports.notices = Object.values(_data.notice);
 
 
 exports.City = City;
@@ -452,3 +480,4 @@ exports.Help = Help;
 exports.Chatsys = Chatsys;
 exports.Newuser = Newuser;
 exports.Error = Error;
+exports.Notice = Notice;

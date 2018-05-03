@@ -44,7 +44,7 @@
    width: 130rpx;
   height: 130rpx;
   border-radius: 15rpx;
-  margin: 15rpx 20rpx 15rpx 15rpx;
+  margin: 0rpx 20rpx 0rpx 15rpx;
   background-color: bisque;
 }
 .fs {
@@ -102,13 +102,14 @@ font: bold 30rpx 'Microsoft YaHei';
   border-bottom: 2rpx solid #e9e8ec
 }
 .point-list {
-  height: 230rpx;
+  /* height: 230rpx; */
 }
 .point-top-rgt {
-  height: 162rpx;
+  /* height: 162rpx; */
+  padding-right: 40rpx;
 }
 .point-pic {
-  align-self: flex-start;
+  /* align-self: flex-start; */
   flex-shrink: 0
 }
 .point-name {
@@ -116,9 +117,8 @@ font: bold 30rpx 'Microsoft YaHei';
   margin-top: 16rpx;
 }
 .point-desc {
-  margin-top: 10rpx;
-  font-size: 24rpx;
-  color: #b8b8b8;
+  font-size: 26rpx;
+  color: #999999;
   line-height: 34rpx
 }
 .point-bot {

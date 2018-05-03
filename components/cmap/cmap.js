@@ -189,14 +189,19 @@ Component({
       // check if triggered double tap
       let now = Date.now();
       if (tapStamp && now - tapStamp < DOUBLE_TAP_INTERVAL) {
-        this.doubleTap();
+        this.doubleTap(e);
       }
       tapStamp = now;
     },
-    doubleTap() {
+    doubleTap(e) {
       let double = !this.data.double;
       let scale = double ? this.data.scaleRate : 1;
-      this.setData({ double, scale });
+      this.setData({
+        double,
+        scale,
+        // scrollLeft: 10000,
+        // scrollTop: 10000
+      })
     },
     tapEle(e) {
     },
