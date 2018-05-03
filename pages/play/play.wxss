@@ -240,6 +240,7 @@ weather.sights {
   right: 0;
   height: 82rpx;
   width: 148rpx;
+  z-index: 22
 }
 
 .missionText {
@@ -317,12 +318,13 @@ weather.sights {
   width: 100%;
   position: fixed;
   bottom: 0rpx;
+  z-index: 22
 }
 
 .travelTips {
   position: fixed;
-  bottom: 36rpx;
-  left: 36rpx;
+ bottom:54rpx;
+left:39rpx;
   width: 168rpx;
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
@@ -334,7 +336,7 @@ weather.sights {
 
 .travelStart, .start-icon {
   position: fixed;
-  bottom: 30rpx;
+  bottom: 48rpx;
   left: 50%;
   right: 0;
   transform: translateX(-50%);
@@ -358,8 +360,8 @@ weather.sights {
 
 .tarvelProps {
   position: fixed;
-  bottom: 36rpx;
-  right: 36rpx;
+  bottom: 54rpx;
+  right: 39rpx;
   width: 168rpx;
   height: 105rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
@@ -504,4 +506,44 @@ line-height: 80rpx;
   position: fixed;
   left: 0;
   top:0;
+}
+.guide {
+  z-index: 21;
+}
+.event-guide {
+  width: 220rpx;
+  height: 202rpx;
+  position: absolute;
+  left: 300rpx;
+  top:300rpx;
+}
+.play-guide {
+  width: 224rpx;
+  height: 209rpx;
+  position: absolute;
+left:240rpx;
+bottom:170rpx;
+
+}
+.props-guide {
+   width: 196rpx;
+  height: 209rpx;
+  position: absolute;
+ left:540rpx;
+bottom:170rpx;
+
+}
+.raiders-guide {
+  width: 191rpx;
+  height: 196rpx;
+  position: absolute;
+  left: 0rpx;
+  bottom:170rpx;
+}
+.task-guide {
+  width: 225rpx;
+  height: 105rpx;
+  position: absolute;
+  right: 20rpx;
+  top:600rpx;
 }

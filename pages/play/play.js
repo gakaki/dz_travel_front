@@ -37,14 +37,14 @@ const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
 const LOOP_INTERVAL = 1000;
 
-const DIR_UP = {from: 247.5, to: 292.5};
-const DIR_UP_RIGHT = {from: 292.5, to: 337.5};
-const DIR_RIGHT = {from: 337.5, to: 22.5};
-const DIR_BOTTOM_RIGHT = {from: 22.5, to: 67.5};
-const DIR_BOTTOM = {from: 67.5, to: 112.5};
-const DIR_BOTTOM_LEFT = {from: 112.5, to: 157.5};
-const DIR_LEFT = {from: 157.5, to: 202.5};
-const DIR_UP_LEFT = {from: 202.5, to: 247.5};
+const DIR_UP = { from: 247.5, to: 292.5 };
+const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
+const DIR_RIGHT = { from: 337.5, to: 22.5 };
+const DIR_BOTTOM_RIGHT = { from: 22.5, to: 67.5 };
+const DIR_BOTTOM = { from: 67.5, to: 112.5 };
+const DIR_BOTTOM_LEFT = { from: 112.5, to: 157.5 };
+const DIR_LEFT = { from: 157.5, to: 202.5 };
+const DIR_UP_LEFT = { from: 202.5, to: 247.5 };
 
 const spotSize = {
   '1a': { wd: 123, ht: 98 },
@@ -90,12 +90,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    invited: false,
     finishedTip: '已点亮城市,可飞往下一城市旅行',
     anmIdx: 0,
-    flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png','flower_19.png','flower'],
+    flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png', 'flower_19.png', 'flower'],
     present: false,//第二次進入的城市送車
-    trans: '',
-    hua: 'hua-lf',
+    trans: 'zheng',
+    hua: 'hua-rgt',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
     chgLines: false,//是否正在修改路线
@@ -123,6 +124,7 @@ Page({
     task: null, //任务进度
     planing: false,//是否处于规划路线状态
     planed: false,//是否完成了规划
+    lineDone: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
@@ -131,7 +133,7 @@ Page({
     unreadEventCnt: 0, //未读事件数
     curEvtIdx: 1,//当前事件序号
     totalEvt: 1,//事件总数
-    hasNextEvt:false, //是否有下一个事件不然显示为确定
+    hasNextEvt: false, //是否有下一个事件不然显示为确定
     postPicture: '',//获取的明信片图片路径
     postSpotName: '',//获取的明信片所在景点名
     taskPer: 0,//任务进度百分比
@@ -143,8 +145,8 @@ Page({
     showFreeRent: false, //是否显示免费租赁pop
     showGotPost: false, //是否显示获得明信片pop
     showMissionInfo: false, //是否显示任务信息pop
-    newEvent:false, //是否有新事件
-    changeRouteing:false, //是否正在修改路线，可能是自己，也可能是双人模式下对方在修改
+    newEvent: false, //是否有新事件
+    changeRouteing: false, //是否正在修改路线，可能是自己，也可能是双人模式下对方在修改
   },
 
   /**
@@ -199,7 +201,7 @@ Page({
       let spotsAllTracked = true;
       req.spots.forEach(o => {
         if (o.roundTracked) num++
-          spotsAllTracked = spotsAllTracked && o.tracked;
+        spotsAllTracked = spotsAllTracked && o.tracked;
       })
       this.setData({
         spotsTracked: num,
@@ -221,6 +223,23 @@ Page({
     });
 
   },
+  hideLineDone() {
+    this.setData({
+      lineDone: false
+    })
+  },
+  toGonglue() {
+    this.hideLineDone()
+    wx.navigateTo({
+      url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
+    })
+  },
+  toTechan() {
+    this.hideLineDone()
+    wx.navigateTo({
+      url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
+    })
+  },
   hideSecondIn() {
     this.setData({
       present: false
@@ -240,6 +259,12 @@ Page({
       })
     }
   },
+  hideGuide() {
+    this.setData({
+      hasPlay: true
+    }
+    )
+  },
   hidePops() {
     this.setData({
       chgLines: false
@@ -248,6 +273,11 @@ Page({
   hidePopss() {
     this.setData({
       taskdonePop: false
+    })
+  },
+  hideDoubleTip() {
+    this.setData({
+      invited: false
     })
   },
   toCfm() {
@@ -286,16 +316,29 @@ Page({
     //   })
     // },200)
     if (this.data.showCancelDouble) {
-      wx.showToast({
-        title: '双人旅行需被邀请人规划路线',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '双人旅行需被邀请人规划路线',
+      //   icon: 'none'
+      // })
+      thissetData({
+        invited: true
       })
     }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    if ( app.globalData.hasCar) this.updateLines(true);
+    if (app.globalData.hasCar) {
+      this.freshSpots()
+      // this.updateLines(true)
+    }
+    let m = new CheckGuide();
+    m.fetch().then(res => {
+      this.setData({
+        hasPlay: res.hasPlay
+      })
+
+    });
   },
 
   /**
@@ -388,16 +431,16 @@ Page({
     let roleMe = this.data.roleMe;
     let roleFriend = this.data.partener ? this.data.roleFriend : null;
     let carImg = roleMe._carImg;//用于显示汽车的类
-    if ( this.data.roleMe.display!=0) {
+    if (this.data.roleMe.display != 0) {
       roleFriend = null;
 
       if (this.data.partener) {
-          //双人
-          carImg += 's_';
+        //双人
+        carImg += 's_';
       }
       else {
-          //单人
-          carImg += 'd_';
+        //单人
+        carImg += 'd_';
       }
     }
     if (len > 0) {
@@ -430,19 +473,20 @@ Page({
         // if (curPlanedFinishedIdx == 1) curPlanedFinished = false
         //规划的路线已经走完
         roleMe.walkCls = '';
-        if ( this.data.roleMe.display!=0) {
+        if (this.data.roleMe.display != 0) {
           roleFriend = null;
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
         }
         else {
-          if(this.data.partener) {
+          if (this.data.partener) {
             roleFriend.walkCls = '';
           }
-          if(!this.data.partener) {
-           Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          if (!this.data.partener) {
+            Http.unlisten(PlayLoop, this.onPlayLoop, this);
           }
           this.freshAllTrackedStat();
         }
-        
+
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
@@ -452,46 +496,46 @@ Page({
 
       if (roleFriend) {
         //组队中
-          distBefore -= ROLE_OFFSET;
-          roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
-          roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
-          roleFriend.scale = roleMe.scale;
+        distBefore -= ROLE_OFFSET;
+        roleFriend.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
+        roleFriend.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
+        roleFriend.scale = roleMe.scale;
       }
 
       if (carImg) {
-          roleMe.scale = 1;
-          //计算车的朝向，车资源是8方向的，按顺时针，12点方向编号0，每45度编号增1，资源编号0-7
-          let carRotation = (roleTrackingAngle * 180 / Math.PI + 360) % 360;//将弧度修正到0-360角度内
-          if (planedFinished) {
-              let dir = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? '2' : '4'
-              carImg += dir;//景点完成后使用平视图
-          }
-          else if ( DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
-              carImg += '0'
-          }
-          else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
-              carImg += '1';
-          }
-          else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
-              carImg += '2';
-          }
-          else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
-              carImg += '3';
-          }
-          else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
-              carImg += '4';
-          }
-          else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
-              carImg += '5';
-          }
-          else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
-              carImg += '6';
-          }
-          else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
-              carImg += '7';
-          }
+        roleMe.scale = 1;
+        //计算车的朝向，车资源是8方向的，按顺时针，12点方向编号0，每45度编号增1，资源编号0-7
+        let carRotation = (roleTrackingAngle * 180 / Math.PI + 360) % 360;//将弧度修正到0-360角度内
+        if (planedFinished) {
+          let dir = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? '2' : '6'
+          carImg += dir;//景点完成后使用平视图
+        }
+        else if (DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
+          carImg += '0'
+        }
+        else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
+          carImg += '1';
+        }
+        else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
+          carImg += '2';
+        }
+        else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
+          carImg += '3';
+        }
+        else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
+          carImg += '4';
+        }
+        else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
+          carImg += '5';
+        }
+        else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
+          carImg += '6';
+        }
+        else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
+          carImg += '7';
+        }
 
-          roleMe.img = carImg + '.png';
+        roleMe.img = carImg + '.png';
 
       }
 
@@ -499,10 +543,10 @@ Page({
 
     }
     else {
-        roleMe.walkCls = '';
-        if (carImg) {
-            roleMe.img = carImg + '2.png';
-        }
+      roleMe.walkCls = '';
+      if (carImg) {
+        roleMe.img = carImg + '2.png';
+      }
       this.setData({ lines: null, roleMe })
     }
 
@@ -516,7 +560,7 @@ Page({
         reGoin = 1//防止进页面就播放音效
       }
       if (req.spotsTracked != this.data.spotsTracked) {
-        if (reGoin != 0 && (this.data.spotsTracked != 0 || req.spotsTracked!= 0)) {
+        if (reGoin != 0 && (this.data.spotsTracked != 0 || req.spotsTracked != 0)) {
           music.play()
         }
         else reGoin = 1
@@ -536,10 +580,10 @@ Page({
       return
     }
     let num = 0//到达的景点
-    this.data.spots.forEach(o=>{
+    this.data.spots.forEach(o => {
       if (o.roundTracked) num++
     })
-    if(num == this.data.spots.length-1) {
+    if (num == this.data.spots.length - 1) {
       wx.showToast({
         title: '已经要走完了，再耐心等待一下吧',
         icon: 'none'
@@ -575,15 +619,19 @@ Page({
   },
   //修改路线
   chgLine() {
+    if(!this.data.hasPlay) {
+      this.finishGuide()
+    }
+    this.hideGuide()
     if (this.data.planing) {
-        return;
+      return;
     }
     if (this.data.changeRouteing && this.data.partener) {
-        wx.showToast({
-            title: '对方正在修改路线',
-            icon: 'none'
-        })
-        return;
+      wx.showToast({
+        title: '对方正在修改路线',
+        icon: 'none'
+      })
+      return;
     }
     if (!this.data.started) {
       //首次规划路线
@@ -718,24 +766,24 @@ Page({
       lineUpdate = true;
     }
 
-    console.log("是否有新事件",res.newEvent);
+    console.log("是否有新事件", res.newEvent);
 
     if (res.newEvent) {
       //显示事件气泡
       let unreadEventCnt = this.data.unreadEventCnt;
       unreadEventCnt++;
-      this.setData({ newEvent : true,unreadEventCnt  });
-    }else{
-      this.setData({ newEvent : false,unreadEventCnt : 0});
+      this.setData({ newEvent: true, unreadEventCnt });
+    } else {
+      this.setData({ newEvent: false, unreadEventCnt: 0 });
     }
     if (res.doubleState === false && this.data.partener) {
       //如果之前是双人，现在变成了单人，则清一下队员
       this.data.partener = null;
     }
     //是否正在修改路线
-      if (res.changeRouteing != this.data.changeRouteing) {
-        this.setData({changeRouteing: res.changeRouteing})
-      }
+    if (res.changeRouteing != this.data.changeRouteing) {
+      this.setData({ changeRouteing: res.changeRouteing })
+    }
     //所有景点都走过了,前端表现是？
     this.setData({ spotsAllTracked: res.spotsAllTracked })
     if (lineUpdate) {
@@ -777,22 +825,22 @@ Page({
       //   }
       // } catch (e) {
       // }
-      if (this.data.task['spot'][0] == 6 ) {
+      if (this.data.task['spot'][0] == 6) {
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
         })
         curPlanedFinished = true
       }
-      if (this.data.task['spot'][0] > 6 ) {
+      if (this.data.task['spot'][0] > 6) {
         this.setData({
           finishedTip: '规划路线已走完，可以飞往下一城市',
           taskdonePop: true
         })
         curPlanedFinished = true
       }
-      
-    }else {
+
+    } else {
       if (this.data.task['spot'][0] < 6 && this.data.planedFinished && !curPlanedFinished) {
         wx.showToast({
           title: '规划路线已走完，还未完成任务，可添加路线',
@@ -800,7 +848,7 @@ Page({
         })
         curPlanedFinished = true
       }
-     
+
     }
   },
 
@@ -811,17 +859,17 @@ Page({
 
       //更新人物图标
       if (req.display != display && req.display != 0) {
-          display = req.display;
-          let roleMe = this.data.roleMe
-          roleMe.display = display
-          this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
+        display = req.display;
+        let roleMe = this.data.roleMe
+        roleMe.display = display
+        this.genRoleCls(this.data.roleMe, this.data.roleMe.gender);
 
-          this.setData({
-            roleMe: roleMe,
-            roleFriend: null//有车了，就不显示队友，只显示一辆车
-          })
+        this.setData({
+          roleMe: roleMe,
+          roleFriend: null//有车了，就不显示队友，只显示一辆车
+        })
       }
-      
+
       //更新里程
       let licheng = req.mileage;
       this.setData({ licheng })
@@ -830,7 +878,7 @@ Page({
       this.updateSpots(req.spots);
 
       //更新任务进度
-      
+
       if (req.task != this.data.task) {
         this.setData({
           task: req.task
@@ -838,7 +886,7 @@ Page({
         this.freshTask();
         this.data.task = req.task;
       }
-      
+
     })
 
   },
@@ -913,7 +961,8 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && !this.data.partener.isInviter;
+    let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && this.data.partener.isInviter;
+    let invited = showCancelDouble
     let startPoint = this.data.startPoint;
     if (started && !startPoint.arriveStamp && this.data.partener) {
       //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
@@ -922,21 +971,22 @@ Page({
     this.setData({
       spots,
       started,
-      showCancelDouble
+      showCancelDouble,
+      invited
     });
 
     updateLine && this.updateLines(updateLine);
   },
 
   cancleDouble() {
-      let req = new CancelParten();
-      req.fetch().then(()=> {
-          this.setData({
-              showCancelDouble: false,
-              partener: null,
-              roleFriend: null
-          })
+    let req = new CancelParten();
+    req.fetch().then(() => {
+      this.setData({
+        showCancelDouble: false,
+        partener: null,
+        roleFriend: null
       })
+    })
   },
   //提交路径到服务器
   sendPath() {
@@ -955,6 +1005,9 @@ Page({
     req.line = this.data.planedSpots.map(s => s.id);
 
     req.fetch().then(() => {
+      this.setData({
+        lineDone: true
+      })
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
       //恢复轮询
@@ -971,45 +1024,45 @@ Page({
 
 
     if (this.data.planing) {
-        //规划路线
-        if (this.data.planedSpots.indexOf(spot) == -1) {
-            this.data.planed = true;
-            spot.index = this.data.planedSpots.length;
-            this.data.planedSpots.push(spot);
+      //规划路线
+      if (this.data.planedSpots.indexOf(spot) == -1) {
+        this.data.planed = true;
+        spot.index = this.data.planedSpots.length;
+        this.data.planedSpots.push(spot);
 
-            let idxInSpots = this.data.spots.indexOf(spot);
-            this.setData({
-                [`spots[${idxInSpots}]`]: spot
-            });
-            //render
-            this.updateLines();
-        }
-        else {
-            //已经在路线中了
-            wx.showToast({
-                title: '路线规划不可前往相同景点',
-                icon: 'none'
-            });
-        }
-    }
-    else if(spot.tracked) {
-        //已经到达了，点击后进入观光
-        let name = e.currentTarget.dataset.name
-        this.toTour(sid, name);
-    }
-    else if(this.data.planedSpots.length) {
+        let idxInSpots = this.data.spots.indexOf(spot);
+        this.setData({
+          [`spots[${idxInSpots}]`]: spot
+        });
+        //render
+        this.updateLines();
+      }
+      else {
+        //已经在路线中了
         wx.showToast({
-            title: '未到达此景点无法观光',
-            icon: 'none'
-        })
+          title: '路线规划不可前往相同景点',
+          icon: 'none'
+        });
+      }
+    }
+    else if (spot.tracked) {
+      //已经到达了，点击后进入观光
+      let name = e.currentTarget.dataset.name
+      this.toTour(sid, name);
+    }
+    else if (this.data.planedSpots.length) {
+      wx.showToast({
+        title: '未到达此景点无法观光',
+        icon: 'none'
+      })
 
     }
     else {
-        //没有到过，也没有路线，那应该是刚进入这个城市
-        wx.showToast({
-            title: '请先点击“规划路线”进行路线添加',
-            icon: 'none'
-        })
+      //没有到过，也没有路线，那应该是刚进入这个城市
+      wx.showToast({
+        title: '请先点击“规划路线”进行路线添加',
+        icon: 'none'
+      })
     }
   },
 
@@ -1048,7 +1101,7 @@ Page({
 
   //点击小人
   tapRole() {
-   
+
     if (this.data.newEvent) {
       this.fetchEvent();
     }
@@ -1076,12 +1129,12 @@ Page({
       let curEvtIdx = req.current;
       let totalEvt = req.total;
 
-      console.log("是否有下一个事件",req.hasNext);
+      console.log("是否有下一个事件", req.hasNext);
 
       if (!req.quest) {
         this.setData({
           unreadEventCnt: 0,
-          hasNextEvt : false,
+          hasNextEvt: false,
           newEvent: false
         })
         return
@@ -1112,14 +1165,14 @@ Page({
           this.setData({
             unreadEventCnt: 0,
             hasNextEvt: req.hasNext ? true : false,
-            newEvent : false
+            newEvent: false
           })
       }
     })
   },
 
   hidePop(e) {
-    if (e && e.target.id == 'play-pop-bg' && e.type=='tap') {
+    if (e && e.target.id == 'play-pop-bg' && e.type == 'tap') {
       if (this.data.showEventNormal || this.data.showEventQuest) {
         return;//事件的弹框点击蒙层不隐藏弹框
       }
@@ -1163,17 +1216,23 @@ Page({
       this.freshTask();
       this.setData({ showPop: true, showMissionInfo: true });
     })
-    
+
   },
 
   //到攻略页面
   toPr() {
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     wx.navigateTo({
       url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
     })
   },
   //到道具和特产页面
   toProps() {
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+    }
     wx.navigateTo({
       url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
     })
