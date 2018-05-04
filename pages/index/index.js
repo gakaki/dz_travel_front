@@ -250,9 +250,6 @@ Page({
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
 
-      //加的保护，防止用户点击城市游玩时还没有获取到当前cid
-      getLocationCid = true
-
       this.setData({
         isFirst: req.isFirst,
         season,
@@ -286,6 +283,9 @@ Page({
           players,
         })
       }
+
+      //加的保护，防止用户点击城市游玩时还没有获取到当前cid
+      getLocationCid = true
       
     }).catch((req) => {
       switch (req) {
@@ -320,7 +320,7 @@ Page({
         icon: 'none'
       })
     }
-    if (app.preventMoreTap(e)) return;
+    if (app.preventMoreTap(e) || getLocationCid) return;
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
