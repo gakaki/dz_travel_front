@@ -121,7 +121,7 @@
 .two-mid-bot-str {
   color: rgba(0,0,0,0.6);
   margin-bottom: 16rpx;
-  font-size: 22rpx;
+  font-size: 24rpx;
   max-width: 300rpx;
   
 }
@@ -141,6 +141,9 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+.first-sc {
+  top: 263rpx;
 }
 .fc {
   font: bold 32rpx/40rpx 'Microsoft YaHei';
