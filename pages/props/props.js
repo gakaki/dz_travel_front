@@ -200,7 +200,7 @@ Page({
             myGold: res.goldNum
           })
           wx.showToast({
-            title: '购买成功',
+            title: '金币-' + this.data.goldNum,
             icon:'none',
             duration:1000
           })

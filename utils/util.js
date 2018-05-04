@@ -478,14 +478,16 @@ function redGold(v) {
   app.globalData.gold = app.globalData.gold - v
   wx.showToast({
     title:'金币-' + v,
-    icon:'none'
+    icon:'none',
+    mask:true
   }) 
 }
 function addGold(v) {
   app.globalData.gold = app.globalData.gold + v
   wx.showToast({
     title: '金币+' + v,
-    icon: 'none'
+    icon: 'none',
+    mask: true
   }) 
 }
 
