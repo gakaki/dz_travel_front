@@ -1,8 +1,10 @@
 //app.js
 import { start } from './utils/rest.js';
 App({
-  onLaunch: function () {
+  onLaunch: function (e) {
     let that = this
+
+    that.globalData.referrerInfo = e
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
@@ -63,6 +65,7 @@ App({
     })
   },
   onShow: function (options) {
+
   },
   globalData: {
     taskPer: 0,//任务完成度
@@ -80,7 +83,8 @@ App({
     curPlanedFinishedNum: 0,//当前规划路线游玩结束中游玩的景点数
     debug: {
       share: true
-    }
+    },
+    referrerInfo:{}    //给后台的场景值
   },
   //事件里的随机图片配置路径
   getEventPicURL(reqQuestPictureURL) {
