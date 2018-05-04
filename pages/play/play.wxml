@@ -43,17 +43,21 @@
     <view wx:if="{{roleMe && !planing}}" class=" play-role  {{roleMe.roleCls}} {{roleMe.walkCls}} {{planedFinished ? 'xiayi' : ''}}" bind:tap="tapRole" style="background-image: url({{roleMe.img}});background-size:auto 100%;position:absolute;left:{{roleMe.x * scale}}rpx;top:{{roleMe.y * scale}}rpx;width:{{roleMe.wd * scale}}rpx;height:{{roleMe.ht * scale}}rpx;transform-origin: 0% 0%;transform:scaleX({{roleMe.scale}}) rotate({{roleMe.rotate? roleMe.rotate : 0}}deg) translate(-50%, -{{planedFinished? 50 : (roleMe.display!= 0 ? 60 : 90)}}%);">
       <!-- <image class="role-event-img" wx:if="{{ newEvent }}" src="{{eventTipImg}}" style="position: absolute; left: {{-16 * scale}}rpx;top: {{-30 * scale}}rpx;width:{{30 * scale}}rpx;height: {{30 * scale}}rpx;"></image> -->
 
- <view wx:if="{{!planedFinished && started && roleMe.display!=0}}" class="weiqi" style="position: absolute; right:100%;top:50%; transform-origin:{{100 + 50*scale}}% 50%;transform:rotate({{roleMe.weiqiRotate?roleMe.weiqiRotate:0}}deg) translateY(-50%)">
-  <view class="yuanquan wq-donghua"></view>
+ <!-- <view wx:if="{{!planedFinished && started && roleMe.display!=0}}" class="weiqi" style="position: absolute; right:100%;top:50%; transform-origin:{{100 + 50*scale}}% 50%;transform:rotate({{roleMe.weiqiRotate?roleMe.weiqiRotate:0}}deg) translateY(-50%)"> -->
+ <view  class="weiqi" style="position: absolute; right:100%;top:50%; transform-origin:{{100 + 50*scale}}% 50%;transform:rotate({{roleMe.weiqiRotate?roleMe.weiqiRotate:0}}deg) translateY(-50%)">
+  <!-- <view class="yuanquan wq-donghua"></view>
  <view class="yuanquan yuanquan1 wq-donghua1"></view>
- <view class="yuanquan yuanquan2 wq-donghua2"></view> 
+ <view class="yuanquan yuanquan2 wq-donghua2"></view>  -->
+        <view class="yuanquan wq-donghua" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
+        <view class="yuanquan yuanquan1 wq-donghua1" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
+        <view class="yuanquan yuanquan2 wq-donghua2" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
 </view> 
 
       <view class="role-event-img flex" wx:if="{{ newEvent }}" style="position: absolute; left: {{-26 * scale}}rpx;top: {{(roleMe.display == 0 ? -65 : -25) * scale}}rpx;width:{{59 * scale}}rpx;height: {{59 * scale}}rpx;">
         <!-- <image class="animation" src="{{eventTipImg}}" style="width:{{10 * scale}}rpx;height: {{39 * scale}}rpx;margin-top:-5rpx;"></image> -->
-        <view class="dot animation0"></view>
+         <view class="dot animation0"></view>
         <view class="dot animation1"></view>
-        <view class="dot animation2"></view>
+        <view class="dot animation2"></view> 
       </view>
     </view>
 
@@ -116,8 +120,8 @@
       <!-- 三个按钮 -->
       <view class="btnBox f-r-sa">
         <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" wx:if="{{showCancelDouble && !started || planedFinished}}" bindtap="chgLine">规划路线</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:elif="{{!showCancelDouble}}" bindtap="chgLine">等待对方规划路线</view>
+        <view class="travelStart font fontWhite  font32" wx:if="{(showCancelDouble && partener) && !started || planedFinished}}" bindtap="chgLine">规划路线</view>
+        <view class="travelStart start-icon font fontWhite  font32" wx:elif="{{!showCancelDouble && partener}}" bindtap="chgLine">等待对方规划路线</view>
         <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
         <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
       </view>

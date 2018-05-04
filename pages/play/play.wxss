@@ -39,10 +39,11 @@
 }
 
 
+
 .yuanquan {
   width: 10rpx;
   height: 10rpx;
-  background-color: #ffc705;
+  /* background-color: #ffc705; */
   border-radius: 50%;
   position: absolute;
   right: 0;
