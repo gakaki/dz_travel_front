@@ -434,7 +434,7 @@ Page({
     let mock = new SendMockId();
     mock.formId = e.detail.formId;
     mock.fetch().then(()=>{
-      console.log('aaaaaa')
+      console.log('send formId suc')
     })
   },
 

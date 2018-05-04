@@ -420,24 +420,18 @@ class Notice {
     this.cfg = d;
     }
 
+    // id
+    get id(){ return this.cfg.id; }
+
     // 模板id
     get Tid(){ return this.cfg.Tid; }
 
-    // 
-    get keyword1(){ return this.cfg.keyword1; }
 
-    // 
-    get keyword2(){ return this.cfg.keyword2; }
+    static get TRIPOVER() { return 1 };
 
-    // 
-    get keyword3(){ return this.cfg.keyword3; }
+    static get REDEEMCODE() { return 2 };
 
-    // 
-    get keyword4(){ return this.cfg.keyword4; }
-
-    // 
-    get keyword5(){ return this.cfg.keyword5; }
-
+    static get ADDRESS() { return 3 };
 
     static Get(id){ return id in _data.notice ? new Notice(_data.notice[id]) : null; }
 }
