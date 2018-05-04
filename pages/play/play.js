@@ -35,7 +35,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 5000;
+const LOOP_INTERVAL = 1000;
 
 const DIR_UP = { from: 247.5, to: 292.5 };
 const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
@@ -498,6 +498,7 @@ Page({
       const halfPI = Math.PI / 2;
       roleMe.scale = roleTrackingAngle > -halfPI && roleTrackingAngle <= halfPI ? 1 : -1;
       roleMe.rotate = 0
+      roleMe.weiqiRotate = 0
 
       if (roleFriend) {
         //组队中
@@ -518,36 +519,44 @@ Page({
         else if (DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
           carImg += '0'
           roleMe.rotate = carRotation - (DIR_UP.to - 22.5)
+          roleMe.weiqiRotate = 270 
         }
         else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
           carImg += '1';
             roleMe.rotate = carRotation - (DIR_UP_RIGHT.to - 22.5)
+            roleMe.weiqiRotate = 315 
         }
         else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
           carImg += '2';
           if (carRotation < 360) {
             roleMe.rotate = carRotation - 360
           } else roleMe.rotate =  carRotation - 0
+          roleMe.weiqiRotate = 0 
         }
         else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
           carImg += '3';
             roleMe.rotate = carRotation - (DIR_BOTTOM_RIGHT.to - 22.5)
+            roleMe.weiqiRotate = 45 
         }
         else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
           carImg += '4';
             roleMe.rotate = carRotation - (DIR_BOTTOM.to - 22.5)
+            roleMe.weiqiRotate = 90 
         }
         else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
           carImg += '5';
             roleMe.rotate = carRotation - (DIR_BOTTOM_LEFT.to - 22.5)
+            roleMe.weiqiRotate = 135
         }
         else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
           carImg += '6';
             roleMe.rotate = carRotation - (DIR_LEFT.to-22.5)
+            roleMe.weiqiRotate = 180
         }
         else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
           carImg += '7';
             roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
+            roleMe.weiqiRotate = 225
         }
 
         roleMe.img = carImg + '.png';
@@ -741,24 +750,24 @@ Page({
       obj.clipNum = 6;//动画帧数
       obj.scale = 1;
       if (obj.display == 1) {
-        obj.wd = 150;
-        obj.ht = 150;
+        obj.wd = 120;
+        obj.ht = 120;
         obj.img += 'haohua.png';
         obj.roleCls = 'play-role-haohua';
         obj._carImg = resRoot + '/che/haohua_';
         // obj._carCls = 'play-role-haohua-';
         obj._walkCls = '';
       } else if (obj.display == 2) {
-        obj.wd = 150;
-        obj.ht = 150;
+        obj.wd = 120;
+        obj.ht = 120;
         obj.img += 'shangwu.png';
         obj.roleCls = 'play-role-shangwu';
         obj._carImg = resRoot + '/che/shangwu_';
         // obj._carCls = 'play-role-shangwu-';
         obj._walkCls = '';
       } else if (obj.display == 3) {
-        obj.wd = 150;
-        obj.ht = 150;
+        obj.wd = 120;
+        obj.ht = 120;
         obj.img += 'jingji.png';
         obj.roleCls = 'play-role-jingji';
         obj._carImg = resRoot + '/che/jingji_';
