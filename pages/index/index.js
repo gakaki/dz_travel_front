@@ -430,7 +430,6 @@ Page({
 
   //推送相关
   sendMockId(e) {
-    console.log(e,'formId')
     let mock = new SendMockId();
     mock.formId = e.detail.formId;
     mock.fetch().then(()=>{
