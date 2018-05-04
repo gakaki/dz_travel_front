@@ -320,7 +320,7 @@ Page({
       //   title: '双人旅行需被邀请人规划路线',
       //   icon: 'none'
       // })
-      thissetData({
+      this.setData({
         invited: true
       })
     }else {
