@@ -317,9 +317,9 @@ Page({
             { from: partnerCid, to: cid }
           ]
           this.planeFly(airlines)
-          score = res.score;
-          reward = res.reward;
         }
+        score = res.score;
+        reward = res.reward;
       }
       else{
         let userInfo = app.globalData.userInfo;
