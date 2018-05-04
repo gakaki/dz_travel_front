@@ -116,8 +116,8 @@
       <!-- 三个按钮 -->
       <view class="btnBox f-r-sa">
         <view class="travelTips font fontWhite font28" catch:tap="toPr">旅行攻略</view>
-        <view class="travelStart font fontWhite  font32" wx:if="{{!showCancelDouble && !started || planedFinished}}" bindtap="chgLine">规划路线</view>
-        <view class="travelStart start-icon font fontWhite  font32" wx:elif="{{showCancelDouble}}" bindtap="chgLine">等待对方规划路线</view>
+        <view class="travelStart font fontWhite  font32" wx:if="{{ !started || planedFinished}}" bindtap="chgLine">规划路线</view>
+        <view class="travelStart start-icon font fontWhite  font32" wx:elif="{{!showCancelDouble}}" bindtap="chgLine">等待对方规划路线</view>
         <view class="travelStart start-icon font fontWhite  font32" wx:else>游玩中</view>
         <view class="tarvelProps font fontWhite font28" catch:tap="toProps">旅行道具</view>
       </view>
