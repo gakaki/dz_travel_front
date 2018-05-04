@@ -22,7 +22,7 @@ Page({
     //好友排行榜
     rankingFriend: [],
     //自己的排名
-    selfRank:{rank:'未上榜',achievement:9999},
+    selfRank:{},
     showHelp:false,
     title: '达人排行榜规则',
     id:5,
@@ -144,10 +144,7 @@ Page({
           noRank: true
         })
       }
-      if(!req.ranks.length){
-        preventCrazyClick = false;
-        return;
-      }
+      
       
       ranks = ranks.concat(req.ranks).map(o=>{
         let nickName;
@@ -191,6 +188,11 @@ Page({
             rankingFriend: ranks,
           })
         }
+      }
+
+      if (!req.ranks.length) {
+        preventCrazyClick = false;
+        return;
       }
 
       page++;
