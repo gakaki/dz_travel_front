@@ -120,7 +120,7 @@
 
 .two-mid-bot-str {
   color: rgba(0,0,0,0.6);
-  margin-bottom: 16rpx;
+  margin: 10rpx 0 16rpx 0;
   font-size: 24rpx;
   max-width: 300rpx;
   

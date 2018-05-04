@@ -335,7 +335,7 @@ Page({
     // if (app.globalData.hasCar) {
     this.freshAllTrackedStat();
        this.freshSpots()
-      this.updateLines(true)
+      // this.updateLines(true)
     // }
     let m = new CheckGuide();
     m.fetch().then(res => {
@@ -517,51 +517,37 @@ Page({
         }
         else if (DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
           carImg += '0'
-          if (carRotation < (DIR_UP.to-22.5)) {
-            roleMe.rotate = carRotation - (DIR_UP.to - 22.5)
-          } else roleMe.rotate = DIR_UP.to - carRotation
+          roleMe.rotate = carRotation - (DIR_UP.to - 22.5)
         }
         else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
           carImg += '1';
-          if (carRotation < (DIR_UP_RIGHT.to-22.5)) {
             roleMe.rotate = carRotation - (DIR_UP_RIGHT.to - 22.5)
-          } else roleMe.rotate = DIR_UP_RIGHT.to - carRotation
         }
         else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
           carImg += '2';
           if (carRotation < 360) {
             roleMe.rotate = carRotation - 360
-          } else roleMe.rotate = DIR_RIGHT.to - carRotation
+          } else roleMe.rotate =  carRotation - 0
         }
         else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
           carImg += '3';
-          if (carRotation < (DIR_BOTTOM_RIGHT.to-22.5)) {
             roleMe.rotate = carRotation - (DIR_BOTTOM_RIGHT.to - 22.5)
-          } else roleMe.rotate = DIR_BOTTOM_RIGHT.to - carRotation
         }
         else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
           carImg += '4';
-          if (carRotation < (DIR_BOTTOM.to-22.5)) {
             roleMe.rotate = carRotation - (DIR_BOTTOM.to - 22.5)
-          } else roleMe.rotate = DIR_BOTTOM.to - carRotation
         }
         else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
           carImg += '5';
-          if (carRotation < (DIR_BOTTOM_LEFT.to-22.5)) {
             roleMe.rotate = carRotation - (DIR_BOTTOM_LEFT.to - 22.5)
-          } else roleMe.rotate = DIR_BOTTOM_LEFT.to - carRotation
         }
         else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
           carImg += '6';
-          if (carRotation < (DIR_LEFT.to - 22.5)) {
             roleMe.rotate = carRotation - (DIR_LEFT.to-22.5)
-          } else roleMe.rotate = DIR_LEFT.to - carRotation
         }
         else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
           carImg += '7';
-          if (carRotation < (DIR_UP_LEFT.to-25)) {
             roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
-          } else roleMe.rotate = DIR_LEFT.to - carRotation
         }
 
         roleMe.img = carImg + '.png';
@@ -845,7 +831,7 @@ Page({
       if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
       }
       else {
-        num = num + this.data.task[o][0]
+        num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
       }
     }
@@ -853,6 +839,7 @@ Page({
     this.setData({
       taskPer: rel * 100
     })
+    if ( rel != 1) app.globalData.taskPer = rel
     if (rel == 1) {
       // try {
       //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
@@ -866,23 +853,24 @@ Page({
       //   }
       // } catch (e) {
       // }
-      if (this.data.task['spot'][0] == 6 && !curPlanedFinished) {
+      if (this.data.planedFinished && (!curPlanedFinished || app.globalData.taskPer != 1)) {
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
         })
         curPlanedFinished = true
+        app.globalData.taskPer = 1
       }
-      if (this.data.task['spot'][0] > 6 && !curPlanedFinished) {
-        this.setData({
-          finishedTip: '规划路线已走完，可以飞往下一城市',
-          taskdonePop: true
-        })
-        curPlanedFinished = true
-      }
+      // if (this.data.task['spot'][0] > 6 && !curPlanedFinished) {
+      //   this.setData({
+      //     finishedTip: '规划路线已走完，可以飞往下一城市',
+      //     taskdonePop: true
+      //   })
+      //   curPlanedFinished = true
+      // }
 
     } else {
-      if (this.data.task['spot'][0] < 6 && this.data.planedFinished && !curPlanedFinished) {
+      if ( this.data.planedFinished && !curPlanedFinished) {
         wx.showToast({
           title: '规划路线已走完，还未完成任务，可添加路线',
           icon: 'none'
