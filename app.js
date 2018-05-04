@@ -68,6 +68,7 @@ App({
 
   },
   globalData: {
+    taskPer: 0,//任务完成度
     hasCar: false,
     userInfo: null,
     season: '',

@@ -40,13 +40,13 @@ Component({
         // this.data.task.parterTour = [3,3]
         // this.data.task.parterPhoto = [3,3]//test
         let single = this.data.single;
-        let selfSpot = this.data.task.spot[0] + '/' + this.data.task.spot[1];
+        let selfSpot = (this.data.task.spot[0] >= this.data.task.spot[1] ? this.data.task.spot[1] : this.data.task.spot[0]) + '/' + this.data.task.spot[1];
         let selfTour = this.data.task.tour[0] + '/' + this.data.task.tour[1];
         let selfPhoto = this.data.task.photo[0] + '/' + this.data.task.photo[1];
         let friendTour = this.data.task.parterTour[0] + '/' + this.data.task.parterTour[1];
 
         let friendPhoto = this.data.task.parterPhoto[0] + '/' + this.data.task.parterPhoto[1];
-        let selfSpotFull = this.data.task.spot[0] == this.data.task.spot[1];
+        let selfSpotFull = this.data.task.spot[0] >= this.data.task.spot[1];
         let selfTourFull = this.data.task.tour[0] == this.data.task.tour[1];
         let selfPhotoFull = this.data.task.photo[0] == this.data.task.photo[1];
         let friendTourFull = this.data.task.parterTour[0] == this.data.task.parterTour[1];
