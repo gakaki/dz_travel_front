@@ -24,6 +24,7 @@ let music;
 let reGoin = 0; //重新进入页面
 let citysName;
 let anmTimer;
+let invited = false;//是否是被邀请者
 let curPlanedFinished = true;//走完规划完的路线
 // let curPlanedFinishedNum = 0;//规划完的路线的数量
 const DOUBLE_TAP_INTERVAL = 600;
@@ -90,7 +91,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    invited: false,
+    invited: false,//是否是被邀请者
     finishedTip: '已点亮城市,可飞往下一城市旅行',
     anmIdx: 0,
     flower: ['flower_00.png', 'flower_01.png', 'flower_02.png', 'flower_03.png', 'flower_04.png', 'flower_05.png', 'flower_06.png', 'flower_07.png', 'flower_08.png', 'flower_09.png', 'flower_10.png', 'flower_11.png', 'flower_12.png', 'flower_13.png', 'flower_14.png', 'flower_15.png', 'flower_16.png', 'flower_17.png', 'flower_18.png', 'flower_19.png', 'flower'],
@@ -279,6 +280,7 @@ Page({
     this.setData({
       invited: false
     })
+    invited = true
   },
   toCfm() {
     if (app.globalData.gold > 100) {
@@ -320,9 +322,12 @@ Page({
       //   title: '双人旅行需被邀请人规划路线',
       //   icon: 'none'
       // })
-      this.setData({
-        invited: true
-      })
+      if(!invited) {
+        this.setData({
+          invited: true
+        })
+      }
+     
     }else {
       this.setData({
         invited: false
@@ -999,7 +1004,22 @@ Page({
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
     let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && this.data.partener.isInviter;
-    let invited = showCancelDouble
+    let invit = false
+    if (!invited) invit = showCancelDouble
+  // try {
+  //       let value = wx.getStorageSync('invited' + this.data.cid)//每个城市
+  //       if (value) {
+  //         return
+  //       }else {
+  //         try {
+  //           wx.setStorageSync('invited' + this.data.cid, this.data.cid)
+  //         } catch (e) {
+  //         }
+  //       }
+  //     } catch (e) {
+  //     }
+
+
     let startPoint = this.data.startPoint;
     if (started && !startPoint.arriveStamp && this.data.partener) {
       //双人模式下，邀请方onload里没有机会设置起点的arriveStamp（用于计算当前位移）
@@ -1009,7 +1029,7 @@ Page({
       spots,
       started,
       showCancelDouble,
-      invited
+      invited: invit
     });
 
     updateLine && this.updateLines(updateLine);
