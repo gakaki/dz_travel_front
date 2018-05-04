@@ -499,6 +499,10 @@ Page({
           this.freshAllTrackedStat();
         }
 
+      }else {
+        this.setData({
+          planedFinished: false
+        })
       }
       roleMe.x = Math.cos(roleTrackingAngle) * distBefore + roleTrackedSpot.x;
       roleMe.y = Math.sin(roleTrackingAngle) * distBefore + roleTrackedSpot.y;
