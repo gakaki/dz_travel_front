@@ -141,7 +141,7 @@ Page({
         url: '../other/other?uid=' + options.shareUid
       })
     } else if (options.rank) {
-      wx.navigateTo({
+      wx.switchTab({
         url: '../rank/rank?uid=' + options.shareUid
       })
     } else if (options.checkPostcard) {
