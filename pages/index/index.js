@@ -320,7 +320,7 @@ Page({
         icon: 'none'
       })
     }
-    if (app.preventMoreTap(e) || getLocationCid) return;
+    if (app.preventMoreTap(e) || !getLocationCid) return;
     //查询用户是否有赠送的机票
     let req = new LookTicket()
     req.fetch().then(()=>{
