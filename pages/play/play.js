@@ -485,7 +485,9 @@ Page({
         roleMe.walkCls = '';
         if (this.data.roleMe.display != 0) {
           roleFriend = null;
-          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          if (!this.data.partener) {
+            Http.unlisten(PlayLoop, this.onPlayLoop, this);
+          }
         }
         else {
           if (this.data.partener) {
