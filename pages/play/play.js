@@ -24,6 +24,7 @@ let music;
 let reGoin = 0; //重新进入页面
 let citysName;
 let anmTimer;
+let LOOP_INTERVAL = 1000;
 let invited = false;//是否是被邀请者
 let curPlanedFinished = true;//走完规划完的路线
 // let curPlanedFinishedNum = 0;//规划完的路线的数量
@@ -36,7 +37,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 60000;
+// const LOOP_INTERVAL = 60000;
 
 const DIR_UP = { from: 247.5, to: 292.5 };
 const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
@@ -1017,6 +1018,7 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
+    if (started) LOOP_INTERVAL = 60000
     let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && this.data.partener.isInviter;
     let invit = false
     if (!invited) invit = showCancelDouble
