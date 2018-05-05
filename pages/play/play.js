@@ -848,6 +848,9 @@ Page({
     let num = 0
     let allNum = 0
     for (let o in this.data.task) {
+      // if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
+      //   continue
+      // }
         num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
     }
