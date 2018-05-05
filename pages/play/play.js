@@ -220,7 +220,7 @@ Page({
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
-
+      this.updateLines()
     });
 
   },
@@ -581,6 +581,9 @@ Page({
       roleMe.walkCls = '';
       if (carImg) {
         roleMe.img = carImg + '2.png';
+      }
+      if (this.data.spotsAllTracked ) {
+        this.setData({ planedFinished: true})
       }
       this.setData({ lines: null, roleMe })
     }
