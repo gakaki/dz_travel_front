@@ -9,9 +9,15 @@
     </view>
     <text class="num font">{{maimai}}数量</text>
     <view class="operate flex {{maxNum>0 && type=='buy'?'':'mg'}}">
-      <image class="icon" bindtap='rGold' src="https://gengxin.odao.com/update/h5/travel/props/reduce.png"></image>
+    <view class="icon-box flex" bindtap='rGold'>
+<image class="icon"  src="https://gengxin.odao.com/update/h5/travel/props/reduce.png"></image>
+    </view>
+      
       <view class="num-box font">{{goldNum}}</view>
-      <image class="icon" bindtap='pGold' src="https://gengxin.odao.com/update/h5/travel/props/plus-icon.png"></image>
+      <view class="icon-box flex" bindtap='pGold'>
+      <image class="icon"  src="https://gengxin.odao.com/update/h5/travel/props/plus-icon.png"></image>
+      </view>
+      
     </view>
     <view class='xg'>
       <text wx:if="{{type=='buy' && xg > 0 }}">限购{{xg}}个</text>

@@ -8,6 +8,7 @@
   left: 0;
   z-index: 99;
 }
+
 .con {
   width: 610rpx;
   height: 440rpx;
@@ -71,8 +72,11 @@
   font-size: 30rpx;
   letter-spacing: 3rpx;
 }
+.icon-box {
+  height: 60rpx;
+  width: 60rpx;
+}
 .icon {
-  padding: 40rpx 0;
   height: 20rpx;
   width: 20rpx;
 }
