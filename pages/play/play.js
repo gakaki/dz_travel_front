@@ -748,6 +748,8 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
+      console.log('lasklskdlaksldkalsd')
+      console.log(req.spots, this.data.lines.length)
     })
   },
 
