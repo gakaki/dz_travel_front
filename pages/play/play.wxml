@@ -142,7 +142,7 @@
     <view id="play-pop-bg" bind:tap="hidePop"></view>
 
     <!--普通事件-->
-    <pop-event-normal wx:if="{{showEventNormal}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-normal>
+    <pop-event-normal wx:if="{{showEventNormal}}" types="{{eventType}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-normal>
     <!--答题事件-->
     <pop-event-quest wx:if="{{showEventQuest}}" class="play-pop" bind:hide="hidePop" cityName="{{cityName}}" quest="{{quest}}" current="{{curEvtIdx}}" total="{{totalEvt}}" bind:next="toNextEvent" hasNext="{{hasNextEvt}}"></pop-event-quest>
     <!--首次免费租赁-->

@@ -1198,7 +1198,7 @@ Page({
         this.setData({
           unreadEventCnt: 0,
           hasNextEvt: false,
-          newEvent: false
+          newEvent: false,
         })
         return
       }
