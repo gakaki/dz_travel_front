@@ -476,6 +476,9 @@ Page({
       }
       if (trackedNum == spots.length) {
         planedFinished = true;
+        this.setData({
+          planedFinished: true
+        })
         if (app.globalData.curPlanedFinishedNum != trackedNum) {
           app.globalData.curPlanedFinishedNum = trackedNum
           curPlanedFinished = false
@@ -574,8 +577,8 @@ Page({
 
       }
 
-      this.setData({ lines, roleMe, roleFriend, planedFinished });
-
+      // this.setData({ lines, roleMe, roleFriend, planedFinished });
+      this.setData({ lines, roleMe, roleFriend });
     }
     else {
       roleMe.walkCls = '';
@@ -583,7 +586,7 @@ Page({
         roleMe.img = carImg + '2.png';
       }
       if (this.data.spotsAllTracked ) {
-        this.setData({ planedFinished: true})
+         this.setData({ planedFinished: true})
       }
       this.setData({ lines: null, roleMe })
     }
