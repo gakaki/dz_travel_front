@@ -216,7 +216,7 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
-
+// console.log(111)
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
@@ -322,13 +322,13 @@ Page({
       //   title: '双人旅行需被邀请人规划路线',
       //   icon: 'none'
       // })
-      if(!invited) {
+      if (!invited) {
         this.setData({
           invited: true
         })
       }
-     
-    }else {
+
+    } else {
       this.setData({
         invited: false
       })
@@ -339,8 +339,8 @@ Page({
     }
     // if (app.globalData.hasCar) {
     this.freshAllTrackedStat();
-       this.freshSpots()
-      // this.updateLines(true)
+    this.freshSpots()
+    // this.updateLines(true)
     // }
     let m = new CheckGuide();
     m.fetch().then(res => {
@@ -499,7 +499,7 @@ Page({
           this.freshAllTrackedStat();
         }
 
-      }else {
+      } else {
         this.setData({
           planedFinished: false
         })
@@ -530,44 +530,44 @@ Page({
         else if (DIR_UP.from < carRotation && carRotation <= DIR_UP.to) {
           carImg += '0'
           roleMe.rotate = carRotation - (DIR_UP.to - 22.5)
-          roleMe.weiqiRotate = 270 
+          roleMe.weiqiRotate = 270
         }
         else if (DIR_UP_RIGHT.from < carRotation && carRotation <= DIR_UP_RIGHT.to) {
           carImg += '1';
-            roleMe.rotate = carRotation - (DIR_UP_RIGHT.to - 22.5)
-            roleMe.weiqiRotate = 315 
+          roleMe.rotate = carRotation - (DIR_UP_RIGHT.to - 22.5)
+          roleMe.weiqiRotate = 315
         }
         else if (DIR_RIGHT.from < carRotation || carRotation <= DIR_RIGHT.to) {
           carImg += '2';
           if (carRotation < 360) {
             roleMe.rotate = carRotation - 360
-          } else roleMe.rotate =  carRotation - 0
-          roleMe.weiqiRotate = 0 
+          } else roleMe.rotate = carRotation - 0
+          roleMe.weiqiRotate = 0
         }
         else if (DIR_BOTTOM_RIGHT.from < carRotation && carRotation <= DIR_BOTTOM_RIGHT.to) {
           carImg += '3';
-            roleMe.rotate = carRotation - (DIR_BOTTOM_RIGHT.to - 22.5)
-            roleMe.weiqiRotate = 45 
+          roleMe.rotate = carRotation - (DIR_BOTTOM_RIGHT.to - 22.5)
+          roleMe.weiqiRotate = 45
         }
         else if (DIR_BOTTOM.from < carRotation && carRotation <= DIR_BOTTOM.to) {
           carImg += '4';
-            roleMe.rotate = carRotation - (DIR_BOTTOM.to - 22.5)
-            roleMe.weiqiRotate = 90 
+          roleMe.rotate = carRotation - (DIR_BOTTOM.to - 22.5)
+          roleMe.weiqiRotate = 90
         }
         else if (DIR_BOTTOM_LEFT.from < carRotation && carRotation <= DIR_BOTTOM_LEFT.to) {
           carImg += '5';
-            roleMe.rotate = carRotation - (DIR_BOTTOM_LEFT.to - 22.5)
-            roleMe.weiqiRotate = 135
+          roleMe.rotate = carRotation - (DIR_BOTTOM_LEFT.to - 22.5)
+          roleMe.weiqiRotate = 135
         }
         else if (DIR_LEFT.from < carRotation && carRotation <= DIR_LEFT.to) {
           carImg += '6';
-            roleMe.rotate = carRotation - (DIR_LEFT.to-22.5)
-            roleMe.weiqiRotate = 180
+          roleMe.rotate = carRotation - (DIR_LEFT.to - 22.5)
+          roleMe.weiqiRotate = 180
         }
         else if (DIR_UP_LEFT.from < carRotation && carRotation <= DIR_UP_LEFT.to) {
           carImg += '7';
-            roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
-            roleMe.weiqiRotate = 225
+          roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
+          roleMe.weiqiRotate = 225
         }
 
         roleMe.img = carImg + '.png';
@@ -666,7 +666,7 @@ Page({
   },
   //修改路线
   chgLine() {
-    if(!this.data.hasPlay) {
+    if (!this.data.hasPlay) {
       this.finishGuide()
     }
     this.hideGuide()
@@ -718,6 +718,7 @@ Page({
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
+      // console.log(222)
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
@@ -851,14 +852,14 @@ Page({
       // if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
       //   continue
       // }
-        num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
-        allNum = allNum + this.data.task[o][1]
+      num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
+      allNum = allNum + this.data.task[o][1]
     }
     let rel = num / allNum
     this.setData({
       taskPer: rel * 100
     })
-    if ( rel != 1) app.globalData.taskPer = rel
+    if (rel != 1) app.globalData.taskPer = rel
     if (rel == 1) {
       // try {
       //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
@@ -889,7 +890,7 @@ Page({
       // }
 
     } else {
-      if ( this.data.planedFinished && !curPlanedFinished) {
+      if (this.data.planedFinished && !curPlanedFinished) {
         wx.showToast({
           title: '规划路线已走完，还未完成任务，可添加路线',
           icon: 'none'
@@ -922,6 +923,7 @@ Page({
       this.setData({ licheng })
 
       //更新景点进度
+      // console.log(333)
       this.updateSpots(req.spots);
 
       //更新任务进度
@@ -1011,18 +1013,18 @@ Page({
     let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && this.data.partener.isInviter;
     let invit = false
     if (!invited) invit = showCancelDouble
-  // try {
-  //       let value = wx.getStorageSync('invited' + this.data.cid)//每个城市
-  //       if (value) {
-  //         return
-  //       }else {
-  //         try {
-  //           wx.setStorageSync('invited' + this.data.cid, this.data.cid)
-  //         } catch (e) {
-  //         }
-  //       }
-  //     } catch (e) {
-  //     }
+    // try {
+    //       let value = wx.getStorageSync('invited' + this.data.cid)//每个城市
+    //       if (value) {
+    //         return
+    //       }else {
+    //         try {
+    //           wx.setStorageSync('invited' + this.data.cid, this.data.cid)
+    //         } catch (e) {
+    //         }
+    //       }
+    //     } catch (e) {
+    //     }
 
 
     let startPoint = this.data.startPoint;
@@ -1071,6 +1073,7 @@ Page({
         lineDone: true
       })
       this.data.startPoint.arriveStamp = req.startTime;
+      // console.log(444)
       this.updateSpots(req.spots);
       //恢复轮询
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
