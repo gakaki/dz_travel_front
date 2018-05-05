@@ -681,7 +681,6 @@ Page({
     if (!this.data.hasPlay) {
       this.finishGuide()
     }
-    // this.hideGuide()
     if (this.data.planing) {
       return;
     }
@@ -733,10 +732,8 @@ Page({
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
     this.data.modifySending = true;
-    console.log('send modi')
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      console.log('back modi')
       this.data.modifySending = false
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
@@ -748,8 +745,7 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
-      console.log('lasklskdlaksldkalsd')
-      console.log(req.spots, this.data.lines.length)
+      // console.log('lalala')
     })
   },
 

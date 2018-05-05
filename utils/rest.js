@@ -2,14 +2,14 @@ const apis = require('../api.js');
 const APPNAME = 'travel';
 
 
-const srv = "https://tt.ddz2018.com/";
-const wss = "wss://tt.ddz2018.com/travel";
+// const srv = "https://tt.ddz2018.com/";
+// const wss = "wss://tt.ddz2018.com/travel";
 // const srv = "https://local.ddz2018.com/";
 // const wss = "wss://local.ddz2018.com/travel";
 // const srv = "https://localhost/";
 // const wss = "wss://localhost/travel";
-// const srv = "https://travel.ddz2018.com/";
-// const wss = "wss://travel.ddz2018.com/travel";
+const srv = "https://travel.ddz2018.com/";
+const wss = "wss://travel.ddz2018.com/travel";
 
 
 
