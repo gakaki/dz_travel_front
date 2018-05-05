@@ -11,19 +11,14 @@
   background-size: cover;
 }
 .audio {
-  position: absolute;
   width: 133rpx;
   height: 46rpx;
 }
 .audio-women {
-  top: 320rpx;
-  left: 610rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/integral/women.png') 0 0 no-repeat; 
   background-size: cover;
 }
 .audio-men {
-  top: 230rpx;
-  left: 230rpx;
   background: url('https://gengxin.odao.com/update/h5/travel/integral/men.png') 0 0 no-repeat; 
   background-size: cover;
 }
@@ -220,4 +215,20 @@
   width: 26rpx;
   height: 26rpx;
 
+}
+
+.enlarge{
+  width: 133rpx;
+  height: 100rpx;
+  position: absolute;
+}
+
+.men{
+  top: 198rpx;
+  left: 230rpx;
+}
+
+.women{
+  left: 610rpx;
+  top: 288rpx;
 }  
