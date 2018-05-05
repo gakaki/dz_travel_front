@@ -455,15 +455,15 @@ function secToDHM(sec) {
     str = '1分钟'
   }
   else if (sec < 3600) {
-    str = Math.floor(sec / 60) + '分钟'
+    str = Math.round(sec / 60) + '分钟'
   }
   else if (sec < 86400) {
-    let h = Math.floor(sec / 3600)
+    let h = Math.round(sec / 3600)
     let m = sec % 3600
-    str = h + '小时' + (m == 0 ? '' : Math.floor(m / 60) + '分钟')
+    str = h + '小时' + (m == 0 ? '' : Math.round(m / 60) + '分钟')
   }
   else {
-    let d = Math.floor(sec / 86400)
+    let d = Math.round(sec / 86400)
     let left = sec % 86400
     str = d + '天' + secToTimeStr(left)
   }
