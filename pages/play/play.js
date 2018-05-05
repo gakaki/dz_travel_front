@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr} from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
   TourIndexInfo,
@@ -37,7 +37,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
- const LOOP_INTERVAL = 3000;
+ const LOOP_INTERVAL = 1000;
 
 const DIR_UP = { from: 247.5, to: 292.5 };
 const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
@@ -92,6 +92,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasIndexInfo: false,
     invited: false,//是否是被邀请者
     finishedTip: '已点亮城市,可飞往下一城市旅行',
     anmIdx: 0,
@@ -149,6 +150,7 @@ Page({
     showMissionInfo: false, //是否显示任务信息pop
     newEvent: false, //是否有新事件
     changeRouteing: false, //是否正在修改路线，可能是自己，也可能是双人模式下对方在修改
+    modifySending: false, //是否已发送修改路线请求
   },
 
   /**
@@ -196,7 +198,8 @@ Page({
 
       this.setData({
         roleMe,
-        roleFriend
+        roleFriend,
+        hasIndexInfo: true
       })
 
       let num = 0;
@@ -338,6 +341,8 @@ Page({
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
+    
+
     // if (app.globalData.hasCar) {
     this.freshAllTrackedStat();
     this.freshSpots()
@@ -676,7 +681,7 @@ Page({
     if (!this.data.hasPlay) {
       this.finishGuide()
     }
-    this.hideGuide()
+    // this.hideGuide()
     if (this.data.planing) {
       return;
     }
@@ -712,6 +717,10 @@ Page({
       return;
     }
 
+    if (this.data.modifySending) {
+      return;
+    }
+
     //修改或续接路线--------------
 
     //暂停轮询
@@ -723,9 +732,12 @@ Page({
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
+    this.data.modifySending = true;
+    console.log('send modi')
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
-      // console.log(222)
+      console.log('back modi')
+      this.data.modifySending = false;
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
@@ -799,6 +811,10 @@ Page({
   },
   //轮询
   onPlayLoop(res) {
+    if (this.data.planing) {
+      console.log('正在改变路线，loop 忽略')
+      return;
+    }
     let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
@@ -856,7 +872,7 @@ Page({
     let num = 0
     let allNum = 0
     for (let o in this.data.task) {
-      if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
+      if (!this.data.partener && this.data.hasIndexInfo && (o == 'parterTour' || o == 'parterPhoto')) {
       }else {
         num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
@@ -911,6 +927,10 @@ Page({
 
   //刷新景点状态列表
   freshSpots() {
+    if (this.data.planing) {
+      console.log('planing, skip freshSpots')
+      return;
+    }
     let req = new FreshSpots();
     req.fetch().then(() => {
       //更新人物图标
