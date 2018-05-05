@@ -41,6 +41,7 @@
 
 
 .yuanquan {
+  background-color: #ffc705;
   width: 10rpx;
   height: 10rpx;
   /* background-color: #ffc705; */

@@ -45,12 +45,12 @@
 
   <view wx:if="{{!planedFinished && started && roleMe.display!=0}}" class="weiqi" style="position: absolute; right:100%;top:50%; transform-origin:{{100 + 50*scale}}% 50%;transform:rotate({{roleMe.weiqiRotate?roleMe.weiqiRotate:0}}deg) translateY(-50%)"> 
  <!-- <view  class="weiqi" style="position: absolute; right:100%;top:50%; transform-origin:{{100 + 50*scale}}% 50%;transform:rotate({{roleMe.weiqiRotate?roleMe.weiqiRotate:0}}deg) translateY(-50%)"> -->
-  <!-- <view class="yuanquan wq-donghua"></view>
+   <view class="yuanquan wq-donghua"></view>
  <view class="yuanquan yuanquan1 wq-donghua1"></view>
- <view class="yuanquan yuanquan2 wq-donghua2"></view>  -->
-        <view class="yuanquan wq-donghua" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
+ <view class="yuanquan yuanquan2 wq-donghua2"></view>  
+        <!-- <view class="yuanquan wq-donghua" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
         <view class="yuanquan yuanquan1 wq-donghua1" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
-        <view class="yuanquan yuanquan2 wq-donghua2" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view>
+        <view class="yuanquan yuanquan2 wq-donghua2" style="background-image: url(https://gengxin.odao.com/update/h5/travel/play/circle.png);background-size:auto 100%;"></view> -->
 </view> 
 
       <view class="role-event-img flex" wx:if="{{ newEvent }}" style="position: absolute; left: {{-26 * scale}}rpx;top: {{(roleMe.display == 0 ? -65 : -25) * scale}}rpx;width:{{59 * scale}}rpx;height: {{59 * scale}}rpx;">
