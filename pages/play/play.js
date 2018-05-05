@@ -1018,7 +1018,13 @@ Page({
 
     this.data.planedSpots = planedSpots;
     let started = planedSpots.length > 0;
-    if (started) LOOP_INTERVAL = 60000
+    if (started) {
+      if (LOOP_INTERVAL == 1000) {
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        LOOP_INTERVAL = 60000
+        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+      } 
+    }
     let showCancelDouble = !this.data.spotsAllTracked && !started && this.data.partener && this.data.partener.isInviter;
     let invit = false
     if (!invited) invit = showCancelDouble
