@@ -602,7 +602,6 @@ Page({
   freshAllTrackedStat() {
     let req = new PlayLoop();
     req.fetch().then(() => {
-      console.log("是否有新事件", req.newEvent);
       if (req.newEvent) {
         //显示事件气泡
         let unreadEventCnt = this.data.unreadEventCnt;
@@ -835,7 +834,6 @@ Page({
       lineUpdate = true;
     }
 
-    console.log("是否有新事件", res.newEvent);
 
     if (res.newEvent) {
       //显示事件气泡
@@ -926,7 +924,6 @@ Page({
   //刷新景点状态列表
   freshSpots() {
     if (this.data.modifySending) {
-      console.log('modifying, skip reshSpots')
       return;
     }
    
@@ -1230,7 +1227,6 @@ Page({
       let curEvtIdx = req.current;
       let totalEvt = req.total;
 
-      console.log("是否有下一个事件", req.hasNext);
 
       if (!req.quest) {
         this.setData({

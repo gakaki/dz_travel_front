@@ -403,7 +403,6 @@ function shareToIndex(that, innerObj, toShareLink) {
     imageUrl = 'https://gengxin.odao.com/update/h5/travel/' + innerObj.imageUrl
   }
   
-  console.log(nowPath)
   if (app.globalData.debug.share){
   }
   return {

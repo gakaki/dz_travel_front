@@ -58,7 +58,6 @@ Page({
     enterOnload = true;
     wx.getNetworkType({
       success:function(res){
-        console.log(2,res)
         if(res.networkType =='none') {
           wx.onNetworkStatusChange(res => {
             if (res.isConnected) {
@@ -433,7 +432,7 @@ Page({
     let mock = new SendMockId();
     mock.formId = e.detail.formId;
     mock.fetch().then(()=>{
-      console.log('send formId suc')
+      // console.log('send formId suc')
     })
   },
 

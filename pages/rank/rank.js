@@ -83,7 +83,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    console.log('hideeeeeee')
     this.resetInfo();
     preventCrazyClick = false;
     rankType = RankType.THUMBS; 
@@ -103,7 +102,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    console.log('unloadddddd')
     this.resetInfo();
     preventCrazyClick = false;
     rankType = RankType.THUMBS; 
@@ -132,13 +130,12 @@ Page({
   },
 
   getRankInfo() {
-    console.log(page, 'page', this.data.rankingFriend, this.data.rankingCountry)
+    // console.log(page, 'page', this.data.rankingFriend, this.data.rankingCountry)
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
     req.page = page;
     req.fetch().then(() => { 
-      console.log(req.ranks,'ranks')
       if (page == 1 && !req.ranks.length) {
         this.setData({
           noRank: true

@@ -153,7 +153,6 @@ Page({
       }
      
     }).catch((res)=>{
-      console.log(res)
       if(res == -148) {
         this.setData({
           exchangeOver: true
