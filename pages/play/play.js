@@ -737,7 +737,7 @@ Page({
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       console.log('back modi')
-      this.data.modifySending = false;
+      this.data.modifySending = false
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
@@ -811,10 +811,10 @@ Page({
   },
   //轮询
   onPlayLoop(res) {
-    if (this.data.planing) {
-      console.log('正在改变路线，loop 忽略')
+    if (this.data.modifySending) {
       return;
     }
+   
     let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
@@ -927,10 +927,11 @@ Page({
 
   //刷新景点状态列表
   freshSpots() {
-    if (this.data.planing) {
-      console.log('planing, skip freshSpots')
+    if (this.data.modifySending) {
+      console.log('modifying, skip reshSpots')
       return;
     }
+   
     let req = new FreshSpots();
     req.fetch().then(() => {
       //更新人物图标
