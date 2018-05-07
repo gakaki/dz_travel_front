@@ -649,6 +649,7 @@ Page({
   xiugaiLine() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     if (this.data.planedFinished || !this.data.started) {
       this.chgLine()
@@ -672,8 +673,8 @@ Page({
     if (app.globalData.gold < 100) {
       this.setData({
         chgLines: true,
-        cfmStr: '前往充值',
-        cfmDesc: '金币不足,可前往充值'
+        cfmStr: '前往商城',
+        cfmDesc: '金币不足,可前往商城'
       })
       return
     } else {
@@ -699,7 +700,10 @@ Page({
   },
   //修改路线
   chgLine() {
-
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+      return
+    }
     let num = 0//到达的景点
     this.data.spots.forEach(o => {
       if (o.roundTracked) num++
@@ -715,9 +719,7 @@ Page({
       return
     }
 
-    if (!this.data.hasPlay) {
-      this.finishGuide()
-    }
+    
     if (this.data.planing) {
       return;
     }
@@ -1346,6 +1348,7 @@ Page({
   popMissionInfo() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     let req = new FreshSpots();
     req.fetch().then(() => {
@@ -1361,6 +1364,7 @@ Page({
   toPr() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     wx.navigateTo({
       url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
@@ -1370,6 +1374,7 @@ Page({
   toProps() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     wx.navigateTo({
       url: '../props/props?cid=' + this.data.cid + '&city=' + citysName

@@ -31,7 +31,7 @@ Page({
       income: sheet.Parameter.Get(sheet.Parameter.NEWUSERGOLD).value
     })
     wx.setNavigationBarTitle({
-      title: '充值商城'
+      title: '金币商城'
     })
   },
   hide() {
