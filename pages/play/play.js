@@ -1,4 +1,3 @@
-// pages/play2/play.js
 import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
@@ -23,10 +22,8 @@ let display;
 let music;
 let reGoin = 0; //重新进入页面
 let citysName;
-let anmTimer;
 let invited = false;//是否是被邀请者
 let curPlanedFinished = true;//走完规划完的路线
-// let curPlanedFinishedNum = 0;//规划完的路线的数量
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -314,19 +311,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // anmTimer = setInterval(()=>{
-    //   this.setData({
-    //     anmIdx: this.data.anmIdx < this.data.flower.length - 2 ? this.data.anmIdx+1 :0
-    //   })
-    // },200)
     music = wx.createInnerAudioContext()
     music.autoplay = false
     music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
     if (this.data.showCancelDouble) {
-      // wx.showToast({
-      //   title: '双人旅行需被邀请人规划路线',
-      //   icon: 'none'
-      // })
       if (!invited) {
         this.setData({
           invited: true
@@ -377,12 +365,7 @@ Page({
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
         reGoin = 0;
         this.hideHuadong();
-        if (anmTimer) {
-            clearInterval(anmTimer);
-            anmTimer = null;
-        }
         this.stopMvLoop();
-        // curPlanedFinishedNum = 0
         curPlanedFinished = true;
     },
 
@@ -952,7 +935,7 @@ Page({
     } else {
       if (this.data.planedFinished && !curPlanedFinished) {
         wx.showToast({
-          title: '规划路线已走完，还未完成任务，可添加路线',
+          title: '规划路线已走完，记得完成任务哦',
           icon: 'none'
         })
         curPlanedFinished = true
