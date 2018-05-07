@@ -1,6 +1,19 @@
-.t-bg {
+
+.top-bg-box {
   width: 100%;
   height: 260rpx;
+  position: relative
+}
+.dress {
+  position: absolute;
+  left: 0;
+  top: 0;
+   width: 100%;
+  height: 88rpx;
+}
+.t-bg {
+  width: 100%;
+  height: 100%;
 }
 .gold-box {
   width: 710rpx;
@@ -44,9 +57,12 @@ font: bold 32rpx  'Microsoft YaHei';
   margin-left: 5rpx
 }
 .ivt {
-  position: relative;
-  margin: 0 auto;
-  margin-top: 106rpx;
+  /* margin: 0 auto;
+  margin-top: 106rpx; */
+  position: absolute;
+  bottom: 68rpx;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .ivt-btn {
   position: absolute;
@@ -57,10 +73,19 @@ font: bold 32rpx  'Microsoft YaHei';
 .ivt-str {
   font: bold 28rpx  'Microsoft YaHei';
   letter-spacing: 3rpx;
-  color: #afafb4
+  color: #afafb4;
+  position: absolute;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap
 }
 .pop-str {
   font: bold 38rpx  'Microsoft YaHei';
   color: #b8b8b8;
   letter-spacing: 3rpx
+}
+.ios {
+  width: 100%;
+  height: 756rpx;
 }

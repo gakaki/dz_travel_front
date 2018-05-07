@@ -10,13 +10,26 @@ Page({
     goldInfo: sheet.pays,
     gCount: 0,
     mCount: 0,
-    pop: false
+    pop: false,
+    platform: '',
+    income: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    try {
+      var res = wx.getSystemInfoSync()
+      console.log(res.platform)
+        this.setData({
+          platform: res.platform
+        })
+    } catch (e) {
+    }
+    this.setData({
+      income: sheet.Parameter.Get(sheet.Parameter.NEWUSERGOLD).value
+    })
     wx.setNavigationBarTitle({
       title: '充值商城'
     })
@@ -63,7 +76,7 @@ Page({
   isBuy(e) {
     let obj = this.data.goldInfo[e.currentTarget.dataset.idx]
     this.setData({
-      obj:obj,
+      obj: obj,
       gCount: obj.gold,
       mCount: obj.pay,
       pop: true
