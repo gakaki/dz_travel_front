@@ -159,9 +159,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    music = wx.createInnerAudioContext()
-    music.autoplay = false
-    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+    
 
     app.globalData.hasCar = false
     this.data.cid = options.cid;
@@ -322,6 +320,9 @@ Page({
     //     anmIdx: this.data.anmIdx < this.data.flower.length - 2 ? this.data.anmIdx+1 :0
     //   })
     // },200)
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
     if (this.data.showCancelDouble) {
       // wx.showToast({
       //   title: '双人旅行需被邀请人规划路线',
