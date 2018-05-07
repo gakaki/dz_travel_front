@@ -220,7 +220,6 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
-// console.log(111)
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
@@ -677,6 +676,22 @@ Page({
   },
   //修改路线
   chgLine() {
+
+    let num = 0//到达的景点
+    this.data.spots.forEach(o => {
+      if (o.roundTracked) num++
+    })
+    if (num == this.data.spots.length - 1) {
+      this.setData({
+        chgLines: false
+      })
+      wx.showToast({
+        title: '已经要走完了，再耐心等待一下吧',
+        icon: 'none'
+      });
+      return
+    }
+
     if (!this.data.hasPlay) {
       this.finishGuide()
     }
@@ -947,7 +962,6 @@ Page({
       this.setData({ licheng })
 
       //更新景点进度
-      // console.log(333)
       this.updateSpots(req.spots);
 
       //更新任务进度
@@ -1104,7 +1118,6 @@ Page({
         lineDone: true
       })
       this.data.startPoint.arriveStamp = req.startTime;
-      // console.log(444)
       this.updateSpots(req.spots);
       //恢复轮询
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
