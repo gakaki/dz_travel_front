@@ -971,7 +971,6 @@ Page({
 
       //更新景点进度
       this.updateSpots(req.spots);
-      console.log('fresh spots ok')
 
       //更新任务进度
 
