@@ -396,6 +396,7 @@ function shareToIndex(that, innerObj, toShareLink) {
   for (let k in toShareLink) {
     nowPath += '&' + k + '=' + toShareLink[k]
   }
+  console.log(nowPath)
   let url = innerObj.type
   if (url == 4 || url == 6) { url = 1 }
   let imageUrl = 'https://gengxin.odao.com/update/h5/travel/share/' + url + '.png'

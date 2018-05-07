@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr} from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
   TourIndexInfo,
@@ -37,7 +37,8 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
- const LOOP_INTERVAL = 1000;
+const LOOP_INTERVAL = 1000;
+const MV_INTERVAL = 100;//检测移动的间隔
 
 const DIR_UP = { from: 247.5, to: 292.5 };
 const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
@@ -129,6 +130,7 @@ Page({
     planed: false,//是否完成了规划
     lineDone: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
+      mvHdl: undefined, //移动interval句柄
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
@@ -220,7 +222,6 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
-// console.log(111)
       this.updateSpots(req.spots);
       this.onShow();
       this.freshTask();
@@ -340,8 +341,9 @@ Page({
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
+      this.startMvLoop();
     }
-    
+
 
     // if (app.globalData.hasCar) {
     this.freshAllTrackedStat();
@@ -361,24 +363,28 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-    reGoin = 0
-    this.hideHuadong()
-    clearInterval(anmTimer)
-    // curPlanedFinishedNum = 0
-    curPlanedFinished = true
+    this.clearPage();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-    reGoin = 0
-    clearInterval(anmTimer)
-    // curPlanedFinishedNum = 0
-    curPlanedFinished = true
+    this.clearPage();
   },
+
+    clearPage() {
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        reGoin = 0;
+        this.hideHuadong();
+        if (anmTimer) {
+            clearInterval(anmTimer);
+            anmTimer = null;
+        }
+        this.stopMvLoop();
+        // curPlanedFinishedNum = 0
+        curPlanedFinished = true;
+    },
 
   /**
    * 用户点击右上角分享
@@ -386,7 +392,20 @@ Page({
   onShareAppMessage: function () {
     return shareToIndex(this)
   },
-
+    //启动移动循环
+    startMvLoop() {
+      this.stopMvLoop();
+      if (this.data.started) {
+          this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
+      }
+    },
+    //关闭移动循环
+    stopMvLoop() {
+      if (this.data.mvHdl) {
+          clearInterval(this.data.mvHdl);
+          this.data.mvHdl = null;
+      }
+    },
 
   //更新路线
   updateLines(force = false) {
@@ -496,6 +515,7 @@ Page({
           roleFriend = null;
           if (!this.data.partener) {
             Http.unlisten(PlayLoop, this.onPlayLoop, this);
+            this.stopMvLoop();
           }
         }
         else {
@@ -504,6 +524,7 @@ Page({
           }
           if (!this.data.partener) {
             Http.unlisten(PlayLoop, this.onPlayLoop, this);
+            this.stopMvLoop();
           }
           this.freshAllTrackedStat();
         }
@@ -591,8 +612,8 @@ Page({
       if (carImg) {
         roleMe.img = carImg + '2.png';
       }
-      if (this.data.spotsAllTracked ) {
-         this.setData({ planedFinished: true})
+      if (this.data.spotsAllTracked) {
+        this.setData({ planedFinished: true })
       }
       this.setData({ lines: null, roleMe })
     }
@@ -674,9 +695,26 @@ Page({
       planedFinished: false,//
       planedSpots: []
     })
+    this.stopMvLoop();
   },
   //修改路线
   chgLine() {
+
+    let num = 0//到达的景点
+    this.data.spots.forEach(o => {
+      if (o.roundTracked) num++
+    })
+    if (num == this.data.spots.length - 1) {
+      this.setData({
+        chgLines: false
+      })
+      wx.showToast({
+        title: '已经要走完了，再耐心等待一下吧',
+        icon: 'none'
+      });
+      return
+    }
+
     if (!this.data.hasPlay) {
       this.finishGuide()
     }
@@ -711,6 +749,7 @@ Page({
       //暂停轮询
       Http.unlisten(PlayLoop, this.onPlayLoop, this);
       this.zoomOnPlaning();//缩放
+      this.stopMvLoop();
 
       return;
     }
@@ -720,20 +759,20 @@ Page({
     }
 
     //修改或续接路线--------------
-
+    this.data.modifySending = true;
     //暂停轮询
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     //缩放
     this.zoomOnPlaning();
-
+    this.stopMvLoop();
 
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
-    this.data.modifySending = true;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.data.modifySending = false
+      this.data.planing = true;//先内存中标记一下进入编辑状态，以便freshSpots中拦截
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
@@ -744,7 +783,6 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
-      // console.log('lalala')
     })
   },
 
@@ -811,7 +849,7 @@ Page({
     if (this.data.modifySending) {
       return;
     }
-   
+
     let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
@@ -869,11 +907,11 @@ Page({
     let allNum = 0
     for (let o in this.data.task) {
       if (!this.data.partener && this.data.hasIndexInfo && (o == 'parterTour' || o == 'parterPhoto')) {
-      }else {
+      } else {
         num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
       }
-      
+
     }
     let rel = num / allNum
     this.setData({
@@ -923,10 +961,10 @@ Page({
 
   //刷新景点状态列表
   freshSpots() {
-    if (this.data.modifySending) {
+    if (this.data.modifySending || this.data.planing) {
       return;
     }
-   
+
     let req = new FreshSpots();
     req.fetch().then(() => {
       //更新人物图标
@@ -947,8 +985,8 @@ Page({
       this.setData({ licheng })
 
       //更新景点进度
-      // console.log(333)
       this.updateSpots(req.spots);
+      console.log('fresh spots ok')
 
       //更新任务进度
 
@@ -1069,7 +1107,9 @@ Page({
       showCancelDouble,
       invited: invit
     });
-
+    if (!this.data.mvHdl && started) {
+        this.startMvLoop();
+    }
     updateLine && this.updateLines(updateLine);
   },
 
@@ -1104,7 +1144,6 @@ Page({
         lineDone: true
       })
       this.data.startPoint.arriveStamp = req.startTime;
-      // console.log(444)
       this.updateSpots(req.spots);
       //恢复轮询
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);

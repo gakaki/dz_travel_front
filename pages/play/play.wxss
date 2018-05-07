@@ -422,8 +422,8 @@ weather.sights {
   position: fixed;
   bottom: 54rpx;
   left: 39rpx;
-  width: 168rpx;
-  height: 105rpx;
+  width: 176rpx;
+  height: 107rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/travelTips.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 24rpx;
@@ -459,8 +459,8 @@ weather.sights {
   position: fixed;
   bottom: 54rpx;
   right: 39rpx;
-  width: 168rpx;
-  height: 105rpx;
+  width: 176rpx;
+  height: 107rpx;
   background: url("https://gengxin.odao.com/update/h5/travel/play/tarvelProps.png") 0 0 no-repeat;
   background-size: cover;
   font-size: 24rpx;
