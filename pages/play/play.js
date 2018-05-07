@@ -683,10 +683,6 @@ Page({
   },
   //修改路线
   chgLine() {
-    if (!this.data.hasPlay) {
-      this.finishGuide()
-      return
-    }
     let num = 0//到达的景点
     this.data.spots.forEach(o => {
       if (o.roundTracked) num++
