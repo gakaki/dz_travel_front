@@ -24,7 +24,6 @@ let music;
 let reGoin = 0; //重新进入页面
 let citysName;
 let anmTimer;
-// let LOOP_INTERVAL = 1000;
 let invited = false;//是否是被邀请者
 let curPlanedFinished = true;//走完规划完的路线
 // let curPlanedFinishedNum = 0;//规划完的路线的数量
@@ -37,7 +36,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 1000;
+const LOOP_INTERVAL = 5000;//轮询间隔
 const MV_INTERVAL = 100;//检测移动的间隔
 
 const DIR_UP = { from: 247.5, to: 292.5 };
@@ -130,7 +129,7 @@ Page({
     planed: false,//是否完成了规划
     lineDone: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
-      mvHdl: undefined, //移动interval句柄
+    mvHdl: undefined, //移动interval句柄
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
