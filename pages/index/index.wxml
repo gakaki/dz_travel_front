@@ -12,10 +12,10 @@
         <view class="name">
            <text class="font">{{tools.filterNickname(nickName)}}</text>
         </view>
-        <view class="gold-info flex" bindtap='toShop'>
+        <view class="gold-info flex" >
           <image class="gold-icon" src="https://gengxin.odao.com/update/h5/travel/props/gold.png"></image>
           <text class="font">{{gold}}</text>
-          <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image>
+          <!-- <image class="add" src="https://gengxin.odao.com/update/h5/travel/props/plus.png"></image> -->
         </view>
       </view>
     </view>

@@ -600,9 +600,9 @@ Page({
     this.setData({
       needItem:false
     })
-    wx.navigateTo({
-      url: '../recharge/recharge',
-    })
+    // wx.navigateTo({
+    //   url: '../recharge/recharge',
+    // })
   },
   /**
    * 用户点击右上角分享

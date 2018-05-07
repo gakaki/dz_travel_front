@@ -22,9 +22,9 @@ Component({
    */
   methods: {
     toShop(){
-      wx.navigateTo({
-        url: '../../pages/recharge/recharge',
-      })
+      // wx.navigateTo({
+      //   url: '../../pages/recharge/recharge',
+      // })
     }
   }
 })

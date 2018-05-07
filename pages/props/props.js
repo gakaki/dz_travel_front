@@ -81,9 +81,9 @@ Page({
     })
   },
   toShop() {
-    wx.navigateTo({
-      url: '../recharge/recharge'
-    })
+    // wx.navigateTo({
+    //   url: '../recharge/recharge'
+    // })
   },
   rentCar(e) {
     let str

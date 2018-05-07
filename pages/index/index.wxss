@@ -50,6 +50,7 @@
 .gold-info text {
   color: #fc6161;
   font-size: 26rpx;
+  padding-right: 10rpx;
 }
 
 .gold-icon {

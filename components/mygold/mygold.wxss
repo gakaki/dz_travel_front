@@ -21,7 +21,7 @@
   display: inline-block;
   color: #fc6161;
   font:  bold 26rpx/38rpx 'Microsoft YaHei';
-  /* padding-right: 40rpx; */
+   padding-right: 10rpx; 
 }
 .plus {
   /* position: absolute;
