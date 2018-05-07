@@ -37,7 +37,8 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
- const LOOP_INTERVAL = 1000;
+const LOOP_INTERVAL = 1000;
+const MV_INTERVAL = 100;//检测移动的间隔
 
 const DIR_UP = { from: 247.5, to: 292.5 };
 const DIR_UP_RIGHT = { from: 292.5, to: 337.5 };
