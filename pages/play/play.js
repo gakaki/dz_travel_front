@@ -130,6 +130,7 @@ Page({
     planed: false,//是否完成了规划
     lineDone: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
+      mvHdl: undefined, //移动interval句柄
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
@@ -340,6 +341,7 @@ Page({
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
+      this.startMvLoop();
     }
 
 
@@ -361,24 +363,28 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-    reGoin = 0
-    this.hideHuadong()
-    clearInterval(anmTimer)
-    // curPlanedFinishedNum = 0
-    curPlanedFinished = true
+    this.clearPage();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    Http.unlisten(PlayLoop, this.onPlayLoop, this);
-    reGoin = 0
-    clearInterval(anmTimer)
-    // curPlanedFinishedNum = 0
-    curPlanedFinished = true
+    this.clearPage();
   },
+
+    clearPage() {
+        Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        reGoin = 0;
+        this.hideHuadong();
+        if (anmTimer) {
+            clearInterval(anmTimer);
+            anmTimer = null;
+        }
+        this.stopMvLoop();
+        // curPlanedFinishedNum = 0
+        curPlanedFinished = true;
+    },
 
   /**
    * 用户点击右上角分享
@@ -386,7 +392,20 @@ Page({
   onShareAppMessage: function () {
     return shareToIndex(this)
   },
-
+    //启动移动循环
+    startMvLoop() {
+      this.stopMvLoop();
+      if (this.data.started) {
+          this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
+      }
+    },
+    //关闭移动循环
+    stopMvLoop() {
+      if (this.data.mvHdl) {
+          clearInterval(this.data.mvHdl);
+          this.data.mvHdl = null;
+      }
+    },
 
   //更新路线
   updateLines(force = false) {
@@ -496,6 +515,7 @@ Page({
           roleFriend = null;
           if (!this.data.partener) {
             Http.unlisten(PlayLoop, this.onPlayLoop, this);
+            this.stopMvLoop();
           }
         }
         else {
@@ -504,6 +524,7 @@ Page({
           }
           if (!this.data.partener) {
             Http.unlisten(PlayLoop, this.onPlayLoop, this);
+            this.stopMvLoop();
           }
           this.freshAllTrackedStat();
         }
@@ -674,6 +695,7 @@ Page({
       planedFinished: false,//
       planedSpots: []
     })
+    this.stopMvLoop();
   },
   //修改路线
   chgLine() {
@@ -727,6 +749,7 @@ Page({
       //暂停轮询
       Http.unlisten(PlayLoop, this.onPlayLoop, this);
       this.zoomOnPlaning();//缩放
+      this.stopMvLoop();
 
       return;
     }
@@ -741,6 +764,7 @@ Page({
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     //缩放
     this.zoomOnPlaning();
+    this.stopMvLoop();
 
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
@@ -1083,6 +1107,9 @@ Page({
       showCancelDouble,
       invited: invit
     });
+    if (!this.data.mvHdl && started) {
+        this.startMvLoop();
+    }
     updateLine && this.updateLines(updateLine);
   },
 
