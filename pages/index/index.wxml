@@ -49,12 +49,14 @@
   </view>
   <view class="choose">
     <view class="city-travel btn font" bindtap='toPlay'>
+      <image class="city-icon" src="https://gengxin.odao.com/update/h5/travel/index/city-icon.png"></image>
       城市游玩
       <form bindsubmit='sendMockId' report-submit>
         <button class="form-button" form-type='submit'></button>
       </form> 
     </view>
     <view class="fly btn font" bindtap='toFly'>
+      <image class="city-icon" src="https://gengxin.odao.com/update/h5/travel/index/fly-icon.png"></image>
       起飞旅行
       <form bindsubmit='sendMockId' report-submit>
         <button class="form-button" form-type='submit'></button>

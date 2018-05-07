@@ -402,3 +402,11 @@
   top: 0;
   left: 0;
 }
+
+.city-icon{
+  width: 55rpx;
+  height: 46rpx;
+  position: relative;
+  top: 8rpx;
+  margin-right: 15rpx;
+}
