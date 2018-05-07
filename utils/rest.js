@@ -8,7 +8,7 @@ const wss = "wss://tt.ddz2018.com/travel";
 // const wss = "wss://local.ddz2018.com/travel";
 // const srv = "https://localhost/";
 // const wss = "wss://localhost/travel";
-// const srv = "https://travel.ddz20listen18.com/";
+// const srv = "https://travel.ddz2018.com/";
 // const wss = "wss://travel.ddz2018.com/travel";
 
 

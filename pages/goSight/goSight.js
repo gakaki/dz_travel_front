@@ -8,7 +8,7 @@ let pointId = ''
 let cid = ''
 let oldStr = ''
 let toUrl = ''//点击弹窗去哪个页面
-let music
+let musics
 let spotName = ''
 Page({
 
@@ -50,9 +50,9 @@ Page({
     cid = options.cid
     spotName = options.name
 
-    music = wx.createInnerAudioContext()
-    music.autoplay = false
-    music.src = 'https://gengxin.odao.com/update/h5/travel/play/photograph.mp3'
+    musics = wx.createInnerAudioContext()
+    musics.autoplay = false
+    musics.src = 'https://gengxin.odao.com/update/h5/travel/play/photograph.mp3'
   },
   onShow() {
     let req = new ReqEnterspot()
@@ -203,7 +203,7 @@ Page({
     req.cid = cid;
     req.spotId = pointId
     req.fetch().then(req => {
-      music.play()
+      musics.play()
       this.setData({
         isGetPost: true,
         freePhoto: req.freePhoto,
