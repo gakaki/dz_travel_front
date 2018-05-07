@@ -90,6 +90,6 @@
 
   <buy wx:if="{{popCar}}" cfmStr="{{cfmStr}}" name="{{propName}}" goldNum="{{goldNum}}" desc="{{propDesc}}" picUrl='{{picUrl}}' bindtoclose="hideCar" bind:confirm="toBuy"></buy>
   <buynum wx:if="{{popBuyNum}}"  type='{{type}}' xg='{{xg}}' single="{{singal}}" name="{{propName}}" maxNum="{{maxNum}}" maimai="{{maimai}}" desc="{{propDesc}}" gold="{{goldNum}}" bindtoclose="hideBuyNum" bindtoBuy="buyCount" picUrl='{{picUrl}}' overxg='{{overxg}}'></buynum>
-  <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往充值"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往充值" isBuy="{{false}}"></buy>
+  <buy outer-class="fc" bindtoclose="hidePop" content="金币不足，可前往商城"  bind:confirm="toShop" wx:if="{{goldBuzu}}" cfmStr="前往商城" isBuy="{{false}}"></buy>
   <buy outer-class="fc" bindtoclose="hideCar" content="好友已租赁此类型道具，确认租赁？（重复租赁效果不叠加）"  bind:confirm="forceBuy" wx:if="{{forceBuy}}" cfmStr="继续租用" isBuy="{{false}}"></buy>
 </view>
