@@ -1,5 +1,5 @@
 // pages/play2/play.js
-import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr} from '../../utils/util.js';
+import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
   TourIndexInfo,
@@ -341,7 +341,7 @@ Page({
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
 
     }
-    
+
 
     // if (app.globalData.hasCar) {
     this.freshAllTrackedStat();
@@ -591,8 +591,8 @@ Page({
       if (carImg) {
         roleMe.img = carImg + '2.png';
       }
-      if (this.data.spotsAllTracked ) {
-         this.setData({ planedFinished: true})
+      if (this.data.spotsAllTracked) {
+        this.setData({ planedFinished: true })
       }
       this.setData({ lines: null, roleMe })
     }
@@ -736,20 +736,19 @@ Page({
     }
 
     //修改或续接路线--------------
-
+    this.data.modifySending = true;
     //暂停轮询
     Http.unlisten(PlayLoop, this.onPlayLoop, this);
     //缩放
     this.zoomOnPlaning();
 
-
     let req = new ModifyRouter();
     req.planedAllTracked = this.data.planedFinished ? 1 : 0;
     req.spotsAllTracked = this.data.spotsAllTracked ? 1 : 0;
-    this.data.modifySending = true;
     req.fetch().then(() => {
       app.globalData.gold = req.goldNum;
       this.data.modifySending = false
+      this.data.planing = true;//先内存中标记一下进入编辑状态，以便freshSpots中拦截
       this.updateSpots(req.spots, false);//此时后端会把未到达的点清掉，所以前端不再自己缓存planedSpots = this.data.planedSpots.filter(s => s.roundTracked || s.tracking)
 
       this.setData({
@@ -760,7 +759,6 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
-      // console.log('lalala')
     })
   },
 
@@ -827,7 +825,7 @@ Page({
     if (this.data.modifySending) {
       return;
     }
-   
+
     let lineUpdate = false;
     if (res.code) {
       //如果有错误码，底层会终止轮询
@@ -885,11 +883,11 @@ Page({
     let allNum = 0
     for (let o in this.data.task) {
       if (!this.data.partener && this.data.hasIndexInfo && (o == 'parterTour' || o == 'parterPhoto')) {
-      }else {
+      } else {
         num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
       }
-      
+
     }
     let rel = num / allNum
     this.setData({
@@ -939,10 +937,10 @@ Page({
 
   //刷新景点状态列表
   freshSpots() {
-    if (this.data.modifySending) {
+    if (this.data.modifySending || this.data.planing) {
       return;
     }
-   
+
     let req = new FreshSpots();
     req.fetch().then(() => {
       //更新人物图标
@@ -964,6 +962,7 @@ Page({
 
       //更新景点进度
       this.updateSpots(req.spots);
+      console.log('fresh spots ok')
 
       //更新任务进度
 
@@ -1084,7 +1083,6 @@ Page({
       showCancelDouble,
       invited: invit
     });
-
     updateLine && this.updateLines(updateLine);
   },
 
