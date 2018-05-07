@@ -1,14 +1,36 @@
 //app.js
-import { start } from './utils/rest.js';
 App({
   onLaunch: function (e) {
+
+    //检查更新
+    if (wx.getUpdateManager) {
+      //基础库1.9.90及以上
+      let up = wx.getUpdateManager();
+      up.onCheckForUpdate(function (res) {
+        // 请求完新版本信息的回调
+        console.log(res.hasUpdate)
+      });
+      up.onUpdateReady(function () {
+        wx.showModal({
+          title: '更新提示',
+          content: '新版本已经准备好，是否重启应用？',
+          success: function (res) {
+            if (res.confirm) {
+              // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+              up.applyUpdate()
+            }
+          }
+        })
+
+      })
+
+      up.onUpdateFailed(function () {
+        console.log('新版本下载失败')
+      })
+    }
     let that = this
 
     that.globalData.referrerInfo = e
-    // 展示本地存储能力
-    // var logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
 
     //获取登录时的网络状态
     wx.getNetworkType({
@@ -38,12 +60,11 @@ App({
     })
 
     // 登录
-    wx.login({
-      success: res => {
-
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    // wx.login({
+    //   success: res => {
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //   }
+    // })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -84,7 +105,7 @@ App({
     debug: {
       share: true
     },
-    referrerInfo:{}    //给后台的场景值
+    referrerInfo: {}    //给后台的场景值
   },
   //事件里的随机图片配置路径
   getEventPicURL(reqQuestPictureURL) {

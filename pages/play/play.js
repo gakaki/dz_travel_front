@@ -1,4 +1,3 @@
-// pages/play2/play.js
 import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
 import { City, Weather } from '../../sheets.js';
 import {
@@ -23,11 +22,8 @@ let display;
 let music;
 let reGoin = 0; //重新进入页面
 let citysName;
-let anmTimer;
-// let LOOP_INTERVAL = 1000;
 let invited = false;//是否是被邀请者
 let curPlanedFinished = true;//走完规划完的路线
-// let curPlanedFinishedNum = 0;//规划完的路线的数量
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -37,7 +33,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 1000;
+const LOOP_INTERVAL = 5000;//轮询间隔
 const MV_INTERVAL = 100;//检测移动的间隔
 
 const DIR_UP = { from: 247.5, to: 292.5 };
@@ -130,7 +126,7 @@ Page({
     planed: false,//是否完成了规划
     lineDone: false,//是否完成了规划
     started: false, //是否已经开始（规划完路线就算开始了）
-      mvHdl: undefined, //移动interval句柄
+    mvHdl: undefined, //移动interval句柄
     spotsTracked: 0, //有几个景点到达了,客户端维护
     planedFinished: false,//当前规划的景点是否都到达了
     spotsAllTracked: false, //地图上的所有景点是否都走过了
@@ -159,9 +155,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    music = wx.createInnerAudioContext()
-    music.autoplay = false
-    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+    
 
     app.globalData.hasCar = false
     this.data.cid = options.cid;
@@ -317,16 +311,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // anmTimer = setInterval(()=>{
-    //   this.setData({
-    //     anmIdx: this.data.anmIdx < this.data.flower.length - 2 ? this.data.anmIdx+1 :0
-    //   })
-    // },200)
+    music = wx.createInnerAudioContext()
+    music.autoplay = false
+    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
     if (this.data.showCancelDouble) {
-      // wx.showToast({
-      //   title: '双人旅行需被邀请人规划路线',
-      //   icon: 'none'
-      // })
       if (!invited) {
         this.setData({
           invited: true
@@ -377,12 +365,7 @@ Page({
         Http.unlisten(PlayLoop, this.onPlayLoop, this);
         reGoin = 0;
         this.hideHuadong();
-        if (anmTimer) {
-            clearInterval(anmTimer);
-            anmTimer = null;
-        }
         this.stopMvLoop();
-        // curPlanedFinishedNum = 0
         curPlanedFinished = true;
     },
 
@@ -649,6 +632,7 @@ Page({
   xiugaiLine() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     if (this.data.planedFinished || !this.data.started) {
       this.chgLine()
@@ -672,8 +656,8 @@ Page({
     if (app.globalData.gold < 100) {
       this.setData({
         chgLines: true,
-        cfmStr: '前往充值',
-        cfmDesc: '金币不足,可前往充值'
+        cfmStr: '前往商城',
+        cfmDesc: '金币不足,可前往商城'
       })
       return
     } else {
@@ -699,7 +683,10 @@ Page({
   },
   //修改路线
   chgLine() {
-
+    if (!this.data.hasPlay) {
+      this.finishGuide()
+      return
+    }
     let num = 0//到达的景点
     this.data.spots.forEach(o => {
       if (o.roundTracked) num++
@@ -715,9 +702,7 @@ Page({
       return
     }
 
-    if (!this.data.hasPlay) {
-      this.finishGuide()
-    }
+    
     if (this.data.planing) {
       return;
     }
@@ -950,7 +935,7 @@ Page({
     } else {
       if (this.data.planedFinished && !curPlanedFinished) {
         wx.showToast({
-          title: '规划路线已走完，还未完成任务，可添加路线',
+          title: '规划路线已走完，记得完成任务哦',
           icon: 'none'
         })
         curPlanedFinished = true
@@ -986,7 +971,6 @@ Page({
 
       //更新景点进度
       this.updateSpots(req.spots);
-      console.log('fresh spots ok')
 
       //更新任务进度
 
@@ -1346,6 +1330,7 @@ Page({
   popMissionInfo() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     let req = new FreshSpots();
     req.fetch().then(() => {
@@ -1361,6 +1346,7 @@ Page({
   toPr() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     wx.navigateTo({
       url: '../pointRaiders/pointRaiders?cid=' + this.data.cid + '&city=' + citysName
@@ -1370,6 +1356,7 @@ Page({
   toProps() {
     if (!this.data.hasPlay) {
       this.finishGuide()
+      return
     }
     wx.navigateTo({
       url: '../props/props?cid=' + this.data.cid + '&city=' + citysName
