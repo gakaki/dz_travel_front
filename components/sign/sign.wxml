@@ -12,7 +12,7 @@
       <view class='one-day f-c-fs' wx:for='{{init}}' wx:key='{{index}}'>
         <text class='day-title' wx:if='{{index+1>=theDay}}'>{{index+1}}天</text> 
         <text class='day-title signed' wx:else=''>已签到</text>
-        <image class='gold-icon' wx:if='{{index+1>=theDay}}' src='https://gengxin.odao.com/update/h5/travel/sign/gold{{index+1}}.png'></image> 
+        <image class='gold-icon' wx:if='{{index+1>=theDay}}' src='https://gengxin.odao.com/update/h5/travel/sign/golds{{index+1}}.png'></image> 
         <image class='sign-icon' wx:else='' src='https://gengxin.odao.com/update/h5/travel/sign/sign.png'></image>
         <text class='gold-num'>{{item}}金币</text>
       </view>

@@ -89,9 +89,10 @@
   background: #278cff;
 }
 .gold-icon {
-  margin-top: 20rpx;
-  width: 114rpx;
-  height: 80rpx;
+  width: 154rpx;
+  height: 128rpx;
+  margin-top: 10rpx;
+  transform: scale(0.7);
 }
 .sign-icon {
   margin: 27rpx 0 17rpx;

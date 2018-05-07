@@ -323,7 +323,8 @@ Page({
       }
       else{
         let userInfo = app.globalData.userInfo;
-        if (res.nickName && !partnerEnter) {
+        
+        if (res.playerUid && !partnerEnter) {
           partnerEnter = true
           partnerCid = res.parLocation ? res.parLocation : initCity;
           this.setData({
@@ -335,7 +336,7 @@ Page({
             ]
           })
         }
-        else if (!res.nickName && partnerEnter) {
+        else if (!res.playerUid && partnerEnter) {
           partnerEnter = false
           this.setData({
             isWaiting: true,
