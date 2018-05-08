@@ -733,6 +733,27 @@ class Base {
             }
         });
     }
+   static ReAuth(resolve) {
+        if (this.LOGINED) return;
+        wx.openSetting({
+            success: res => {
+                wx.checkSession({
+                    success: () => {
+                        this.AUTHED=true;
+                        this.UserLogin(resolve)
+                    },
+                    fail: res => {
+                        wx.login({
+                            success: res => {
+                                this.AUTHED=false;
+                                this.UserAuth(res.code, resolve);
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
    static get servertime() {
         return ( Date.now()/1000-this._timestampD) * 1000
     }
@@ -772,7 +793,7 @@ class Ws {
     }
    static listen(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
-            console.error('ws has not inited');
+            console.warn('ws has not inited');
             return;
         }
         let action=wsReceiveCls.name.toLowerCase();
@@ -785,7 +806,7 @@ class Ws {
     }
    static unlisten(wsReceiveCls, cb, ctx) {
         if (!this._listenings) {
-            console.error('ws has not inited');
+            console.warn('ws has not inited');
             return;
         }
         let action=wsReceiveCls.name.toLowerCase();
@@ -834,7 +855,7 @@ class Http {
     }
    static listen(apiCls, cb, ctx, interval=300, preFetch=null) {
         if (!this._listenings) {
-            console.error('Http loop has not inited');
+            console.warn('Http loop has not inited');
             this.init();
             return;
         }
@@ -849,7 +870,7 @@ class Http {
     }
    static unlisten(apiCls, cb, ctx) {
         if (!this._listenings) {
-            console.error('Http loop has not inited');
+            console.warn('Http loop has not inited');
             return;
         }
         let action=apiCls.name.toLowerCase();
@@ -2315,6 +2336,7 @@ class PartnerInfo extends Base {
         this.init();
     
         this._inviteCode = null;
+        this._playerUid = null;
         this._nickName = null;
         this._avatarUrl = null;
         this._gold = null;
@@ -2329,11 +2351,14 @@ class PartnerInfo extends Base {
         this._reward = null;
         this.requireFileds = ["inviteCode"];
         this.reqFields = ["inviteCode"];
-        this.resFields = ["nickName","avatarUrl","gold","season","weather","cid","location","holiday","parLocation","isFly","score","reward"];
+        this.resFields = ["playerUid","nickName","avatarUrl","gold","season","weather","cid","location","holiday","parLocation","isFly","score","reward"];
     }
     //client input, require, type: string
     get inviteCode() {return this._inviteCode}
     set inviteCode(v) {this._inviteCode = v}
+    //server output, type: string
+    get playerUid() {return this._playerUid}
+    set playerUid(v) {this._playerUid = v}
     //server output, type: string
     get nickName() {return this._nickName}
     set nickName(v) {this._nickName = v}
