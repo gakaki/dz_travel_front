@@ -916,7 +916,7 @@ Page({
       //   }
       // } catch (e) {
       // }
-      if (this.data.planedFinished && (!curPlanedFinished || app.globalData.taskPer != 1)) {
+      if (this.data.planedFinished && !curPlanedFinished || app.globalData.taskPer != 1) {
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
