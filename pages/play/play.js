@@ -23,7 +23,7 @@ let music;
 let reGoin = 0; //重新进入页面
 let citysName;
 let invited = false;//是否是被邀请者
-let curPlanedFinished = true;//走完规划完的路线
+let curPlanedFinished = false;//是否走完规划完的路线
 const DOUBLE_TAP_INTERVAL = 600;
 const resRoot = 'https://gengxin.odao.com/update/h5/travel/play/';
 const startImg = `${resRoot}start.png`;
@@ -155,8 +155,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-
+    app.globalData.curPlanedFinishedNum = 0
     app.globalData.hasCar = false
     this.data.cid = options.cid;
     let city = City.Get(options.cid);
@@ -204,6 +203,7 @@ Page({
         if (o.roundTracked) num++
         spotsAllTracked = spotsAllTracked && o.tracked;
       })
+      app.globalData.curPlanedFinishedNum = num+1
       this.setData({
         spotsTracked: num,
         spotsAllTracked,
@@ -218,8 +218,9 @@ Page({
       });
       this.updateSpots(req.spots);
       this.onShow();
-      this.freshTask();
+      
       this.updateLines()
+      this.freshTask();
     });
 
   },
@@ -366,7 +367,7 @@ Page({
         reGoin = 0;
         this.hideHuadong();
         this.stopMvLoop();
-        curPlanedFinished = true;
+        curPlanedFinished = false;
     },
 
   /**
@@ -489,7 +490,7 @@ Page({
         })
         if (app.globalData.curPlanedFinishedNum != trackedNum) {
           app.globalData.curPlanedFinishedNum = trackedNum
-          curPlanedFinished = false
+          curPlanedFinished = true
         }
         // if (curPlanedFinishedIdx == 1) curPlanedFinished = false
         //规划的路线已经走完
@@ -916,29 +917,29 @@ Page({
       //   }
       // } catch (e) {
       // }
-      if (this.data.planedFinished && !curPlanedFinished || app.globalData.taskPer != 1) {
+      if (this.data.planedFinished && curPlanedFinished || app.globalData.taskPer != 1) {
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
         })
-        curPlanedFinished = true
+        curPlanedFinished = false
         app.globalData.taskPer = 1
       }
-      // if (this.data.task['spot'][0] > 6 && !curPlanedFinished) {
+      // if (this.data.task['spot'][0] > 6 && curPlanedFinished) {
       //   this.setData({
       //     finishedTip: '规划路线已走完，可以飞往下一城市',
       //     taskdonePop: true
       //   })
-      //   curPlanedFinished = true
+      //   curPlanedFinished = false
       // }
 
     } else {
-      if (this.data.planedFinished && !curPlanedFinished) {
+      if (this.data.planedFinished && curPlanedFinished) {
         wx.showToast({
           title: '规划路线已走完，记得完成任务哦',
           icon: 'none'
         })
-        curPlanedFinished = true
+        curPlanedFinished = false
       }
 
     }
