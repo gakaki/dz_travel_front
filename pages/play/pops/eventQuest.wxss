@@ -126,6 +126,6 @@
   padding-left: 4rpx;
 }
 .big {
-  letter-spacing: 20rpx;
-  padding-left: 20rpx;
+  letter-spacing: 28rpx;
+  padding-left: 28rpx;
 }
