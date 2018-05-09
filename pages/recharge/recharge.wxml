@@ -18,7 +18,8 @@
   </view>
   <view wx:if="{{platform == 'ios'}}" class="ios f-c-fs">
   <none title='ios暂未开放支付' tip='更多精彩，敬请期待' src='https://gengxin.odao.com/update/h5/travel/recharge/none.png' iconMarginTop='100rpx auto 62rpx'></none>
-  <image src=""></image>
+  <image class="iosTip" src="https://gengxin.odao.com/update/h5/travel/recharge/iosReword.png"></image>
+  <button open-type='contact' class="contact"></button>
   </view>
   <view class="btn-big-blue ivt">邀请好友
     <button class="btn-big-blue ivt-btn" open-type='share'></button>
