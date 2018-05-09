@@ -647,7 +647,7 @@ Page({
     this.data.spots.forEach(o => {
       if (o.roundTracked) num++
     })
-    if (num == this.data.spots.length - 1) {
+    if (num == this.data.spots.length - 1 && !this.data.planedFinished) {
       wx.showToast({
         title: '已经要走完了，再耐心等待一下吧',
         icon: 'none'
@@ -692,7 +692,7 @@ Page({
     this.data.spots.forEach(o => {
       if (o.roundTracked) num++
     })
-    if (num == this.data.spots.length - 1) {
+    if (num == this.data.spots.length - 1 && !this.data.planedFinished) {
       this.setData({
         chgLines: false
       })
