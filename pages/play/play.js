@@ -773,6 +773,10 @@ Page({
       this.updateLines(true)
     },(code)=>{
        this.data.modifySending = false
+       wx.showToast({
+         title: '对方正在修改路线',
+         icon: 'none'
+       })
     })
   },
 
