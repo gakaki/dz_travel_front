@@ -8,6 +8,7 @@ const app = getApp();
 let tktType , cid , terminal , tid , locationCid;
 let inviteOpt , getLocationCid = false;
 let enterOnload = true //判断是否进入onload生命周期函数中
+let loadOpts;
 Page({
 
   /**
@@ -53,7 +54,7 @@ Page({
   //    test = test.replace(r,"")
   //  }
   //  console.log(as)
-   
+    loadOpts = options;
     let that = this;
     enterOnload = true;
     wx.getNetworkType({
@@ -459,6 +460,11 @@ Page({
    */
   onShareAppMessage: function () {
     return shareToIndex(this)
+  },
+  checkReAuth() {
+    Base.ReAuth(()=>{
+      this.onLoad(loadOpts)
+    });
   },
 
   test(e) {

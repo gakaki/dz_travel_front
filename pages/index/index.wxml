@@ -2,7 +2,7 @@
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
 <launch class='launch' wx:if='{{launch}}'></launch>  
 <block wx:else>
-  <view class='wrap'>
+  <view class='wrap' bindtap='checkReAuth'>
   <view class="info f-r-sb">
     <view class="person flex">
       <view>
@@ -111,5 +111,6 @@
 <sign theDay='{{theDay}}' hasSign='{{hasSign}}' bind:sign="_sign"></sign>
 <tip wx:if="{{showInvite}}" isBuy="{{false}}" cfmStr="确认" content="如果接受邀请进行双人旅行，本城市的任务会自动终止" outer-class="content" bind:confirm="_agreeInvite" bind:toclose="_hideInvite"></tip> 
 </block>
+
 
 
