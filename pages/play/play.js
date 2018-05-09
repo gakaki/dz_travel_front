@@ -100,7 +100,7 @@ Page({
     hua: 'hua-lf',
     cfmStr: '',
     cfmDesc: '是否花费100金币修改路线',
-    chgLines: false,//是否正在修改路线
+    chgLines: false,//是否正在修改路线 弹窗
     taskdonePop: false,//任务是否完成
     weatherImg: '',
     startPoint: {},
@@ -284,7 +284,7 @@ Page({
     invited = true
   },
   toCfm() {
-    if (app.globalData.gold > 100) {
+    if (app.globalData.gold >= 100) {
       this.chgLine()
       return
     }
@@ -711,7 +711,8 @@ Page({
     if (this.data.changeRouteing && this.data.partener) {
       wx.showToast({
         title: '对方正在修改路线',
-        icon: 'none'
+        icon: 'none',
+        chgLines: false
       })
       return;
     }
@@ -770,6 +771,8 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
+    },(code)=>{
+       this.data.modifySending = false
     })
   },
 
