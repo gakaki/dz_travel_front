@@ -89,6 +89,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    planLines: 0,//规划的还没走过的路线
     hasIndexInfo: false,
     invited: false,//是否是被邀请者
     finishedTip: '已点亮城市,可飞往下一城市旅行',
@@ -1110,7 +1111,7 @@ Page({
   },
   //提交路径到服务器
   sendPath() {
-    if (!this.data.planed) {
+    if (!this.data.planed ) {
       wx.showToast(
         {
           title: '请先规划路线',
@@ -1128,6 +1129,7 @@ Page({
       this.setData({
         lineDone: true
       })
+      this.data.planLines = 0
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
       //恢复轮询
@@ -1136,7 +1138,25 @@ Page({
       this.freshSpots()
     })
   },
-
+  //清除规划了的还没走过的路线
+  clearPlanLines() {
+    let planedSpots = this.data.planedSpots.slice()
+    let lines = this.data.lines.slice()
+  
+    for (let i = 0; i < this.data.planLines;i++) {
+      let spot = this.data.spots.find(s => s.index == this.data.planedSpots.length - 1-i);
+      spot.index = -1
+      let idxInSpots = this.data.spots.indexOf(spot);
+      this.setData({
+        [`spots[${idxInSpots}]`]: spot
+      });
+    }
+    this.setData({
+      planedSpots: planedSpots.slice(0, planedSpots.length - this.data.planLines),
+      lines: lines.slice(0, lines.length - this.data.planLines)
+    });
+    this.data.planLines = 0
+  },
   //点击景点
   tapSpot(e) {
     let dataset = e.currentTarget.dataset;
@@ -1150,7 +1170,7 @@ Page({
         this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
-
+        this.data.planLines = this.data.planLines+1
         let idxInSpots = this.data.spots.indexOf(spot);
         this.setData({
           [`spots[${idxInSpots}]`]: spot
@@ -1231,6 +1251,9 @@ Page({
   toNextEvent(e) {
     if (e.detail.cur == 1) {
       this.hidePop();
+      this.setData({
+        newEvent: false
+      })
       return
     }
     this.newEvent = false;

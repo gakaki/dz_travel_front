@@ -652,3 +652,17 @@ weather.sights {
   right: 20rpx;
   top: 600rpx;
 }
+.reset {
+   width: 145rpx;
+  height: 76rpx;
+  position: fixed;
+  right: 20rpx;
+  top: 30rpx;
+  color: #fff;
+  letter-spacing: 2rpx;
+  padding-left: 2rpx;
+  font: bold 24rpx 'Microsoft YaHei';
+  z-index: 100;
+  text-align: center;
+  line-height: 42rpx
+}
