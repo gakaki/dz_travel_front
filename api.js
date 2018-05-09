@@ -707,6 +707,7 @@ class Base {
                 //fetch srv
                 req.info=info.userInfo;
                 req.info.encryptedData=info.encryptedData;
+                req.info.iv=info.iv;
                 req.fetch().then(()=>{
                     this.AUTHED=true;
                     this.LOGINED=true;
