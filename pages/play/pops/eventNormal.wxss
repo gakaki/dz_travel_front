@@ -55,7 +55,7 @@
     transform: translate(-50%);
     background: url("https://gengxin.odao.com/update/h5/travel/common/wid-max-bin.png") 0 0 no-repeat;
     background-size: cover;
-    font-size: 28rpx;
+    font-size: 32rpx;
     line-height: 94rpx;
     color: #fff;
     text-align: center;
@@ -73,4 +73,12 @@
 .icon-close{
   height: 27rpx;
   width: 27rpx;
+}
+.sm {
+  letter-spacing: 4rpx;
+  padding-left: 4rpx;
+}
+.big {
+  letter-spacing: 20rpx;
+  padding-left: 20rpx;
 }

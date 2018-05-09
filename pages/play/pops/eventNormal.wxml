@@ -9,5 +9,5 @@
     <text class="ten font">{{current}}/{{total}}</text>
 </view>
 <text class="evt font">{{ content }}<text style="color:#278cff">{{rewards}}</text></text>
-<view class="next-evt font" data-current="{{current}}"  catch:tap="toNext">{{ hasNext ? '下一事件': '确定'}}</view>
+<view class="next-evt {{hasNext? 'sm': 'big'}}" data-current="{{current}}"  catch:tap="toNext">{{ hasNext ? '下一事件': '确定'}}</view>
 </view>

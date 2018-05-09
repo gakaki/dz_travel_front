@@ -805,7 +805,7 @@ Page({
       if (obj.display == 1) {
         obj.wd = 120;
         obj.ht = 120;
-        obj.img += 'haohua.png';
+        // obj.img += 'haohua.png';
         obj.roleCls = 'play-role-haohua';
         obj._carImg = resRoot + '/che/haohua_';
         // obj._carCls = 'play-role-haohua-';
@@ -813,7 +813,7 @@ Page({
       } else if (obj.display == 2) {
         obj.wd = 120;
         obj.ht = 120;
-        obj.img += 'shangwu.png';
+        // obj.img += 'shangwu.png';
         obj.roleCls = 'play-role-shangwu';
         obj._carImg = resRoot + '/che/shangwu_';
         // obj._carCls = 'play-role-shangwu-';
@@ -821,7 +821,7 @@ Page({
       } else if (obj.display == 3) {
         obj.wd = 120;
         obj.ht = 120;
-        obj.img += 'jingji.png';
+        // obj.img += 'jingji.png';
         obj.roleCls = 'play-role-jingji';
         obj._carImg = resRoot + '/che/jingji_';
         // obj._carCls = 'play-role-jingji-';
@@ -1323,7 +1323,7 @@ Page({
     }
     this.setData({
       showPop: false,
-      newEvent : false, //关闭之后应该要newEvent关闭啊
+      // newEvent : false, //关闭之后应该要newEvent关闭啊
       showPlayIntro: false, //是否显示玩法提示pop
       showEventNormal: false, //是否显示普通事件pop
       showEventQuest: false, //是否显示问题事件pop
