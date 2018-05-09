@@ -1323,6 +1323,7 @@ Page({
     }
     this.setData({
       showPop: false,
+      newEvent : false, //关闭之后应该要newEvent关闭啊
       showPlayIntro: false, //是否显示玩法提示pop
       showEventNormal: false, //是否显示普通事件pop
       showEventQuest: false, //是否显示问题事件pop
