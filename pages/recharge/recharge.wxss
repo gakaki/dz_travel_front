@@ -89,3 +89,19 @@ font: bold 32rpx  'Microsoft YaHei';
   width: 100%;
   height: 756rpx;
 }
+.iosTip{
+  width: 287rpx;
+  height: 125rpx;
+  position: absolute;
+  bottom: 220rpx;
+  right: 0;
+}
+
+.contact{
+  width: 287rpx;
+  height: 125rpx;
+  position: absolute;
+  bottom: 220rpx;
+  right: 0;
+  opacity: 0;
+}
