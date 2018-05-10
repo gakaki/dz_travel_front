@@ -337,6 +337,8 @@ class Message {
 
     static get INVITEMESSAGE() { return 6 };
 
+    static get PROPSENDINGMESSAGE() { return 7 };
+
     static Get(id){ return id in _data.message ? new Message(_data.message[id]) : null; }
 }
 

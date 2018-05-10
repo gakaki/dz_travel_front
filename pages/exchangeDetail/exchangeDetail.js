@@ -1,11 +1,13 @@
 // pages/exchangeDetail/exchangeDetail.js
-import { ShopDetail, GetUserLocation, GetRealInfo, ExchangeShop } from '../../api.js';
+import { ShopDetail, GetUserLocation, GetRealInfo, ExchangeShop,Code } from '../../api.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    tipPop: false,
+    tipStr: '',
     cfmStr: '确定',
     exchange:false,
     confirmAdress:false,
@@ -37,6 +39,11 @@ Page({
         intro:arr
       })
       
+    })
+  },
+  hideTipPop() {
+    this.setData({
+      tipPop: false
     })
   },
   toCopy(){
@@ -153,11 +160,24 @@ Page({
       }
      
     }).catch((res)=>{
-      if(res == -148) {
+      if (res == -Code.EXCHANGE_OVER) {
         this.setData({
           exchangeOver: true
         })
-      }     
+      }   
+        if (res == Code.RANK_NOT_MEET) {
+          this.setData({
+            tipPop: true,
+            tipStr: '不满足排名，无法兑换'
+          })
+        }
+        if (res == Code.NEED_INTEGRAL) {
+          this.setData({
+            tipPop: true,
+            tipStr: '不满足兑换规则，无法进行兑换'
+          })
+        }
+ 
     })
   },
 

@@ -3,7 +3,6 @@
   "usingComponents": {
     "avatar": "../../components/avatar/avatar",
     "directions": "/components/rankDirections/rankDirections",
-    "buy":"../../components/buy/buy",
-    "tip": "/components/tip/tip"
+    "buy":"../../components/buy/buy"
   }
 }
