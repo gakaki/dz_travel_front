@@ -1,7 +1,5 @@
 <!--pages/integral/integral.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-<audio id='audioA'></audio>
-<audio id='audioB'></audio>
 <scroll-view class='integral f-c-fs ' scroll-y bindscrolltolower='lower'>
   <view class='back'>
     <view class="enlarge men flex" bindtap='toPlayA'>
@@ -51,4 +49,7 @@
 </scroll-view>
 <view wx:if="{{isShowIntro}}" class="pop-bg">
   <directions helpId="6" resHeight="680" title="兑换规则" bind:confirm='hideDesc'></directions>
+  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
 </view>
+ <audio id='audioA'></audio>
+<audio id='audioB'></audio> 

@@ -730,7 +730,7 @@ Page({
       // })
       this.setData({
         tipPop: true,
-        tipStr: '对方正在修改路线'
+        tipStr: '好友正在修改路线'
       })
       this.setData({
         chgLines: false
@@ -798,10 +798,10 @@ Page({
       this.updateLines(true)
     }, (code) => {
       this.data.modifySending = false
-      // this.setData({
-      //   tipPop: true,
-      //   tipStr: '对方正在修改路线'
-      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '好友正在修改路线'
+      })
       this.setData({
         chgLines: false
       })
