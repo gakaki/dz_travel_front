@@ -16,6 +16,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop:false,
+    tipStr:'',
     firstTime: false,//第一次花费金币进行观光
     toView: '',
     cfmStr: '',
@@ -50,9 +52,8 @@ Page({
     cid = options.cid
     spotName = options.name
 
-    musics = wx.createInnerAudioContext()
-    musics.autoplay = false
-    musics.src = 'https://gengxin.odao.com/update/h5/travel/play/photograph.mp3'
+    musics = wx.createAudioContext('musicTag', this)
+    musics.setSrc('https://gengxin.odao.com/update/h5/travel/play/photograph.mp3')
   },
   onShow() {
     let req = new ReqEnterspot()
@@ -221,9 +222,9 @@ Page({
         toUrl = '../props/props'
       }
       if (code == Code.EXCEED_COUNT) {
-        wx.showToast({
-          title: '每个景点只能拍照一次',
-          icon: 'none'
+        this.setData({
+          tipPop: true,
+          tipStr: '每个景点只能拍照一次'
         })
         return
       }
@@ -232,6 +233,11 @@ Page({
   hidePost() {
     this.setData({
       isGetPost: false
+    })
+  },
+  hideTipPop() {
+    this.setData({
+      tipPop: false
     })
   },
   toBuy() {

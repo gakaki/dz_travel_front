@@ -13,6 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop: false,
+    tipStr:'',
     isDomestic:true,
     province: [],
     focus:false,
@@ -57,16 +59,24 @@ Page({
         this.toFly(cid, this.data.isChoose, TicketType.SINGLEBUY)
       }
       else {
-        wx.showToast({
-          title: '请选择目的地',
-          icon: 'none'
+        // wx.showToast({
+        //   title: '请选择目的地',
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '请选择目的地'
         })
         preventTapClick = false
       }
     }
     
   },
-
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   toRandom(e) {
     if (app.preventMoreTap(e)) return;
     if (!preventTapClick){
@@ -93,9 +103,13 @@ Page({
 
   toFly(cid,terminal,ticket) {
     if(location == terminal){
-      wx.showToast({
-        title: '已在当前城市，请重新选择',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '已在当前城市，请重新选择',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '已在当前城市，请重新选择'
       })
       preventTapClick = false
     }
@@ -142,9 +156,13 @@ Page({
   },
 
   international() {
-    wx.showToast({
-      title: '国际航班暂未开放，敬请期待',
-      icon: 'none'
+    // wx.showToast({
+    //   title: '国际航班暂未开放，敬请期待',
+    //   icon: 'none'
+    // })
+    this.setData({
+      tipPop: true,
+      tipStr: '国际航班暂未开放，敬请期待'
     })
   },
 

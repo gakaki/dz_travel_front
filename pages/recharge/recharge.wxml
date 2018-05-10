@@ -1,4 +1,5 @@
 <view class="con f-c-fs">
+<tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
   <view class="top-bg-box">
     <image class="dress" src="https://gengxin.odao.com/update/h5/travel/recharge/dress.png"></image>
     <image class="t-bg" src="https://gengxin.odao.com/update/h5/travel/recharge/bg.png"></image>

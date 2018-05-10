@@ -841,7 +841,7 @@ class Ws {
    static close() {
         if(this.IO) {
             this.IO.close();
-            wx.closeWebsocket();
+            wx.closeSocket();
             this.IO=null;
         }
     }
@@ -930,7 +930,7 @@ class Http {
     }
    static clearLoop() {
         if (this._listenHdl) {
-            clearInterval(this._listenHdr);
+            clearInterval(this._listenHdl);
             this._listenHdl=null;
         }
     }

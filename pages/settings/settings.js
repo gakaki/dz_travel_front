@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop:false,
+    tipStr:'',
     name:'请输入真实姓名',
     birthday:'请输入生日',
     phone:'请输入手机号',
@@ -26,23 +28,35 @@ Page({
       this.getInfo(req)
     })
   },
-
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   //提交的表单数据（用户收货信息）
   formSubmit(e) {
     
     let value = e.detail.value
     //判断电话号码是否符合
     if (value.phone.length != 11 && value.phone){
-      wx.showToast({
-        title: '请输入正确的电话号码',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '请输入正确的电话号码',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '请输入正确的电话号码'
       })
       return;
     }
     if (!value.name || !value.birthday || !value.phone || !value.address || value.birthday == '请输入生日'){
-      wx.showToast({
-        title: '信息未填写完全',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '信息未填写完全',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '信息未填写完全'
       })
       return;
     }
@@ -53,12 +67,16 @@ Page({
     req.address = value.address;
     req.fetch().then(()=>{
       this.getInfo(req,()=>{
-        wx.showToast({
-          title: '已保存',
-          icon: 'none',
-          duration:1000
+        // wx.showToast({
+        //   title: '已保存',
+        //   icon: 'none',
+        //   duration:1000
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '已保存'
         })
-        
+
         if (this.data.settings) {
           setTimeout(() => {
           wx.navigateBack({
@@ -72,9 +90,13 @@ Page({
 
   getInfo(req,suc) {
     if (req.code != 0) {
-      wx.showToast({
-        title: '请求数据失败',
-        icon:'none'
+      // wx.showToast({
+      //   title: '请求数据失败',
+      //   icon:'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '请求数据失败'
       })
     }
     else {
@@ -105,9 +127,13 @@ Page({
 
   checkPhone(e) {
     if (e.detail.value.length != 11 && e.detail.value){
-      wx.showToast({
-        title: '请输入正确的电话号码',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '请输入正确的电话号码',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '请输入正确的电话号码'
       })
     }
   },

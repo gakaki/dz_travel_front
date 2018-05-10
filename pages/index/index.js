@@ -15,6 +15,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop:false,
+    tipStr:'',
     mapConWd: 710,
     mapConHt: 730,
     lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
@@ -87,6 +89,7 @@ Page({
         title: '请检查网络状态',
         icon: 'none'
       })
+      
     }
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
@@ -122,7 +125,11 @@ Page({
       console.log('用户拒绝授权个人信息！！')
     }
   },
-
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   //分享相关跳转
   shareTo(options) {
     if(!options.shareUid){return}
@@ -373,9 +380,9 @@ Page({
   useTkt(e) {
     if (app.preventMoreTap(e)) return;
     if(this.data.location == terminal){
-      wx.showToast({
-        title: '已在当前城市，请重新选择',
-        icon: 'none'
+      this.setData({
+        tipPop: true,
+        tipStr: '已在当前城市，请重新选择'
       })
       return 
     }

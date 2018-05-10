@@ -21,6 +21,7 @@ Page({
     starCount: 5,
     comments: [],  //评论列表
     tipPop: false,
+    tipStr: '',
     commentId: 1,
     content: '',
     img: '',
@@ -81,22 +82,31 @@ Page({
   },
   judge(v) {
     if (!this.data.commentLen) {
-      wx.showToast({
-        title: '评论内容不能为空',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '评论内容不能为空',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '评论内容不能为空'
       })
       return
     }
     if (!v.detail.star) {
-      wx.showToast({
-        title: '打个分吧',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '打个分吧',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '打个分吧'
       })
       return
     }
     let that = this
     this.setData({
       tipPop: true,
+      tipStr: '发表评论成功',
       isShowPop: !this.data.isShowPop
     })
     

@@ -2,6 +2,7 @@
   "disableScroll": true,
   "usingComponents": {
     "buy": "../../components/buy/buy",
-    "none": "/components/none/none"
+    "none": "/components/none/none",
+    "tip": "/components/tip/tip"
   }
 }

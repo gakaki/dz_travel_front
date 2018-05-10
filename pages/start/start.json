@@ -6,6 +6,7 @@
     "avatar": "/components/avatar/avatar",
     "tip": "/components/buy/buy",
     "cmap": "/components/cmap/cmap",
-    "directions": "/components/rankDirections/rankDirections"
+    "directions": "/components/rankDirections/rankDirections",
+    "tips": "/components/tip/tip"
   }
 }

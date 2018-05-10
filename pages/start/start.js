@@ -22,6 +22,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop:false,
+    tipStr: '',
     mapConWd: 710,
     mapConHt: 600,
     onlySingle: false,    //是否是赠送的单人票  
@@ -176,7 +178,11 @@ Page({
       })
     }
   },
-
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   setFlyInfo(req) {
     let flyInfo = {};
     if(req.cost || req.cost==0){
@@ -352,9 +358,13 @@ Page({
 
   startTour() {
     if(this.data.invitee){
-      wx.showToast({
-        title: '只有邀请人可以开始旅行',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '只有邀请人可以开始旅行',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '只有邀请人可以开始旅行'
       })
       return;
     }
@@ -516,9 +526,13 @@ Page({
   },
 
   tip(tip) {
-    wx.showToast({
-      title: tip,
-      icon: 'none'
+    // wx.showToast({
+    //   title: tip,
+    //   icon: 'none'
+    // })
+    this.setData({
+      tipPop: true,
+      tipStr: tip
     })
   },
 

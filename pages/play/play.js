@@ -19,7 +19,7 @@ const scaleMin = 0.7;
 let tapStamp;
 let secondPoint;
 let display;
-let music;
+let sound;
 let reGoin = 0; //重新进入页面
 let citysName;
 let invited = false;//是否是被邀请者
@@ -33,7 +33,7 @@ const ROLE_OFFSET = 30;//双人旅行时，小人位置差值
 const EVENT_TYPE_NORMAL = 1;
 const EVENT_TYPE_STORY = 2;
 const EVENT_TYPE_QUEST = 3;
-const LOOP_INTERVAL = 5000;//轮询间隔
+const LOOP_INTERVAL = 3000;//轮询间隔
 const MV_INTERVAL = 100;//检测移动的间隔
 
 const DIR_UP = { from: 247.5, to: 292.5 };
@@ -89,6 +89,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop: false,
+    tipStr: '',
     planLines: 0,//规划的还没走过的路线
     hasIndexInfo: false,
     invited: false,//是否是被邀请者
@@ -204,7 +206,7 @@ Page({
         if (o.roundTracked) num++
         spotsAllTracked = spotsAllTracked && o.tracked;
       })
-      app.globalData.curPlanedFinishedNum = num+1
+      app.globalData.curPlanedFinishedNum = num + 1
       this.setData({
         spotsTracked: num,
         spotsAllTracked,
@@ -217,9 +219,12 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
+
+      let rel = this.updateTaskPer()
+      app.globalData.taskPer = rel
       this.updateSpots(req.spots);
       this.onShow();
-      
+
       this.updateLines()
       this.freshTask();
     });
@@ -306,16 +311,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+      sound = wx.createAudioContext('audioM', this)
+      sound.setSrc('https://gengxin.odao.com/update/h5/travel/play/music.mp3')
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    music = wx.createInnerAudioContext()
-    music.autoplay = false
-    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+
     if (this.data.showCancelDouble) {
       if (!invited) {
         this.setData({
@@ -330,7 +334,6 @@ Page({
     }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-
       this.startMvLoop();
     }
 
@@ -363,13 +366,13 @@ Page({
     this.clearPage();
   },
 
-    clearPage() {
-        Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        reGoin = 0;
-        this.hideHuadong();
-        this.stopMvLoop();
-        curPlanedFinished = false;
-    },
+  clearPage() {
+    Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0;
+    this.hideHuadong();
+    this.stopMvLoop();
+    curPlanedFinished = false;
+  },
 
   /**
    * 用户点击右上角分享
@@ -377,20 +380,20 @@ Page({
   onShareAppMessage: function () {
     return shareToIndex(this)
   },
-    //启动移动循环
-    startMvLoop() {
-      this.stopMvLoop();
-      if (this.data.started) {
-          this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
-      }
-    },
-    //关闭移动循环
-    stopMvLoop() {
-      if (this.data.mvHdl) {
-          clearInterval(this.data.mvHdl);
-          this.data.mvHdl = null;
-      }
-    },
+  //启动移动循环
+  startMvLoop() {
+    this.stopMvLoop();
+    if (this.data.started) {
+      this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
+    }
+  },
+  //关闭移动循环
+  stopMvLoop() {
+    if (this.data.mvHdl) {
+      clearInterval(this.data.mvHdl);
+      this.data.mvHdl = null;
+    }
+  },
 
   //更新路线
   updateLines(force = false) {
@@ -489,7 +492,7 @@ Page({
         this.setData({
           planedFinished: true
         })
-        if (app.globalData.curPlanedFinishedNum != trackedNum) {
+        if (app.globalData.curPlanedFinishedNum != trackedNum && this.data.hasIndexInfo) {
           app.globalData.curPlanedFinishedNum = trackedNum
           curPlanedFinished = true
         }
@@ -498,21 +501,19 @@ Page({
         roleMe.walkCls = '';
         if (this.data.roleMe.display != 0) {
           roleFriend = null;
-          if (!this.data.partener) {
-            Http.unlisten(PlayLoop, this.onPlayLoop, this);
-            this.stopMvLoop();
-          }
         }
-        else {
-          if (this.data.partener) {
+        else if (this.data.partener){
             roleFriend.walkCls = '';
-          }
-          if (!this.data.partener) {
-            Http.unlisten(PlayLoop, this.onPlayLoop, this);
-            this.stopMvLoop();
-          }
-          this.freshAllTrackedStat();
         }
+
+        if (!this.data.partener) {
+          //单人
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        }
+      
+
+        this.stopMvLoop();
+        this.freshAllTrackedStat();
 
       } else {
         this.setData({
@@ -622,14 +623,19 @@ Page({
       }
       if (req.spotsTracked != this.data.spotsTracked) {
         if (reGoin != 0 && (this.data.spotsTracked != 0 || req.spotsTracked != 0)) {
-          music.play()
+          sound.play()
         }
         else reGoin = 1
         this.data.spotsTracked = req.spotsTracked;
       }
     });
   },
-
+  //隐藏提示
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   //添加或修改路线
   xiugaiLine() {
     if (!this.data.hasPlay) {
@@ -649,10 +655,14 @@ Page({
       if (o.roundTracked) num++
     })
     if (num == this.data.spots.length - 1 && !this.data.planedFinished) {
-      wx.showToast({
-        title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none'
-      });
+      // wx.showToast({
+      //   title: '已经要走完了，再耐心等待一下吧',
+      //   icon: 'none'
+      // });
+      this.setData({
+        tipPop: true,
+        tipStr: '已经要走完了，再耐心等待一下吧'
+      })
       return
     }
     if (app.globalData.gold < 100) {
@@ -697,21 +707,31 @@ Page({
       this.setData({
         chgLines: false
       })
-      wx.showToast({
-        title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none'
-      });
+      // wx.showToast({
+      //   title: '已经要走完了，再耐心等待一下吧',
+      //   icon: 'none'
+      // });
+      this.setData({
+        tipPop: true,
+        tipStr: '已经要走完了，再耐心等待一下吧'
+      })
       return
     }
 
-    
+
     if (this.data.planing) {
       return;
     }
     if (this.data.changeRouteing && this.data.partener) {
-      wx.showToast({
-        title: '对方正在修改路线',
-        icon: 'none',
+      // wx.showToast({
+      //   title: '对方正在修改路线',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '对方正在修改路线'
+      })
+      this.setData({
         chgLines: false
       })
       return;
@@ -721,10 +741,14 @@ Page({
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
         if (!this.data.partener.isInviter && !this.data.spotsAllTracked) {
-          wx.showToast({
-            title: '请等待被邀请者规划路线',
-            icon: 'none'
-          });
+          // wx.showToast({
+          //   title: '请等待被邀请者规划路线',
+          //   icon: 'none'
+          // });
+          this.setData({
+            tipPop: true,
+            tipStr: '请等待被邀请者规划路线'
+          })
           return;
         }
         //我是被邀请者，可以规则路线
@@ -771,12 +795,16 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
-    },(code)=>{
-       this.data.modifySending = false
-       wx.showToast({
-         title: '对方正在修改路线',
-         icon: 'none'
-       })
+    }, (code) => {
+      this.data.modifySending = false
+      // this.setData({
+      //   tipPop: true,
+      //   tipStr: '对方正在修改路线'
+      // })
+      this.setData({
+        chgLines: false
+      })
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
     })
   },
 
@@ -857,7 +885,7 @@ Page({
     }
     if (res.spotsTracked != this.data.spotsTracked) {
       if (reGoin != 0 && (this.data.spotsTracked != 0 || res.spotsTracked != 0)) {
-        music.play()
+        sound.play()
       }
       else reGoin = 1
 
@@ -894,24 +922,29 @@ Page({
 
 
   },
+ updateTaskPer() {
+   let num = 0
+   let allNum = 0
+   for (let o in this.data.task) {
+     if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
+     } else {
+       num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
+       allNum = allNum + this.data.task[o][1]
+     }
 
+   }
+   let rel = num / allNum
+   this.setData({
+     taskPer: rel * 100
+   })
+   return rel
+ },
   //刷新任务
   freshTask() {
-    let num = 0
-    let allNum = 0
-    for (let o in this.data.task) {
-      if (!this.data.partener && this.data.hasIndexInfo && (o == 'parterTour' || o == 'parterPhoto')) {
-      } else {
-        num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
-        allNum = allNum + this.data.task[o][1]
-      }
-
-    }
-    let rel = num / allNum
-    this.setData({
-      taskPer: rel * 100
-    })
+    if (!this.data.hasIndexInfo) return
+    let rel = this.updateTaskPer()
     if (rel != 1) app.globalData.taskPer = rel
+    
     if (rel == 1) {
       // try {
       //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
@@ -926,6 +959,7 @@ Page({
       // } catch (e) {
       // }
       if (this.data.planedFinished && curPlanedFinished || app.globalData.taskPer != 1) {
+      // if (curPlanedFinished && (this.data.planedFinished || app.globalData.taskPer)) {  
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
@@ -943,9 +977,13 @@ Page({
 
     } else {
       if (this.data.planedFinished && curPlanedFinished) {
-        wx.showToast({
-          title: '规划路线已走完，记得完成任务哦',
-          icon: 'none'
+        // wx.showToast({
+        //   title: '规划路线已走完，记得完成任务哦',
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '规划路线已走完，记得完成任务哦'
         })
         curPlanedFinished = false
       }
@@ -1101,7 +1139,7 @@ Page({
       invited: invit
     });
     if (!this.data.mvHdl && started) {
-        this.startMvLoop();
+      this.startMvLoop();
     }
     updateLine && this.updateLines(updateLine);
   },
@@ -1118,12 +1156,16 @@ Page({
   },
   //提交路径到服务器
   sendPath() {
-    if (!this.data.planed ) {
-      wx.showToast(
-        {
-          title: '请先规划路线',
-          icon: 'none'
-        })
+    if (!this.data.planed) {
+      // wx.showToast(
+      //   {
+      //     title: '请先规划路线',
+      //     icon: 'none'
+      //   })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先规划路线'
+      })
       return;
     }
 
@@ -1143,15 +1185,25 @@ Page({
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
       this.zoomOnPlaned();
       this.freshSpots()
+    },(code)=>{
+      // wx.showToast(
+      //   {
+      //     title: '请先规划路线',
+      //     icon: 'none'
+      //   })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先规划路线'
+      })
     })
   },
   //清除规划了的还没走过的路线
   clearPlanLines() {
     let planedSpots = this.data.planedSpots.slice()
     let lines = this.data.lines.slice()
-  
-    for (let i = 0; i < this.data.planLines;i++) {
-      let spot = this.data.spots.find(s => s.index == this.data.planedSpots.length - 1-i);
+
+    for (let i = 0; i < this.data.planLines; i++) {
+      let spot = this.data.spots.find(s => s.index == this.data.planedSpots.length - 1 - i);
       spot.index = -1
       let idxInSpots = this.data.spots.indexOf(spot);
       this.setData({
@@ -1177,7 +1229,7 @@ Page({
         this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
-        this.data.planLines = this.data.planLines+1
+        this.data.planLines = this.data.planLines + 1
         let idxInSpots = this.data.spots.indexOf(spot);
         this.setData({
           [`spots[${idxInSpots}]`]: spot
@@ -1187,10 +1239,10 @@ Page({
       }
       else {
         //已经在路线中了
-        wx.showToast({
-          title: '路线规划不可前往相同景点',
-          icon: 'none'
-        });
+        this.setData({
+          tipPop: true,
+          tipStr: '路线规划不可前往相同景点'
+        })
       }
     }
     else if (spot.tracked) {
@@ -1199,17 +1251,20 @@ Page({
       this.toTour(sid, name);
     }
     else if (this.data.planedSpots.length) {
-      wx.showToast({
-        title: '未到达此景点无法观光',
-        icon: 'none'
+      this.setData({
+        tipPop: true,
+        tipStr: '未到达此景点无法观光'
       })
-
     }
     else {
       //没有到过，也没有路线，那应该是刚进入这个城市
-      wx.showToast({
-        title: '请先点击“规划路线”进行路线添加',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '请先点击“规划路线”进行路线添加',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先点击“规划路线”进行路线添加'
       })
     }
   },

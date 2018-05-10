@@ -1,5 +1,7 @@
 <!--pages/integral/integral.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
+<audio id='audioA'></audio>
+<audio id='audioB'></audio>
 <scroll-view class='integral f-c-fs ' scroll-y bindscrolltolower='lower'>
   <view class='back'>
     <view class="enlarge men flex" bindtap='toPlayA'>

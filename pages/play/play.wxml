@@ -1,11 +1,13 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page" catchtap='hideHuadong'>
+<audio id='audioM'></audio>
   <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/animation/{{flower[flower.length-1]}}/{{flower[anmIdx]}}" class="anm"></image> -->
-  <view style="background-image: url('https://gengxin.odao.com/update/h5/travel/play/delete.png');background-size:auto 100%;" class="reset" wx:if="{{planing}}" bindtap='clearPlanLines'>删除路线</view>
+   <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
+  <view style="background-image: url('https://gengxin.odao.com/update/h5/travel/play/delete.png');background-size:cover;" class="reset" wx:if="{{planing}}" bindtap='clearPlanLines'>删除路线</view>
   <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <cfm outer-class="fc" bindtoclose="hidePopss" content="{{finishedTip}}" bind:confirm="toCfms" wx:if="{{taskdonePop}}" cancelStr="留在本地" cfmStr="起飞旅行" isBuy="{{false}}"></cfm>
 
-  <cfm outer-class="fc" bindtoclose="toGonglue" content="路线规划完毕，快去看看攻略，购买特产。也可以下线休息一会，游戏、生活两不误" bind:confirm="toTechan" bind:hide="hideLineDone" wx:if="{{lineDone}}" cancelStr="查看攻略" cfmStr="购买特产" isBuy="{{false}}"></cfm>
+  <cfm outer-class="fc" bindtoclose="toGonglue" content="路线规划完毕,快去看看攻略,购买特产。也可以下线休息一会,游戏、生活两不误" bind:confirm="toTechan" bind:hide="hideLineDone" wx:if="{{lineDone}}" cancelStr="查看攻略" cfmStr="购买特产" isBuy="{{false}}"></cfm>
 
   <cfm outer-class="fc" bindtoclose="hideDoubleTip" content="双人旅行需被邀请人规划路线" bind:confirm="hideDoubleTip" wx:if="{{invited}}" single="{{true}}" cfmStr="确定" isBuy="{{false}}"></cfm>
   <view class="pop-bg" wx:if="{{present}}">

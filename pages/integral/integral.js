@@ -26,20 +26,20 @@ Page({
     this.getUserInfo()
   },
   onShow:function(){
-    this.data.audioA = wx.createInnerAudioContext();
-    this.data.audioB = wx.createInnerAudioContext();
-    this.data.audioA.src = 'https://gengxin.odao.com/update/h5/travel/integral/men.mp3'
-    this.data.audioB.src = 'https://gengxin.odao.com/update/h5/travel/integral/women.mp3'
+    this.data.audioA = wx.createAudioContext('audioA', this);
+    this.data.audioB = wx.createAudioContext('audioB', this);
+    this.data.audioA.setSrc('https://gengxin.odao.com/update/h5/travel/integral/men.mp3')
+    this.data.audioB.setSrc('https://gengxin.odao.com/update/h5/travel/integral/women.mp3');
 
     this.getUserInfo()
   },
   onHide() {
-    this.data.audioA && this.data.audioA.destroy();
-    this.data.audioB && this.data.audioB.destroy();
+    this.data.audioA && this.data.audioA.pause();
+    this.data.audioB && this.data.audioB.pause();
   },
   onUnload(){
-    this.data.audioA && this.data.audioA.destroy();
-    this.data.audioB && this.data.audioB.destroy();
+    this.data.audioA && this.data.audioA.pause();
+    this.data.audioB && this.data.audioB.pause();
   },
   getUserInfo(){
     let m = new IntegralShop();
@@ -74,7 +74,8 @@ Page({
   },
   toPlayA() {
     if (this.data.audioB) {
-      this.data.audioB.stop();
+      this.data.audioB.seek(0);
+      this.data.audioB.pause();
       this.data.pausedB = true
     }
     if (this.data.pausedA) {
@@ -87,7 +88,8 @@ Page({
   },
   toPlayB(e){
     if (this.data.audioA) {
-      this.data.audioA.stop();
+      this.data.audioA.seek(0);
+      this.data.audioA.pause();
       this.data.pausedA = true
     }
     if (this.data.pausedB) {
