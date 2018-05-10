@@ -738,7 +738,7 @@ Page({
       })
       return;
     }
-    if (!this.data.started) {
+    if (!this.data.started && !this.data.spotsAllTracked) {
       //首次规划路线
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
