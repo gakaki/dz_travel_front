@@ -1,5 +1,6 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page" catchtap='hideHuadong'>
+<audio id='audioM'></audio>
   <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/animation/{{flower[flower.length-1]}}/{{flower[anmIdx]}}" class="anm"></image> -->
    <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
   <view style="background-image: url('https://gengxin.odao.com/update/h5/travel/play/delete.png');background-size:cover;" class="reset" wx:if="{{planing}}" bindtap='clearPlanLines'>删除路线</view>

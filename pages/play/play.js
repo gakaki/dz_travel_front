@@ -19,7 +19,7 @@ const scaleMin = 0.7;
 let tapStamp;
 let secondPoint;
 let display;
-let music;
+let sound;
 let reGoin = 0; //重新进入页面
 let citysName;
 let invited = false;//是否是被邀请者
@@ -311,16 +311,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+      sound = wx.createAudioContext('audioM', this)
+      sound.setSrc('https://gengxin.odao.com/update/h5/travel/play/music.mp3')
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    music = wx.createInnerAudioContext()
-    music.autoplay = false
-    music.src = 'https://gengxin.odao.com/update/h5/travel/play/music.mp3'
+
     if (this.data.showCancelDouble) {
       if (!invited) {
         this.setData({
@@ -624,7 +623,7 @@ Page({
       }
       if (req.spotsTracked != this.data.spotsTracked) {
         if (reGoin != 0 && (this.data.spotsTracked != 0 || req.spotsTracked != 0)) {
-          music.play()
+          sound.play()
         }
         else reGoin = 1
         this.data.spotsTracked = req.spotsTracked;
@@ -890,7 +889,7 @@ Page({
     }
     if (res.spotsTracked != this.data.spotsTracked) {
       if (reGoin != 0 && (this.data.spotsTracked != 0 || res.spotsTracked != 0)) {
-        music.play()
+        sound.play()
       }
       else reGoin = 1
 
