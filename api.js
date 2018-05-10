@@ -841,7 +841,7 @@ class Ws {
    static close() {
         if(this.IO) {
             this.IO.close();
-            wx.closeWebsocket();
+            wx.closeSocket();
             this.IO=null;
         }
     }
