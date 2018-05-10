@@ -96,14 +96,12 @@ Component({
           if (this.data.overxg) {
             wx.showToast({
               title: '超出限购数量',
-              icon: 'none',
               duration: 1000,
             })
           } else {
             if (this.data.type == 'buy') {
               wx.showToast({
                 title: '背包已满',
-                icon: 'none',
                 duration: 1000,
               })
             }

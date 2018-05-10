@@ -53,7 +53,7 @@ Page({
         wx.getClipboardData({
           success: function (res) {
             wx.showToast({
-              title: '复制成功',
+              title: '复制成功'
             })
           }
         })
@@ -155,7 +155,7 @@ Page({
         }
       } else {
         wx.showToast({
-          title: '兑换成功',
+          title: '兑换成功'
         })
       }
      

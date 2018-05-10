@@ -147,8 +147,7 @@ Page({
   tocR() {
     if (!cityId) {
       wx.showToast({
-        title: '请先选择城市',
-        icon:'none'
+        title: '请先选择城市'
       })
       return
     }

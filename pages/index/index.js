@@ -86,8 +86,7 @@ Page({
   toPlay(e) {
     if (app.globalData.noNetwork) {
       wx.showToast({
-        title: '请检查网络状态',
-        icon: 'none'
+        title: '请检查网络状态'
       })
       
     }
@@ -196,8 +195,7 @@ Page({
 
   tip(tip) {
     wx.showToast({
-      title: tip,
-      icon: 'none'
+      title: tip
     })
   },
   /**
@@ -323,8 +321,7 @@ Page({
   toFly(e) {
     if (app.globalData.noNetwork) {
       wx.showToast({
-        title: '请检查网络状态',
-        icon: 'none'
+        title: '请检查网络状态'
       })
     }
     if (app.preventMoreTap(e) || !getLocationCid) return;
