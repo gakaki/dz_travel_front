@@ -217,6 +217,9 @@ Page({
         partener: req.partener,
         mapBg: `${resRoot}bg/${city.picture}-1.jpg`
       });
+
+      let rel = this.updateTaskPer()
+      app.globalData.taskPer = rel
       this.updateSpots(req.spots);
       this.onShow();
 
@@ -488,7 +491,7 @@ Page({
         this.setData({
           planedFinished: true
         })
-        if (app.globalData.curPlanedFinishedNum != trackedNum) {
+        if (app.globalData.curPlanedFinishedNum != trackedNum && this.data.hasIndexInfo) {
           app.globalData.curPlanedFinishedNum = trackedNum
           curPlanedFinished = true
         }
@@ -897,26 +900,29 @@ Page({
 
 
   },
+ updateTaskPer() {
+   let num = 0
+   let allNum = 0
+   for (let o in this.data.task) {
+     if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
+     } else {
+       num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
+       allNum = allNum + this.data.task[o][1]
+     }
 
+   }
+   let rel = num / allNum
+   this.setData({
+     taskPer: rel * 100
+   })
+   return rel
+ },
   //刷新任务
   freshTask() {
-    
-    let num = 0
-    let allNum = 0
-    for (let o in this.data.task) {
-      if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
-      } else {
-        num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
-        allNum = allNum + this.data.task[o][1]
-      }
-
-    }
-    let rel = num / allNum
-    this.setData({
-      taskPer: rel * 100
-    })
-    if (rel != 1) app.globalData.taskPer = rel
     if (!this.data.hasIndexInfo) return
+    let rel = this.updateTaskPer()
+    if (rel != 1) app.globalData.taskPer = rel
+    
     if (rel == 1) {
       // try {
       //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
