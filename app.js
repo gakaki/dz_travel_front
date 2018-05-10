@@ -1,4 +1,6 @@
 //app.js
+require('./polyfill.js')();
+let deviceLow = false;
 App({
   onLaunch: function (e) {
 
@@ -24,10 +26,13 @@ App({
 
       })
 
+      
       up.onUpdateFailed(function () {
         console.log('新版本下载失败')
       })
     }
+
+    
     let that = this
 
     that.globalData.referrerInfo = e
@@ -86,7 +91,27 @@ App({
     })
   },
   onShow: function (options) {
+    wx.getSystemInfo({
+      success: function (res) {
 
+        let isLow = false;
+        if (res.platform == 'ios') {
+            let iosVer = parseFloat( res.system.replace(/ios\s+/i, ''))
+            isLow = iosVer < 10;
+            console.log(iosVer,'sysver')
+        }
+        else if (res.platform == 'android') {
+          let anVer = parseFloat(res.system.replace(/android\s+/i, ''))
+          isLow = anVer < 5.1;
+          console.log(anVer, 'sysver')
+        }
+        else {
+          isLow = true;
+        }
+        let app = getApp();
+        deviceLow = isLow;
+      },
+    })
   },
   globalData: {
     taskPer: 0,//任务完成度
@@ -130,4 +155,7 @@ App({
       return false;
     }
   },
+  lowDevice: function() {
+    return deviceLow;
+  }
 })
