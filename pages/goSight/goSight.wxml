@@ -1,4 +1,5 @@
 <view class="con ">
+<audio id='musicTag'></audio>
  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
   <scroll-view id="sv" scroll-y class="f-c-fs" scroll-with-animation="{{true}}" scroll-into-view="{{toView}}">
     <view class="photo-outer">

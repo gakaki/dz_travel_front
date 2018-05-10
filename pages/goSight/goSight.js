@@ -52,9 +52,8 @@ Page({
     cid = options.cid
     spotName = options.name
 
-    musics = wx.createInnerAudioContext()
-    musics.autoplay = false
-    musics.src = 'https://gengxin.odao.com/update/h5/travel/play/photograph.mp3'
+    musics = wx.createAudioContext('musicTag', this)
+    musics.setSrc('https://gengxin.odao.com/update/h5/travel/play/photograph.mp3')
   },
   onShow() {
     let req = new ReqEnterspot()
