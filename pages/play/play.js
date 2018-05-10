@@ -1186,15 +1186,15 @@ Page({
       this.zoomOnPlaned();
       this.freshSpots()
     },(code)=>{
-      // wx.showToast(
-      //   {
-      //     title: '请先规划路线',
-      //     icon: 'none'
-      //   })
-      this.setData({
-        tipPop: true,
-        tipStr: '请先规划路线'
-      })
+      wx.showToast(
+        {
+          title: '请先规划路线',
+          icon: 'none'
+        })
+      // this.setData({
+      //   tipPop: true,
+      //   tipStr: '请先规划路线'
+      // })
     })
   },
   //清除规划了的还没走过的路线
