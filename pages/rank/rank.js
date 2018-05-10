@@ -278,6 +278,7 @@ Page({
       noReward: false,
       isFriend: false,
       title: '达人排行榜规则',
+      noRank: false
     })
     this.resetInfo()
     this.getRankInfo();
@@ -296,6 +297,7 @@ Page({
       noReward: false,
       isFriend: false,
       title: '足迹排行榜规则',
+      noRank: false
     })
     this.resetInfo()
     this.getRankInfo();
@@ -314,6 +316,7 @@ Page({
       noReward: true,
       isFriend: false,
       title: '积分排行榜规则',
+      noRank: false
     })
     this.resetInfo()
     this.getRankInfo();
