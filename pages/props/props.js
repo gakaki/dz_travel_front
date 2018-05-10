@@ -201,7 +201,6 @@ Page({
           })
           wx.showToast({
             title: '金币-' + this.data.goldNum,
-            icon:'none',
             duration:1000
           })
         })

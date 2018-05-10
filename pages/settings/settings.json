@@ -1,5 +1,7 @@
 {
   "disableScroll": true,
   "navigationBarTitleText": "设置",
-  "tip": "/components/tip/tip"
+  "usingComponents": {
+    "tip": "/components/tip/tip"
+  }
 }
