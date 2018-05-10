@@ -204,7 +204,7 @@ Page({
         if (o.roundTracked) num++
         spotsAllTracked = spotsAllTracked && o.tracked;
       })
-      app.globalData.curPlanedFinishedNum = num+1
+      app.globalData.curPlanedFinishedNum = num + 1
       this.setData({
         spotsTracked: num,
         spotsAllTracked,
@@ -219,7 +219,7 @@ Page({
       });
       this.updateSpots(req.spots);
       this.onShow();
-      
+
       this.updateLines()
       this.freshTask();
     });
@@ -330,7 +330,6 @@ Page({
     }
     if (!this.data.planing && (this.data.partener || this.data.started)) {
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
-
       this.startMvLoop();
     }
 
@@ -363,13 +362,13 @@ Page({
     this.clearPage();
   },
 
-    clearPage() {
-        Http.unlisten(PlayLoop, this.onPlayLoop, this);
-        reGoin = 0;
-        this.hideHuadong();
-        this.stopMvLoop();
-        curPlanedFinished = false;
-    },
+  clearPage() {
+    Http.unlisten(PlayLoop, this.onPlayLoop, this);
+    reGoin = 0;
+    this.hideHuadong();
+    this.stopMvLoop();
+    curPlanedFinished = false;
+  },
 
   /**
    * 用户点击右上角分享
@@ -377,20 +376,20 @@ Page({
   onShareAppMessage: function () {
     return shareToIndex(this)
   },
-    //启动移动循环
-    startMvLoop() {
-      this.stopMvLoop();
-      if (this.data.started) {
-          this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
-      }
-    },
-    //关闭移动循环
-    stopMvLoop() {
-      if (this.data.mvHdl) {
-          clearInterval(this.data.mvHdl);
-          this.data.mvHdl = null;
-      }
-    },
+  //启动移动循环
+  startMvLoop() {
+    this.stopMvLoop();
+    if (this.data.started) {
+      this.data.mvHdl = setInterval(this.updateLines.bind(this), MV_INTERVAL);
+    }
+  },
+  //关闭移动循环
+  stopMvLoop() {
+    if (this.data.mvHdl) {
+      clearInterval(this.data.mvHdl);
+      this.data.mvHdl = null;
+    }
+  },
 
   //更新路线
   updateLines(force = false) {
@@ -704,14 +703,16 @@ Page({
       return
     }
 
-    
+
     if (this.data.planing) {
       return;
     }
     if (this.data.changeRouteing && this.data.partener) {
       wx.showToast({
         title: '对方正在修改路线',
-        icon: 'none',
+        icon: 'none'
+      })
+      this.setData({
         chgLines: false
       })
       return;
@@ -771,12 +772,16 @@ Page({
         planedFinished: false,
       })
       this.updateLines(true)
-    },(code)=>{
-       this.data.modifySending = false
-       wx.showToast({
-         title: '对方正在修改路线',
-         icon: 'none'
-       })
+    }, (code) => {
+      this.data.modifySending = false
+      wx.showToast({
+        title: '对方正在修改路线',
+        icon: 'none'
+      })
+      this.setData({
+        chgLines: false
+      })
+        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
     })
   },
 
@@ -1101,7 +1106,7 @@ Page({
       invited: invit
     });
     if (!this.data.mvHdl && started) {
-        this.startMvLoop();
+      this.startMvLoop();
     }
     updateLine && this.updateLines(updateLine);
   },
@@ -1118,7 +1123,7 @@ Page({
   },
   //提交路径到服务器
   sendPath() {
-    if (!this.data.planed ) {
+    if (!this.data.planed) {
       wx.showToast(
         {
           title: '请先规划路线',
@@ -1140,7 +1145,7 @@ Page({
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
       //恢复轮询
-      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
       this.zoomOnPlaned();
       this.freshSpots()
     })
@@ -1149,9 +1154,9 @@ Page({
   clearPlanLines() {
     let planedSpots = this.data.planedSpots.slice()
     let lines = this.data.lines.slice()
-  
-    for (let i = 0; i < this.data.planLines;i++) {
-      let spot = this.data.spots.find(s => s.index == this.data.planedSpots.length - 1-i);
+
+    for (let i = 0; i < this.data.planLines; i++) {
+      let spot = this.data.spots.find(s => s.index == this.data.planedSpots.length - 1 - i);
       spot.index = -1
       let idxInSpots = this.data.spots.indexOf(spot);
       this.setData({
@@ -1177,7 +1182,7 @@ Page({
         this.data.planed = true;
         spot.index = this.data.planedSpots.length;
         this.data.planedSpots.push(spot);
-        this.data.planLines = this.data.planLines+1
+        this.data.planLines = this.data.planLines + 1
         let idxInSpots = this.data.spots.indexOf(spot);
         this.setData({
           [`spots[${idxInSpots}]`]: spot
