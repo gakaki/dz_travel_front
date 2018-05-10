@@ -151,13 +151,9 @@ Page({
     req.spotId = pointId
     req.fetch().then(req => {
       if (this.data.freeSight == 0) {
-        // wx.showToast({
-        //   title: '金币-' + this.data.ggGold,
-        //   icon: 'none'
-        // })
-        this.setData({
-          tipPop: true,
-          tipStr: '金币-' + this.data.ggGold
+        wx.showToast({
+          title: '金币-' + this.data.ggGold,
+          icon: 'none'
         })
       }
       let events = this.data.events
@@ -226,10 +222,6 @@ Page({
         toUrl = '../props/props'
       }
       if (code == Code.EXCEED_COUNT) {
-        // wx.showToast({
-        //   title: '每个景点只能拍照一次',
-        //   icon: 'none'
-        // })
         this.setData({
           tipPop: true,
           tipStr: '每个景点只能拍照一次'
@@ -255,13 +247,9 @@ Page({
       req.cid = cid
       req.spotId = pointId
       req.fetch().then(req => {
-        // wx.showToast({
-        //   title: '金币-' + this.data.ggGold,
-        //   icon: 'none'
-        // })
-        this.setData({
-          tipPop: true,
-          tipStr: '金币-' + this.data.ggGold
+        wx.showToast({
+          title: '金币-' + this.data.ggGold,
+          icon: 'none'
         })
         let events = this.data.events
         events.push(req.event)
