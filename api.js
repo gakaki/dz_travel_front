@@ -930,7 +930,7 @@ class Http {
     }
    static clearLoop() {
         if (this._listenHdl) {
-            clearInterval(this._listenHdr);
+            clearInterval(this._listenHdl);
             this._listenHdl=null;
         }
     }
