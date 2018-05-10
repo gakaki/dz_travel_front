@@ -24,7 +24,7 @@
     <!--背景地图-->
     <image src='{{mapBg}}' style='position:absolute;top:0;left:0; height:{{ mapHeight * scale }}rpx; width:{{ mapWidth * scale }}rpx'></image>
     <!--路径-->
-    <view class="play-line {{item.roundTracked ? 'solid-line': 'dashed-line'}}" wx:for="{{ lines }}" wx:key="{{index}}" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;width:{{item.wd * scale}}rpx;transform-origin: 0 0; transform:translateY(-4rpx) rotate({{item.rotation}}deg)"></view>
+    <view class="play-line {{item.roundTracked ? 'solid-line': 'dashed-line'}}" wx:for="{{ lines }}" wx:key="{{index}}" style="position:absolute;left:{{item.x * scale}}rpx;top:{{item.y * scale}}rpx;width:{{item.wd * scale}}rpx;transform-origin: 0 0; transform: translateY( -4rpx ) rotate( {{item.rotation}}deg )"></view>
     <!--起点-->
     <view class="play-start" style="position:absolute;left:{{startPoint.x * scale}}rpx;top:{{startPoint.y * scale}}rpx; transform: translate(-50%, -96%)">
       <image class="play-start-img" src="{{startPoint.img}}" style="width:{{80 * scale}}rpx;height:{{93 * scale}}rpx;"></image>
