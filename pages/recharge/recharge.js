@@ -1,6 +1,6 @@
 const sheet = require('../../sheets.js')
 import { shareToIndex, addGold } from '../../utils/util.js';
-import { Minapppay } from '../../api.js';
+import { Minapppay, Showshop } from '../../api.js';
 Page({
 
   /**
@@ -14,7 +14,8 @@ Page({
     mCount: 0,
     pop: false,
     platform: '',
-    income: 0
+    income: 0,
+    showShop: false
   },
 
   /**
@@ -23,10 +24,17 @@ Page({
   onLoad: function (options) {
     try {
       var res = wx.getSystemInfoSync()
-      console.log(res.platform)
         this.setData({
           platform: res.platform
         })
+        if(res.platform == 'ios'){
+          let showShop = new Showshop();
+          showShop.fetch().then((res)=>{
+            this.setData({
+              showShop: res.isShow
+            })
+          })
+        }
     } catch (e) {
     }
     this.setData({
