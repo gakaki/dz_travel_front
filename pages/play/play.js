@@ -497,21 +497,19 @@ Page({
         roleMe.walkCls = '';
         if (this.data.roleMe.display != 0) {
           roleFriend = null;
-          if (!this.data.partener) {
-            Http.unlisten(PlayLoop, this.onPlayLoop, this);
-            this.stopMvLoop();
-          }
         }
-        else {
-          if (this.data.partener) {
+        else if (this.data.partener){
             roleFriend.walkCls = '';
-          }
-          if (!this.data.partener) {
-            Http.unlisten(PlayLoop, this.onPlayLoop, this);
-            this.stopMvLoop();
-          }
-          this.freshAllTrackedStat();
         }
+
+        if (!this.data.partener) {
+          //单人
+          Http.unlisten(PlayLoop, this.onPlayLoop, this);
+        }
+      
+
+        this.stopMvLoop();
+        this.freshAllTrackedStat();
 
       } else {
         this.setData({
@@ -781,7 +779,7 @@ Page({
       this.setData({
         chgLines: false
       })
-        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
     })
   },
 
@@ -1145,7 +1143,7 @@ Page({
       this.data.startPoint.arriveStamp = req.startTime;
       this.updateSpots(req.spots);
       //恢复轮询
-        Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
+      Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
       this.zoomOnPlaned();
       this.freshSpots()
     })
