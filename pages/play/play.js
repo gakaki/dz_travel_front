@@ -426,6 +426,7 @@ Page({
       let wd = wd = Math.hypot(dy, dx);
       let angle = Math.atan2(dy, dx);
       let rotation = angle * 180 / Math.PI;
+      rotation = rotation >> 0;
       let roundTracked = nxt.roundTracked;
       let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, roundTracked };
       if (nxt.roundTracked) {
