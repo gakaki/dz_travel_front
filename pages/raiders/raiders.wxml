@@ -43,5 +43,5 @@
     <view class="btn-icon btn-big-blue font" bindtap='isPop'>我要评论</view>
   </view>
   <comment wx:if="{{isShowPop}}" bind:doComm="judge" bindtoclose="isPop" placeholder='{{placeholder}}' bind:strLen="_strLen"></comment>
-  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='发表评论成功'></tip>
+  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
 </view>

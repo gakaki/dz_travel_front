@@ -380,9 +380,9 @@ Page({
   useTkt(e) {
     if (app.preventMoreTap(e)) return;
     if(this.data.location == terminal){
-      wx.showToast({
-        title: '已在当前城市，请重新选择',
-        icon: 'none'
+      this.setData({
+        tipPop: true,
+        tipStr: '已在当前城市，请重新选择'
       })
       return 
     }

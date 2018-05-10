@@ -1162,11 +1162,15 @@ Page({
   //提交路径到服务器
   sendPath() {
     if (!this.data.planed) {
-      wx.showToast(
-        {
-          title: '请先规划路线',
-          icon: 'none'
-        })
+      // wx.showToast(
+      //   {
+      //     title: '请先规划路线',
+      //     icon: 'none'
+      //   })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先规划路线'
+      })
       return;
     }
 
@@ -1187,11 +1191,15 @@ Page({
       this.zoomOnPlaned();
       this.freshSpots()
     },(code)=>{
-      wx.showToast(
-        {
-          title: '请先规划路线',
-          icon: 'none'
-        })
+      // wx.showToast(
+      //   {
+      //     title: '请先规划路线',
+      //     icon: 'none'
+      //   })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先规划路线'
+      })
     })
   },
   //清除规划了的还没走过的路线
@@ -1236,10 +1244,6 @@ Page({
       }
       else {
         //已经在路线中了
-        // wx.showToast({
-        //   title: '路线规划不可前往相同景点',
-        //   icon: 'none'
-        // });
         this.setData({
           tipPop: true,
           tipStr: '路线规划不可前往相同景点'
@@ -1252,10 +1256,6 @@ Page({
       this.toTour(sid, name);
     }
     else if (this.data.planedSpots.length) {
-      // wx.showToast({
-      //   title: '未到达此景点无法观光',
-      //   icon: 'none'
-      // })
       this.setData({
         tipPop: true,
         tipStr: '未到达此景点无法观光'

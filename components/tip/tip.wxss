@@ -27,3 +27,6 @@
   color: #278cff;
   letter-spacing: 3rpx
 }
+.sm-font {
+   font: bold 32rpx/120rpx 'Microsoft YaHei';
+}
