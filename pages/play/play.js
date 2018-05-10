@@ -900,10 +900,11 @@ Page({
 
   //刷新任务
   freshTask() {
+    
     let num = 0
     let allNum = 0
     for (let o in this.data.task) {
-      if (!this.data.partener && this.data.hasIndexInfo && (o == 'parterTour' || o == 'parterPhoto')) {
+      if (!this.data.partener && (o == 'parterTour' || o == 'parterPhoto')) {
       } else {
         num = num + (this.data.task[o][0] >= this.data.task[o][1] ? this.data.task[o][1] : this.data.task[o][0])
         allNum = allNum + this.data.task[o][1]
@@ -915,6 +916,7 @@ Page({
       taskPer: rel * 100
     })
     if (rel != 1) app.globalData.taskPer = rel
+    if (!this.data.hasIndexInfo) return
     if (rel == 1) {
       // try {
       //   let value = wx.getStorageSync('cid' + this.data.cid)//每个城市任务完成后记录一下
@@ -929,6 +931,7 @@ Page({
       // } catch (e) {
       // }
       if (this.data.planedFinished && curPlanedFinished || app.globalData.taskPer != 1) {
+      // if (curPlanedFinished && (this.data.planedFinished || app.globalData.taskPer)) {  
         this.setData({
           finishedTip: '已点亮城市，可前往下一城市旅行',
           taskdonePop: true
@@ -1146,6 +1149,12 @@ Page({
       Http.listen(PlayLoop, this.onPlayLoop, this, LOOP_INTERVAL);
       this.zoomOnPlaned();
       this.freshSpots()
+    },(code)=>{
+      wx.showToast(
+        {
+          title: '请先规划路线',
+          icon: 'none'
+        })
     })
   },
   //清除规划了的还没走过的路线
