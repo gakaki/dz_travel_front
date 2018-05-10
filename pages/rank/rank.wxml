@@ -1,12 +1,12 @@
 <!--pages/rank/rank.wxml-->
 <view class="con">
   <view class="head f-r-sa">
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png" hidden='{{!(rankType==1)}}' bindtap='lookFamous'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank-gray.png" hidden='{{rankType==1}}' bindtap='lookFamous'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank.png" hidden='{{!(rankType==2)}}' bindtap='lookFoot'></image>
-    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank-gray.png" hidden='{{rankType==2}}' bindtap='lookFoot'></image>
     <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank.png" hidden='{{!(rankType==3)}}' bindtap='lookScore'></image>
     <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/score-rank-gray.png" hidden='{{rankType==3}}' bindtap='lookScore'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank.png" hidden='{{!(rankType==2)}}' bindtap='lookFoot'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/foot-rank-gray.png" hidden='{{rankType==2}}' bindtap='lookFoot'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank.png" hidden='{{!(rankType==1)}}' bindtap='lookFamous'></image>
+    <image class="rank-title" src="https://gengxin.odao.com/update/h5/travel/rank/famous-rank-gray.png" hidden='{{rankType==1}}' bindtap='lookFamous'></image>
   </view>
   <view class="rank-head flex">
     <view class="rank-item {{rankSubtype==1 ? 'rank-choose' : ''}}" bindtap='rankCountry'>全国排行榜</view>

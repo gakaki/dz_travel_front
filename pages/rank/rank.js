@@ -3,7 +3,7 @@ import { shareToIndex } from '../../utils/util.js';
 import { RankInfo, RankType, RankSubtype, Code } from '../../api.js';
 const sheet = require('../../sheets.js');
 let app = getApp();
-let rankType = RankType.THUMBS, rankSubtype = RankSubtype.COUNTRY;
+let rankType = RankType.SCORE, rankSubtype = RankSubtype.COUNTRY;
 let page = 1, ranks = [], topThree = [];
 let preventCrazyClick = false;
 Page({
@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rankType: RankType.THUMBS,
+    rankType: RankType.SCORE,
     rankSubtype: RankSubtype.COUNTRY,
     toView:'rank0',
     //全国排行榜前三名
@@ -27,7 +27,7 @@ Page({
     title: '达人排行榜规则',
     id:5,
     noRank:false,
-    noReward:false,
+    noReward: true,
     isFriend:false,
     isFirst: false
   },
@@ -85,13 +85,13 @@ Page({
   onHide: function () {
     this.resetInfo();
     preventCrazyClick = false;
-    rankType = RankType.THUMBS; 
+    rankType = RankType.SCORE; 
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
       rankSubtype,
       toView: 'rank0',
-      noReward: false,
+      noReward: true,
       isFriend: false,
       isFirst: false,
       noRank: false
@@ -104,13 +104,13 @@ Page({
   onUnload: function () {
     this.resetInfo();
     preventCrazyClick = false;
-    rankType = RankType.THUMBS; 
+    rankType = RankType.SCORE; 
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
       rankSubtype,
       toView: 'rank0',
-      noReward: false,
+      noReward: true,
       isFriend: false,
       isFirst: false,
       noRank: false
