@@ -41,4 +41,5 @@
       </view>
     </view>
   </view>
+  <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
 </view> 

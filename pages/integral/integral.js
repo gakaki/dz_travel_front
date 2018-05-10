@@ -25,6 +25,7 @@ Page({
   onLoad: function (options) {
     this.getUserInfo()
   },
+
   onShow:function(){
     this.data.audioA = wx.createAudioContext('audioA', this);
     this.data.audioB = wx.createAudioContext('audioB', this);

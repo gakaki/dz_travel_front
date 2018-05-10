@@ -426,6 +426,7 @@ Page({
       let wd = wd = Math.hypot(dy, dx);
       let angle = Math.atan2(dy, dx);
       let rotation = angle * 180 / Math.PI;
+      rotation = rotation >> 0;
       let roundTracked = nxt.roundTracked;
       let p = { id: cur.id, x: cur.x, y: cur.y, wd, rotation, roundTracked };
       if (nxt.roundTracked) {
@@ -729,7 +730,7 @@ Page({
       // })
       this.setData({
         tipPop: true,
-        tipStr: '对方正在修改路线'
+        tipStr: '好友正在修改路线'
       })
       this.setData({
         chgLines: false
@@ -797,10 +798,10 @@ Page({
       this.updateLines(true)
     }, (code) => {
       this.data.modifySending = false
-      // this.setData({
-      //   tipPop: true,
-      //   tipStr: '对方正在修改路线'
-      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '好友正在修改路线'
+      })
       this.setData({
         chgLines: false
       })
@@ -1186,15 +1187,15 @@ Page({
       this.zoomOnPlaned();
       this.freshSpots()
     },(code)=>{
-      // wx.showToast(
-      //   {
-      //     title: '请先规划路线',
-      //     icon: 'none'
-      //   })
-      this.setData({
-        tipPop: true,
-        tipStr: '请先规划路线'
-      })
+      wx.showToast(
+        {
+          title: '请先规划路线',
+          icon: 'none'
+        })
+      // this.setData({
+      //   tipPop: true,
+      //   tipStr: '请先规划路线'
+      // })
     })
   },
   //清除规划了的还没走过的路线
