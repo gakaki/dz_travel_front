@@ -1,4 +1,5 @@
 <view class="settings">
+<tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
   <form bindsubmit='formSubmit'>
     <image class="separatrix" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="name info">

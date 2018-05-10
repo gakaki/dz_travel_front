@@ -8,6 +8,7 @@
     "pop-got-post": "./pops/gotPost",
     "pop-mission-info": "./pops/missionInfo",
     "guide":"/components/newbieGuide/newbieGuide",
-    "cfm": "../../components/buy/buy"
+    "cfm": "../../components/buy/buy",
+    "tip": "/components/tip/tip"
   }
 }

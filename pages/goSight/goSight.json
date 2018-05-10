@@ -3,6 +3,7 @@
   "mygold": "../../components/mygold/mygold",
   "buy": "../../components/buy/buy",
   "dialogQuestion": "../../../components/dialogQuestion/dialogQuestion",
-  "task": "../../../components/task/task"
+  "task": "../../../components/task/task",
+  "tip": "/components/tip/tip"
 }
 }

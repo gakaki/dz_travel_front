@@ -16,6 +16,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop:false,
+    tipStr:'',
     firstTime: false,//第一次花费金币进行观光
     toView: '',
     cfmStr: '',
@@ -150,9 +152,13 @@ Page({
     req.spotId = pointId
     req.fetch().then(req => {
       if (this.data.freeSight == 0) {
-        wx.showToast({
-          title: '金币-' + this.data.ggGold,
-          icon: 'none'
+        // wx.showToast({
+        //   title: '金币-' + this.data.ggGold,
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '金币-' + this.data.ggGold
         })
       }
       let events = this.data.events
@@ -221,9 +227,13 @@ Page({
         toUrl = '../props/props'
       }
       if (code == Code.EXCEED_COUNT) {
-        wx.showToast({
-          title: '每个景点只能拍照一次',
-          icon: 'none'
+        // wx.showToast({
+        //   title: '每个景点只能拍照一次',
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '每个景点只能拍照一次'
         })
         return
       }
@@ -234,6 +244,11 @@ Page({
       isGetPost: false
     })
   },
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   toBuy() {
     this.hidePop()
     if(this.data.firstTime) {
@@ -241,9 +256,13 @@ Page({
       req.cid = cid
       req.spotId = pointId
       req.fetch().then(req => {
-        wx.showToast({
-          title: '金币-' + this.data.ggGold,
-          icon: 'none'
+        // wx.showToast({
+        //   title: '金币-' + this.data.ggGold,
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '金币-' + this.data.ggGold
         })
         let events = this.data.events
         events.push(req.event)

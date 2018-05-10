@@ -89,6 +89,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tipPop: false,
+    tipStr: '',
     planLines: 0,//规划的还没走过的路线
     hasIndexInfo: false,
     invited: false,//是否是被邀请者
@@ -629,7 +631,12 @@ Page({
       }
     });
   },
-
+  //隐藏提示
+  hideTipPop() {
+    this.setData({
+      tipPop: false
+    })
+  },
   //添加或修改路线
   xiugaiLine() {
     if (!this.data.hasPlay) {
@@ -649,10 +656,14 @@ Page({
       if (o.roundTracked) num++
     })
     if (num == this.data.spots.length - 1 && !this.data.planedFinished) {
-      wx.showToast({
-        title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none'
-      });
+      // wx.showToast({
+      //   title: '已经要走完了，再耐心等待一下吧',
+      //   icon: 'none'
+      // });
+      this.setData({
+        tipPop: true,
+        tipStr: '已经要走完了，再耐心等待一下吧'
+      })
       return
     }
     if (app.globalData.gold < 100) {
@@ -697,10 +708,14 @@ Page({
       this.setData({
         chgLines: false
       })
-      wx.showToast({
-        title: '已经要走完了，再耐心等待一下吧',
-        icon: 'none'
-      });
+      // wx.showToast({
+      //   title: '已经要走完了，再耐心等待一下吧',
+      //   icon: 'none'
+      // });
+      this.setData({
+        tipPop: true,
+        tipStr: '已经要走完了，再耐心等待一下吧'
+      })
       return
     }
 
@@ -709,9 +724,13 @@ Page({
       return;
     }
     if (this.data.changeRouteing && this.data.partener) {
-      wx.showToast({
-        title: '对方正在修改路线',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '对方正在修改路线',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '对方正在修改路线'
       })
       this.setData({
         chgLines: false
@@ -723,10 +742,14 @@ Page({
       if (this.data.partener) {
         //双人模式下，只允许被邀请者规划
         if (!this.data.partener.isInviter && !this.data.spotsAllTracked) {
-          wx.showToast({
-            title: '请等待被邀请者规划路线',
-            icon: 'none'
-          });
+          // wx.showToast({
+          //   title: '请等待被邀请者规划路线',
+          //   icon: 'none'
+          // });
+          this.setData({
+            tipPop: true,
+            tipStr: '请等待被邀请者规划路线'
+          })
           return;
         }
         //我是被邀请者，可以规则路线
@@ -775,9 +798,13 @@ Page({
       this.updateLines(true)
     }, (code) => {
       this.data.modifySending = false
-      wx.showToast({
-        title: '对方正在修改路线',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '对方正在修改路线',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '对方正在修改路线'
       })
       this.setData({
         chgLines: false
@@ -955,9 +982,13 @@ Page({
 
     } else {
       if (this.data.planedFinished && curPlanedFinished) {
-        wx.showToast({
-          title: '规划路线已走完，记得完成任务哦',
-          icon: 'none'
+        // wx.showToast({
+        //   title: '规划路线已走完，记得完成任务哦',
+        //   icon: 'none'
+        // })
+        this.setData({
+          tipPop: true,
+          tipStr: '规划路线已走完，记得完成任务哦'
         })
         curPlanedFinished = false
       }
@@ -1205,10 +1236,14 @@ Page({
       }
       else {
         //已经在路线中了
-        wx.showToast({
-          title: '路线规划不可前往相同景点',
-          icon: 'none'
-        });
+        // wx.showToast({
+        //   title: '路线规划不可前往相同景点',
+        //   icon: 'none'
+        // });
+        this.setData({
+          tipPop: true,
+          tipStr: '路线规划不可前往相同景点'
+        })
       }
     }
     else if (spot.tracked) {
@@ -1217,17 +1252,24 @@ Page({
       this.toTour(sid, name);
     }
     else if (this.data.planedSpots.length) {
-      wx.showToast({
-        title: '未到达此景点无法观光',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '未到达此景点无法观光',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '未到达此景点无法观光'
       })
-
     }
     else {
       //没有到过，也没有路线，那应该是刚进入这个城市
-      wx.showToast({
-        title: '请先点击“规划路线”进行路线添加',
-        icon: 'none'
+      // wx.showToast({
+      //   title: '请先点击“规划路线”进行路线添加',
+      //   icon: 'none'
+      // })
+      this.setData({
+        tipPop: true,
+        tipStr: '请先点击“规划路线”进行路线添加'
       })
     }
   },

@@ -1,5 +1,6 @@
 <!--pages/city/city.wxml-->
 <view class="wrap">
+ <tip wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tip>
   <search id="search" wx:if="{{focus}}" bind:back="_back" bind:selected="_selected"></search>
   <view class="search" wx:else="{{focus}}" bindtap='focus'>
     <image class="search-icon" src="https://gengxin.odao.com/update/h5/travel/index/search.png"></image>
