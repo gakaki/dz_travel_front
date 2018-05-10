@@ -632,6 +632,7 @@ class Base {
         return Base.SID;
     }
    static Start(appName, url, shareUid) {
+        this.LoginRetryed=0;
         if(shareUid)
             this.shareUid=shareUid;
         return new Promise((resolve,reject) => {
@@ -727,7 +728,7 @@ class Base {
                     })
                     suc(req);
                 }).catch(()=>{
-                    if (Base.LoginRetryed) {
+                    if (Base.LoginRetryed > 3) {
                         wx.showModal({
                             title: '出错了',
                             content: '登录失败，请关闭小程序后重新打开再试',
@@ -738,7 +739,7 @@ class Base {
                     wx.clearStorageSync('uid');
                     Base.UID='';
                     Base.SID='';
-                    Base.LoginRetryed=true;
+                    Base.LoginRetryed++;
                     wx.login({
                         success: res => {
                             console.log('login')
