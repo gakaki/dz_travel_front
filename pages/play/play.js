@@ -89,6 +89,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    lowDevice: app.lowDevice(),
     tipPop: false,
     tipStr: '',
     planLines: 0,//规划的还没走过的路线
