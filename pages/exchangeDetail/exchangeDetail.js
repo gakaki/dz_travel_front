@@ -160,7 +160,7 @@ Page({
       }
      
     }).catch((res)=>{
-      if (res == -Code.EXCHANGE_OVER) {
+      if (res == Code.EXCHANGE_OVER) {
         this.setData({
           exchangeOver: true
         })
