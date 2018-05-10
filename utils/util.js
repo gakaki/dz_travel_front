@@ -485,6 +485,7 @@ function addGold(v) {
   app.globalData.gold = app.globalData.gold + v
   wx.showToast({
     title: '金币+' + v,
+
     mask: true
   }) 
 }
