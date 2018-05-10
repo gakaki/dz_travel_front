@@ -573,7 +573,7 @@ class Base {
                       if (this.toastErr && error && error.message) {
                         wx.showToast({
                           title: error.message,
-                          icon: 'none'
+                          icon: 'loading'
                         })
                       }
                       reject(this.code);
