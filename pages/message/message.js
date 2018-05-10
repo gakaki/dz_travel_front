@@ -76,8 +76,7 @@ Page({
 
   tip(tip) {
     wx.showToast({
-      title: tip,
-      icon: 'none'
+      title: tip
     })
   },
   /**

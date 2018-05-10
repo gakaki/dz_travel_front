@@ -15,7 +15,7 @@ const wss = "wss://travel.ddz2018.com/travel";
 
 const showErr = msg => {
   wx.showToast({
-    title: '哎呀,' + JSON.stringify(msg),
+    title: '哎呀,' + JSON.stringify(msg)
   })
 }
 

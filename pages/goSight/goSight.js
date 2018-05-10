@@ -152,8 +152,7 @@ Page({
     req.fetch().then(req => {
       if (this.data.freeSight == 0) {
         wx.showToast({
-          title: '金币-' + this.data.ggGold,
-          icon: 'none'
+          title: '金币-' + this.data.ggGold
         })
       }
       let events = this.data.events
@@ -248,8 +247,7 @@ Page({
       req.spotId = pointId
       req.fetch().then(req => {
         wx.showToast({
-          title: '金币-' + this.data.ggGold,
-          icon: 'none'
+          title: '金币-' + this.data.ggGold
         })
         let events = this.data.events
         events.push(req.event)

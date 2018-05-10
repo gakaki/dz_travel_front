@@ -49,8 +49,7 @@ Component({
             })
           }, 1000)
           wx.showToast({
-            title,
-            icon: "none"
+            title
           })
           this.triggerEvent("sign")
         })
