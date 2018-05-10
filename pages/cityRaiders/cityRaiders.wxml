@@ -33,5 +33,4 @@
     <image class="jiexian" src="https://gengxin.odao.com/update/h5/travel/common/separatrix.png"></image>
     <view class="btn-icon font" bindtap='tocR'>确定</view>
   </view>
-  <!-- <walk wx:for="{{walkArr}}" sex="{{gender}}" walkInfo="{{item}}"></walk>     -->
 </view>

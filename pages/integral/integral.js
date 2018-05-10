@@ -1,5 +1,5 @@
 // pages/integral/integral.js
-import { IntegralShop, ExchangeDetail,Code} from '../../api.js';
+import { IntegralShop, ExchangeDetail} from '../../api.js';
 import { shareToIndex } from '../../utils/util.js';
 Page({
 
@@ -7,8 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tipPop: false,
-    tipStr: '',
     underline:0,
     exchange:false,
     exchangeCon:'',
@@ -26,11 +24,6 @@ Page({
    */
   onLoad: function (options) {
     this.getUserInfo()
-  },
-  hideTipPop() {
-    this.setData({
-      tipPop: false
-    })
   },
 
   onShow:function(){
@@ -75,19 +68,6 @@ Page({
         exchangeDetail: detail,
         page:this.data.page+1
       })
-    },(code)=>{
-      if (code == Code.RANK_NOT_MEET) {
-        this.setData({
-          tipPop: true,
-          tipStr: '不满足排名，无法兑换'
-        })
-      }
-      if (code == Code.NEED_INTEGRAL) {
-        this.setData({
-          tipPop: true,
-          tipStr: '不满足兑换规则，无法进行兑换'
-        })
-      }
     })
   }, 
   lower(){
