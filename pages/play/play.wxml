@@ -1,7 +1,7 @@
 <!--pages/play2/play.wxml-->
 <view id="play-page" catchtap='hideHuadong'>
   <!-- <image src="https://gengxin.odao.com/update/h5/travel/play/animation/{{flower[flower.length-1]}}/{{flower[anmIdx]}}" class="anm"></image> -->
-  <view style="background-image: url('https://gengxin.odao.com/update/h5/travel/play/delete.png');background-size:100% 100%;" class="reset" wx:if="{{planing}}" bindtap='clearPlanLines'>删除路线</view>
+  <view style="background-image: url('https://gengxin.odao.com/update/h5/travel/play/delete.png');background-size:cover;" class="reset" wx:if="{{planing}}" bindtap='clearPlanLines'>删除路线</view>
   <cfm outer-class="fc" bindtoclose="hidePops" content="{{cfmDesc}}" bind:confirm="toCfm" wx:if="{{chgLines}}" cfmStr="{{cfmStr}}" isBuy="{{false}}"></cfm>
   <cfm outer-class="fc" bindtoclose="hidePopss" content="{{finishedTip}}" bind:confirm="toCfms" wx:if="{{taskdonePop}}" cancelStr="留在本地" cfmStr="起飞旅行" isBuy="{{false}}"></cfm>
 
