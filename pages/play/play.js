@@ -596,7 +596,7 @@ Page({
     }
     else {
       roleMe.walkCls = '';
-      if (carImg) {
+      if (carImg && this.data.hasIndexInfo) {
         roleMe.img = carImg + '2.png';
       }
       if (this.data.spotsAllTracked) {
