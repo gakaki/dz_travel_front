@@ -130,6 +130,7 @@ App({
     debug: {
       share: true
     },
+      showAuth: false, //是否显示授权提示
     referrerInfo: {}    //给后台的场景值
   },
   //事件里的随机图片配置路径
