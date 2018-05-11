@@ -603,7 +603,7 @@ Page({
       if (this.data.spotsAllTracked) {
         this.setData({ planedFinished: true })
       }
-      this.setData({ lines: null, roleMe })
+      this.setData({ lines: null, roleMe, roleFriend })
     }
 
   },
