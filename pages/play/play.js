@@ -1201,6 +1201,7 @@ Page({
   },
   //清除规划了的还没走过的路线
   clearPlanLines() {
+    if (!this.data.lines) return
     let planedSpots = this.data.planedSpots.slice()
     let lines = this.data.lines.slice()
 
