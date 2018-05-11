@@ -24,21 +24,24 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    let clear = new ClearMsg()
-    clear.mid = message[0].mid
-    clear.fetch().then((req)=>{
-    }).catch((req)=>{
-      switch (req) {
-        case Code.USER_NOT_FOUND:
-          this.tip('用户不存在');
-          break;
-        case Code.NOT_FOUND:
-          this.tip('未找到消息');
-          break;
-        default:
-          this.tip('未知错误');
-      }
-    })
+    if(message.length){
+      let clear = new ClearMsg()
+      clear.mid = message[0].mid
+      clear.fetch().then((req) => {
+      }).catch((req) => {
+        switch (req) {
+          case Code.USER_NOT_FOUND:
+            this.tip('用户不存在');
+            break;
+          case Code.NOT_FOUND:
+            this.tip('未找到消息');
+            break;
+          default:
+            this.tip('未知错误');
+        }
+      })
+    }
+    
     message = []
     page = 1
     this.setData({
