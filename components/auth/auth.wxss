@@ -1,0 +1,36 @@
+/* components/auth/auth.wxss */
+.auth-pop-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.auth-bg {
+  width: 560rpx;
+  height: 300rpx;
+  position: relative;
+  border-radius: 30rpx;
+  background-color: white;
+  box-shadow: 0 6rpx 10rpx black;
+  margin: 300rpx auto;
+  pad: 30rpx;
+}
+.auth-title {
+  position: relative;
+  top: 50rpx;
+  color: gray;
+  text-align: center;
+}
+.auth-btns {
+  position: absolute;
+  width: 100%;
+  bottom: 30rpx;
+  display: flex;
+}
+.auth-btns button {
+  width: 200rpx;
+  height: 100rpx;
+  
+}
