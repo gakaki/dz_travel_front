@@ -5,6 +5,7 @@
     "cmap": "../../components/cmap/cmap",
     "launch": "../../components/launch/launch",
     "tip": "../../components/buy/buy",
-    "tips": "/components/tip/tip"
+    "tips": "/components/tip/tip",
+    "auth": "/components/auth/auth"
   }
 }

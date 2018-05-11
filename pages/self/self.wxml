@@ -91,3 +91,4 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
+<auth wx:if="{{!hasUserInfo}}"></auth>

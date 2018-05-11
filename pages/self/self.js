@@ -26,7 +26,8 @@ Page({
       url: '../travelLog/travelLog'
     }],
     init:null,
-    isFirst:false
+    isFirst:false,
+    hasUserInfo: true
   },
 
   /**
@@ -34,7 +35,8 @@ Page({
    */
   onLoad: function (options) {
     let userInfo = app.globalData.userInfo;
-    this.setData({userInfo})
+    let hasUserInfo = userInfo != null;
+    this.setData({userInfo, hasUserInfo})
   },
   onShow:function(){
     this.updateInfo()

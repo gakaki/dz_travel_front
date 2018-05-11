@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasUserInfo: true,
     rankType: RankType.SCORE,
     rankSubtype: RankSubtype.COUNTRY,
     toView:'rank0',
@@ -36,7 +37,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({hasUserInfo})
     //test(假数据,仅为了看页面显示效果,接入真数据时直接把这块代码删除即可)----------
     // let topThree = [], rankingCountry = [], rankingFriend = [];
     // for(let i = 0 ;i < 20; i++ ){

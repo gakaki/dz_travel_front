@@ -1,6 +1,7 @@
 {
   "disableScroll": true,
   "usingComponents":{
-    "directions": "/components/rankDirections/rankDirections"
+    "directions": "/components/rankDirections/rankDirections",
+    "auth": "/components/auth/auth"
   }
 }

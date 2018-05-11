@@ -22,7 +22,7 @@ Page({
     lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
     lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
     userInfo: {},
-    hasUserInfo: false,
+    hasUserInfo: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isFirst: false,
     season:'SPRING',
@@ -103,6 +103,7 @@ Page({
   gotUserInfo(options) {
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
+    let hasUserInfo = userInfo != null;
     if (userInfo){
       let m = new SignInfo()
       m.fetch().then(res => {
@@ -123,6 +124,8 @@ Page({
     else {
       console.log('用户拒绝授权个人信息！！')
     }
+
+    this.setData({hasUserInfo})
   },
   hideTipPop() {
     this.setData({
