@@ -33,12 +33,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    let userInfo = app.globalData.userInfo;
-    let hasUserInfo = userInfo != null;
-    this.setData({userInfo, hasUserInfo})
+  onLoad: function (options) { 
   },
   onShow:function(){
+    let userInfo = app.globalData.userInfo;
+    let hasUserInfo = userInfo != null;
+    this.setData({ userInfo, hasUserInfo })
+    if (!this.data.hasUserInfo) return
     this.updateInfo()
     this.setData({
       isFirst: app.globalData.isFirst

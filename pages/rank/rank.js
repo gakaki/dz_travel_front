@@ -37,8 +37,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let hasUserInfo = app.globalData.userInfo != null;
-    this.setData({hasUserInfo})
     //test(假数据,仅为了看页面显示效果,接入真数据时直接把这块代码删除即可)----------
     // let topThree = [], rankingCountry = [], rankingFriend = [];
     // for(let i = 0 ;i < 20; i++ ){
@@ -75,6 +73,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({ hasUserInfo })
+    if (!this.data.hasUserInfo) return
     this.setData({
       isFirst: app.globalData.isFirst
     })
