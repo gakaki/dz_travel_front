@@ -8,18 +8,17 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 .auth-bg {
-  width: 560rpx;
-  height: 300rpx;
+  width: 600rpx;
+  height: 350rpx;
   position: relative;
   border-radius: 30rpx;
   background-color: white;
-  box-shadow: 0 6rpx 10rpx black;
   margin: 300rpx auto;
   pad: 30rpx;
 }
 .auth-title {
   position: relative;
-  top: 50rpx;
+  top: 80rpx;
   color: gray;
   text-align: center;
 }
@@ -30,7 +29,7 @@
   display: flex;
 }
 .auth-btns button {
-  width: 200rpx;
+  width: 360rpx;
   height: 100rpx;
   
 }
