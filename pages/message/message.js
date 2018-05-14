@@ -24,6 +24,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    //如果有消息，则清除看了的消息
     if(message.length){
       let clear = new ClearMsg()
       clear.mid = message[0].mid
@@ -54,6 +55,7 @@ Page({
   },
 
   sendReq() {
+    //采用分页的请求，默认20条，如果需要改变返回的条数，则需传limit字段
     let messages = new GetMessage()
     messages.page = page
     messages.fetch().then((req) => {

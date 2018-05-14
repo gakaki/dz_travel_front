@@ -132,12 +132,13 @@ Page({
   },
 
   getRankInfo() {
-    // console.log(page, 'page', this.data.rankingFriend, this.data.rankingCountry)
+    console.log(page, 'page', this.data.rankingFriend, this.data.rankingCountry)
     let req = new RankInfo();
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
     req.page = page;
     req.fetch().then(() => { 
+      console.log(req)
       if (page == 1 && !req.ranks.length) {
         this.setData({
           noRank: true

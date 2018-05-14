@@ -329,7 +329,7 @@ Page({
       }
       else{
         let userInfo = app.globalData.userInfo;
-        
+        //通过监听是否有uid判断好友是否进入，如果进入理论上下面的代码只执行一次以避免不断重复刷新渲染导致页面卡顿
         if (res.playerUid && !partnerEnter) {
           partnerEnter = true
           partnerCid = res.parLocation ? res.parLocation : initCity;
@@ -373,7 +373,7 @@ Page({
     Http.unlisten(PartnerInfo, this.parInfo, this);
     let start = new StartGame();
     start.cid = cid;
-    //判断是不是双人起飞
+    //判断是不是双人起飞，isWaiting为false时代表是双人，好友已经进入。
     if (!this.data.isWaiting) {
       //有没有免费的
       if(this.data.isDoubleFirst){
