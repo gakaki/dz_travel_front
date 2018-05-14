@@ -3,8 +3,7 @@
 <view class='auth-bg'>
   <view class='auth-title'>亲，我们需要使用您的昵称！</view>
   <view class='auth-btns'>
-    <button type='default' bindtap='cancel'>取消</button>
-    <button type='primary' open-type='getUserInfo' bindgetuserinfo='gotInfo'>确定</button>
+    <button type='warn' open-type='getUserInfo' bindgetuserinfo='gotInfo'>确 定</button>
   </view>
 </view>
 </view>
