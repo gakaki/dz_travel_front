@@ -5,8 +5,8 @@ import { SignInfo, Base, IndexInfo, Http, LookTicket, Season, TicketType, CheckM
 const sheet = require('../../sheets.js');
 const app = getApp();
 //机票类型和城市id
-let tktType , cid , terminal , tid , locationCid;
-let inviteOpt , getLocationCid = false;
+let tktType, cid, terminal, tid, locationCid;
+let inviteOpt, getLocationCid = false;
 let enterOnload = true //判断是否进入onload生命周期函数中
 let loadOpts;
 Page({
@@ -15,53 +15,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tipPop:false,
-    tipStr:'',
+    tipPop: false,
+    tipStr: '',
     mapConWd: 710,
     mapConHt: 730,
-    lightProvinces: ['上海', '海南', '北京', '河南', '天津','四川'],//test
-    lightCitys: ['上海', '海口', '北京', '郑州', '天津','成都'],//test
+    lightProvinces: ['上海', '海南', '北京', '河南', '天津', '四川'],//test
+    lightCitys: ['上海', '海口', '北京', '郑州', '天津', '成都'],//test
     userInfo: {},
     hasUserInfo: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isFirst: false,
-    season:'SPRING',
-    weather:'sun',
-    playerCnt:2000,
-    messages:0,
-    gold:0,
-    nickName:'',
-    avatar:'',
-    date:'',
-    hasSign:1,
-    location:'',
-    uid:'',
-    presentTkt:[],
+    season: 'SPRING',
+    weather: 'sun',
+    playerCnt: 2000,
+    messages: 0,
+    gold: 0,
+    nickName: '',
+    avatar: '',
+    date: '',
+    hasSign: 1,
+    location: '',
+    uid: '',
+    presentTkt: [],
     chooseInd: 0,
-    showTicket:false,
-    showInvite:false,
-    launch:true
+    showTicket: false,
+    showInvite: false,
+    launch: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  // let test = 'dsfasfds(aaa,#ccc)dsfdsfgd(dfgdfsgdfs,#f6f6f6)hjkljkljj'
-  // let reg = /\(.*?\)/
-  // let as = []
-  //  while(reg.test(test)){
-  //    let r = test.match(reg)[0]
-  //    as.push(r)
-  //    test = test.replace(r,"")
-  //  }
-  //  console.log(as)
+    // let test = 'dsfasfds(aaa,#ccc)dsfdsfgd(dfgdfsgdfs,#f6f6f6)hjkljkljj'
+    // let reg = /\(.*?\)/
+    // let as = []
+    //  while(reg.test(test)){
+    //    let r = test.match(reg)[0]
+    //    as.push(r)
+    //    test = test.replace(r,"")
+    //  }
+    //  console.log(as)
     loadOpts = options;
     let that = this;
     enterOnload = true;
     wx.getNetworkType({
-      success:function(res){
-        if(res.networkType =='none') {
+      success: function (res) {
+        if (res.networkType == 'none') {
           wx.onNetworkStatusChange(res => {
             if (res.isConnected) {
               that.pageInfo(options, that)
@@ -73,7 +73,10 @@ Page({
       }
     })
   },
-  pageInfo(options,that){
+  hideAuth() {
+    app.globalData.showAuth = true
+  },
+  pageInfo(options, that) {
     start(ok => {
       ok && that.gotUserInfo(options);
     }, options.shareUid)
@@ -83,46 +86,46 @@ Page({
       })
     }, 1000)
 
-      care(app.globalData, 'showAuth', ()=> {
-          let showAuth = app.globalData.showAuth;
-          this.setData({showAuth});
+    care(app.globalData, 'showAuth', () => {
+      let showAuth = app.globalData.showAuth;
+      this.setData({ showAuth });
 
-          if (!showAuth && app.globalData.userInfo) {
-              //如果通过授权拿到了userinfo,则再走一遍Userlogin
-              start(ok => {
-                  ok && that.gotUserInfo(options);
-              }, options.shareUid)
-          }
-      })
+      if (!showAuth && app.globalData.userInfo) {
+        //如果通过授权拿到了userinfo,则再走一遍Userlogin
+        start(ok => {
+          ok && that.gotUserInfo(options);
+        }, options.shareUid)
+      }
+    })
   },
   toPlay(e) {
     if (app.globalData.noNetwork) {
       wx.showToast({
         title: '请检查网络状态'
       })
-      
+
     }
     if (app.preventMoreTap(e)) return;
     //需要判断是否在游玩
-    if(getLocationCid){
+    if (getLocationCid) {
       wx.navigateTo({
         url: '../play/play?cid=' + locationCid
       })
     }
-    
+
   },
   //options主要为了处理分享出去进来的跳转设置
   gotUserInfo(options) {
     //start的回调里，一般情况下已经走完了登录流程，且将userInfo放到了globalData上，除非用户拒绝授权给我们
     let userInfo = app.globalData.userInfo;
     let showAuth = userInfo == null;
-    if (userInfo){
+    if (userInfo) {
       let m = new SignInfo()
       m.fetch().then(res => {
-        if(res.hasSign){
+        if (res.hasSign) {
           this.getIndexInfo(userInfo)
         }
-        else{
+        else {
           this.setData({
             theDay: res.theDay,
             hasSign: res.hasSign,
@@ -131,13 +134,13 @@ Page({
         }
         options && this.shareTo(options)
       })
-      
+
     }
     else {
       console.log('用户拒绝授权个人信息！！')
     }
 
-    this.setData({hasUserInfo: showAuth})
+    this.setData({ hasUserInfo: showAuth })
   },
   hideTipPop() {
     this.setData({
@@ -146,12 +149,12 @@ Page({
   },
   //分享相关跳转
   shareTo(options) {
-    if(!options.shareUid){return}
-    if(options.start){
-      this.checkCode(options,false)
+    if (!options.shareUid) { return }
+    if (options.start) {
+      this.checkCode(options, false)
     } else if (options.travelLog) {
       wx.navigateTo({
-        url: '../travelLog/travelLog?uid='+options.shareUid
+        url: '../travelLog/travelLog?uid=' + options.shareUid
       })
     } else if (options.footprint) {
       wx.navigateTo({
@@ -167,7 +170,7 @@ Page({
       })
     } else if (options.checkPostcard) {
       let url = '../checkPostcard/checkPostcard?shareUid=' + options.shareUid
-      if(options.id) { url += '&id=' + options.id }
+      if (options.id) { url += '&id=' + options.id }
       if (options.postid) { url += '&id=' + options.postid }
       wx.navigateTo({
         url: url
@@ -175,10 +178,10 @@ Page({
     }
   },
 
-  checkCode(options,agree) {
+  checkCode(options, agree) {
     let check = new CheckCode();
     check.inviteCode = options.inviteCode;
-    if(agree){
+    if (agree) {
       check.agree = 1;
     }
     check.fetch().then(req => {
@@ -199,14 +202,14 @@ Page({
         case Code.ISTRAVELLING:
           inviteOpt = options
           this.setData({
-            showInvite:true
+            showInvite: true
           })
           break;
         default:
           this.tip('未知错误，checkCode');
       }
     })
-  }, 
+  },
 
   tip(tip) {
     wx.showToast({
@@ -218,10 +221,10 @@ Page({
    */
   onShow: function () {
     //因为当用户切换tabbar上的页面和返回到此页面时不会进入onload，故需在此处进行api调用已更新数据
-    if(!enterOnload){
+    if (!enterOnload) {
       this.gotUserInfo()
     }
-   
+
   },
 
   /**
@@ -255,17 +258,17 @@ Page({
       locationCid = req.location
       let season = Season[req.season]
       let weather
-      if(Number(req.weather)){
+      if (Number(req.weather)) {
         weather = sheet.Weather.Get(req.weather).icon
       }
-      else{
+      else {
         weather = sheet.Weather.Get(1).icon
       }
       app.globalData.season = season
       app.globalData.weather = weather
       app.globalData.gold = req.gold
       app.globalData.isFirst = req.isFirst
-      if(req.location){
+      if (req.location) {
         app.globalData.cid = req.location
         app.globalData.cityName = sheet.City.Get(req.location).city
       }
@@ -286,19 +289,19 @@ Page({
 
       //地图上显示好友所在位置
       let players = []
-      players = req.friends.map(o=>{
+      players = req.friends.map(o => {
         let friend = {}
         friend.location = o.cid;
         friend.img = o.avatarUrl;
         return friend;
       });
-      if(req.location){
+      if (req.location) {
         let self = {}
         self.location = req.location
         self.img = userInfo.avatarUrl
         players.push(self)
       }
-      if(players.length){
+      if (players.length) {
         this.setData({
           players,
         })
@@ -306,14 +309,14 @@ Page({
 
       //加的保护，防止用户点击城市游玩时还没有获取到当前cid
       getLocationCid = true
-      
+
     }).catch((req) => {
       switch (req) {
         case Code.USER_NOT_FOUND:
           this.tip('用户不存在');
           break;
         default:
-          if (!app.globalData.noNetwork){
+          if (!app.globalData.noNetwork) {
             this.tip('未知错误，indexInfo');
           }
       }
@@ -326,8 +329,8 @@ Page({
     this.setData({
       message: res.unreadMsgCnt
     });
-    
-    
+
+
   },
 
   /**
@@ -342,14 +345,14 @@ Page({
     if (app.preventMoreTap(e) || !getLocationCid) return;
     //查询用户是否有赠送的机票
     let req = new LookTicket()
-    req.fetch().then(()=>{
-      if(req.ticket.length){
+    req.fetch().then(() => {
+      if (req.ticket.length) {
         let presentTkt = []
-        req.ticket.forEach((item,index)=>{
+        req.ticket.forEach((item, index) => {
           let obj = {};
           obj.province = sheet.City.Get(item.cid).province;
           obj.city = sheet.City.Get(item.cid).city;
-          obj.tkt = item.type==1 ? '单人机票' : '双人机票';
+          obj.tkt = item.type == 1 ? '单人机票' : '双人机票';
           obj.type = item.type;
           obj.cid = item.cid;
           obj.tid = item.tid;
@@ -358,15 +361,15 @@ Page({
         this.initTer(presentTkt[0])
         this.setData({
           presentTkt,
-          showTicket:true
+          showTicket: true
         })
       }
-      else{
+      else {
         wx.navigateTo({
           url: '../city/city?location=' + this.data.location,
         })
       }
-    }).catch(()=>{
+    }).catch(() => {
       switch (req) {
         case Code.USER_NOT_FOUND:
           this.tip('用户不存在');
@@ -382,7 +385,7 @@ Page({
   buyTkt(e) {
     if (app.preventMoreTap(e)) return;
     this.setData({
-      showTicket:false
+      showTicket: false
     })
     wx.navigateTo({
       url: '../city/city?location=' + this.data.location,
@@ -391,12 +394,12 @@ Page({
 
   useTkt(e) {
     if (app.preventMoreTap(e)) return;
-    if(this.data.location == terminal){
+    if (this.data.location == terminal) {
       this.setData({
         tipPop: true,
         tipStr: '已在当前城市，请重新选择'
       })
-      return 
+      return
     }
     this.setData({
       showTicket: false
@@ -434,13 +437,13 @@ Page({
     terminal = data.city
     tid = data.tid
   },
-  toIntegralShop(e){
+  toIntegralShop(e) {
     if (app.preventMoreTap(e)) return;
     wx.navigateTo({
       url: '../integral/integral',
     })
   },
-  toShop(e){
+  toShop(e) {
     if (app.preventMoreTap(e)) return;
     wx.navigateTo({
       url: '../recharge/recharge',
@@ -451,7 +454,7 @@ Page({
   sendMockId(e) {
     let mock = new SendMockId();
     mock.formId = e.detail.formId;
-    mock.fetch().then(()=>{
+    mock.fetch().then(() => {
       // console.log('send formId suc')
     })
   },
@@ -466,12 +469,12 @@ Page({
     this.setData({
       showInvite: false
     })
-    this.checkCode(inviteOpt,true)
+    this.checkCode(inviteOpt, true)
   },
 
   _hideInvite() {
     this.setData({
-      showInvite:false
+      showInvite: false
     })
   },
   /**
@@ -481,7 +484,7 @@ Page({
     return shareToIndex(this)
   },
   checkReAuth() {
-    Base.ReAuth(()=>{
+    Base.ReAuth(() => {
       this.onLoad(loadOpts)
     });
   },

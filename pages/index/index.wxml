@@ -112,7 +112,7 @@
 <tip wx:if="{{showInvite}}" isBuy="{{false}}" cfmStr="确认" content="如果接受邀请进行双人旅行，本城市的任务会自动终止" outer-class="content" bind:confirm="_agreeInvite" bind:toclose="_hideInvite"></tip> 
 <tips wx:if="{{tipPop}}" bind:hidetip="hideTipPop" str='{{tipStr}}'></tips>
 </block>
-<auth id='auth-comp' wx:if="{{showAuth}}"></auth>
+<auth id='auth-comp' wx:if="{{showAuth}}" bind:hideAuth = "hideAuth"></auth>
 
 
 

@@ -45,6 +45,10 @@ Page({
       isFirst: app.globalData.isFirst
     })
   },
+  hideAuth() {
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({ hasUserInfo })
+  },
   onHide() {
     this.setData({
       isFirst: false

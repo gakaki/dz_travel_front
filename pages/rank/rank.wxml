@@ -115,4 +115,4 @@
   <view class="mask" wx:if="{{isFirst || showHelp}}"></view>
   <directions bind:confirm="_hide" wx:if="{{showHelp}}" resHeight="880" helpId="{{id}}" title="{{title}}"></directions>
 </view>
-<auth wx:if="{{!hasUserInfo}}"></auth>
+<auth wx:if="{{!hasUserInfo}}" bind:hideAuth = "hideAuth"></auth>

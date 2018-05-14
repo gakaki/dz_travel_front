@@ -81,7 +81,10 @@ Page({
     })
     this.getRankInfo() 
   },
-
+  hideAuth() {
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({ hasUserInfo })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

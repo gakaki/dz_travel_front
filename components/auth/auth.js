@@ -26,6 +26,9 @@ Component({
       info.encryptedData = res.detail.encryptedData;
       app.globalData.userInfo = info;
       app.globalData.showAuth = false;
+      if(info) {
+        this.triggerEvent("hideAuth")
+      }
       }
     }
   }
