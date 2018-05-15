@@ -3,7 +3,7 @@ const app = getApp();
 import { shareToIndex } from '../../utils/util.js';
 
 import { Item, items } from '../../sheets.js';
-import { TravelFootprint, TraveledPlaces } from '../../api.js';
+import { TravelFootprint } from '../../api.js';
 Page({
 
   /**
@@ -13,14 +13,19 @@ Page({
     mapConWd: 750,
     mapConHt: 800,
     content:'炫耀足迹',
-    mySelf:true
+    mySelf:true,
+    fromWhere: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    if (options.fromWhere) {
+      this.setData({
+        fromWhere: options.fromWhere
+      })
+    }
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
     let uid = ''

@@ -2740,15 +2740,19 @@ class TraveledPlaces extends Base {
         this.init();
     
         this._playerUid = null;
+        this._fromWhere = null;
         this._provinces = null;
         this._citys = null;
         this.requireFileds = [];
-        this.reqFields = ["playerUid"];
+        this.reqFields = ["playerUid","fromWhere"];
         this.resFields = ["provinces","citys"];
     }
     //client input, optional, type: string//用户uid，不传则是自己的
     get playerUid() {return this._playerUid}
     set playerUid(v) {this._playerUid = v}
+    //client input, optional, type: string
+    get fromWhere() {return this._fromWhere}
+    set fromWhere(v) {this._fromWhere = v}
     //server output, type: string[]//点亮的省名数组,如[‘江苏’]
     get provinces() {return this._provinces}
     set provinces(v) {this._provinces = v}

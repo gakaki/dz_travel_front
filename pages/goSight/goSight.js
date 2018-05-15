@@ -157,6 +157,7 @@ Page({
       }
       let events = this.data.events
       events.push(req.event)
+      app.globalData.gold = req.goldNum
       this.setData({
         events: events,
         goldNum: req.goldNum,

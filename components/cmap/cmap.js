@@ -96,6 +96,10 @@ Component({
    * 组件的属性列表，双击可切换内层的缩放，缩放系数由scaleRate来定
    */
   properties: {
+    fromWhere: {
+      type: String,
+      value: ''
+    },
     conWd: {
       //最外层宽度
       type: Number,
@@ -208,6 +212,7 @@ Component({
     updatePlayer() {
       if(!this.data.log) return
       let req = new TraveledPlaces();
+      if (this.properties.fromWhere) req.fromWhere = this.properties.fromWhere
       req.playerUid = this.data.uid;
 
       req.fetch().then(()=> {
@@ -383,6 +388,7 @@ Component({
   attached() {
     setTimeout(()=> {
       if (this.data.uid === null) {
+        
         //如果未传入uid，则使用当前用户的uid
         this.data.uid = Base.GetUID();
         this.updatePlayer()//server not implement yet
