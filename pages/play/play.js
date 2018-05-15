@@ -1,5 +1,5 @@
 import { shareSuc, shareTitle, shareToIndex, secToDHM, tplStr } from '../../utils/util.js';
-import { City, Weather } from '../../sheets.js';
+import { City, Weather, Parameter } from '../../sheets.js';
 import {
   TourIndexInfo,
   Base,
@@ -290,7 +290,7 @@ Page({
     invited = true
   },
   toCfm() {
-    if (app.globalData.gold >= 100) {
+    if (app.globalData.gold >= Parameter.Get(Parameter.CHANGELINE).value) {
       this.chgLine()
       return
     }
@@ -587,9 +587,8 @@ Page({
           roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
           roleMe.weiqiRotate = 225
         }
-
-        roleMe.img = carImg + '.png';
-
+        if (this.data.hasIndexInfo) roleMe.img = carImg + '.png';
+        // roleMe.img = carImg + '.png';
       }
 
       // this.setData({ lines, roleMe, roleFriend, planedFinished });
@@ -667,7 +666,7 @@ Page({
       })
       return
     }
-    if (app.globalData.gold < 100) {
+    if (app.globalData.gold < Parameter.Get(Parameter.CHANGELINE).value) {
       this.setData({
         chgLines: true,
         cfmStr: '前往商城',
