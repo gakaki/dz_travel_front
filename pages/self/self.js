@@ -10,46 +10,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mianTitle:[{
-      title:'旅行足迹',
-      icon:'https://gengxin.odao.com/update/h5/travel/self/footprint.png',
-      url:'../footprint/footprint'
-    }, 
+    mianTitle: [{
+      title: '旅行足迹',
+      icon: 'https://gengxin.odao.com/update/h5/travel/self/footprint.png',
+      url: '../footprint/footprint'
+    },
     {
       title: '我的明信片',
       icon: 'https://gengxin.odao.com/update/h5/travel/self/postcard.png',
       url: '../postcard/postcard'
-    }, 
+    },
     {
       title: '旅行日志',
       icon: 'https://gengxin.odao.com/update/h5/travel/self/log.png',
       url: '../travelLog/travelLog'
     }],
-    init:null,
-    isFirst:false,
+    init: null,
+    isFirst: false,
     hasUserInfo: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) { 
+  onLoad: function (options) {
   },
-  onShow:function(){
+  onShow: function () {
     let userInfo = app.globalData.userInfo;
     let hasUserInfo = userInfo != null;
     this.setData({ userInfo, hasUserInfo })
-    if (!this.data.hasUserInfo ) return
+    if (!this.data.hasUserInfo) return
     this.updateInfo()
     this.setData({
       isFirst: app.globalData.isFirst
     })
   },
-  // hideAuth() {
-  //   let hasUserInfo = app.globalData.userInfo != null;
-  //   this.setData({ hasUserInfo })
-  //   // app.globalData.showAuth = false;
-  // },
+  hideAuth() {
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({ hasUserInfo })
+  },
   onHide() {
     this.setData({
       isFirst: false
@@ -66,7 +65,7 @@ Page({
       url: '../city/city?location=' + '',
     })
   },
-  updateInfo(){
+  updateInfo() {
     let m = new PlayerInfo();
     m.fetch().then(res => {
       this.setData({
@@ -94,14 +93,14 @@ Page({
       })
     }
   },
-  
+
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
     let toShareLink = {
-      other:true
+      other: true
     }
     return shareToIndex(this, {}, toShareLink)
   }

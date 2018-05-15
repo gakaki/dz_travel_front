@@ -15,7 +15,7 @@ Page({
     hasUserInfo: true,
     rankType: RankType.SCORE,
     rankSubtype: RankSubtype.COUNTRY,
-    toView:'rank0',
+    toView: 'rank0',
     //全国排行榜前三名
     topThree: [],
     //全国排行榜除去前三的排名
@@ -23,13 +23,13 @@ Page({
     //好友排行榜
     rankingFriend: [],
     //自己的排名
-    selfRank:{},
-    showHelp:false,
+    selfRank: {},
+    showHelp: false,
     title: '达人排行榜规则',
-    id:5,
-    noRank:false,
+    id: 5,
+    noRank: false,
     noReward: true,
-    isFriend:false,
+    isFriend: false,
     isFirst: false
   },
 
@@ -45,7 +45,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
@@ -54,11 +54,11 @@ Page({
   onShow: function () {
     let hasUserInfo = app.globalData.userInfo != null;
     this.setData({ hasUserInfo })
-    if (!this.data.hasUserInfo ) return
+    if (!this.data.hasUserInfo) return
     this.setData({
       isFirst: app.globalData.isFirst
     })
-    this.getRankInfo() 
+    this.getRankInfo()
   },
 
   /**
@@ -67,7 +67,7 @@ Page({
   onHide: function () {
     this.resetInfo();
     preventCrazyClick = false;
-    rankType = RankType.SCORE; 
+    rankType = RankType.SCORE;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
@@ -86,7 +86,7 @@ Page({
   onUnload: function () {
     this.resetInfo();
     preventCrazyClick = false;
-    rankType = RankType.SCORE; 
+    rankType = RankType.SCORE;
     rankSubtype = RankSubtype.COUNTRY;
     this.setData({
       rankType,
@@ -97,6 +97,10 @@ Page({
       isFirst: false,
       noRank: false
     })
+  },
+  hideAuth() {
+    let hasUserInfo = app.globalData.userInfo != null;
+    this.setData({ hasUserInfo })
   },
 
   //重置调api的信息
@@ -117,32 +121,32 @@ Page({
     req.rankType = rankType;
     req.rankSubtype = rankSubtype;
     req.page = page;
-    req.fetch().then(() => { 
+    req.fetch().then(() => {
       console.log(req)
       if (page == 1 && !req.ranks.length) {
         this.setData({
           noRank: true
         })
       }
-      
-      
-      ranks = ranks.concat(req.ranks).map(o=>{
+
+
+      ranks = ranks.concat(req.ranks).map(o => {
         let nickName;
-        if(o.userInfo.nickName.length>8){
+        if (o.userInfo.nickName.length > 8) {
           nickName = o.userInfo.nickName.substr(0, 8)
         }
-        else{
+        else {
           nickName = o.userInfo.nickName
         }
-        if (!o.userInfo.avatarUrl){
+        if (!o.userInfo.avatarUrl) {
           o.userInfo.avatarUrl = app.globalData.defaultAvatar
         }
         o.userInfo.nickName = nickName;
         return o;
       });
       //全国榜单需要把前三名分开
-      if (rankSubtype == RankSubtype.COUNTRY){
-        if(page == 1){
+      if (rankSubtype == RankSubtype.COUNTRY) {
+        if (page == 1) {
           topThree = ranks.splice(0, 3);
           this.setData({
             topThree,
@@ -150,20 +154,20 @@ Page({
             selfRank: req.selfRank
           })
         }
-        else{
+        else {
           this.setData({
             rankingCountry: ranks,
           })
         }
       }
-      else{
-        if(page == 1){
+      else {
+        if (page == 1) {
           this.setData({
             rankingFriend: ranks,
             selfRank: req.selfRank
           })
         }
-        else{
+        else {
           this.setData({
             rankingFriend: ranks,
           })
@@ -178,7 +182,7 @@ Page({
       page++;
       preventCrazyClick = false;
     }).catch((req) => {
-      switch (req) { 
+      switch (req) {
         case Code.NOT_FOUND:
           this.tip('榜单类型错误，请检查参数');
           break;
@@ -207,7 +211,7 @@ Page({
     if (preventCrazyClick) return;
     preventCrazyClick = true;
     rankSubtype = RankSubtype.COUNTRY;
-    if (rankType == RankType.SCORE){
+    if (rankType == RankType.SCORE) {
       this.setData({
         rankSubtype,
         toView: 'rank0',
@@ -215,7 +219,7 @@ Page({
         isFriend: false,
       })
     }
-    else{
+    else {
       this.setData({
         rankSubtype,
         toView: 'rank0',
@@ -308,17 +312,17 @@ Page({
     if (app.preventMoreTap(e)) return;
     //此处需要传uid，
     let uid = e.currentTarget.dataset.uid
-    if (uid == wx.getStorageSync('uid')){
+    if (uid == wx.getStorageSync('uid')) {
       wx.switchTab({
         url: '../self/self',
       })
     }
-    else{
+    else {
       wx.navigateTo({
         url: '../other/other?fromWhere=rank&uid=' + uid,
       })
     }
-    
+
   },
 
   showHelp() {
@@ -329,7 +333,7 @@ Page({
 
   _hide() {
     this.setData({
-      showHelp:false
+      showHelp: false
     })
   },
 
@@ -337,6 +341,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return shareToIndex(this, {type:5},{'rank':true})
+    return shareToIndex(this, { type: 5 }, { 'rank': true })
   }
 })
