@@ -147,6 +147,10 @@ class Parameter {
 
     static get TOTALSCORE() { return 45 };
 
+    static get EVENTTIMEMAX() { return 46 };
+
+    static get EVENTTIMEMIN() { return 47 };
+
     static Get(id){ return id in _data.parameter ? new Parameter(_data.parameter[id]) : null; }
 }
 
