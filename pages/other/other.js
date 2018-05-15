@@ -19,6 +19,7 @@ Page({
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
       let m = new PlayerInfo();
+      if (options.fromWhere) m.fromWhere = options.fromWhere
       if (options.uid) { m.playerUid = options.uid}
       m.fetch().then(res => {
         this.setData({

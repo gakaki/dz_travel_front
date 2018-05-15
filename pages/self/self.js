@@ -27,7 +27,7 @@ Page({
     }],
     init:null,
     isFirst:false,
-    hasUserInfo: true
+    hasUserInfo: true,
   },
 
   /**

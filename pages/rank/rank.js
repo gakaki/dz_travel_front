@@ -340,7 +340,7 @@ Page({
     }
     else{
       wx.navigateTo({
-        url: '../other/other?uid=' + uid,
+        url: '../other/other?fromWhere=rank&uid=' + uid,
       })
     }
     
