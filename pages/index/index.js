@@ -40,7 +40,7 @@ Page({
     chooseInd: 0,
     showTicket: false,
     showInvite: false,
-    launch: true
+    // launch: true
   },
 
   /**
@@ -73,18 +73,17 @@ Page({
       }
     })
   },
-  hideAuth() {
-    app.globalData.showAuth = true
-  },
+
   pageInfo(options, that) {
     start(ok => {
       ok && that.gotUserInfo(options);
     }, options.shareUid)
-    setTimeout(() => {
-      that.setData({
-        launch: false
-      })
-    }, 1000)
+      //launch 先干掉
+    // setTimeout(() => {
+    //   that.setData({
+    //     launch: false
+    //   })
+    // }, 1000)
 
     care(app.globalData, 'showAuth', () => {
       console.log(app.globalData.userInfo)

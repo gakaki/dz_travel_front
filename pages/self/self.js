@@ -1,5 +1,5 @@
 // pages/self/self.js
-import { getUserInfo, shareToIndex, shareTo } from '../../utils/util.js';
+import { shareToIndex, shareTo } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
 import { Item, items } from '../../sheets.js';
 const app = getApp();
@@ -45,11 +45,11 @@ Page({
       isFirst: app.globalData.isFirst
     })
   },
-  hideAuth() {
-    let hasUserInfo = app.globalData.userInfo != null;
-    this.setData({ hasUserInfo })
-    // app.globalData.showAuth = false;
-  },
+  // hideAuth() {
+  //   let hasUserInfo = app.globalData.userInfo != null;
+  //   this.setData({ hasUserInfo })
+  //   // app.globalData.showAuth = false;
+  // },
   onHide() {
     this.setData({
       isFirst: false

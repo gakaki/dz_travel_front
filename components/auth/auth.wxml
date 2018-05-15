@@ -1,7 +1,7 @@
 <!--components/auth/auth.wxml-->
 <view class='auth-pop-bg'>
 <view class='auth-bg'>
-  <view class='auth-title'>亲，我们需要使用您的昵称！</view>
+  <view class='auth-title'>欢迎来到 点亮足迹！</view>
   <view class='auth-btns'>
     <button type='warn' open-type='getUserInfo' bindgetuserinfo='gotInfo'>确 定</button>
   </view>

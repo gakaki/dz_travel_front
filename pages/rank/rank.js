@@ -37,27 +37,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //test(假数据,仅为了看页面显示效果,接入真数据时直接把这块代码删除即可)----------
-    // let topThree = [], rankingCountry = [], rankingFriend = [];
-    // for(let i = 0 ;i < 20; i++ ){
-    //   let obj = {};
-    //   obj.rank = i+1;
-    //   obj.userInfo = { avatar: 'https://wx.qlogo.cn/mmopen/vi_32/ODicJCxia34ErfQyhZ7ZHH7iaGSmylmqpgo5goTggk4xnvia07tvicwUNkicQo7xia0JFbtpW74NzQoQ562smbk1Z8k0g/0', nickName: '昵称几个字', gold: Math.floor(Math.random() * 10000 + 1), uid:'aaaa'};
-    //   obj.achievement = Math.floor(Math.random()*10000+1);
-    //   if(i<3){
-    //     topThree[i] = obj;
-    //   }
-    //   else{
-    //     rankingCountry[i-3] = obj;
-    //   }
-    //   rankingFriend[i] = obj;
-    // }
-    // this.setData({
-    //   topThree,
-    //   rankingCountry,
-    //   rankingFriend,
-    // })
-    //--------------------------------------------------------------------
 
     // this.getRankInfo();
   },
@@ -81,11 +60,7 @@ Page({
     })
     this.getRankInfo() 
   },
-  hideAuth() {
-    let hasUserInfo = app.globalData.userInfo != null;
-    this.setData({ hasUserInfo })
-    // app.globalData.showAuth = false;
-  },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

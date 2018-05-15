@@ -1,5 +1,4 @@
 // pages/self/self.js
-import { getUserInfo } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
 import { Item, items } from '../../sheets.js';
 const app = getApp();
