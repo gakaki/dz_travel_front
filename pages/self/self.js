@@ -45,11 +45,11 @@ Page({
       isFirst: app.globalData.isFirst
     })
   },
-  hideAuth() {
-    let hasUserInfo = app.globalData.userInfo != null;
-    this.setData({ hasUserInfo })
-    // app.globalData.showAuth = false;
-  },
+  // hideAuth() {
+  //   let hasUserInfo = app.globalData.userInfo != null;
+  //   this.setData({ hasUserInfo })
+  //   // app.globalData.showAuth = false;
+  // },
   onHide() {
     this.setData({
       isFirst: false

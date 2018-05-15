@@ -1,7 +1,7 @@
 <!--pages/index/index.wxml-->
 <wxs module="tools" src="./../../filter/tools.wxs"></wxs>
-<launch class='launch' wx:if='{{launch}}'></launch>  
-<block wx:else>
+<!--<launch class='launch' wx:if='{{launch}}'></launch>  -->
+<block >
   <view class='wrap' bindtap='checkReAuth'>
   <view class="info f-r-sb">
     <view class="person flex">
