@@ -13,7 +13,8 @@ Page({
     init:[],
     index:1,
     uid:null,
-    hasInfo:true
+    hasInfo:true,
+    options: null
   },
   /**
    * 生命周期函数--监听页面加载
@@ -24,6 +25,7 @@ Page({
         uid:options.uid
       })
     }
+    this.data.options = options
     this.getData(options)
   },
   getData(options){
@@ -50,8 +52,8 @@ Page({
     }
     
   },
-  upper(options){
-    this.getData()
+  upper(){
+    this.getData(this.data.options)
   },
   toCity(){
     wx.navigateTo({
