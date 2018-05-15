@@ -588,7 +588,6 @@ Page({
           roleMe.weiqiRotate = 225
         }
         if (this.data.hasIndexInfo) roleMe.img = carImg + '.png';
-        // roleMe.img = carImg + '.png';
       }
 
       // this.setData({ lines, roleMe, roleFriend, planedFinished });
