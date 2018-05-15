@@ -39,7 +39,7 @@ Page({
     let userInfo = app.globalData.userInfo;
     let hasUserInfo = userInfo != null;
     this.setData({ userInfo, hasUserInfo })
-    if (!this.data.hasUserInfo) return
+    if (!this.data.hasUserInfo ) return
     this.updateInfo()
     this.setData({
       isFirst: app.globalData.isFirst
@@ -48,6 +48,7 @@ Page({
   hideAuth() {
     let hasUserInfo = app.globalData.userInfo != null;
     this.setData({ hasUserInfo })
+    // app.globalData.showAuth = false;
   },
   onHide() {
     this.setData({

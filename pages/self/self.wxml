@@ -91,4 +91,5 @@
   </view>
   <view class="mask" wx:if="{{isFirst}}"></view>
 </view>
-<auth wx:if="{{!hasUserInfo}}" bind:hideAuth = "hideAuth"></auth>
+ <auth wx:if="{{!hasUserInfo}}" bind:hideAuth = "hideAuth"></auth> 
+<!-- <auth wx:if="{{showAuth}}" bind:hideAuth = "hideAuth"></auth> -->

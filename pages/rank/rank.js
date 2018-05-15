@@ -75,7 +75,7 @@ Page({
   onShow: function () {
     let hasUserInfo = app.globalData.userInfo != null;
     this.setData({ hasUserInfo })
-    if (!this.data.hasUserInfo) return
+    if (!this.data.hasUserInfo ) return
     this.setData({
       isFirst: app.globalData.isFirst
     })
@@ -84,6 +84,7 @@ Page({
   hideAuth() {
     let hasUserInfo = app.globalData.userInfo != null;
     this.setData({ hasUserInfo })
+    // app.globalData.showAuth = false;
   },
   /**
    * 生命周期函数--监听页面隐藏

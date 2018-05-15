@@ -87,6 +87,7 @@ Page({
     }, 1000)
 
     care(app.globalData, 'showAuth', () => {
+      console.log(app.globalData.userInfo)
       let showAuth = app.globalData.showAuth;
       this.setData({ showAuth });
 
