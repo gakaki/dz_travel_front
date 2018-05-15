@@ -15,6 +15,7 @@ Page({
    */
   onLoad: function (options) {
     let m = new MyPostcards();
+    if (options.fromWhere) m.fromWhere = options.fromWhere
     if(options.uid) {
       wx.setNavigationBarTitle({
         title: "明信片"

@@ -20,6 +20,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
     let uid = ''
@@ -38,6 +39,7 @@ Page({
     }
     let m = new TravelFootprint();
     m.playerUid = uid;
+    if (options.fromWhere) m.fromWhere = options.fromWhere
     m.fetch().then(res => {
       this.setData({
         user: res.userInfo,

@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    fromWhere: null
   },
 
   /**
@@ -19,6 +20,7 @@ Page({
     let userInfo = app.globalData.userInfo;
     this.setData({ userInfo })
       let m = new PlayerInfo();
+      this.data.fromWhere = options.fromWhere
       if (options.fromWhere) m.fromWhere = options.fromWhere
       if (options.uid) { m.playerUid = options.uid}
       m.fetch().then(res => {
@@ -32,19 +34,38 @@ Page({
   toOtherPage(e){
     let v = e.currentTarget.dataset.id;
     if(v == 1) {
-      wx.navigateTo({
-        url: '../footprint/footprint?uid=' + this.data.init.uid,
-      })
+      if(this.data.fromWhere) {
+        wx.navigateTo({
+          url: '../footprint/footprint?uid=' + this.data.init.uid + '&fromWhere=' + this.data.fromWhere,
+        })
+      }else {
+        wx.navigateTo({
+          url: '../footprint/footprint?uid=' + this.data.init.uid,
+        })
+      }
+      
     }
     else if (v == 2) {
-      wx.navigateTo({
-        url: '../postcard/postcard?uid=' + this.data.init.uid,
-      })
+      if (this.data.fromWhere) {
+        wx.navigateTo({
+          url: '../postcard/postcard?uid=' + this.data.init.uid + '&fromWhere=' + this.data.fromWhere,
+        })
+      } else {
+        wx.navigateTo({
+          url: '../postcard/postcard?uid=' + this.data.init.uid,
+        })
+      }
     }
     else {
-      wx.navigateTo({
-        url: '../travelLog/travelLog?uid=' + this.data.init.uid,
-      })
+      if (this.data.fromWhere) {
+        wx.navigateTo({
+          url: '../travelLog/travelLog?uid=' + this.data.init.uid + '&fromWhere=' + this.data.fromWhere,
+        })
+      } else {
+        wx.navigateTo({
+          url: '../travelLog/travelLog?uid=' + this.data.init.uid,
+        })
+      }
     }
    },
 

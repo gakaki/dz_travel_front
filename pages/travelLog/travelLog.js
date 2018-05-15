@@ -24,12 +24,13 @@ Page({
         uid:options.uid
       })
     }
-    this.getData()
+    this.getData(options)
   },
-  getData(){
+  getData(options){
     if (this.data.hasInfo) {
       let length = 20;
       let m = new TravelLog(); 
+      if (options.fromWhere) m.fromWhere = options.fromWhere
       if (this.data.uid) {
         m.playerUid = this.data.uid;
       }
@@ -49,7 +50,7 @@ Page({
     }
     
   },
-  upper(){
+  upper(options){
     this.getData()
   },
   toCity(){
