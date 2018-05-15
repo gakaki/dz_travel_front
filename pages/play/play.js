@@ -587,9 +587,8 @@ Page({
           roleMe.rotate = carRotation - (DIR_UP_LEFT.to - 25)
           roleMe.weiqiRotate = 225
         }
-
-        roleMe.img = carImg + '.png';
-
+        if (this.data.hasIndexInfo) roleMe.img = carImg + '.png';
+        // roleMe.img = carImg + '.png';
       }
 
       // this.setData({ lines, roleMe, roleFriend, planedFinished });
