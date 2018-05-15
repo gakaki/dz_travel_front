@@ -1,4 +1,5 @@
 // components/auth/auth.js
+import {Base} from '../../api.js'
 Component({
   /**
    * 组件的属性列表
@@ -11,7 +12,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+      content:''
   },
 
   /**
@@ -31,5 +32,12 @@ Component({
       }
       }
     }
-  }
+  },
+    attached() {
+      let content = '欢迎进入 点亮足迹!'
+      if (Base.LoginRetryed > 0) {
+          content = '亲，我们需要使用您的昵称.'
+      }
+      this.setData({content})
+    }
 })
