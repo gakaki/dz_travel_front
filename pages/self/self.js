@@ -1,5 +1,5 @@
 // pages/self/self.js
-import { getUserInfo, shareToIndex, shareTo } from '../../utils/util.js';
+import { shareToIndex, shareTo } from '../../utils/util.js';
 import { PlayerInfo } from '../../api.js';
 import { Item, items } from '../../sheets.js';
 const app = getApp();

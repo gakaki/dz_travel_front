@@ -73,9 +73,7 @@ Page({
       }
     })
   },
-  hideAuth() {
-    app.globalData.showAuth = true
-  },
+
   pageInfo(options, that) {
     start(ok => {
       ok && that.gotUserInfo(options);
